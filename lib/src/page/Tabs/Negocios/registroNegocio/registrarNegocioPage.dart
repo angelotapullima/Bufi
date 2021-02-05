@@ -3,9 +3,11 @@ import 'package:bufi/src/bloc/negocio/registroNegocio_bloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
+import 'package:bufi/src/page/Tabs/Negocios/registroNegocio/registro_negocio_bloc.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegistroNegocio extends StatefulWidget {
   @override
@@ -22,18 +24,100 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final categoriasBloc = ProviderBloc.categoria(context);
-    //categoriasBloc.cargandoCategoriasFalse();
-    categoriasBloc.obtenerCategorias();
 
-    final registroNegocioBloc = ProviderBloc.registroNegocio(context);
+    categoriasBloc.obtenerCategorias();
+    final provider =
+        Provider.of<RegistroNegocioBlocListener>(context, listen: false);
+
+    final regisNBloc = ProviderBloc.registroNegocio(context);
     return Scaffold(
       body: SafeArea(
         child: Stack(
           children: <Widget>[
-            _form(context, categoriasBloc, registroNegocioBloc, responsive),
-            BackButton(
-              color: Colors.black,
-            ),
+            Column(
+              children: <Widget>[
+                ValueListenableBuilder<bool>(
+                  valueListenable: provider.show,
+                  builder: (_, value, __) {
+                    return (value)
+                        ? Container(
+                            color: Colors.transparent,
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: responsive.wp(5),
+                              vertical: responsive.hp(1),
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Registro Negocio",
+                                  style: TextStyle(
+                                    fontSize: responsive.ip(3),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container(
+                            color: Colors.transparent,
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: responsive.wp(5),
+                              vertical: responsive.hp(1),
+                            ),
+                            child: Text(
+                              "Registro Negocio",
+                              style: TextStyle(
+                                fontSize: responsive.ip(3),
+                              ),
+                            ),
+                          );
+                  },
+                ),
+                Expanded(
+                  child: ListView(
+                    shrinkWrap: true,
+                    controller: provider.controller,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Registro Negocio",
+                          style: TextStyle(fontSize: responsive.ip(3)),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 32.0),
+                        child: Text(
+                          "Complete los campos",
+                          style: TextStyle(fontSize: responsive.ip(2)),
+
+                          //Theme.of(context).textTheme.subtitle,
+                        ),
+                      ),
+                      _name(regisNBloc, responsive),
+                      _direccion(regisNBloc, responsive),
+                      _cel(regisNBloc, responsive),
+                      _name(regisNBloc, responsive),
+                      _direccion(regisNBloc, responsive),
+                      _cel(regisNBloc, responsive),
+                      _name(regisNBloc, responsive),
+                      _direccion(regisNBloc, responsive),
+                      _cel(regisNBloc, responsive),
+                      _name(regisNBloc, responsive),
+                      _direccion(regisNBloc, responsive),
+                      _cel(regisNBloc, responsive),
+                      _type(),
+                      _categoria(categoriasBloc),
+                      _delivery(),
+                      _entrega(),
+                      _tarjeta(),
+                      _botonRegistro(context, regisNBloc),
+                    ],
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -41,41 +125,7 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
   }
 
   Widget _form(BuildContext context, CategoriaBloc cBloc,
-      RegistroNegocioBloc regisNBloc, Responsive responsive) {
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "REGISTRAR NEGOCIO",
-                style: TextStyle(fontSize: responsive.ip(3)),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 32.0),
-              child: Text(                
-                "Complete los campos",
-                style: TextStyle(fontSize: responsive.ip(2)),
-
-                //Theme.of(context).textTheme.subtitle,
-              ),
-            ),
-            _name(regisNBloc, responsive),
-            _direccion(regisNBloc, responsive),
-            _cel(regisNBloc, responsive),
-            _type(),
-            _categoria(cBloc),
-            _delivery(),
-            _entrega(),
-            _tarjeta(),
-            _botonRegistro(context, regisNBloc),
-          ],
-        ),
-      ),
-    );
-  }
+      RegistroNegocioBloc regisNBloc, Responsive responsive) {}
 
   Widget _name(RegistroNegocioBloc regisNBloc, Responsive responsive) {
     return StreamBuilder(
@@ -345,7 +395,6 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
   }
 
   _submit(BuildContext context, RegistroNegocioBloc regisNBloc) async {
-    
     data.companyName = regisNBloc.nameEmpresa;
     data.cell = regisNBloc.cel;
     data.direccion = regisNBloc.direccion;

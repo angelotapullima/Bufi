@@ -1,10 +1,13 @@
+
+
+
 import 'package:flutter/material.dart';
 
 
-enum CartState { normal, scrool }
+enum RegistroState { normal, scrool }
 
-class CarritoBlocListener with ChangeNotifier {
-  CartState screenState = CartState.normal;
+class RegistroNegocioBlocListener with ChangeNotifier {
+  RegistroState screenState = RegistroState.normal;
   ScrollController _controller = ScrollController();
   ScrollController get controller => this._controller;
   
@@ -12,10 +15,8 @@ class CarritoBlocListener with ChangeNotifier {
   ValueNotifier<bool> get show => this._show;
 
 
-  ValueNotifier<bool> _vistaFiltro = ValueNotifier(false);
-  ValueNotifier<bool> get showFiltro => this._vistaFiltro;
 
-  CarritoBlocListener() {
+  RegistroNegocioBlocListener() {
     _init();
   } 
   void _init() {
@@ -28,33 +29,13 @@ class CarritoBlocListener with ChangeNotifier {
     if (controller.offset > 50) {
       changeToScrool();
       _show.value = true;
-      print('pasamos 80');
     } else if (controller.offset < 40) {
       changeToNormal();
 
       _show.value = false;
     }
   }
-
-  void lptmr() {
-    if (_show.value) {
-      print('true');
-
-      if (_vistaFiltro.value) {
-        _vistaFiltro.value = false;
-      } else {
-        _vistaFiltro.value = true;
-      }
-      _show.value=false;
-    }else{
-       if (_vistaFiltro.value) {
-        _vistaFiltro.value = false;
-      } else {
-        _vistaFiltro.value = true;
-      }
-
-    }
-  }
+  
   @override
   void dispose() {
     _controller?.removeListener(_listener);
@@ -63,12 +44,14 @@ class CarritoBlocListener with ChangeNotifier {
   }
 
   void changeToNormal() {
-    screenState = CartState.normal;
+    screenState = RegistroState.normal;
     notifyListeners();
   }
 
   void changeToScrool() {
-    screenState = CartState.scrool;
+    screenState = RegistroState.scrool;
     notifyListeners();
   }
 }
+
+

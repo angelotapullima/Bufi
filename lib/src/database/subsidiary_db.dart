@@ -35,7 +35,7 @@ class SubsidiaryDatabase {
   Future<List<SubsidiaryModel>> obtenerSubsidiaryPorIdCompany(String id) async {
     final db = await dbProvider.database;
     final res = await db
-        .rawQuery("SELECT * FROM Subsidiary WHERE id_company= '$id' ");
+        .rawQuery("SELECT * FROM Subsidiary WHERE id_company= '$id' order by id_subsidiary");
 
     List<SubsidiaryModel> list = res.isNotEmpty
         ? res.map((c) => SubsidiaryModel.fromJson(c)).toList()

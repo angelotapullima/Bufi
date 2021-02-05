@@ -51,8 +51,9 @@ class _CarritoPageState extends State<CarritoPage> {
                                   color: Colors.white,
                                   width: double.infinity,
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: responsive.wp(5),
-                                      vertical: responsive.hp(1)),
+                                    horizontal: responsive.wp(5),
+                                    vertical: responsive.hp(1),
+                                  ),
                                   child: Row(
                                     children: [
                                       Text(
@@ -253,9 +254,11 @@ class _CarritoPageState extends State<CarritoPage> {
                                       color: Colors.blueGrey[50],
                                       child: Row(
                                           //crossAxisAlignment: CrossAxisAlignment.center,
-                                          
+
                                           children: [
-                                            SizedBox(width: responsive.wp(3),),
+                                            SizedBox(
+                                              width: responsive.wp(3),
+                                            ),
                                             Text(
                                               '${listcarrito[xxx].nombre}',
                                               style: TextStyle(
@@ -265,40 +268,51 @@ class _CarritoPageState extends State<CarritoPage> {
                                             ),
                                             Spacer(),
                                             GestureDetector(
-                                              onTap: (){
-                                                 Navigator.of(context)
-                                              .push(PageRouteBuilder(
-                                            pageBuilder: (context, animation,
-                                                secondaryAnimation) {
-                                              return ConfirmacionPedido(idSubsidiary:  '${listcarrito[xxx].idSubsidiary}',);
-                                            },
-                                            transitionsBuilder: (context,
-                                                animation,
-                                                secondaryAnimation,
-                                                child) {
-                                              var begin = Offset(0.0, 1.0);
-                                              var end = Offset.zero;
-                                              var curve = Curves.ease;
+                                              onTap: () {
+                                                Navigator.of(context)
+                                                    .push(PageRouteBuilder(
+                                                  pageBuilder: (context,
+                                                      animation,
+                                                      secondaryAnimation) {
+                                                    return ConfirmacionPedido(
+                                                      idSubsidiary:
+                                                          '${listcarrito[xxx].idSubsidiary}',
+                                                    );
+                                                  },
+                                                  transitionsBuilder: (context,
+                                                      animation,
+                                                      secondaryAnimation,
+                                                      child) {
+                                                    var begin =
+                                                        Offset(0.0, 1.0);
+                                                    var end = Offset.zero;
+                                                    var curve = Curves.ease;
 
-                                              var tween =
-                                                  Tween(begin: begin, end: end)
-                                                      .chain(
-                                                CurveTween(curve: curve),
-                                              );
+                                                    var tween = Tween(
+                                                            begin: begin,
+                                                            end: end)
+                                                        .chain(
+                                                      CurveTween(curve: curve),
+                                                    );
 
-                                              return SlideTransition(
-                                                position:
-                                                    animation.drive(tween),
-                                                child: child,
-                                              );
-                                            },
-                                          ));
+                                                    return SlideTransition(
+                                                      position: animation
+                                                          .drive(tween),
+                                                      child: child,
+                                                    );
+                                                  },
+                                                ));
                                               },
                                               child: Container(
-                                                padding: EdgeInsets.symmetric(horizontal: responsive.wp(3),vertical: responsive.hp(.5)),
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal:
+                                                        responsive.wp(3),
+                                                    vertical:
+                                                        responsive.hp(.5)),
                                                 decoration: BoxDecoration(
                                                     borderRadius:
-                                                        BorderRadius.circular(20),
+                                                        BorderRadius.circular(
+                                                            20),
                                                     color: Colors.red),
                                                 child: Text(
                                                   'Pagar S/ ${listcarrito[xxx].monto}',
@@ -311,7 +325,9 @@ class _CarritoPageState extends State<CarritoPage> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(width: responsive.wp(3),),
+                                            SizedBox(
+                                              width: responsive.wp(3),
+                                            ),
                                             //Divider(),
                                           ]),
                                     );
@@ -376,7 +392,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                             ),
                                           ),
                                         ),
-                                         
+
                                         ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(10),

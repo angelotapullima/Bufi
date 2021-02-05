@@ -10,7 +10,8 @@ import 'package:bufi/src/page/Tabs/Negocios/detalleNegocio.dart';
 import 'package:bufi/src/page/Tabs/Negocios/inicio/negocio_bloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/negocioActualizado.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/registrarProducto.dart';
-import 'package:bufi/src/page/Tabs/Negocios/registrarNegocioPage.dart';
+import 'package:bufi/src/page/Tabs/Negocios/registroNegocio/registrarNegocioPage.dart';
+import 'package:bufi/src/page/Tabs/Negocios/registroNegocio/registro_negocio_bloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/ListarServiciosXsucursal.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/registrarSerivicio.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<CarritoBlocListener>(create: (_) => CarritoBlocListener()),
           ChangeNotifierProvider<ConfirmPedidoBloc>(create: (_) => ConfirmPedidoBloc()),
           ChangeNotifierProvider<NegociosBlocListener>(create: (_) => NegociosBlocListener()),
+          ChangeNotifierProvider<RegistroNegocioBlocListener>(create: (_) => RegistroNegocioBlocListener()),
         ],
         child: MaterialApp(
             title: 'Flutter Demo',

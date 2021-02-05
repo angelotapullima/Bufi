@@ -269,7 +269,7 @@ Widget bienesWidget(
                         buttonBloc.changePage(2);
 
                         utils.agregarAlCarrito(context, goodData.idProducto);
-                        //Navigator.pushNamed(context, "")
+                        
                       },
                       child: Text(
                         'Agregar',
@@ -294,7 +294,6 @@ Widget bienesWidget(
                 onTap: () {
                    final buttonBloc = ProviderBloc.tabs(context);
                         buttonBloc.changePage(1);
-
                   guardarProductoFavorito(context, goodData);
                   
                 },

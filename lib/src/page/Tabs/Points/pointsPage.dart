@@ -1,13 +1,15 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
-import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/models/pointModel.dart';
-import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
+import 'package:bufi/src/utils/constants.dart';
+import 'package:bufi/src/utils/customCacheManager.dart';
+import 'package:bufi/src/utils/favoritos.dart';
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:bufi/src/utils/utils.dart';
+import 'package:bufi/src/utils/utils.dart' as utils;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PointsPage extends StatefulWidget {
   @override
@@ -24,204 +26,257 @@ class _PointsPageState extends State<PointsPage> {
 
     final responsive = Responsive.of(context);
     return Scaffold(
-      body: Column(
-        children: [
-          StreamBuilder(
-            stream: pointsProdBloc.favProductoStrem,
-            builder: (BuildContext context,
-                AsyncSnapshot<List<PointModel>> snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data.length > 0) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 8),
-                              margin: EdgeInsets.all(3),
-                              color: Colors.blueGrey[100],
-                              child: Text(snapshot.data[index].subsidiaryName)),
-                            ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: snapshot.data[index].listProducto.length,
-                                itemBuilder: (BuildContext context, int i) {
-                                  return Container(child: Text(snapshot.data[index].listProducto[i].productoName));
-                                  // Container(
-                                  //   width: responsive.wp(45),
-                                  //   height: responsive.hp(15),
-                                  //   child: Stack(children: [
-                                  //     Hero(
-                                  //       tag:
-                                  //           '${snapshot.data[index].idSubsidiary}-subisdiary',
-                                  //       child: ClipRRect(
-                                  //         borderRadius: BorderRadius.circular(10),
-                                  //         child: CachedNetworkImage(
-                                  //           //cacheManager: CustomCacheManager(),
-                                  //           placeholder: (context, url) =>
-                                  //               Container(
-                                  //             width: double.infinity,
-                                  //             height: double.infinity,
-                                  //             child: Image(
-                                  //                 image: AssetImage(
-                                  //                     'assets/jar-loading.gif'),
-                                  //                 fit: BoxFit.cover),
-                                  //           ),
-                                  //           errorWidget: (context, url, error) =>
-                                  //               Container(
-                                  //                   width: double.infinity,
-                                  //                   height: double.infinity,
-                                  //                   child: Center(
-                                  //                       child: Icon(Icons.error))),
-                                  //           //imageUrl: '$apiBaseURL/${companyModel.companyImage}',
-                                  //           imageUrl:
-                                  //               'https://i.pinimg.com/564x/23/8f/6b/238f6b5ea5ab93832c281b42d3a1a853.jpg',
-                                  //           imageBuilder:
-                                  //               (context, imageProvider) =>
-                                  //                   Container(
-                                  //             decoration: BoxDecoration(
-                                  //               image: DecorationImage(
-                                  //                 image: imageProvider,
-                                  //                 fit: BoxFit.cover,
-                                  //               ),
-                                  //             ),
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //     ),
-                                  //     Positioned(
-                                  //       bottom: 0,
-                                  //       left: 0,
-                                  //       right: 0,
-                                  //       child: Container(
-                                  //         color: Colors.black.withOpacity(.4),
-                                  //         child: Text(
-                                  //           snapshot.data[index].subsidiaryName,
-                                  //           style: TextStyle(
-                                  //             color: Colors.white,
-                                  //             fontSize: responsive.ip(2.5),
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //     ),
-                                  //     Positioned(
-                                  //         top: 5,
-                                  //         right: 5,
-                                  //         child: IconButton(
-                                  //           icon: Icon(Icons.delete_outline,
-                                  //               color: Colors.red),
-                                  //           onPressed: () {
-                                  //             // setState(() {
-                                  //             //   quitarSubsidiaryFavorito(
-                                  //             //       context, snapshot.data[index]);
-                                  //             // });
-                                  //           },
-                                  //         ))
-                                  //   ]),
-                                  // );
-                                }),
+      body: StreamBuilder(
+        stream: pointsProdBloc.favProductoStrem,
+        builder:
+            (BuildContext context, AsyncSnapshot<List<PointModel>> snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.length > 0) {
+              return ListView.builder(
+                  shrinkWrap: true,
+                  //scrollDirection: Axis.horizontal,
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 8),
+                            margin: EdgeInsets.all(3),
+                            width: double.infinity,
+                            color: Colors.blueGrey[100],
+                            child: Text(
+                              '${snapshot.data[index].subsidiaryName}',
+                              style: TextStyle(fontSize: 20),
+                            )),
+                        Container(
+                          height: responsive.hp(34),
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount:
+                                  snapshot.data[index].listProducto.length,
+                              itemBuilder: (BuildContext context, int i) {
+                                final goodData =
+                                    snapshot.data[index].listProducto[i];
 
-                          ],
-                        );
-                      });
-                } else {
-                  return Center(
-                    child: Text('No hay Points'),
-                  );
-                }
-              } else {
-                return Center(
-                  child: CupertinoActivityIndicator(),
-                );
-              }
-            },
-          ),
+                                return Container(
+                                  margin: EdgeInsets.symmetric(
+                                    horizontal: responsive.wp(1),
+                                    vertical: responsive.hp(1),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 1,
+                                        offset: Offset(
+                                            0, 2), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  width: responsive.wp(42.5),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        width: double.infinity,
+                                        height: responsive.hp(17),
+                                        child: Stack(
+                                          children: <Widget>[
+                                            Hero(
+                                              tag: goodData.idProducto,
+                                              child: Container(
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topLeft: Radius
+                                                              .circular(8),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  8)),
+                                                  child: CachedNetworkImage(
+                                                    cacheManager:
+                                                        CustomCacheManager(),
+                                                    placeholder:
+                                                        (context, url) => Image(
+                                                            image: AssetImage(
+                                                                'assets/jar-loading.gif'),
+                                                            fit: BoxFit.cover),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Icon(Icons.error),
+                                                    imageUrl:
+                                                        '$apiBaseURL/${goodData.productoImage}',
+                                                    imageBuilder: (context,
+                                                            imageProvider) =>
+                                                        Container(
+                                                      decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                          image: imageProvider,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              left: 0,
+                                              top: 0,
+                                              child: Container(
+                                                padding: EdgeInsets.all(
+                                                    responsive.ip(.5)),
+                                                color: Colors.red,
+                                                //double.infinity,
+                                                height: responsive.hp(3),
+                                                child: Text(
+                                                  'Producto',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize:
+                                                          responsive.ip(1.5),
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                            )
 
-          // Expanded(
-          //   child: StreamBuilder(
-          //       stream: pointsProdBloc.productoFavoritoStream,
-          //       builder:
-          //           (context, AsyncSnapshot<List<ProductoModel>> snapshot) {
-          //         List<ProductoModel> producto = snapshot.data;
-          //         return ListView.builder(
-          //           shrinkWrap: true,
-          //           itemCount: producto.length,
-          //           itemBuilder: (BuildContext context, int index) {
-          //             return Container(
-          //               width: responsive.wp(45),
-          //               height: responsive.hp(15),
-          //               child: Stack(children: [
-          //                 Hero(
-          //                   tag: '${producto[index].idSubsidiary}-subisdiary',
-          //                   child: ClipRRect(
-          //                     borderRadius: BorderRadius.circular(10),
-          //                     child: CachedNetworkImage(
-          //                       //cacheManager: CustomCacheManager(),
-          //                       placeholder: (context, url) => Container(
-          //                         width: double.infinity,
-          //                         height: double.infinity,
-          //                         child: Image(
-          //                             image:
-          //                                 AssetImage('assets/jar-loading.gif'),
-          //                             fit: BoxFit.cover),
-          //                       ),
-          //                       errorWidget: (context, url, error) => Container(
-          //                           width: double.infinity,
-          //                           height: double.infinity,
-          //                           child: Center(child: Icon(Icons.error))),
-          //                       //imageUrl: '$apiBaseURL/${companyModel.companyImage}',
-          //                       imageUrl:
-          //                           'https://i.pinimg.com/564x/23/8f/6b/238f6b5ea5ab93832c281b42d3a1a853.jpg',
-          //                       imageBuilder: (context, imageProvider) =>
-          //                           Container(
-          //                         decoration: BoxDecoration(
-          //                           image: DecorationImage(
-          //                             image: imageProvider,
-          //                             fit: BoxFit.cover,
-          //                           ),
-          //                         ),
-          //                       ),
-          //                     ),
-          //                   ),
-          //                 ),
-          //                 Positioned(
-          //                   bottom: 0,
-          //                   left: 0,
-          //                   right: 0,
-          //                   child: Container(
-          //                     color: Colors.black.withOpacity(.4),
-          //                     child: Text(
-          //                       producto[index].productoName,
-          //                       style: TextStyle(
-          //                         color: Colors.white,
-          //                         fontSize: responsive.ip(2.5),
-          //                       ),
-          //                     ),
-          //                   ),
-          //                 ),
-          //                 Positioned(
-          //                     top: 5,
-          //                     right: 5,
-          //                     child: IconButton(
-          //                       icon: Icon(Icons.delete_outline,
-          //                           color: Colors.red),
-          //                       onPressed: () {
-          //                         // setState(() {
+                                            //https://tytperu.com/594-thickbox_default/smartphone-samsung-galaxy-s10.jpg
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        height: responsive.hp(5),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: responsive.hp(1)),
+                                        //color: Colors.white.withOpacity(.8),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Container(
+                                              height: responsive.hp(3.5),
+                                              width: responsive.wp(20),
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    Colors.blue.withOpacity(.2),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    FontAwesomeIcons
+                                                        .shoppingCart,
+                                                    size: responsive.ip(1.5),
+                                                    color: Colors.blue[800],
+                                                  ),
+                                                  SizedBox(
+                                                    width: responsive.wp(1),
+                                                  ),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      final buttonBloc =
+                                                          ProviderBloc.tabs(
+                                                              context);
+                                                      buttonBloc.changePage(2);
 
-          //                         // });
-          //                       },
-          //                     ))
-          //               ]),
-          //             );
+                                                      utils.agregarAlCarrito(
+                                                          context,
+                                                          goodData.idProducto);
+                                                    },
+                                                    child: Text(
+                                                      'Agregar',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.blue[800],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              child: Container(
+                                                height: responsive.hp(3.5),
+                                                width: responsive.wp(12),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.blue
+                                                      .withOpacity(.2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: (goodData
+                                                            .productoFavourite ==
+                                                        '0')
+                                                    ? Icon(
+                                                        FontAwesomeIcons.heart,
+                                                        color: Colors.red)
+                                                    : Icon(
+                                                        FontAwesomeIcons
+                                                            .solidHeart,
+                                                        color: Colors.red),
+                                              ),
+                                              onTap: () {
+                                                print("desfavorito");
+                                                quitarProductoFavorito(
+                                                    context, goodData);
+                                                
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Text(
+                                        goodData.productoName,
+                                        style: TextStyle(
+                                            fontSize: responsive.ip(1.5),
+                                            color: Colors.grey[800],
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                      Text(
+                                          '${goodData.productoCurrency} ${goodData.productoPrice}',
+                                          style: TextStyle(
+                                              fontSize: responsive.ip(1.9),
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.red)),
+                                      Text(
+                                        goodData.productoBrand,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: responsive.ip(1.5),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
 
-          //           },
-          //         );
-          //       }),
-          // ),
-        ],
+                                // : Container(color: Colors.red,
+                                // child: Text("data"),);
+                              }),
+                        ),
+                      ],
+                    );
+                  });
+            } else {
+              return Center(
+                child: Text('No hay Points'),
+              );
+            }
+          } else {
+            return Center(
+              child: CupertinoActivityIndicator(),
+            );
+          }
+        },
       ),
     );
   }

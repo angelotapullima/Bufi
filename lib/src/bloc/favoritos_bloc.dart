@@ -9,9 +9,12 @@ import 'package:rxdart/rxdart.dart';
 
 class PointsBloc {
   final pointApi = PointApi();
+  final productoDb = ProductoDatabase();
   final subsidiaryDatabase = SubsidiaryDatabase();
   final _listPoints = BehaviorSubject<List<SubsidiaryModel>>();
   final _favController = BehaviorSubject<List<PointModel>>();
+  //final _prodController = BehaviorSubject<List<ProductoModel>>();
+  
 
   Stream<List<SubsidiaryModel>> get pointsStrema => _listPoints.stream;
   Stream<List<PointModel>> get favProductoStrem => _favController.stream;
@@ -21,6 +24,7 @@ class PointsBloc {
   dispose() {
     _listPoints?.close();
     _favController?.close();
+    //_prodController?.close();
   }
 
 //Sucursales favoritas:
@@ -41,11 +45,17 @@ class PointsBloc {
   }
 
   //Productos y Sucursales Fav
-
   void obtenerPointsProductosXSucursal() async {
     _favController.sink.add(await favoritoPorSucursal());
   }
+
+  //  void deletePointsProductosXSucursal() async {
+  //   _favController.sink.add(await productoDb.);
+  // }
 }
+
+
+
 
 Future<List<PointModel>> favoritoPorSucursal() async {
   final sucursalDb = SubsidiaryDatabase();

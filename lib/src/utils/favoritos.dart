@@ -15,7 +15,7 @@ void guardarProductoFavorito(
   final productoModel = ProductoModel();
   final productoDb = ProductoDatabase();
   final sucursalDataBase = SubsidiaryDatabase();
- 
+
   productoModel.idProducto = dataModel.idProducto;
   productoModel.idSubsidiary = dataModel.idSubsidiary;
   productoModel.idGood = dataModel.idGood;
@@ -36,9 +36,12 @@ void guardarProductoFavorito(
   productoModel.productoStatus = dataModel.productoStatus;
   productoModel.productoFavourite = "1";
 
+//Se actualiza el producto con los datos enviados
   await productoDb.updateProducto(productoModel);
 
-  final sucursal = await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
+  //Obtenemos la lista de sucursales por id
+  final sucursal =
+      await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
   final subModel = SubsidiaryModel();
   subModel.idSubsidiary = sucursal[0].idSubsidiary;
   subModel.idCompany = sucursal[0].idCompany;
@@ -57,7 +60,60 @@ void guardarProductoFavorito(
 
   await sucursalDataBase.obtenerSubsidiaryPorId(productoModel.idSubsidiary);
   pointsProdBloc.obtenerPointsProductosXSucursal();
+}
 
+void quitarProductoFavorito(
+    BuildContext context, ProductoModel dataModel) async {
+  final pointsProdBloc = ProviderBloc.points(context);
+
+  final sucursalDataBase = SubsidiaryDatabase();
+  //final deletePoint = PointApi();
+
+  final productoModel = ProductoModel();
+  final productoDb = ProductoDatabase();
+
+  productoModel.idProducto = dataModel.idProducto;
+  productoModel.idSubsidiary = dataModel.idSubsidiary;
+  productoModel.idGood = dataModel.idGood;
+  productoModel.idItemsubcategory = dataModel.idItemsubcategory;
+  productoModel.productoName = dataModel.productoName;
+  productoModel.productoPrice = dataModel.productoPrice;
+  productoModel.productoCurrency = dataModel.productoCurrency;
+  productoModel.productoImage = dataModel.productoImage;
+  productoModel.productoCharacteristics = dataModel.productoCharacteristics;
+  productoModel.productoBrand = dataModel.productoBrand;
+  productoModel.productoModel = dataModel.productoModel;
+  productoModel.productoType = dataModel.productoType;
+  productoModel.productoSize = dataModel.productoSize;
+  productoModel.productoStock = dataModel.productoStock;
+  productoModel.productoMeasure = dataModel.productoMeasure;
+  productoModel.productoRating = dataModel.productoRating;
+  productoModel.productoUpdated = dataModel.productoUpdated;
+  productoModel.productoStatus = dataModel.productoStatus;
+  productoModel.productoFavourite = '0';
+
+  await productoDb.updateProducto(productoModel);
+
+  // final sucursal =await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
+  // final subModel = SubsidiaryModel();
+  // subModel.idSubsidiary = sucursal[0].idSubsidiary;
+  // subModel.idCompany = sucursal[0].idCompany;
+  // subModel.subsidiaryName = sucursal[0].subsidiaryName;
+  // subModel.subsidiaryCellphone = sucursal[0].subsidiaryCellphone;
+  // subModel.subsidiaryCellphone2 = sucursal[0].subsidiaryCellphone2;
+  // subModel.subsidiaryEmail = sucursal[0].subsidiaryEmail;
+  // subModel.subsidiaryCoordX = sucursal[0].subsidiaryCoordX;
+  // subModel.subsidiaryCoordY = sucursal[0].subsidiaryCoordY;
+  // subModel.subsidiaryOpeningHours = sucursal[0].subsidiaryOpeningHours;
+  // subModel.subsidiaryPrincipal = sucursal[0].subsidiaryPrincipal;
+  // subModel.subsidiaryStatus = sucursal[0].subsidiaryStatus;
+  // subModel.subsidiaryFavourite = '0';
+
+  // await sucursalDataBase.updateSubsidiary(subModel);
+
+  await sucursalDataBase.obtenerSubsidiaryPorId(productoModel.idSubsidiary);
+  //pointsProdBloc.obtenerPointsProductosXSucursal();
+  productoDb.obtenerProductosFavoritos();
 }
 
 void guardarServicioFavorito(

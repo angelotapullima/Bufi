@@ -45,7 +45,7 @@ class ProviderBloc extends InheritedWidget {
   final itemSubcategBloc = ItemCategoriaBloc();
   final sugerenciaBusquedaBloc = SugerenciaBusquedaBloc();
   final porcentajesBloc = PorcentajesBloc();
-  final favProdServiBloc = FavoritosProdServiciosBloc();
+  
 
   factory ProviderBloc({Key key, Widget child}) {
     if (_instancia == null) {
@@ -178,8 +178,5 @@ class ProviderBloc extends InheritedWidget {
         .porcentajesBloc;
   }
 
-  static FavoritosProdServiciosBloc pointProdServicios(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .favProdServiBloc;
-  }
+ 
 }

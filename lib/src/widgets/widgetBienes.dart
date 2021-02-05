@@ -294,6 +294,7 @@ Widget bienesWidget(
                 onTap: () {
                    final buttonBloc = ProviderBloc.tabs(context);
                         buttonBloc.changePage(1);
+
                   guardarProductoFavorito(context, goodData);
                   
                 },

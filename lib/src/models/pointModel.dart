@@ -1,36 +1,39 @@
+import 'package:bufi/src/models/productoModel.dart';
+
 class PointModel {
-  PointModel({
-    this.idPoint,
-    this.idUser,
-    this.idSubsidiary,
-    this.idCompany,
-    this.subsidiaryName,
-    this.subsidiaryAddress,
-    this.subsidiaryCellphone,
-    this.subsidiaryCellphone2,
-    this.subsidiaryEmail,
-    this.subsidiaryCoordX,
-    this.subsidiaryCoordY,
-    this.subsidiaryOpeningHours,
-    this.subsidiaryPrincipal,
-    this.subsidiaryStatus,
-    this.idCity,
-    this.idCategory,
-    this.companyName,
-    this.companyRuc,
-    this.companyImage,
-    this.companyType,
-    this.companyShortcode,
-    this.companyDelivery,
-    this.companyEntrega,
-    this.companyTarjeta,
-    this.companyVerified,
-    this.companyRating,
-    this.companyCreatedAt,
-    this.companyJoin,
-    this.companyStatus,
-    this.companyMt, this.categoryName
-  });
+  PointModel(
+      {this.idPoint,
+      this.idUser,
+      this.idSubsidiary,
+      this.idCompany,
+      this.subsidiaryName,
+      this.subsidiaryAddress,
+      this.subsidiaryCellphone,
+      this.subsidiaryCellphone2,
+      this.subsidiaryEmail,
+      this.subsidiaryCoordX,
+      this.subsidiaryCoordY,
+      this.subsidiaryOpeningHours,
+      this.subsidiaryPrincipal,
+      this.subsidiaryStatus,
+      this.idCity,
+      this.idCategory,
+      this.companyName,
+      this.companyRuc,
+      this.companyImage,
+      this.companyType,
+      this.companyShortcode,
+      this.companyDelivery,
+      this.companyEntrega,
+      this.companyTarjeta,
+      this.companyVerified,
+      this.companyRating,
+      this.companyCreatedAt,
+      this.companyJoin,
+      this.companyStatus,
+      this.companyMt,
+      this.categoryName,
+      this.listProducto});
 
   String idPoint;
   String idUser;
@@ -63,6 +66,7 @@ class PointModel {
   String companyStatus;
   String companyMt;
   String categoryName;
+  List<ProductoModel> listProducto;
 
   factory PointModel.fromJson(Map<String, dynamic> json) => PointModel(
         idPoint: json["id_point"],

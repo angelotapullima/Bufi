@@ -1,7 +1,9 @@
 import 'package:bufi/src/api/point_api.dart';
+import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/models/PointGeneralModel.dart';
 import 'package:bufi/src/models/pointModel.dart';
+import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -9,15 +11,19 @@ class PointsBloc {
   final pointApi = PointApi();
   final subsidiaryDatabase = SubsidiaryDatabase();
   final _listPoints = BehaviorSubject<List<SubsidiaryModel>>();
+  final _favController = BehaviorSubject<List<PointModel>>();
 
   Stream<List<SubsidiaryModel>> get pointsStrema => _listPoints.stream;
+  Stream<List<PointModel>> get favProductoStrem => _favController.stream;
 
   List<SubsidiaryModel> get page => _listPoints.value;
 
   dispose() {
     _listPoints?.close();
+    _favController?.close();
   }
 
+//Sucursales favoritas:
   void obtenerPoints() async {
     _listPoints.sink.add(await subsidiaryDatabase.obtenerSubsidiaryFavoritas());
   }
@@ -33,110 +39,70 @@ class PointsBloc {
     await pointApi.deletePoint(id);
     obtenerPoints();
   }
+
+  //Productos y Sucursales Fav
+
+  void obtenerPointsProductosXSucursal() async {
+    _favController.sink.add(await favoritoPorSucursal());
+  }
 }
 
-Future<List<PointGeneralModel>> favoritoPorSucursal() async {
-  final listIdsucursalFav = List();
+Future<List<PointModel>> favoritoPorSucursal() async {
   final sucursalDb = SubsidiaryDatabase();
-  final listSucursalFav =await sucursalDb.obtenerSubsidiarysFavoritasAgrupadas();
-  for (var i = 0; i < listSucursalFav.length; i++) {
-    final id = listSucursalFav[i].idSubsidiary;
-    listIdsucursalFav.add(id);
-  }
+  final productoDb = ProductoDatabase();
 
-//obtner la lista de sucursales
-   for (var j = 0; j < listSucursalFav.length; j++) {
-     final sucursal = await sucursalDb.obtenerSubsidiaryPorId(listIdsucursalFav[j]);
-    final favoritoGeneralModel = PointGeneralModel();
+  final listGeneral = List<PointModel>();
+  //Obtener lista de sucursales favoritas
+  final listsucursal = await sucursalDb.obtenerSubsidiaryFavoritas();
+  for (var k = 0; k < listsucursal.length; k++) {
+    final pointModel = PointModel();
+    pointModel.idSubsidiary = listsucursal[k].idSubsidiary;
+    pointModel.idCompany = listsucursal[k].idCompany;
+    pointModel.subsidiaryName = listsucursal[k].subsidiaryName;
+    pointModel.subsidiaryCellphone = listsucursal[k].subsidiaryCellphone;
+    pointModel.subsidiaryCellphone2 = listsucursal[k].subsidiaryCellphone2;
+    pointModel.subsidiaryEmail = listsucursal[k].subsidiaryEmail;
+    pointModel.subsidiaryCoordX = listsucursal[k].subsidiaryCoordX;
+    pointModel.subsidiaryCoordY = listsucursal[k].subsidiaryCoordY;
+    pointModel.subsidiaryOpeningHours = listsucursal[k].subsidiaryOpeningHours;
+    pointModel.subsidiaryPrincipal = listsucursal[k].subsidiaryPrincipal;
+    pointModel.subsidiaryStatus = listsucursal[k].subsidiaryStatus;
+    pointModel.subsidiaryAddress = listsucursal[k].subsidiaryAddress;
 
-    favoritoGeneralModel.idSucursal = sucursal[j].idSubsidiary;
-    favoritoGeneralModel.nombreSucursal = sucursal[j].subsidiaryName;
+ //Creamos la lista para agregar los productos obtenidos por sucursal
+    final listProductosFavoritos = List<ProductoModel>();
+   
+    final listprod = await productoDb.obtenerProductosPorIdSubsidiary(listsucursal[k].idSubsidiary);
+    for (var i = 0; i < listprod.length; i++) {
+      final productoModel = ProductoModel();
+      productoModel.idProducto = listprod[i].idProducto;
+      productoModel.idSubsidiary = listprod[i].idSubsidiary;
+      productoModel.idGood = listprod[i].idGood;
+      productoModel.idItemsubcategory = listprod[i].idItemsubcategory;
+      productoModel.productoName = listprod[i].productoName;
+      productoModel.productoPrice = listprod[i].productoPrice;
+      productoModel.productoCurrency = listprod[i].productoCurrency;
+      productoModel.productoImage = listprod[i].productoImage;
+      productoModel.productoCharacteristics =listprod[i].productoCharacteristics;
+      productoModel.productoBrand = listprod[i].productoBrand;
+      productoModel.productoModel = listprod[i].productoModel;
+      productoModel.productoType = listprod[i].productoType;
+      productoModel.productoSize = listprod[i].productoSize;
+      productoModel.productoStock = listprod[i].productoStock;
+      productoModel.productoMeasure = listprod[i].productoMeasure;
+      productoModel.productoRating = listprod[i].productoRating;
+      productoModel.productoUpdated = listprod[i].productoUpdated;
+      productoModel.productoStatus = listprod[i].productoStatus;
+      productoModel.productoFavourite = '1';
 
-    //Obtener lista de sucursales favoritas
-    final listsucursal = await sucursalDb.obtenerSubsidiaryFavoritas();
-    //final listPoint = List<PointModel>();
-
-    for (var k = 0; k < listsucursal.length; k++) {
-      // if (listIdsucursalFav[j] == ) {
-
-      // }
-
-      final pointModel = PointModel();
-      pointModel.idSubsidiary = listsucursal[k].idSubsidiary;
-      pointModel.idCompany = listsucursal[k].idCompany;
-      pointModel.subsidiaryName = listsucursal[k].subsidiaryName;
-      pointModel.subsidiaryCellphone = listsucursal[k].subsidiaryCellphone;
-      pointModel.subsidiaryCellphone2 = listsucursal[k].subsidiaryCellphone2;
-      pointModel.subsidiaryEmail = listsucursal[k].subsidiaryEmail;
-      pointModel.subsidiaryCoordX = listsucursal[k].subsidiaryCoordX;
-      pointModel.subsidiaryCoordY = listsucursal[k].subsidiaryCoordY;
-      pointModel.subsidiaryOpeningHours =
-          listsucursal[k].subsidiaryOpeningHours;
-      pointModel.subsidiaryPrincipal = listsucursal[k].subsidiaryPrincipal;
-      pointModel.subsidiaryStatus = listsucursal[k].subsidiaryStatus;
-      pointModel.subsidiaryAddress = listsucursal[k].subsidiaryAddress;
+      listProductosFavoritos.add(productoModel);
     }
+    pointModel.listProducto = listProductosFavoritos;
+    listGeneral.add(pointModel);
   }
+  return listGeneral;
 }
 
-// Future<List<PointGeneralModel>> favoritoPorSucursal() async {
-//     final listaGeneral = List<PointGeneralModel>();
-
-//     final listaDeIdsPoints = List<String>();
-//     final subsidiaryDb = SubsidiaryDatabase();
-
-//     //funcion que trae los datos del carrito agrupados por iDSubsidiary para que no se repitan los IDSubsidiary
-//     final listPointsAgrupados = await subsidiaryDb.obtenerSubsidiarysFavoritasAgrupadas();
-
-//     //llenamos la lista de String(listaDeStringDeIds) con los datos agrupados que llegan (listCarritoAgrupados)
-//     for (var i = 0; i < listPointsAgrupados.length; i++) {
-//       var id = listPointsAgrupados[i].idSubsidiary;
-//       listaDeIdsPoints.add(id);
-//     }
-
-//   //obtenemos todos los elementos del carrito
-//     final listsucursales = await subsidiaryDb.obtenerSubsidiary();
-//     for (var x = 0; x < listaDeIdsPoints.length; x++) {
-
-//       //función para obtener los datos de la sucursal para despues usar el nombre
-//       final sucursal = await subsidiaryDb.obtenerSubsidiaryPorId(listaDeIdsPoints[x]);
-
-//       final listPointModel = List<PointModel>();
-
-//       PointGeneralModel pointGeneralModel = PointGeneralModel();
-
-//       //agregamos el nombre de la sucursal con los datos antes obtenidos (sucursal)
-//       pointGeneralModel.nombreSucursal = sucursal[0].subsidiaryName;
-//       for (var y = 0; y < listsucursales.length; y++) {
-
-//         //cuando hay coincidencia de id's procede a agregar los datos a la lista
-//         if (listPointsAgrupados[x] == listsucursales[y].idSubsidiary) {
-//           final p = PointModel();
-
-//           c.precio = listCarrito[y].precio;
-//           c.idSubsidiary = listCarrito[y].idSubsidiary;
-//           c.idSubsidiaryGood = listCarrito[y].idSubsidiaryGood;
-//           c.nombre = listCarrito[y].nombre;
-//           c.marca = listCarrito[y].marca;
-//           c.image = listCarrito[y].image;
-//           c.moneda = listCarrito[y].moneda;
-//           c.size = listCarrito[y].size;
-//           c.caracteristicas = listCarrito[y].caracteristicas;
-//           c.cantidad = listCarrito[y].cantidad;
-
-//           listCarritoModel.add(c);
-
-//           //print('ptmr');
-//         }
-//       }
-
-//       carritoGeneralModel.carrito = listCarritoModel;
-
-//       listaGeneral.add(carritoGeneralModel);
-//     }
-//     //print('ctm');
-//     return listaGeneral;
-//   }
 
 // class FavoritosPointBloc {
 

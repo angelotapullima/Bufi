@@ -2,6 +2,7 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/page/Categorias/categoriasPage.dart';
 import 'package:bufi/src/page/Tabs/Carrito/carritoTab.dart';
 import 'package:bufi/src/page/Tabs/Carrito/carrito_bloc.dart';
+import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido_bloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubsidiary.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/registrarSubsidiaryPage.dart';
 import 'package:bufi/src/page/Tabs/Negocios/actualizarNegocio_page.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider<CarritoBlocListener>(create: (_) => CarritoBlocListener()),
+          ChangeNotifierProvider<ConfirmPedidoBloc>(create: (_) => ConfirmPedidoBloc()),
           ChangeNotifierProvider<NegociosBlocListener>(create: (_) => NegociosBlocListener()),
         ],
         child: MaterialApp(

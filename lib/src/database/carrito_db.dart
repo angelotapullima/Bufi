@@ -39,6 +39,43 @@ class CarritoDb {
   }
 
 
+  Future<List<CarritoModel>> obtenerProductoXCarritoSeleccionado() async {
+    final db = await dbProvider.database;
+    try {
+      final res = await db.rawQuery("SELECT * FROM Carrito where estado_seleccionado ='1'");
+
+    List<CarritoModel> list= res.isNotEmpty
+        ? res.map((c) => CarritoModel.fromJson(c)).toList()
+        : [];
+
+    return list;
+
+     } catch (e) {
+       print("Error $e");
+       return [];
+     }
+  }
+
+
+
+  Future<List<CarritoModel>> obtenerCarritoPorSucursalSeleccionado(String idSubsi) async {
+    final db = await dbProvider.database;
+    try {
+      final res = await db.rawQuery("SELECT * FROM Carrito where id_subsidiary = '$idSubsi' and estado_seleccionado ='1'");
+
+    List<CarritoModel> list= res.isNotEmpty
+        ? res.map((c) => CarritoModel.fromJson(c)).toList()
+        : [];
+
+    return list;
+
+     } catch (e) {
+       print("Error $e");
+       return [];
+     }
+  }
+
+
   Future<List<CarritoModel>> obtenerProductoXCarritoPorId(String id) async {
     final db = await dbProvider.database;
     //try {

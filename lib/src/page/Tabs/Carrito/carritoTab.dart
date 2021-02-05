@@ -1,7 +1,9 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/carritoGeneralModel..dart';
 import 'package:bufi/src/page/Tabs/Carrito/carrito_bloc.dart';
+import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido.dart';
 import 'package:bufi/src/utils/constants.dart';
+import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/cantidad_producto.dart';
@@ -39,7 +41,7 @@ class _CarritoPageState extends State<CarritoPage> {
               return Scaffold(
                 backgroundColor: Colors.white,
                 body: SafeArea(
-                  child: Column( 
+                  child: Column(
                     children: [
                       ValueListenableBuilder<bool>(
                         valueListenable: provider.show,
@@ -60,7 +62,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                             fontSize: responsive.ip(3),
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      Spacer(),
+                                      /* Spacer(),
                                       Text(
                                         'S/ ${listcarrito[0].monto}',
                                         style: TextStyle(
@@ -71,20 +73,56 @@ class _CarritoPageState extends State<CarritoPage> {
                                       SizedBox(
                                         width: responsive.wp(2),
                                       ),
-                                      Container(
-                                        width: responsive.wp(17),
-                                        height: responsive.hp(3.5),
-                                        decoration: BoxDecoration(
-                                          color: Colors.red,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Center(
+                                      GestureDetector(
+                                        onTap: () {
+                                          
+
+                                          Navigator.of(context)
+                                              .push(PageRouteBuilder(
+                                            pageBuilder: (context, animation,
+                                                secondaryAnimation) {
+                                              return ConfirmacionPedido();
+                                            },
+                                            transitionsBuilder: (context,
+                                                animation,
+                                                secondaryAnimation,
+                                                child) {
+                                              var begin = Offset(0.0, 1.0);
+                                              var end = Offset.zero;
+                                              var curve = Curves.ease;
+
+                                              var tween =
+                                                  Tween(begin: begin, end: end)
+                                                      .chain(
+                                                CurveTween(curve: curve),
+                                              );
+
+                                              return SlideTransition(
+                                                position:
+                                                    animation.drive(tween),
+                                                child: child,
+                                              );
+                                            },
+                                          ));
+                                        },
+                                        child: Container(
+                                          width: responsive.wp(17),
+                                          height: responsive.hp(3.5),
+                                          decoration: BoxDecoration(
+                                            color: Colors.red,
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: Center(
                                             child: Text(
-                                          'Pagar',
-                                          style: TextStyle(color: Colors.white),
-                                        )),
+                                              'Pagar',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
                                       )
+                                     */
                                     ],
                                   ),
                                 )
@@ -114,8 +152,9 @@ class _CarritoPageState extends State<CarritoPage> {
                                 return Container(
                                   color: Colors.white,
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: responsive.wp(5),
-                                      vertical: responsive.hp(1)),
+                                    horizontal: responsive.wp(5),
+                                    // vertical: responsive.hp(1),
+                                  ),
                                   child: Row(
                                     children: [
                                       Text(
@@ -126,7 +165,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Spacer(),
-                                      Text(
+                                      /*  Text(
                                         'S/ ${listcarrito[index].monto}',
                                         style: TextStyle(
                                             color: Colors.black,
@@ -136,20 +175,56 @@ class _CarritoPageState extends State<CarritoPage> {
                                       SizedBox(
                                         width: responsive.wp(2),
                                       ),
-                                      Container(
-                                        width: responsive.wp(17),
-                                        height: responsive.hp(3.5),
-                                        decoration: BoxDecoration(
-                                          color: Colors.red,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Center(
+                                      GestureDetector(
+                                        onTap: () {
+                                          print('ubhfo');
+
+                                          Navigator.of(context)
+                                              .push(PageRouteBuilder(
+                                            pageBuilder: (context, animation,
+                                                secondaryAnimation) {
+                                              return ConfirmacionPedido();
+                                            },
+                                            transitionsBuilder: (context,
+                                                animation,
+                                                secondaryAnimation,
+                                                child) {
+                                              var begin = Offset(0.0, 1.0);
+                                              var end = Offset.zero;
+                                              var curve = Curves.ease;
+
+                                              var tween =
+                                                  Tween(begin: begin, end: end)
+                                                      .chain(
+                                                CurveTween(curve: curve),
+                                              );
+
+                                              return SlideTransition(
+                                                position:
+                                                    animation.drive(tween),
+                                                child: child,
+                                              );
+                                            },
+                                          ));
+                                        },
+                                        child: Container(
+                                          width: responsive.wp(17),
+                                          height: responsive.hp(3.5),
+                                          decoration: BoxDecoration(
+                                            color: Colors.red,
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: Center(
                                             child: Text(
-                                          'Pagar',
-                                          style: TextStyle(color: Colors.white),
-                                        )),
+                                              'Pagar',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
                                       )
+                                     */
                                     ],
                                   ),
                                 );
@@ -161,31 +236,82 @@ class _CarritoPageState extends State<CarritoPage> {
                                 physics: ClampingScrollPhysics(),
                                 itemCount: listcarrito[xxx].carrito.length + 1,
                                 itemBuilder: (BuildContext context, int i) {
+                                  double paaa = responsive.hp(5);
+
+                                  if (xxx == 0) {
+                                    paaa = 0.0;
+                                  }
                                   if (i == 0) {
                                     return Container(
+                                      margin: EdgeInsets.only(
+                                        top: paaa,
+                                      ),
                                       padding: EdgeInsets.symmetric(
-                                          vertical: responsive.hp(1)),
+                                        vertical: responsive.hp(1),
+                                      ),
                                       width: double.infinity,
-                                      color: Colors.blueGrey[100],
+                                      color: Colors.blueGrey[50],
                                       child: Row(
                                           //crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                          
                                           children: [
+                                            SizedBox(width: responsive.wp(3),),
                                             Text(
                                               '${listcarrito[xxx].nombre}',
                                               style: TextStyle(
                                                   color: Colors.blueGrey[700],
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                            Text(
-                                              'S/ ${listcarrito[xxx].monto}',
-                                              style: TextStyle(
-                                                  color: Colors.black,
                                                   fontSize: responsive.ip(1.8),
-                                                  fontWeight: FontWeight.bold),
+                                                  fontWeight: FontWeight.w700),
                                             ),
+                                            Spacer(),
+                                            GestureDetector(
+                                              onTap: (){
+                                                 Navigator.of(context)
+                                              .push(PageRouteBuilder(
+                                            pageBuilder: (context, animation,
+                                                secondaryAnimation) {
+                                              return ConfirmacionPedido(idSubsidiary:  '${listcarrito[xxx].idSubsidiary}',);
+                                            },
+                                            transitionsBuilder: (context,
+                                                animation,
+                                                secondaryAnimation,
+                                                child) {
+                                              var begin = Offset(0.0, 1.0);
+                                              var end = Offset.zero;
+                                              var curve = Curves.ease;
+
+                                              var tween =
+                                                  Tween(begin: begin, end: end)
+                                                      .chain(
+                                                CurveTween(curve: curve),
+                                              );
+
+                                              return SlideTransition(
+                                                position:
+                                                    animation.drive(tween),
+                                                child: child,
+                                              );
+                                            },
+                                          ));
+                                              },
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(horizontal: responsive.wp(3),vertical: responsive.hp(.5)),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(20),
+                                                    color: Colors.red),
+                                                child: Text(
+                                                  'Pagar S/ ${listcarrito[xxx].monto}',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize:
+                                                          responsive.ip(1.5),
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(width: responsive.wp(3),),
                                             //Divider(),
                                           ]),
                                     );
@@ -198,11 +324,14 @@ class _CarritoPageState extends State<CarritoPage> {
                                       double.parse(snapshot
                                           .data[xxx].carrito[indd].cantidad);
                                   return Container(
-                                    height: responsive.hp(18),
+                                    height: responsive.hp(14),
                                     padding: EdgeInsets.symmetric(vertical: 5),
                                     width: double.infinity,
                                     child: Row(
                                       children: [
+                                        /* SizedBox(
+                                          width: responsive.wp(1.5),
+                                        ), */
                                         GestureDetector(
                                           onTap: () {
                                             if ('${listcarrito[xxx].carrito[indd].estadoSeleccionado}' ==
@@ -219,46 +348,48 @@ class _CarritoPageState extends State<CarritoPage> {
                                             }
                                           },
                                           child: Container(
-                                              width: responsive.wp(8),
-                                              child: Stack(
-                                                children: [
-                                                  Container(
-                                                    child: Center(
-                                                      child: CircleAvatar(
-                                                        radius: 10,
-                                                        backgroundColor:
-                                                            Colors.red,
-                                                      ),
+                                            width: responsive.wp(8),
+                                            child: Stack(
+                                              children: [
+                                                Container(
+                                                  child: Center(
+                                                    child: CircleAvatar(
+                                                      radius: 10,
+                                                      backgroundColor:
+                                                          Colors.red,
                                                     ),
                                                   ),
-                                                  ('${listcarrito[xxx].carrito[indd].estadoSeleccionado}' ==
-                                                          '0')
-                                                      ? Container(
-                                                          child: Center(
-                                                            child: CircleAvatar(
-                                                              radius: 7,
-                                                              backgroundColor:
-                                                                  Colors.white,
-                                                            ),
+                                                ),
+                                                ('${listcarrito[xxx].carrito[indd].estadoSeleccionado}' ==
+                                                        '0')
+                                                    ? Container(
+                                                        child: Center(
+                                                          child: CircleAvatar(
+                                                            radius: 7,
+                                                            backgroundColor:
+                                                                Colors.white,
                                                           ),
-                                                        )
-                                                      : Container()
-                                                ],
-                                              )),
+                                                        ),
+                                                      )
+                                                    : Container()
+                                              ],
+                                            ),
+                                          ),
                                         ),
+                                         
                                         ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(10),
                                           child: Container(
-                                            width: responsive.wp(40),
+                                            width: responsive.wp(35),
                                             child: Stack(
                                               children: [
                                                 Container(
-                                                  height: responsive.hp(17),
+                                                  height: responsive.hp(16),
                                                   width: responsive.wp(40),
                                                   child: CachedNetworkImage(
-                                                    /* cacheManager:
-                                                        CustomCacheManager(), */
+                                                    cacheManager:
+                                                        CustomCacheManager(),
                                                     placeholder:
                                                         (context, url) =>
                                                             Container(
@@ -274,12 +405,16 @@ class _CarritoPageState extends State<CarritoPage> {
                                                     fit: BoxFit.cover,
                                                   ),
                                                 ),
-                                                
                                                 Positioned(
                                                   left: 0,
                                                   right: 0,
                                                   bottom: 0,
                                                   child: Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal:
+                                                                responsive
+                                                                    .wp(1)),
                                                     color: Colors.black
                                                         .withOpacity(.5),
                                                     width: double.infinity,
@@ -301,7 +436,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                         ),
                                         //SizedBox(height: 50),
                                         Container(
-                                          width: responsive.wp(43),
+                                          width: responsive.wp(50),
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,

@@ -1,6 +1,3 @@
-
-
-
 import 'package:bufi/src/api/point_api.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/models/PointGeneralModel.dart';

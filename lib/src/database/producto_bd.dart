@@ -25,6 +25,37 @@ class  ProductoDatabase{
     return res;
   }
 
+  updateProducto(ProductoModel productoModel) async {
+    try {
+      final db = await dbProvider.database;
+
+      final res = await db.rawUpdate(
+          "UPDATE Producto SET id_subsidiary= '${productoModel.idSubsidiary}',"
+          "id_good='${productoModel.idGood}',"
+          "id_itemsubcategory='${productoModel.idItemsubcategory}',"
+          "producto_name='${productoModel.productoName}',"
+          "producto_price='${productoModel.productoPrice}',"
+          "producto_currency='${productoModel.productoCurrency}',"
+          "producto_image='${productoModel.productoImage}',"
+          "producto_characteristics='${productoModel.productoCharacteristics}',"
+          "producto_brand='${productoModel.productoBrand}',"
+          "producto_model='${productoModel.productoModel}',"
+          "producto_type= '${productoModel.productoType}',"
+          "producto_size='${productoModel.productoSize}',"
+          "producto_stock='${productoModel.productoStock}',"
+          "producto_measure='${productoModel.productoMeasure}',"
+          "producto_rating='${productoModel.productoRating}',"
+          "producto_updated= '${productoModel.productoUpdated}',"
+          "producto_status='${productoModel.productoStatus}',"
+          "producto_favourite= '${productoModel.productoFavourite}' "
+          "WHERE id_producto='${productoModel.idProducto}' ");
+
+      print('database $res');
+      return res;
+    } catch (exception) {
+      print(exception);
+    }
+  }
 
   Future<List<ProductoModel>> obtenerSubsidiaryGood() async {
     final db = await dbProvider.database;
@@ -94,6 +125,30 @@ habilitarSubsidiaryProductoDb(ProductoModel goodModel)async{
     final db = await dbProvider.database;
     final res = await db.rawQuery(
         "SELECT * FROM Producto WHERE id_itemsubcategory='$id'");
+
+    List<ProductoModel> list = res.isNotEmpty
+        ? res.map((c) => ProductoModel.fromJson(c)).toList()
+        : [];
+
+    return list;
+  }
+
+  Future<List<ProductoModel>> obtenerProductosFavoritos() async {
+    final db = await dbProvider.database;
+    final res = await db.rawQuery(
+        "SELECT * FROM Producto WHERE producto_favourite=1");
+
+    List<ProductoModel> list = res.isNotEmpty
+        ? res.map((c) => ProductoModel.fromJson(c)).toList()
+        : [];
+
+    return list;
+  }
+
+  Future<List<ProductoModel>> deleteProductosFavoritos() async {
+    final db = await dbProvider.database;
+    final res = await db.rawQuery(
+        "SELECT * FROM Producto WHERE producto_favourite=0");
 
     List<ProductoModel> list = res.isNotEmpty
         ? res.map((c) => ProductoModel.fromJson(c)).toList()

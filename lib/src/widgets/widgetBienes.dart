@@ -4,6 +4,7 @@ import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
+import 'package:bufi/src/utils/favoritos.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -280,14 +281,22 @@ Widget bienesWidget(
                   ],
                 ),
               ),
-              Container(
-                height: responsive.hp(3.5),
-                width: responsive.wp(12),
-                decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(.2),
-                  borderRadius: BorderRadius.circular(10),
+              GestureDetector(
+                child: Container(
+                  height: responsive.hp(3.5),
+                  width: responsive.wp(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.withOpacity(.2),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(FontAwesomeIcons.heart, color: Colors.red),
                 ),
-                child: Icon(FontAwesomeIcons.heart, color: Colors.red),
+                onTap: () {
+                   final buttonBloc = ProviderBloc.tabs(context);
+                        buttonBloc.changePage(1);
+                  guardarProductoFavorito(context, goodData);
+                  
+                },
               )
             ],
           ),

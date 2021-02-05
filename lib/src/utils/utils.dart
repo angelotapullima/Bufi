@@ -56,8 +56,7 @@ void guardarSubsidiaryFavorito(
 
   await sucursalDataBase.updateSubsidiary(companysubsidiaryModel);
 
-  subsidiaryBloc
-      .obtenerSucursalporIdCompany(companysubsidiaryModel.idSubsidiary);
+  subsidiaryBloc.obtenerSucursalporIdCompany(companysubsidiaryModel.idSubsidiary);
   pointsBloc.obtenerPoints();
 
   savePointApi.savePoint(companysubsidiaryModel.idSubsidiary);

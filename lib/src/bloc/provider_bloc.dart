@@ -1,3 +1,4 @@
+import 'package:bufi/src/bloc/Favoritos/favoritosProdServicios.dart';
 import 'package:bufi/src/bloc/bienesServicios_bloc.dart';
 import 'package:bufi/src/bloc/bottom_navigation_bloc.dart';
 import 'package:bufi/src/bloc/busquedaBloc.dart';
@@ -44,7 +45,7 @@ class ProviderBloc extends InheritedWidget {
   final itemSubcategBloc = ItemCategoriaBloc();
   final sugerenciaBusquedaBloc = SugerenciaBusquedaBloc();
   final porcentajesBloc = PorcentajesBloc();
-
+  final favProdServiBloc = FavoritosProdServiciosBloc();
 
   factory ProviderBloc({Key key, Widget child}) {
     if (_instancia == null) {
@@ -172,11 +173,13 @@ class ProviderBloc extends InheritedWidget {
         .sugerenciaBusquedaBloc;
   }
 
-
-
   static PorcentajesBloc porcentaje(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .porcentajesBloc;
   }
-}
 
+  static FavoritosProdServiciosBloc pointProdServicios(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .favProdServiBloc;
+  }
+}

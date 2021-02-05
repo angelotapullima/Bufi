@@ -4,6 +4,8 @@
 import 'package:bufi/src/database/databaseProvider.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 
+import '../models/subsidiaryService.dart';
+
 class SubsidiaryServiceDatabase {
   final dbProvider = DatabaseProvider.db;
 
@@ -23,6 +25,30 @@ class SubsidiaryServiceDatabase {
     return res;
   }
 
+updateSubsidiaryService(SubsidiaryServiceModel subServicesModel) async {
+    try {
+      final db = await dbProvider.database;
+
+      final res = await db.rawUpdate(
+          "UPDATE Subsidiary SET id_subsidiary= '${subServicesModel.idSubsidiary}',"
+          "id_service='${subServicesModel.idService}',"
+          "id_itemsubcategory='${subServicesModel.idItemsubcategory}',"
+          "subsidiary_service_name='${subServicesModel.subsidiaryServiceName}',"
+          "subsidiary_service_description='${subServicesModel.subsidiaryServiceDescription}',"
+          "subsidiary_service_price='${subServicesModel.subsidiaryServicePrice}',"
+          "subsidiary_service_currency='${subServicesModel.subsidiaryServiceCurrency}',"
+          "subsidiary_service_rating='${subServicesModel.subsidiaryServiceRating}',"
+          "subsidiary_service_updated='${subServicesModel.subsidiaryServiceUpdated}',"
+          "subsidiary_service_status='${subServicesModel.subsidiaryServiceStatus}',"
+          "subsidiary_service_favourite= '${subServicesModel.subsidiaryServiceFavourite}'"
+          "WHERE id_subsidiaryservice='${subServicesModel.idSubsidiaryservice}' ");
+
+      print('database $res');
+      return res;
+    } catch (exception) {
+      print(exception);
+    }
+  }
   Future<List<SubsidiaryServiceModel>> obtenerSubsidiaryService() async {
     final db = await dbProvider.database;
     final res = await db.rawQuery("SELECT * FROM Subsidiaryservice ");
@@ -89,9 +115,18 @@ class SubsidiaryServiceDatabase {
     return list;
   }
 
-  // Future<List<SubsidiaryServiceModel>> obtenerSubsidiarysServicesFavoritos() async {
+  Future<List<SubsidiaryServiceModel>> obtenerSubsidiarysServicesFavoritos() async {
+    final db = await dbProvider.database;
+    final res =await db.rawQuery("SELECT * FROM Subsidiaryservice WHERE subsidiary_service_favourite = 1 "); //1 cuando es favorito
+
+    List<SubsidiaryServiceModel> list = res.isNotEmpty ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList() : [];
+
+    return list;
+  }
+
+  // Future<List<SubsidiaryServiceModel>> quitarSubsidiarysServicesFavoritos() async {
   //   final db = await dbProvider.database;
-  //   final res =await db.rawQuery("SELECT * FROM Subsidiaryservice WHERE subsidiary_service_favourite = 1 "); //1 cuando es favorito
+  //   final res =await db.rawQuery("SELECT * FROM Subsidiaryservice WHERE subsidiary_service_favourite = 0 "); //1 cuando es favorito
 
   //   List<SubsidiaryServiceModel> list = res.isNotEmpty ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList() : [];
 

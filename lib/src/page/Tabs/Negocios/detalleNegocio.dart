@@ -420,7 +420,7 @@ class _DetalleNegocioState extends State<DetalleNegocio> {
           ),
         ),
         background: Hero(
-          tag: '${companyModel.idCompany}-company',
+          tag: '${companyModel.idCompany}',
           child: Stack(
             children: [
               Container(

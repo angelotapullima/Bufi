@@ -91,7 +91,7 @@ class _NegociosPageState extends State<NegociosPage> {
                                                             vertical: 10),
                                                     child: Hero(
                                                       tag:
-                                                          '${negocio[index].idCompany}-company',
+                                                          '${negocio[index].idCompany}',
                                                       child: Container(
                                                         height:
                                                             responsive.hp(40),
@@ -186,7 +186,10 @@ class _NegociosPageState extends State<NegociosPage> {
                                                   ),
                                                 ),
                                                 onTap: () {
-                                                  Navigator.pushNamed(context, 'detalleNegocio',arguments:negocio[index]);
+                                                  Navigator.pushNamed(
+                                                      context, 'detalleNegocio',
+                                                      arguments:
+                                                          negocio[index]);
                                                 });
                                           })
                                       : ListView.builder(
@@ -211,7 +214,8 @@ class _NegociosPageState extends State<NegociosPage> {
                                                 ],
                                               ),
                                               margin: EdgeInsets.all(
-                                                  responsive.ip(1)),
+                                                responsive.ip(1),
+                                              ),
                                               height: responsive.hp(15),
                                               child: Row(
                                                 children: [
@@ -421,11 +425,10 @@ class HeaderWidget extends StatelessWidget {
           ),
           Spacer(),
           GestureDetector(
-            onTap: (){
-
+            onTap: () {
               Navigator.pushNamed(context, 'registroNegocio');
             },
-                      child: Container(
+            child: Container(
               width: responsive.wp(32),
               height: responsive.hp(4.5),
               decoration: BoxDecoration(

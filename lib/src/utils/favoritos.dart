@@ -10,14 +10,12 @@ import '../models/subsidiaryService.dart';
 
 void guardarProductoFavorito(
     BuildContext context, ProductoModel dataModel) async {
+  final pointsProdBloc = ProviderBloc.points(context);
 
-final pointsProdBloc = ProviderBloc.pointProdServicios(context);
-    
   final productoModel = ProductoModel();
   final productoDb = ProductoDatabase();
   final sucursalDataBase = SubsidiaryDatabase();
-  final subsidiaryModel = SubsidiaryModel();
-
+ 
   productoModel.idProducto = dataModel.idProducto;
   productoModel.idSubsidiary = dataModel.idSubsidiary;
   productoModel.idGood = dataModel.idGood;
@@ -26,8 +24,7 @@ final pointsProdBloc = ProviderBloc.pointProdServicios(context);
   productoModel.productoPrice = dataModel.productoPrice;
   productoModel.productoCurrency = dataModel.productoCurrency;
   productoModel.productoImage = dataModel.productoImage;
-  productoModel.productoCharacteristics =
-      dataModel.productoCharacteristics;
+  productoModel.productoCharacteristics = dataModel.productoCharacteristics;
   productoModel.productoBrand = dataModel.productoBrand;
   productoModel.productoModel = dataModel.productoModel;
   productoModel.productoType = dataModel.productoType;
@@ -40,16 +37,27 @@ final pointsProdBloc = ProviderBloc.pointProdServicios(context);
   productoModel.productoFavourite = "1";
 
   await productoDb.updateProducto(productoModel);
+
+  final sucursal = await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
+  final subModel = SubsidiaryModel();
+  subModel.idSubsidiary = sucursal[0].idSubsidiary;
+  subModel.idCompany = sucursal[0].idCompany;
+  subModel.subsidiaryName = sucursal[0].subsidiaryName;
+  subModel.subsidiaryCellphone = sucursal[0].subsidiaryCellphone;
+  subModel.subsidiaryCellphone2 = sucursal[0].subsidiaryCellphone2;
+  subModel.subsidiaryEmail = sucursal[0].subsidiaryEmail;
+  subModel.subsidiaryCoordX = sucursal[0].subsidiaryCoordX;
+  subModel.subsidiaryCoordY = sucursal[0].subsidiaryCoordY;
+  subModel.subsidiaryOpeningHours = sucursal[0].subsidiaryOpeningHours;
+  subModel.subsidiaryPrincipal = sucursal[0].subsidiaryPrincipal;
+  subModel.subsidiaryStatus = sucursal[0].subsidiaryStatus;
+  subModel.subsidiaryFavourite = '1';
+
+  await sucursalDataBase.updateSubsidiary(subModel);
+
   await sucursalDataBase.obtenerSubsidiaryPorId(productoModel.idSubsidiary);
-  //await productoDb.obtenerProductosFavoritos();
-  pointsProdBloc.obtenerProductosFav();
-  
-//   final listSucursalesFav =await sucursalDataBase.obtenerSubsidiaryPorId(productoModel.idSubsidiary);
-// for (var i = 0; i < listSucursalesFav.length; i++) {
+  pointsProdBloc.obtenerPointsProductosXSucursal();
 
-// }
-
-  // await sucursalDataBase.updateSubsidiary();
 }
 
 void guardarServicioFavorito(

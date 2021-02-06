@@ -121,8 +121,7 @@ class _ListarBienesAllState extends State<ListarBienesAll> {
                                   ),
                                 );
                               },
-                              child: bienesWidget(
-                                  context, snapshot.data[index], responsive),
+                              child:  BienesWidget(producto: snapshot.data[index],),
                             );
                           });
                     } else {

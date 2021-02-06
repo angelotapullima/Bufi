@@ -144,7 +144,7 @@ class GoodApi {
           }else{
             productoModel.productoStatus = '';
           }
-      await productoDatabase.insertarSubsidiaryGood(productoModel);
+      await productoDatabase.insertarProducto(productoModel);
 
       
 
@@ -267,8 +267,17 @@ class GoodApi {
         subsidiaryGoodModel.productoRating =listBienes['subsidiary_good_rating'];
         subsidiaryGoodModel.productoUpdated =listBienes['subsidiary_good_updated'];
         subsidiaryGoodModel.productoStatus =listBienes['subsidiary_good_status'];
-        await productoDatabase
-            .insertarSubsidiaryGood(subsidiaryGoodModel);
+
+          var productList =  await productoDatabase.obtenerProductoPorIdSubsidiaryGood(listBienes['id_subsidiarygood']);
+
+          if(productList.length>0){
+            subsidiaryGoodModel.productoFavourite =productList[0].productoFavourite;
+          }else{
+            subsidiaryGoodModel.productoStatus = '';
+          }
+      await productoDatabase.insertarProducto(subsidiaryGoodModel);
+
+
 
         //Subsidiary:
         SubsidiaryModel subsidiaryModel = SubsidiaryModel();

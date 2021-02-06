@@ -15,6 +15,7 @@ import 'package:bufi/src/page/Tabs/Negocios/registroNegocio/registro_negocio_blo
 import 'package:bufi/src/page/Tabs/Negocios/servicios/ListarServiciosXsucursal.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/registrarSerivicio.dart';
+import 'package:bufi/src/page/Tabs/Points/points_bloc.dart';
 import 'package:bufi/src/page/Tabs/Principal/listarBienesAll.dart';
 import 'package:bufi/src/page/Tabs/Principal/listarServiciosAll.dart';
 import 'package:bufi/src/page/home.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<ConfirmPedidoBloc>(create: (_) => ConfirmPedidoBloc()),
           ChangeNotifierProvider<NegociosBlocListener>(create: (_) => NegociosBlocListener()),
           ChangeNotifierProvider<RegistroNegocioBlocListener>(create: (_) => RegistroNegocioBlocListener()),
+          ChangeNotifierProvider<PointsBlocListener>(create: (_) => PointsBlocListener()),
         ],
         child: MaterialApp(
             title: 'Flutter Demo',

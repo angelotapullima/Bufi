@@ -86,8 +86,7 @@ Widget _listProductos(
                 scrollDirection: Axis.horizontal,
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
-                  return bienesWidget(
-                      context, snapshot.data[index], responsive);
+                  return BienesWidget(producto: snapshot.data[index],);
                 });
           } else {
             return Center(child: Text('No tiene productos registrados'));

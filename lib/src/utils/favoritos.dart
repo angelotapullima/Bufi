@@ -66,12 +66,12 @@ void quitarProductoFavorito(
     BuildContext context, ProductoModel dataModel) async {
   final pointsProdBloc = ProviderBloc.points(context);
 
-  final sucursalDataBase = SubsidiaryDatabase();
+  //final sucursalDataBase = SubsidiaryDatabase();
   //final deletePoint = PointApi();
 
-  final productoModel = ProductoModel();
   final productoDb = ProductoDatabase();
 
+  final productoModel = ProductoModel();
   productoModel.idProducto = dataModel.idProducto;
   productoModel.idSubsidiary = dataModel.idSubsidiary;
   productoModel.idGood = dataModel.idGood;
@@ -111,9 +111,11 @@ void quitarProductoFavorito(
 
   // await sucursalDataBase.updateSubsidiary(subModel);
 
-  await sucursalDataBase.obtenerSubsidiaryPorId(productoModel.idSubsidiary);
+  //await sucursalDataBase.obtenerSubsidiaryPorId(productoModel.idSubsidiary);
   //pointsProdBloc.obtenerPointsProductosXSucursal();
-  productoDb.obtenerProductosFavoritos();
+  //productoDb.obtenerProductosFavoritos();
+
+  pointsProdBloc.obtenerPointsProductosXSucursal();
 }
 
 void guardarServicioFavorito(

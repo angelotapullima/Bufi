@@ -7,7 +7,7 @@ class  ProductoDatabase{
 
   final dbProvider = DatabaseProvider.db;
 
-  insertarSubsidiaryGood(ProductoModel producto) async {
+  insertarProducto(ProductoModel producto) async {
     final db = await dbProvider.database;
 
     final res = await db.rawInsert(
@@ -77,7 +77,7 @@ class  ProductoDatabase{
 
  Future<List<ProductoModel>> obtenerProductosPorIdSubsidiary(String id) async {
     final db = await dbProvider.database;
-    final res = await db.rawQuery("SELECT * FROM Producto WHERE id_subsidiary= '$id' order by id_producto");
+    final res = await db.rawQuery("SELECT * FROM Producto WHERE id_subsidiary= '$id' and producto_favourite='1' order by id_producto");
 
     List<ProductoModel> list =
         res.isNotEmpty ? res.map((c) => ProductoModel.fromJson(c)).toList() : [];

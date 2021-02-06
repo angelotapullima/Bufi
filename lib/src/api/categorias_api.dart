@@ -213,7 +213,18 @@ class CategoriasApi {
             bienesList['subsidiary_good_updated'];
         subsidiaryGoodModel.productoStatus =
             bienesList['subsidiary_good_status'];
-        await productoDatabase.insertarSubsidiaryGood(subsidiaryGoodModel);
+
+        var productList =
+            await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
+                bienesList['id_subsidiarygood']);
+
+        if (productList.length > 0) {
+          subsidiaryGoodModel.productoFavourite =
+              productList[0].productoFavourite;
+        } else {
+          subsidiaryGoodModel.productoFavourite = '';
+        }
+        await productoDatabase.insertarProducto(subsidiaryGoodModel);
       }
 
       for (int i = 0; i < decodedData['servicios'].length; i++) {
@@ -443,7 +454,7 @@ class CategoriasApi {
           } else {
             productoModel.productoFavourite = '';
           }
-          await productoDatabase.insertarSubsidiaryGood(productoModel);
+          await productoDatabase.insertarProducto(productoModel);
 
           SubsidiaryModel subsidiaryModel = SubsidiaryModel();
           subsidiaryModel.idSubsidiary = bienesList[i]['id_subsidiary'];

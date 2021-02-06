@@ -239,8 +239,7 @@ class _BienesResuState extends State<BienesResu> {
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          child: bienesWidget(
-                              context, snapshot.data[index], responsive),
+                          child:  BienesWidget(producto: snapshot.data[index],),
                           onTap: () {
                             agregarPSaSugerencia(context,snapshot.data[index].idProducto,'bien');
 

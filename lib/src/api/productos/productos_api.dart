@@ -56,7 +56,7 @@ class ProductosApi {
           }else{
             productoModel.productoFavourite = '';
           }
-      await productoDatabase.insertarSubsidiaryGood(productoModel);
+      await productoDatabase.insertarProducto(productoModel);
 
 
 

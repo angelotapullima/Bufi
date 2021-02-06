@@ -44,7 +44,7 @@ class _ListarProductosPorSucursalState
               ),
               itemCount: bienes.length,
               itemBuilder: (context, index) {
-                return bienesWidget(context, bienes[index], responsive);
+                return  BienesWidget(producto: snapshot.data[index],);
               });
         } else {
           return Center(child: Text("dataaaaa")

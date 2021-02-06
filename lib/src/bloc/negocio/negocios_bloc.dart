@@ -48,7 +48,7 @@ class NegociosBloc {
     final listCompany = await negociosDatabase.obtenerCompany();
 
     if (listCompany.length > 0) {
-      for (var i = 0; i < 8; i++) {
+      for (var i = 0; i < listCompany.length; i++) {
         final subsi = await subsidiaryDatabase
             .obtenerSubdiaryPrincipal(listCompany[i].idCompany);
 

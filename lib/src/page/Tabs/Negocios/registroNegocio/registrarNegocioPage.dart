@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bufi/src/bloc/categoriaPrincipal/categoria_bloc.dart';
 import 'package:bufi/src/bloc/negocio/registroNegocio_bloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
@@ -5,6 +7,7 @@ import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/registroNegocio/registro_negocio_bloc.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/textStyle.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -65,55 +68,71 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
                               horizontal: responsive.wp(5),
                               vertical: responsive.hp(1),
                             ),
-                            child: Text(
-                              "Registro Negocio",
-                              style: TextStyle(
-                                fontSize: responsive.ip(3),
-                              ),
+                            child: Row(
+                              //mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                 BackButton(
+                                  color: Colors.black,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: responsive.wp(6), top: responsive.hp(3.5)),
+                                  child: Column(
+                                    //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        "Registro del Negocio",
+                                        style: TextStyle(
+                                          fontSize: responsive.ip(3),
+                                        ),
+                                      ),
+                                      SizedBox(height: 12),
+                                      Text("Complete los campos",
+                                          style:
+                                              TextStyle(fontSize: responsive.ip(2)))
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           );
                   },
                 ),
+                SizedBox(height: 15),
                 Expanded(
-                  child: ListView(
-                    shrinkWrap: true,
-                    controller: provider.controller,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Registro Negocio",
-                          style: TextStyle(fontSize: responsive.ip(3)),
-                        ),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: responsive.wp(8)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Nombre de Empresa", style: textlabel),
+                          _name(regisNBloc, responsive),
+                          SizedBox(height: 10),
+                          Text(
+                            "Dirección",
+                            style: textlabel,
+                          ),
+                          _direccion(regisNBloc, responsive),
+                          SizedBox(height: 10),
+                          Text(
+                            "Celular",
+                            style: textlabel,
+                          ),
+                          _cel(regisNBloc, responsive),
+                          SizedBox(height: 15),
+                          _type(),
+                          SizedBox(height: 10),
+                          _categoria(categoriasBloc),
+                          SizedBox(height: 10),
+                          _delivery(),
+                          _entrega(),
+                          _tarjeta(),
+                           SizedBox(height: 10),
+                          _botonRegistro(context, regisNBloc),
+                        ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 32.0),
-                        child: Text(
-                          "Complete los campos",
-                          style: TextStyle(fontSize: responsive.ip(2)),
-
-                          //Theme.of(context).textTheme.subtitle,
-                        ),
-                      ),
-                      _name(regisNBloc, responsive),
-                      _direccion(regisNBloc, responsive),
-                      _cel(regisNBloc, responsive),
-                      _name(regisNBloc, responsive),
-                      _direccion(regisNBloc, responsive),
-                      _cel(regisNBloc, responsive),
-                      _name(regisNBloc, responsive),
-                      _direccion(regisNBloc, responsive),
-                      _cel(regisNBloc, responsive),
-                      _name(regisNBloc, responsive),
-                      _direccion(regisNBloc, responsive),
-                      _cel(regisNBloc, responsive),
-                      _type(),
-                      _categoria(categoriasBloc),
-                      _delivery(),
-                      _entrega(),
-                      _tarjeta(),
-                      _botonRegistro(context, regisNBloc),
-                    ],
+                    ),
                   ),
                 ),
               ],
@@ -124,38 +143,25 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
     );
   }
 
-  Widget _form(BuildContext context, CategoriaBloc cBloc,
-      RegistroNegocioBloc regisNBloc, Responsive responsive) {}
-
   Widget _name(RegistroNegocioBloc regisNBloc, Responsive responsive) {
     return StreamBuilder(
       stream: regisNBloc.nameEmpresaStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 8.0, left: 24.0, right: 24.0),
-          child: TextField(
-            textAlign: TextAlign.left,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-                fillColor: Theme.of(context).dividerColor,
-                hintText: 'Nombre de Empresa',
-                hintStyle: TextStyle(fontSize: responsive.ip(2)),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                filled: true,
-                contentPadding: EdgeInsets.all(16),
-                errorText: snapshot.error,
-                suffixIcon: Icon(
-                  Icons.store,
-                  color: Theme.of(context).primaryColor,
-                )),
-            onChanged: regisNBloc.changeNameEmpresa,
+        return TextField(
+          cursorColor: Colors.black,
+          textAlign: TextAlign.left,
+          keyboardType: TextInputType.text,
+          decoration: InputDecoration(
+            hintText: "Nombre",
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey[300]),
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
+              ),
+            ),
+            errorText: snapshot.error,
           ),
+          onChanged: regisNBloc.changeNameEmpresa,
         );
       },
     );
@@ -165,31 +171,21 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
     return StreamBuilder(
       stream: regisNBloc.direccionStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 8.0, left: 24.0, right: 24.0),
-          child: TextField(
-            textAlign: TextAlign.left,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-                fillColor: Theme.of(context).dividerColor,
-                hintText: 'Dirección',
-                hintStyle: TextStyle(fontSize: responsive.ip(2)),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                filled: true,
-                contentPadding: EdgeInsets.all(16),
-                errorText: snapshot.error,
-                suffixIcon: Icon(
-                  Icons.location_on,
-                  color: Theme.of(context).primaryColor,
-                )),
-            onChanged: regisNBloc.changeDireccion,
+        return TextField(
+          textAlign: TextAlign.left,
+          keyboardType: TextInputType.text,
+          decoration: InputDecoration(
+            //fillColor: Theme.of(context).dividerColor,
+            hintText: 'Dirección',
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey[300]),
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
+              ),
+            ),
+            errorText: snapshot.error,
           ),
+          onChanged: regisNBloc.changeDireccion,
         );
       },
     );
@@ -199,32 +195,21 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
     return StreamBuilder(
       stream: regisNBloc.celStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 8.0, left: 24.0, right: 24.0),
-          child: TextField(
-            textAlign: TextAlign.left,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-                fillColor: Theme.of(context).dividerColor,
-                hintText: 'Celular',
-                hintStyle: TextStyle(fontSize: responsive.ip(2)),
-                //Theme.of(context).textTheme.display2,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                filled: true,
-                contentPadding: EdgeInsets.all(16),
-                errorText: snapshot.error,
-                suffixIcon: Icon(
-                  Icons.phone,
-                  color: Theme.of(context).primaryColor,
-                )),
-            onChanged: regisNBloc.changecel,
+        return TextField(
+          textAlign: TextAlign.left,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            //fillColor: Theme.of(context).dividerColor,
+            hintText: 'Celular',
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey[200]),
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
+              ),
+            ),
+            //errorText: snapshot.error,
           ),
+          onChanged: regisNBloc.changecel,
         );
       },
     );
@@ -232,36 +217,59 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
 
   Widget _type() {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 2.0, left: 40.0, right: 40.0),
+        padding: EdgeInsets.only(bottom: 2.0, right: 3),
         child: Row(
           children: <Widget>[
-            Text('Tipo'),
+            Text('Tipo', style: textlabel),
             SizedBox(
-              width: 30.0,
+              width: 50.0,
             ),
             Expanded(
-              child: DropdownButton<String>(
-                  hint: Text("Seleccione tipo de empresa"),
-                  value: data.companyType,
-                  items: [
-                    DropdownMenuItem(
-                      child: Text("Pequeña"),
-                      value: "Pequeña",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Mediana"),
-                      value: "Mediana",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Grande"),
-                      value: "Grande",
-                    ),
-                  ],
-                  onChanged: (value) {
-                    setState(() {
-                      data.companyType = value;
-                    });
-                  }),
+              child: Container(
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                        color: Colors.grey[500]),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 15),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                        hint: Text("Seleccione tipo de empresa"),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.black,
+                          size: 32,
+                        ),
+
+                        //elevation: 16,
+                        value: data.companyType,
+                        items: [
+                          DropdownMenuItem(
+                            child: Text("Pequeña"),
+                            value: "Pequeña",
+                          ),
+                          DropdownMenuItem(
+                            child: Text("Mediana"),
+                            value: "Mediana",
+                          ),
+                          DropdownMenuItem(
+                            child: Text("Grande"),
+                            value: "Grande",
+                          ),
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            data.companyType = value;
+                          });
+                        }),
+                  ),
+                ),
+              ),
             )
           ],
         ));
@@ -269,46 +277,69 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
 
   Widget _categoria(CategoriaBloc bloc) {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 2.0, left: 40.0, right: 40.0),
-        child: Row(
-          children: <Widget>[
-            Text('Categoria'),
-            SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: StreamBuilder(
-                  stream: bloc.categoriaStream,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<CategoriaModel>> snapshot) {
-                    if (snapshot.hasData) {
-                      final cat = snapshot.data;
-                      return DropdownButton(
-                        value: data.idCategory,
-                        items: cat.map((e) {
-                          return DropdownMenuItem<String>(
-                            value: e.idCategory,
-                            child: Text(
-                              e.categoryName,
-                              style: TextStyle(fontSize: 14),
+      padding: EdgeInsets.only(bottom: 2.0, right: 3),
+      child: Row(
+        children: <Widget>[
+          Text('Categoría', style: textlabel),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: StreamBuilder(
+                stream: bloc.categoriaStream,
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<CategoriaModel>> snapshot) {
+                  if (snapshot.hasData) {
+                    final cat = snapshot.data;
+                    return Container(
+                      decoration: ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                              width: 1.0,
+                              style: BorderStyle.solid,
+                              color: Colors.grey[500]),
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 15),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            hint: Text("Seleccione una categoría"),
+                            value: data.idCategory,
+                            icon: Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.black,
+                              size: 32,
                             ),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          data.idCategory = value;
-                          print(data.idCategory);
-                          this.setState(() {});
-                        },
-                      );
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  }),
-            )
-          ],
-        ));
+                            items: cat.map((e) {
+                              return DropdownMenuItem<String>(
+                                value: e.idCategory,
+                                child: Text(
+                                  e.categoryName,
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              data.idCategory = value;
+                              print(data.idCategory);
+                              this.setState(() {});
+                            },
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
+          )
+        ],
+      ),
+    );
   }
 
   Widget _botonRegistro(BuildContext context, RegistroNegocioBloc regisNBloc) {
@@ -323,7 +354,7 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0)),
                 padding: EdgeInsets.all(0.0),
-                child: Text('Registrar Negocio'),
+                child: Text('REGISTRAR', style: TextStyle(fontSize: 20)),
                 color: Theme.of(context).primaryColor,
                 textColor: Colors.white,
                 onPressed: (snapshot.hasData)
@@ -340,7 +371,7 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
 
   Widget _delivery() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 2.0, left: 24.0, right: 24.0),
+      padding: EdgeInsets.only( left: 67.0),
       child: SwitchListTile(
           value: _d,
           title: Text('¿Realiza Delivery?'),
@@ -360,7 +391,7 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
 
   Widget _entrega() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 2.0, left: 24.0, right: 24.0),
+      padding: const EdgeInsets.only( left: 67.0),
       child: SwitchListTile(
           value: _e,
           title: Text('¿Realiza Entregas?'),
@@ -378,7 +409,7 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
 
   Widget _tarjeta() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 2.0, left: 24.0, right: 24.0),
+      padding: const EdgeInsets.only(left: 67.0),
       child: SwitchListTile(
           value: _t,
           title: Text('¿Acepta Tarjeta?'),

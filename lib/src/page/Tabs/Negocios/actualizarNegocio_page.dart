@@ -4,8 +4,8 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/textStyle.dart';
 import 'package:flutter/material.dart';
-
 
 class ActualizarNegocio extends StatefulWidget {
   @override
@@ -48,7 +48,8 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
                 if (snapshot.data.length > 0) {
                   _nameController.text = snapshot.data[0].companyName;
                   _rucController.text = snapshot.data[0].companyRuc;
-                  _direccionController.text = snapshot.data[0].subsidiaryAddress;
+                  _direccionController.text =
+                      snapshot.data[0].subsidiaryAddress;
                   _celController.text = snapshot.data[0].subsidiaryCellphone;
                   _cel2Controller.text = snapshot.data[0].subsidiaryCellphone2;
                   _calleXController.text = snapshot.data[0].subsidiaryCoordX;
@@ -78,8 +79,11 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
                     children: [
                       _form(context, categoriasBloc, updateNegBloc, responsive,
                           id),
-                      BackButton(
-                        color: Colors.black,
+                      Padding(
+                        padding: EdgeInsets.only(top: responsive.hp(2.5)),
+                        child: BackButton(
+                          color: Colors.black,
+                        ),
                       ),
                     ],
                   );
@@ -100,17 +104,22 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
       ActualizarNegocioBloc updateNegBloc, Responsive responsive, String id) {
     return SingleChildScrollView(
       child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: responsive.wp(8),
+          vertical: responsive.hp(1),
+        ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.only(top: responsive.hp(3.5)),
               child: Text(
                 "ACTUALIZAR NEGOCIO",
                 style: TextStyle(fontSize: responsive.ip(3)),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 32.0),
+              padding: EdgeInsets.only(bottom: 25.0),
               child: Text(
                 "Complete los campos",
                 style: TextStyle(fontSize: responsive.ip(2)),
@@ -119,6 +128,10 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
               ),
             ),
             //_name(updateNegBloc, responsive),
+            Text(
+              "Nombre",
+              style: textlabel,
+            ),
             _textInput(
                 updateNegBloc,
                 responsive,
@@ -129,6 +142,10 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
                   color: Theme.of(context).primaryColor,
                 ),
                 id),
+            Text(
+              "Ruc",
+              style: textlabel,
+            ),
             _textInput(
                 updateNegBloc,
                 responsive,
@@ -139,6 +156,10 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
                   color: Theme.of(context).primaryColor,
                 ),
                 id),
+            Text(
+              "Dirección",
+              style: textlabel,
+            ),
             _textInput(
                 updateNegBloc,
                 responsive,
@@ -149,6 +170,10 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
                   color: Theme.of(context).primaryColor,
                 ),
                 id),
+            Text(
+              "Celular",
+              style: textlabel,
+            ),
             _textInput(
                 updateNegBloc,
                 responsive,
@@ -159,6 +184,10 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
                   color: Theme.of(context).primaryColor,
                 ),
                 id),
+            Text(
+              "Celular 2",
+              style: textlabel,
+            ),
             _textInput(
                 updateNegBloc,
                 responsive,
@@ -169,6 +198,10 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
                   color: Theme.of(context).primaryColor,
                 ),
                 id),
+            Text(
+              "Coordenada X",
+              style: textlabel,
+            ),
             _textInput(
                 updateNegBloc,
                 responsive,
@@ -179,6 +212,10 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
                   color: Theme.of(context).primaryColor,
                 ),
                 id),
+            Text(
+              "Coordenada Y",
+              style: textlabel,
+            ),
             _textInput(
                 updateNegBloc,
                 responsive,
@@ -189,6 +226,10 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
                   color: Theme.of(context).primaryColor,
                 ),
                 id),
+                Text(
+              "Código corto",
+              style: textlabel,
+            ),
             _textInput(
                 updateNegBloc,
                 responsive,
@@ -199,6 +240,10 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
                   color: Theme.of(context).primaryColor,
                 ),
                 id),
+                Text(
+              "Horario de atención",
+              style: textlabel,
+            ),
             _textInput(
                 updateNegBloc,
                 responsive,
@@ -224,20 +269,18 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
   Widget _textInput(ActualizarNegocioBloc updateNegBloc, Responsive responsive,
       TextEditingController controller, String name, Icon icon, String id) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 10.0, left: 10),
+      padding: EdgeInsets.only(bottom: 10.0),
       child: TextField(
         controller: controller,
         textAlign: TextAlign.left,
         readOnly: true,
         decoration: InputDecoration(
-            fillColor: Theme.of(context).dividerColor,
             hintText: name,
             hintStyle: TextStyle(fontSize: responsive.ip(2)),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
+              borderSide: BorderSide(color: Colors.grey[300]),
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
               ),
             ),
             filled: true,

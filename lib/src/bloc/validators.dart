@@ -46,10 +46,10 @@ class Validators {
     Pattern pattern = '^(\[[0-9]{9}\)';
     RegExp regExp = new RegExp(pattern);
 
-    if (regExp.hasMatch(cel)) {
+    if (cel.length==9) {
       sink.add(cel);
     } else {
-      sink.addError('Solo numeros');
+      sink.addError('El celular debe tener 9 dígitos');
     }
   });
 

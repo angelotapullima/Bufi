@@ -89,98 +89,94 @@ class _NegociosPageState extends State<NegociosPage> {
                                                         EdgeInsets.symmetric(
                                                             horizontal: 10,
                                                             vertical: 10),
-                                                    child: Hero(
-                                                      tag:
-                                                          '${negocio[index].idCompany}',
-                                                      child: Container(
-                                                        height:
-                                                            responsive.hp(40),
-                                                        child: Stack(
-                                                          children: <Widget>[
-                                                            ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                              child:
-                                                                  CachedNetworkImage(
-                                                                /* cacheManager:
-                                                                    CustomCacheManager(), */
-                                                                placeholder: (context, url) => Image(
-                                                                    image: AssetImage(
-                                                                        'assets/jar-loading.gif'),
-                                                                    fit: BoxFit
-                                                                        .cover),
-                                                                errorWidget: (context,
-                                                                        url,
-                                                                        error) =>
-                                                                    Image(
-                                                                        image: AssetImage(
-                                                                            'assets/carga_fallida.jpg'),
-                                                                        fit: BoxFit
-                                                                            .cover),
-                                                                imageUrl:
-                                                                    '$apiBaseURL/${negocio[index].companyImage}',
-                                                                imageBuilder:
-                                                                    (context,
-                                                                            imageProvider) =>
-                                                                        Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    image:
-                                                                        DecorationImage(
-                                                                      image:
-                                                                          imageProvider,
+                                                    child: Container(
+                                                      height:
+                                                          responsive.hp(40),
+                                                      child: Stack(
+                                                        children: <Widget>[
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            child:
+                                                                CachedNetworkImage(
+                                                              /* cacheManager:
+                                                                  CustomCacheManager(), */
+                                                              placeholder: (context, url) => Image(
+                                                                  image: AssetImage(
+                                                                      'assets/jar-loading.gif'),
+                                                                  fit: BoxFit
+                                                                      .cover),
+                                                              errorWidget: (context,
+                                                                      url,
+                                                                      error) =>
+                                                                  Image(
+                                                                      image: AssetImage(
+                                                                          'assets/carga_fallida.jpg'),
                                                                       fit: BoxFit
-                                                                          .cover,
-                                                                    ),
+                                                                          .cover),
+                                                              imageUrl:
+                                                                  '$apiBaseURL/${negocio[index].companyImage}',
+                                                              imageBuilder:
+                                                                  (context,
+                                                                          imageProvider) =>
+                                                                      Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  image:
+                                                                      DecorationImage(
+                                                                    image:
+                                                                        imageProvider,
+                                                                    fit: BoxFit
+                                                                        .cover,
                                                                   ),
                                                                 ),
                                                               ),
                                                             ),
-                                                            Positioned(
-                                                              right: 0,
-                                                              left: 0,
-                                                              bottom: 0,
-                                                              child: Container(
-                                                                width: double
-                                                                    .infinity,
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      responsive
-                                                                          .hp(.5),
-                                                                  //horizontal: responsive.wp(2)
-                                                                ),
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: Colors
-                                                                      .black
-                                                                      .withOpacity(
-                                                                          .5),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10),
-                                                                ),
-                                                                child: Column(
-                                                                  children: [
-                                                                    Text(
-                                                                      '${negocio[index].companyName}',
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontSize: responsive.ip(
-                                                                              2),
-                                                                          fontWeight:
-                                                                              FontWeight.bold),
-                                                                    ),
-                                                                  ],
-                                                                ),
+                                                          ),
+                                                          Positioned(
+                                                            right: 0,
+                                                            left: 0,
+                                                            bottom: 0,
+                                                            child: Container(
+                                                              width: double
+                                                                  .infinity,
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                vertical:
+                                                                    responsive
+                                                                        .hp(.5),
+                                                                //horizontal: responsive.wp(2)
                                                               ),
-                                                            )
-                                                          ],
-                                                        ),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Colors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        .5),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                              ),
+                                                              child: Column(
+                                                                children: [
+                                                                  Text(
+                                                                    '${negocio[index].companyName}',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize: responsive.ip(
+                                                                            2),
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],
                                                       ),
                                                     ),
                                                   ),

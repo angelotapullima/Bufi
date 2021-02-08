@@ -41,7 +41,7 @@ class ProductoBloc {
     _productoController.sink
         .add(await productoDatabase.obtenerProductosPorIdSubsidiary(id));
     await productosApi.listarProductosPorSucursal(id);
-    _productoController.sink
+    _productoController.sink 
         .add(await productoDatabase.obtenerProductosPorIdSubsidiary(id));
   }
 

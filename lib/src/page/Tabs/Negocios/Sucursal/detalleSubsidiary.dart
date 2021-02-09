@@ -62,54 +62,51 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary> {
             fontSize: responsive.ip(2.3),
           ),
         ),
-        background: Hero(
-          tag: '${subsidiary.idSubsidiary}-subisdiary',
-          child: Stack(
-            children: [
-              Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  color: Colors.white),
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(25),
-                    bottomRight: Radius.circular(25)),
-                child: Stack(
-                  children: [
-                    CachedNetworkImage(
-                      //si pecacheManager: CustomCacheManager(),
-                      placeholder: (context, url) => Container(
+        background: Stack(
+          children: [
+            Container(
+                height: double.infinity,
+                width: double.infinity,
+                color: Colors.white),
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(25),
+                  bottomRight: Radius.circular(25)),
+              child: Stack(
+                children: [
+                  CachedNetworkImage(
+                    //si pecacheManager: CustomCacheManager(),
+                    placeholder: (context, url) => Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: Image(
+                          image: AssetImage('assets/jar-loading.gif'),
+                          fit: BoxFit.cover),
+                    ),
+                    errorWidget: (context, url, error) => Container(
                         width: double.infinity,
                         height: double.infinity,
-                        child: Image(
-                            image: AssetImage('assets/jar-loading.gif'),
-                            fit: BoxFit.cover),
-                      ),
-                      errorWidget: (context, url, error) => Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          child: Center(child: Icon(Icons.error))),
-                      //imageUrl: '$apiBaseURL/${companyModel.companyImage}',
-                      imageUrl:
-                          'https://i.pinimg.com/564x/23/8f/6b/238f6b5ea5ab93832c281b42d3a1a853.jpg',
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
+                        child: Center(child: Icon(Icons.error))),
+                    //imageUrl: '$apiBaseURL/${companyModel.companyImage}',
+                    imageUrl:
+                        'https://i.pinimg.com/564x/23/8f/6b/238f6b5ea5ab93832c281b42d3a1a853.jpg',
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                    Container(
-                        height: double.infinity,
-                        width: double.infinity,
-                        color: Colors.black.withOpacity(.1)),
-                  ],
-                ),
+                  ),
+                  Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      color: Colors.black.withOpacity(.1)),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

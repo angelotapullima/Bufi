@@ -206,27 +206,24 @@ class _BienesWidgetState extends State<BienesWidget> {
             height: responsive.hp(17),
             child: Stack(
               children: <Widget>[
-                Hero(
-                  tag: widget.producto.idProducto,
-                  child: Container(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8)),
-                      child: CachedNetworkImage(
-                        cacheManager: CustomCacheManager(),
-                        placeholder: (context, url) => Image(
-                            image: AssetImage('assets/jar-loading.gif'),
-                            fit: BoxFit.cover),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                        imageUrl:
-                            '$apiBaseURL/${widget.producto.productoImage}',
-                        imageBuilder: (context, imageProvider) => Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            ),
+                Container(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8)),
+                    child: CachedNetworkImage(
+                      cacheManager: CustomCacheManager(),
+                      placeholder: (context, url) => Image(
+                          image: AssetImage('assets/jar-loading.gif'),
+                          fit: BoxFit.cover),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      imageUrl:
+                          '$apiBaseURL/${widget.producto.productoImage}',
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -277,7 +274,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                       ),
                       SizedBox(
                         width: responsive.wp(1),
-                      ),
+                      ), 
                       GestureDetector(
                         onTap: () {
                           final buttonBloc = ProviderBloc.tabs(context);
@@ -310,10 +307,10 @@ class _BienesWidgetState extends State<BienesWidget> {
                         ),
                         onTap: () {
                           setState(() {
-                            favorite = false;
+                            favorite = true;
                             final buttonBloc = ProviderBloc.tabs(context);
                             buttonBloc.changePage(1);
-                            guardarProductoFavorito(context, widget.producto);
+                            quitarProductoFavorito(context, widget.producto);
                             cant++;
                           });
                         },
@@ -331,10 +328,10 @@ class _BienesWidgetState extends State<BienesWidget> {
                         ),
                         onTap: () {
                           setState(() {
-                            favorite = true;
+                            favorite = false;
                             final buttonBloc = ProviderBloc.tabs(context);
                             buttonBloc.changePage(1);
-                            quitarProductoFavorito(context, widget.producto);
+                             guardarProductoFavorito(context, widget.producto);
                           });
                         },
                       )

@@ -79,11 +79,8 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
                     children: [
                       _form(context, categoriasBloc, updateNegBloc, responsive,
                           id),
-                      Padding(
-                        padding: EdgeInsets.only(top: responsive.hp(2.5)),
-                        child: BackButton(
-                          color: Colors.black,
-                        ),
+                      BackButton(
+                        color: Colors.black,
                       ),
                     ],
                   );
@@ -132,129 +129,57 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
               "Nombre",
               style: textlabel,
             ),
-            _textInput(
-                updateNegBloc,
-                responsive,
-                _nameController,
-                "Nombre de empresa",
-                Icon(
-                  Icons.store,
-                  color: Theme.of(context).primaryColor,
-                ),
-                id),
+            _textInput(updateNegBloc, responsive, _nameController,
+                "Nombre de empresa", id),
             Text(
               "Ruc",
               style: textlabel,
             ),
-            _textInput(
-                updateNegBloc,
-                responsive,
-                _rucController,
-                "RUC",
-                Icon(
-                  Icons.location_on,
-                  color: Theme.of(context).primaryColor,
-                ),
-                id),
-            Text(
-              "Dirección",
-              style: textlabel,
-            ),
-            _textInput(
-                updateNegBloc,
-                responsive,
-                _direccionController,
-                "Direccion",
-                Icon(
-                  Icons.location_on,
-                  color: Theme.of(context).primaryColor,
-                ),
-                id),
-            Text(
-              "Celular",
-              style: textlabel,
-            ),
-            _textInput(
-                updateNegBloc,
-                responsive,
-                _celController,
-                "celular",
-                Icon(
-                  Icons.phone,
-                  color: Theme.of(context).primaryColor,
-                ),
-                id),
-            Text(
-              "Celular 2",
-              style: textlabel,
-            ),
-            _textInput(
-                updateNegBloc,
-                responsive,
-                _cel2Controller,
-                "ceular2",
-                Icon(
-                  Icons.phone,
-                  color: Theme.of(context).primaryColor,
-                ),
-                id),
-            Text(
-              "Coordenada X",
-              style: textlabel,
-            ),
-            _textInput(
-                updateNegBloc,
-                responsive,
-                _calleXController,
-                "calleX",
-                Icon(
-                  Icons.phone,
-                  color: Theme.of(context).primaryColor,
-                ),
-                id),
-            Text(
-              "Coordenada Y",
-              style: textlabel,
-            ),
-            _textInput(
-                updateNegBloc,
-                responsive,
-                _calleYController,
-                "calleY",
-                Icon(
-                  Icons.phone,
-                  color: Theme.of(context).primaryColor,
-                ),
-                id),
-                Text(
-              "Código corto",
-              style: textlabel,
-            ),
-            _textInput(
-                updateNegBloc,
-                responsive,
-                _shortcodeController,
-                "codigo corto de empresa",
-                Icon(
-                  Icons.phone,
-                  color: Theme.of(context).primaryColor,
-                ),
-                id),
-                Text(
-              "Horario de atención",
-              style: textlabel,
-            ),
-            _textInput(
-                updateNegBloc,
-                responsive,
-                _actOpeningHoursController,
-                "Horas de Apertura",
-                Icon(
-                  Icons.phone,
-                  color: Theme.of(context).primaryColor,
-                ),
-                id),
-            _type(),
+            _textInput(updateNegBloc, responsive, _rucController, "RUC", id),
+            // Text(
+            //   "Dirección",
+            //   style: textlabel,
+            // ),
+            // _textInput(updateNegBloc, responsive, _direccionController,
+            //     "Direccion", id),
+            // Text(
+            //   "Celular",
+            //   style: textlabel,
+            // ),
+            // _textInput(
+            //     updateNegBloc, responsive, _celController, "celular", id),
+            // Text(
+            //   "Celular 2",
+            //   style: textlabel,
+            // ),
+            // _textInput(
+            //     updateNegBloc, responsive, _cel2Controller, "ceular2", id),
+            // Text(
+            //   "Coordenada X",
+            //   style: textlabel,
+            // ),
+            // _textInput(
+            //     updateNegBloc, responsive, _calleXController, "calleX", id),
+            // Text(
+            //   "Coordenada Y",
+            //   style: textlabel,
+            // ),
+            // _textInput(
+            //     updateNegBloc, responsive, _calleYController, "calleY", id),
+            // Text(
+            //   "Código corto",
+            //   style: textlabel,
+            // ),
+            // _textInput(updateNegBloc, responsive, _shortcodeController,
+            //     "codigo corto de empresa", id),
+            // Text(
+            //   "Horario de atención",
+            //   style: textlabel,
+            // ),
+            // _textInput(updateNegBloc, responsive, _actOpeningHoursController,
+            //     "Horas de Apertura", id),
+            _type2(),
+            SizedBox(height: 10),
             _categoria(cBloc),
             _delivery(),
             _entrega(),
@@ -267,7 +192,7 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
   }
 
   Widget _textInput(ActualizarNegocioBloc updateNegBloc, Responsive responsive,
-      TextEditingController controller, String name, Icon icon, String id) {
+      TextEditingController controller, String name, String id) {
     return Padding(
       padding: EdgeInsets.only(bottom: 10.0),
       child: TextField(
@@ -275,24 +200,27 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
         textAlign: TextAlign.left,
         readOnly: true,
         decoration: InputDecoration(
-            hintText: name,
-            hintStyle: TextStyle(fontSize: responsive.ip(2)),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey[300]),
-              borderRadius: BorderRadius.all(
-                Radius.circular(8),
-              ),
+          hintText: name,
+          //labelText: "Nombre",
+          hintStyle: TextStyle(fontSize: responsive.ip(2)),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey[300]),
+            borderRadius: BorderRadius.all(
+              Radius.circular(8),
             ),
-            filled: true,
-            contentPadding: EdgeInsets.all(16),
-            //errorText: snapshot.error,
-            suffixIcon: icon),
+          ),
+          filled: true,
+          contentPadding: EdgeInsets.all(16),
+          //errorText: snapshot.error,
+        ),
         // onChanged: updateNegBloc.changeNameEmpresa,
         onTap: () {
           ngargumentsmodel.id = id;
           ngargumentsmodel.nombre = name;
-          Navigator.pushNamed(context, "negocioActualizado",
-              arguments: ngargumentsmodel);
+          _showAlertDialog(context, controller);
+
+          // Navigator.pushNamed(context, "negocioActualizado",
+          //     arguments: ngargumentsmodel);
         },
       ),
     );
@@ -335,12 +263,70 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
         ));
   }
 
-  Widget _categoria(CategoriaBloc bloc) {
+  Widget _type2() {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 2.0, left: 40.0, right: 40.0),
+        padding: EdgeInsets.only(bottom: 2.0, right: 3),
         child: Row(
           children: <Widget>[
-            Text('Categoria'),
+            Text('Tipo', style: textlabel),
+            SizedBox(
+              width: 50.0,
+            ),
+            Expanded(
+              child: Container(
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                        color: Colors.grey[500]),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 15),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                        hint: Text("Seleccione tipo de empresa"),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.black,
+                          size: 32,
+                        ),
+                        value: csmodel.companyType,
+                        items: [
+                          DropdownMenuItem(
+                            child: Text("Pequeña"),
+                            value: "Pequeña",
+                          ),
+                          DropdownMenuItem(
+                            child: Text("Mediana"),
+                            value: "Mediana",
+                          ),
+                          DropdownMenuItem(
+                            child: Text("Grande"),
+                            value: "Grande",
+                          ),
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            csmodel.companyType = value;
+                          });
+                        }),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ));
+  }
+
+  Widget _categoria(CategoriaBloc bloc) {
+    return Padding(
+        padding: EdgeInsets.only(bottom: 2.0, right: 3),
+        child: Row(
+          children: <Widget>[
+            Text('Categoría', style: textlabel),
             SizedBox(
               width: 10,
             ),
@@ -351,22 +337,45 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
                       AsyncSnapshot<List<CategoriaModel>> snapshot) {
                     if (snapshot.hasData) {
                       final cat = snapshot.data;
-                      return DropdownButton(
-                        value: csmodel.idCategory,
-                        items: cat.map((e) {
-                          return DropdownMenuItem<String>(
-                            value: e.idCategory,
-                            child: Text(
-                              e.categoryName,
-                              style: TextStyle(fontSize: 14),
+                      return Container(
+                        decoration: ShapeDecoration(
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                width: 1.0,
+                                style: BorderStyle.solid,
+                                color: Colors.grey[500]),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 15),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              hint: Text("Seleccione una categoría"),
+                              icon: Icon(
+                                Icons.arrow_drop_down,
+                                color: Colors.black,
+                                size: 32,
+                              ),
+                              value: csmodel.idCategory,
+                              items: cat.map((e) {
+                                return DropdownMenuItem<String>(
+                                  value: e.idCategory,
+                                  child: Text(
+                                    e.categoryName,
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                csmodel.idCategory = value;
+                                print(csmodel.idCategory);
+                                this.setState(() {});
+                              },
                             ),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          csmodel.idCategory = value;
-                          print(csmodel.idCategory);
-                          this.setState(() {});
-                        },
+                          ),
+                        ),
                       );
                     } else {
                       return Center(
@@ -433,6 +442,53 @@ class _ActualizarNegocioState extends State<ActualizarNegocio> {
                 }
               })),
     );
+  }
+
+  void _showAlertDialog(
+      BuildContext context, TextEditingController controller) {
+    //TextEditingController _textFieldController = TextEditingController();
+    String codeDialog;
+    String valueText;
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            title: Text("Nombre"),
+            content: TextField(
+              controller: controller,
+              // onChanged: (value) {
+              //   setState(() {
+              //     valueText = value;
+              //   });
+              // },
+
+              decoration: InputDecoration(hintText: "Ingrese dato"),
+            ),
+            actions: [
+              
+              FlatButton(
+                color: Colors.red,
+                 textColor: Colors.white,
+                child: Text(
+                  "CERRAR",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                color: Colors.green,
+                textColor: Colors.white,
+                child: Text('OK'),
+                onPressed: () {
+                  valueText = controller.text;
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
   }
 
   // Widget _botonRegistro(

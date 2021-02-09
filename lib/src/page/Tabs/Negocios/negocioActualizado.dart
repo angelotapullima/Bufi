@@ -6,8 +6,8 @@ import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/actualizarNegocio_page.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/textStyle.dart';
 import 'package:flutter/material.dart';
-
 
 class NegocioActualizado extends StatefulWidget {
   @override
@@ -36,7 +36,8 @@ class _NegocioActualizadoState extends State<NegocioActualizado> {
   @override
   Widget build(BuildContext context) {
     //recibir id y nombre de la clase Negocio
-    final NegocioArgumentos negArgumentos=ModalRoute.of(context).settings.arguments;
+    final NegocioArgumentos negArgumentos =
+        ModalRoute.of(context).settings.arguments;
     final responsive = Responsive.of(context);
     final categoriasBloc = ProviderBloc.categoria(context);
     categoriasBloc.obtenerCategorias();
@@ -53,7 +54,8 @@ class _NegocioActualizadoState extends State<NegocioActualizado> {
                 if (snapshot.data.length > 0) {
                   _nameController.text = snapshot.data[0].companyName;
                   _rucController.text = snapshot.data[0].companyRuc;
-                   _direccionController.text = snapshot.data[0].subsidiaryAddress;
+                  _direccionController.text =
+                      snapshot.data[0].subsidiaryAddress;
                   _celController.text = snapshot.data[0].subsidiaryCellphone;
                   _cel2Controller.text = snapshot.data[0].subsidiaryCellphone2;
                   _calleXController.text = snapshot.data[0].subsidiaryCoordX;
@@ -120,6 +122,10 @@ class _NegocioActualizadoState extends State<NegocioActualizado> {
       AsyncSnapshot snapshot) {
     return SingleChildScrollView(
       child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: responsive.wp(8),
+          vertical: responsive.hp(1),
+        ),
         child: Column(
           children: <Widget>[
             Padding(
@@ -145,10 +151,7 @@ class _NegocioActualizadoState extends State<NegocioActualizado> {
                     responsive,
                     _nameController,
                     "Nombre de empresa",
-                    Icon(
-                      Icons.store,
-                      color: Theme.of(context).primaryColor,
-                    ))
+                  )
                 : Container(),
             (negArgumentos.nombre == 'RUC')
                 ? _textInput(
@@ -156,10 +159,7 @@ class _NegocioActualizadoState extends State<NegocioActualizado> {
                     responsive,
                     _rucController,
                     "RUC",
-                    Icon(
-                      Icons.location_on,
-                      color: Theme.of(context).primaryColor,
-                    ))
+                  )
                 : Container(),
             (negArgumentos.nombre == 'Direccion')
                 ? _textInput(
@@ -167,10 +167,7 @@ class _NegocioActualizadoState extends State<NegocioActualizado> {
                     responsive,
                     _direccionController,
                     "Direccion",
-                    Icon(
-                      Icons.location_on,
-                      color: Theme.of(context).primaryColor,
-                    ))
+                  )
                 : Container(),
             (negArgumentos.nombre == 'celular')
                 ? _textInput(
@@ -178,10 +175,7 @@ class _NegocioActualizadoState extends State<NegocioActualizado> {
                     responsive,
                     _celController,
                     "ceular",
-                    Icon(
-                      Icons.phone,
-                      color: Theme.of(context).primaryColor,
-                    ))
+                  )
                 : Container(),
             (negArgumentos.nombre == 'celular2')
                 ? _textInput(
@@ -189,10 +183,7 @@ class _NegocioActualizadoState extends State<NegocioActualizado> {
                     responsive,
                     _cel2Controller,
                     "ceular2",
-                    Icon(
-                      Icons.phone,
-                      color: Theme.of(context).primaryColor,
-                    ))
+                  )
                 : Container(),
             (negArgumentos.nombre == 'calleX')
                 ? _textInput(
@@ -200,10 +191,7 @@ class _NegocioActualizadoState extends State<NegocioActualizado> {
                     responsive,
                     _calleXController,
                     "calleX",
-                    Icon(
-                      Icons.phone,
-                      color: Theme.of(context).primaryColor,
-                    ))
+                  )
                 : Container(),
             (negArgumentos.nombre == 'calleY')
                 ? _textInput(
@@ -211,10 +199,7 @@ class _NegocioActualizadoState extends State<NegocioActualizado> {
                     responsive,
                     _calleYController,
                     "calleY",
-                    Icon(
-                      Icons.phone,
-                      color: Theme.of(context).primaryColor,
-                    ))
+                  )
                 : Container(),
             (negArgumentos.nombre == 'codigo corto de empresa')
                 ? _textInput(
@@ -222,10 +207,7 @@ class _NegocioActualizadoState extends State<NegocioActualizado> {
                     responsive,
                     _shortcodeController,
                     "codigo corto de empresa",
-                    Icon(
-                      Icons.phone,
-                      color: Theme.of(context).primaryColor,
-                    ))
+                  )
                 : Container(),
             (negArgumentos.nombre == 'Horas de Apertura')
                 ? _textInput(
@@ -233,10 +215,7 @@ class _NegocioActualizadoState extends State<NegocioActualizado> {
                     responsive,
                     _actOpeningHoursController,
                     "Horas de Apertura",
-                    Icon(
-                      Icons.phone,
-                      color: Theme.of(context).primaryColor,
-                    ))
+                  )
                 : Container(),
             _type(),
             _categoria(cBloc, snapshot.data),
@@ -252,28 +231,29 @@ class _NegocioActualizadoState extends State<NegocioActualizado> {
   }
 
   Widget _textInput(ActualizarNegocioBloc updateNegBloc, Responsive responsive,
-      TextEditingController controller, String name, Icon icon) {
+      TextEditingController controller, String name) {
     return Padding(
       padding: EdgeInsets.only(bottom: 10.0, left: 10),
       child: TextField(
+        autofocus: true,
         controller: controller,
         textAlign: TextAlign.left,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
-            fillColor: Theme.of(context).dividerColor,
-            hintText: name,
-            hintStyle: TextStyle(fontSize: responsive.ip(2)),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
+        //   labelText: name,
+        //  labelStyle: TextStyle(fontSize: 20),
+          hintStyle: TextStyle(fontSize: responsive.ip(2)),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey[300]),
+            borderRadius: BorderRadius.all(
+              Radius.circular(8),
             ),
-            filled: true,
-            contentPadding: EdgeInsets.all(16),
-            //errorText: snapshot.error,
-            suffixIcon: icon),
+          ),
+          filled: true,
+          contentPadding: EdgeInsets.all(16),
+          //errorText: snapshot.error,
+          //suffixIcon: icon
+        ),
         // onChanged: updateNegBloc.changeNameEmpresa,
       ),
     );
@@ -281,82 +261,121 @@ class _NegocioActualizadoState extends State<NegocioActualizado> {
 
   Widget _type() {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 2.0, left: 40.0, right: 40.0),
+        padding: EdgeInsets.only(bottom: 2.0, right: 3),
         child: Row(
           children: <Widget>[
-            Text('Tipo'),
+            Text('Tipo', style: textlabel),
             SizedBox(
-              width: 30.0,
+              width: 50.0,
             ),
             Expanded(
-              child: DropdownButton<String>(
-                  hint: Text("Seleccione tipo de empresa"),
-                  value: csmodel.companyType,
-                  items: [
-                    DropdownMenuItem(
-                      child: Text("Pequeña"),
-                      value: "Pequeña",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Mediana"),
-                      value: "Mediana",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Grande"),
-                      value: "Grande",
-                    ),
-                  ],
-                  onChanged: (value) {
-                    setState(() {
-                      csmodel.companyType = value;
-                    });
-                  }),
+              child: Container(
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                        color: Colors.grey[500]),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 15),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                        hint: Text("Seleccione tipo de empresa"),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.black,
+                          size: 32,
+                        ),
+
+                        //elevation: 16,
+                        value: csmodel.companyType,
+                        items: [
+                          DropdownMenuItem(
+                            child: Text("Pequeña"),
+                            value: "Pequeña",
+                          ),
+                          DropdownMenuItem(
+                            child: Text("Mediana"),
+                            value: "Mediana",
+                          ),
+                          DropdownMenuItem(
+                            child: Text("Grande"),
+                            value: "Grande",
+                          ),
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            csmodel.companyType = value;
+                          });
+                        }),
+                  ),
+                ),
+              ),
             )
           ],
         ));
   }
 
-  String datoCategory;
+  //String datoCategory;
   Widget _categoria(
       CategoriaBloc bloc, List<CompanySubsidiaryModel> listsnapshot) {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 2.0, left: 40.0, right: 40.0),
+        padding: EdgeInsets.only(bottom: 2.0, right: 3),
         child: Row(
           children: <Widget>[
-            Text('Categoria'),
+            Text('Categoria', style: textlabel),
             SizedBox(
               width: 10,
             ),
             Expanded(
               child: StreamBuilder(
                   stream: bloc.categoriaStream,
-                  builder: (BuildContext context, AsyncSnapshot<List<CategoriaModel>> snapshot) {
-                    var listALgo = List<String>();
-                    for (var i = 0; i < snapshot.data.length; i++) {
-                      if (snapshot.data[i].idCategory ==listsnapshot[0].idCategory) {
-                        datoCategory = snapshot.data[i].categoryName;
-                      }
-
-                      listALgo.add(snapshot.data[i].categoryName);
-                    }
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<CategoriaModel>> snapshot) {
                     if (snapshot.hasData) {
-                      return DropdownButton(
-                        value: datoCategory,
-                        items: listALgo.map((e) {
-                          return DropdownMenuItem<String>(
-                            value: e,
-                            child: Text(
-                              e,
-                              style: TextStyle(fontSize: 14),
+                      final cat = snapshot.data;
+                      return Container(
+                        decoration: ShapeDecoration(
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                width: 1.0,
+                                style: BorderStyle.solid,
+                                color: Colors.grey[500]),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 15),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              hint: Text("Seleccione una categoría"),
+                              icon: Icon(
+                                Icons.arrow_drop_down,
+                                color: Colors.black,
+                                size: 32,
+                              ),
+                              value: csmodel.idCategory,
+                              items: cat.map((e) {
+                                return DropdownMenuItem<String>(
+                                  value: e.idCategory,
+                                  child: Text(
+                                    e.categoryName,
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                csmodel.idCategory = value;
+                                print(csmodel.idCategory);
+                                this.setState(() {});
+                              },
                             ),
-                          );
-                        }).toList(),
-                        onChanged: (value) async {
-                          //csmodel.idCategory = await ;
-                          datoCategory = value;
-                          print(csmodel.idCategory);
-                          this.setState(() {});
-                        },
+                          ),
+                        ),
                       );
                     } else {
                       return Center(

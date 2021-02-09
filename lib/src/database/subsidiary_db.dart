@@ -82,7 +82,7 @@ class SubsidiaryDatabase {
  Future<List<SubsidiaryModel>> obtenerSubsidiaryFavoritas() async {
     final db = await dbProvider.database;
     final res = await db
-        .rawQuery("SELECT * FROM Subsidiary where subsidiary_favourite=1");
+        .rawQuery("SELECT * FROM Subsidiary where subsidiary_favourite=1 order by id_subsidiary");
 
     List<SubsidiaryModel> list = res.isNotEmpty
         ? res.map((c) => SubsidiaryModel.fromJson(c)).toList()

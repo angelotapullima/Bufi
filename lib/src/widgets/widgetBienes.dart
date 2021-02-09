@@ -307,7 +307,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                         ),
                         onTap: () {
                           setState(() {
-                            favorite = true;
+                            favorite = false;
                             final buttonBloc = ProviderBloc.tabs(context);
                             buttonBloc.changePage(1);
                             quitarProductoFavorito(context, widget.producto);
@@ -328,7 +328,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                         ),
                         onTap: () {
                           setState(() {
-                            favorite = false;
+                            favorite = true;
                             final buttonBloc = ProviderBloc.tabs(context);
                             buttonBloc.changePage(1);
                              guardarProductoFavorito(context, widget.producto);

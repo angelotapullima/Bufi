@@ -1,12 +1,15 @@
 import 'package:bufi/src/api/point_api.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/database/carrito_db.dart';
+import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/database/sugerenciaBusqueda_db.dart';
+import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/carritoModel.dart';
+import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/models/sugerenciaBusquedaModel.dart';
@@ -56,7 +59,8 @@ void guardarSubsidiaryFavorito(
 
   await sucursalDataBase.updateSubsidiary(companysubsidiaryModel);
 
-  subsidiaryBloc.obtenerSucursalporIdCompany(companysubsidiaryModel.idSubsidiary);
+  subsidiaryBloc
+      .obtenerSucursalporIdCompany(companysubsidiaryModel.idSubsidiary);
   pointsBloc.obtenerPoints();
 
   savePointApi.savePoint(companysubsidiaryModel.idSubsidiary);
@@ -100,9 +104,11 @@ void agregarAlCarrito(BuildContext context, String idSubsidiarygood) async {
   CarritoDb carritoDb = CarritoDb();
   final productoDatabase = ProductoDatabase();
 
-  final productCarrito = await carritoDb.obtenerProductoXCarritoPorId(idSubsidiarygood);
+  final productCarrito =
+      await carritoDb.obtenerProductoXCarritoPorId(idSubsidiarygood);
 
-  final producto = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
+  final producto = await productoDatabase
+      .obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
   CarritoModel c = CarritoModel();
 
   c.idSubsidiaryGood = producto[0].idProducto;
@@ -114,19 +120,15 @@ void agregarAlCarrito(BuildContext context, String idSubsidiarygood) async {
   c.moneda = producto[0].productoCurrency;
   c.size = producto[0].productoSize;
   c.stock = producto[0].productoStock;
-  
 
-  
-  if(productCarrito.length>0){
-
+  if (productCarrito.length > 0) {
     await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
     c.cantidad = (double.parse(productCarrito[0].cantidad) + 1).toString();
-    
-  c.estadoSeleccionado = productCarrito[0].estadoSeleccionado;
 
-  }else{
+    c.estadoSeleccionado = productCarrito[0].estadoSeleccionado;
+  } else {
     c.cantidad = '1';
-  c.estadoSeleccionado = '0';
+    c.estadoSeleccionado = '0';
   }
 
   await carritoDb.insertarProducto(c);
@@ -147,7 +149,8 @@ void agregarAlCarritoContador(
     final producto = await productoDatabase
         .obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
 
-        final carritoList = await   carritoDb.obtenerProductoXCarritoPorId(idSubsidiarygood);
+    final carritoList =
+        await carritoDb.obtenerProductoXCarritoPorId(idSubsidiarygood);
 
     CarritoModel c = CarritoModel();
 
@@ -253,19 +256,75 @@ void irADetalleProducto(BienesServiciosModel model, BuildContext context) {
   );
 }
 
-
-void cambiarEstadoCarrito(BuildContext context, String idProducto,String estado)async{
-
-  final carritoBloc =ProviderBloc.productosCarrito(context);
+void cambiarEstadoCarrito(
+    BuildContext context, String idProducto, String estado) async {
+  final carritoBloc = ProviderBloc.productosCarrito(context);
   final carritodb = CarritoDb();
 
-
-  await carritodb.updateSeleccionado(idProducto,estado);
-
-
-
+  await carritodb.updateSeleccionado(idProducto, estado);
 
   carritoBloc.obtenerCarritoPorSucursal();
 
+//Actualizar Negocio
+  void actualizarNegocio(
+      BuildContext context, CompanySubsidiaryModel model) async {
+    final detallenegocio = ProviderBloc.negocios(context);
+    //final actualizarNeg = ProviderBloc.actualizarNeg(context);
 
+    final sucursalDb = SubsidiaryDatabase();
+    final companyDb = CompanyDatabase();
+    final sucursalModel = SubsidiaryModel();
+    final companyModel = CompanyModel();
+
+//datos que se reciben desde los controllers
+    sucursalModel.idSubsidiary = model.idSubsidiary;
+    sucursalModel.subsidiaryCellphone = model.subsidiaryCellphone;
+    sucursalModel.subsidiaryCellphone2 = model.subsidiaryCellphone2;
+    sucursalModel.subsidiaryCoordX = model.subsidiaryCoordX;
+    sucursalModel.subsidiaryCoordY = model.subsidiaryCoordY;
+    sucursalModel.subsidiaryOpeningHours = model.subsidiaryOpeningHours;
+    sucursalModel.subsidiaryAddress = model.subsidiaryAddress;
+
+//obtener todos los datos de la sucursal para pasar como argumento en update
+    final listSucursales =
+        await sucursalDb.obtenerSubsidiaryPorId(model.idSubsidiary);
+
+    sucursalModel.idCompany = listSucursales[0].idCompany;
+    sucursalModel.subsidiaryName = listSucursales[0].subsidiaryName;
+    sucursalModel.subsidiaryEmail = listSucursales[0].subsidiaryEmail;
+    sucursalModel.subsidiaryPrincipal = listSucursales[0].subsidiaryPrincipal;
+    sucursalModel.subsidiaryStatus = listSucursales[0].subsidiaryStatus;
+
+    await sucursalDb.updateSubsidiary(sucursalModel);
+
+//Obtener datos de company
+    companyModel.idCompany = model.idCompany;
+    companyModel.idCategory = model.idCategory;
+    companyModel.companyName = model.companyName;
+    companyModel.companyRuc = model.companyRuc;
+    companyModel.companyImage = model.companyImage;
+    companyModel.companyType = model.companyType;
+    companyModel.companyShortcode = model.companyShortcode;
+    companyModel.companyDelivery = model.companyDelivery;
+    companyModel.companyEntrega = model.companyEntrega;
+    companyModel.companyTarjeta = model.companyTarjeta;
+
+    final listCompany = await companyDb.obtenerCompanyPorId(model.idCompany);
+
+    companyModel.idCompany = listCompany[0].idCompany;
+    companyModel.idUser = listCompany[0].idUser;
+    companyModel.idCity = listCompany[0].idCity;
+    companyModel.idCategory = listCompany[0].idCategory;
+    companyModel.companyVerified = listCompany[0].companyVerified;
+    companyModel.companyRating = listCompany[0].companyRating;
+    companyModel.companyCreatedAt = listCompany[0].companyCreatedAt;
+    companyModel.companyJoin = listCompany[0].companyJoin;
+    companyModel.companyStatus = listCompany[0].companyStatus;
+    companyModel.companyMt = listCompany[0].companyMt;
+    companyModel.miNegocio = listCompany[0].miNegocio;
+
+    await companyDb.updateCompany(companyModel);
+    //actualizarNeg.updateNegocio(id)
+    detallenegocio.obtenernegociosporID(model.idCompany);
+  }
 }

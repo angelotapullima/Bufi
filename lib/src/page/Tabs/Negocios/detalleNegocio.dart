@@ -389,6 +389,7 @@ class _DetalleNegocioState extends State<DetalleNegocio> {
       actions: [
         GestureDetector(
           onTap: () {
+            //Mandar el id company
             Navigator.pushNamed(context, 'actualizarNegocio',
                 arguments: companyModel.idCompany);
           },

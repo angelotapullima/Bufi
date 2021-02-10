@@ -1,7 +1,6 @@
-class CompanySubsidiaryModel{
- 
- CompanySubsidiaryModel({
-   this.idSubsidiary,
+class CompanySubsidiaryModel {
+  CompanySubsidiaryModel({
+    this.idSubsidiary,
     this.idCompany,
     this.subsidiaryName,
     this.subsidiaryAddress,
@@ -14,8 +13,6 @@ class CompanySubsidiaryModel{
     this.subsidiaryPrincipal,
     this.subsidiaryStatus,
     this.subsidiaryFavourite,
-
-    
     this.idUser,
     this.idCity,
     this.idCategory,
@@ -37,8 +34,8 @@ class CompanySubsidiaryModel{
     this.cell,
     this.direccion,
     this.favourite,
-
- });
+    this.categoriaName,
+  });
 
   String idSubsidiary;
   String idCompany;
@@ -76,6 +73,7 @@ class CompanySubsidiaryModel{
 
   String cell;
   String direccion;
+  String categoriaName;
 
   factory CompanySubsidiaryModel.fromJson(Map<String, dynamic> json) =>
       CompanySubsidiaryModel(
@@ -92,7 +90,6 @@ class CompanySubsidiaryModel{
         subsidiaryPrincipal: json["subsidiary_principal"],
         subsidiaryStatus: json["subsidiary_status"],
         subsidiaryFavourite: json["subsidiary_favourite"],
-
         idUser: json["id_user"],
         idCity: json["id_city"],
         idCategory: json["id_category"],
@@ -127,8 +124,7 @@ class CompanySubsidiaryModel{
         "subsidiary_principal": subsidiaryPrincipal,
         "subsidiary_status": subsidiaryStatus,
         "subsidiary_favourite": subsidiaryFavourite,
-
-         "id_user": idUser,
+        "id_user": idUser,
         "id_city": idCity,
         "id_category": idCategory,
         "company_name": companyName,
@@ -147,5 +143,4 @@ class CompanySubsidiaryModel{
         "company_mt": companyMt,
         "mi_negocio": miNegocio,
       };
-
 }

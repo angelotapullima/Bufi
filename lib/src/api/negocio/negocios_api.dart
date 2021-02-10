@@ -506,15 +506,15 @@ class NegociosApi {
 
       //final int code = decodesData;
 
-      //  if (code == 1) {
-      //   return 1;
-      // } else if (code == 2) {
-      //   return 2;
-      // } else {
-      //   return code;
-      // }
+       if (code == 1) {
+        return 1;
+      } else if (code == 2) {
+        return 2;
+      } else {
+        return code;
+      }
 
-      return code;
+     // return code;
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
 

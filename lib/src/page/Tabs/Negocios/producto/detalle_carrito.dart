@@ -179,44 +179,41 @@ class _DetalleCarritoState extends State<DetalleCarrito> {
                                             )),*/
                                                 CircleAvatar(
                                                   radius: 20,
-                                                  child: Hero(
-                                                    tag: 'fgergrgrg',
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  100)),
-                                                      child: CachedNetworkImage(
-                                                       /*  cacheManager:
-                                                            CustomCacheManager(), */
-                                                        placeholder: (context,
-                                                                url) =>
-                                                            Image(
-                                                                image: const AssetImage(
-                                                                    'assets/jar-loading.gif'),
-                                                                fit: BoxFit
-                                                                    .cover),
-                                                        errorWidget: (context,
-                                                                url, error) =>
-                                                            Image(
-                                                                image: AssetImage(
-                                                                    'assets/carga_fallida.jpg'),
-                                                                fit: BoxFit
-                                                                    .cover),
-                                                        imageUrl:
-                                                            '$apiBaseURL/${widget.producto.productoImage}',
-                                                        imageBuilder: (context,
-                                                                imageProvider) =>
-                                                            Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            image:
-                                                                DecorationImage(
-                                                              image:
-                                                                  imageProvider,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                100)),
+                                                    child: CachedNetworkImage(
+                                                     /*  cacheManager:
+                                                          CustomCacheManager(), */
+                                                      placeholder: (context,
+                                                              url) =>
+                                                          Image(
+                                                              image: const AssetImage(
+                                                                  'assets/jar-loading.gif'),
                                                               fit: BoxFit
-                                                                  .fitHeight,
-                                                            ),
+                                                                  .cover),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Image(
+                                                              image: AssetImage(
+                                                                  'assets/carga_fallida.jpg'),
+                                                              fit: BoxFit
+                                                                  .cover),
+                                                      imageUrl:
+                                                          '$apiBaseURL/${widget.producto.productoImage}',
+                                                      imageBuilder: (context,
+                                                              imageProvider) =>
+                                                          Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          image:
+                                                              DecorationImage(
+                                                            image:
+                                                                imageProvider,
+                                                            fit: BoxFit
+                                                                .fitHeight,
                                                           ),
                                                         ),
                                                       ),
@@ -225,45 +222,41 @@ class _DetalleCarritoState extends State<DetalleCarrito> {
                                                 ),
                                                 CircleAvatar(
                                                   radius: 20,
-                                                  child: Hero(
-                                                    tag: widget
-                                                        .producto.idProducto,
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  100)),
-                                                      child: CachedNetworkImage(
-                                                        /* cacheManager:
-                                                            CustomCacheManager(), */
-                                                        placeholder: (context,
-                                                                url) =>
-                                                            Image(
-                                                                image: const AssetImage(
-                                                                    'assets/jar-loading.gif'),
-                                                                fit: BoxFit
-                                                                    .cover),
-                                                        errorWidget: (context,
-                                                                url, error) =>
-                                                            Image(
-                                                                image: AssetImage(
-                                                                    'assets/carga_fallida.jpg'),
-                                                                fit: BoxFit
-                                                                    .cover),
-                                                        imageUrl:
-                                                            '$apiBaseURL/${widget.producto.productoImage}',
-                                                        imageBuilder: (context,
-                                                                imageProvider) =>
-                                                            Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            image:
-                                                                DecorationImage(
-                                                              image:
-                                                                  imageProvider,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                100)),
+                                                    child: CachedNetworkImage(
+                                                      /* cacheManager:
+                                                          CustomCacheManager(), */
+                                                      placeholder: (context,
+                                                              url) =>
+                                                          Image(
+                                                              image: const AssetImage(
+                                                                  'assets/jar-loading.gif'),
                                                               fit: BoxFit
-                                                                  .fitHeight,
-                                                            ),
+                                                                  .cover),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Image(
+                                                              image: AssetImage(
+                                                                  'assets/carga_fallida.jpg'),
+                                                              fit: BoxFit
+                                                                  .cover),
+                                                      imageUrl:
+                                                          '$apiBaseURL/${widget.producto.productoImage}',
+                                                      imageBuilder: (context,
+                                                              imageProvider) =>
+                                                          Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          image:
+                                                              DecorationImage(
+                                                            image:
+                                                                imageProvider,
+                                                            fit: BoxFit
+                                                                .fitHeight,
                                                           ),
                                                         ),
                                                       ),

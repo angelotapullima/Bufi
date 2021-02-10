@@ -84,6 +84,15 @@ class  ProductoDatabase{
     return list;
   } 
 
+ Future<List<ProductoModel>> obtenerProductosFavoritosPorIdSubsidiary(String id) async {
+    final db = await dbProvider.database;
+    final res = await db.rawQuery("SELECT * FROM Producto WHERE id_subsidiary= '$id' and producto_favourite='1' order by id_producto");
+
+    List<ProductoModel> list =
+        res.isNotEmpty ? res.map((c) => ProductoModel.fromJson(c)).toList() : [];
+    return list;
+  } 
+
 deshabilitarSubsidiaryProductoDb(ProductoModel goodModel)async{
     final db = await dbProvider.database;
 

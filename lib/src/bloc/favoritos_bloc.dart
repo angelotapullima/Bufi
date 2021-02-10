@@ -1,7 +1,6 @@
 import 'package:bufi/src/api/point_api.dart';
 import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
-import 'package:bufi/src/models/PointGeneralModel.dart';
 import 'package:bufi/src/models/pointModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
@@ -57,7 +56,7 @@ class PointsBloc {
 
 
 
-Future<List<PointModel>> favoritoPorSucursal() async {
+Future<List<PointModel>> favoritoPorSucursal() async { 
   final sucursalDb = SubsidiaryDatabase();
   final productoDb = ProductoDatabase();
 
@@ -82,7 +81,7 @@ Future<List<PointModel>> favoritoPorSucursal() async {
  //Creamos la lista para agregar los productos obtenidos por sucursal
     final listProductosFavoritos = List<ProductoModel>();
    
-    final listprod = await productoDb.obtenerProductosPorIdSubsidiary(listsucursal[k].idSubsidiary);
+    final listprod = await productoDb.obtenerProductosFavoritosPorIdSubsidiary(listsucursal[k].idSubsidiary);
     for (var i = 0; i < listprod.length; i++) {
       final productoModel = ProductoModel();
       productoModel.idProducto = listprod[i].idProducto;

@@ -23,7 +23,7 @@ class _ListarBienesAllState extends State<ListarBienesAll> {
 
     return Scaffold(
         body: SafeArea(
-          bottom: false,
+      bottom: false,
       child: Container(
         //height: responsive.hp(70),
         //color: Colors.red,
@@ -39,7 +39,7 @@ class _ListarBienesAllState extends State<ListarBienesAll> {
                     width: double.infinity,
                     child: Center(
                       child: Text(
-                        'Todos los productos',
+                        'Todos los productos ',
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
@@ -121,11 +121,15 @@ class _ListarBienesAllState extends State<ListarBienesAll> {
                                   ),
                                 );
                               },
-                              child:  BienesWidget(producto: snapshot.data[index],),
+                              child: BienesWidget(
+                                producto: snapshot.data[index],
+                              ),
                             );
                           });
                     } else {
-                      return Center(child: CupertinoActivityIndicator());
+                      return Center(
+                        child: CupertinoActivityIndicator(),
+                      );
                     }
                   },
                 ),

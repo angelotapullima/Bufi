@@ -40,8 +40,7 @@ void guardarProductoFavorito(
   await productoDb.updateProducto(productoModel);
 
   //Obtenemos la lista de sucursales por id
-  final sucursal =
-      await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
+  final sucursal =  await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
   final subModel = SubsidiaryModel();
   subModel.idSubsidiary = sucursal[0].idSubsidiary;
   subModel.idCompany = sucursal[0].idCompany;
@@ -58,7 +57,7 @@ void guardarProductoFavorito(
 
   await sucursalDataBase.updateSubsidiary(subModel);
 
-  await sucursalDataBase.obtenerSubsidiaryPorId(productoModel.idSubsidiary);
+  //await sucursalDataBase.obtenerSubsidiaryPorId(productoModel.idSubsidiary);
   pointsProdBloc.obtenerPointsProductosXSucursal();
 }
 
@@ -120,6 +119,7 @@ void quitarProductoFavorito(
 
 void guardarServicioFavorito(
     BuildContext context, BienesServiciosModel dataModel) async {
+
   final servicioModel = SubsidiaryServiceModel();
   final subservicesDb = SubsidiaryServiceDatabase();
 
@@ -138,4 +138,7 @@ void guardarServicioFavorito(
   servicioModel.subsidiaryServiceFavourite = "1";
 
   await subservicesDb.updateSubsidiaryService(servicioModel);
+
 }
+
+

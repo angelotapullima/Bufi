@@ -160,10 +160,11 @@ class _DetalleNegocioState extends State<DetalleNegocio> {
                           fontWeight: FontWeight.bold),
                     ),
                     Divider(color: Colors.grey),
-
-                    Row(children: [
-                      Text('Horario de atención: ${company.companyRuc}')
-                    ],),
+                    Row(
+                      children: [
+                        Text('Horario de atención: ${company.companyRuc}')
+                      ],
+                    ),
                     ListTile(
                       leading: Text("Ruc:"),
                       //Icon(FontAwesomeIcons.phone, color: Colors.black),
@@ -288,8 +289,7 @@ class _DetalleNegocioState extends State<DetalleNegocio> {
                                 width: double.infinity,
                                 height: double.infinity,
                                 child: Image(
-                                    image:
-                                        AssetImage('assets/jar-loading.gif'),
+                                    image: AssetImage('assets/jar-loading.gif'),
                                     fit: BoxFit.cover),
                               ),
                               errorWidget: (context, url, error) => Container(
@@ -341,25 +341,26 @@ class _DetalleNegocioState extends State<DetalleNegocio> {
                             ),
                           ),
                           Positioned(
-                              top: 5,
-                              right: 5,
-                              child: (sedes[index].subsidiaryFavourite == "0")
-                                  ? IconButton(
-                                      icon: Icon(FontAwesomeIcons.heart,
-                                          color: Colors.red),
-                                      onPressed: () {
-                                        guardarSubsidiaryFavorito(
-                                            context, sedes[index]);
-                                      },
-                                    )
-                                  : IconButton(
-                                      icon: Icon(FontAwesomeIcons.solidHeart,
-                                          color: Colors.red),
-                                      onPressed: () {
-                                        quitarSubsidiaryFavorito(
-                                            context, sedes[index]);
-                                      },
-                                    ))
+                            top: 5,
+                            right: 5,
+                            child: (sedes[index].subsidiaryFavourite == "0")
+                                ? IconButton(
+                                    icon: Icon(FontAwesomeIcons.heart,
+                                        color: Colors.red),
+                                    onPressed: () {
+                                      guardarSubsidiaryFavorito(
+                                          context, sedes[index]);
+                                    },
+                                  )
+                                : IconButton(
+                                    icon: Icon(FontAwesomeIcons.solidHeart,
+                                        color: Colors.red),
+                                    onPressed: () {
+                                      quitarSubsidiaryFavorito(
+                                          context, sedes[index]);
+                                    },
+                                  ),
+                          )
                         ]),
                       ),
                     );
@@ -371,7 +372,9 @@ class _DetalleNegocioState extends State<DetalleNegocio> {
                 return Center(child: Text("Aun no se registran sucursales"));
               }
             } else {
-              return Center(child: CircularProgressIndicator());
+              return Center(
+                child: CircularProgressIndicator(),
+              );
             }
           }),
     );

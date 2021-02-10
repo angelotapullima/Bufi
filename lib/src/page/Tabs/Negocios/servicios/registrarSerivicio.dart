@@ -42,176 +42,209 @@ class _GuardarServicioState extends State<GuardarServicio> {
     final serviciosBloc = ProviderBloc.bienesServicios(context);
     serviciosBloc.obtenerServiciosAll();
 
+    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(
-          "Registrar Servicio",
-          style: TextStyle(fontSize: responsive.ip(2.5), color: Colors.black),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
-          child: Column(
+      body: Column(
+        children: [
+          Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(bottom: 32.0),
-                child: Text(
-                  "Complete los campos",
-                  style: TextStyle(fontSize: responsive.ip(1.8)),
-                ),
+                padding: EdgeInsets.only(
+                    left: responsive.wp(4), top: responsive.hp(5)),
+                child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: (isDark) ? Colors.white : Colors.red,
+                    ),
+                    child: BackButton(
+                      color: (isDark) ? Colors.black : Colors.white,
+                    )),
               ),
-              Stack(
-                children: [
-                  _mostrarFoto(),
-
-                  Positioned(
-                    right: 0,
-                    top: 0,
-                    child: IconButton(
-                        //alignment: Alignment.centerRight,
-                        icon: Icon(Icons.camera_alt_rounded),
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Seleccione"),
-                                  content: SingleChildScrollView(
-                                    child: ListBody(
-                                      children: <Widget>[
-                                        GestureDetector(
-                                          child: Text("Galeria"),
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                            _seleccionarFoto();
-                                          },
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                        ),
-                                        GestureDetector(
-                                          child: Text("Camara"),
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                            _tomarFoto();
-                                          },
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              });
-                        }),
-                  ),
-
-                  //Seleccionar Foto
-                ],
-              ),
-              SizedBox(
-                height: responsive.hp(1),
-              ),
-              datoInput(
-                context,
-                responsive,
-                _nameController,
-                'Nombre del Servicio',
-                Icon(
-                  Icons.business,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: responsive.wp(45),
-                    child: datoInput(
-                      context,
-                      responsive,
-                      _currencyController,
-                      'moneda',
-                      Icon(
-                        Icons.stay_current_landscape,
-                        color: Theme.of(context).primaryColor,
+              Padding(
+                padding: EdgeInsets.only(
+                    left: responsive.wp(6), top: responsive.hp(6)),
+                child: Column(
+                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      "Registro del Producto",
+                      style: TextStyle(
+                        fontSize: responsive.ip(3),
                       ),
                     ),
-                  ),
-                  Spacer(),
-                  Container(
-                    width: responsive.wp(45),
-                    child: datoInput(
+                    SizedBox(height: 12),
+                    Text("Complete los campos",
+                        style: TextStyle(fontSize: responsive.ip(2))),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: responsive.hp(3)),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        _mostrarFoto(responsive),
+
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child: IconButton(
+                              //alignment: Alignment.centerRight,
+                              icon: Icon(Icons.camera_alt_rounded),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text("Seleccione"),
+                                        content: SingleChildScrollView(
+                                          child: ListBody(
+                                            children: <Widget>[
+                                              GestureDetector(
+                                                child: Text("Galeria"),
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                  _seleccionarFoto();
+                                                },
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.all(8.0),
+                                              ),
+                                              GestureDetector(
+                                                child: Text("Camara"),
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                  _tomarFoto();
+                                                },
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    });
+                              }),
+                        ),
+
+                        //Seleccionar Foto
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1),
+                    ),
+                    datoInput(
                       context,
                       responsive,
-                      _precioController,
-                      'precio',
+                      _nameController,
+                      'Nombre del Servicio',
                       Icon(
                         Icons.business,
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
-                  ),
-                ],
-              ),
-              datoInput(
-                context,
-                responsive,
-                _descripcionController,
-                'descripcion',
-                Icon(
-                  Icons.stay_current_landscape,
-                  color: Theme.of(context).primaryColor,
+                    Row(
+                      children: [
+                        Container(
+                          width: responsive.wp(45),
+                          child: datoInput(
+                            context,
+                            responsive,
+                            _currencyController,
+                            'moneda',
+                            Icon(
+                              Icons.stay_current_landscape,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Container(
+                          width: responsive.wp(45),
+                          child: datoInput(
+                            context,
+                            responsive,
+                            _precioController,
+                            'precio',
+                            Icon(
+                              Icons.business,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    datoInput(
+                      context,
+                      responsive,
+                      _descripcionController,
+                      'descripcion',
+                      Icon(
+                        Icons.stay_current_landscape,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: responsive.wp(5),
+                      ),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.grey[300]),
+                      child: _categoria(categoriasBloc),
+                    ),
+                    SizedBox(
+                      height: responsive.hp(2),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: responsive.wp(5),
+                      ),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.grey[300]),
+                      child: _bien(serviciosBloc),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    _btnRegistrar(context, idSubsidiary),
+                    SizedBox(
+                      height: responsive.hp(10),
+                    )
+                  ],
                 ),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: responsive.wp(5),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Colors.grey[300]),
-                child: _categoria(categoriasBloc),
-              ),
-              SizedBox(
-                height: responsive.hp(2),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: responsive.wp(5),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Colors.grey[300]),
-                child: _bien(serviciosBloc),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              _btnRegistrar(context, idSubsidiary),
-              SizedBox(
-                height: responsive.hp(10),
-              )
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 
-  Widget _mostrarFoto() {
+  Widget _mostrarFoto(Responsive responsive) {
     if (foto != null) {
-      return Image(
-        image: AssetImage(foto.path),
-        height: 300,
-        fit: BoxFit.cover,
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Image(
+          image: AssetImage(foto.path),
+          height: responsive.hp(35),
+          fit: BoxFit.cover,
+        ),
       );
     } else {
-      return Image(
-        image: AssetImage('assets/no-image.png'),
-        height: 300,
-        fit: BoxFit.cover,
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Image(
+          image: AssetImage('assets/no-image.png'),
+          height: responsive.hp(35),
+          fit: BoxFit.cover,
+        ),
       );
     }
   }
@@ -238,20 +271,17 @@ class _GuardarServicioState extends State<GuardarServicio> {
       controller: controlador,
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
-        fillColor: Theme.of(context).dividerColor,
+       
         hintText: nombre,
         hintStyle: TextStyle(fontSize: responsive.ip(2)),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide(
-            width: 0,
-            style: BorderStyle.none,
+          borderSide: BorderSide(color: Colors.grey[300]),
+          borderRadius: BorderRadius.all(
+            Radius.circular(8),
           ),
         ),
         filled: true,
         contentPadding: EdgeInsets.all(16),
-        errorText: "",
-        suffixIcon: icon,
       ),
     );
   }
@@ -353,48 +383,44 @@ class _GuardarServicioState extends State<GuardarServicio> {
         textColor: Colors.white,
         onPressed: () {
           if (_nameController.text.length > 0) {
-                    if (_currencyController.text.length > 0) {
-                      if (_precioController.text.length > 0) {
-                        if (_descripcionController.text.length > 0) {
-                          if (foto != null) {
-                            if (companyData.idCategory != null) {
-                              if (serviceData.idService != null) {
-                                uploadImage1(foto, idSubsidiary);
-                                //_submit(context,idSubsidiary,foto);
+            if (_currencyController.text.length > 0) {
+              if (_precioController.text.length > 0) {
+                if (_descripcionController.text.length > 0) {
+                  if (foto != null) {
+                    if (companyData.idCategory != null) {
+                      if (serviceData.idService != null) {
+                        uploadImage1(foto, idSubsidiary);
+                        //_submit(context,idSubsidiary,foto);
 
-                              } else {
-                                utils.showToast(
-                                    context, 'Debe seleccionar un servicio ');
-                              }
-                            } else {
-                              utils.showToast(
-                                  context, 'Debe seleccionar una categoría ');
-                            }
-                          } else {
-                            utils.showToast(
-                                context, 'Debe seleccionaer una foto');
-                          }
-                          // _submit(context, idSubsidiary);
-                        } else {
-                          utils.showToast(context, 'Debe ingresar la descripcion');
-                        }
                       } else {
-                        utils.showToast(context, 'Debe ingresar el precio');
+                        utils.showToast(
+                            context, 'Debe seleccionar un servicio ');
                       }
                     } else {
                       utils.showToast(
-                          context, 'Debe ingresar el tipo de moneda');
+                          context, 'Debe seleccionar una categoría ');
                     }
                   } else {
-                    utils.showToast(context, 'Debe ingresar el nombre ');
+                    utils.showToast(context, 'Debe seleccionaer una foto');
                   }
-                
+                  // _submit(context, idSubsidiary);
+                } else {
+                  utils.showToast(context, 'Debe ingresar la descripcion');
+                }
+              } else {
+                utils.showToast(context, 'Debe ingresar el precio');
+              }
+            } else {
+              utils.showToast(context, 'Debe ingresar el tipo de moneda');
+            }
+          } else {
+            utils.showToast(context, 'Debe ingresar el nombre ');
+          }
         },
       ),
     );
   }
 
-  
   void uploadImage1(File _image, String idSubsidiary) async {
     final preferences = Preferences();
 

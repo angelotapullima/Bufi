@@ -147,6 +147,7 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
               ],
             )
           ],
+         
         ),
       ),
     );

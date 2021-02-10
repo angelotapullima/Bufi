@@ -48,192 +48,241 @@ class _GuardarProductoState extends State<GuardarProducto> {
     final bienesBloc = ProviderBloc.bienesServicios(context);
     bienesBloc.obtenerBienesAll();
 
+    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
-          child: Column(
-            children: [
-              Text(
-                "Registro de Producto",
-                style: TextStyle(fontSize: responsive.ip(1.8)),
-              ),
-              Text(
-                "Complete los campos",
-                style: TextStyle(fontSize: responsive.ip(1.8)),
-              ),
-              Stack(
-                children: [
-                  _mostrarFoto(responsive),
-
-                  Positioned(
-                    right: 0,
-                    top: 0,
-                    child: IconButton(
-                        //alignment: Alignment.centerRight,
-                        icon: Icon(Icons.camera_alt_rounded, color: Colors.red),
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Seleccione"),
-                                  content: SingleChildScrollView(
-                                    child: ListBody(
-                                      children: <Widget>[
-                                        GestureDetector(
-                                          child: Text("Galeria"),
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                            _seleccionarFoto();
-                                          },
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                        ),
-                                        GestureDetector(
-                                          child: Text("Camara"),
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                            _tomarFoto();
-                                          },
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              });
-                        }),
-                  ),
-
-                  //Seleccionar Foto
-                ],
-              ),
-              SizedBox(
-                height: responsive.hp(1),
-              ),
-              Text("Nombre de producto", style: textlabel),
-              datoInput(
-                context,
-                responsive,
-                _nameController,
-                'Nombre de producto',
-                Icon(
-                  Icons.business,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-              datoInput(
-                context,
-                responsive,
-                _marcaController,
-                'marca',
-                Icon(
-                  Icons.business,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-              datoInput(
-                context,
-                responsive,
-                _modeloController,
-                'modelo',
-                Icon(
-                  Icons.store,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-              datoInput(
-                context,
-                responsive,
-                _sizeController,
-                'tamaño',
-                Icon(
-                  Icons.format_size_outlined,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-              datoInput(
-                context,
-                responsive,
-                _medidaController,
-                'medida',
-                Icon(
-                  Icons.business,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: responsive.wp(45),
-                    child: datoInput(
-                      context,
-                      responsive,
-                      _monedaController,
-                      'moneda',
-                      Icon(
-                        Icons.stay_current_landscape,
-                        color: Theme.of(context).primaryColor,
+      body: SafeArea(
+              child: Column(
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: responsive.wp(4),
+                  top: responsive.hp(5)),
+                  child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: (isDark) ? Colors.white : Colors.red,
                       ),
-                    ),
-                  ),
-                  Spacer(),
-                  Container(
-                    width: responsive.wp(45),
-                    child: datoInput(
-                      context,
-                      responsive,
-                      _precioController,
-                      'precio',
-                      Icon(
-                        Icons.business,
-                        color: Theme.of(context).primaryColor,
+                      child: BackButton(
+                        color: (isDark) ? Colors.black : Colors.white,
+                      )),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: responsive.wp(6), top: responsive.hp(6)),
+                  child: Column(
+                    //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        "Registro del Producto",
+                        style: TextStyle(
+                          fontSize: responsive.ip(3),
+                        ),
                       ),
-                    ),
+                      SizedBox(height: 12),
+                      Text("Complete los campos",
+                          style: TextStyle(fontSize: responsive.ip(2))),
+                    ],
                   ),
-                ],
-              ),
-              datoInput(
-                context,
-                responsive,
-                _stockController,
-                'stock',
-                Icon(
-                  Icons.stay_current_landscape,
-                  color: Theme.of(context).primaryColor,
+                ),
+              ],
+            ),
+            SizedBox(height: responsive.hp(3)),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: responsive.wp(8)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Stack(
+                          children: [
+                            _mostrarFoto(responsive),
+
+                            Positioned(
+                              right: 0,
+                              top: 0,
+                              child: IconButton(
+                                  //alignment: Alignment.centerRight,
+                                  icon: Icon(Icons.camera_alt_rounded,
+                                      color: Colors.red),
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: Text("Seleccione"),
+                                            content: SingleChildScrollView(
+                                              child: ListBody(
+                                                children: <Widget>[
+                                                  GestureDetector(
+                                                    child: Text("Galeria"),
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                      _seleccionarFoto();
+                                                    },
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.all(8.0),
+                                                  ),
+                                                  GestureDetector(
+                                                    child: Text("Camara"),
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                      _tomarFoto();
+                                                    },
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        });
+                                  }),
+                            ),
+
+                            //Seleccionar Foto
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: responsive.hp(3),
+                      ),
+                      Text("Nombre de producto", style: textlabel),
+                      datoInput(
+                        context,
+                        responsive,
+                        _nameController,
+                        'Nombre de producto',
+                      ),
+                      SizedBox(height: responsive.hp(1)),
+                      Text("Marca", style: textlabel),
+                      datoInput(
+                        context,
+                        responsive,
+                        _marcaController,
+                        'marca',
+                      ),
+                      SizedBox(height: responsive.hp(1)),
+                      Text("Modelo", style: textlabel),
+                      datoInput(
+                        context,
+                        responsive,
+                        _modeloController,
+                        'modelo',
+                      ),
+                      SizedBox(height: responsive.hp(1)),
+                      Text("Tamaño", style: textlabel),
+                      datoInput(
+                        context,
+                        responsive,
+                        _sizeController,
+                        'tamaño',
+                      ),
+                      SizedBox(height: responsive.hp(1)),
+                      Text("Medida", style: textlabel),
+                      datoInput(
+                        context,
+                        responsive,
+                        _medidaController,
+                        'medida',
+                      ),
+                      SizedBox(height: responsive.hp(1)),
+                      Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Moneda", style: textlabel),
+                              Container(
+                                width: responsive.wp(40),
+                                child: datoInput(
+                                  context,
+                                  responsive,
+                                  _monedaController,
+                                  'moneda',
+                                ),
+                              ),
+                            ],
+                          ),
+                          Spacer(),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Precio", style: textlabel),
+                              Container(
+                                width: responsive.wp(40),
+                                child: datoInput(
+                                  context,
+                                  responsive,
+                                  _precioController,
+                                  'precio',
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: responsive.hp(1)),
+                      Text("Stock", style: textlabel),
+                      datoInput(
+                        context,
+                        responsive,
+                        _stockController,
+                        'stock',
+                      ),
+                      SizedBox(height: responsive.hp(1)),
+
+                      //Categoria
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Categoría", style: textlabel),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: responsive.wp(5),
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: _categoria(categoriasBloc),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: responsive.hp(2),
+                      ),
+                      //Bienes
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Tipo de Bien", style: textlabel),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: responsive.wp(5),
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: _bien(bienesBloc),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: responsive.hp(3)),
+                      _btnRegistrar(context, idSubsidiary),
+                      SizedBox(
+                        height: responsive.hp(10),
+                      )
+                    ],
+                  ),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: responsive.wp(5),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Colors.grey[300]),
-                child: _categoria(categoriasBloc),
-              ),
-              SizedBox(
-                height: responsive.hp(2),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: responsive.wp(5),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Colors.grey[300]),
-                child: _bien(bienesBloc),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              _btnRegistrar(context, idSubsidiary),
-              SizedBox(
-                height: responsive.hp(10),
-              )
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -278,25 +327,21 @@ class _GuardarProductoState extends State<GuardarProducto> {
   }
 
   Widget datoInput(BuildContext context, Responsive responsive,
-      TextEditingController controlador, String nombre, Widget icon) {
-    return Container(
-      //padding: EdgeInsets.only(bottom: responsive.hp(1.5)),
-      padding: EdgeInsets.symmetric(vertical: responsive.hp(0.6), horizontal:responsive.hp(2) ),
-      child: TextField(
-        controller: controlador,
-        keyboardType: TextInputType.text,
-        decoration: InputDecoration(
-          hintText: nombre,
-          hintStyle: TextStyle(fontSize: responsive.ip(2)),
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey[300]),
-            borderRadius: BorderRadius.all(
-              Radius.circular(8),
-            ),
+      TextEditingController controlador, String nombre) {
+    return TextField(
+      controller: controlador,
+      keyboardType: TextInputType.text,
+      decoration: InputDecoration(
+        hintText: nombre,
+        hintStyle: TextStyle(fontSize: responsive.ip(2)),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey[300]),
+          borderRadius: BorderRadius.all(
+            Radius.circular(8),
           ),
-          filled: true,
-          contentPadding: EdgeInsets.all(16),
         ),
+        filled: true,
+        contentPadding: EdgeInsets.all(16),
       ),
     );
   }
@@ -304,7 +349,7 @@ class _GuardarProductoState extends State<GuardarProducto> {
   Widget _categoria(CategoriaBloc bloc) {
     return Row(
       children: <Widget>[
-        Text('Categoria'),
+        Text('Categoría'),
         SizedBox(
           width: 10,
         ),
@@ -316,6 +361,11 @@ class _GuardarProductoState extends State<GuardarProducto> {
                 if (snapshot.hasData) {
                   final cat = snapshot.data;
                   return DropdownButton(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Colors.black,
+                      size: 32,
+                    ),
                     isExpanded: true,
                     value: companyData.idCategory,
                     items: cat.map((e) {
@@ -359,6 +409,11 @@ class _GuardarProductoState extends State<GuardarProducto> {
                 if (snapshot.hasData) {
                   final bien = snapshot.data;
                   return DropdownButton(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Colors.black,
+                      size: 32,
+                    ),
                     value: goodData.idGood,
                     isExpanded: true,
                     items: bien.map((e) {

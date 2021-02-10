@@ -99,8 +99,10 @@ void quitarSubsidiaryFavorito(
 void agregarAlCarrito(BuildContext context, String idSubsidiarygood) async {
   CarritoDb carritoDb = CarritoDb();
   final productoDatabase = ProductoDatabase();
-  final producto = await productoDatabase
-      .obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
+
+  final productCarrito = await carritoDb.obtenerProductoXCarritoPorId(idSubsidiarygood);
+
+  final producto = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
   CarritoModel c = CarritoModel();
 
   c.idSubsidiaryGood = producto[0].idProducto;
@@ -112,13 +114,25 @@ void agregarAlCarrito(BuildContext context, String idSubsidiarygood) async {
   c.moneda = producto[0].productoCurrency;
   c.size = producto[0].productoSize;
   c.stock = producto[0].productoStock;
+  
+
+  
+  if(productCarrito.length>0){
+
+    await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
+    c.cantidad = (double.parse(productCarrito[0].cantidad) + 1).toString();
+    
+  c.estadoSeleccionado = productCarrito[0].estadoSeleccionado;
+
+  }else{
+    c.cantidad = '1';
   c.estadoSeleccionado = '0';
-  c.cantidad = '1';
+  }
 
   await carritoDb.insertarProducto(c);
 
   final carritoBloc = ProviderBloc.productosCarrito(context);
-  carritoBloc.obtenerCarrito();
+  carritoBloc.obtenerCarritoPorSucursal();
 }
 
 void agregarAlCarritoContador(
@@ -153,7 +167,7 @@ void agregarAlCarritoContador(
   }
 
   final carritoBloc = ProviderBloc.productosCarrito(context);
-  carritoBloc.obtenerCarrito();
+  carritoBloc.obtenerCarritoPorSucursal();
 }
 
 void porcentaje(BuildContext context, double porcen) async {
@@ -251,7 +265,7 @@ void cambiarEstadoCarrito(BuildContext context, String idProducto,String estado)
 
 
 
-  carritoBloc.obtenerCarrito();
+  carritoBloc.obtenerCarritoPorSucursal();
 
 
 }

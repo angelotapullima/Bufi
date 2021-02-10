@@ -2,7 +2,7 @@ import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalle_carrito.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:bufi/src/utils/utils.dart'; 
+import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/extentions.dart';
 import 'package:bufi/src/widgets/translate_animation.dart'; 
 import 'package:cached_network_image/cached_network_image.dart';

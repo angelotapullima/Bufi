@@ -17,10 +17,12 @@ class CarritoDb {
 
       return res;
     } catch (e) {
-      print("Error en la base de datossss");
+      print(" $e Error en la base de datossss");
       print(e); 
     }
   }
+
+
 
   Future<List<CarritoModel>> obtenerProductoXCarrito() async {
     final db = await dbProvider.database;
@@ -33,9 +35,21 @@ class CarritoDb {
 
     return list;
 
-    // } catch (e) {
-    //   print("Error");
-    // }
+  }
+
+
+
+  Future<List<CarritoModel>> obtenerProductoXCarritoListHorizontal() async {
+    final db = await dbProvider.database;
+    //try {
+      final res = await db.rawQuery("SELECT * FROM Carrito ORDER BY idCarrito DESC");
+
+    List<CarritoModel> list= res.isNotEmpty
+        ? res.map((c) => CarritoModel.fromJson(c)).toList()
+        : [];
+
+    return list;
+
   }
 
 

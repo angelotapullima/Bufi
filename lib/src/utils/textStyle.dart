@@ -1,6 +1,5 @@
 //Formulario de Registro:
 
-import 'package:bufi/src/utils/responsive.dart';
 import 'package:flutter/cupertino.dart';
 
 

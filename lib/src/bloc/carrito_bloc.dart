@@ -3,6 +3,7 @@ import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/models/carritoGeneralModel..dart';
 import 'package:bufi/src/models/carritoModel.dart';
+import 'package:bufi/src/models/productoModel.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CarritoBloc {
@@ -12,23 +13,34 @@ class CarritoBloc {
       BehaviorSubject<List<CarritoGeneralModel>>();
   final _carritoSeleccionaController =
       BehaviorSubject<List<CarritoGeneralModel>>();
+  final _carritoListHorizontalController =
+      BehaviorSubject<List<ProductoModel>>();
 
   Stream<List<CarritoGeneralModel>> get carritoGeneralStream =>
       _carritoGeneralController.stream;
   Stream<List<CarritoGeneralModel>> get carritoSeleccionadoStream =>
       _carritoSeleccionaController.stream;
+  Stream<List<ProductoModel>> get carritoProductListHorizontalStream =>
+      _carritoListHorizontalController.stream;
 
   void dispose() {
     _carritoGeneralController?.close();
     _carritoSeleccionaController?.close();
+    _carritoListHorizontalController?.close();
   }
 
-  void obtenerCarrito() async {
+  void obtenerCarritoPorSucursal() async {
     _carritoGeneralController.sink.add(await carritoPorSucursal());
   }
 
+  void obtenerCarritoListHorizontalProducto() async {
+    _carritoListHorizontalController.sink
+        .add(await carritoProductListHorizontal());
+  }
+
   void obtenerCarritoConfirmacion(String idSubsidiary) async {
-    _carritoSeleccionaController.sink .add(await carritoPorSucursalSeleccionado(idSubsidiary));
+    _carritoSeleccionaController.sink
+        .add(await carritoPorSucursalSeleccionado(idSubsidiary));
   }
 
   Future<List<CarritoGeneralModel>> carritoPorSucursal() async {
@@ -113,10 +125,12 @@ class CarritoBloc {
     double cantidadTotal = 0;
 
     //obtenemos los datos de la sucursal
-    final listSubsidiary = await subsidiaryDatabase.obtenerSubsidiaryPorId(idSubsidiary);
+    final listSubsidiary =
+        await subsidiaryDatabase.obtenerSubsidiaryPorId(idSubsidiary);
 
     //obtenemos los datos del carrito por sucursal y seleccionados
-    final listCarrito = await carritoDb.obtenerCarritoPorSucursalSeleccionado(idSubsidiary);
+    final listCarrito =
+        await carritoDb.obtenerCarritoPorSucursalSeleccionado(idSubsidiary);
 
     //validamos que exista la sucursal y el carrito tenga productos
     if (listSubsidiary.length > 0) {
@@ -130,7 +144,6 @@ class CarritoBloc {
           int cant = int.parse(listCarrito[y].cantidad);
 
           cantidadTotal = cantidadTotal + (precio * cant);
-
 
           CarritoModel c = CarritoModel();
           c.precio = listCarrito[y].precio;
@@ -151,8 +164,48 @@ class CarritoBloc {
         carritoGeneralModel.carrito = listCarritoModel;
         carritoGeneralModel.monto = cantidadTotal.toString();
         listaGeneral.add(carritoGeneralModel);
+      }
+    }
+
+    return listaGeneral;
+  }
+
+  Future<List<ProductoModel>> carritoProductListHorizontal() async {
+    final listaGeneral = List<ProductoModel>();
+    final carritoDb = CarritoDb();
+    final productoDatabase = ProductoDatabase();
+
+    //obtenemos todos los elementos del carrito
+    final listCarrito = await carritoDb.obtenerProductoXCarritoListHorizontal();
+    
+   
+    for (var x = 0; x < listCarrito.length; x++) {
+      final productoItem = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(listCarrito[x].idSubsidiaryGood);
+      if (productoItem.length > 0) {
+        ProductoModel productoModel = ProductoModel();
+
+        productoModel.idProducto = productoItem[0].idProducto;
+        productoModel.idSubsidiary = productoItem[0].idSubsidiary;
+        productoModel.idGood = productoItem[0].idGood;
+        productoModel.idItemsubcategory =productoItem[0].idItemsubcategory;
+        productoModel.productoName = productoItem[0].productoName;
+        productoModel.productoPrice =productoItem[0].productoPrice;
+        productoModel.productoCurrency =productoItem[0].productoCurrency;
+        productoModel.productoImage =productoItem[0].productoImage;
+        productoModel.productoCharacteristics =productoItem[0].productoCharacteristics;
+        productoModel.productoBrand =productoItem[0].productoBrand;
+        productoModel.productoModel =productoItem[0].productoModel;
+        productoModel.productoType = productoItem[0].productoType;
+        productoModel.productoSize = productoItem[0].productoSize;
+        productoModel.productoStock =productoItem[0].productoStock;
+        productoModel.productoMeasure =productoItem[0].productoMeasure;
+        productoModel.productoRating =productoItem[0].productoRating;
+        productoModel.productoUpdated =productoItem[0].productoUpdated;
+        productoModel.productoStatus =productoItem[0].productoStatus;
+        productoModel.productoFavourite =productoItem[0].productoFavourite;
 
 
+        listaGeneral.add(productoModel);
       }
     }
 

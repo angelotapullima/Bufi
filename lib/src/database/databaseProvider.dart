@@ -130,7 +130,8 @@ class DatabaseProvider {
           ')');
 
       await db.execute('CREATE TABLE Carrito ('
-          'id_subsidiarygood VARCHAR PRIMARY KEY,'
+          'idCarrito INTEGER PRIMARY KEY AUTOINCREMENT,'
+          'id_subsidiarygood VARCHAR ,'
           'id_subsidiary VARCHAR,'
           'nombre VARCHAR,'
           'precio VARCHAR,'

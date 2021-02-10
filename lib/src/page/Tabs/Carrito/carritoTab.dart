@@ -26,7 +26,7 @@ class _CarritoPageState extends State<CarritoPage> {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final carritoBloc = ProviderBloc.productosCarrito(context);
-    carritoBloc.obtenerCarrito();
+    carritoBloc.obtenerCarritoPorSucursal();
 
     final provider = Provider.of<CarritoBlocListener>(context, listen: false);
 

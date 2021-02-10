@@ -43,8 +43,8 @@ class Validators {
 
   final validarcel =
       StreamTransformer<String, String>.fromHandlers(handleData: (cel, sink) {
-    Pattern pattern = '^(\[[0-9]{9}\)';
-    RegExp regExp = new RegExp(pattern);
+    
+    
 
     if (cel.length==9) {
       sink.add(cel);

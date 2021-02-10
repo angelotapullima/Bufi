@@ -29,10 +29,10 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
     final categoriasBloc = ProviderBloc.categoria(context);
 
     categoriasBloc.obtenerCategorias();
-    final provider =
-        Provider.of<RegistroNegocioBlocListener>(context, listen: false);
-
+    final provider = Provider.of<RegistroNegocioBlocListener>(context, listen: false);
     final regisNBloc = ProviderBloc.registroNegocio(context);
+
+    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -71,9 +71,18 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
                             child: Row(
                               //mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                 BackButton(
-                                  color: Colors.black,
-                                ),
+                                Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: (isDark)
+                                              ? Colors.white
+                                              : Colors.red,
+                                        ),
+                                        child: BackButton(
+                                          color: (isDark)
+                                              ? Colors.black
+                                              : Colors.white,
+                                        )),
                                 Padding(
                                   padding: EdgeInsets.only(left: responsive.wp(6), top: responsive.hp(3.5)),
                                   child: Column(

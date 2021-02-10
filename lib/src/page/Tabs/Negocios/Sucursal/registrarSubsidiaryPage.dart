@@ -36,40 +36,35 @@ class RegistroSubsidiary extends StatelessWidget {
                         child: Column(
                           children: [
                             Container(
-                              child: Stack(
+                              child: Row(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 50.0),
-                                    child: Text(
-                                      "Nombre de Sucurrssal",
-                                      style:
-                                          TextStyle(fontSize: responsive.ip(3)),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: (isDark)
-                                              ? Colors.white
-                                              : Colors.red,
-                                        ),
-                                        child: BackButton(
-                                          color: (isDark)
-                                              ? Colors.black
-                                              : Colors.white,
-                                        )),
-                                    //top: responsive.hp(5),
-                                    // left: 10,
+                                  Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: (isDark)
+                                            ? Colors.white
+                                            : Colors.red,
+                                      ),
+                                      child: BackButton(
+                                        color: (isDark)
+                                            ? Colors.black
+                                            : Colors.white,
+                                      )),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        "Nombre de Sucursal",
+                                        style: TextStyle(
+                                            fontSize: responsive.ip(3)),
+                                      ),
+                                      Text(
+                                        "Complete los campos",
+                                        style: TextStyle(
+                                            fontSize: responsive.ip(2)),
+                                      ),
+                                    ],
                                   ),
                                 ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 32.0),
-                              child: Text(
-                                "Complete los campos",
-                                style: TextStyle(fontSize: responsive.ip(2)),
                               ),
                             ),
                             _nombre(regSucursal, responsive, _nameController),
@@ -102,77 +97,65 @@ class RegistroSubsidiary extends StatelessWidget {
                   ],
                 );
               } else {
-                return Stack(
-                  children: [
-                    SingleChildScrollView(
-                      child: Container(
-                        child: Column(
+                return SingleChildScrollView(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: responsive.wp(8)),
+                    child: Column(
+                      children: [
+                        Row(
                           children: [
                             Container(
-                              width: double.infinity,
-                              child: Stack(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: (isDark) ? Colors.white : Colors.red,
+                                ),
+                                child: BackButton(
+                                  color: (isDark) ? Colors.black : Colors.white,
+                                )),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: responsive.wp(6),
+                                  top: responsive.hp(3.5),
+                                  bottom: responsive.wp(6)),
+                              child: Column(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 50.0, left: 90),
-                                    child: Text(
-                                      "Nombre de Sucursal",
-                                      style:
-                                          TextStyle(fontSize: responsive.ip(3)),
-                                    ),
+                                  Text(
+                                    "Nombre de Sucursal",
+                                    style:
+                                        TextStyle(fontSize: responsive.ip(3)),
                                   ),
-                                  Positioned(
-                                    child: Container(
-                                        // decoration: BoxDecoration(
-                                        //   //shape: BoxShape.circle,
-                                        //   color: (isDark)
-                                        //       ? Colors.white
-                                        //       : Colors.red,
-                                        // ),
-                                        child: BackButton(
-                                          color: (isDark)
-                                              ? Colors.black
-                                              : Colors.white,
-                                        )),
-                                    top: responsive.hp(5),
-                                    left: 10,
-                                    //right: 190,
+                                  Text(
+                                    "Complete los campos",
+                                    style:
+                                        TextStyle(fontSize: responsive.ip(2)),
                                   ),
-
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 32.0),
-                              child: Text(
-                                "Complete los campos",
-                                style: TextStyle(fontSize: responsive.ip(2)),
-                              ),
-                            ),
-                            _nombre(regSucursal, responsive, _nameController),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            _direccion(
-                                regSucursal, responsive, _surnameController),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            _celular(regSucursal, responsive, _celController),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            _celular2(regSucursal, responsive, _cel2Controller),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            _email(regSucursal, responsive, _emailController),
-                            SizedBox(height: 10),
-                            _btn_registrar(context, regSucursal, idCompany),
                           ],
                         ),
-                      ),
+                        _nombre(regSucursal, responsive, _nameController),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        _direccion(regSucursal, responsive, _surnameController),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        _celular(regSucursal, responsive, _celController),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        _celular2(regSucursal, responsive, _cel2Controller),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        _email(regSucursal, responsive, _emailController),
+                        SizedBox(height: 10),
+                        _btn_registrar(context, regSucursal, idCompany),
+                      ],
                     ),
-                  ],
+                  ),
                 );
               }
             } else {
@@ -195,20 +178,11 @@ class RegistroSubsidiary extends StatelessWidget {
           decoration: InputDecoration(
             fillColor: Theme.of(context).dividerColor,
             hintText: 'Nombre de Sucursal',
-            hintStyle: TextStyle(fontSize: responsive.ip(2)),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
+              borderSide: BorderSide(color: Colors.grey[300]),
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
               ),
-            ),
-            filled: true,
-            contentPadding: EdgeInsets.all(16),
-            errorText: snapshot.error,
-            suffixIcon: Icon(
-              Icons.store,
-              color: Theme.of(context).primaryColor,
             ),
           ),
           onChanged: regisSucursalBloc.changenombreSucursal,
@@ -228,20 +202,11 @@ class RegistroSubsidiary extends StatelessWidget {
           decoration: InputDecoration(
             fillColor: Theme.of(context).dividerColor,
             hintText: 'Direccion',
-            hintStyle: TextStyle(fontSize: responsive.ip(2)),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
+              borderSide: BorderSide(color: Colors.grey[300]),
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
               ),
-            ),
-            filled: true,
-            contentPadding: EdgeInsets.all(16),
-            errorText: snapshot.error,
-            suffixIcon: Icon(
-              Icons.location_on,
-              color: Theme.of(context).primaryColor,
             ),
           ),
           onChanged: regisSucursalBloc.changedireccionSucursal,
@@ -261,20 +226,11 @@ class RegistroSubsidiary extends StatelessWidget {
           decoration: InputDecoration(
             fillColor: Theme.of(context).dividerColor,
             hintText: 'Celular',
-            hintStyle: TextStyle(fontSize: responsive.ip(2)),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
+              borderSide: BorderSide(color: Colors.grey[300]),
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
               ),
-            ),
-            filled: true,
-            contentPadding: EdgeInsets.all(16),
-            errorText: snapshot.error,
-            suffixIcon: Icon(
-              Icons.phone,
-              color: Theme.of(context).primaryColor,
             ),
           ),
           onChanged: regisSucursalBloc.changecelularSucursal,
@@ -294,20 +250,11 @@ class RegistroSubsidiary extends StatelessWidget {
           decoration: InputDecoration(
             fillColor: Theme.of(context).dividerColor,
             hintText: 'Celular-otro',
-            hintStyle: TextStyle(fontSize: responsive.ip(2)),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
+              borderSide: BorderSide(color: Colors.grey[300]),
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
               ),
-            ),
-            filled: true,
-            contentPadding: EdgeInsets.all(16),
-            errorText: snapshot.error,
-            suffixIcon: Icon(
-              Icons.phone,
-              color: Theme.of(context).primaryColor,
             ),
           ),
           onChanged: regisSucursalBloc.changecelular2Sucursal,
@@ -327,20 +274,11 @@ class RegistroSubsidiary extends StatelessWidget {
           decoration: InputDecoration(
             fillColor: Theme.of(context).dividerColor,
             hintText: 'Email',
-            hintStyle: TextStyle(fontSize: responsive.ip(2)),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
+              borderSide: BorderSide(color: Colors.grey[300]),
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
               ),
-            ),
-            filled: true,
-            contentPadding: EdgeInsets.all(16),
-            errorText: snapshot.error,
-            suffixIcon: Icon(
-              Icons.email,
-              color: Theme.of(context).primaryColor,
             ),
           ),
           onChanged: regisSucursalBloc.changeemailSucursal,

@@ -75,8 +75,8 @@ class MyApp extends StatelessWidget {
               "detalleNegocio": (BuildContext context) => DetalleNegocio(),
               "actualizarNegocio": (BuildContext context) =>
                   ActualizarNegocio(),
-              "negocioActualizado": (BuildContext context) =>
-                  NegocioActualizado(),
+              // "negocioActualizado": (BuildContext context) =>
+              //     NegocioActualizado(),
 
               //Sucursal
               "detalleSubsidiary": (BuildContext context) =>

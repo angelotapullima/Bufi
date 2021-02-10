@@ -49,7 +49,7 @@ class CategoriasApi {
       for (var i = 0; i < res.length; i++) {
         var porcentaje = ((i + 1) * 100) / cantidadTotal;
 
-        print('porcentaje $porcentaje');
+        //print('porcentaje $porcentaje');
 
         if (preferences.cargaCategorias == null ||
             preferences.cargaCategorias == '0') {

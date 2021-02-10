@@ -42,7 +42,7 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary> {
               ],
             );
           }),
-      floatingActionButton: _buttonFloating(context, subsidiary),
+      floatingActionButton: _buttonFloating(context, subsidiary, responsive),
     );
   }
 
@@ -112,38 +112,43 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary> {
     );
   }
 
-  Widget _buttonFloating(BuildContext context, SubsidiaryModel subsidiary) {
+  Widget _buttonFloating(BuildContext context, SubsidiaryModel subsidiary,Responsive responsive) {
     return FloatingActionButton(
       onPressed: () {
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text("Guardar", textAlign: TextAlign.center),
-              content: SingleChildScrollView(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    GestureDetector(
-                      child: Text("Productos"),
-                      onTap: () {
+                title: Text("Guardar", textAlign: TextAlign.center),
+                actions: [
+                  Container(
+                    
+                    child: FlatButton(
+                      color: Colors.red,
+                      textColor: Colors.white,
+                      child: Text(
+                        "Productos",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      onPressed: () {
                         Navigator.pop(context);
                         Navigator.pushNamed(context, 'guardarProducto',
                             arguments: subsidiary.idSubsidiary);
                       },
                     ),
-                    GestureDetector(
-                      child: Text("Servicios"),
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.pushNamed(context, 'guardarServicio',
-                            arguments: subsidiary.idSubsidiary);
-                      },
-                    )
-                  ],
-                ),
-              ),
-            );
+                  ),
+                  FlatButton(
+                    color: Colors.green,
+                    textColor: Colors.white,
+                    child: Text('Servicios',style: TextStyle(color: Colors.white, fontSize: 18)),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, 'guardarServicio',
+                          arguments: subsidiary.idSubsidiary);
+                    },
+                  ),
+                ],
+                actionsPadding: EdgeInsets.symmetric(horizontal: responsive.wp(10)),);
           },
         );
 
@@ -167,7 +172,6 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary> {
                 fontWeight: FontWeight.bold),
           ),
           Divider(color: Colors.grey),
-          
           ListTile(
             leading: Text("Direccion:"),
             title: Text(subsidiary.subsidiaryAddress),

@@ -10,6 +10,7 @@ import 'package:bufi/src/models/goodModel.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/textStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
@@ -48,37 +49,29 @@ class _GuardarProductoState extends State<GuardarProducto> {
     bienesBloc.obtenerBienesAll();
 
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(
-          "Registrar Producto",
-          style: TextStyle(fontSize: responsive.ip(2.5), color: Colors.black),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
           child: Column(
             children: [
-              Padding(
-                padding: EdgeInsets.only(bottom: 32.0),
-                child: Text(
-                  "Complete los campos",
-                  style: TextStyle(fontSize: responsive.ip(1.8)),
-                ),
+              Text(
+                "Registro de Producto",
+                style: TextStyle(fontSize: responsive.ip(1.8)),
+              ),
+              Text(
+                "Complete los campos",
+                style: TextStyle(fontSize: responsive.ip(1.8)),
               ),
               Stack(
                 children: [
-                  _mostrarFoto(),
+                  _mostrarFoto(responsive),
 
                   Positioned(
                     right: 0,
                     top: 0,
                     child: IconButton(
                         //alignment: Alignment.centerRight,
-                        icon: Icon(Icons.camera_alt_rounded),
+                        icon: Icon(Icons.camera_alt_rounded, color: Colors.red),
                         onPressed: () {
                           showDialog(
                               context: context,
@@ -119,6 +112,7 @@ class _GuardarProductoState extends State<GuardarProducto> {
               SizedBox(
                 height: responsive.hp(1),
               ),
+              Text("Nombre de producto", style: textlabel),
               datoInput(
                 context,
                 responsive,
@@ -245,25 +239,31 @@ class _GuardarProductoState extends State<GuardarProducto> {
     );
   }
 
-  Widget _mostrarFoto() {
+  Widget _mostrarFoto(Responsive responsive) {
     if (foto != null) {
-      return Image(
-        image: AssetImage(foto.path),
-        height: 300,
-        fit: BoxFit.cover,
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Image(
+          image: AssetImage(foto.path),
+          height: responsive.hp(35),
+          fit: BoxFit.cover,
+        ),
       );
     } else {
-      return Image(
-        image: AssetImage('assets/no-image.png'),
-        height: 300,
-        fit: BoxFit.cover,
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Image(
+          image: AssetImage('assets/no-image.png'),
+          height: responsive.hp(35),
+          fit: BoxFit.cover,
+        ),
       );
     }
   }
 
   _procesarImagen(ImageSource origen) async {
     final picketfile = await picker.getImage(source: origen);
-    foto=File(picketfile.path);
+    foto = File(picketfile.path);
 
     if (foto != null) {}
     setState(() {});
@@ -279,24 +279,24 @@ class _GuardarProductoState extends State<GuardarProducto> {
 
   Widget datoInput(BuildContext context, Responsive responsive,
       TextEditingController controlador, String nombre, Widget icon) {
-    return TextField(
-      controller: controlador,
-      keyboardType: TextInputType.text,
-      decoration: InputDecoration(
-        fillColor: Theme.of(context).dividerColor,
-        hintText: nombre,
-        hintStyle: TextStyle(fontSize: responsive.ip(2)),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide(
-            width: 0,
-            style: BorderStyle.none,
+    return Container(
+      //padding: EdgeInsets.only(bottom: responsive.hp(1.5)),
+      padding: EdgeInsets.symmetric(vertical: responsive.hp(0.6), horizontal:responsive.hp(2) ),
+      child: TextField(
+        controller: controlador,
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+          hintText: nombre,
+          hintStyle: TextStyle(fontSize: responsive.ip(2)),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey[300]),
+            borderRadius: BorderRadius.all(
+              Radius.circular(8),
+            ),
           ),
+          filled: true,
+          contentPadding: EdgeInsets.all(16),
         ),
-        filled: true,
-        contentPadding: EdgeInsets.all(16),
-        errorText: "",
-        suffixIcon: icon,
       ),
     );
   }
@@ -397,7 +397,6 @@ class _GuardarProductoState extends State<GuardarProducto> {
         color: Theme.of(context).primaryColor,
         textColor: Colors.white,
         onPressed: () {
-          
           if (_nameController.text.length > 0) {
             if (_marcaController.text.length > 0) {
               if (_modeloController.text.length > 0) {
@@ -407,26 +406,22 @@ class _GuardarProductoState extends State<GuardarProducto> {
                       if (_precioController.text.length > 0) {
                         if (_stockController.text.length > 0) {
                           if (foto != null) {
-                            if(companyData.idCategory!=null){
-                               if(goodData.idGood!=null){
+                            if (companyData.idCategory != null) {
+                              if (goodData.idGood != null) {
+                                uploadImage1(foto, idSubsidiary);
+                                //_submit(context,idSubsidiary,foto);
 
-                                 uploadImage1(foto,idSubsidiary);
-                                 //_submit(context,idSubsidiary,foto);
-            
-                            }else{
-                                utils.showToast(context, 'Debe seleccionar un bien ');
+                              } else {
+                                utils.showToast(
+                                    context, 'Debe seleccionar un bien ');
+                              }
+                            } else {
+                              utils.showToast(
+                                  context, 'Debe seleccionar una categoría ');
                             }
-                            }else{
-
-                              utils.showToast(context, 'Debe seleccionar una categoría ');
-                              
-                            }
-
-                            
-
-
-                          }else{
-                             utils.showToast(context, 'Debe seleccionaer una foto');
+                          } else {
+                            utils.showToast(
+                                context, 'Debe seleccionaer una foto');
                           }
                           // _submit(context, idSubsidiary);
                         } else {
@@ -460,7 +455,7 @@ class _GuardarProductoState extends State<GuardarProducto> {
     );
   }
 
- /*  _submit(BuildContext context, String idSubsidiary, File imagen) async {
+  /*  _submit(BuildContext context, String idSubsidiary, File imagen) async {
     String idGood = goodData.idGood;
     String categoria = companyData.idCategory;
     final int code = await negApi.guardarProducto(
@@ -489,22 +484,18 @@ class _GuardarProductoState extends State<GuardarProducto> {
       print(code);
       utils.showToast(context, 'Datos incorrectos');
     }
- */  
-  
+ */
 
+  void uploadImage1(File _image, String idSubsidiary) async {
+    final preferences = Preferences();
 
-
-  void uploadImage1(File _image,String idSubsidiary) async {
-    final preferences =Preferences();
-    
     // open a byteStream
     var stream = new http.ByteStream(Stream.castFrom(_image.openRead()));
     // get file length
     var length = await _image.length();
 
     // string to uri
-    var uri = Uri.parse(
-        "$apiBaseURL/api/Negocio/guardar_producto");
+    var uri = Uri.parse("$apiBaseURL/api/Negocio/guardar_producto");
 
     // create multipart request
     var request = new http.MultipartRequest("POST", uri);
@@ -544,6 +535,5 @@ class _GuardarProductoState extends State<GuardarProducto> {
     }).catchError((e) {
       print(e);
     });
-
   }
 }

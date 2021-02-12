@@ -1,7 +1,5 @@
 import 'dart:io';
 
-
-
 import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
@@ -23,9 +21,11 @@ class NegociosApi {
 
   Future<dynamic> obtenerCompany() async {
     try {
-      var response = await http.post(
-          "$apiBaseURL/api/Negocio/listar_negocios_resumen",
-          body: {'id_ciudad': '1'});
+      var response = await http
+          .post("$apiBaseURL/api/Negocio/listar_negocios_resumen", body: {
+        'id_ciudad': '1',
+        'id_usuario': prefs.idUser,
+      });
 
       final decodedData = json.decode(response.body);
 
@@ -239,7 +239,7 @@ class NegociosApi {
         'delivery': '${cmodel.companyDelivery}',
         'entrega': '${cmodel.companyEntrega}',
         'tarjeta': '${cmodel.companyTarjeta}',
-        'token': prefs.token,
+        'tn': prefs.token,
         'id_user': prefs.idUser,
         'app': 'true'
       });
@@ -259,7 +259,10 @@ class NegociosApi {
   Future<dynamic> listarCompany() async {
     try {
       var response = await http.post("$apiBaseURL/api/Negocio/listar_negocios",
-          body: {'id_ciudad': '1', 'id_user': '1'});
+          body: {
+            'id_ciudad': '1',
+            'id_usuario': prefs.idUser,
+          });
 
       final decodedData = json.decode(response.body);
 
@@ -311,10 +314,9 @@ class NegociosApi {
           smodel.subsidiaryFavourite = listCompany[0].subsidiaryFavourite;
         } else {
           smodel.subsidiaryFavourite = '0';
-
         }
 
-          await subsidiaryDatabase.insertarSubsidiary(smodel);
+        await subsidiaryDatabase.insertarSubsidiary(smodel);
       }
       return 0;
     } catch (error, stacktrace) {
@@ -334,6 +336,10 @@ class NegociosApi {
         'empresa_cel2': '${smodel.subsidiaryCellphone2}',
         'empresa_direccion': '${smodel.subsidiaryAddress}',
         'empresa_email': '${smodel.subsidiaryEmail}',
+        'empresa_coord_x': '${smodel.subsidiaryEmail}',
+        'empresa_coord_y': '${smodel.subsidiaryEmail}',
+        'opening_hours': '${smodel.subsidiaryEmail}',
+        'tn':prefs.token,
         'app': 'true',
       });
 
@@ -447,6 +453,8 @@ class NegociosApi {
         ..fields['marca'] = marca
         ..fields['modelo'] = modelo
         ..fields['size'] = size
+        ..fields['tn'] = prefs.token
+        ..fields['app'] = 'true'
         ..fields['stock'] = stock;
 
       final file = await http.MultipartFile.fromPath(
@@ -506,7 +514,7 @@ class NegociosApi {
 
       //final int code = decodesData;
 
-       if (code == 1) {
+      if (code == 1) {
         return 1;
       } else if (code == 2) {
         return 2;
@@ -514,7 +522,7 @@ class NegociosApi {
         return code;
       }
 
-     // return code;
+      // return code;
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
 
@@ -526,7 +534,7 @@ class NegociosApi {
     try {
       final response = await http
           .post("$apiBaseURL/api/Negocio/listar_sucursal_por_id", body: {
-        'id_sucural': '$id',
+        'id_sucursal': '$id',
       });
 
       final decodedData = json.decode(response.body);

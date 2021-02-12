@@ -38,7 +38,8 @@ class CategoriasApi {
   Future<int> obtenerCategorias(BuildContext context) async {
     //List<CategoriaModel> categoriaList = [];
     try {
-      var response = await http.get("$apiBaseURL/api/Login/listar_categorias");
+      var response = await http.post("$apiBaseURL/api/Inicio/listar_categorias",
+          body: { });
       var res = jsonDecode(response.body);
 
       var cantidadTotal = res.length;
@@ -92,10 +93,9 @@ class CategoriasApi {
   //Servicio retorna el resumen(8 elementos)de bienes y servicios
   Future<int> obtenerbsResumen() async {
     try {
-      var response = await http
-          .post("$apiBaseURL/api/Login/listar_bs_por_id_ciudad_resumen", body: {
-        'id_ciudad': '1',
-      });
+      var response = await http.post(
+          "$apiBaseURL/api/Inicio/listar_bs_por_id_ciudad_resume",
+          body: {'id_ciudad': '1'});
 
       final decodedData = json.decode(response.body);
 
@@ -375,7 +375,7 @@ class CategoriasApi {
   Future<int> obtenerProySerPorIdItemsubcategory(String idItemsub) async {
     try {
       var response = await http.post(
-          "$apiBaseURL/api/Login/listar_bienes_servicios_por_id_itemsubcategoria",
+          "$apiBaseURL/api/Inicio/listar_bs_por_id_itemsubcat",
           body: {
             'id_ciudad': '1',
             'id_itemsubcategoria': idItemsub,

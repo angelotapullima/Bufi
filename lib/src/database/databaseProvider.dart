@@ -20,9 +20,9 @@ class DatabaseProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
-    final path = join(documentsDirectory.path, 'guaba.db');
+    final path = join(documentsDirectory.path, 'bufi.db');
 
-    return await openDatabase(path, version: 2, onOpen: (db) {},
+    return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute('CREATE TABLE Category ('
           'id_category VARCHAR  PRIMARY KEY,'

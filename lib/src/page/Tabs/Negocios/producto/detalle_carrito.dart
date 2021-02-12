@@ -67,7 +67,9 @@ class _DetalleCarritoState extends State<DetalleCarrito> {
     final responsive = Responsive.of(context);
     final size = MediaQuery.of(context).size;
 
-    final carritoBloc = ProviderBloc.productosCarrito(context);
+    final carritoBloc = ProviderBloc.productosCarrito(context); 
+    carritoBloc.obtenerCarritoPorSucursal();
+
 
     carritoBloc.obtenerCarritoListHorizontalProducto();
 

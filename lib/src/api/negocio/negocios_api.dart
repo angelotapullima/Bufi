@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
@@ -8,10 +8,7 @@ import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
 import 'dart:convert';
-
-import 'package:mime_type/mime_type.dart';
 
 class NegociosApi {
   //Instancia de la BD de Company

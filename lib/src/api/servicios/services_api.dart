@@ -153,7 +153,6 @@ class ServiceApi {
 
   Future<int> guardarServicio(File _image, CompanyModel cmodel,
       ServiciosModel serviceData, SubsidiaryServiceModel servicioModel) async {
-    final preferences = Preferences();
 
     // open a byteStream
     var stream = new http.ByteStream(Stream.castFrom(_image.openRead()));
@@ -167,7 +166,8 @@ class ServiceApi {
     var request = new http.MultipartRequest("POST", uri);
 
     // if you need more parameters to parse, add those like this. i added "user_id". here this "user_id" is a key of the API request
-    request.fields["id_user"] = preferences.idUser;
+    request.fields["app"] = 'true';
+    request.fields["tn"] = prefs.token;
     request.fields["id_sucursal2"] = servicioModel.idSubsidiary;
     request.fields["id_servicio"] = serviceData.idService;
     request.fields["categoria_s"] = cmodel.idCategory;
@@ -221,6 +221,8 @@ class ServiceApi {
       final response = await http
           .post('$apiBaseURL/api/Negocio/deshabilitar_servicio', body: {
         'id_subsidiaryservice': '$id',
+        'app': 'true',
+        'tn': prefs.token,
       });
 
       final decodedData = json.decode(response.body);

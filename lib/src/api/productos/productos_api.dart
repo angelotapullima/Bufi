@@ -19,6 +19,7 @@ class ProductosApi {
   final productoDatabase = ProductoDatabase();
   final goodDatabase = GoodDatabase();
   final itemsubCategoryDatabase = ItemsubCategoryDatabase();
+  final prefs = Preferences();
 
   Future<dynamic> listarProductosPorSucursal(String id) async {
     final response = await http
@@ -132,7 +133,8 @@ class ProductosApi {
     try {
       final response = await http
           .post('$apiBaseURL/api/Negocio/deshabilitar_producto', body: {
-        'id_subsidiarygood': '$id',
+        'id_subsidiarygood': '$id','app': 'true',
+        'tn': prefs.token,
       });
 
       final decodedData = json.decode(response.body);
@@ -161,7 +163,8 @@ class ProductosApi {
     var request = new http.MultipartRequest("POST", uri);
 
     // if you need more parameters to parse, add those like this. i added "user_id". here this "user_id" is a key of the API request
-    request.fields["id_user"] = preferences.idUser;
+    request.fields["tn"] = preferences.token;
+    request.fields["app"] = 'true';
     request.fields["id_sucursal"] = producModel.idSubsidiary;
     request.fields["id_good"] = bienModel.idGood;
     request.fields["categoria"] = cmodel.idCategory;

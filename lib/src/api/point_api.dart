@@ -13,7 +13,7 @@ class PointApi {
   Future<dynamic> savePoint(String id) async {
     try {
       final res = await http.post("$apiBaseURL/api/Negocio/save_point", body: {
-        'id_user': prefs.idUser,
+       
         'id_subsidiary': id,
         'app': 'true',
         'tn': prefs.token,
@@ -34,9 +34,9 @@ class PointApi {
     try {
       final res =
           await http.post("$apiBaseURL/api/Negocio/delete_point", body: {
-        'id_user': prefs.idUser,
         'id_subsidiary': id,
         'app': 'true',
+        'tn':prefs.token
       });
       print("user : '${prefs.idUser}' subsidiary: '$id'");
 
@@ -53,7 +53,8 @@ class PointApi {
   Future<dynamic> listarPoints() async {
     try {
       final res = await http.post("$apiBaseURL/api/Negocio/listar_mis_points",
-          body: {'id_user': prefs.idUser});
+          body: {'app': 'true',
+        'tn':prefs.token});
 
       List response = json.decode(res.body);
 

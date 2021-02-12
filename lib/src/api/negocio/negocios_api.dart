@@ -424,72 +424,7 @@ class NegociosApi {
     }
   }
 
-  Future<int> guardarProducto(
-      String idSucursal,
-      String idGood,
-      String categoria,
-      String nombreProducto,
-      String precio,
-      String moneda,
-      String medida,
-      String marca,
-      String modelo,
-      String size,
-      String stock,
-      File imagen) async {
-    try {
-      final url = Uri.parse('$apiBaseURL/api/Negocio/guardar_producto');
-      final mimeType = mime(imagen.path).split('/'); //image/jpeg
-
-      final imageUploadRequest = http.MultipartRequest('POST', url)
-        ..fields['id_user'] = prefs.idUser
-        ..fields['id_sucursal'] = idSucursal
-        ..fields['id_good'] = idGood
-        ..fields['categoria'] = categoria
-        ..fields['nombre'] = nombreProducto
-        ..fields['precio'] = precio
-        ..fields['currency'] = moneda
-        ..fields['measure'] = medida
-        ..fields['marca'] = marca
-        ..fields['modelo'] = modelo
-        ..fields['size'] = size
-        ..fields['tn'] = prefs.token
-        ..fields['app'] = 'true'
-        ..fields['stock'] = stock;
-
-      final file = await http.MultipartFile.fromPath(
-          'producto_img', imagen.path,
-          contentType: MediaType(mimeType[0], mimeType[1]));
-
-      imageUploadRequest.files.add(file);
-
-      final streamResponse = await imageUploadRequest.send();
-      print(streamResponse);
-      final resp = await http.Response.fromStream(streamResponse);
-
-      if (resp.statusCode != 200 && resp.statusCode != 201) {
-        print('Algo salio mal');
-        print(resp.body);
-        return null;
-      }
-
-      final code = json.decode(resp.body)["result"]["code"];
-
-      if (code == 1) {
-        return 1;
-      } else if (code == 2) {
-        return 2;
-      } else {
-        return code;
-      }
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-
-      return 0;
-    }
-  }
-
-  Future updateNegocio(CompanySubsidiaryModel csmodel) async {
+ Future updateNegocio(CompanySubsidiaryModel csmodel) async {
     try {
       final res =
           await http.post("$apiBaseURL/api/Negocio/update_negocio", body: {
@@ -508,6 +443,8 @@ class NegociosApi {
         'delivery': '${csmodel.companyDelivery}',
         "entrega": '${csmodel.companyShortcode}',
         "tarjeta": '${csmodel.companyTarjeta}',
+        "app": 'true',
+        "tn": prefs.token,
       });
 
       final code = json.decode(res.body);

@@ -533,7 +533,7 @@ class _GuardarServicioState extends State<GuardarServicio> {
     if (code == 1) {
       print(code);
       utils.showToast(context, 'Servicio Registrado');
-      Navigator.pushNamed(context, "detalleSubsidiary");
+      Navigator.pop(context);
     } else if (code == 2) {
       print(code);
       utils.showToast(context, 'Ocurrio un error');

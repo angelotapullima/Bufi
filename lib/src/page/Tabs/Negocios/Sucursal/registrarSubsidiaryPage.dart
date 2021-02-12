@@ -53,7 +53,7 @@ class RegistroSubsidiary extends StatelessWidget {
                                   Column(
                                     children: [
                                       Text(
-                                        "Nombre de Sucursal",
+                                        "Registrar Sucursal",
                                         style: TextStyle(
                                             fontSize: responsive.ip(3)),
                                       ),
@@ -99,7 +99,7 @@ class RegistroSubsidiary extends StatelessWidget {
               } else {
                 return SingleChildScrollView(
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: responsive.wp(8)),
+                    margin: EdgeInsets.symmetric(vertical: responsive.hp(6),horizontal: responsive.wp(8)),
                     child: Column(
                       children: [
                         Row(
@@ -120,7 +120,7 @@ class RegistroSubsidiary extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Text(
-                                    "Nombre de Sucursal",
+                                    "Registrar Sucursal",
                                     style:
                                         TextStyle(fontSize: responsive.ip(3)),
                                   ),

@@ -362,7 +362,7 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                         if (i == 0) {
                           return Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
+                                  horizontal: 1, vertical: 1),
                               width: double.infinity,
                               child: Row(
                                   //crossAxisAlignment: CrossAxisAlignment.center,
@@ -392,7 +392,7 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                               height: responsive.wp(30),
                               child: ClipRRect(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(500)),
+                                    BorderRadius.all(Radius.circular(100)),
                                 child: CachedNetworkImage(
                                   //cacheManager: CustomCacheManager(),
                                   placeholder: (context, url) => Container(

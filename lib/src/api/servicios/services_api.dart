@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
-
+import 'package:path/path.dart';
 import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/itemSubcategory_db.dart';
 import 'package:bufi/src/database/service_db.dart';
@@ -17,8 +16,7 @@ import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
-import 'package:mime_type/mime_type.dart';
+
 
 class ServiceApi {
   final prefs = Preferences();
@@ -153,60 +151,53 @@ class ServiceApi {
     return 0;
   }
 
-  Future<int> guardarServicio(
-      String idUser,
-      String idSucursal2,
-      String idServicio,
-      String categoria,
-      String nombreServicio,
-      String precio,
-      String currency,
-      String descripcion,
-      File imagen) async {
-    try {
-      final url = Uri.parse('$apiBaseURL/api/Negocio/guardar_servicio');
-      final mimeType = mime(imagen.path).split('/'); //image/jpeg
+  Future<int> guardarServicio(File _image, CompanyModel cmodel,
+      ServiciosModel serviceData, SubsidiaryServiceModel servicioModel) async {
+    final preferences = Preferences();
 
-      final imageUploadRequest = http.MultipartRequest('POST', url)
-        ..fields['id_user'] = prefs.idUser
-        ..fields['id_sucursal2'] = idSucursal2
-        ..fields['id_servicio'] = idServicio
-        ..fields['categoria_s'] = categoria
-        ..fields['nombre_s'] = nombreServicio
-        ..fields['precio_s'] = precio
-        ..fields['currency_s'] = currency
-        ..fields['descripcion'] = descripcion;
+    // open a byteStream
+    var stream = new http.ByteStream(Stream.castFrom(_image.openRead()));
+    // get file length
+    var length = await _image.length();
 
-      final file = await http.MultipartFile.fromPath(
-          'servicio_img', imagen.path,
-          contentType: MediaType(mimeType[0], mimeType[1]));
+    // string to uri
+    var uri = Uri.parse("$apiBaseURL/api/Negocio/guardar_servicio");
 
-      imageUploadRequest.files.add(file);
+    // create multipart request
+    var request = new http.MultipartRequest("POST", uri);
 
-      final streamResponse = await imageUploadRequest.send();
-      print(streamResponse);
-      final resp = await http.Response.fromStream(streamResponse);
+    // if you need more parameters to parse, add those like this. i added "user_id". here this "user_id" is a key of the API request
+    request.fields["id_user"] = preferences.idUser;
+    request.fields["id_sucursal2"] = servicioModel.idSubsidiary;
+    request.fields["id_servicio"] = serviceData.idService;
+    request.fields["categoria_s"] = cmodel.idCategory;
+    request.fields["nombre_s"] = servicioModel.subsidiaryServiceName;
+    request.fields["precio_s"] = servicioModel.subsidiaryServicePrice;
+    request.fields["currency_s"] = servicioModel.subsidiaryServiceCurrency;
+    request.fields["descripcion"] = servicioModel.subsidiaryServiceDescription;
 
-      if (resp.statusCode != 200 && resp.statusCode != 201) {
-        print('Algo salio mal');
-        print(resp.body);
-        return null;
-      }
+    // multipart that takes file.. here this "image_file" is a key of the API request
+    var multipartFile = new http.MultipartFile('servicio_img', stream, length,
+        filename: basename(_image.path));
 
-      final code = json.decode(resp.body)["result"]["code"];
+    // add file to multipart
+    request.files.add(multipartFile);
 
-      if (code == 1) {
-        return 1;
-      } else if (code == 2) {
-        return 2;
-      } else {
-        return code;
-      }
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
+    // send request to upload image
+    await request.send().then((response) async {
+      // listen for response
+      response.stream.transform(utf8.decoder).listen((value) {
+        print(value);
 
-      return 0;
-    }
+        final decodedData = json.decode(value);
+        if (decodedData['result']['code'] == 1) {
+          print('amonos');
+        }
+      });
+    }).catchError((e) {
+      print(e);
+    });
+    return 1;
   }
 
   Future<dynamic> detalleSerivicioPorIdSubsidiaryService(String id) async {

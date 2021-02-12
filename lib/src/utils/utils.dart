@@ -123,7 +123,7 @@ void agregarAlCarrito(BuildContext context, String idSubsidiarygood) async {
 
   if (productCarrito.length > 0) {
     await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
-    c.cantidad = (double.parse(productCarrito[0].cantidad) + 1).toString();
+    c.cantidad = (int.parse(productCarrito[0].cantidad) + 1).toString();
 
     c.estadoSeleccionado = productCarrito[0].estadoSeleccionado;
   } else {

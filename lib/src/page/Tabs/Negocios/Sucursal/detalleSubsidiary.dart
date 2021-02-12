@@ -143,8 +143,7 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary> {
                     child: Text('Servicios',style: TextStyle(color: Colors.white, fontSize: 18)),
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.pushNamed(context, 'guardarServicio',
-                          arguments: subsidiary.idSubsidiary);
+                      Navigator.pushNamed(context, 'guardarServicio', arguments: subsidiary.idSubsidiary);
                     },
                   ),
                 ],

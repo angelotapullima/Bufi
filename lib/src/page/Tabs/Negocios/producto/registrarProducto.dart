@@ -539,7 +539,7 @@ class _GuardarProductoState extends State<GuardarProducto> {
               if (code == 1) {
                 print(code);
                 utils.showToast(context, 'Producto Registrado');
-                Navigator.pushNamed(context, "detalleSubsidiary");
+                Navigator.pop(context);
               } else if (code == 2) {
                 print(code);
                 utils.showToast(context, 'Ocurrio un error');

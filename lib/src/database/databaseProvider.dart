@@ -20,7 +20,7 @@ class DatabaseProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
-    final path = join(documentsDirectory.path, 'guaba3.db');
+    final path = join(documentsDirectory.path, 'guaba.db');
 
     return await openDatabase(path, version: 2, onOpen: (db) {},
         onCreate: (Database db, int version) async {
@@ -142,6 +142,11 @@ class DatabaseProvider {
           'stock VARCHAR,'
           'cantidad VARCHAR,'
           'estado_seleccionado VARCHAR'
+          ')');
+
+          await db.execute('CREATE TABLE Cuenta ('
+          'idUser VARCHAR PRIMARY KEY,'
+          'saldo VARCHAR'
           ')');
 
       await db.execute('CREATE TABLE Point ('

@@ -11,10 +11,10 @@ class LoginApi {
 
   Future<int> login(String user, String pass) async {
     try {
-      final url = '$apiBaseURL/api/Login/singIn';
+      final url = '$apiBaseURL/api/Login/validar_sesion';
 
       final resp = await http
-          .post(url, body: {'user': '$user', 'pass': '$pass', 'app': 'true'});
+          .post(url, body: {'usuario_nickname': '$user', 'usuario_contrasenha': '$pass', 'app': 'true'});
 
       final decodedData = json.decode(resp.body);
 

@@ -9,7 +9,7 @@ class RegisterUser{
       String pass) async {
     
     try {
-      final url = '$apiBaseURL/api/Login/new_u';
+      final url = '$apiBaseURL/api/Inicio/new';
 
       final resp = await http.post(url, body: {
         'name': '$name',

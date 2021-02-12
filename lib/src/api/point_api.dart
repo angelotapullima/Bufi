@@ -16,6 +16,7 @@ class PointApi {
         'id_user': prefs.idUser,
         'id_subsidiary': id,
         'app': 'true',
+        'tn': prefs.token,
       });
       print("user : '${prefs.idUser}' subsidiary: '$id'");
 

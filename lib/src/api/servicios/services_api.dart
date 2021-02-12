@@ -244,7 +244,7 @@ class ServiceApi {
 
   Future<int> listarServiciosAllPorCiudad() async {
     final response = await http.post(
-        "$apiBaseURL/api/Login/listar_servicios_por_id_ciudad",
+        "$apiBaseURL/api/Inicio/listar_servicios_por_id_ciudad",
         body: {'id_ciudad': '1'});
 
     final decodedData = json.decode(response.body);
@@ -402,7 +402,7 @@ class ServiceApi {
 
   Future<int> listarServiciosPorIdItemSubcategoria(String id) async {
     final response = await http.post(
-        "$apiBaseURL/api/Login/listar_servicios_por_id_itemsubcategoria",
+        "$apiBaseURL/api/Inicio/listar_servicios_por_id_itemsu",
         body: {'id_ciudad': '1', 'id_itemsubcategoria': '$id'});
 
     final decodedData = json.decode(response.body);

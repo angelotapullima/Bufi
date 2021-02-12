@@ -4,7 +4,6 @@ import 'package:bufi/src/page/Tabs/Negocios/producto/detalle_carrito.dart';
 import 'package:bufi/src/widgets/widgetBienes.dart';
 import 'package:flutter/material.dart';
 
-
 class ListarProductosPorSucursal extends StatefulWidget {
   final String idSucursal;
 
@@ -17,21 +16,20 @@ class ListarProductosPorSucursal extends StatefulWidget {
 
 class _ListarProductosPorSucursalState
     extends State<ListarProductosPorSucursal> {
-      
   @override
   Widget build(BuildContext context) {
     final productoBloc = ProviderBloc.productos(context);
     productoBloc.listarProductosPorSucursal(widget.idSucursal);
-    
+
     return StreamBuilder(
       stream: productoBloc.productoStream,
-      builder: (BuildContext context,
-          AsyncSnapshot<List<ProductoModel>> snapshot) {
+      builder:
+          (BuildContext context, AsyncSnapshot<List<ProductoModel>> snapshot) {
         if (snapshot.hasData) {
           final bienes = snapshot.data;
           return GridView.builder(
-              padding: EdgeInsets.only(top: cartPanel),
-              controller: ScrollController(keepScrollOffset: false),
+              padding: EdgeInsets.only(top: 10),
+              //controller: ScrollController(keepScrollOffset: false),
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -40,7 +38,9 @@ class _ListarProductosPorSucursalState
               ),
               itemCount: bienes.length,
               itemBuilder: (context, index) {
-                return  BienesWidget(producto: snapshot.data[index],);
+                return BienesWidget(
+                  producto: snapshot.data[index],
+                );
               });
         } else {
           return Center(child: Text("dataaaaa")

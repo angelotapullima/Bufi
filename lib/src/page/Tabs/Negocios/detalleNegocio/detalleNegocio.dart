@@ -2,7 +2,7 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
-import 'package:bufi/src/page/Tabs/Negocios/detalleNegocio/tab1.dart';
+import 'package:bufi/src/page/Tabs/Negocios/detalleNegocio/tabInfoNegocioPage.dart';
 import 'package:bufi/src/page/Tabs/Negocios/detalleNegocio/tab2.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -404,7 +404,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
         return [
           SliverAppBar(
             elevation: 2.0,
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.white,
             expandedHeight: responsive.hp(30),
             floating: false,
             actions: [
@@ -434,13 +434,18 @@ class _DetalleNegocioState extends State<DetalleNegocio>
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
-              title: Container(
-                height: responsive.hp(8),
-                child: Text(
-                  '${companyModel.companyName}',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: responsive.ip(2.3),
+              title: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  //color: Colors.red,
+                  height: responsive.hp(6),
+                  child: Text(
+                    '${companyModel.companyName}',
+                    style: TextStyle(
+                      color: Colors.blueGrey[800],
+                      fontSize: responsive.ip(2.3),
+                      fontWeight: FontWeight.bold
+                    ),
                   ),
                 ),
               ),
@@ -499,8 +504,10 @@ class _DetalleNegocioState extends State<DetalleNegocio>
               ),
             ),
             bottom: TabBar(
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey,
               indicatorColor: Colors.red,
-              labelStyle: TextStyle(fontSize: responsive.ip(2)),
+              labelStyle: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
               controller: _controllerTab,
               tabs: [
                 Tab(

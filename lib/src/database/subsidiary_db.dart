@@ -75,7 +75,7 @@ class SubsidiaryDatabase {
      // print('database actualizada $res');
       return res;
     } catch (exception) {
-      print(exception);
+      //print(exception);
     }
   }
 

@@ -1,7 +1,8 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
-import 'package:bufi/src/page/Tabs/Negocios/detalleNegocio/tab2.dart';
+import 'package:bufi/src/page/Tabs/Negocios/Sucursal/tabInfoPrincipalSucursalPage.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/ListarProductosPorSucursal.dart';
+import 'package:bufi/src/page/Tabs/Negocios/servicios/ListarServiciosXsucursal.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/widgets/detalleBienesServicios.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -39,22 +40,7 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary>
       body: StreamBuilder(
           stream: subsidiaryBloc.subsidiaryStream,
           builder: (context, snapshot) {
-            return
-                // CustomScrollView(
-                //   slivers: [
-                _crearAppbar(responsive, subsidiary);
-            //detailsBienesServicios(context, subsidiary, responsive),
-            // SliverList(
-            //   delegate: SliverChildListDelegate(
-            //     [
-            //       //_infoSucursal(responsive, subsidiary),
-            //       SizedBox(height: 30),
-            //       detailsBienesServicios(context, subsidiary, responsive),
-            //     ],
-            //   ),
-            // )
-            //],
-            //);
+            return _crearAppbar(responsive, subsidiary);
           }),
       floatingActionButton: _buttonFloating(context, subsidiary, responsive),
     );
@@ -155,10 +141,9 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary>
         body: TabBarView(
           controller: _controllerTab,
           children: [
-            TabProductosNegocioPage(),
-            ListarProductosPorSucursal(idSucursal: subsidiary.idSubsidiary),
-            ListarProductosPorSucursal(idSucursal: subsidiary.idSubsidiary),
-            
+            TabProductosSucursalPage(),
+            ListarProductosPorSucursalPage(idSucursal: subsidiary.idSubsidiary),
+            ListarServiciosXSucursalPage(idSucursal: subsidiary.idSubsidiary),
           ],
         ));
   }
@@ -210,60 +195,6 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary>
         //     arguments: subsidiary.idSubsidiary);
       },
       child: Icon(Icons.add),
-    );
-  }
-
-  Widget _infoSucursal(Responsive responsive, SubsidiaryModel subsidiary) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 18.0),
-      child: Column(
-        children: [
-          Text(
-            "Informacion",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: responsive.ip(2.7),
-                fontWeight: FontWeight.bold),
-          ),
-          Divider(color: Colors.grey),
-          ListTile(
-            leading: Text("Direccion:"),
-            title: Text(subsidiary.subsidiaryAddress),
-          ),
-          ListTile(
-            leading: Text("Horario de Atencion"),
-            title: Text('${subsidiary.subsidiaryOpeningHours}'),
-            //leading: Icon(FontAwesomeIcons.doorOpen, color: Colors.black),
-          ),
-          ListTile(
-            leading: Text("Celular de contacto:"),
-            //Icon(FontAwesomeIcons.phone, color: Colors.black),
-            title: Text('${subsidiary.subsidiaryCellphone}'),
-          ),
-          ListTile(
-            leading: Text("Otro:"),
-            //Icon(FontAwesomeIcons.phone, color: Colors.black),
-            title: Text('${subsidiary.subsidiaryCellphone2}'),
-          ),
-          ListTile(
-            leading: Text("Correo:"),
-            //Icon(FontAwesomeIcons.phone, color: Colors.black),
-            title: Text('${subsidiary.subsidiaryEmail}'),
-          ),
-          ListTile(
-            leading: Text("Local Principal:"),
-            title: Text('${subsidiary.subsidiaryPrincipal}'),
-          ),
-          ListTile(
-            leading: Text("Coordenada X:"),
-            title: Text('${subsidiary.subsidiaryCoordX}'),
-          ),
-          ListTile(
-            leading: Text("Coordenada Y:"),
-            title: Text('${subsidiary.subsidiaryCoordY}'),
-          ),
-        ],
-      ),
     );
   }
 }

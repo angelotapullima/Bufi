@@ -95,8 +95,8 @@ class MyApp extends StatelessWidget {
               //Servicio
               "guardarServicio": (BuildContext context) => GuardarServicio(),
               "detalleServicio": (BuildContext context) => DetalleServicio(),
-              "listarServiciosXsucursal": (BuildContext context) =>
-                  ListarServiciosXSucursal()
+              // "listarServiciosXsucursal": (BuildContext context) =>
+              //     ListarServiciosXSucursal()
             }),
       ),
     );

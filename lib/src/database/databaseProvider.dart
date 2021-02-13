@@ -145,8 +145,13 @@ class DatabaseProvider {
           ')');
 
           await db.execute('CREATE TABLE Cuenta ('
-          'idUser VARCHAR PRIMARY KEY,'
-          'saldo VARCHAR'
+          'id_cuenta VARCHAR PRIMARY KEY,'
+          'id_user VARCHAR,'
+          'cuenta_codigo VARCHAR,'
+          'cuenta_saldo VARCHAR,'
+          'cuenta_moneda VARCHAR,'
+          'cuenta_date VARCHAR,'
+          'cuenta_estado VARCHAR'
           ')');
 
       await db.execute('CREATE TABLE Point ('

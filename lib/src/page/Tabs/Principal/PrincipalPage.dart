@@ -154,6 +154,13 @@ class HeaderWidget extends StatelessWidget {
                       ],
                     ),
                     Spacer(),
+
+                    Expanded(
+                      child: Row(children: [
+
+                        
+                      ],),
+                    ),
                     Icon(
                       FontAwesomeIcons.bell,
                       size: responsive.ip(3),

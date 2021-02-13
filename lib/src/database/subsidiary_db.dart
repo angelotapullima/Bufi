@@ -72,10 +72,10 @@ class SubsidiaryDatabase {
           "subsidiary_favourite= '${subsidiaryModel.subsidiaryFavourite}' "
           "WHERE id_subsidiary='${subsidiaryModel.idSubsidiary}' ");
 
-      print('database actualizada $res');
+     // print('database actualizada $res');
       return res;
     } catch (exception) {
-      print(exception);
+      //print(exception);
     }
   }
 

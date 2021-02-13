@@ -6,7 +6,7 @@ import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedid
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubsidiary.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/registrarSubsidiaryPage.dart';
 import 'package:bufi/src/page/Tabs/Negocios/actualizarNegocio_page.dart';
-import 'package:bufi/src/page/Tabs/Negocios/detalleNegocio.dart';
+import 'package:bufi/src/page/Tabs/Negocios/detalleNegocio/detalleNegocio.dart';
 import 'package:bufi/src/page/Tabs/Negocios/inicio/negocio_bloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/negocioActualizado.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/registrarProducto.dart';
@@ -95,8 +95,8 @@ class MyApp extends StatelessWidget {
               //Servicio
               "guardarServicio": (BuildContext context) => GuardarServicio(),
               "detalleServicio": (BuildContext context) => DetalleServicio(),
-              "listarServiciosXsucursal": (BuildContext context) =>
-                  ListarServiciosXSucursal()
+              // "listarServiciosXsucursal": (BuildContext context) =>
+              //     ListarServiciosXSucursal()
             }),
       ),
     );

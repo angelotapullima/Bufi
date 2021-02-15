@@ -1,6 +1,7 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
+import 'package:bufi/src/models/cuentaModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
@@ -56,7 +57,9 @@ class PrincipalPage extends StatelessWidget {
                             Text("Categorias")
                           ],
                         ),
-                        SizedBox(width: responsive.wp(1.5),),
+                        SizedBox(
+                          width: responsive.wp(1.5),
+                        ),
                         Expanded(child: ListCategoriasPrincipal()),
                       ],
                     ),
@@ -102,6 +105,8 @@ class HeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cuentaBloc = ProviderBloc.cuenta(context);
+    cuentaBloc.obtenerSaldo();
     return SliverPersistentHeader(
         floating: true,
         delegate: SliverCustomHeaderDelegate(
@@ -154,17 +159,39 @@ class HeaderWidget extends StatelessWidget {
                       ],
                     ),
                     Spacer(),
+                    Container(
+                      width: responsive.wp(11),
+                      child: Image(
+                        image: AssetImage('assets/moneda.png'),
+                      ),
+                    ),
+                    StreamBuilder(
+                      stream: cuentaBloc.saldoStream,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<CuentaModel>> snapshot) {
+                        int valorcito = 0;
 
-                    Expanded(
-                      child: Row(children: [
+                        if (snapshot.hasData) {
+                          if (snapshot.data.length > 0) {
+                            valorcito = double.parse(snapshot.data[0].cuentaSaldo).toInt();
+                          }
+                        }
 
-                        
-                      ],),
+                        return Container(
+                          child: Text(
+                            valorcito.toString(),
+                            style: TextStyle(
+                                fontSize: responsive.ip(1.8),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        );
+                      },
                     ),
                     Icon(
                       FontAwesomeIcons.bell,
-                      size: responsive.ip(3),
-                    )
+                      size: responsive.ip(2.5),
+                      color: Colors.yellowAccent[600],
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -246,32 +273,33 @@ class _BienesResuState extends State<BienesResu> {
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          child:  BienesWidget(producto: snapshot.data[index],),
+                          child: BienesWidget(
+                            producto: snapshot.data[index],
+                          ),
                           onTap: () {
-                            agregarPSaSugerencia(context,snapshot.data[index].idProducto,'bien');
+                            agregarPSaSugerencia(context,
+                                snapshot.data[index].idProducto, 'bien');
 
                             Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              transitionDuration:
-                                  const Duration(milliseconds: 100),
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) {
-                                return DetalleProductos(
-                                  producto:snapshot.data[index]
-                                  
-                                );
-                                //return DetalleProductitos(productosData: productosData);
-                              },
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                return FadeTransition(
-                                  opacity: animation,
-                                  child: child,
-                                );
-                              },
-                            ),
-                          );
+                              context,
+                              PageRouteBuilder(
+                                transitionDuration:
+                                    const Duration(milliseconds: 100),
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) {
+                                  return DetalleProductos(
+                                      producto: snapshot.data[index]);
+                                  //return DetalleProductitos(productosData: productosData);
+                                },
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
                             /* Navigator.pushNamed(context, 'detalleProducto',
                                 arguments:
                                     snapshot.data[index].idProducto); */
@@ -605,8 +633,6 @@ class _SugerenciaBusquedaState extends State<SugerenciaBusqueda> {
                               context, snapshot.data[index], responsive);
                         }
                       });
-
-                  
                 } else {
                   return Center(child: CupertinoActivityIndicator());
                 }

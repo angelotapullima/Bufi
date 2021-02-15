@@ -14,7 +14,7 @@ class SaldoApi {
     try {
       var response = await http.post(
           "$apiBaseURL/api/Cuenta/obtener_saldo_actual",
-          body: {'tn': prefs.token, 'app': 'true'});
+          body: {'tn': prefs.token, 'app': 'true', 'id_usuario': prefs.idUser});
 
       final decodedData = json.decode(response.body);
 

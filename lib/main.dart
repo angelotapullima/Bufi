@@ -20,6 +20,7 @@ import 'package:bufi/src/page/Tabs/Principal/listarBienesAll.dart';
 import 'package:bufi/src/page/Tabs/Principal/listarServiciosAll.dart';
 import 'package:bufi/src/page/home.dart';
 import 'package:bufi/src/page/login_page.dart';
+import 'package:bufi/src/page/mis_movimientos_page.dart';
 import 'package:bufi/src/page/registro_usuarioTab.dart';
 import 'package:bufi/src/page/splash.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
@@ -96,6 +97,9 @@ class MyApp extends StatelessWidget {
               "guardarServicio": (BuildContext context) => GuardarServicio(),
               "detalleServicio": (BuildContext context) => DetalleServicio(),
               // "listarServiciosXsucursal": (BuildContext context) =>
+
+              'misMovimientos': (BuildContext context) => MisMovimientosPage(),
+              
               //     ListarServiciosXSucursal()
             }),
       ),

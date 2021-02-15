@@ -20,7 +20,7 @@ class DatabaseProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
-    final path = join(documentsDirectory.path, 'bufi.db');
+    final path = join(documentsDirectory.path, 'bufi3.db');
 
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
@@ -144,7 +144,7 @@ class DatabaseProvider {
           'estado_seleccionado VARCHAR'
           ')');
 
-          await db.execute('CREATE TABLE Cuenta ('
+      await db.execute('CREATE TABLE Cuenta ('
           'id_cuenta VARCHAR PRIMARY KEY,'
           'id_user VARCHAR,'
           'cuenta_codigo VARCHAR,'
@@ -194,6 +194,17 @@ class DatabaseProvider {
           'nombre_producto VARCHAR,'
           'id_producto VARCHAR,'
           'tipo VARCHAR'
+          ')');
+
+      await db.execute(' CREATE TABLE MisMovimientos('
+          ' nroOperacion TEXT PRIMARY KEY,'
+          ' concepto TEXT,'
+          ' tipoPago TEXT,'
+          ' monto TEXT,'
+          ' comision TEXT,'
+          ' fecha TEXT,'
+          ' soloFecha TEXT,'
+          ' ind TEXT'
           ')');
     });
   }

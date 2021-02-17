@@ -1,4 +1,5 @@
 import 'package:bufi/src/api/categorias_api.dart';
+import 'package:bufi/src/api/configuracion_api.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/theme/theme.dart';
@@ -19,12 +20,15 @@ class _SplashState extends State<Splash> with AfterLayoutMixin {
   void afterFirstLayout(BuildContext context) async {
     final preferences = Preferences();
     final categoriaApi = CategoriasApi();
+    final configuracionApi =  ConfiguracionApi();
 
     if (preferences.cargaCategorias == null) {
       await categoriaApi.obtenerCategorias(context);
+      await configuracionApi.obtenerConfiguracion();
       preferences.cargaCategorias = 'paso';
     }else{
       categoriaApi.obtenerCategorias(context);
+      configuracionApi.obtenerConfiguracion();
     }
 
 

@@ -111,45 +111,7 @@ class _UserPageState extends State<UserPage> {
           SizedBox(
             height: responsive.hp(2),
           ),
-          // _general(responsive),
-          SizedBox(
-            height: responsive.hp(2),
-          ),
-          //_asistencia(responsive),
-          SizedBox(
-            height: responsive.hp(2),
-          ),
-          // _aplicacion(responsive),
-          Padding(
-            padding: EdgeInsets.all(responsive.ip(1.5)),
-            child: InkWell(
-              onTap: () async {
-                prefs.clearPreferences();
-
-                Navigator.pushNamedAndRemoveUntil(
-                    context, 'login', (route) => false);
-              },
-              child: new Container(
-                //width: 100.0,
-                height: responsive.hp(6),
-                decoration: new BoxDecoration(
-                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 3)],
-                  color: Colors.white,
-                  border: new Border.all(color: Colors.grey[300], width: 1.0),
-                  borderRadius: new BorderRadius.circular(8.0),
-                ),
-                child: new Center(
-                  child: new Text(
-                    'Cerrar sesión',
-                    style: new TextStyle(
-                        fontSize: responsive.ip(2),
-                        fontWeight: FontWeight.w800,
-                        color: Colors.red),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // _general(responsive)
 
           Container(
             margin: EdgeInsets.all(
@@ -194,6 +156,37 @@ class _UserPageState extends State<UserPage> {
               ],
             ),
           ),
+
+          Padding(
+            padding: EdgeInsets.all(responsive.ip(1.5)),
+            child: InkWell(
+              onTap: () async {
+                prefs.clearPreferences();
+
+                Navigator.pushNamedAndRemoveUntil(
+                    context, 'login', (route) => false);
+              },
+              child: new Container(
+                //width: 100.0,
+                height: responsive.hp(6),
+                decoration: new BoxDecoration(
+                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 3)],
+                  color: Colors.white,
+                  border: new Border.all(color: Colors.grey[300], width: 1.0),
+                  borderRadius: new BorderRadius.circular(8.0),
+                ),
+                child: new Center(
+                  child: new Text(
+                    'Cerrar sesión',
+                    style: new TextStyle(
+                        fontSize: responsive.ip(2),
+                        fontWeight: FontWeight.w800,
+                        color: Colors.red),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -218,6 +211,8 @@ class _UserPageState extends State<UserPage> {
       () {
         if (texto == 'misMovimientos') {
           Navigator.pushNamed(context, 'misMovimientos');
+        } else if (texto == 'Recargas') {
+          Navigator.pushNamed(context, 'recargarSaldo');
         }
 
         /* if (onPressed != null) {

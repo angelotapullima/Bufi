@@ -161,7 +161,8 @@ class _ProYSerPorItemSubcategoryPageState
     return Expanded(
       child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, childAspectRatio: .7),
+              crossAxisCount: 2, 
+              childAspectRatio: .7),
           itemCount: data.length,
           itemBuilder: (context, index) {
             return ('${data[index].tipo}' == 'bienes')

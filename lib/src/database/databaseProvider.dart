@@ -20,7 +20,7 @@ class DatabaseProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
-    final path = join(documentsDirectory.path, 'bufi3.db');
+    final path = join(documentsDirectory.path, 'bufi5.db');
 
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
@@ -205,6 +205,15 @@ class DatabaseProvider {
           ' fecha TEXT,'
           ' soloFecha TEXT,'
           ' ind TEXT'
+          ')');
+
+          await db.execute(' CREATE TABLE TiposPago('
+          ' id_tipo_pago TEXT PRIMARY KEY,'
+          ' tipo_pago_nombre TEXT,'
+          ' tipo_pago_img TEXT,'
+          ' tipo_pago_msj TEXT,'
+          ' seleccionado TEXT,'
+          ' tipo_pago_estado TEXT'
           ')');
     });
   }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bufi/src/bloc/cuenta_bloc.dart';
 import 'package:bufi/src/database/cuenta_dabatabase.dart';
 import 'package:bufi/src/models/cuentaModel.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
@@ -36,5 +37,25 @@ class SaldoApi {
 
       return 0;
     }
+  }
+
+  Future<List<RecargaModel>> obtenerRecargaPendiente() async {
+    final listGeneral = List<RecargaModel>();
+
+    var response = await http.post(
+        "$apiBaseURL/api/Cuenta/listar_recarga_pendiente",
+        body: {'tn': prefs.token, 'app': 'true'});
+
+    final decodedData = json.decode(response.body);
+
+    RecargaModel recargaModel = RecargaModel();
+    recargaModel.codigo = decodedData['codigo'];
+    recargaModel.expiracion = decodedData['expiracion'];
+    recargaModel.monto = decodedData['monto'];
+    recargaModel.result = decodedData['result'].toString();
+
+    listGeneral.add(recargaModel);
+
+    return listGeneral;
   }
 }

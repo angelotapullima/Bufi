@@ -11,6 +11,7 @@ import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/textStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:bufi/src/utils/utils.dart' as utils;
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class GuardarProducto extends StatefulWidget {
@@ -41,10 +42,11 @@ class _GuardarProductoState extends State<GuardarProducto> {
   //Para acceder a la galeria o tomar una foto
   File foto;
   final picker = ImagePicker();
+  bool _inProcess = false;
 
 //widget para el cargando
   final _cargando = ValueNotifier<bool>(false);
- 
+
   @override
   Widget build(BuildContext context) {
     final String idSubsidiary = ModalRoute.of(context).settings.arguments;
@@ -61,49 +63,47 @@ class _GuardarProductoState extends State<GuardarProducto> {
           valueListenable: _cargando,
           builder: (BuildContext context, bool value, Widget child) {
             return SafeArea(
-              child: Stack(
-                children: [
-                  Container(
-                    child: Column(
-                      children: [
-                        _titulo(responsive, isDark),
-                        SizedBox(height: responsive.hp(3)),
-                        _formRegistro(responsive, context, categoriasBloc,
-                            bienesBloc, idSubsidiary),
-                      ],
-                    ),
+              child: Stack(children: [
+                Container(
+                  child: Column(
+                    children: [
+                      _titulo(responsive, isDark),
+                      SizedBox(height: responsive.hp(3)),
+                      _formRegistro(responsive, context, categoriasBloc,
+                          bienesBloc, idSubsidiary),
+                    ],
                   ),
-                  (value)
-                      ? Container(
+                ),
+                (value)
+                    ? Container(
                         height: double.infinity,
-                      color: Colors.white54,
+                        color: Colors.white54,
                         child: Center(
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: responsive.wp(10)),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: responsive.wp(10)),
+                            width: double.infinity,
+                            height: responsive.hp(13),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
                             child: Container(
                               margin: EdgeInsets.symmetric(
-                                  horizontal: responsive.wp(10)),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: responsive.wp(10)),
-                              width: double.infinity,
-                              height: responsive.hp(13),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Container(
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: responsive.wp(10),
-                                    vertical: responsive.wp(6)),
-                                height: responsive.ip(4),
-                                width: responsive.ip(4),
-                                child: Image(
-                                    image: AssetImage('assets/cargando.gif'),
-                                    fit: BoxFit.contain),
-                              ),
+                                  horizontal: responsive.wp(10),
+                                  vertical: responsive.wp(6)),
+                              height: responsive.ip(4),
+                              width: responsive.ip(4),
+                              child: Image(
+                                  image: AssetImage('assets/cargando.gif'),
+                                  fit: BoxFit.contain),
                             ),
                           ),
+                        ),
                       )
-                      : Container()
-                
-                ]),
+                    : Container()
+              ]),
             );
           }),
     );
@@ -148,8 +148,8 @@ class _GuardarProductoState extends State<GuardarProducto> {
                                               child: Text("Galeria"),
                                               onTap: () {
                                                 Navigator.pop(context);
-
-                                                _seleccionarFoto();
+                                                getImage(ImageSource.gallery);
+                                                //_seleccionarFoto();
                                               },
                                             ),
                                             Padding(
@@ -159,8 +159,9 @@ class _GuardarProductoState extends State<GuardarProducto> {
                                               child: Text("Camara"),
                                               onTap: () {
                                                 Navigator.pop(context);
+                                                getImage(ImageSource.camera);
 
-                                                _tomarFoto();
+                                                //_tomarFoto();
                                               },
                                             )
                                           ],
@@ -182,32 +183,36 @@ class _GuardarProductoState extends State<GuardarProducto> {
 
                 Text("Nombre de producto", style: textlabel),
 
-                datoInput(
-                    context, responsive, _nameController,TextInputType.text, 'Nombre de producto'),
+                datoInput(context, responsive, _nameController,
+                    TextInputType.text, 'Nombre de producto'),
 
                 SizedBox(height: responsive.hp(1)),
 
                 Text("Marca", style: textlabel),
 
-                datoInput(context, responsive, _marcaController,TextInputType.text, 'Marca'),
+                datoInput(context, responsive, _marcaController,
+                    TextInputType.text, 'Marca'),
 
                 SizedBox(height: responsive.hp(1)),
 
                 Text("Modelo", style: textlabel),
 
-                datoInput(context, responsive, _modeloController,TextInputType.text, 'Modelo'),
+                datoInput(context, responsive, _modeloController,
+                    TextInputType.text, 'Modelo'),
 
                 SizedBox(height: responsive.hp(1)),
 
                 Text("Tamaño", style: textlabel),
 
-                datoInput(context, responsive, _sizeController, TextInputType.number,'Tamaño'),
+                datoInput(context, responsive, _sizeController,
+                    TextInputType.number, 'Tamaño'),
 
                 SizedBox(height: responsive.hp(1)),
 
                 Text("Medida", style: textlabel),
 
-                datoInput(context, responsive, _medidaController,TextInputType.number, 'Medida'),
+                datoInput(context, responsive, _medidaController,
+                    TextInputType.number, 'Medida'),
 
                 SizedBox(height: responsive.hp(1)),
 
@@ -219,8 +224,8 @@ class _GuardarProductoState extends State<GuardarProducto> {
                         Text("Moneda", style: textlabel),
                         Container(
                           width: responsive.wp(40),
-                          child: datoInput(
-                              context, responsive, _monedaController,TextInputType.text, 'Moneda'),
+                          child: datoInput(context, responsive,
+                              _monedaController, TextInputType.text, 'Moneda'),
                         ),
                       ],
                     ),
@@ -232,7 +237,11 @@ class _GuardarProductoState extends State<GuardarProducto> {
                         Container(
                           width: responsive.wp(40),
                           child: datoInput(
-                              context, responsive, _precioController,  TextInputType.number,'Precio'),
+                              context,
+                              responsive,
+                              _precioController,
+                              TextInputType.number,
+                              'Precio'),
                         ),
                       ],
                     ),
@@ -243,7 +252,8 @@ class _GuardarProductoState extends State<GuardarProducto> {
 
                 Text("Stock", style: textlabel),
 
-                datoInput(context, responsive, _stockController, TextInputType.number, 'Stock'),
+                datoInput(context, responsive, _stockController,
+                    TextInputType.number, 'Stock'),
 
                 SizedBox(height: responsive.hp(1)),
 
@@ -364,20 +374,73 @@ class _GuardarProductoState extends State<GuardarProducto> {
     }
   }
 
-  _procesarImagen(ImageSource origen) async {
-    final picketfile = await picker.getImage(source: origen);
-    foto = File(picketfile.path);
+  // _procesarImagen(ImageSource origen) async {
+  //   final picketfile = await picker.getImage(source: origen);
+  //   foto = File(picketfile.path);
 
-    if (foto != null) {}
-    setState(() {});
-  }
+  //   if (foto != null) {}
+  //   setState(() {});
+  // }
 
-  _seleccionarFoto() async {
-    _procesarImagen(ImageSource.gallery);
-  }
+  // _seleccionarFoto() async {
+  //   _procesarImagen(ImageSource.gallery);
+  // }
 
-  _tomarFoto() async {
-    _procesarImagen(ImageSource.camera);
+  // _tomarFoto() async {
+  //   _procesarImagen(ImageSource.camera);
+  // }
+
+  //Recortar imagen
+  getImage(ImageSource source) async {
+    this.setState(() {
+      _inProcess = true;
+    });
+    File image = await ImagePicker.pickImage(source: source);
+    if (image != null) {
+      File cropped = await ImageCropper.cropImage(
+          sourcePath: image.path,
+          aspectRatioPresets: Platform.isAndroid
+              ? [
+                  // CropAspectRatioPreset.square,
+                  CropAspectRatioPreset.ratio3x2,
+                  // CropAspectRatioPreset.original,
+                  // CropAspectRatioPreset.ratio4x3,
+                  // CropAspectRatioPreset.ratio16x9
+                  
+                ]
+              : [
+                  // CropAspectRatioPreset.original,
+                  // CropAspectRatioPreset.square,
+                  CropAspectRatioPreset.ratio3x2,
+                  // CropAspectRatioPreset.ratio4x3,
+                  // CropAspectRatioPreset.ratio5x3,
+                  // CropAspectRatioPreset.ratio5x4,
+                  // CropAspectRatioPreset.ratio7x5,
+                  // CropAspectRatioPreset.ratio16x9
+                ],
+          androidUiSettings: AndroidUiSettings(
+              toolbarTitle: 'Recortar',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.square,
+              lockAspectRatio: true),
+          iosUiSettings: IOSUiSettings(
+            title: 'Imagen',
+          ),
+          
+          // maxWidth: 20,
+          // maxHeight: 30
+          );
+
+      this.setState(() {
+        foto = cropped;
+        _inProcess = false;
+      });
+    } else {
+      this.setState(() {
+        _inProcess = false;
+      });
+    }
   }
 
   Widget datoInput(BuildContext context, Responsive responsive,
@@ -510,47 +573,58 @@ class _GuardarProductoState extends State<GuardarProducto> {
         color: Theme.of(context).primaryColor,
         textColor: Colors.white,
         onPressed: () async {
-          //Validar el estado del Form
+          //Validar el estado de los controladores
           if (_formKey.currentState.validate()) {
             if (foto != null) {
-              final productosApi = ProductosApi();
-              final companyModel = CompanyModel();
-              final bienModel = BienesModel();
-              final producModel = ProductoModel();
+              if (goodData.idGood != null) {
+                if (companyData.idCategory != null) {
 
-              //llenar el modelo con el valor de los controllers
-              companyModel.idCategory = companyData.idCategory;
-              bienModel.idGood = goodData.idGood;
-              producModel.idSubsidiary = idSubsidiary;
-              producModel.productoName = _nameController.text;
-              producModel.productoPrice = _precioController.text;
-              producModel.productoCurrency = _monedaController.text;
-              producModel.productoMeasure = _medidaController.text;
-              producModel.productoBrand = _marcaController.text;
-              producModel.productoModel = _modeloController.text;
-              producModel.productoSize = _sizeController.text;
-              producModel.productoStock = _stockController.text;
+                  final productosApi = ProductosApi();
+                  final companyModel = CompanyModel();
+                  final bienModel = BienesModel();
+                  final producModel = ProductoModel();
 
-              _cargando.value = true;
+                  //llenar el modelo con el valor de los controllers
+                  companyModel.idCategory = companyData.idCategory;
+                  bienModel.idGood = goodData.idGood;
+                  producModel.idSubsidiary = idSubsidiary;
+                  producModel.productoName = _nameController.text;
+                  producModel.productoPrice = _precioController.text;
+                  producModel.productoCurrency = _monedaController.text;
+                  producModel.productoMeasure = _medidaController.text;
+                  producModel.productoBrand = _marcaController.text;
+                  producModel.productoModel = _modeloController.text;
+                  producModel.productoSize = _sizeController.text;
+                  producModel.productoStock = _stockController.text;
 
-              final int code = await productosApi.guardarProducto(
-                  foto, companyData, goodData, producModel);
-              //_submit(context,idSubsidiary,foto);
-              if (code == 1) {
-                print(code);
-                utils.showToast(context, 'Producto Registrado');
-                Navigator.pop(context);
-              } else if (code == 2) {
-                print(code);
-                utils.showToast(context, 'Ocurrio un error');
-              } else if (code == 6) {
-                print(code);
-                utils.showToast(context, 'Datos incorrectos');
+                  _cargando.value = true;
+
+                  final int code = await productosApi.guardarProducto(
+                      foto, companyData, goodData, producModel);
+                  
+                  //Respuesta que da el servicio
+                  if (code == 1) {
+                    print(code);
+                    utils.showToast(context, 'Producto Registrado');
+                    Navigator.pop(context);
+                  } else if (code == 2) {
+                    print(code);
+                    utils.showToast(context, 'Ocurrio un error');
+                  } else if (code == 6) {
+                    print(code);
+                    utils.showToast(context, 'Datos incorrectos');
+                  } else {
+                    print(code);
+                  }
+
+                  _cargando.value = false;
+                  //
+                } else {
+                  utils.showToast(context, 'Debe seleccionar una categoría ');
+                }
               } else {
-                print(code);
+                utils.showToast(context, 'Debe seleccionar un Tipo de Bien ');
               }
-
-              _cargando.value = false;
             } else {
               utils.showToast(context, 'Debe seleccionar una foto');
             }

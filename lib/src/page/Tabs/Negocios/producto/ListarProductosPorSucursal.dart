@@ -1,5 +1,6 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/productoModel.dart';
+import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/widgets/widgetBienes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ class _ListarProductosPorSucursalPageState
     extends State<ListarProductosPorSucursalPage> {
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive.of(context);
+    
     final productoBloc = ProviderBloc.productos(context);
     productoBloc.listarProductosPorSucursal(widget.idSucursal);
 
@@ -26,22 +29,26 @@ class _ListarProductosPorSucursalPageState
       builder:
           (BuildContext context, AsyncSnapshot<List<ProductoModel>> snapshot) {
         if (snapshot.hasData) {
-          final bienes = snapshot.data;
-          return GridView.builder(
-              padding: EdgeInsets.only(top: 10),
-              //controller: ScrollController(keepScrollOffset: false),
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 0.89,
-                crossAxisCount: 2,
-              ),
-              itemCount: bienes.length,
-              itemBuilder: (context, index) {
-                return BienesWidget(
-                  producto: snapshot.data[index],
-                );
-              });
+          if (snapshot.data.length > 0) {
+            final bienes = snapshot.data;
+            return GridView.builder(
+                padding: EdgeInsets.only(top: 10),
+                //controller: ScrollController(keepScrollOffset: false),
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 0.89,
+                  crossAxisCount: 2,
+                ),
+                itemCount: bienes.length,
+                itemBuilder: (context, index) {
+                  return BienesWidget(
+                    producto: snapshot.data[index],
+                  );
+                });
+          } else {
+            return Center(child: Text("No tiene registrado ningún producto", style: TextStyle(fontSize: responsive.ip(2)),));
+          }
         } else {
           return Center(
             child: CupertinoActivityIndicator(),

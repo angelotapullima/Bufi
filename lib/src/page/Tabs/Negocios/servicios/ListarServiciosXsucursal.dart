@@ -29,22 +29,26 @@ class _ListarServiciosXSucursalPageState
       builder: (BuildContext context,
           AsyncSnapshot<List<SubsidiaryServiceModel>> snapshot) {
         if (snapshot.hasData) {
-          final servicios = snapshot.data;
-          return GridView.builder(
-              padding: EdgeInsets.only(top: 10),
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.89,
-                  mainAxisSpacing: 3),
-              itemCount: servicios.length,
-              itemBuilder: (context, index) {
-                return serviceWidget(context, snapshot.data[index], responsive);
-              });
-        } else {
-          return Center(child: CupertinoActivityIndicator()
-              // CupertinoActivityIndicator(),
-              );
+          if (snapshot.data.length > 0) {
+            final servicios = snapshot.data;
+            return GridView.builder(
+                padding: EdgeInsets.only(top: 10),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.89,
+                    mainAxisSpacing: 3),
+                itemCount: servicios.length,
+                itemBuilder: (context, index) {
+                  return serviceWidget(context, snapshot.data[index], responsive);
+                });
+          } else {
+            return Center(child: Text("No tiene registrado ningún servicio", style: TextStyle(fontSize: responsive.ip(2)),));
+          }
+        }else {
+          return Center(
+            child: CupertinoActivityIndicator(),
+          );
         }
       },
     );

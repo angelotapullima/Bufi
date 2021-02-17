@@ -13,6 +13,7 @@ import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/textStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:bufi/src/utils/utils.dart' as utils;
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class GuardarServicio extends StatefulWidget {
@@ -30,6 +31,8 @@ class _GuardarServicioState extends State<GuardarServicio> {
   TextEditingController _descripcionController = TextEditingController();
   File foto;
   final picker = ImagePicker();
+  bool _inProcess = false;
+
 
 //widget para el cargando
   final _cargando = ValueNotifier<bool>(false);
@@ -168,8 +171,8 @@ class _GuardarServicioState extends State<GuardarServicio> {
                                             child: Text("Galeria"),
                                             onTap: () {
                                               Navigator.pop(context);
-
-                                              _seleccionarFoto();
+                                               getImage(ImageSource.gallery);
+                                              //_seleccionarFoto();
                                             },
                                           ),
                                           Padding(
@@ -179,8 +182,8 @@ class _GuardarServicioState extends State<GuardarServicio> {
                                             child: Text("Camara"),
                                             onTap: () {
                                               Navigator.pop(context);
-
-                                              _tomarFoto();
+                                               getImage(ImageSource.camera);
+                                              //_tomarFoto();
                                             },
                                           )
                                         ],
@@ -312,20 +315,72 @@ class _GuardarServicioState extends State<GuardarServicio> {
     }
   }
 
-  _procesarImagen(ImageSource origen) async {
-    final picketfile = await picker.getImage(source: origen);
-    foto = File(picketfile.path);
+  // _procesarImagen(ImageSource origen) async {
+  //   final picketfile = await picker.getImage(source: origen);
+  //   foto = File(picketfile.path);
 
-    if (foto != null) {}
-    setState(() {});
-  }
+  //   if (foto != null) {}
+  //   setState(() {});
+  // }
 
-  _seleccionarFoto() async {
-    _procesarImagen(ImageSource.gallery);
-  }
+  // _seleccionarFoto() async {
+  //   _procesarImagen(ImageSource.gallery);
+  // }
 
-  _tomarFoto() async {
-    _procesarImagen(ImageSource.camera);
+  // _tomarFoto() async {
+  //   _procesarImagen(ImageSource.camera);
+  // }
+
+  //Recortar imagen
+  getImage(ImageSource source) async {
+    this.setState(() {
+      _inProcess = true;
+    });
+    File image = await ImagePicker.pickImage(source: source);
+    if (image != null) {
+      File cropped = await ImageCropper.cropImage(
+          sourcePath: image.path,
+          aspectRatioPresets: Platform.isAndroid
+              ? [
+                  CropAspectRatioPreset.square,
+                  CropAspectRatioPreset.ratio3x2,
+                  CropAspectRatioPreset.original,
+                  CropAspectRatioPreset.ratio4x3,
+                  CropAspectRatioPreset.ratio16x9
+                  
+                ]
+              : [
+                  CropAspectRatioPreset.original,
+                  CropAspectRatioPreset.square,
+                  CropAspectRatioPreset.ratio3x2,
+                  CropAspectRatioPreset.ratio4x3,
+                  CropAspectRatioPreset.ratio5x3,
+                  CropAspectRatioPreset.ratio5x4,
+                  CropAspectRatioPreset.ratio7x5,
+                  CropAspectRatioPreset.ratio16x9
+                ],
+          androidUiSettings: AndroidUiSettings(
+              toolbarTitle: 'Recortar',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          iosUiSettings: IOSUiSettings(
+            title: 'Imagen',
+          ),
+          maxWidth: 20,
+          maxHeight: 30
+          );
+
+      this.setState(() {
+        foto = cropped;
+        _inProcess = false;
+      });
+    } else {
+      this.setState(() {
+        _inProcess = false;
+      });
+    }
   }
 
   Widget datoInput(BuildContext context, Responsive responsive,

@@ -180,7 +180,7 @@ class MisMovimientosPage extends StatelessWidget {
                               ? Center(
                                   child: CupertinoActivityIndicator(),
                                 )
-                              : Text('No hay Movimientos');
+                              : Center(child: Text('No hay Movimientos'));
                         } else {
                           return Center(
                             child: CupertinoActivityIndicator(),

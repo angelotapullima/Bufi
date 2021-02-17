@@ -37,7 +37,7 @@ class _ListarProductosPorSucursalPageState
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 0.89,
+                  childAspectRatio: 0.85,
                   crossAxisCount: 2,
                 ),
                 itemCount: bienes.length,

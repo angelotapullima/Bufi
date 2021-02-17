@@ -4,11 +4,10 @@ import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/extentions.dart';
-import 'package:bufi/src/widgets/translate_animation.dart'; 
+import 'package:bufi/src/widgets/translate_animation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 
 class DetalleProductos extends StatefulWidget {
   final ProductoModel producto;
@@ -94,6 +93,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
       body: Stack(
         children: <Widget>[
           _backgroundImage(context),
+          //ImagenProducto(),
           SafeArea(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -139,42 +139,51 @@ class _DetalleProductosState extends State<DetalleProductos> {
   Widget _backgroundImage(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return GestureDetector(
-      onTap: () {
-        //Navigator.pushNamed(context, 'detalleProductoFoto', arguments: carrito);
-      },
-      onVerticalDragUpdate: (drag) {
-        if (drag.primaryDelta > 7) {
-          Navigator.pop(context);
-        }
-      },
-      child: Container(
-        width: double.infinity,
-        height: size.height * 0.50,
-        child: Hero(
-          tag: widget.producto.idProducto,
-          child: ClipRRect(
-            child: CachedNetworkImage(
-              //cacheManager: CustomCacheManager(),
-              placeholder: (context, url) => Image(
-                  image: const AssetImage('assets/jar-loading.gif'),
-                  fit: BoxFit.cover),
-              errorWidget: (context, url, error) => Image(
-                  image: AssetImage('assets/carga_fallida.jpg'),
-                  fit: BoxFit.cover),
-              imageUrl: '$apiBaseURL/${widget.producto.productoImage}',
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
-              ),
-            ),
+    List<String> listProd = [
+      "https://i.blogs.es/d07883/huawei-p40-pro-1/1366_2000.jpg",
+      "https://cnet4.cbsistatic.com/img/BZhOgzaNcsc8fVQJmML9334-S-8=/2019/12/21/08bc2882-f90d-44b8-92e9-f5cf67f5db4d/samsung-galaxy-fold.jpg"
+    ];
+
+    return Container(
+      child: GestureDetector(
+          onTap: () {
+            //Navigator.pushNamed(context, 'detalleProductoFoto', arguments: carrito);
+          },
+          onVerticalDragUpdate: (drag) {
+            if (drag.primaryDelta > 7) {
+              Navigator.pop(context);
+            }
+          },
+          child: CarrouselProducto(listProd)
+
+          // Container(
+          //   width: double.infinity,
+          //   height: size.height * 0.50,
+          //   child: Hero(
+          //     tag: widget.producto.idProducto,
+          //     child: ClipRRect(
+          //       child: CachedNetworkImage(
+          //         //cacheManager: CustomCacheManager(),
+          //         placeholder: (context, url) => Image(
+          //             image: const AssetImage('assets/jar-loading.gif'),
+          //             fit: BoxFit.cover),
+          //         errorWidget: (context, url, error) => Image(
+          //             image: AssetImage('assets/carga_fallida.jpg'),
+          //             fit: BoxFit.cover),
+          //         imageUrl: '$apiBaseURL/${widget.producto.productoImage}',
+          //         imageBuilder: (context, imageProvider) => Container(
+          //           decoration: BoxDecoration(
+          //             image: DecorationImage(
+          //               image: imageProvider,
+          //               fit: BoxFit.fitHeight,
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           ),
-        ),
-      ),
     );
   }
 
@@ -283,8 +292,6 @@ class _DetalleProductosState extends State<DetalleProductos> {
               ),
             ),
           );
-
-       
         },
       ),
     );
@@ -327,8 +334,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
     );
   }
 
-  Widget _sizeWidget(String text,
-      { bool isSelected = false}) {
+  Widget _sizeWidget(String text, {bool isSelected = false}) {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -397,11 +403,6 @@ class _DetalleProductosState extends State<DetalleProductos> {
   }
 }
 
-
-
-
-
-
 class TitleText extends StatelessWidget {
   final String text;
   final double fontSize;
@@ -445,10 +446,124 @@ class LightColor {
   static const Color lightblack = Color(0xff5F5F60);
 }
 
+// class ImagenProducto extends StatelessWidget {
+//   List<String> listProd = [
+//     'https://plazaisabella.com/img/descuentos/descuentos-banner.jpg',
+//     "https://elamigogeek.com/wp-content/uploads/2019/05/moto-z4-1013x1024.jpg"
+//   ];
 
+//   @override
+//   Widget build(BuildContext context) {
+//     final responsive = Responsive.of(context);
 
+//     return Padding(
+//       padding: EdgeInsets.only(top: responsive.ip(6)),
+//       child: Row(
+//         children: [
+//           Container(
+//             color: Colors.blue,
+//             width: responsive.wp(20),
+//             height: responsive.hp(38),
+//             child: ListView.builder(
+//               shrinkWrap: true,
+//               itemCount: listProd.length,
+//               itemBuilder: (BuildContext context, int index) {
+//                 return Card(
+//                     child: Container(
+//                         height: responsive.hp(12),
+//                         child: Image.network(listProd[index])));
+//               },
+//             ),
+//           ),
+//           Expanded(
+//             child: GestureDetector(
+//                 onTap: () {
+//                   //Navigator.pushNamed(context, 'detalleProductoFoto', arguments: carrito);
+//                 },
+//                 onVerticalDragUpdate: (drag) {
+//                   if (drag.primaryDelta > 7) {
+//                     Navigator.pop(context);
+//                   }
+//                 },
+//                 child: CarrouselProducto(listProd)),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
 
+class CarrouselProducto extends StatelessWidget {
+  final _pageController = PageController(viewportFraction: 0.9, initialPage: 1);
+  //List<String> listProd = ["https://i.blogs.es/d07883/huawei-p40-pro-1/1366_2000.jpg","https://elamigogeek.com/wp-content/uploads/2019/05/moto-z4-1013x1024.jpg"];
+  
 
+  final List<String> listProd;
+  CarrouselProducto(this.listProd);
+  @override
+  Widget build(BuildContext context) {
+    final responsive = Responsive.of(context);
+    final size = MediaQuery.of(context).size;
+    return _buildPageView(responsive, size);
+  }
+
+  _buildPageView(Responsive responsive, Size size) {
+    return Padding(
+      padding: EdgeInsets.only(top: responsive.ip(6)),
+      child: Container(
+        //width:
+        //double.infinity,
+        height: size.height * 0.38,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+          color: Colors.transparent,
+        ),
+        // height: responsive.hp(19),
+        child: PageView.builder(
+          
+            itemCount: listProd.length,
+            controller: _pageController,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                margin: EdgeInsets.symmetric(horizontal: responsive.wp(1)),
+                //padding: EdgeInsets.symmetric(horizontal: responsive.wp(3)),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: CachedNetworkImage(
+                      //cacheManager: CustomCacheManager(),
+                      placeholder: (context, url) => Image(
+                          image: AssetImage('assets/jar-loading.gif'),
+                          fit: BoxFit.cover),
+                      errorWidget: (context, url, error) => Image(
+                          image: AssetImage('assets/carga_fallida.jpg'),
+                          fit: BoxFit.cover),
+                      imageUrl: listProd[index],
+                      // 'https://plazaisabella.com/img/descuentos/descuentos-banner.jpg',
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+            onPageChanged: (int index) {}),
+      ),
+    );
+  }
+}
 
 /* 
 

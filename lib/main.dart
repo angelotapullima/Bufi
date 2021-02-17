@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
-            darkTheme: darkTheme,
+            darkTheme:lightTheme, //darkTheme,
             //themeMode: ThemeMode.system,
             home: Splash(),
             //initialRoute:(prefs.idUser=="" || prefs.idUser==null)?'login':'home',

@@ -8,19 +8,18 @@ import 'package:bufi/src/page/Tabs/Negocios/Sucursal/registrarSubsidiaryPage.dar
 import 'package:bufi/src/page/Tabs/Negocios/actualizarNegocio_page.dart';
 import 'package:bufi/src/page/Tabs/Negocios/detalleNegocio/detalleNegocio.dart';
 import 'package:bufi/src/page/Tabs/Negocios/inicio/negocio_bloc.dart';
-import 'package:bufi/src/page/Tabs/Negocios/negocioActualizado.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/registrarProducto.dart';
 import 'package:bufi/src/page/Tabs/Negocios/registroNegocio/registrarNegocioPage.dart';
 import 'package:bufi/src/page/Tabs/Negocios/registroNegocio/registro_negocio_bloc.dart';
-import 'package:bufi/src/page/Tabs/Negocios/servicios/ListarServiciosXsucursal.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/registrarSerivicio.dart';
 import 'package:bufi/src/page/Tabs/Points/points_bloc.dart';
 import 'package:bufi/src/page/Tabs/Principal/listarBienesAll.dart';
 import 'package:bufi/src/page/Tabs/Principal/listarServiciosAll.dart';
+import 'package:bufi/src/page/cuenta/recargar_saldo.dart';
 import 'package:bufi/src/page/home.dart';
 import 'package:bufi/src/page/login_page.dart';
-import 'package:bufi/src/page/mis_movimientos_page.dart';
+import 'package:bufi/src/page/cuenta/mis_movimientos_page.dart';
 import 'package:bufi/src/page/registro_usuarioTab.dart';
 import 'package:bufi/src/page/splash.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
@@ -99,6 +98,7 @@ class MyApp extends StatelessWidget {
               // "listarServiciosXsucursal": (BuildContext context) =>
 
               'misMovimientos': (BuildContext context) => MisMovimientosPage(),
+              'recargarSaldo': (BuildContext context) => RecargarSaldo(),
               
               //     ListarServiciosXSucursal()
             }),

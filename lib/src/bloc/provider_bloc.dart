@@ -21,6 +21,7 @@ import 'package:bufi/src/bloc/servicios/servicios_bloc.dart';
 import 'package:bufi/src/bloc/subsidiary/registrarSubsidiary_bloc.dart';
 import 'package:bufi/src/bloc/subsidiary/sucursal_bloc.dart';
 import 'package:bufi/src/bloc/sugerenciaBusquedaBloc.dart';
+import 'package:bufi/src/bloc/tipos_pago_bloc.dart';
 import 'package:flutter/material.dart';
 
 class ProviderBloc extends InheritedWidget {
@@ -49,6 +50,7 @@ class ProviderBloc extends InheritedWidget {
   final porcentajesBloc = PorcentajesBloc();
   final cuentaBloc  = CuentaBloc();
   final misMovimientosBloc=MisMovimientosBloc();
+  final tiposPagoBloc=TiposPagoBloc();
   
 
   factory ProviderBloc({Key key, Widget child}) {
@@ -191,5 +193,10 @@ class ProviderBloc extends InheritedWidget {
   static MisMovimientosBloc misMov(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .misMovimientosBloc;
+  }
+ 
+  static TiposPagoBloc tiPago(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .tiposPagoBloc;
   }
 }

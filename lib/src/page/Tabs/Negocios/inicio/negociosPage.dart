@@ -2,6 +2,7 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/inicio/negocio_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
+import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -101,8 +102,8 @@ class _NegociosPageState extends State<NegociosPage> {
                                                                         10),
                                                             child:
                                                                 CachedNetworkImage(
-                                                              /* cacheManager:
-                                                                  CustomCacheManager(), */
+                                                               cacheManager:
+                                                                  CustomCacheManager(), 
                                                               placeholder: (context, url) => Image(
                                                                   image: AssetImage(
                                                                       'assets/jar-loading.gif'),

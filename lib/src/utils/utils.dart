@@ -6,6 +6,7 @@ import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/database/sugerenciaBusqueda_db.dart';
+import 'package:bufi/src/database/tipo_pago_database.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/carritoModel.dart';
@@ -327,4 +328,19 @@ void cambiarEstadoCarrito(
     //actualizarNeg.updateNegocio(id)
     detallenegocio.obtenernegociosporID(model.idCompany);
   }
+}
+
+void deseleccionarTiposPago() async {
+  final tiposPagoDatabase = TiposPagoDatabase();
+  await tiposPagoDatabase.deseleccionarTiposPago();
+}
+
+void seleccionarTiposPago(BuildContext context, String idTiposPago) async {
+  final tiposPagoBloc = ProviderBloc.tiPago(context);
+  final tiposPagoDatabase = TiposPagoDatabase();
+  await tiposPagoDatabase.deseleccionarTiposPago();
+  await tiposPagoDatabase.updateSeleccionarTiposPago(idTiposPago);
+
+  tiposPagoBloc.obtenerTipoPagoSeleccionado();
+  tiposPagoBloc.obtenerTiposPago();
 }

@@ -29,7 +29,8 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
     final categoriasBloc = ProviderBloc.categoria(context);
 
     categoriasBloc.obtenerCategorias();
-    final provider = Provider.of<RegistroNegocioBlocListener>(context, listen: false);
+    final provider =
+        Provider.of<RegistroNegocioBlocListener>(context, listen: false);
     final regisNBloc = ProviderBloc.registroNegocio(context);
 
     bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
@@ -72,19 +73,20 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
                               //mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: (isDark)
-                                              ? Colors.white
-                                              : Colors.red,
-                                        ),
-                                        child: BackButton(
-                                          color: (isDark)
-                                              ? Colors.black
-                                              : Colors.white,
-                                        )),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color:
+                                          (isDark) ? Colors.white : Colors.red,
+                                    ),
+                                    child: BackButton(
+                                      color: (isDark)
+                                          ? Colors.black
+                                          : Colors.white,
+                                    )),
                                 Padding(
-                                  padding: EdgeInsets.only(left: responsive.wp(6), top: responsive.hp(3.5)),
+                                  padding: EdgeInsets.only(
+                                      left: responsive.wp(6),
+                                      top: responsive.hp(3.5)),
                                   child: Column(
                                     //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
@@ -96,8 +98,8 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
                                       ),
                                       SizedBox(height: 12),
                                       Text("Complete los campos",
-                                          style:
-                                              TextStyle(fontSize: responsive.ip(2)))
+                                          style: TextStyle(
+                                              fontSize: responsive.ip(2)))
                                     ],
                                   ),
                                 ),
@@ -130,14 +132,14 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
                           ),
                           _cel(regisNBloc, responsive),
                           SizedBox(height: 15),
-                          _type(),
+                          _type(responsive),
                           SizedBox(height: 10),
-                          _categoria(categoriasBloc),
+                          _categoria(categoriasBloc, responsive),
                           SizedBox(height: 10),
-                          _delivery(),
-                          _entrega(),
-                          _tarjeta(),
-                           SizedBox(height: 10),
+                          _delivery(responsive),
+                          _entrega(responsive),
+                          _tarjeta(responsive),
+                          SizedBox(height: 10),
                           _botonRegistro(context, regisNBloc),
                         ],
                       ),
@@ -147,7 +149,6 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
               ],
             )
           ],
-         
         ),
       ),
     );
@@ -225,14 +226,14 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
     );
   }
 
-  Widget _type() {
+  Widget _type(Responsive responsive) {
     return Padding(
         padding: EdgeInsets.only(bottom: 2.0, right: 3),
         child: Row(
           children: <Widget>[
             Text('Tipo', style: textlabel),
             SizedBox(
-              width: 50.0,
+              width:responsive.wp(11),
             ),
             Expanded(
               child: Container(
@@ -285,14 +286,14 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
         ));
   }
 
-  Widget _categoria(CategoriaBloc bloc) {
+  Widget _categoria(CategoriaBloc bloc, Responsive responsive) {
     return Padding(
       padding: EdgeInsets.only(bottom: 2.0, right: 3),
       child: Row(
         children: <Widget>[
           Text('Categoría', style: textlabel),
           SizedBox(
-            width: 10,
+            width:responsive.wp(2),
           ),
           Expanded(
             child: StreamBuilder(
@@ -379,9 +380,9 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
         });
   }
 
-  Widget _delivery() {
+  Widget _delivery(Responsive responsive) {
     return Padding(
-      padding: EdgeInsets.only( left: 67.0),
+      padding: EdgeInsets.only(left: responsive.ip(8)),
       child: SwitchListTile(
           value: _d,
           title: Text('¿Realiza Delivery?'),
@@ -399,9 +400,9 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
     );
   }
 
-  Widget _entrega() {
+  Widget _entrega(Responsive responsive) {
     return Padding(
-      padding: const EdgeInsets.only( left: 67.0),
+      padding:  EdgeInsets.only(left: responsive.ip(8)),
       child: SwitchListTile(
           value: _e,
           title: Text('¿Realiza Entregas?'),
@@ -417,9 +418,9 @@ class _RegistroNegocioState extends State<RegistroNegocio> {
     );
   }
 
-  Widget _tarjeta() {
+  Widget _tarjeta(Responsive responsive) {
     return Padding(
-      padding: const EdgeInsets.only(left: 67.0),
+      padding: EdgeInsets.only(left: responsive.ip(8)),
       child: SwitchListTile(
           value: _t,
           title: Text('¿Acepta Tarjeta?'),

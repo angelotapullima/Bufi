@@ -1,4 +1,3 @@
-
 import 'package:bufi/src/bloc/bienesServicios_bloc.dart';
 import 'package:bufi/src/bloc/bottom_navigation_bloc.dart';
 import 'package:bufi/src/bloc/busquedaBloc.dart';
@@ -16,6 +15,7 @@ import 'package:bufi/src/bloc/negocio/negocios_bloc.dart';
 import 'package:bufi/src/bloc/negocio/registroNegocio_bloc.dart';
 import 'package:bufi/src/bloc/porcentaje_splash.dart';
 import 'package:bufi/src/bloc/principal_bloc.dart';
+import 'package:bufi/src/bloc/producto/paginaActualBloc.dart';
 import 'package:bufi/src/bloc/producto/producto_bloc.dart';
 import 'package:bufi/src/bloc/servicios/servicios_bloc.dart';
 import 'package:bufi/src/bloc/subsidiary/registrarSubsidiary_bloc.dart';
@@ -48,10 +48,10 @@ class ProviderBloc extends InheritedWidget {
   final itemSubcategBloc = ItemCategoriaBloc();
   final sugerenciaBusquedaBloc = SugerenciaBusquedaBloc();
   final porcentajesBloc = PorcentajesBloc();
-  final cuentaBloc  = CuentaBloc();
-  final misMovimientosBloc=MisMovimientosBloc();
-  final tiposPagoBloc=TiposPagoBloc();
-  
+  final cuentaBloc = CuentaBloc();
+  final misMovimientosBloc = MisMovimientosBloc();
+  final tiposPagoBloc = TiposPagoBloc();
+  final contadorBloc = ContadorPaginaProductosBloc();
 
   factory ProviderBloc({Key key, Widget child}) {
     if (_instancia == null) {
@@ -189,14 +189,18 @@ class ProviderBloc extends InheritedWidget {
         .cuentaBloc;
   }
 
- 
   static MisMovimientosBloc misMov(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .misMovimientosBloc;
   }
- 
+
   static TiposPagoBloc tiPago(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .tiposPagoBloc;
+  }
+
+  static ContadorPaginaProductosBloc contadorPagina(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .contadorBloc;
   }
 }

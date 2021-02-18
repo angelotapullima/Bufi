@@ -1,6 +1,7 @@
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/widgets/clipper_ticket.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:bufi/src/widgets/extentions.dart';
@@ -157,6 +158,8 @@ class _UserPageState extends State<UserPage> {
             ),
           ),
 
+          
+
           Padding(
             padding: EdgeInsets.all(responsive.ip(1.5)),
             child: InkWell(
@@ -213,6 +216,7 @@ class _UserPageState extends State<UserPage> {
           Navigator.pushNamed(context, 'misMovimientos');
         } else if (texto == 'Recargas') {
           Navigator.pushNamed(context, 'recargarSaldo');
+          //Navigator.pushNamed(context, 'prueba');
         }
 
         /* if (onPressed != null) {
@@ -591,16 +595,4 @@ class _UserPageState extends State<UserPage> {
               )
             ]));
   }
-
-  //Container(
-  //  child: Center(child: FlatButton(child: Text('borrar todo'),onPressed: (){
-
-  //    final preferences = Preferences();
-
-  //   preferences.clearPreferences();
-
-  //   Navigator.pushNamed(context, 'login');
-
-  //  },)),
-  // );
 }

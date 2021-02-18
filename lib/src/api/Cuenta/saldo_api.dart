@@ -55,7 +55,7 @@ class SaldoApi {
     recargaModel.result = decodedData['result'].toString();
 
     listGeneral.add(recargaModel);
-
+ 
     return listGeneral;
   }
 }

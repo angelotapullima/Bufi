@@ -6,6 +6,7 @@ import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
+import 'package:bufi/src/widgets/clipper_ticket.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:bufi/src/widgets/extentions.dart';
@@ -20,15 +21,20 @@ class RecargarSaldo extends StatelessWidget {
 
     deseleccionarTiposPago();
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: StreamBuilder(
+        backgroundColor: Colors.white,
+        body: TieneRecargas(
+          recargas: '232433',
+        )
+
+        /* 
+      StreamBuilder(
         stream: cuentaBloc.recargaStream,
         builder:
             (BuildContext context, AsyncSnapshot<List<RecargaModel>> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.length > 0) {
-              return (snapshot.data[0].result == '1')
-                  ? TieneRecargas()
+              return (snapshot.data[0].result == '3')
+                  ? TieneRecargas(recargas: '232433',)
                   : NotieneRecargas();
             } else {
               return Container(
@@ -60,7 +66,10 @@ class RecargarSaldo extends StatelessWidget {
           }
         },
       ),
-    );
+    
+    
+     */
+        );
   }
 }
 
@@ -403,13 +412,92 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
 }
 
 class TieneRecargas extends StatelessWidget {
-  const TieneRecargas({Key key}) : super(key: key);
+  final String recargas;
+  const TieneRecargas({Key key, @required this.recargas}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text(' tiene recargas'),
+    final responsive = Responsive.of(context);
+    return Scaffold(
+      backgroundColor: Color(0xff303c59),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: double.infinity,
+            margin: EdgeInsets.symmetric(
+              horizontal: responsive.wp(2),
+            ),
+            child: PhysicalShape(
+              color: Colors.white,
+              shadowColor: Colors.blue,
+              elevation: .5,
+              clipper: TicketClipper(),
+              child: Container(
+                height: 60,
+                child: Center(
+                  child: Text(
+                    'Recarga Pendiente',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: responsive.ip(1.5),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            color: Colors.white,
+            margin: EdgeInsets.symmetric(
+              horizontal: responsive.wp(3.5),
+            ),
+            child: MySeparator(
+              
+              color:Color(0xff303c59),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            margin: EdgeInsets.symmetric(
+              horizontal: responsive.wp(2),
+            ),
+            child: PhysicalShape(
+              color: Colors.white,
+              shadowColor: Colors.blue,
+              elevation: .5,
+              clipper: ExtendedClipper(),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: responsive.hp(2),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    margin: EdgeInsets.only(
+                      left: responsive.wp(1.5),
+                    ),
+                    height: responsive.hp(12),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image(
+                          image: AssetImage('assets/logo_bufeotec.png'),
+                          fit: BoxFit.contain,
+                        )),
+                  ),
+                  Text(
+                    recargas,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: responsive.ip(5.5),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

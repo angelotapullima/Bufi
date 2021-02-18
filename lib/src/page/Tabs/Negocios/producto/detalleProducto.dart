@@ -2,7 +2,6 @@ import 'package:bufi/src/bloc/producto/paginaActualBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalle_carrito.dart';
-import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/extentions.dart';
@@ -10,7 +9,6 @@ import 'package:bufi/src/widgets/translate_animation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class DetalleProductos extends StatefulWidget {
   final ProductoModel producto;

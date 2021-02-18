@@ -53,6 +53,8 @@ class SaldoApi {
     recargaModel.expiracion = decodedData['expiracion'];
     recargaModel.monto = decodedData['monto'];
     recargaModel.result = decodedData['result'].toString();
+    recargaModel.mensaje = decodedData['mensaje'];
+    recargaModel.tipo = decodedData['tipo'];
 
     listGeneral.add(recargaModel);
  

@@ -53,6 +53,8 @@ class RecargaModel{
   String expiracion;
   String monto;
   String result;
+  String mensaje;
+  String tipo;
 
 
 RecargaModel({
@@ -60,6 +62,8 @@ RecargaModel({
   this.expiracion,
   this.monto,
   this.result,
+  this.mensaje,
+  this.tipo,
 });
   
 }

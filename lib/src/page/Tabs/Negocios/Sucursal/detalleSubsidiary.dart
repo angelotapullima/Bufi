@@ -4,7 +4,6 @@ import 'package:bufi/src/page/Tabs/Negocios/Sucursal/tabInfoPrincipalSucursalPag
 import 'package:bufi/src/page/Tabs/Negocios/producto/ListarProductosPorSucursal.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/ListarServiciosXsucursal.dart';
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:bufi/src/widgets/detalleBienesServicios.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

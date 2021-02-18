@@ -21,20 +21,17 @@ class RecargarSaldo extends StatelessWidget {
 
     deseleccionarTiposPago();
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: TieneRecargas(
-          recargas: '232433',
-        )
-
-        /* 
-      StreamBuilder(
+      backgroundColor: Colors.white,
+      body: StreamBuilder(
         stream: cuentaBloc.recargaStream,
         builder:
             (BuildContext context, AsyncSnapshot<List<RecargaModel>> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.length > 0) {
               return (snapshot.data[0].result == '3')
-                  ? TieneRecargas(recargas: '232433',)
+                  ? TieneRecargas(
+                      pagos: snapshot.data[0],
+                    )
                   : NotieneRecargas();
             } else {
               return Container(
@@ -66,10 +63,7 @@ class RecargarSaldo extends StatelessWidget {
           }
         },
       ),
-    
-    
-     */
-        );
+    );
   }
 }
 
@@ -412,91 +406,189 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
 }
 
 class TieneRecargas extends StatelessWidget {
-  final String recargas;
-  const TieneRecargas({Key key, @required this.recargas}) : super(key: key);
+  final RecargaModel pagos;
+  const TieneRecargas({Key key, @required this.pagos}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     return Scaffold(
       backgroundColor: Color(0xff303c59),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
         children: [
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(
-              horizontal: responsive.wp(2),
-            ),
-            child: PhysicalShape(
-              color: Colors.white,
-              shadowColor: Colors.blue,
-              elevation: .5,
-              clipper: TicketClipper(),
-              child: Container(
-                height: 60,
-                child: Center(
-                  child: Text(
-                    'Recarga Pendiente',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: responsive.ip(1.5),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(
+                  horizontal: responsive.wp(2),
+                ),
+                child: PhysicalShape(
+                  color: Colors.white,
+                  shadowColor: Colors.blue,
+                  elevation: .5,
+                  clipper: TicketClipper(),
+                  child: Container(
+                    height: 60,
+                    child: Center(
+                      child: Text(
+                        'Recarga Pendiente',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: responsive.ip(1.5),
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
+              Container(
+                color: Colors.white,
+                margin: EdgeInsets.symmetric(
+                  horizontal: responsive.wp(3.5),
+                ),
+                child: MySeparator(
+                  color: Color(0xff303c59),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(
+                  horizontal: responsive.wp(2),
+                ),
+                child: PhysicalShape(
+                  color: Colors.white,
+                  shadowColor: Colors.blue,
+                  elevation: .5,
+                  clipper: ExtendedClipper(),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: responsive.hp(2),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.only(
+                          left: responsive.wp(1.5),
+                        ),
+                        height: responsive.hp(12),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image(
+                            image: AssetImage('assets/logo_bufeotec.png'),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: responsive.hp(2),
+                      ),
+                      Text(
+                        pagos.codigo,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: responsive.ip(6.5),
+                        ),
+                      ),
+                      SizedBox(
+                        height: responsive.hp(3),
+                      ),
+                      Divider(),
+                      /* Container(
+                        color: Colors.white,
+                        margin: EdgeInsets.symmetric(
+                          horizontal: responsive.wp(1.5),
+                        ),
+                        child: MySeparator(
+                          color: Color(0xFF648BE7),
+                        ),
+                      ), */
+                      SizedBox(
+                        height: responsive.hp(1.5),
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: responsive.wp(4),
+                          ),
+                          Text(
+                            'Monto',
+                            style: TextStyle(
+                              fontSize: responsive.ip(2),
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            'S/ ${pagos.monto}',
+                            style: TextStyle(
+                              fontSize: responsive.ip(2),
+                            ),
+                          ),
+                          SizedBox(
+                            width: responsive.wp(4),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: responsive.hp(1.5),
+                      ),
+                      Divider(),
+                      SizedBox(
+                        height: responsive.hp(1.5),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: responsive.wp(3.5)),
+                        child: Text(
+                          pagos.mensaje,
+                          style: TextStyle(
+                              fontSize: responsive.ip(1.7),
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(
+                        height: responsive.hp(1.5),
+                      ),
+                      Divider(),
+                      SizedBox(
+                        height: responsive.hp(1.5),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          'Ver Agentes',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      SizedBox(
+                        height: responsive.hp(4),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-          Container(
-            color: Colors.white,
-            margin: EdgeInsets.symmetric(
-              horizontal: responsive.wp(3.5),
-            ),
-            child: MySeparator(
-              
-              color:Color(0xff303c59),
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(
-              horizontal: responsive.wp(2),
-            ),
-            child: PhysicalShape(
-              color: Colors.white,
-              shadowColor: Colors.blue,
-              elevation: .5,
-              clipper: ExtendedClipper(),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: responsive.hp(2),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.only(
-                      left: responsive.wp(1.5),
-                    ),
-                    height: responsive.hp(12),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image(
-                          image: AssetImage('assets/logo_bufeotec.png'),
-                          fit: BoxFit.contain,
-                        )),
-                  ),
-                  Text(
-                    recargas,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: responsive.ip(5.5),
-                    ),
-                  ),
-                ],
+          Positioned(
+            top: responsive.hp(4.5),
+            left: responsive.wp(2),
+            child: GestureDetector(
+              onTap: (){
+                Navigator.pop(context);
+              },
+              child: CircleAvatar(
+                radius: responsive.ip(1.8),
+                backgroundColor: Colors.white,
+                child: Icon(Icons.close),
               ),
             ),
-          ),
+          )
         ],
       ),
     );

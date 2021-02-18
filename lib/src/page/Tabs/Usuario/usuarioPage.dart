@@ -1,7 +1,6 @@
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:bufi/src/widgets/clipper_ticket.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:bufi/src/widgets/extentions.dart';

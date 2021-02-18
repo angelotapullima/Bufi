@@ -104,7 +104,7 @@ class _ListarServiciosAllState extends State<ListarServiciosAll> {
                         scrollDirection: Axis.vertical,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          childAspectRatio: 0.85,
+                          childAspectRatio:   0.73,
                           mainAxisSpacing: 3
                         ),
                         itemCount: servicios.length,

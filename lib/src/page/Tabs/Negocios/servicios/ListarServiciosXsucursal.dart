@@ -36,7 +36,7 @@ class _ListarServiciosXSucursalPageState
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: 0.85,
+                    childAspectRatio:  0.73,
                     mainAxisSpacing: 3),
                 itemCount: servicios.length,
                 itemBuilder: (context, index) {

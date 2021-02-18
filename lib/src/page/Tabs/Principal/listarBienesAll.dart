@@ -95,7 +95,7 @@ class _ListarBienesAllState extends State<ListarBienesAll> {
                           scrollDirection: Axis.vertical,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: 0.85),
+                                  crossAxisCount: 2, childAspectRatio:  0.73),
                           itemCount: bienes.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(

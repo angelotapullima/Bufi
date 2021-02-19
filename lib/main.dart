@@ -4,7 +4,7 @@ import 'package:bufi/src/page/Tabs/Carrito/carritoTab.dart';
 import 'package:bufi/src/page/Tabs/Carrito/carrito_bloc.dart';
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido_bloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubsidiary.dart';
-import 'package:bufi/src/page/Tabs/Negocios/detalleNegocio/detalleNegocio.dart';
+import 'package:bufi/src/page/Tabs/Negocios/inicio/detalleNegocio.dart';
 import 'package:bufi/src/bloc/subsidiary/negocio_bloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/registrarProducto.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
@@ -12,6 +12,9 @@ import 'package:bufi/src/page/Tabs/Negocios/servicios/registrarSerivicio.dart';
 import 'package:bufi/src/page/Tabs/Points/points_bloc.dart';
 import 'package:bufi/src/page/Tabs/Principal/listarBienesAll.dart';
 import 'package:bufi/src/page/Tabs/Principal/listarServiciosAll.dart';
+import 'package:bufi/src/page/Tabs/Usuario/Pedidos/EnviadosPage.dart';
+import 'package:bufi/src/page/Tabs/Usuario/Pedidos/PendientesEnvioPage.dart';
+import 'package:bufi/src/page/Tabs/Usuario/Pedidos/ValoracionPage.dart';
 import 'package:bufi/src/page/cuenta/recargar_saldo.dart';
 import 'package:bufi/src/page/home.dart';
 import 'package:bufi/src/page/login_page.dart';
@@ -69,17 +72,12 @@ class MyApp extends StatelessWidget {
               //Negocio
               //"registroNegocio": (BuildContext context) => RegistroNegocio(),
               "detalleNegocio": (BuildContext context) => DetalleNegocio(),
-              // "actualizarNegocio": (BuildContext context) =>
-              //     ActualizarNegocio(),
-              // "negocioActualizado": (BuildContext context) =>
-              //     NegocioActualizado(),
+              
 
               //Sucursal
               "detalleSubsidiary": (BuildContext context) =>
                   DetalleSubsidiary(),
-              // "registroSubsidiary": (BuildContext context) =>
-              //     RegistroSubsidiary(),
-
+              
               //Producto
               "guardarProducto": (BuildContext context) => GuardarProducto(),
 
@@ -93,14 +91,15 @@ class MyApp extends StatelessWidget {
               "detalleServicio": (BuildContext context) => DetalleServicio(),
               // "listarServiciosXsucursal": (BuildContext context) =>
 
+              //Usuario
+                //Pedidos
+              'pedidosPendientes': (BuildContext context) =>PendientesEnvioPage(),
+              'pedidosEnviados': (BuildContext context) =>PedidosEnviadosPage(),
+              'valoracion': (BuildContext context) =>PendientesValoracionPage(),
+                //Bufis
               'misMovimientos': (BuildContext context) => MisMovimientosPage(),
               'recargarSaldo': (BuildContext context) => RecargarSaldo(),
 
-
-
-              //'prueba': (BuildContext context) => Pruebafnfnf(),
-              
-              //     ListarServiciosXSucursal()
             }),
       ),
     );

@@ -41,29 +41,29 @@ class _CarritoPageState extends State<CarritoPage> {
 
               if (listcarrito.length > 0) {
                 return SafeArea(
-                    child: Column(
-                      children: [
-                        ValueListenableBuilder<bool>(
-                          valueListenable: provider.show,
-                          builder: (_, value, __) {
-                            return (value)
-                                ? Container(
-                                    color: Colors.white,
-                                    width: double.infinity,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: responsive.wp(5),
-                                      vertical: responsive.hp(1),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Carrito',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: responsive.ip(3),
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        /* Spacer(),
+                  child: Column(
+                    children: [
+                      ValueListenableBuilder<bool>(
+                        valueListenable: provider.show,
+                        builder: (_, value, __) {
+                          return (value)
+                              ? Container(
+                                  color: Colors.white,
+                                  width: double.infinity,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: responsive.wp(5),
+                                    vertical: responsive.hp(1),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Carrito',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: responsive.ip(3),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      /* Spacer(),
                                         Text(
                                           'S/ ${listcarrito[0].monto}',
                                           style: TextStyle(
@@ -124,49 +124,49 @@ class _CarritoPageState extends State<CarritoPage> {
                                           ),
                                         )
                                        */
-                                      ],
-                                    ),
-                                  )
-                                : Container(
-                                    color: Colors.white,
-                                    width: double.infinity,
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: responsive.wp(5),
-                                        vertical: responsive.hp(1)),
-                                    child: Text(
-                                      'Carrito',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: responsive.ip(2.5),
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                  );
-                          },
-                        ),
-                        Expanded(
-                          child: ListView.builder(
-                              padding: EdgeInsets.all(0),
-                              controller: provider.controller,
-                              itemCount: listcarrito.length + 1,
-                              itemBuilder: (BuildContext context, int index) {
-                                if (index == 0) {
-                                  return Container(
-                                    color: Colors.white,
-                                    padding: EdgeInsets.symmetric(
+                                    ],
+                                  ),
+                                )
+                              : Container(
+                                  color: Colors.white,
+                                  width: double.infinity,
+                                  padding: EdgeInsets.symmetric(
                                       horizontal: responsive.wp(5),
-                                      // vertical: responsive.hp(1),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Carrito',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: responsive.ip(3),
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Spacer(),
-                                        /*  Text(
+                                      vertical: responsive.hp(1)),
+                                  child: Text(
+                                    'Carrito',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: responsive.ip(2.5),
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                );
+                        },
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                            padding: EdgeInsets.all(0),
+                            controller: provider.controller,
+                            itemCount: listcarrito.length + 1,
+                            itemBuilder: (BuildContext context, int index) {
+                              if (index == 0) {
+                                return Container(
+                                  color: Colors.white,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: responsive.wp(5),
+                                    // vertical: responsive.hp(1),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Carrito',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: responsive.ip(3),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Spacer(),
+                                      /*  Text(
                                           'S/ ${listcarrito[index].monto}',
                                           style: TextStyle(
                                               color: Colors.black,
@@ -226,128 +226,161 @@ class _CarritoPageState extends State<CarritoPage> {
                                           ),
                                         )
                                        */
-                                      ],
-                                    ),
-                                  );
-                                }
+                                    ],
+                                  ),
+                                );
+                              }
 
-                                int xxx = index - 1;
-                                return ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: ClampingScrollPhysics(),
-                                  itemCount: listcarrito[xxx].carrito.length + 1,
-                                  itemBuilder: (BuildContext context, int i) {
-                                    double paaa = responsive.hp(5);
+                              int xxx = index - 1;
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                physics: ClampingScrollPhysics(),
+                                itemCount: listcarrito[xxx].carrito.length + 1,
+                                itemBuilder: (BuildContext context, int i) {
+                                  double paaa = responsive.hp(5);
 
-                                    if (xxx == 0) {
-                                      paaa = 0.0;
-                                    }
-                                    if (i == 0) {
-                                      return Container(
-                                        margin: EdgeInsets.only(
-                                          top: paaa,
-                                        ),
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: responsive.hp(1),
-                                        ),
-                                        width: double.infinity,
-                                        color: Colors.blueGrey[50],
-                                        child: Row(
-                                            //crossAxisAlignment: CrossAxisAlignment.center,
+                                  if (xxx == 0) {
+                                    paaa = 0.0;
+                                  }
+                                  if (i == 0) {
+                                    return Container(
+                                      margin: EdgeInsets.only(
+                                        top: paaa,
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: responsive.hp(1),
+                                      ),
+                                      width: double.infinity,
+                                      color: Colors.blue[50],
+                                      child: Row(
+                                          //crossAxisAlignment: CrossAxisAlignment.center,
 
-                                            children: [
-                                              SizedBox(
-                                                width: responsive.wp(3),
-                                              ),
-                                              Text(
-                                                '${listcarrito[xxx].nombre}',
-                                                style: TextStyle(
-                                                    color: Colors.blueGrey[700],
-                                                    fontSize: responsive.ip(1.8),
-                                                    fontWeight: FontWeight.w700),
-                                              ),
-                                              Spacer(),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Navigator.of(context)
-                                                      .push(PageRouteBuilder(
-                                                    pageBuilder: (context,
-                                                        animation,
-                                                        secondaryAnimation) {
-                                                      return ConfirmacionPedido(
-                                                        idSubsidiary:
-                                                            '${listcarrito[xxx].idSubsidiary}',
-                                                      );
-                                                    },
-                                                    transitionsBuilder: (context,
-                                                        animation,
-                                                        secondaryAnimation,
-                                                        child) {
-                                                      var begin =
-                                                          Offset(0.0, 1.0);
-                                                      var end = Offset.zero;
-                                                      var curve = Curves.ease;
+                                          children: [
+                                            SizedBox(
+                                              width: responsive.wp(3),
+                                            ),
+                                            Text(
+                                              '${listcarrito[xxx].nombre}',
+                                              style: TextStyle(
+                                                  color: Colors.blueGrey[700],
+                                                  fontSize: responsive.ip(1.8),
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            Spacer(),
+                                            GestureDetector(
+                                              onTap: () {
+                                                Navigator.of(context)
+                                                    .push(PageRouteBuilder(
+                                                  pageBuilder: (context,
+                                                      animation,
+                                                      secondaryAnimation) {
+                                                    return ConfirmacionPedido(
+                                                      idSubsidiary:
+                                                          '${listcarrito[xxx].idSubsidiary}',
+                                                    );
+                                                  },
+                                                  transitionsBuilder: (context,
+                                                      animation,
+                                                      secondaryAnimation,
+                                                      child) {
+                                                    var begin =
+                                                        Offset(0.0, 1.0);
+                                                    var end = Offset.zero;
+                                                    var curve = Curves.ease;
 
-                                                      var tween = Tween(
-                                                              begin: begin,
-                                                              end: end)
-                                                          .chain(
-                                                        CurveTween(curve: curve),
-                                                      );
+                                                    var tween = Tween(
+                                                            begin: begin,
+                                                            end: end)
+                                                        .chain(
+                                                      CurveTween(curve: curve),
+                                                    );
 
-                                                      return SlideTransition(
-                                                        position: animation
-                                                            .drive(tween),
-                                                        child: child,
-                                                      );
-                                                    },
-                                                  ));
-                                                },
-                                                child: Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal:
-                                                          responsive.wp(3),
-                                                      vertical:
-                                                          responsive.hp(.5)),
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                      color: Colors.red),
-                                                  child: Text(
-                                                    'Pagar S/ ${listcarrito[xxx].monto}',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize:
-                                                            responsive.ip(1.5),
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
+                                                    return SlideTransition(
+                                                      position: animation
+                                                          .drive(tween),
+                                                      child: child,
+                                                    );
+                                                  },
+                                                ));
+                                              },
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal:
+                                                        responsive.wp(3),
+                                                    vertical:
+                                                        responsive.hp(.5)),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    color: Colors.red),
+                                                child: Text(
+                                                  'Pagar S/ ${listcarrito[xxx].monto}',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize:
+                                                          responsive.ip(1.5),
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
                                               ),
-                                              SizedBox(
-                                                width: responsive.wp(3),
-                                              ),
-                                              //Divider(),
-                                            ]),
-                                      );
-                                    }
-                                    int indd = i - 1;
-                                    var precioFinal = double.parse(
-                                            listcarrito[xxx]
-                                                .carrito[indd]
-                                                .precio) *
-                                        double.parse(snapshot
-                                            .data[xxx].carrito[indd].cantidad);
-                                    return Container(
-                                      height: responsive.hp(14),
-                                      padding: EdgeInsets.symmetric(vertical: 5),
-                                      width: double.infinity,
+                                            ),
+                                            SizedBox(
+                                              width: responsive.wp(3),
+                                            ),
+                                            //Divider(),
+                                          ]),
+                                    );
+                                  }
+                                  int indd = i - 1;
+                                  var precioFinal = double.parse(
+                                          listcarrito[xxx]
+                                              .carrito[indd]
+                                              .precio) *
+                                      double.parse(snapshot
+                                          .data[xxx].carrito[indd].cantidad);
+
+                                  return Dismissible(
+                                    key: UniqueKey(),
+                                    background: Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: responsive.wp(1)),
+                                      color: Colors.red[400],
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Icon(Icons.delete,
+                                                  color: Colors.white)),
+                                          Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Icon(Icons.delete,
+                                                  color: Colors.white)),
+                                        ],
+                                      ),
+                                    ),
+                                    direction: DismissDirection.horizontal,
+                                    onDismissed: (direction) {
+                                      agregarAlCarritoContador(
+                                          context,
+                                          '${listcarrito[xxx].carrito[indd].idSubsidiaryGood}',
+                                          0);
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: responsive.wp(3)),
+                                      height: responsive.hp(20),
+
+                                      // padding:
+                                      //     EdgeInsets.symmetric(vertical: 3),
+                                      //width: double.infinity,
                                       child: Row(
                                         children: [
                                           /* SizedBox(
-                                            width: responsive.wp(1.5),
-                                          ), */
+                                              width: responsive.wp(1.5),
+                                            ), */
                                           GestureDetector(
                                             onTap: () {
                                               if ('${listcarrito[xxx].carrito[indd].estadoSeleccionado}' ==
@@ -414,7 +447,8 @@ class _CarritoPageState extends State<CarritoPage> {
                                                         child: Image(
                                                             image: AssetImage(
                                                                 'assets/loading.gif'),
-                                                            fit: BoxFit.fitWidth),
+                                                            fit: BoxFit
+                                                                .fitWidth),
                                                       ),
                                                       imageUrl:
                                                           '$apiBaseURL/${listcarrito[xxx].carrito[indd].image}',
@@ -442,7 +476,8 @@ class _CarritoPageState extends State<CarritoPage> {
                                                             color: Colors.white,
                                                             fontSize: 18,
                                                             fontWeight:
-                                                                FontWeight.bold),
+                                                                FontWeight
+                                                                    .bold),
                                                       ),
                                                     ),
                                                   )
@@ -451,32 +486,35 @@ class _CarritoPageState extends State<CarritoPage> {
                                             ),
                                           ),
                                           //SizedBox(height: 50),
-                                          Container(
-                                            width: responsive.wp(50),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text('${listcarrito[xxx].carrito[indd].nombre}' +
-                                                    ' ' +
-                                                    '${listcarrito[xxx].carrito[indd].marca}'),
-                                                Text(
-                                                  '${listcarrito[xxx].carrito[indd].moneda}' +
+                                          Expanded(
+                                            child: Container(
+                                              //width: responsive.wp(50),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text('${listcarrito[xxx].carrito[indd].nombre}' +
                                                       ' ' +
-                                                      '$precioFinal',
-                                                  style: TextStyle(
-                                                      fontSize: responsive.ip(2)),
-                                                ),
-                                                Text(
-                                                    '${listcarrito[xxx].carrito[indd].nombre}'),
-                                                CantidadCarrito(
-                                                  carrito: listcarrito[xxx]
-                                                      .carrito[indd],
-                                                  llamada: llamada,
-                                                  idSudsidiaryGood:
-                                                      '${listcarrito[xxx].carrito[indd].idSubsidiaryGood}',
-                                                ),
-                                              ],
+                                                      '${listcarrito[xxx].carrito[indd].marca}'),
+                                                  Text(
+                                                    '${listcarrito[xxx].carrito[indd].moneda}' +
+                                                        ' ' +
+                                                        '$precioFinal',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            responsive.ip(2)),
+                                                  ),
+                                                  Text(
+                                                      '${listcarrito[xxx].carrito[indd].nombre}'),
+                                                  CantidadCarrito(
+                                                    carrito: listcarrito[xxx]
+                                                        .carrito[indd],
+                                                    llamada: llamada,
+                                                    idSudsidiaryGood:
+                                                        '${listcarrito[xxx].carrito[indd].idSubsidiaryGood}',
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
 
@@ -501,14 +539,14 @@ class _CarritoPageState extends State<CarritoPage> {
                                           )
                                         ],
                                       ),
-                                    );
-                                  },
-                                );
-                              }),
-                        ),
-                      ],
-                    ),
-                  
+                                    ),
+                                  );
+                                },
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
                 );
               } else {
                 return Center(

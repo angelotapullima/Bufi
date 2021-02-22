@@ -217,8 +217,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                           image: AssetImage('assets/jar-loading.gif'),
                           fit: BoxFit.cover),
                       errorWidget: (context, url, error) => Icon(Icons.error),
-                      imageUrl:
-                          '$apiBaseURL/${widget.producto.productoImage}',
+                      imageUrl: '$apiBaseURL/${widget.producto.productoImage}',
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
@@ -246,7 +245,22 @@ class _BienesWidgetState extends State<BienesWidget> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                )
+                ),
+               //Cuando el producto no esta disponible
+                // Positioned(
+                //   //left: responsive.wp(1),
+                //   top: responsive.hp(5),
+                //   child: Container(
+                //     transform: Matrix4.rotationZ(-0.7),
+                //     height: responsive.hp(3),
+                //     width: responsive.wp(17),
+                //     decoration: BoxDecoration(
+                //       color: Colors.red
+                //     ),
+                //     child: const Text('No disponible'),
+                //   ),
+                // ),
+
               ],
             ),
           ),
@@ -274,7 +288,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                       ),
                       SizedBox(
                         width: responsive.wp(1),
-                      ), 
+                      ),
                       GestureDetector(
                         onTap: () {
                           final buttonBloc = ProviderBloc.tabs(context);
@@ -331,7 +345,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                             favorite = true;
                             final buttonBloc = ProviderBloc.tabs(context);
                             buttonBloc.changePage(1);
-                             guardarProductoFavorito(context, widget.producto);
+                            guardarProductoFavorito(context, widget.producto);
                           });
                         },
                       )

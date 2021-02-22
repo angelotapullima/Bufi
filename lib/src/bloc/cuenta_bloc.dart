@@ -2,7 +2,7 @@
 
 
 
-import 'package:bufi/src/api/Cuenta/saldo_api.dart';
+import 'package:bufi/src/api/Cuenta/cuenta_api.dart';
 import 'package:bufi/src/database/cuenta_dabatabase.dart';
 import 'package:bufi/src/models/cuentaModel.dart';
 import 'package:rxdart/rxdart.dart';
@@ -10,7 +10,7 @@ import 'package:rxdart/rxdart.dart';
 class CuentaBloc{
 
   final cuentaDatabase = CuentaDatabase();
-  final cuentaApi = SaldoApi();
+  final cuentaApi = CuentaApi();
   
 
  final _saldoController = BehaviorSubject<List<CuentaModel>>();

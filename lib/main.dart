@@ -1,3 +1,4 @@
+import 'package:bufi/src/page/cuenta/subir_vaucher_recarga.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/page/Categorias/categoriasPage.dart';
 import 'package:bufi/src/page/Tabs/Carrito/carritoTab.dart';
@@ -99,6 +100,7 @@ class MyApp extends StatelessWidget {
 
               'misMovimientos': (BuildContext context) => MisMovimientosPage(),
               'recargarSaldo': (BuildContext context) => RecargarSaldo(),
+              'subirVaucher': (BuildContext context) => SubirVaucher(),
 
 
 

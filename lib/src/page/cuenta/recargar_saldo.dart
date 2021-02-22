@@ -1,3 +1,4 @@
+import 'package:bufi/src/api/Cuenta/cuenta_api.dart';
 import 'package:bufi/src/bloc/cuenta_bloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/database/tipo_pago_database.dart';
@@ -254,10 +255,26 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
                                       } else {
                                         //llamada api
 
-                                        print('llamada api');
-                                      }
+                                        final cuentaApi = CuentaApi();
 
-                                      _cargando.value = false;
+                                        final result =
+                                            await cuentaApi.recargarCuenta(
+                                                controlMonto.text,
+                                                listaTipos[0].idTipoPago);
+
+                                        if (result[0].result == '1') {
+                                          print('todo ok');
+
+                                          final cuentaBloc =
+                                              ProviderBloc.cuenta(context);
+                                          cuentaBloc.obtenerRecargaPendiente();
+
+                                          _cargando.value = false;
+                                        } else {
+                                          print('fffff');
+                                          _cargando.value = false;
+                                        }
+                                      }
                                     } else {
                                       showToast(context,
                                           'Por favor seleccione un método de recarga');
@@ -540,7 +557,8 @@ class TieneRecargas extends StatelessWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: responsive.wp(3.5)),
+                          horizontal: responsive.wp(3.5),
+                        ),
                         child: Text(
                           pagos.mensaje,
                           style: TextStyle(
@@ -555,17 +573,34 @@ class TieneRecargas extends StatelessWidget {
                       SizedBox(
                         height: responsive.hp(1.5),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          'Ver Agentes',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
+                      (pagos.tipo == '1')
+                          ? Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(
+                                'Ver Agentes',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )
+                          : GestureDetector(
+                            onTap: (){
+                              Navigator.pushNamed(context, 'subirVaucher');
+                            },
+                                                      child: Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Text(
+                                  'Subir vaucher',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                          ),
                       SizedBox(
                         height: responsive.hp(4),
                       ),
@@ -579,7 +614,7 @@ class TieneRecargas extends StatelessWidget {
             top: responsive.hp(4.5),
             left: responsive.wp(2),
             child: GestureDetector(
-              onTap: (){
+              onTap: () {
                 Navigator.pop(context);
               },
               child: CircleAvatar(

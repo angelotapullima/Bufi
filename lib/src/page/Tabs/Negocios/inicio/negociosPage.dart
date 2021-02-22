@@ -1,6 +1,6 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
-import 'package:bufi/src/page/Tabs/Negocios/inicio/negocio_bloc.dart';
+import 'package:bufi/src/bloc/subsidiary/negocio_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -421,27 +421,27 @@ class HeaderWidget extends StatelessWidget {
                 fontWeight: FontWeight.bold),
           ),
           Spacer(),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, 'registroNegocio');
-            },
-            child: Container(
-              width: responsive.wp(32),
-              height: responsive.hp(4.5),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Center(
-                child: Text(
-                  'Registrar Negocio',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-          ),
+          // GestureDetector(
+          //   onTap: () {
+          //     Navigator.pushNamed(context, 'registroNegocio');
+          //   },
+          //   child: Container(
+          //     width: responsive.wp(32),
+          //     height: responsive.hp(4.5),
+          //     decoration: BoxDecoration(
+          //       color: Colors.red,
+          //       borderRadius: BorderRadius.circular(20),
+          //     ),
+          //     child: Center(
+          //       child: Text(
+          //         'Registrar Negocio',
+          //         style: TextStyle(color: Colors.white),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           IconButton(
-              icon: Icon(Icons.category),
+              icon: Icon(Icons.category, color: Colors.red),
               onPressed: () {
                 provider.lptmr();
               }),

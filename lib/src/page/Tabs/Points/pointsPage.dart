@@ -8,6 +8,7 @@ import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/favoritos.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart' as utils;
+import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -207,7 +208,21 @@ class _PointsPageState extends State<PointsPage> {
                                       ),
                                     ],
                                   )
-                                : Container(
+                                :
+                                //Dismissible(
+                                //     key: Key(snapshot.data[xxx].toString()),
+                                //     direction: DismissDirection.endToStart,
+                                //     onDismissed: (direction) {
+                                //       setState(() {
+                                //         //snapshot.data[xxx].removeAt(index);
+                                //         // final sucursal=SubsidiaryModel();
+                                //         // quitarSubsidiaryFavorito(
+                                //         //   context,sucursal
+                                //         // );
+                                //       });
+                                //     },
+                                //     child:
+                                Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(color: Colors.black12),
                                       borderRadius: BorderRadius.circular(8),
@@ -273,6 +288,7 @@ class _PointsPageState extends State<PointsPage> {
                                       ],
                                     ),
                                   );
+                            //);
                           }),
                     ),
                   ],
@@ -293,7 +309,7 @@ class _PointsPageState extends State<PointsPage> {
     );
   }
 
-  void quitarSubsidiaryFavorito(BuildContext context, SubsidiaryModel data) {}
+  // void quitarSubsidiaryFavorito(BuildContext context, SubsidiaryModel data) {}
 }
 
 class WidgetBienesFavoritos extends StatelessWidget {

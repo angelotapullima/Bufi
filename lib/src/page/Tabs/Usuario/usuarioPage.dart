@@ -113,6 +113,28 @@ class _UserPageState extends State<UserPage> {
           ),
           // _general(responsive)
 
+          //Pedidos
+          Container(margin: EdgeInsets.all(
+              responsive.ip(1.5),
+            ),padding: EdgeInsets.symmetric(
+              vertical: responsive.hp(4),
+              horizontal: responsive.wp(2),
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.white),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                
+                bottonPedido(responsive, 'Pendientes de Envío'),
+                bottonPedido(responsive, 'Enviados'),
+                bottonPedido(responsive, 'Pendientes de valoración'),
+              ],
+            ),      
+                 ),
+            
+
+          //Bufis
           Container(
             margin: EdgeInsets.all(
               responsive.ip(1.5),
@@ -215,6 +237,45 @@ class _UserPageState extends State<UserPage> {
           Navigator.pushNamed(context, 'misMovimientos');
         } else if (texto == 'Recargas') {
           Navigator.pushNamed(context, 'recargarSaldo');
+          //Navigator.pushNamed(context, 'prueba');
+        }
+
+        /* if (onPressed != null) {
+            onPressed();
+          } */
+      },
+      borderRadius: BorderRadius.all(
+        Radius.circular(13),
+      ),
+    );
+  }
+
+  Widget bottonPedido(Responsive responsive, String texto) {
+    return Container(
+      
+      width: responsive.wp(25),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: responsive.wp(5),
+            child: Icon(Icons.ad_units,color: Colors.red,),
+            backgroundColor: Colors.grey[200],
+          ),
+          Text(
+            texto,
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
+    ).ripple(
+      () {
+        if (texto == 'Pendientes de Envío') {
+          Navigator.pushNamed(context, 'pedidosPendientes');
+        } else if (texto == 'Enviados') {
+          Navigator.pushNamed(context, 'pedidosEnviados');
+          //Navigator.pushNamed(context, 'prueba');
+        } else if (texto == 'Pendientes de valoración') {
+          Navigator.pushNamed(context, 'valoracion');
           //Navigator.pushNamed(context, 'prueba');
         }
 

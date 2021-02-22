@@ -47,13 +47,13 @@ class _DetalleNegocioState extends State<DetalleNegocio>
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, 'registroSubsidiary',
-              arguments: company.idCompany);
-        },
-        child: Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.pushNamed(context, 'registroSubsidiary',
+      //         arguments: company.idCompany);
+      //   },
+      //   child: Icon(Icons.add),
+      // ),
     );
   }
 
@@ -431,28 +431,28 @@ class _DetalleNegocioState extends State<DetalleNegocio>
       expandedHeight: responsive.hp(30),
       floating: false,
       actions: [
-        GestureDetector(
-          onTap: () {
-            //Mandar el id company
-            Navigator.pushNamed(context, 'actualizarNegocio',
-                arguments: companyModel.idCompany);
-          },
-          child: Container(
-            margin: EdgeInsets.symmetric(vertical: responsive.hp(1)),
-            width: responsive.wp(25),
-            decoration: BoxDecoration(
-              color: Colors.red,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Center(
-              child: Text(
-                'Actualizar',
-                style: TextStyle(color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ),
+        // GestureDetector(
+        //   onTap: () {
+        //     //Mandar el id company
+        //     Navigator.pushNamed(context, 'actualizarNegocio',
+        //         arguments: companyModel.idCompany);
+        //   },
+        //   child: Container(
+        //     margin: EdgeInsets.symmetric(vertical: responsive.hp(1)),
+        //     width: responsive.wp(25),
+        //     decoration: BoxDecoration(
+        //       color: Colors.red,
+        //       borderRadius: BorderRadius.circular(20),
+        //     ),
+        //     child: Center(
+        //       child: Text(
+        //         'Actualizar',
+        //         style: TextStyle(color: Colors.white),
+        //         textAlign: TextAlign.center,
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ],
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(

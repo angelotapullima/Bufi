@@ -41,7 +41,7 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary>
           builder: (context, snapshot) {
             return _crearAppbar(responsive, subsidiary);
           }),
-      floatingActionButton: _buttonFloating(context, subsidiary, responsive),
+      //floatingActionButton: _buttonFloating(context, subsidiary, responsive),
     );
   }
 

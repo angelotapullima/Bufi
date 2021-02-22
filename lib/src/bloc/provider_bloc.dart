@@ -10,9 +10,9 @@ import 'package:bufi/src/bloc/cuenta_bloc.dart';
 import 'package:bufi/src/bloc/favoritos_bloc.dart';
 import 'package:bufi/src/bloc/login_bloc.dart';
 import 'package:bufi/src/bloc/mis_movimientos_bloc.dart';
-import 'package:bufi/src/bloc/negocio/ActualizarNegocio_bloc.dart';
-import 'package:bufi/src/bloc/negocio/negocios_bloc.dart';
-import 'package:bufi/src/bloc/negocio/registroNegocio_bloc.dart';
+
+import 'package:bufi/src/bloc/negocios_bloc.dart';
+
 import 'package:bufi/src/bloc/porcentaje_splash.dart';
 import 'package:bufi/src/bloc/principal_bloc.dart';
 import 'package:bufi/src/bloc/producto/paginaActualBloc.dart';
@@ -32,11 +32,11 @@ class ProviderBloc extends InheritedWidget {
   final tabsNavigationbloc = TabNavigationBloc();
   final bienesServiciosBloc = BienesServiciosBloc();
   final negociosBloc = NegociosBloc();
-  final registroNegoc = RegistroNegocioBloc();
+  //final registroNegoc = RegistroNegocioBloc();
   final sucursalbloc = SucursalBloc();
   final pointsBloc = PointsBloc();
   final registrarSucursalBloc = RegistroSucursalBloc();
-  final actualizarNegBloc = ActualizarNegocioBloc();
+  //final actualizarNegBloc = ActualizarNegocioBloc();
   final productosBloc = ProductoBloc();
   final listarServiciosBloc = ListarServiciosBloc();
   final carritoBloc = CarritoBloc();
@@ -97,10 +97,10 @@ class ProviderBloc extends InheritedWidget {
         .negociosBloc;
   }
 
-  static RegistroNegocioBloc registroNegocio(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .registroNegoc;
-  }
+  // static RegistroNegocioBloc registroNegocio(BuildContext context) {
+  //   return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+  //       .registroNegoc;
+  // }
 
   static SucursalBloc sucursal(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
@@ -117,10 +117,10 @@ class ProviderBloc extends InheritedWidget {
         .registrarSucursalBloc;
   }
 
-  static ActualizarNegocioBloc actualizarNeg(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .actualizarNegBloc;
-  }
+  // static ActualizarNegocioBloc actualizarNeg(BuildContext context) {
+  //   return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+  //       .actualizarNegBloc;
+  // }
 
   static SucursalBloc listarsucursalPorId(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())

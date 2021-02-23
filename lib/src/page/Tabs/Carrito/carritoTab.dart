@@ -35,11 +35,11 @@ class _CarritoPageState extends State<CarritoPage> {
       body: StreamBuilder(
           stream: carritoBloc.carritoGeneralStream,
           builder: (BuildContext context,
-              AsyncSnapshot<List<CarritoGeneralModel>> snapshot) {
+              AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
             if (snapshot.hasData) {
-              List<CarritoGeneralModel> listcarrito = snapshot.data;
+              List<CarritoGeneralSuperior> listCarritoSuperior = snapshot.data;
 
-              if (listcarrito.length > 0) {
+              if (listCarritoSuperior.length > 0) {
                 return SafeArea(
                   child: Column(
                     children: [
@@ -57,73 +57,60 @@ class _CarritoPageState extends State<CarritoPage> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        'Carrito',
+                                        'Cesta',
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: responsive.ip(3),
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      /* Spacer(),
-                                        Text(
-                                          'S/ ${listcarrito[0].monto}',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: responsive.ip(1.8),
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(
-                                          width: responsive.wp(2),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
+                                      Spacer(),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context)
+                                              .push(PageRouteBuilder(
+                                            pageBuilder: (context, animation,
+                                                secondaryAnimation) {
+                                              return ConfirmacionPedido();
+                                            },
+                                            transitionsBuilder: (context,
+                                                animation,
+                                                secondaryAnimation,
+                                                child) {
+                                              var begin = Offset(0.0, 1.0);
+                                              var end = Offset.zero;
+                                              var curve = Curves.ease;
 
+                                              var tween =
+                                                  Tween(begin: begin, end: end)
+                                                      .chain(
+                                                CurveTween(curve: curve),
+                                              );
 
-                                            Navigator.of(context)
-                                                .push(PageRouteBuilder(
-                                              pageBuilder: (context, animation,
-                                                  secondaryAnimation) {
-                                                return ConfirmacionPedido();
-                                              },
-                                              transitionsBuilder: (context,
-                                                  animation,
-                                                  secondaryAnimation,
-                                                  child) {
-                                                var begin = Offset(0.0, 1.0);
-                                                var end = Offset.zero;
-                                                var curve = Curves.ease;
-
-                                                var tween =
-                                                    Tween(begin: begin, end: end)
-                                                        .chain(
-                                                  CurveTween(curve: curve),
-                                                );
-
-                                                return SlideTransition(
-                                                  position:
-                                                      animation.drive(tween),
-                                                  child: child,
-                                                );
-                                              },
-                                            ));
-                                          },
-                                          child: Container(
-                                            width: responsive.wp(17),
-                                            height: responsive.hp(3.5),
-                                            decoration: BoxDecoration(
-                                              color: Colors.red,
+                                              return SlideTransition(
+                                                position:
+                                                    animation.drive(tween),
+                                                child: child,
+                                              );
+                                            },
+                                          ));
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: responsive.wp(3),
+                                              vertical: responsive.hp(.5)),
+                                          decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(20),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                'Pagar',
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ),
+                                              color: Colors.red),
+                                          child: Text(
+                                            'Pagar S/ ${listCarritoSuperior[0].montoGeneral}',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: responsive.ip(1.5),
+                                                fontWeight: FontWeight.bold),
                                           ),
-                                        )
-                                       */
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 )
@@ -133,12 +120,16 @@ class _CarritoPageState extends State<CarritoPage> {
                                   padding: EdgeInsets.symmetric(
                                       horizontal: responsive.wp(5),
                                       vertical: responsive.hp(1)),
-                                  child: Text(
-                                    'Carrito',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: responsive.ip(2.5),
-                                        fontWeight: FontWeight.w700),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Cesta',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: responsive.ip(2.5),
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                    ],
                                   ),
                                 );
                         },
@@ -147,7 +138,7 @@ class _CarritoPageState extends State<CarritoPage> {
                         child: ListView.builder(
                             padding: EdgeInsets.all(0),
                             controller: provider.controller,
-                            itemCount: listcarrito.length + 1,
+                            itemCount: listCarritoSuperior[0].car.length + 1,
                             itemBuilder: (BuildContext context, int index) {
                               if (index == 0) {
                                 return Container(
@@ -159,73 +150,60 @@ class _CarritoPageState extends State<CarritoPage> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        'Carrito',
+                                        'Cesta',
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: responsive.ip(3),
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Spacer(),
-                                      /*  Text(
-                                          'S/ ${listcarrito[index].monto}',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: responsive.ip(1.8),
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(
-                                          width: responsive.wp(2),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            print('ubhfo');
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context)
+                                              .push(PageRouteBuilder(
+                                            pageBuilder: (context, animation,
+                                                secondaryAnimation) {
+                                              return ConfirmacionPedido();
+                                            },
+                                            transitionsBuilder: (context,
+                                                animation,
+                                                secondaryAnimation,
+                                                child) {
+                                              var begin = Offset(0.0, 1.0);
+                                              var end = Offset.zero;
+                                              var curve = Curves.ease;
 
-                                            Navigator.of(context)
-                                                .push(PageRouteBuilder(
-                                              pageBuilder: (context, animation,
-                                                  secondaryAnimation) {
-                                                return ConfirmacionPedido();
-                                              },
-                                              transitionsBuilder: (context,
-                                                  animation,
-                                                  secondaryAnimation,
-                                                  child) {
-                                                var begin = Offset(0.0, 1.0);
-                                                var end = Offset.zero;
-                                                var curve = Curves.ease;
+                                              var tween =
+                                                  Tween(begin: begin, end: end)
+                                                      .chain(
+                                                CurveTween(curve: curve),
+                                              );
 
-                                                var tween =
-                                                    Tween(begin: begin, end: end)
-                                                        .chain(
-                                                  CurveTween(curve: curve),
-                                                );
-
-                                                return SlideTransition(
-                                                  position:
-                                                      animation.drive(tween),
-                                                  child: child,
-                                                );
-                                              },
-                                            ));
-                                          },
-                                          child: Container(
-                                            width: responsive.wp(17),
-                                            height: responsive.hp(3.5),
-                                            decoration: BoxDecoration(
-                                              color: Colors.red,
+                                              return SlideTransition(
+                                                position:
+                                                    animation.drive(tween),
+                                                child: child,
+                                              );
+                                            },
+                                          ));
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: responsive.wp(3),
+                                              vertical: responsive.hp(.5)),
+                                          decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(20),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                'Pagar',
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ),
+                                              color: Colors.red),
+                                          child: Text(
+                                            'Pagar S/ ${listCarritoSuperior[0].montoGeneral}',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: responsive.ip(1.5),
+                                                fontWeight: FontWeight.bold),
                                           ),
-                                        )
-                                       */
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 );
@@ -233,9 +211,14 @@ class _CarritoPageState extends State<CarritoPage> {
 
                               int xxx = index - 1;
                               return ListView.builder(
+                                padding: EdgeInsets.all(0),
                                 shrinkWrap: true,
                                 physics: ClampingScrollPhysics(),
-                                itemCount: listcarrito[xxx].carrito.length + 1,
+                                itemCount: listCarritoSuperior[0]
+                                        .car[xxx]
+                                        .carrito
+                                        .length +
+                                    1,
                                 itemBuilder: (BuildContext context, int i) {
                                   double paaa = responsive.hp(5);
 
@@ -259,72 +242,19 @@ class _CarritoPageState extends State<CarritoPage> {
                                             SizedBox(
                                               width: responsive.wp(3),
                                             ),
+                                            Icon(Icons.store),
+                                            SizedBox(
+                                              width: responsive.wp(2),
+                                            ),
+
                                             Text(
-                                              '${listcarrito[xxx].nombre}',
+                                              '${listCarritoSuperior[0].car[xxx].nombreSucursal}',
                                               style: TextStyle(
                                                   color: Colors.blueGrey[700],
                                                   fontSize: responsive.ip(1.8),
                                                   fontWeight: FontWeight.w700),
                                             ),
                                             Spacer(),
-                                            GestureDetector(
-                                              onTap: () {
-                                                Navigator.of(context)
-                                                    .push(PageRouteBuilder(
-                                                  pageBuilder: (context,
-                                                      animation,
-                                                      secondaryAnimation) {
-                                                    return ConfirmacionPedido(
-                                                      idSubsidiary:
-                                                          '${listcarrito[xxx].idSubsidiary}',
-                                                    );
-                                                  },
-                                                  transitionsBuilder: (context,
-                                                      animation,
-                                                      secondaryAnimation,
-                                                      child) {
-                                                    var begin =
-                                                        Offset(0.0, 1.0);
-                                                    var end = Offset.zero;
-                                                    var curve = Curves.ease;
-
-                                                    var tween = Tween(
-                                                            begin: begin,
-                                                            end: end)
-                                                        .chain(
-                                                      CurveTween(curve: curve),
-                                                    );
-
-                                                    return SlideTransition(
-                                                      position: animation
-                                                          .drive(tween),
-                                                      child: child,
-                                                    );
-                                                  },
-                                                ));
-                                              },
-                                              child: Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        responsive.wp(3),
-                                                    vertical:
-                                                        responsive.hp(.5)),
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                    color: Colors.red),
-                                                child: Text(
-                                                  'Pagar S/ ${listcarrito[xxx].monto}',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize:
-                                                          responsive.ip(1.5),
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                            ),
                                             SizedBox(
                                               width: responsive.wp(3),
                                             ),
@@ -334,17 +264,21 @@ class _CarritoPageState extends State<CarritoPage> {
                                   }
                                   int indd = i - 1;
                                   var precioFinal = double.parse(
-                                          listcarrito[xxx]
+                                          listCarritoSuperior[0]
+                                              .car[xxx]
                                               .carrito[indd]
                                               .precio) *
-                                      double.parse(snapshot
-                                          .data[xxx].carrito[indd].cantidad);
+                                      double.parse(listCarritoSuperior[0]
+                                          .car[xxx]
+                                          .carrito[indd]
+                                          .cantidad);
 
                                   return Dismissible(
                                     key: UniqueKey(),
                                     background: Container(
                                       margin: EdgeInsets.symmetric(
-                                          horizontal: responsive.wp(1)),
+                                        horizontal: responsive.wp(1),
+                                      ),
                                       color: Colors.red[400],
                                       child: Row(
                                         mainAxisAlignment:
@@ -365,34 +299,28 @@ class _CarritoPageState extends State<CarritoPage> {
                                     onDismissed: (direction) {
                                       agregarAlCarritoContador(
                                           context,
-                                          '${listcarrito[xxx].carrito[indd].idSubsidiaryGood}',
+                                          '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
                                           0);
                                     },
                                     child: Container(
                                       margin: EdgeInsets.symmetric(
-                                          horizontal: responsive.wp(3)),
-                                      height: responsive.hp(20),
-
-                                      // padding:
-                                      //     EdgeInsets.symmetric(vertical: 3),
-                                      //width: double.infinity,
+                                        horizontal: responsive.wp(3),
+                                      ),
+                                      height: responsive.hp(15),
                                       child: Row(
                                         children: [
-                                          /* SizedBox(
-                                              width: responsive.wp(1.5),
-                                            ), */
                                           GestureDetector(
                                             onTap: () {
-                                              if ('${listcarrito[xxx].carrito[indd].estadoSeleccionado}' ==
+                                              if ('${listCarritoSuperior[0].car[xxx].carrito[indd].estadoSeleccionado}' ==
                                                   '0') {
                                                 cambiarEstadoCarrito(
                                                     context,
-                                                    '${listcarrito[xxx].carrito[indd].idSubsidiaryGood}',
+                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
                                                     '1');
                                               } else {
                                                 cambiarEstadoCarrito(
                                                     context,
-                                                    '${listcarrito[xxx].carrito[indd].idSubsidiaryGood}',
+                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
                                                     '0');
                                               }
                                             },
@@ -409,7 +337,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                                       ),
                                                     ),
                                                   ),
-                                                  ('${listcarrito[xxx].carrito[indd].estadoSeleccionado}' ==
+                                                  ('${listCarritoSuperior[0].car[xxx].carrito[indd].estadoSeleccionado}' ==
                                                           '0')
                                                       ? Container(
                                                           child: Center(
@@ -434,7 +362,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                               child: Stack(
                                                 children: [
                                                   Container(
-                                                    height: responsive.hp(16),
+                                                    height: responsive.hp(15),
                                                     width: responsive.wp(40),
                                                     child: CachedNetworkImage(
                                                       cacheManager:
@@ -451,7 +379,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                                                 .fitWidth),
                                                       ),
                                                       imageUrl:
-                                                          '$apiBaseURL/${listcarrito[xxx].carrito[indd].image}',
+                                                          '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
                                                       fit: BoxFit.cover,
                                                     ),
                                                   ),
@@ -471,7 +399,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                                       //double.infinity,
                                                       height: responsive.hp(3),
                                                       child: Text(
-                                                        '${listcarrito[xxx].carrito[indd].nombre}',
+                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].nombre}',
                                                         style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 18,
@@ -493,11 +421,11 @@ class _CarritoPageState extends State<CarritoPage> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  Text('${listcarrito[xxx].carrito[indd].nombre}' +
+                                                  Text('${listCarritoSuperior[0].car[xxx].carrito[indd].nombre}' +
                                                       ' ' +
-                                                      '${listcarrito[xxx].carrito[indd].marca}'),
+                                                      '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}'),
                                                   Text(
-                                                    '${listcarrito[xxx].carrito[indd].moneda}' +
+                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].moneda}' +
                                                         ' ' +
                                                         '$precioFinal',
                                                     style: TextStyle(
@@ -505,13 +433,15 @@ class _CarritoPageState extends State<CarritoPage> {
                                                             responsive.ip(2)),
                                                   ),
                                                   Text(
-                                                      '${listcarrito[xxx].carrito[indd].nombre}'),
+                                                      '${listCarritoSuperior[0].car[xxx].carrito[indd].nombre}'),
                                                   CantidadCarrito(
-                                                    carrito: listcarrito[xxx]
-                                                        .carrito[indd],
+                                                    carrito:
+                                                        listCarritoSuperior[0]
+                                                            .car[xxx]
+                                                            .carrito[indd],
                                                     llamada: llamada,
                                                     idSudsidiaryGood:
-                                                        '${listcarrito[xxx].carrito[indd].idSubsidiaryGood}',
+                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
                                                   ),
                                                 ],
                                               ),
@@ -524,7 +454,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                               onTap: () {
                                                 agregarAlCarritoContador(
                                                     context,
-                                                    '${listcarrito[xxx].carrito[indd].idSubsidiaryGood}',
+                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
                                                     0);
                                               },
                                               child: CircleAvatar(

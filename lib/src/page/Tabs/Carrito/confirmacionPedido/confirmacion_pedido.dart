@@ -1,5 +1,7 @@
+import 'package:bufi/src/bloc/cuenta_bloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/carritoGeneralModel..dart';
+import 'package:bufi/src/models/cuentaModel.dart';
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
@@ -9,9 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ConfirmacionPedido extends StatefulWidget {
-  final String idSubsidiary;
-  const ConfirmacionPedido({Key key, @required this.idSubsidiary})
-      : super(key: key);
+  const ConfirmacionPedido({Key key}) : super(key: key);
 
   @override
   _ConfirmacionPedidoState createState() => _ConfirmacionPedidoState();
@@ -26,7 +26,9 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final carritoBloc = ProviderBloc.productosCarrito(context);
-    carritoBloc.obtenerCarritoConfirmacion(widget.idSubsidiary);
+    carritoBloc.obtenerCarritoConfirmacion();
+    final cuentaBloc = ProviderBloc.cuenta(context);
+    cuentaBloc.obtenerSaldo();
 
     final provider = Provider.of<ConfirmPedidoBloc>(context, listen: false);
 
@@ -34,10 +36,11 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
       body: StreamBuilder(
           stream: carritoBloc.carritoSeleccionadoStream,
           builder: (BuildContext context,
-              AsyncSnapshot<List<CarritoGeneralModel>> snapshot) {
+              AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data.length > 0) {
-                List<CarritoGeneralModel> listcarrito = snapshot.data;
+                List<CarritoGeneralSuperior> listCarritoSuperior =
+                    snapshot.data;
 
                 return Scaffold(
                   backgroundColor: Colors.white,
@@ -94,7 +97,7 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                           child: ListView.builder(
                               padding: EdgeInsets.all(0),
                               controller: provider.controller,
-                              itemCount: listcarrito.length + 1,
+                              itemCount: listCarritoSuperior[0].car.length + 2,
                               itemBuilder: (BuildContext context, int index) {
                                 if (index == 0) {
                                   return Container(
@@ -118,13 +121,24 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                   );
                                 }
 
+                                if (index ==
+                                    listCarritoSuperior[0].car.length + 1) {
+                                  return ResumenPedido(
+                                      responsive: responsive,
+                                      listCarritoSuperior: listCarritoSuperior,
+                                      cuentaBloc: cuentaBloc);
+                                }
+
                                 int xxx = index - 1;
 
                                 return ListView.builder(
                                   shrinkWrap: true,
                                   physics: ClampingScrollPhysics(),
-                                  itemCount:
-                                      listcarrito[xxx].carrito.length + 2,
+                                  itemCount: listCarritoSuperior[0]
+                                          .car[xxx]
+                                          .carrito
+                                          .length +
+                                      1,
                                   itemBuilder: (BuildContext context, int i) {
                                     if (i == 0) {
                                       return Container(
@@ -132,19 +146,27 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                           vertical: responsive.hp(1),
                                         ),
                                         width: double.infinity,
-                                        color: Colors.blueGrey[100],
+                                        color: Colors.blueGrey[50],
                                         child: Row(
                                             //crossAxisAlignment: CrossAxisAlignment.center,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
                                             children: [
+                                              SizedBox(
+                                                width: responsive.wp(3),
+                                              ),
+
+                                              Icon(Icons.store),
+                                              SizedBox(
+                                                width: responsive.wp(2),
+                                              ),
                                               Text(
-                                                '${listcarrito[xxx].nombre}',
+                                                '${listCarritoSuperior[0].car[xxx].nombreSucursal}',
                                                 style: TextStyle(
                                                     color: Colors.blueGrey[700],
                                                     fontSize: 17,
                                                     fontWeight:
-                                                        FontWeight.w500),
+                                                        FontWeight.w700),
                                               ),
 
                                               //Divider(),
@@ -152,215 +174,10 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                       );
                                     }
 
-                                    if (i ==
-                                        listcarrito[xxx].carrito.length + 1) {
-                                      return Column(
-                                        children: [
-                                          SizedBox(
-                                            height: responsive.hp(2),
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: responsive.wp(2),
-                                            ),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'Lugar de Entrega',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w900,
-                                                    fontSize: responsive.ip(2),
-                                                  ),
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      height: responsive.ip(4),
-                                                      width: responsive.ip(4),
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Colors.blueGrey[50],
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5),
-                                                      ),
-                                                      child: Icon(
-                                                          Icons.pin_drop,
-                                                          color: Colors.blue),
-                                                    ),
-                                                    SizedBox(
-                                                      width: responsive.wp(2),
-                                                    ),
-                                                    Expanded(
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            'Alzamora 956',
-                                                            style: TextStyle(
-                                                                fontSize:
-                                                                    responsive
-                                                                        .ip(
-                                                                            1.6),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
-                                                          ),
-                                                          Text(
-                                                            'Altura de la esquina de vete a la ptmr con no jodas',
-                                                            style: TextStyle(
-                                                                fontSize:
-                                                                    responsive
-                                                                        .ip(
-                                                                            1.5),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: responsive.wp(2),
-                                                    ),
-                                                    Icon(Icons
-                                                        .arrow_forward_ios_rounded)
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: responsive.hp(2),
-                                          ),
-                                          //Divider(),
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: responsive.wp(2)),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      'Subtotal',
-                                                      style: TextStyle(
-                                                          fontSize: responsive
-                                                              .ip(1.9),
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    Spacer(),
-                                                    Text(
-                                                      'S/. ${listcarrito[xxx].monto}',
-                                                      style: TextStyle(
-                                                          fontSize: responsive
-                                                              .ip(1.8),
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      'Envio',
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              responsive.ip(2),
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    Spacer(),
-                                                    Text(
-                                                      '0.0',
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              responsive.ip(2),
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      'Total',
-                                                      style: TextStyle(
-                                                          fontSize: responsive
-                                                              .ip(1.9),
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    Spacer(),
-                                                    Text(
-                                                      'S/. ${listcarrito[xxx].monto}',
-                                                      style: TextStyle(
-                                                          fontSize: responsive
-                                                              .ip(2.3),
-                                                          color: Colors.red,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-
-                                          SizedBox(height: responsive.hp(5)),
-                                          Container(
-                                            margin: EdgeInsets.symmetric(
-                                              horizontal: responsive.wp(2),
-                                            ),
-                                            width: double.infinity,
-                                            height: responsive.hp(5),
-                                            decoration: BoxDecoration(
-                                              color: Colors.blue[400],
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Row(
-                                                children: [
-                                                  SizedBox(
-                                                    width: responsive.wp(5),
-                                                  ),
-                                                  Text(
-                                                    'Proceder a pagar',
-                                                    style: TextStyle(
-                                                      fontSize: responsive.ip(1.6),
-                                                      fontWeight: FontWeight.w700,
-                                                        color: Colors.white),
-                                                  ),
-                                                  Spacer(),
-                                                  Icon(
-                                                      Icons
-                                                          .arrow_forward_ios_rounded,
-                                                      color: Colors.white),
-                                                  Icon(
-                                                      Icons
-                                                          .arrow_forward_ios_rounded,
-                                                      color: Colors.white),
-                                                  SizedBox(
-                                                    width: responsive.wp(5),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    }
                                     int indd = i - 1;
 
                                     return Container(
-                                      height: responsive.hp(6),
+                                      height: responsive.hp(11),
                                       padding:
                                           EdgeInsets.symmetric(vertical: 5),
                                       width: double.infinity,
@@ -369,17 +186,16 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                           SizedBox(
                                             width: responsive.wp(1.5),
                                           ),
-
                                           ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             child: Container(
-                                              width: responsive.wp(15),
+                                              width: responsive.wp(25),
                                               child: Stack(
                                                 children: [
                                                   Container(
-                                                    height: responsive.hp(5),
-                                                    width: responsive.wp(15),
+                                                    height: responsive.hp(10),
+                                                    width: responsive.wp(25),
                                                     child: CachedNetworkImage(
                                                       cacheManager:
                                                           CustomCacheManager(),
@@ -395,7 +211,7 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                                                 .fitWidth),
                                                       ),
                                                       imageUrl:
-                                                          '$apiBaseURL/${listcarrito[xxx].carrito[indd].image}',
+                                                          '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
                                                       fit: BoxFit.cover,
                                                     ),
                                                   ),
@@ -403,42 +219,38 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(width: responsive.wp(2)),
+                                          SizedBox(
+                                            width: responsive.wp(2),
+                                          ),
                                           Expanded(
                                             child: Container(
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
-
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  Text('${listcarrito[xxx].carrito[indd].nombre} ' +
-                                                      '${listcarrito[xxx].carrito[indd].marca} x ' +
-                                                      '${listcarrito[xxx].carrito[indd].cantidad}'),
+                                                  Text('${listCarritoSuperior[0].car[xxx].carrito[indd].nombre} ' +
+                                                      '${listCarritoSuperior[0].car[xxx].carrito[indd].marca} x ' +
+                                                      '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}'),
+                                                  Text(
+                                                    'S/. ' +
+                                                        (double.parse(
+                                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}') *
+                                                                double.parse(
+                                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].precio}'))
+                                                            .toString(),
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            responsive.ip(1.8),
+                                                        color: Colors.red,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Text(
+                                                      'producto ofrecido por bufeoTec'),
                                                 ],
                                               ),
-                                            ),
-                                          ),
-                                          SizedBox(width: responsive.wp(2)),
-                                          Container(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  'S/. ' +
-                                                      (double.parse(
-                                                                  '${listcarrito[xxx].carrito[indd].cantidad}') *
-                                                              double.parse(
-                                                                  '${listcarrito[xxx].carrito[indd].precio}'))
-                                                          .toString(),
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          responsive.ip(1.5),
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ],
                                             ),
                                           ),
                                           SizedBox(
@@ -464,6 +276,203 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
               return Container();
             }
           }),
+    );
+  }
+}
+
+class ResumenPedido extends StatelessWidget {
+  const ResumenPedido({
+    Key key,
+    @required this.responsive,
+    @required this.listCarritoSuperior,
+    @required this.cuentaBloc,
+  }) : super(key: key);
+
+  final Responsive responsive;
+  final List<CarritoGeneralSuperior> listCarritoSuperior;
+  final CuentaBloc cuentaBloc;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: responsive.hp(2),
+        ),
+        Container(
+          height: responsive.hp(1.5),
+          color: Colors.blueGrey[50],
+        ),
+        SizedBox(
+          height: responsive.hp(2),
+        ),
+        Text(
+          'Resumen del pedido ( ${listCarritoSuperior[0].cantidadArticulos} productos)',
+          style: TextStyle(
+              fontSize: responsive.ip(1.7), fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: responsive.hp(2),
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: responsive.wp(3),
+            ),
+            Text(
+              'Subtotal',
+              style: TextStyle(
+                  fontSize: responsive.ip(1.7), fontWeight: FontWeight.w500),
+            ),
+            Spacer(),
+            Text(
+              'S/. ${listCarritoSuperior[0].montoGeneral}',
+              style: TextStyle(
+                  fontSize: responsive.ip(1.7), fontWeight: FontWeight.w500),
+            ),
+            SizedBox(
+              width: responsive.wp(3),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: responsive.wp(3),
+            ),
+            Text(
+              'Envío',
+              style: TextStyle(
+                  fontSize: responsive.ip(1.7), fontWeight: FontWeight.w500),
+            ),
+            Spacer(),
+            Text(
+              'S/. 0.0',
+              style: TextStyle(
+                  fontSize: responsive.ip(1.7), fontWeight: FontWeight.w500),
+            ),
+            SizedBox(
+              width: responsive.wp(3),
+            ),
+          ],
+        ),
+        Divider(),
+        Row(
+          children: [
+            SizedBox(
+              width: responsive.wp(3),
+            ),
+            Text(
+              'Total',
+              style: TextStyle(
+                  fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
+            ),
+            Spacer(),
+            Text(
+              'S/. ${listCarritoSuperior[0].montoGeneral}',
+              style: TextStyle(
+                  fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              width: responsive.wp(3),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: responsive.hp(3),
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: responsive.wp(3),
+            ),
+            Text(
+              'Saldo actual',
+              style: TextStyle(
+                  fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
+            ),
+            Spacer(),
+            Container(
+              width: responsive.wp(11),
+              child: Image(
+                image: AssetImage('assets/moneda.png'),
+              ),
+            ),
+            StreamBuilder(
+              stream: cuentaBloc.saldoStream,
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<CuentaModel>> snapshot) {
+                int valorcito = 0;
+
+                if (snapshot.hasData) {
+                  if (snapshot.data.length > 0) {
+                    valorcito =
+                        double.parse(snapshot.data[0].cuentaSaldo).toInt();
+                  }
+                }
+
+                return Container(
+                  child: Text(
+                    valorcito.toString(),
+                    style: TextStyle(
+                        fontSize: responsive.ip(1.8),
+                        fontWeight: FontWeight.bold),
+                  ),
+                );
+              },
+            ),
+            SizedBox(
+              width: responsive.wp(3),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: responsive.hp(2),
+        ),
+        Container(
+          color: Colors.blueGrey[50],
+          padding: EdgeInsets.symmetric(
+            horizontal: responsive.wp(3),
+            vertical: responsive.hp(1),
+          ),
+          child: Text(
+            'Al hacer click en PAGAR AHORA, confirma haber leído y aceptado los terminos y condiciones',
+            style: TextStyle(
+                fontSize: responsive.ip(1.4), fontWeight: FontWeight.w500),
+          ),
+        ),
+        SizedBox(
+          height: responsive.hp(1),
+        ),
+        Row(
+          children: [
+            Spacer(),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: responsive.wp(3),
+                vertical: responsive.hp(1),
+              ),
+              child: Text(
+                'Pagar   S/. ${listCarritoSuperior[0].montoGeneral}',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: responsive.ip(1.8),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: responsive.wp(4),
+            )
+          ],
+        ),
+        SizedBox(
+          height: responsive.hp(3),
+        ),
+      ],
     );
   }
 }

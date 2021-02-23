@@ -348,18 +348,18 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
     return StreamBuilder(
         stream: carritoBloc.carritoGeneralStream,
         builder: (BuildContext context,
-            AsyncSnapshot<List<CarritoGeneralModel>> snapshot) {
+            AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
           if (snapshot.hasData) {
-            List<CarritoGeneralModel> listcarrito = snapshot.data;
+            List<CarritoGeneralSuperior> listCarritoSuperior = snapshot.data;
 
-            if (listcarrito.length > 0) {
+            if (listCarritoSuperior.length > 0) {
               return ListView.builder(
-                  itemCount: listcarrito.length,
+                  itemCount: listCarritoSuperior[0].car.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
-                      itemCount: listcarrito[index].carrito.length + 1,
+                      itemCount: listCarritoSuperior[0].car[index].carrito.length + 1,
                       itemBuilder: (BuildContext context, int i) {
                         if (i == 0) {
                           return Container(
@@ -372,7 +372,7 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     Text(
-                                      '${listcarrito[index].nombre}',
+                                      '${listCarritoSuperior[0].car[index].nombreSucursal}',
                                       style: TextStyle(
                                           color: InstagramColors.pink,
                                           fontSize: 17,
@@ -383,9 +383,9 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                         }
                         int indd = i - 1;
                         var precioFinal = double.parse(
-                                listcarrito[index].carrito[indd].precio) *
+                                listCarritoSuperior[0].car[index].carrito[indd].precio) *
                             double.parse(
-                                snapshot.data[index].carrito[indd].cantidad);
+                                listCarritoSuperior[0].car[index].carrito[indd].cantidad);
 
                         return Row(
                           children: [
@@ -405,7 +405,7 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                                         fit: BoxFit.fitWidth),
                                   ),
                                   imageUrl:
-                                      '$apiBaseURL/${listcarrito[index].carrito[indd].image}',
+                                      '$apiBaseURL/${listCarritoSuperior[0].car[index].carrito[indd].image}',
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -416,30 +416,30 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '${listcarrito[index].carrito[indd].nombre}' +
+                                    '${listCarritoSuperior[0].car[index].carrito[indd].nombre}' +
                                         ' ' +
-                                        '${listcarrito[index].carrito[indd].marca}',
+                                        '${listCarritoSuperior[0].car[index].carrito[indd].marca}',
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   Text(
-                                      '${listcarrito[index].carrito[indd].precio}',
+                                      '${listCarritoSuperior[0].car[index].carrito[indd].precio}',
                                       style: TextStyle(
                                           fontSize: 18, color: Colors.white)),
                                   Text(
-                                    '${listcarrito[index].carrito[indd].moneda}' +
+                                    '${listCarritoSuperior[0].car[index].carrito[indd].moneda}' +
                                         ' ' +
                                         '$precioFinal',
                                     style: TextStyle(
                                         fontSize: 18, color: Colors.white),
                                   ),
                                   Text(
-                                      '${listcarrito[index].carrito[indd].nombre}',
+                                      '${listCarritoSuperior[0].car[index].carrito[indd].nombre}',
                                       style: TextStyle(color: Colors.white)),
                                   CantidadCarrito(
-                                    carrito: listcarrito[index].carrito[indd],
+                                    carrito: listCarritoSuperior[0].car[index].carrito[indd],
                                     llamada: llamada,
                                     idSudsidiaryGood:
-                                        '${listcarrito[index].carrito[indd].idSubsidiaryGood}',
+                                        '${listCarritoSuperior[0].car[index].carrito[indd].idSubsidiaryGood}',
                                   ),
                                 ],
                               ),

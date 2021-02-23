@@ -1,4 +1,7 @@
+import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/DetallePedidoModel.dart';
+import 'package:bufi/src/models/companyModel.dart';
+import 'package:bufi/src/models/subsidiaryModel.dart';
 
 class PedidosModel {
   PedidosModel({
@@ -6,6 +9,7 @@ class PedidosModel {
     this.idUser,
     this.idCity,
     this.idSubsidiary,
+    this.idCompany,
     this.deliveryNumber,
     this.deliveryName,
     this.deliveryEmail,
@@ -22,7 +26,10 @@ class PedidosModel {
     this.deliveryDatetime,
     this.deliveryStatus,
     this.deliveryMt,
-    this.detallePedido
+    this.detallePedido,
+    // this.listSubsidiary,
+    // this.listCompany,
+    this.listCompanySubsidiary,
     // this.idCompany,
     // this.subsidiaryName,
     // this.subsidiaryAddress,
@@ -57,6 +64,7 @@ class PedidosModel {
   String idUser;
   String idCity;
   String idSubsidiary;
+  String idCompany;
   String deliveryNumber;
   String deliveryName;
   String deliveryEmail;
@@ -74,6 +82,9 @@ class PedidosModel {
   String deliveryStatus;
   String deliveryMt;
   List<DetallePedidoModel> detallePedido;
+  // List<SubsidiaryModel> listSubsidiary;
+  // List<CompanyModel> listCompany;
+  List<CompanySubsidiaryModel> listCompanySubsidiary;
   // String idCompany;
   // String subsidiaryName;
   // String subsidiaryAddress;
@@ -108,6 +119,7 @@ class PedidosModel {
         idUser: json["id_user"],
         idCity: json["id_city"],
         idSubsidiary: json["id_subsidiary"],
+        idCompany: json["id_company"],
         deliveryNumber: json["delivery_number"],
         deliveryName: json["delivery_name"],
         deliveryEmail: json["delivery_email"],

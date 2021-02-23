@@ -22,9 +22,9 @@ final dbprovider = DatabaseProvider.db;
     }
   }
 
-  Future<List<DetallePedidoModel>> obtenerDetallePedido() async {
+  Future<List<DetallePedidoModel>> obtenerDetallePedido(String idPedido) async {
     final db = await dbprovider.database;
-    final res = await db.rawQuery("SELECT * FROM DetallePedido ");
+    final res = await db.rawQuery("SELECT * FROM DetallePedido where id_pedido='$idPedido'");
 
     List<DetallePedidoModel> list = res.isNotEmpty
         ? res.map((c) => DetallePedidoModel.fromJson(c)).toList()

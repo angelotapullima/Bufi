@@ -222,6 +222,7 @@ class DatabaseProvider {
           ' id_user TEXT,'
           ' id_city TEXT,'
           ' id_subsidiary TEXT,'
+          ' id_company TEXT,'
           ' delivery_number TEXT,'
           ' delivery_name TEXT,'
           ' delivery_email TEXT,'
@@ -238,7 +239,7 @@ class DatabaseProvider {
           ' delivery_datetime TEXT,'
           ' delivery_status TEXT,'
           ' delivery_mt TEXT'
-        //   ' id_company TEXT,'
+          
         //   ' subsidiary_name TEXT,'
         //   ' subsidiary_address TEXT,'
         //    ' subsidiary_cellphone TEXT,'

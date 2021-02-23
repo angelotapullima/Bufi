@@ -15,13 +15,53 @@ class PendientesEnvioPage extends StatelessWidget {
       body: StreamBuilder(
           stream: pedidoBloc.pedidoStream,
           builder: (context, AsyncSnapshot<List<PedidosModel>> snapshot) {
-           List<PedidosModel> listPedidos = snapshot.data;
+            List<PedidosModel> listPedidos = snapshot.data;
             if (snapshot.hasData) {
               if (snapshot.data.length > 0) {
                 return ListView.builder(
+                  shrinkWrap: true,
                   itemCount: listPedidos.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Text(listPedidos[index].deliveryName.toString());
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      itemCount: listPedidos[index].detallePedido.length+1,
+                      itemBuilder: (BuildContext context, int i) {
+                        if (i == 0) {
+                          return Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              width: double.infinity,
+                              color: Colors.blueGrey[100],
+                              child: Row(
+                                  //crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      '${listPedidos[index].idPedido}',
+                                      style: TextStyle(
+                                          color: Colors.blueGrey[700],
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    //Divider(),
+                                  ]));
+                        }
+
+                        int x = i - 1;
+                        return Column(
+                          children: [
+                            Text(
+                                listPedidos[index].detallePedido[x].cantidad),
+                                 Text(
+                                listPedidos[index].detallePedido[x].idProducto),
+                            // Text(
+                            //     listPedidos[index].listCompanySubsidiary[x].companyName)
+                          ],
+                        );
+                      },
+                    );
                   },
                 );
               } else {

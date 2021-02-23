@@ -35,7 +35,7 @@ class PedidoApi {
     for (var i = 0; i < decodedData["result"].length; i++) {
       final pedidosModel = PedidosModel();
 
-      pedidosModel.idPedido = decodedData[i]['id_delivery'];
+      pedidosModel.idPedido = decodedData["result"][i]['id_delivery'];
       pedidosModel.idUser = decodedData[i]['id_user'];
       pedidosModel.idCity = decodedData[i]['id_city'];
       pedidosModel.idSubsidiary = decodedData[i]['id_subsidiary'];

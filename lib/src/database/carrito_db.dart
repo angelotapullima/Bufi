@@ -39,6 +39,9 @@ class CarritoDb {
 
 
 
+ 
+
+
   Future<List<CarritoModel>> obtenerProductoXCarritoListHorizontal() async {
     final db = await dbProvider.database;
     //try {
@@ -122,6 +125,23 @@ class CarritoDb {
     // }
   }
 
+
+
+  Future<List<CarritoModel>> obtenerProductosSeleccionadoAgrupados() async {
+    final db = await dbProvider.database;
+    //try {
+      final res = await db.rawQuery("SELECT * FROM Carrito where estado_seleccionado = '1' group by id_subsidiary");
+
+    List<CarritoModel> list= res.isNotEmpty
+        ? res.map((c) => CarritoModel.fromJson(c)).toList()
+        : [];
+
+    return list;
+
+    // } catch (e) {obtenerProductoXCarritoSeleccionado
+    //   print("Error");
+    // }
+  }
 
 
 

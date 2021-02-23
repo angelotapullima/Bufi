@@ -265,9 +265,9 @@ void cambiarEstadoCarrito(
   await carritodb.updateSeleccionado(idProducto, estado);
 
   carritoBloc.obtenerCarritoPorSucursal();
-
+    }
 //Actualizar Negocio
-  void actualizarNegocio(
+ /*  void actualizarNegocio(
       BuildContext context, CompanySubsidiaryModel model) async {
     final detallenegocio = ProviderBloc.negocios(context);
     //final actualizarNeg = ProviderBloc.actualizarNeg(context);
@@ -328,7 +328,7 @@ void cambiarEstadoCarrito(
     //actualizarNeg.updateNegocio(id)
     detallenegocio.obtenernegociosporID(model.idCompany);
   }
-}
+} */
 
 void deseleccionarTiposPago() async {
   final tiposPagoDatabase = TiposPagoDatabase();
@@ -344,3 +344,4 @@ void seleccionarTiposPago(BuildContext context, String idTiposPago) async {
   tiposPagoBloc.obtenerTipoPagoSeleccionado();
   tiposPagoBloc.obtenerTiposPago();
 }
+    

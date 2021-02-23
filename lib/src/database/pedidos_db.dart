@@ -36,4 +36,14 @@ class PedidosDatabase {
         res.isNotEmpty ? res.map((c) => PedidosModel.fromJson(c)).toList() : [];
     return list;
   }
+
+  Future<List<PedidosModel>> obtenerPedidosXidPedido(String idPedido) async {
+    final db = await dbProvider.database;
+    final res =
+        await db.rawQuery("SELECT * FROM Pedidos WHERE id_pedido= '$idPedido'");
+
+    List<PedidosModel> list =
+        res.isNotEmpty ? res.map((c) => PedidosModel.fromJson(c)).toList() : [];
+    return list;
+  }
 }

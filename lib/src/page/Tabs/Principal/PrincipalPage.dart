@@ -151,11 +151,14 @@ class HeaderWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Buenos días'),
-                        Text('${preferences.personName}',
-                            style: GoogleFonts.pacifico(
-                                textStyle: TextStyle(
-                                    fontSize: responsive.ip(2),
-                                    fontWeight: FontWeight.bold))),
+                        Text(
+                          '${preferences.personName}',
+                          style: GoogleFonts.pacifico(
+                            textStyle: TextStyle(
+                                fontSize: responsive.ip(2),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ],
                     ),
                     Spacer(),
@@ -173,7 +176,9 @@ class HeaderWidget extends StatelessWidget {
 
                         if (snapshot.hasData) {
                           if (snapshot.data.length > 0) {
-                            valorcito = double.parse(snapshot.data[0].cuentaSaldo).toInt();
+                            valorcito =
+                                double.parse(snapshot.data[0].cuentaSaldo)
+                                    .toInt();
                           }
                         }
 

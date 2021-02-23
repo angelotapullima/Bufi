@@ -101,6 +101,7 @@ class DatabaseProvider {
           'company_image VARCHAR,'
           'company_type VARCHAR,'
           'company_shortcode VARCHAR,'
+          'company_delivery_propio VARCHAR,'
           'company_delivery VARCHAR,'
           'company_entrega VARCHAR,'
           'company_tarjeta VARCHAR,'
@@ -287,12 +288,11 @@ class DatabaseProvider {
           ')');
 
         await db.execute(' CREATE TABLE DetallePedido('
-          ' id_detalle_pedido INTEGER PRIMARY KEY AUTOINCREMENT,'
+          ' id_detalle_pedido TEXT PRIMARY KEY,'
           ' id_pedido TEXT,'
           ' id_producto TEXT,'
-          ' id_good TEXT,'
           ' cantidad TEXT,'
-          ' estado TEXT'
+          ' delivery_detail_subtotal TEXT'
           ')');
     });
   }

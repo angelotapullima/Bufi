@@ -3,22 +3,25 @@ class DetallePedidoModel {
       {this.idDetallePedido,
       this.idPedido,
       this.idProducto,
-      this.idGood,
       this.cantidad,
-      this.estado});
+     this.detallePedidoSubtotal});
   String idDetallePedido;
   String idPedido;
   String idProducto;
-   String idGood;
   String cantidad;
-  String estado;
+  //String estado;
+  String detallePedidoSubtotal;
+  
+
 
   factory DetallePedidoModel.fromJson(Map<String, dynamic> json) =>
       DetallePedidoModel(
           idDetallePedido: json["id_detalle_pedido"],
           idPedido: json["id_pedido"],
           idProducto: json["id_producto"],
-          idGood: json["id_good"],
           cantidad: json["cantidad"],
-          estado: json["estado"]);
+         // estado: json["estado"],
+          detallePedidoSubtotal: json["delivery_detail_subtotal"],
+          );
+          
 }

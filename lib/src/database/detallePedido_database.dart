@@ -10,11 +10,11 @@ final dbprovider = DatabaseProvider.db;
       final db = await dbprovider.database;
 
       final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO DetallePedido (id_pedido,id_producto,id_good,"
-          "cantidad,estado) "
-              "VALUES ('${detallePedidoModel.idPedido}','${detallePedidoModel.idProducto}',"
-              "'${detallePedidoModel.idGood}','${detallePedidoModel.cantidad}',"
-              "'${detallePedidoModel.estado}')");
+          "INSERT OR REPLACE INTO DetallePedido (id_detalle_pedido,id_pedido,id_producto,"
+          "cantidad,delivery_detail_subtotal) "
+              "VALUES ('${detallePedidoModel.idDetallePedido}','${detallePedidoModel.idPedido}','${detallePedidoModel.idProducto}',"
+              "'${detallePedidoModel.cantidad}',"
+              "'${detallePedidoModel.detallePedidoSubtotal}')");
 
       return res;
     } catch (exception) {

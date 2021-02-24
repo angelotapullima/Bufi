@@ -1,7 +1,5 @@
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/DetallePedidoModel.dart';
-import 'package:bufi/src/models/companyModel.dart';
-import 'package:bufi/src/models/subsidiaryModel.dart';
 
 class PedidosModel {
   PedidosModel({
@@ -27,8 +25,6 @@ class PedidosModel {
     this.deliveryStatus,
     this.deliveryMt,
     this.detallePedido,
-    // this.listSubsidiary,
-    // this.listCompany,
     this.listCompanySubsidiary,
     // this.idCompany,
     // this.subsidiaryName,
@@ -82,8 +78,6 @@ class PedidosModel {
   String deliveryStatus;
   String deliveryMt;
   List<DetallePedidoModel> detallePedido;
-  // List<SubsidiaryModel> listSubsidiary;
-  // List<CompanyModel> listCompany;
   List<CompanySubsidiaryModel> listCompanySubsidiary;
   // String idCompany;
   // String subsidiaryName;

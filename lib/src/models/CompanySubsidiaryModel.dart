@@ -21,6 +21,7 @@ class CompanySubsidiaryModel {
     this.companyImage,
     this.companyType,
     this.companyShortcode,
+    this.companyDeliveryPropio,
     this.companyDelivery,
     this.companyEntrega,
     this.companyTarjeta,
@@ -59,6 +60,7 @@ class CompanySubsidiaryModel {
   String companyImage;
   String companyType;
   String companyShortcode;
+  String companyDeliveryPropio;
   String companyDelivery;
   String companyEntrega;
   String companyTarjeta;
@@ -98,6 +100,7 @@ class CompanySubsidiaryModel {
         companyImage: json["company_image"],
         companyType: json["company_type"],
         companyShortcode: json["company_shortcode"],
+        companyDeliveryPropio: json["company_delivery_propio"],
         companyDelivery: json["company_delivery"],
         companyEntrega: json["company_entrega"],
         companyTarjeta: json["company_tarjeta"],

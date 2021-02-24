@@ -1,5 +1,3 @@
-
-
 import 'package:bufi/src/database/databaseProvider.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 

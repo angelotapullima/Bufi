@@ -101,6 +101,7 @@ class DatabaseProvider {
           'company_image VARCHAR,'
           'company_type VARCHAR,'
           'company_shortcode VARCHAR,'
+          'company_delivery_propio VARCHAR,'
           'company_delivery VARCHAR,'
           'company_entrega VARCHAR,'
           'company_tarjeta VARCHAR,'
@@ -221,6 +222,7 @@ class DatabaseProvider {
           ' id_user TEXT,'
           ' id_city TEXT,'
           ' id_subsidiary TEXT,'
+          ' id_company TEXT,'
           ' delivery_number TEXT,'
           ' delivery_name TEXT,'
           ' delivery_email TEXT,'
@@ -237,7 +239,7 @@ class DatabaseProvider {
           ' delivery_datetime TEXT,'
           ' delivery_status TEXT,'
           ' delivery_mt TEXT'
-        //   ' id_company TEXT,'
+          
         //   ' subsidiary_name TEXT,'
         //   ' subsidiary_address TEXT,'
         //    ' subsidiary_cellphone TEXT,'
@@ -287,12 +289,11 @@ class DatabaseProvider {
           ')');
 
         await db.execute(' CREATE TABLE DetallePedido('
-          ' id_detalle_pedido INTEGER PRIMARY KEY AUTOINCREMENT,'
+          ' id_detalle_pedido TEXT PRIMARY KEY,'
           ' id_pedido TEXT,'
           ' id_producto TEXT,'
-          ' id_good TEXT,'
           ' cantidad TEXT,'
-          ' estado TEXT'
+          ' delivery_detail_subtotal TEXT'
           ')');
     });
   }

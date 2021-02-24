@@ -15,7 +15,7 @@ class CuentaDatabase {
 
       return res;
     } catch (e) {
-      print("Error en la base de datos $e");
+      print("$e Error en la base de datos $e");
     }
   }
 

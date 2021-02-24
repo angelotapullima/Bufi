@@ -15,7 +15,7 @@ class CategoryDatabase {
 
       return res;
     } catch (e) {
-      print("Error en la tabla Categoria");
+      print("$e Error en la tabla Categoria");
     }
   } 
 //------Categorias

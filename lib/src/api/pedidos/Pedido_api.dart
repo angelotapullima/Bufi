@@ -25,8 +25,8 @@ class PedidoApi {
   Future<dynamic> obtenerPedidosEnviados() async {
     final response = await http
         .post("$apiBaseURL/api/Pedido/buscar_pedidos_enviados_ws", body: {
-      'fecha_i': '2021-01-01',
-      'fecha_f': '2021-02-23',
+     /*  'fecha_i': '2021-01-01',
+      'fecha_f': '2021-02-23', */
       'estado': '99',
       'tn': prefs.token,
       'app': 'true'
@@ -135,7 +135,7 @@ class PedidoApi {
       for (var i = 0; i < listDePedidos[0].car.length; i++) {
         String producto = '';
         sucursales = sucursales +
-            '${listDePedidos[0].car[i].idSubsidiary},,,${listDePedidos[0].car[i].monto},,,descripcion,,,';
+            '${listDePedidos[0].car[i].idSubsidiary},,,${listDePedidos[0].car[i].monto},,,1,,,descripcion,,,';
 
         //producto =  listDePedidos[0].car[i].carrito[0].idSubsidiaryGood;
 
@@ -161,8 +161,10 @@ class PedidoApi {
       'address': 'calle girasoles sin numero',
       'coord_x': '-3.859949494',
       'coord_y': '-73.859949494',
+      'total': listDePedidos[0].montoGeneral.toString(),
       'payment': '',
       'add_info': '',
+      //'entrega': '1',
       'pedidos': sucursales.toString(),
       'tn': prefs.token,
       'app': 'true'
@@ -181,7 +183,9 @@ class PedidoApi {
     final listaDeStringDeIds = List<String>();
     final subsidiary = SubsidiaryDatabase();
 
-    double cantidadTotal = 0;
+    double cantidadTotalSucursal = 0;
+    double cantidadTotalGeneral = 0;
+
     int cantidad = 0;
 
     //funcion que trae los datos del carrito agrupados por iDSubsidiary para que no se repitan los IDSubsidiary
@@ -215,9 +219,10 @@ class PedidoApi {
             double precio = double.parse(listCarrito[y].precio);
             int cant = int.parse(listCarrito[y].cantidad);
 
-            cantidadTotal = cantidadTotal + (precio * cant);
+            cantidadTotalSucursal = cantidadTotalSucursal + (precio * cant);
+            cantidadTotalGeneral = cantidadTotalGeneral + (precio * cant);
 
-            print('tamare $cantidadTotal');
+            print('tamare $cantidadTotalSucursal');
           }
 
           CarritoModel c = CarritoModel();
@@ -240,9 +245,9 @@ class PedidoApi {
       }
 
       carritoGeneralModel.carrito = listCarritoModel;
-      carritoGeneralModel.monto = cantidadTotal.toString();
+      carritoGeneralModel.monto = cantidadTotalSucursal.toString();
 
-      cantidadTotal = 0;
+      cantidadTotalSucursal = 0;
 
       listaGeneral.add(carritoGeneralModel);
     }
@@ -250,7 +255,7 @@ class PedidoApi {
     CarritoGeneralSuperior carritoGeneralSuperior = CarritoGeneralSuperior();
     carritoGeneralSuperior.car = listaGeneral;
     carritoGeneralSuperior.cantidadArticulos = cantidad.toString();
-    carritoGeneralSuperior.montoGeneral = cantidadTotal.toString();
+    carritoGeneralSuperior.montoGeneral = cantidadTotalGeneral.toString();
 
     listaGeneralCarrito.add(carritoGeneralSuperior);
 

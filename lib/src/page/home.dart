@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final buttonBloc = ProviderBloc.tabs(context);
-    buttonBloc.changePage(2);
+    buttonBloc.changePage(4);
     return Scaffold(
       body: StreamBuilder(
         stream: buttonBloc.selectPageStream,

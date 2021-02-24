@@ -21,7 +21,7 @@ class SugerenciaBusquedaDb{
 
       return res;
     } catch (e) {
-      print("Error en la base de datos de Sugerencia");
+      print("$e Error en la base de datos de Sugerencia");
       print(e); 
     }
   } 

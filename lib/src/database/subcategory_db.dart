@@ -18,7 +18,7 @@ final dbProvider = DatabaseProvider.db;
 
       return res;
     } catch (e) {
-      print("Error en la base de datos");
+      print("$e Error en la base de datos");
     }
   }
 

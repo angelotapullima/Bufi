@@ -205,6 +205,7 @@ class ProviderBloc extends InheritedWidget {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .contadorBloc;
   }
+
   static PedidoBloc pedido(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .pedidosBloc;

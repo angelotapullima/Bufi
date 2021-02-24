@@ -6,6 +6,7 @@ import 'package:rxdart/rxdart.dart';
 
 class TiposPagoBloc{
 
+
 final tiposPagoDatabase = TiposPagoDatabase();
  final _tiposPagoController = BehaviorSubject<List<TiposPagoModel>>();
  final _mensajeTiposPagoController = BehaviorSubject<List<TiposPagoModel>>();

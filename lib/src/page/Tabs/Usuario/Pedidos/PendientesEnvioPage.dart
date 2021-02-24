@@ -1,7 +1,6 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class PendientesEnvioPage extends StatelessWidget {
   const PendientesEnvioPage({Key key}) : super(key: key);

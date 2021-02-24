@@ -1,3 +1,4 @@
+import 'package:bufi/src/api/pedidos/Pedido_api.dart';
 import 'package:bufi/src/bloc/cuenta_bloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/carritoGeneralModel..dart';
@@ -33,249 +34,307 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
     final provider = Provider.of<ConfirmPedidoBloc>(context, listen: false);
 
     return Scaffold(
-      body: StreamBuilder(
-          stream: carritoBloc.carritoSeleccionadoStream,
-          builder: (BuildContext context,
-              AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data.length > 0) {
-                List<CarritoGeneralSuperior> listCarritoSuperior =
-                    snapshot.data;
+      backgroundColor: Colors.white,
+      body: ValueListenableBuilder<bool>(
+        valueListenable: provider.showCargando,
+        builder: (_, value, __) {
+          return Stack(
+            children: [
+              StreamBuilder(
+                  stream: carritoBloc.carritoSeleccionadoStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data.length > 0) {
+                        List<CarritoGeneralSuperior> listCarritoSuperior =
+                            snapshot.data;
 
-                return Scaffold(
-                  backgroundColor: Colors.white,
-                  body: SafeArea(
-                    child: Column(
-                      children: [
-                        ValueListenableBuilder<bool>(
-                          valueListenable: provider.show,
-                          builder: (_, value, __) {
-                            return (value)
-                                ? Container(
-                                    color: Colors.white,
-                                    width: double.infinity,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: responsive.wp(5),
-                                      vertical: responsive.hp(1),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        BackButton(),
-                                        Text(
-                                          'Confirmación de pedido',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: responsive.ip(2.5),
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                : Container(
-                                    color: Colors.white,
-                                    width: double.infinity,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: responsive.wp(5),
-                                      vertical: responsive.hp(1),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        //BackButton(),
-                                        Text(
-                                          'Confirmación de pedido',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: responsive.ip(2.5),
-                                              fontWeight: FontWeight.w700),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                          },
-                        ),
-                        Expanded(
-                          child: ListView.builder(
-                              padding: EdgeInsets.all(0),
-                              controller: provider.controller,
-                              itemCount: listCarritoSuperior[0].car.length + 2,
-                              itemBuilder: (BuildContext context, int index) {
-                                if (index == 0) {
-                                  return Container(
-                                    color: Colors.white,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: responsive.wp(5),
-                                      vertical: responsive.hp(1),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        BackButton(),
-                                        Text(
-                                          'Confirmación de pedido',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: responsive.ip(2.5),
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
-
-                                if (index ==
-                                    listCarritoSuperior[0].car.length + 1) {
-                                  return ResumenPedido(
-                                      responsive: responsive,
-                                      listCarritoSuperior: listCarritoSuperior,
-                                      cuentaBloc: cuentaBloc);
-                                }
-
-                                int xxx = index - 1;
-
-                                return ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: ClampingScrollPhysics(),
-                                  itemCount: listCarritoSuperior[0]
-                                          .car[xxx]
-                                          .carrito
-                                          .length +
-                                      1,
-                                  itemBuilder: (BuildContext context, int i) {
-                                    if (i == 0) {
-                                      return Container(
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: responsive.hp(1),
-                                        ),
-                                        width: double.infinity,
-                                        color: Colors.blueGrey[50],
-                                        child: Row(
-                                            //crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                        return SafeArea(
+                          child: Column(
+                            children: [
+                              ValueListenableBuilder<bool>(
+                                valueListenable: provider.show,
+                                builder: (_, value, __) {
+                                  return (value)
+                                      ? Container(
+                                          color: Colors.white,
+                                          width: double.infinity,
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: responsive.wp(5),
+                                            vertical: responsive.hp(1),
+                                          ),
+                                          child: Row(
                                             children: [
-                                              SizedBox(
-                                                width: responsive.wp(3),
-                                              ),
-
-                                              Icon(Icons.store),
-                                              SizedBox(
-                                                width: responsive.wp(2),
-                                              ),
+                                              BackButton(),
                                               Text(
-                                                '${listCarritoSuperior[0].car[xxx].nombreSucursal}',
+                                                'Confirmación de pedido',
                                                 style: TextStyle(
-                                                    color: Colors.blueGrey[700],
-                                                    fontSize: 17,
+                                                    color: Colors.black,
+                                                    fontSize:
+                                                        responsive.ip(2.5),
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : Container(
+                                          color: Colors.white,
+                                          width: double.infinity,
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: responsive.wp(5),
+                                            vertical: responsive.hp(1),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              //BackButton(),
+                                              Text(
+                                                'Confirmación de pedido',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize:
+                                                        responsive.ip(2.5),
                                                     fontWeight:
                                                         FontWeight.w700),
                                               ),
-
-                                              //Divider(),
-                                            ]),
-                                      );
-                                    }
-
-                                    int indd = i - 1;
-
-                                    return Container(
-                                      height: responsive.hp(11),
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 5),
-                                      width: double.infinity,
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                            width: responsive.wp(1.5),
+                                            ],
                                           ),
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: Container(
-                                              width: responsive.wp(25),
-                                              child: Stack(
-                                                children: [
-                                                  Container(
-                                                    height: responsive.hp(10),
+                                        );
+                                },
+                              ),
+                              Expanded(
+                                child: ListView.builder(
+                                    padding: EdgeInsets.all(0),
+                                    controller: provider.controller,
+                                    itemCount:
+                                        listCarritoSuperior[0].car.length + 2,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      if (index == 0) {
+                                        return Container(
+                                          color: Colors.white,
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: responsive.wp(5),
+                                            vertical: responsive.hp(1),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              BackButton(),
+                                              Text(
+                                                'Confirmación de pedido',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize:
+                                                        responsive.ip(2.5),
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }
+
+                                      if (index ==
+                                          listCarritoSuperior[0].car.length +
+                                              1) {
+                                        return ResumenPedido(
+                                            responsive: responsive,
+                                            listCarritoSuperior:
+                                                listCarritoSuperior,
+                                            cuentaBloc: cuentaBloc);
+                                      }
+
+                                      int xxx = index - 1;
+
+                                      return ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: ClampingScrollPhysics(),
+                                        itemCount: listCarritoSuperior[0]
+                                                .car[xxx]
+                                                .carrito
+                                                .length +
+                                            1,
+                                        itemBuilder:
+                                            (BuildContext context, int i) {
+                                          if (i == 0) {
+                                            return Container(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: responsive.hp(1),
+                                              ),
+                                              width: double.infinity,
+                                              color: Colors.blueGrey[50],
+                                              child: Row(
+                                                  //crossAxisAlignment: CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: responsive.wp(3),
+                                                    ),
+
+                                                    Icon(Icons.store),
+                                                    SizedBox(
+                                                      width: responsive.wp(2),
+                                                    ),
+                                                    Text(
+                                                      '${listCarritoSuperior[0].car[xxx].nombreSucursal}',
+                                                      style: TextStyle(
+                                                          color: Colors
+                                                              .blueGrey[700],
+                                                          fontSize: 17,
+                                                          fontWeight:
+                                                              FontWeight.w700),
+                                                    ),
+
+                                                    //Divider(),
+                                                  ]),
+                                            );
+                                          }
+
+                                          int indd = i - 1;
+
+                                          return Container(
+                                            height: responsive.hp(11),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 5),
+                                            width: double.infinity,
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: responsive.wp(1.5),
+                                                ),
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  child: Container(
                                                     width: responsive.wp(25),
-                                                    child: CachedNetworkImage(
-                                                      cacheManager:
-                                                          CustomCacheManager(),
-                                                      placeholder:
-                                                          (context, url) =>
-                                                              Container(
-                                                        width: double.infinity,
-                                                        height: double.infinity,
-                                                        child: Image(
-                                                            image: AssetImage(
-                                                                'assets/loading.gif'),
-                                                            fit: BoxFit
-                                                                .fitWidth),
-                                                      ),
-                                                      imageUrl:
-                                                          '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
-                                                      fit: BoxFit.cover,
+                                                    child: Stack(
+                                                      children: [
+                                                        Container(
+                                                          height:
+                                                              responsive.hp(10),
+                                                          width:
+                                                              responsive.wp(25),
+                                                          child:
+                                                              CachedNetworkImage(
+                                                            cacheManager:
+                                                                CustomCacheManager(),
+                                                            placeholder:
+                                                                (context,
+                                                                        url) =>
+                                                                    Container(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: double
+                                                                  .infinity,
+                                                              child: Image(
+                                                                  image: AssetImage(
+                                                                      'assets/loading.gif'),
+                                                                  fit: BoxFit
+                                                                      .fitWidth),
+                                                            ),
+                                                            imageUrl:
+                                                                '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: responsive.wp(2),
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text('${listCarritoSuperior[0].car[xxx].carrito[indd].nombre} ' +
-                                                      '${listCarritoSuperior[0].car[xxx].carrito[indd].marca} x ' +
-                                                      '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}'),
-                                                  Text(
-                                                    'S/. ' +
-                                                        (double.parse(
-                                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}') *
-                                                                double.parse(
-                                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].precio}'))
-                                                            .toString(),
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            responsive.ip(1.8),
-                                                        color: Colors.red,
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                                ),
+                                                SizedBox(
+                                                  width: responsive.wp(2),
+                                                ),
+                                                Expanded(
+                                                  child: Container(
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text('${listCarritoSuperior[0].car[xxx].carrito[indd].nombre} ' +
+                                                            '${listCarritoSuperior[0].car[xxx].carrito[indd].marca} x ' +
+                                                            '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}'),
+                                                        Text(
+                                                          'S/. ' +
+                                                              (double.parse(
+                                                                          '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}') *
+                                                                      double.parse(
+                                                                          '${listCarritoSuperior[0].car[xxx].carrito[indd].precio}'))
+                                                                  .toString(),
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  responsive
+                                                                      .ip(1.8),
+                                                              color: Colors.red,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                        Text(
+                                                            'producto ofrecido por bufeoTec'),
+                                                      ],
+                                                    ),
                                                   ),
-                                                  Text(
-                                                      'producto ofrecido por bufeoTec'),
-                                                ],
-                                              ),
+                                                ),
+                                                SizedBox(
+                                                  width: responsive.wp(2),
+                                                )
+                                              ],
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: responsive.wp(2),
-                                          )
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-                              }),
+                                          );
+                                        },
+                                      );
+                                    }),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return Center(
+                          child: Text('No haz añadido nada'),
+                        );
+                      }
+                    } else {
+                      return Container();
+                    }
+                  }),
+              (value)
+                  ? Center(
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: responsive.wp(10),
                         ),
-                      ],
-                    ),
-                  ),
-                );
-              } else {
-                return Center(
-                  child: Text('No haz añadido nada'),
-                );
-              }
-            } else {
-              return Container();
-            }
-          }),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: responsive.wp(10),
+                        ),
+                        width: double.infinity,
+                        height: responsive.hp(13),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                            horizontal: responsive.wp(10),
+                            vertical: responsive.wp(6),
+                          ),
+                          height: responsive.ip(4),
+                          width: responsive.ip(4),
+                          child: Image(
+                              image: AssetImage('assets/loading.gif'),
+                              fit: BoxFit.contain),
+                        ),
+                      ),
+                    )
+                  : Container()
+            ],
+          );
+        },
+      ),
     );
   }
 }
@@ -294,6 +353,8 @@ class ResumenPedido extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ConfirmPedidoBloc>(context, listen: false);
+
     return Column(
       children: [
         SizedBox(
@@ -447,20 +508,35 @@ class ResumenPedido extends StatelessWidget {
         Row(
           children: [
             Spacer(),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              padding: EdgeInsets.symmetric(
-                horizontal: responsive.wp(3),
-                vertical: responsive.hp(1),
-              ),
-              child: Text(
-                'Pagar   S/. ${listCarritoSuperior[0].montoGeneral}',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: responsive.ip(1.8),
+            GestureDetector(
+              onTap: () async{
+                provider.changeCargando();
+
+                final pedidoApi = PedidoApi();
+
+                final res = await pedidoApi.enviarPedido( );
+
+                print(res);
+
+
+
+                provider.changeCargando();
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: responsive.wp(3),
+                  vertical: responsive.hp(1),
+                ),
+                child: Text(
+                  'Pagar   S/. ${listCarritoSuperior[0].montoGeneral}',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: responsive.ip(1.8),
+                  ),
                 ),
               ),
             ),

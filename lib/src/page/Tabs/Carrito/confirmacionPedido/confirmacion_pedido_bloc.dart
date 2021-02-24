@@ -11,6 +11,13 @@ class ConfirmPedidoBloc with ChangeNotifier {
   ValueNotifier<bool> _show = ValueNotifier(false);
   ValueNotifier<bool> get show => this._show;
 
+
+
+  ValueNotifier<bool> _cargando = ValueNotifier(false);
+  ValueNotifier<bool> get showCargando => this._cargando;
+
+
+
   ConfirmPedidoBloc() {
     _init();
   }
@@ -37,6 +44,38 @@ class ConfirmPedidoBloc with ChangeNotifier {
       print(controller.position.outOfRange);
     } */
   }
+
+
+
+
+  void changeCargando() {
+
+     if (_cargando.value) {
+        _cargando.value = false;
+      } else {
+        _cargando.value = true;
+      }
+
+
+    /* if (_show.value) {
+
+      print('true');
+
+      if (_cargando.value) {
+        _cargando.value = false;
+      } else {
+        _cargando.value = true;
+      }
+      _show.value=false;
+    }else{
+       if (_cargando.value) {
+        _cargando.value = false;
+      } else {
+        _cargando.value = true;
+      }
+
+    } */
+  } 
 
   @override
   void dispose() {

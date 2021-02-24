@@ -11,9 +11,9 @@ class CarritoBlocListener with ChangeNotifier {
   ValueNotifier<bool> _show = ValueNotifier(false);
   ValueNotifier<bool> get show => this._show;
 
-
+/* 
   ValueNotifier<bool> _vistaFiltro = ValueNotifier(false);
-  ValueNotifier<bool> get showFiltro => this._vistaFiltro;
+  ValueNotifier<bool> get showFiltrod => this._vistaFiltro; */
 
   CarritoBlocListener() {
     _init();
@@ -35,7 +35,7 @@ class CarritoBlocListener with ChangeNotifier {
       _show.value = false;
     }
   }
-
+/* 
   void lptmr() {
     if (_show.value) {
       print('true');
@@ -54,7 +54,7 @@ class CarritoBlocListener with ChangeNotifier {
       }
 
     }
-  }
+  } */
   @override
   void dispose() {
     _controller?.removeListener(_listener);

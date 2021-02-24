@@ -203,4 +203,5 @@ class ProviderBloc extends InheritedWidget {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .contadorBloc;
   }
+
 }

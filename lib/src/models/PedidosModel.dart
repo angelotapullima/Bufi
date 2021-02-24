@@ -1,7 +1,5 @@
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/DetallePedidoModel.dart';
-import 'package:bufi/src/models/companyModel.dart';
-import 'package:bufi/src/models/subsidiaryModel.dart';
 
 class PedidosModel {
   PedidosModel({

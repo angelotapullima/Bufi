@@ -1,6 +1,5 @@
 import 'package:bufi/src/database/databaseProvider.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
-import 'package:bufi/src/models/tipos_pago_model.dart';
 
 class PedidosDatabase {
   final dbProvider = DatabaseProvider.db;

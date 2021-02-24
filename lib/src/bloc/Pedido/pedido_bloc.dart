@@ -7,7 +7,6 @@ import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/DetallePedidoModel.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
-import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:rxdart/subjects.dart';
 
 class PedidoBloc {

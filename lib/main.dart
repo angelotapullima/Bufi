@@ -1,3 +1,4 @@
+import 'package:bufi/src/page/Tabs/Usuario/Pedidos/detallePedidoPage.dart';
 import 'package:bufi/src/page/cuenta/subir_vaucher_recarga.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/page/Categorias/categoriasPage.dart';
@@ -95,6 +96,7 @@ class MyApp extends StatelessWidget {
               //Usuario
                 //Pedidos
               'pedidosPendientes': (BuildContext context) =>PendientesEnvioPage(),
+              'detallePedido': (BuildContext context) => DetallePedido(),
               'pedidosEnviados': (BuildContext context) =>PedidosEnviadosPage(),
               'valoracion': (BuildContext context) =>PendientesValoracionPage(),
                 //Bufis

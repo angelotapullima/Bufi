@@ -30,7 +30,7 @@ class PedidoBloc {
     //_detallePedidoController?.close();
   }
 
-  void obtenerPedidosAll(String idEstado) async {
+  void obtenerPedidosPorIdEstado(String idEstado) async {
     _pedidoController.sink.add(await obtnerDetallePedidoXIdPedido(idEstado));
     pedidoApi.obtenerPedidosEnviados(idEstado);
     _pedidoController.sink.add(await obtnerDetallePedidoXIdPedido(idEstado));

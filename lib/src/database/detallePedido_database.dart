@@ -22,7 +22,7 @@ final dbprovider = DatabaseProvider.db;
     }
   }
 
-  Future<List<DetallePedidoModel>> obtenerDetallePedido(String idPedido) async {
+  Future<List<DetallePedidoModel>> obtenerDetallePedidoxIdPedido(String idPedido) async {
     final db = await dbprovider.database;
     final res = await db.rawQuery("SELECT * FROM DetallePedido where id_pedido='$idPedido'");
 

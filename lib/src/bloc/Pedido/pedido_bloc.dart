@@ -30,18 +30,18 @@ class PedidoBloc {
     //_detallePedidoController?.close();
   }
 
-  void obtenerPedidosAll() async {
-    _pedidoController.sink.add(await obtnerDetallePedidoXIdPedido());
-    pedidoApi.obtenerPedidosEnviados();
-    _pedidoController.sink.add(await obtnerDetallePedidoXIdPedido());
+  void obtenerPedidosAll(String idEstado) async {
+    _pedidoController.sink.add(await obtnerDetallePedidoXIdPedido(idEstado));
+    pedidoApi.obtenerPedidosEnviados(idEstado);
+    _pedidoController.sink.add(await obtnerDetallePedidoXIdPedido(idEstado));
   }
 
   //Funcion para recorrer las dos tablas
-  Future<List<PedidosModel>> obtnerDetallePedidoXIdPedido() async {
+  Future<List<PedidosModel>> obtnerDetallePedidoXIdPedido(String idEstado) async {
     List<PedidosModel> listaGeneral = List<PedidosModel>();
 
     //obtener todos los pedidos de la bd
-    final listPedidos = await pedidoDb.obtenerPedidos();
+    final listPedidos = await pedidoDb.obtenerPedidosXidEstado(idEstado);
 
     //Recorremos la lista de todos los pedidos
     for (var i = 0; i < listPedidos.length; i++) {

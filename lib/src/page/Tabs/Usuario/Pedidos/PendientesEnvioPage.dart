@@ -1,16 +1,25 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
+import 'package:bufi/src/utils/constants.dart';
+import 'package:bufi/src/utils/customCacheManager.dart';
+import 'package:bufi/src/utils/responsive.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class PendientesEnvioPage extends StatelessWidget {
-  const PendientesEnvioPage({Key key}) : super(key: key);
+  PendientesEnvioPage();
 
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive.of(context);
     final pedidoBloc = ProviderBloc.pedido(context);
-    pedidoBloc.obtenerPedidosAll();
+    String idEstado= '5';
+    pedidoBloc.obtenerPedidosAll(idEstado);
 
     return Scaffold(
+      appBar: AppBar(
+          title: Text("Pendientes de Envío"),
+          backgroundColor: Colors.transparent),
       body: StreamBuilder(
           stream: pedidoBloc.pedidoStream,
           builder: (context, AsyncSnapshot<List<PedidosModel>> snapshot) {
@@ -27,38 +36,139 @@ class PendientesEnvioPage extends StatelessWidget {
                       itemCount: listPedidos[index].detallePedido.length + 1,
                       itemBuilder: (BuildContext context, int i) {
                         if (i == 0) {
-                          return Container(
+                          return
+                              //(listPedidos[index].deliveryStatus == '0')?
+                              Container(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
+                              vertical: responsive.hp(1),
+                            ),
                             width: double.infinity,
                             color: Colors.blueGrey[100],
-                            child: Row(
-                                //crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    '${listPedidos[index].listCompanySubsidiary[0].subsidiaryName}',
-                                    style: TextStyle(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: responsive.wp(2)),
+                              child: Row(
+                                  //crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Pedido N° ${listPedidos[index].idPedido}',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: responsive.ip(2),
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(width: responsive.wp(50)),
+                                    Text(
+                                      '${listPedidos[index].listCompanySubsidiary[0].subsidiaryName}',
+                                      style: TextStyle(
                                         color: Colors.blueGrey[700],
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  //Divider(),
-                                ]),
+                                        fontSize: responsive.ip(1.8),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ]),
+                            ),
                           );
+                          //: Container();
                         }
 
                         int x = i - 1;
-                        return Column(
-                          children: [
-                            Text(listPedidos[index].detallePedido[x].cantidad),
-                            (listPedidos[index].detallePedido[x].listProducto.length>0)?Text(
-                                listPedidos[index].detallePedido[x].listProducto[0].productoName):Text('vacioooooo'),
-                            // Text(
-                            //     listPedidos[index].listCompanySubsidiary[x].companyName)
-                          ],
-                        );
+
+                        return (listPedidos[index]
+                                    .detallePedido[x]
+                                    .listProducto
+                                    .length >
+                                0)
+                            ? Container(
+                                height: responsive.hp(15),
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: responsive.wp(2)),
+                                padding: EdgeInsets.symmetric(vertical: 5),
+                                width: double.infinity,
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: responsive.wp(1.5),
+                                    ),
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Container(
+                                        width: responsive.wp(25),
+                                        child: Stack(
+                                          children: [
+                                            Container(
+                                              height: responsive.hp(10),
+                                              width: responsive.wp(25),
+                                              child: CachedNetworkImage(
+                                                cacheManager:
+                                                    CustomCacheManager(),
+                                                placeholder: (context, url) =>
+                                                    Container(
+                                                  width: double.infinity,
+                                                  height: double.infinity,
+                                                  child: Image(
+                                                      image: AssetImage(
+                                                          'assets/loading.gif'),
+                                                      fit: BoxFit.fitWidth),
+                                                ),
+                                                imageUrl:
+                                                    '$apiBaseURL/${listPedidos[index].detallePedido[x].listProducto[0].productoImage}',
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: responsive.wp(2),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text('${listPedidos[index].detallePedido[x].listProducto[0].productoName} ' +
+                                                '${listPedidos[index].detallePedido[x].listProducto[0].productoBrand} x ' +
+                                                '${listPedidos[index].detallePedido[x].listProducto[0].productoModel}'),
+                                            Text(
+                                                '${listPedidos[index].detallePedido[x].cantidad}'),
+                                            Text(
+                                              'S/. ' +
+                                                  (double.parse(
+                                                              '${listPedidos[index].detallePedido[x].cantidad}') *
+                                                          double.parse(
+                                                              '${listPedidos[index].deliveryPrice}'))
+                                                      .toString(),
+                                              style: TextStyle(
+                                                  fontSize: responsive.ip(1.8),
+                                                  color: Colors.red,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: responsive.wp(2),
+                                    )
+                                  ],
+                                ),
+                              )
+                            : Text("No existe ningún producto pedido");
+
+                        // Column(
+                        //   children: [
+                        //     Text(listPedidos[index].detallePedido[x].cantidad),
+                        //     (listPedidos[index].detallePedido[x].listProducto.length>0)?Text(
+                        //         listPedidos[index].detallePedido[x].listProducto[0].productoName):Text('vacioooooo'),
+                        //     // Text(
+                        //     //     listPedidos[index].listCompanySubsidiary[x].companyName)
+                        //   ],
+                        // );
                       },
                     );
                   },

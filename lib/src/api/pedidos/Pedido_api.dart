@@ -22,12 +22,10 @@ class PedidoApi {
   final pedidoDb = PedidosDatabase();
   final detallePedidoDb = DetallePedidoDatabase();
 
-  Future<dynamic> obtenerPedidosEnviados() async {
+  Future<dynamic> obtenerPedidosEnviados(String idEstado) async {
     final response = await http
         .post("$apiBaseURL/api/Pedido/buscar_pedidos_enviados_ws", body: {
-      'fecha_i': '2021-01-01',
-      'fecha_f': '2021-02-23',
-      'estado': '99',
+      'estado': '$idEstado',
       'tn': prefs.token,
       'app': 'true'
     });

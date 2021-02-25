@@ -30,14 +30,14 @@ class PedidoBloc {
     //_detallePedidoController?.close();
   }
 
-  void obtenerPedidosAll() async {
-    _pedidoController.sink.add(await obtnerDetallePedidoXIdPedido());
-    pedidoApi.obtenerPedidosEnviados();
-    _pedidoController.sink.add(await obtnerDetallePedidoXIdPedido());
+  void obtenerPedidosPorIdEstado(String idEstado) async {
+    _pedidoController.sink.add(await obtnerDetallePedidoXIdPedido(idEstado));
+    pedidoApi.obtenerPedidosEnviados(idEstado);
+    _pedidoController.sink.add(await obtnerDetallePedidoXIdPedido(idEstado));
   }
 
   //Funcion para recorrer las dos tablas
-  Future<List<PedidosModel>> obtnerDetallePedidoXIdPedido() async {
+  Future<List<PedidosModel>> obtnerDetallePedidoXIdPedido(String idEstado) async {
     List<PedidosModel> listaGeneral = List<PedidosModel>();
 
     //obtener todos los pedidos de la bd
@@ -87,9 +87,7 @@ class PedidoBloc {
         //crear lista vacia para el modelo de Producto
         final listProductosModel = List<ProductoModel>();
 
-        final listProductos =
-            await productoDb.obtenerProductoPorIdSubsidiaryGood(
-                listdetallePedido[j].idProducto);
+        final listProductos = await productoDb.obtenerProductoPorIdSubsidiaryGood( listdetallePedido[j].idProducto);
         //Recorrer la lista de la tabla productos para obtenr todos los datos
         for (var l = 0; l < listProductos.length; l++) {
           final productoModel = ProductoModel();

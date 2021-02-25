@@ -103,6 +103,7 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                         );
                                 },
                               ),
+                              SizedBox(height: responsive.hp(2)),
                               Expanded(
                                 child: ListView.builder(
                                     padding: EdgeInsets.all(0),

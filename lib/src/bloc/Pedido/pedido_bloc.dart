@@ -41,7 +41,7 @@ class PedidoBloc {
     List<PedidosModel> listaGeneral = List<PedidosModel>();
 
     //obtener todos los pedidos de la bd
-    final listPedidos = await pedidoDb.obtenerPedidosXidEstado(idEstado);
+    final listPedidos = await pedidoDb.obtenerPedidos();
 
     //Recorremos la lista de todos los pedidos
     for (var i = 0; i < listPedidos.length; i++) {
@@ -87,9 +87,7 @@ class PedidoBloc {
         //crear lista vacia para el modelo de Producto
         final listProductosModel = List<ProductoModel>();
 
-        final listProductos =
-            await productoDb.obtenerProductoPorIdSubsidiaryGood(
-                listdetallePedido[j].idProducto);
+        final listProductos = await productoDb.obtenerProductoPorIdSubsidiaryGood( listdetallePedido[j].idProducto);
         //Recorrer la lista de la tabla productos para obtenr todos los datos
         for (var l = 0; l < listProductos.length; l++) {
           final productoModel = ProductoModel();

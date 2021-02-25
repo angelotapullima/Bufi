@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:bufi/src/database/carrito_db.dart';
 import 'package:bufi/src/database/pedidos_db.dart';
+import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
 import 'package:bufi/src/models/carritoGeneralModel..dart';
@@ -11,6 +12,7 @@ import 'package:bufi/src/database/good_db.dart';
 import 'package:bufi/src/models/DetallePedidoModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/goodModel.dart';
+import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
@@ -25,7 +27,7 @@ class PedidoApi {
   Future<dynamic> obtenerPedidosEnviados(String idEstado) async {
     final response = await http
         .post("$apiBaseURL/api/Pedido/buscar_pedidos_enviados_ws", body: {
-      'estado': '$idEstado',
+      'estado': '99',
       'tn': prefs.token,
       'app': 'true'
     });
@@ -100,14 +102,6 @@ class PedidoApi {
        //insertar a la tabla de Company
       await companyDb.insertarCompany(companyModel);
 
-      final goodModel = BienesModel();
-      final goodDb = GoodDatabase();
-      goodModel.idGood = decodedData["result"][i]['id_good'];
-      goodModel.goodName = decodedData["result"][i]['good_name'];
-      goodModel.goodSynonyms = decodedData["result"][i]['good_synonyms'];
-      //insertar a la tabla de Company
-      await goodDb.insertarGood(goodModel);
-
       //recorremos la segunda lista de detalle de pedidos
       for (var j = 0; j < decodedData["result"][i]["detalle_pedido"].length; j++) {
         final detallePedido = DetallePedidoModel();
@@ -117,8 +111,44 @@ class PedidoApi {
         detallePedido.cantidad =decodedData["result"][i]["detalle_pedido"][j]["delivery_detail_qty"];
         detallePedido.detallePedidoSubtotal =decodedData["result"][i]["detalle_pedido"][j]["delivery_detail_subtotal"];
 
+        //insertamos en la bd los productos
+         ProductoModel subsidiaryGoodModel = ProductoModel();
+         final productoDb = ProductoDatabase();
+         subsidiaryGoodModel.productoName = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_name'];
+        subsidiaryGoodModel.productoPrice = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_price'];
+        subsidiaryGoodModel.productoCurrency =
+            decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_currency'];
+        subsidiaryGoodModel.productoImage = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_image'];
+        subsidiaryGoodModel.productoCharacteristics =
+            decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_characteristics'];
+        subsidiaryGoodModel.productoBrand = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_brand'];
+        subsidiaryGoodModel.productoModel = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_model'];
+        subsidiaryGoodModel.productoType = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_type'];
+        subsidiaryGoodModel.productoSize = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_size'];
+        subsidiaryGoodModel.productoStock = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_stock'];
+        subsidiaryGoodModel.productoMeasure =
+            decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_stock_measure'];
+        subsidiaryGoodModel.productoRating =
+            decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_rating'];
+        subsidiaryGoodModel.productoUpdated =
+            decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_updated'];
+        subsidiaryGoodModel.productoStatus =
+            decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_status'];
+
+      //insertar a la tabla Producto
+      await productoDb.insertarProducto(subsidiaryGoodModel);
+
+      //insertamos en la bd el bien
+      final goodModel = BienesModel();
+      final goodDb = GoodDatabase();
+      goodModel.idGood = decodedData["result"][i]['id_good'];
+      goodModel.goodName = decodedData["result"][i]['good_name'];
+      goodModel.goodSynonyms = decodedData["result"][i]['good_synonyms'];
+      //insertar a la tabla de Company
+      await goodDb.insertarGood(goodModel);
+
         //insertar a la tabla de Detalle de Pedidos
-        await detallePedidoDb.insertarDetallePedido(detallePedido);
+      await detallePedidoDb.insertarDetallePedido(detallePedido);
       }
     }
     //print(decodedData);

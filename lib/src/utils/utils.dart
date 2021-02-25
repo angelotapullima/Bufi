@@ -31,6 +31,10 @@ void showToast1(String msg, int duration, ToastGravity gravity) {
       fontSize: 16.0);
 }
 
+String format(double n) {
+  return n.toStringAsFixed(n.truncateToDouble() == n ? 2 : 2);
+}
+
 void guardarSubsidiaryFavorito(
     BuildContext context, SubsidiaryModel compSubModel) async {
   final subsidiaryBloc = ProviderBloc.sucursal(context);

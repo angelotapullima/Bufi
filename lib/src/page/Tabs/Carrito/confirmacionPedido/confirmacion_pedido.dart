@@ -7,6 +7,7 @@ import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedid
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -509,16 +510,21 @@ class ResumenPedido extends StatelessWidget {
           children: [
             Spacer(),
             GestureDetector(
-              onTap: () async{
+              onTap: () async {
                 provider.changeCargando();
 
                 final pedidoApi = PedidoApi();
 
-                final res = await pedidoApi.enviarPedido( );
+                final res = await pedidoApi.enviarPedido();
 
                 print(res);
 
-
+                if (res == 1) {
+                  showToast(context, 'venta confirmada');
+                } else {
+                  showToast(
+                      context, 'Hubo un error por favor intente más tarde');
+                }
 
                 provider.changeCargando();
               },

@@ -141,7 +141,7 @@ class PedidoApi {
 
         for (var x = 0; x < listDePedidos[0].car[i].carrito.length; x++) {
           producto = producto + '${listDePedidos[0].car[i].carrito[x].idSubsidiaryGood}++++${listDePedidos[0].car[i].carrito[x].cantidad}';
-          producto = producto + '.-.';
+          producto = producto + '.--.';
         }
 
         sucursales = sucursales + producto + './*';
@@ -172,8 +172,10 @@ class PedidoApi {
 
     final decodedData = json.decode(response.body);
 
+
+
    
-    return decodedData;
+    return decodedData['result']['code'];
   }
 
   Future<List<CarritoGeneralSuperior>> carritoPorSucursalSeleccionado() async {
@@ -222,7 +224,6 @@ class PedidoApi {
             cantidadTotalSucursal = cantidadTotalSucursal + (precio * cant);
             cantidadTotalGeneral = cantidadTotalGeneral + (precio * cant);
 
-            print('tamare $cantidadTotalSucursal');
           }
 
           CarritoModel c = CarritoModel();

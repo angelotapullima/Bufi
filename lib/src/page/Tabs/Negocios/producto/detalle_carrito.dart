@@ -1,12 +1,14 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/carritoGeneralModel..dart';
 import 'package:bufi/src/models/productoModel.dart';
+import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/ListarProductosPorSucursalCarrito.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalle_carrito_bloc.dart';
 import 'package:bufi/src/theme/theme.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/cantidad_producto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -67,20 +69,20 @@ class _DetalleCarritoState extends State<DetalleCarrito> {
     final responsive = Responsive.of(context);
     final size = MediaQuery.of(context).size;
 
-    final carritoBloc = ProviderBloc.productosCarrito(context); 
+    final carritoBloc = ProviderBloc.productosCarrito(context);
     carritoBloc.obtenerCarritoPorSucursal();
-
 
     carritoBloc.obtenerCarritoListHorizontalProducto();
 
-    return StreamBuilder(
-        stream: carritoBloc.carritoProductListHorizontalStream,
-        builder: (context, AsyncSnapshot<List<ProductoModel>> snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data.length > 0) {
-              return Scaffold(
-                backgroundColor: Colors.white,
-                body: SafeArea(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: StreamBuilder(
+          stream: carritoBloc.carritoGeneralStream,
+          builder: (BuildContext context,
+              AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data.length > 0) {
+                return SafeArea(
                   bottom: false,
                   child: AnimatedBuilder(
                       animation: bloc,
@@ -153,7 +155,8 @@ class _DetalleCarritoState extends State<DetalleCarrito> {
                                                           bloc.changeToCart();
                                                         }),
                                                     ProductsHorizontal(
-                                                      productos: snapshot.data,
+                                                      monto: snapshot
+                                                          .data[0].montoGeneral,
                                                     ),
                                                   ],
                                                 )
@@ -171,8 +174,11 @@ class _DetalleCarritoState extends State<DetalleCarrito> {
                                                           bloc.changeToNormal();
                                                         }),
                                                     Expanded(
-                                                        child:
-                                                            ListaCarritoDetails()),
+                                                      child:
+                                                          ListaCarritoDetails(
+                                                        carrito: snapshot.data,
+                                                      ),
+                                                    ),
                                                   ],
                                                 )),
                                     ),
@@ -184,23 +190,23 @@ class _DetalleCarritoState extends State<DetalleCarrito> {
                           ],
                         );
                       }),
-                ),
-              );
+                );
+              } else {
+                return Text('ella no te ama');
+              }
             } else {
-              return Text('ella no te ama');
+              return Text('ella no te ama 2');
             }
-          } else {
-            return Text('ella no te ama 2');
-          }
-        });
+          }),
+    );
   }
 }
 
 class ProductsHorizontal extends StatelessWidget {
-  final List<ProductoModel> productos;
+  final String monto;
   const ProductsHorizontal({
     Key key,
-    @required this.productos,
+    @required this.monto,
   }) : super(key: key);
 
   @override
@@ -209,129 +215,161 @@ class ProductsHorizontal extends StatelessWidget {
 
     carritoBloc.obtenerCarritoListHorizontalProducto();
     final responsive = Responsive.of(context);
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: responsive.wp(6),
-        vertical: responsive.hp(1),
-      ),
-      child: Row(
-        children: [
-          (productos.length > 2)
-              ? Container(
-                  transform: Matrix4.translationValues(0, 0, 0),
-                  child: Hero(
-                    tag: '${productos[2].idProducto}',
-                    child: CircleAvatar(
-                      radius: responsive.wp(5),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(100),
-                        ),
-                        child: CachedNetworkImage(
-                          cacheManager: CustomCacheManager(),
-                          placeholder: (context, url) => Image(
-                              image: const AssetImage('assets/jar-loading.gif'),
-                              fit: BoxFit.cover),
-                          errorWidget: (context, url, error) => Image(
-                              image: AssetImage('assets/carga_fallida.jpg'),
-                              fit: BoxFit.cover),
-                          imageUrl: '$apiBaseURL/${productos[2].productoImage}',
-                          imageBuilder: (context, imageProvider) => Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              : Container(),
-          (productos.length > 1)
-              ? Container(
-                  transform: Matrix4.translationValues(-15, 0, 0),
-                  child: Hero(
-                    tag: '${productos[1].idProducto}',
-                    child: CircleAvatar(
-                      radius: responsive.wp(5),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(100),
-                        ),
-                        child: CachedNetworkImage(
-                          cacheManager: CustomCacheManager(),
-                          placeholder: (context, url) => Image(
-                              image: const AssetImage('assets/jar-loading.gif'),
-                              fit: BoxFit.cover),
-                          errorWidget: (context, url, error) => Image(
-                              image: AssetImage('assets/carga_fallida.jpg'),
-                              fit: BoxFit.cover),
-                          imageUrl: '$apiBaseURL/${productos[1].productoImage}',
-                          imageBuilder: (context, imageProvider) => Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              : Container(),
-          Container(
-            transform: Matrix4.translationValues(-30, 0, 0),
-            child: CircleAvatar(
-              radius: responsive.wp(5),
-              child: Hero(
-                tag: '${productos[0].idProducto}',
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(100),
-                  ),
-                  child: CachedNetworkImage(
-                    cacheManager: CustomCacheManager(),
-                    placeholder: (context, url) => Image(
-                        image: const AssetImage('assets/jar-loading.gif'),
-                        fit: BoxFit.cover),
-                    errorWidget: (context, url, error) => Image(
-                        image: AssetImage('assets/carga_fallida.jpg'),
-                        fit: BoxFit.cover),
-                    imageUrl: '$apiBaseURL/${productos[0].productoImage}',
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
+    return StreamBuilder(
+        stream: carritoBloc.carritoProductListHorizontalStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.length > 0) {
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: responsive.wp(6),
+                  vertical: responsive.hp(1),
                 ),
-              ),
-            ),
-          ),
-          Spacer(),
-          Text(
-            'S/. 40.00',
-            style: TextStyle(
-              color: Colors.red,
-              fontWeight: FontWeight.bold,
-              fontSize: responsive.ip(2),
-            ),
-          )
-        ],
-      ),
-    );
+                child: Row(
+                  children: [
+                    SizedBox(width: responsive.wp(4)),
+                    (snapshot.data.length > 2)
+                        ? Container(
+                            transform: Matrix4.translationValues(0, 0, 0),
+                            child: Hero(
+                              tag: '${snapshot.data[2].idProducto}',
+                              child: CircleAvatar(
+                                radius: responsive.wp(5),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                  child: CachedNetworkImage(
+                                    cacheManager: CustomCacheManager(),
+                                    placeholder: (context, url) => Image(
+                                        image: const AssetImage(
+                                            'assets/jar-loading.gif'),
+                                        fit: BoxFit.cover),
+                                    errorWidget: (context, url, error) => Image(
+                                        image: AssetImage(
+                                            'assets/carga_fallida.jpg'),
+                                        fit: BoxFit.cover),
+                                    imageUrl:
+                                        '$apiBaseURL/${snapshot.data[2].productoImage}',
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : Container(),
+                    (snapshot.data.length > 1)
+                        ? Container(
+                            transform: Matrix4.translationValues(-15, 0, 0),
+                            child: Hero(
+                              tag: '${snapshot.data[1].idProducto}',
+                              child: CircleAvatar(
+                                radius: responsive.wp(5),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                  child: CachedNetworkImage(
+                                    cacheManager: CustomCacheManager(),
+                                    placeholder: (context, url) => Image(
+                                        image: const AssetImage(
+                                            'assets/jar-loading.gif'),
+                                        fit: BoxFit.cover),
+                                    errorWidget: (context, url, error) => Image(
+                                        image: AssetImage(
+                                            'assets/carga_fallida.jpg'),
+                                        fit: BoxFit.cover),
+                                    imageUrl:
+                                        '$apiBaseURL/${snapshot.data[1].productoImage}',
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : Container(),
+                    Container(
+                      transform: Matrix4.translationValues(-30, 0, 0),
+                      child: CircleAvatar(
+                        radius: responsive.wp(5),
+                        child: Hero(
+                          tag: '${snapshot.data[0].idProducto}',
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(100),
+                            ),
+                            child: CachedNetworkImage(
+                              cacheManager: CustomCacheManager(),
+                              placeholder: (context, url) => Image(
+                                  image: const AssetImage(
+                                      'assets/jar-loading.gif'),
+                                  fit: BoxFit.cover),
+                              errorWidget: (context, url, error) => Image(
+                                  image: AssetImage('assets/carga_fallida.jpg'),
+                                  fit: BoxFit.cover),
+                              imageUrl:
+                                  '$apiBaseURL/${snapshot.data[0].productoImage}',
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      'S/. $monto',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: responsive.ip(2),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            } else {
+              return Container();
+            }
+          } else {
+            return Container();
+          }
+        });
   }
 }
 
 class ListaCarritoDetails extends StatefulWidget {
+  final List<CarritoGeneralSuperior> carrito;
+
+  const ListaCarritoDetails({
+    Key key,
+    @required this.carrito,
+  }) : super(key: key);
+
+  //List<CarritoGeneralSuperior> carrito;
   @override
   _ListaCarritoState createState() => _ListaCarritoState();
 }
@@ -344,120 +382,293 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
-    final carritoBloc = ProviderBloc.productosCarrito(context);
-    return StreamBuilder(
-        stream: carritoBloc.carritoGeneralStream,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
-          if (snapshot.hasData) {
-            List<CarritoGeneralSuperior> listCarritoSuperior = snapshot.data;
+    return Container(
+      child: Stack(
+        children: [
+          ListView.builder(
+              itemCount: widget.carrito[0].car.length + 1,
+              itemBuilder: (BuildContext context, int index) {
+                if (index == widget.carrito[0].car.length) {
+                  return SizedBox(height: responsive.hp(30));
+                }
 
-            if (listCarritoSuperior.length > 0) {
-              return ListView.builder(
-                  itemCount: listCarritoSuperior[0].car.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemCount: listCarritoSuperior[0].car[index].carrito.length + 1,
-                      itemBuilder: (BuildContext context, int i) {
-                        if (i == 0) {
-                          return Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 1, vertical: 1),
-                              width: double.infinity,
-                              child: Row(
-                                  //crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      '${listCarritoSuperior[0].car[index].nombreSucursal}',
-                                      style: TextStyle(
-                                          color: InstagramColors.pink,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold),
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  itemCount: widget.carrito[0].car[index].carrito.length + 1,
+                  itemBuilder: (BuildContext context, int i) {
+                    if (i == 0) {
+                      return Container(
+                        color: Colors.blueGrey,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 1, vertical: responsive.hp(.5)),
+                        width: double.infinity,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: responsive.wp(3),
+                              ),
+                              Icon(
+                                Icons.store,
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                width: responsive.wp(2),
+                              ),
+                              Text(
+                                '${widget.carrito[0].car[index].nombreSucursal}',
+                                style: TextStyle(
+                                    color: InstagramColors.cardLight,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              //Divider(),
+                            ]),
+                      );
+                    }
+
+                    int indd = i - 1;
+                    var precioFinal = double.parse(
+                            widget.carrito[0].car[index].carrito[indd].precio) *
+                        double.parse(widget
+                            .carrito[0].car[index].carrito[indd].cantidad);
+
+                    return Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: responsive.wp(3),
+                        vertical: responsive.hp(2),
+                      ),
+                      height: responsive.hp(14),
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              if ('${widget.carrito[0].car[index].carrito[indd].estadoSeleccionado}' ==
+                                  '0') {
+                                cambiarEstadoCarrito(
+                                    context,
+                                    '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}',
+                                    '1');
+                              } else {
+                                cambiarEstadoCarrito(
+                                    context,
+                                    '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}',
+                                    '0');
+                              }
+                            },
+                            child: Container(
+                              width: responsive.wp(8),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    child: Center(
+                                      child: CircleAvatar(
+                                        radius: 10,
+                                        backgroundColor: Colors.red,
+                                      ),
                                     ),
-                                    //Divider(),
-                                  ]));
-                        }
-                        int indd = i - 1;
-                        var precioFinal = double.parse(
-                                listCarritoSuperior[0].car[index].carrito[indd].precio) *
-                            double.parse(
-                                listCarritoSuperior[0].car[index].carrito[indd].cantidad);
-
-                        return Row(
-                          children: [
-                            Container(
-                              width: responsive.wp(30),
-                              height: responsive.wp(30),
-                              child: ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(100)),
-                                child: CachedNetworkImage(
-                                  //cacheManager: CustomCacheManager(),
-                                  placeholder: (context, url) => Container(
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    child: Image(
-                                        image: AssetImage('assets/loading.gif'),
-                                        fit: BoxFit.fitWidth),
                                   ),
-                                  imageUrl:
-                                      '$apiBaseURL/${listCarritoSuperior[0].car[index].carrito[indd].image}',
-                                  fit: BoxFit.cover,
-                                ),
+                                  ('${widget.carrito[0].car[index].carrito[indd].estadoSeleccionado}' ==
+                                          '0')
+                                      ? Container(
+                                          child: Center(
+                                            child: CircleAvatar(
+                                              radius: 7,
+                                              backgroundColor: Colors.white,
+                                            ),
+                                          ),
+                                        )
+                                      : Container()
+                                ],
                               ),
                             ),
-                            Container(
-                              width: responsive.wp(70),
+                          ),
+
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              width: responsive.wp(35),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    height: responsive.hp(15),
+                                    width: responsive.wp(40),
+                                    child: CachedNetworkImage(
+                                      cacheManager: CustomCacheManager(),
+                                      placeholder: (context, url) => Container(
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        child: Image(
+                                            image: AssetImage(
+                                                'assets/loading.gif'),
+                                            fit: BoxFit.fitWidth),
+                                      ),
+                                      imageUrl:
+                                          '$apiBaseURL/${widget.carrito[0].car[index].carrito[indd].image}',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: responsive.wp(1)),
+                                      color: Colors.black.withOpacity(.5),
+                                      width: double.infinity,
+                                      //double.infinity,
+                                      height: responsive.hp(3),
+                                      child: Text(
+                                        '${widget.carrito[0].car[index].carrito[indd].nombre}',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          //SizedBox(height: 50),
+                          Expanded(
+                            child: Container(
+                              //width: responsive.wp(50),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '${listCarritoSuperior[0].car[index].carrito[indd].nombre}' +
+                                    '${widget.carrito[0].car[index].carrito[indd].nombre}' +
                                         ' ' +
-                                        '${listCarritoSuperior[0].car[index].carrito[indd].marca}',
+                                        '${widget.carrito[0].car[index].carrito[indd].marca}',
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   Text(
-                                      '${listCarritoSuperior[0].car[index].carrito[indd].precio}',
-                                      style: TextStyle(
-                                          fontSize: 18, color: Colors.white)),
-                                  Text(
-                                    '${listCarritoSuperior[0].car[index].carrito[indd].moneda}' +
+                                    '${widget.carrito[0].car[index].carrito[indd].moneda}' +
                                         ' ' +
                                         '$precioFinal',
                                     style: TextStyle(
-                                        fontSize: 18, color: Colors.white),
+                                        color: Colors.white,
+                                        fontSize: responsive.ip(2)),
                                   ),
                                   Text(
-                                      '${listCarritoSuperior[0].car[index].carrito[indd].nombre}',
-                                      style: TextStyle(color: Colors.white)),
+                                    '${widget.carrito[0].car[index].carrito[indd].nombre}',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                   CantidadCarrito(
-                                    carrito: listCarritoSuperior[0].car[index].carrito[indd],
+                                    carrito: widget
+                                        .carrito[0].car[index].carrito[indd],
                                     llamada: llamada,
                                     idSudsidiaryGood:
-                                        '${listCarritoSuperior[0].car[index].carrito[indd].idSubsidiaryGood}',
+                                        '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}',
                                   ),
                                 ],
                               ),
                             ),
-                          ],
-                        );
-                      },
+                          ),
+
+                          Container(
+                            width: responsive.wp(6),
+                            child: GestureDetector(
+                              onTap: () {
+                                agregarAlCarritoContador(
+                                    context,
+                                    '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}',
+                                    0);
+                              },
+                              child: CircleAvatar(
+                                radius: 15,
+                                backgroundColor: Colors.grey,
+                                child: Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     );
-                  });
-            } else {
-              return Center(
-                child: Text('No haz añadido nada'),
-              );
-            }
-          } else {
-            return Container();
-          }
-        });
+                  },
+                );
+              }),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            left: 0,
+            child: Container(
+              height: responsive.hp(28),
+              color: Colors.black,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          double monto =
+                              double.parse(widget.carrito[0].montoGeneral);
+
+                          if (monto > 0) {
+                            Navigator.of(context).push(PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) {
+                                return ConfirmacionPedido();
+                              },
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                var begin = Offset(0.0, 1.0);
+                                var end = Offset.zero;
+                                var curve = Curves.ease;
+
+                                var tween = Tween(begin: begin, end: end).chain(
+                                  CurveTween(curve: curve),
+                                );
+
+                                return SlideTransition(
+                                  position: animation.drive(tween),
+                                  child: child,
+                                );
+                              },
+                            ));
+                          } else {
+                            showToast(context,
+                                'Por favor seleccione productos para confirmar el pago',
+                                duration: 3);
+                          }
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: responsive.wp(3),
+                            vertical: responsive.hp(.5),
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.red),
+                          child: Text(
+                            'Pagar S/ ${widget.carrito[0].montoGeneral}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.5),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: responsive.wp(4),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 

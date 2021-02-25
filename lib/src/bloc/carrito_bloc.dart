@@ -76,7 +76,7 @@ class CarritoBloc {
             int cant = int.parse(listCarrito[y].cantidad);
 
             cantidadTotal = cantidadTotal + (precio * cant);
-            print('tamare $cantidadTotal');
+            
           }
 
           CarritoModel c = CarritoModel();
@@ -199,7 +199,7 @@ class CarritoBloc {
 
             cantidadTotal = cantidadTotal + (precio * cant);
 
-            print('tamare $cantidadTotal');
+
           }
 
           CarritoModel c = CarritoModel();

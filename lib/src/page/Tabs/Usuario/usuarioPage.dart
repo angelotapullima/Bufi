@@ -270,7 +270,16 @@ class _UserPageState extends State<UserPage> {
     ).ripple(
       () {
        
+          if (texto == 'Pendientes de Envío') {
+            Navigator.pushNamed(context, 'pedidos');
+          }else if (texto == 'Enviados') {
           Navigator.pushNamed(context, 'pedidos');
+          
+        }else if (texto == 'Pendientes de valoración') {
+          Navigator.pushNamed(context, 'valoracion');
+          //Navigator.pushNamed(context, 'prueba');
+        }
+          
         
       },
       borderRadius: BorderRadius.all(

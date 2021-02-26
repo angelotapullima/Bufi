@@ -173,6 +173,7 @@ void agregarAlCarritoContador(
 
   final carritoBloc = ProviderBloc.productosCarrito(context);
   carritoBloc.obtenerCarritoPorSucursal();
+  carritoBloc.carritoPorSucursalSeleccionado();
 }
 
 void porcentaje(BuildContext context, double porcen) async {

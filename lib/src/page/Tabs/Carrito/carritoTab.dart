@@ -76,7 +76,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                                 animation,
                                                 secondaryAnimation,
                                                 child) {
-                                               var begin = Offset(0.0, 1.0);
+                                              var begin = Offset(0.0, 1.0);
                                               var end = Offset.zero;
                                               var curve = Curves.ease;
 
@@ -96,8 +96,9 @@ class _CarritoPageState extends State<CarritoPage> {
                                         },
                                         child: Container(
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: responsive.wp(3),
-                                              vertical: responsive.hp(.5)),
+                                            horizontal: responsive.wp(3),
+                                            vertical: responsive.hp(.5),
+                                          ),
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(20),
@@ -159,33 +160,42 @@ class _CarritoPageState extends State<CarritoPage> {
                                       Spacer(),
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.of(context)
-                                              .push(PageRouteBuilder(
-                                            pageBuilder: (context, animation,
-                                                secondaryAnimation) {
-                                              return ConfirmacionPedido();
-                                            },
-                                            transitionsBuilder: (context,
-                                                animation,
-                                                secondaryAnimation,
-                                                child) {
-                                              var begin = Offset(0.0, 1.0);
-                                              var end = Offset.zero;
-                                              var curve = Curves.ease;
+                                          double monto = double.parse(
+                                              listCarritoSuperior[0]
+                                                  .montoGeneral);
 
-                                              var tween =
-                                                  Tween(begin: begin, end: end)
-                                                      .chain(
-                                                CurveTween(curve: curve),
-                                              );
+                                          if (monto > 0) {
+                                            Navigator.of(context)
+                                                .push(PageRouteBuilder(
+                                              pageBuilder: (context, animation,
+                                                  secondaryAnimation) {
+                                                return ConfirmacionPedido();
+                                              },
+                                              transitionsBuilder: (context,
+                                                  animation,
+                                                  secondaryAnimation,
+                                                  child) {
+                                                var begin = Offset(0.0, 1.0);
+                                                var end = Offset.zero;
+                                                var curve = Curves.ease;
 
-                                              return SlideTransition(
-                                                position:
-                                                    animation.drive(tween),
-                                                child: child,
-                                              );
-                                            },
-                                          ));
+                                                var tween = Tween(
+                                                        begin: begin, end: end)
+                                                    .chain(
+                                                  CurveTween(curve: curve),
+                                                );
+
+                                                return SlideTransition(
+                                                  position:
+                                                      animation.drive(tween),
+                                                  child: child,
+                                                );
+                                              },
+                                            ));
+                                          } else {
+                                            showToast(context,
+                                                'Por favor seleccione productos para confirmar el pago');
+                                          }
                                         },
                                         child: Container(
                                           padding: EdgeInsets.symmetric(

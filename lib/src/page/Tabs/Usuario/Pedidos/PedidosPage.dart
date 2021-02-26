@@ -6,8 +6,8 @@ import 'package:bufi/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class PendientesEnvioPage extends StatelessWidget {
-  PendientesEnvioPage();
+class PedidosPage extends StatelessWidget {
+  PedidosPage();
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,13 @@ class PendientesEnvioPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-          title: Text("Pendientes de Envío"),
-          backgroundColor: Colors.transparent),
+          iconTheme: IconThemeData(color: Colors.black),
+          elevation: 0,
+          title: Text(
+            "Pendientes de Envío",
+            style: TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.white),
       body: StreamBuilder(
           stream: pedidoBloc.pedidoStream,
           builder: (context, AsyncSnapshot<List<PedidosModel>> snapshot) {
@@ -71,7 +76,8 @@ class PendientesEnvioPage extends StatelessWidget {
       List<PedidosModel> listPedidos, int index, int x) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'detallePedido', arguments: listPedidos[index] );
+        Navigator.pushNamed(context, 'tickectPedido',
+            arguments: listPedidos[index]);
       },
       child: Container(
         color: Colors.white,
@@ -170,7 +176,7 @@ class PendientesEnvioPage extends StatelessWidget {
                     fontSize: responsive.ip(2),
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(width: responsive.wp(50)),
+              Spacer(),
               Text(
                 '${listPedidos[index].listCompanySubsidiary[0].subsidiaryName}',
                 style: TextStyle(
@@ -179,6 +185,7 @@ class PendientesEnvioPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              SizedBox(width: responsive.wp(4))
             ]),
       ),
     );

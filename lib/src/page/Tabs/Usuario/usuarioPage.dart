@@ -269,19 +269,9 @@ class _UserPageState extends State<UserPage> {
       ),
     ).ripple(
       () {
-        if (texto == 'Pendientes de Envío') {
-          Navigator.pushNamed(context, 'pedidosPendientes');
-        } else if (texto == 'Enviados') {
-          Navigator.pushNamed(context, 'pedidosEnviados');
-          //Navigator.pushNamed(context, 'prueba');
-        } else if (texto == 'Pendientes de valoración') {
-          Navigator.pushNamed(context, 'valoracion');
-          //Navigator.pushNamed(context, 'prueba');
-        }
-
-        /* if (onPressed != null) {
-            onPressed();
-          } */
+       
+          Navigator.pushNamed(context, 'pedidos');
+        
       },
       borderRadius: BorderRadius.all(
         Radius.circular(13),

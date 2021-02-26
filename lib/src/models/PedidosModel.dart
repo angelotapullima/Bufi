@@ -26,34 +26,7 @@ class PedidosModel {
     this.deliveryMt,
     this.detallePedido,
     this.listCompanySubsidiary,
-    // this.idCompany,
-    // this.subsidiaryName,
-    // this.subsidiaryAddress,
-    // this.subsidiaryCellphone,
-    // this.subsidiaryCellphone2,
-    // this.subsidiaryEmail,
-    // this.subsidiaryCoordX,
-    // this.subsidiaryCoordY,
-    // this.subsidiaryOpeningHours,
-    // this.subsidiaryPrincipal,
-    // this.subsidiaryStatus,
-    // this.idCategory,
-    // this.companyName,
-    // this.companyRuc,
-    // this.companyImage,
-    // this.companyType,
-    // this.companyShortcode,
-    // this.companyDeliveryPropio,
-    // this.companyDelivery,
-    // this.companyEntrega,
-    // this.companyTarjeta,
-    // this.companyVerified,
-    // this.companyRating,
-    // this.companyCreatedAt,
-    // this.companyJoin,
-    // this.companyStatus,
-    // this.companyMt,
-    // this.detallePedido,
+    
   });
 
   String idPedido;
@@ -79,34 +52,7 @@ class PedidosModel {
   String deliveryMt;
   List<DetallePedidoModel> detallePedido;
   List<CompanySubsidiaryModel> listCompanySubsidiary;
-  // String idCompany;
-  // String subsidiaryName;
-  // String subsidiaryAddress;
-  // String subsidiaryCellphone;
-  // String subsidiaryCellphone2;
-  // String subsidiaryEmail;
-  // String subsidiaryCoordX;
-  // String subsidiaryCoordY;
-  // String subsidiaryOpeningHours;
-  // String subsidiaryPrincipal;
-  // String subsidiaryStatus;
-  // String idCategory;
-  // String companyName;
-  // String companyRuc;
-  // String companyImage;
-  // String companyType;
-  // String companyShortcode;
-  // String companyDeliveryPropio;
-  // String companyDelivery;
-  // String companyEntrega;
-  // String companyTarjeta;
-  // String companyVerified;
-  // dynamic companyRating;
-  // String companyCreatedAt;
-  // DateTime companyJoin;
-  // String companyStatus;
-  // String companyMt;
-  // List<Map<String, String>> detallePedido;
+  
 
   factory PedidosModel.fromJson(Map<String, dynamic> json) => PedidosModel(
         idPedido: json["id_pedido"],
@@ -130,35 +76,7 @@ class PedidosModel {
         deliveryDatetime: json["delivery_datetime"],
         deliveryStatus: json["delivery_status"],
         deliveryMt: json["delivery_mt"],
-        // idCompany: json["id_company"],
-        // subsidiaryName: json["subsidiary_name"],
-        // subsidiaryAddress: json["subsidiary_address"],
-        // subsidiaryCellphone: json["subsidiary_cellphone"],
-        // subsidiaryCellphone2: json["subsidiary_cellphone_2"],
-        // subsidiaryEmail: json["subsidiary_email"],
-        // subsidiaryCoordX: json["subsidiary_coord_x"],
-        // subsidiaryCoordY: json["subsidiary_coord_y"],
-        // subsidiaryOpeningHours: json["subsidiary_opening_hours"],
-        // subsidiaryPrincipal: json["subsidiary_principal"],
-        // subsidiaryStatus: json["subsidiary_status"],
-        // idCategory: json["id_category"],
-        // companyName: json["company_name"],
-        // companyRuc: json["company_ruc"],
-        // companyImage: json["company_image"],
-        // companyType: json["company_type"],
-        // companyShortcode: json["company_shortcode"],
-        // companyDeliveryPropio: json["company_delivery_propio"],
-        // companyDelivery: json["company_delivery"],
-        // companyEntrega: json["company_entrega"],
-        // companyTarjeta: json["company_tarjeta"],
-        // companyVerified: json["company_verified"],
-        // companyRating: json["company_rating"],
-        // companyCreatedAt: json["company_created_at"],
-        // companyJoin: DateTime.parse(json["company_join"]),
-        // companyStatus: json["company_status"],
-        // companyMt: json["company_mt"],
-        // detallePedido: List<Map<String, String>>.from(json["detalle_pedido"].map((x) => Map.from(x).map((k, v) => MapEntry<String, String>(k, v == null ? null : v)))),
-      );
+        );
 
   Map<String, dynamic> toJson() => {
         "id_delivery": idPedido,
@@ -181,33 +99,5 @@ class PedidosModel {
         "delivery_datetime": deliveryDatetime,
         "delivery_status": deliveryStatus,
         "delivery_mt": deliveryMt,
-        // "id_company": idCompany,
-        // "subsidiary_name": subsidiaryName,
-        // "subsidiary_address": subsidiaryAddress,
-        // "subsidiary_cellphone": subsidiaryCellphone,
-        // "subsidiary_cellphone_2": subsidiaryCellphone2,
-        // "subsidiary_email": subsidiaryEmail,
-        // "subsidiary_coord_x": subsidiaryCoordX,
-        // "subsidiary_coord_y": subsidiaryCoordY,
-        // "subsidiary_opening_hours": subsidiaryOpeningHours,
-        // "subsidiary_principal": subsidiaryPrincipal,
-        // "subsidiary_status": subsidiaryStatus,
-        // "id_category": idCategory,
-        // "company_name": companyName,
-        // "company_ruc": companyRuc,
-        // "company_image": companyImage,
-        // "company_type": companyType,
-        // "company_shortcode": companyShortcode,
-        // "company_delivery_propio": companyDeliveryPropio,
-        // "company_delivery": companyDelivery,
-        // "company_entrega": companyEntrega,
-        // "company_tarjeta": companyTarjeta,
-        // "company_verified": companyVerified,
-        // "company_rating": companyRating,
-        // "company_created_at": companyCreatedAt,
-        // "company_join": companyJoin.toIso8601String(),
-        // "company_status": companyStatus,
-        // "company_mt": companyMt,
-        // "detalle_pedido": List<dynamic>.from(detallePedido.map((x) => Map.from(x).map((k, v) => MapEntry<String, dynamic>(k, v == null ? null : v)))),
-      };
+       };
 }

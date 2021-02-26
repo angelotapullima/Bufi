@@ -1,3 +1,4 @@
+
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/detallePedidoPage.dart';
 import 'package:bufi/src/page/cuenta/subir_vaucher_recarga.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
@@ -13,10 +14,8 @@ import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/registrarSerivicio.dart';
 import 'package:bufi/src/page/Tabs/Points/points_bloc.dart';
 import 'package:bufi/src/page/Tabs/Principal/listarBienesAll.dart';
-import 'package:bufi/src/page/Tabs/Principal/listarServiciosAll.dart';
-import 'package:bufi/src/page/Tabs/Usuario/Pedidos/EnviadosPage.dart';
-import 'package:bufi/src/page/Tabs/Usuario/Pedidos/PendientesEnvioPage.dart';
-import 'package:bufi/src/page/Tabs/Usuario/Pedidos/ValoracionPage.dart';
+import 'package:bufi/src/page/Tabs/Principal/listarServiciosAll.dart'; 
+import 'package:bufi/src/page/Tabs/Usuario/Pedidos/PedidosPage.dart'; 
 import 'package:bufi/src/page/cuenta/recargar_saldo.dart';
 import 'package:bufi/src/page/home.dart';
 import 'package:bufi/src/page/login_page.dart';
@@ -95,10 +94,8 @@ class MyApp extends StatelessWidget {
 
               //Usuario
                 //Pedidos
-              'pedidosPendientes': (BuildContext context) =>PendientesEnvioPage(),
-              'detallePedido': (BuildContext context) => DetallePedido(),
-              'pedidosEnviados': (BuildContext context) =>PedidosEnviadosPage(),
-              'valoracion': (BuildContext context) =>PendientesValoracionPage(),
+              'pedidos': (BuildContext context) =>PedidosPage(),
+              'tickectPedido': (BuildContext context) => TickectPedido(),
                 //Bufis
               'misMovimientos': (BuildContext context) => MisMovimientosPage(),
               'recargarSaldo': (BuildContext context) => RecargarSaldo(),

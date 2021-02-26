@@ -1,10 +1,30 @@
-
-
-
-
 import 'package:flutter/material.dart';
 
 class TicketClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path.lineTo(0.0, size.height);
+    path.lineTo(size.width, size.height);
+    path.lineTo(size.width, 0.0);
+
+    path.addOval(
+      Rect.fromCircle(center: Offset(0.0, size.height / 2), radius: 20.0),
+    );
+    path.addOval(
+      Rect.fromCircle(
+          center: Offset(size.width, size.height / 2), radius: 20.0),
+    );
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+
+class TicketClipper2 extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final Path path = Path();
@@ -15,20 +35,20 @@ class TicketClipper extends CustomClipper<Path> {
 
     path.lineTo(00.0, size.height - 10);
 
-
     path.quadraticBezierTo(0.0, size.height, 10.0, size.height);
 
     //linea inferior
-    path.lineTo(size.width -10.00, size.height);
-
+    path.lineTo(size.width - 10.00, size.height);
 
     path.quadraticBezierTo(
         size.width, size.height, size.width, size.height - 10);
     path.lineTo(size.width, 48);
 
-    
-    path.arcToPoint(Offset(size.width, 16),
-        radius: const Radius.circular(15.0), largeArc: true,);
+    path.arcToPoint(
+      Offset(size.width, 16),
+      radius: const Radius.circular(15.0),
+      largeArc: true,
+    );
     path.lineTo(size.width, 10.0);
     path.quadraticBezierTo(size.width, 0.0, size.width - 10.0, 0.0);
     path.lineTo(10.0, 0.0);
@@ -66,12 +86,7 @@ class ExtendedClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
 
-
-
-
-
 class MySeparator extends StatelessWidget {
-
   const MySeparator({this.height = 1, this.color = Colors.black});
   final double height;
   final Color color;
@@ -85,7 +100,7 @@ class MySeparator extends StatelessWidget {
         final double dashHeight = height;
         final int dashCount = (boxWidth / (1.5 * dashWidth)).floor();
         return Flex(
-          children: List<Widget>.generate(dashCount-10, (_) {
+          children: List<Widget>.generate(dashCount - 10, (_) {
             return SizedBox(
               width: dashWidth,
               height: dashHeight,

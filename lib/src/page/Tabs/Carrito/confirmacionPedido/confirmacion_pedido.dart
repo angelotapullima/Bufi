@@ -522,6 +522,10 @@ class ResumenPedido extends StatelessWidget {
 
                 if (res == 1) {
                   showToast(context, 'venta confirmada');
+
+                  Navigator.pushNamed(context, 'tickectPedido',
+                      arguments: listCarritoSuperior[0]);
+                      
                 } else {
                   showToast(
                       context, 'Hubo un error por favor intente más tarde');

@@ -72,6 +72,9 @@ class PedidoApi {
       await pedidoDb.insertarPedido(pedidosModel);
 
       final sucursalModel = SubsidiaryModel();
+
+      sucursalModel.idSubsidiary = decodedData["result"][i]['id_subsidiary'];
+      sucursalModel.idCompany = decodedData["result"][i]['id_company'];
       sucursalModel.subsidiaryName =
           decodedData["result"][i]['subsidiary_name'];
       sucursalModel.subsidiaryAddress =
@@ -92,10 +95,24 @@ class PedidoApi {
           decodedData["result"][i]['subsidiary_principal'];
       sucursalModel.subsidiaryStatus =
           decodedData["result"][i]['subsidiary_status'];
+
+      //Obtener la lista de sucursales para asignar a favoritos
+      final list = await sucursalDb
+          .obtenerSubsidiaryPorId(decodedData["result"][i]['id_subsidiary']);
+
+      if (list.length > 0) {
+        sucursalModel.subsidiaryFavourite = list[0].subsidiaryFavourite;
+       
+      } else {
+        sucursalModel.subsidiaryFavourite = "0";
+      }
       //insertar a la tabla sucursal
       await sucursalDb.insertarSubsidiary(sucursalModel);
 
       final companyModel = CompanyModel();
+      companyModel.idCompany = decodedData["result"][i]['id_company'];
+      companyModel.idUser = decodedData["result"][i]['id_user'];
+      companyModel.idCity = decodedData["result"][i]['id_city'];
       companyModel.idCategory = decodedData["result"][i]['id_category'];
       companyModel.companyName = decodedData["result"][i]['company_name'];
       companyModel.companyRuc = decodedData["result"][i]['company_ruc'];
@@ -117,13 +134,23 @@ class PedidoApi {
       companyModel.companyJoin = decodedData["result"][i]['company_join'];
       companyModel.companyStatus = decodedData["result"][i]['company_status'];
       companyModel.companyMt = decodedData["result"][i]['company_mt'];
+      companyModel.miNegocio = decodedData["result"][i]['mi_negocio'];
+
+      //Obtener la lista de Company
+      final listCompany = await companyDb
+          .obtenerCompanyPorId(decodedData["result"][i]['id_company']);
+
+      if (listCompany.length > 0) {
+        companyModel.miNegocio = listCompany[0].miNegocio;
+       
+      } else {
+        companyModel.miNegocio = "";
+      }
       //insertar a la tabla de Company
       await companyDb.insertarCompany(companyModel);
 
       //recorremos la segunda lista de detalle de pedidos
-      for (var j = 0;
-          j < decodedData["result"][i]["detalle_pedido"].length;
-          j++) {
+      for (var j = 0;j < decodedData["result"][i]["detalle_pedido"].length;j++) {
         final detallePedido = DetallePedidoModel();
         detallePedido.idDetallePedido =
             decodedData["result"][i]["detalle_pedido"][j]["id_delivery_detail"];
@@ -141,8 +168,8 @@ class PedidoApi {
         final productoDb = ProductoDatabase();
         subsidiaryGoodModel.idProducto =
             decodedData["result"][i]["detalle_pedido"][j]['id_subsidiarygood'];
-        subsidiaryGoodModel.idSubsidiary =
-            decodedData["result"][i]["detalle_pedido"][j]['id_subsidiary'];
+        subsidiaryGoodModel.idSubsidiary =decodedData["result"][i]["detalle_pedido"][j]['id_subsidiary'];
+        subsidiaryGoodModel.idGood =decodedData["result"][i]["detalle_pedido"][j]['id_good'];
         subsidiaryGoodModel.productoName = decodedData["result"][i]
             ["detalle_pedido"][j]['subsidiary_good_name'];
         subsidiaryGoodModel.productoPrice = decodedData["result"][i]

@@ -16,4 +16,5 @@ class PorcentajesBloc {
   dispose() {
     _porcentajesController?.close();
   }
+
 }

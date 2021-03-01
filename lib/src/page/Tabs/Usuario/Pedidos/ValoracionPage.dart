@@ -18,8 +18,10 @@ class PendientesValoracionPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-          title: Text("Pendientes de Valoración"),
-          backgroundColor: Colors.transparent),
+          title: Text("Pendientes de Valoración",style: TextStyle(color: Colors.black),),
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+          backgroundColor: Colors.white),
       body: StreamBuilder(
           stream: pedidoBloc.pedidoStream,
           builder: (context, AsyncSnapshot<List<PedidosModel>> snapshot) {
@@ -209,7 +211,7 @@ class PendientesValoracionPage extends StatelessWidget {
                     fontSize: responsive.ip(2),
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(width: responsive.wp(50)),
+              Spacer(),
               Text(
                 '${listPedidos[index].listCompanySubsidiary[0].subsidiaryName}',
                 style: TextStyle(
@@ -218,6 +220,8 @@ class PendientesValoracionPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+
+              SizedBox(width: responsive.wp(3),)
             ]),
       ),
     );

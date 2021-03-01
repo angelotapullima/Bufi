@@ -15,15 +15,22 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
     final responsive = Responsive.of(context);
     final PedidosModel pedido = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      appBar: AppBar(title: Text("Valorar"), backgroundColor: Colors.transparent,),
+      appBar: AppBar(
+        title: Text(
+          "Valorar",
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.black),
+      ),
       body: Container(
         color: Colors.white,
         child: Padding(
           padding: EdgeInsets.only(
-            top: responsive.ip(4),
-            left: responsive.ip(2),
-             right: responsive.ip(2)
-          ),
+              top: responsive.ip(4),
+              left: responsive.ip(2),
+              right: responsive.ip(2)),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +39,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                   "Califica esta transacción",
                   style: TextStyle(fontSize: responsive.ip(2)),
                 ),
-                
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -43,12 +50,11 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                     IconButton(icon: Icon(Icons.star), onPressed: () {}),
                   ],
                 ),
-                 SizedBox(height: responsive.hp(2)),
+                SizedBox(height: responsive.hp(2)),
                 Text("Puedes dejarnos un comentario (100 caracteres)",
                     style: TextStyle(fontSize: responsive.ip(2))),
                 SizedBox(height: responsive.hp(1)),
                 Container(
-                 
                   decoration: BoxDecoration(border: Border.all()),
                   child: TextField(
                     keyboardType: TextInputType.text,
@@ -69,7 +75,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                     )
                   ],
                 ),
-                 SizedBox(height: responsive.hp(2)),
+                SizedBox(height: responsive.hp(2)),
                 // Text("Calificación detallada",
                 //     style: TextStyle(fontSize: responsive.ip(2.2))),
                 // Divider(),
@@ -103,14 +109,19 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    IconButton(icon: Icon(Icons.star, color: Colors.yellow,), onPressed: () {}),
+                    IconButton(
+                        icon: Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                        ),
+                        onPressed: () {}),
                     IconButton(icon: Icon(Icons.star), onPressed: () {}),
                     IconButton(icon: Icon(Icons.star), onPressed: () {}),
                     IconButton(icon: Icon(Icons.star), onPressed: () {}),
                     IconButton(icon: Icon(Icons.star), onPressed: () {}),
                   ],
                 ),
-                 SizedBox(height: responsive.hp(2)),
+                SizedBox(height: responsive.hp(2)),
                 Center(
                   child: SizedBox(
                     width: responsive.wp(80),

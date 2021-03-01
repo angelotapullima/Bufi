@@ -17,4 +17,7 @@ class BottomNaviBloc {
   dispose() {
     _selectPageController?.close(); 
   }
+
+
+
 }

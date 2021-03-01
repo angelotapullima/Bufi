@@ -97,7 +97,6 @@ class MyApp extends StatelessWidget {
               //Usuario
                 //Pedidos
               'pedidos': (BuildContext context) =>PedidosPage(),
-              'tickectPedido': (BuildContext context) => TickectPedido(),
               'valoracion': (BuildContext context) =>PendientesValoracionPage(),
               'ratingProductos': (BuildContext context) =>RatingProductosPage(),
                 //Bufis

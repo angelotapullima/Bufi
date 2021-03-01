@@ -16,20 +16,4 @@ class TabNavigationBloc {
 
 
 
-
-  void alguito(){
-
-    String name = 'Melendez';
-
-   
-
-    for (var i = 0; i < name.length; i++) {
-
-      for (var x = 0; x < name.length; x++) {
-        print(name.substring(i,(x+i)));
-      }
-       
-    }
-
-  }
 }

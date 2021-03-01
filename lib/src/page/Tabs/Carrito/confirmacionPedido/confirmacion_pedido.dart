@@ -4,6 +4,7 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/carritoGeneralModel..dart';
 import 'package:bufi/src/models/cuentaModel.dart';
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido_bloc.dart';
+import 'package:bufi/src/page/Tabs/Usuario/Pedidos/detallePedidoPage.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -520,11 +521,33 @@ class ResumenPedido extends StatelessWidget {
 
                 print(res);
 
-                if (res == 1) {
+                if (res[0].respuestaApi == '1') {
                   showToast(context, 'venta confirmada');
 
-                  Navigator.pushNamed(context, 'tickectPedido',
-                      arguments: listCarritoSuperior[0]);
+                  Navigator.of(context).push(PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) {
+                                  return TickectPedido(
+                                    idPedido:res[0].idPedido,
+                                  );
+                                },
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  var begin = Offset(0.0, 1.0);
+                                  var end = Offset.zero;
+                                  var curve = Curves.ease;
+
+                                  var tween =
+                                      Tween(begin: begin, end: end).chain(
+                                    CurveTween(curve: curve),
+                                  );
+
+                                  return SlideTransition(
+                                    position: animation.drive(tween),
+                                    child: child,
+                                  );
+                                },
+                              ));
                       
                 } else {
                   showToast(

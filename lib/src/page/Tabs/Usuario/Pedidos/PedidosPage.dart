@@ -1,5 +1,6 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
+import 'package:bufi/src/page/Tabs/Usuario/Pedidos/detallePedidoPage.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -76,8 +77,27 @@ class PedidosPage extends StatelessWidget {
       List<PedidosModel> listPedidos, int index, int x) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'tickectPedido',
-            arguments: listPedidos[index]);
+        Navigator.of(context).push(PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) {
+            return TickectPedido(
+              idPedido: listPedidos[index].idPedido,
+            );
+          },
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            var begin = Offset(0.0, 1.0);
+            var end = Offset.zero;
+            var curve = Curves.ease;
+
+            var tween = Tween(begin: begin, end: end).chain(
+              CurveTween(curve: curve),
+            );
+
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        ));
       },
       child: Container(
         color: Colors.white,

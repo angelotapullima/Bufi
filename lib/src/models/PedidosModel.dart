@@ -50,6 +50,8 @@ class PedidosModel {
   String deliveryDatetime;
   String deliveryStatus;
   String deliveryMt;
+
+  String respuestaApi;
   List<DetallePedidoModel> detallePedido;
   List<CompanySubsidiaryModel> listCompanySubsidiary;
   

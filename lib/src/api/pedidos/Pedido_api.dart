@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
+import 'package:path/path.dart';
 import 'package:bufi/src/database/carrito_db.dart';
 import 'package:bufi/src/database/pedidos_db.dart';
 import 'package:bufi/src/database/producto_bd.dart';
@@ -193,7 +196,17 @@ class PedidoApi {
             ["detalle_pedido"][j]['subsidiary_good_updated'];
         subsidiaryGoodModel.productoStatus = decodedData["result"][i]
             ["detalle_pedido"][j]['subsidiary_good_status'];
+        
+         //Obtener la lista de Company
+      final listProducto = await productoDb
+          .obtenerProductoPorIdSubsidiaryGood( decodedData["result"][i]["detalle_pedido"][j]['id_subsidiarygood']);
 
+      if (listProducto.length > 0) {
+        subsidiaryGoodModel.productoFavourite = listProducto[0].productoFavourite;
+       
+      } else {
+        subsidiaryGoodModel.productoFavourite = "";
+      }
         //insertar a la tabla Producto
         await productoDb.insertarProducto(subsidiaryGoodModel);
 
@@ -487,6 +500,66 @@ class PedidoApi {
     listaGeneralCarrito.add(carritoGeneralSuperior);
 
     return listaGeneralCarrito;
+  }
+
+  Future<int> valoracion(File _image,  ProductoModel producModel, PedidosModel pedidoModel, TextEditingController comentario) async {
+    final preferences = Preferences();
+
+    // open a byteStream
+    var stream = new http.ByteStream(Stream.castFrom(_image.openRead()));
+    // get file length
+    var length = await _image.length();
+
+    // string to uri
+    var uri = Uri.parse("$apiBaseURL/api/Pedido/valorar_pedido");
+
+    // create multipart request
+    var request = new http.MultipartRequest("POST", uri);
+
+    // if you need more parameters to parse, add those like this. i added "user_id". here this "user_id" is a key of the API request
+    request.fields["tn"] = preferences.token;
+    request.fields["app"] = 'true';
+    request.fields["id_subsidiary_good"] = producModel.idProducto;
+    request.fields["id_delivery"] = pedidoModel.idPedido;
+    request.fields["valoracion"] = producModel.productoStatus;
+    //Cambiar por el verdadero
+    request.fields["comentario"] = producModel.productoName;
+    
+
+    // multipart that takes file.. here this "image_file" is a key of the API request
+    var multipartFile = new http.MultipartFile('imagen', stream, length,
+        filename: basename(_image.path));
+
+    // add file to multipart
+    request.files.add(multipartFile);
+
+    // send request to upload image
+    await request.send().then((response) async {
+      // listen for response
+      response.stream.transform(utf8.decoder).listen((value) {
+        // print(value);
+
+        final decodedData = json.decode(value);
+        final int code = decodedData['result']['code'];
+
+        if (decodedData['result']['code'] == 1) {
+          print('amonos');
+          return 1;
+        } else if (code == 2) {
+          return 2;
+        } else {
+          return code;
+        }
+      }
+      
+      );
+      
+    }
+     
+    ).catchError((e) {
+      print(e);
+    });
+     return 1;
   }
 }
 

@@ -71,9 +71,9 @@ class PedidoApi {
       //insertar a la tabla de Pedidos
       await pedidoDb.insertarPedido(pedidosModel);
 
-      final sucursalModel = SubsidiaryModel();
-       sucursalModel.idSubsidiary =
-          decodedData["result"][i]['id_subsidiary'];
+     /*  final sucursalModel = SubsidiaryModel();
+       sucursalModel.idSubsidiary =decodedData["result"][i]['id_subsidiary'];
+       sucursalModel.idCompany =decodedData["result"][i]['id_company'];
       sucursalModel.subsidiaryName =
           decodedData["result"][i]['subsidiary_name'];
       sucursalModel.subsidiaryAddress =
@@ -95,27 +95,23 @@ class PedidoApi {
       sucursalModel.subsidiaryStatus =
           decodedData["result"][i]['subsidiary_status'];
       //insertar a la tabla sucursal
-      await sucursalDb.insertarSubsidiary(sucursalModel);
+      await sucursalDb.insertarSubsidiary(sucursalModel); */
 
       final companyModel = CompanyModel();
+      companyModel.idCompany = decodedData["result"][i]['id_company'];
       companyModel.idCategory = decodedData["result"][i]['id_category'];
       companyModel.companyName = decodedData["result"][i]['company_name'];
       companyModel.companyRuc = decodedData["result"][i]['company_ruc'];
       companyModel.companyImage = decodedData["result"][i]['company_image'];
       companyModel.companyType = decodedData["result"][i]['company_type'];
-      companyModel.companyShortcode =
-          decodedData["result"][i]['company_shortcode'];
-      companyModel.companyDeliveryPropio =
-          decodedData["result"][i]['company_delivery_propio'];
-      companyModel.companyDelivery =
-          decodedData["result"][i]['company_delivery'];
+      companyModel.companyShortcode =decodedData["result"][i]['company_shortcode'];
+      companyModel.companyDeliveryPropio =decodedData["result"][i]['company_delivery_propio'];
+      companyModel.companyDelivery =decodedData["result"][i]['company_delivery'];
       companyModel.companyEntrega = decodedData["result"][i]['company_entrega'];
       companyModel.companyTarjeta = decodedData["result"][i]['company_tarjeta'];
-      companyModel.companyVerified =
-          decodedData["result"][i]['company_verified'];
+      companyModel.companyVerified =decodedData["result"][i]['company_verified'];
       companyModel.companyRating = decodedData["result"][i]['company_rating'];
-      companyModel.companyCreatedAt =
-          decodedData["result"][i]['company_created_at'];
+      companyModel.companyCreatedAt =decodedData["result"][i]['company_created_at'];
       companyModel.companyJoin = decodedData["result"][i]['company_join'];
       companyModel.companyStatus = decodedData["result"][i]['company_status'];
       companyModel.companyMt = decodedData["result"][i]['company_mt'];
@@ -179,6 +175,7 @@ class PedidoApi {
 
         final sucursalModel = SubsidiaryModel();
         sucursalModel.idSubsidiary = decodedData["result"][i]['id_subsidiary'];
+        sucursalModel.idCompany = decodedData["result"][i]['id_company'];
         sucursalModel.subsidiaryName =
             decodedData["result"][i]['subsidiary_name'];
         sucursalModel.subsidiaryAddress =
@@ -204,9 +201,9 @@ class PedidoApi {
 
         //insertamos en la bd el bien
         final goodModel = BienesModel();
-        goodModel.idGood = decodedData["result"][i]['id_good'];
-        goodModel.goodName = decodedData["result"][i]['good_name'];
-        goodModel.goodSynonyms = decodedData["result"][i]['good_synonyms'];
+        goodModel.idGood = decodedData["result"][i]["detalle_pedido"][j]['id_good'];
+        goodModel.goodName = decodedData["result"][i]["detalle_pedido"][j]['good_name'];
+        goodModel.goodSynonyms = decodedData["result"][i]["detalle_pedido"][j]['good_synonyms'];
         //insertar a la tabla de Company
         await goodDb.insertarGood(goodModel);
 

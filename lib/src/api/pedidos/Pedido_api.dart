@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
+import 'package:path/path.dart';
 import 'package:bufi/src/database/carrito_db.dart';
 import 'package:bufi/src/database/pedidos_db.dart';
 import 'package:bufi/src/database/producto_bd.dart';
@@ -71,7 +74,8 @@ class PedidoApi {
       //insertar a la tabla de Pedidos
       await pedidoDb.insertarPedido(pedidosModel);
 
-     /*  final sucursalModel = SubsidiaryModel();
+      final sucursalModel = SubsidiaryModel();
+
        sucursalModel.idSubsidiary =decodedData["result"][i]['id_subsidiary'];
        sucursalModel.idCompany =decodedData["result"][i]['id_company'];
       sucursalModel.subsidiaryName =
@@ -94,11 +98,24 @@ class PedidoApi {
           decodedData["result"][i]['subsidiary_principal'];
       sucursalModel.subsidiaryStatus =
           decodedData["result"][i]['subsidiary_status'];
+
+      //Obtener la lista de sucursales para asignar a favoritos
+      final list = await sucursalDb
+          .obtenerSubsidiaryPorId(decodedData["result"][i]['id_subsidiary']);
+
+      if (list.length > 0) {
+        sucursalModel.subsidiaryFavourite = list[0].subsidiaryFavourite;
+       
+      } else {
+        sucursalModel.subsidiaryFavourite = "0";
+      }
       //insertar a la tabla sucursal
-      await sucursalDb.insertarSubsidiary(sucursalModel); */
+      await sucursalDb.insertarSubsidiary(sucursalModel); 
 
       final companyModel = CompanyModel();
       companyModel.idCompany = decodedData["result"][i]['id_company'];
+      companyModel.idUser = decodedData["result"][i]['id_user'];
+      companyModel.idCity = decodedData["result"][i]['id_city'];
       companyModel.idCategory = decodedData["result"][i]['id_category'];
       companyModel.companyName = decodedData["result"][i]['company_name'];
       companyModel.companyRuc = decodedData["result"][i]['company_ruc'];
@@ -115,13 +132,23 @@ class PedidoApi {
       companyModel.companyJoin = decodedData["result"][i]['company_join'];
       companyModel.companyStatus = decodedData["result"][i]['company_status'];
       companyModel.companyMt = decodedData["result"][i]['company_mt'];
+      companyModel.miNegocio = decodedData["result"][i]['mi_negocio'];
+
+      //Obtener la lista de Company
+      final listCompany = await companyDb
+          .obtenerCompanyPorId(decodedData["result"][i]['id_company']);
+
+      if (listCompany.length > 0) {
+        companyModel.miNegocio = listCompany[0].miNegocio;
+       
+      } else {
+        companyModel.miNegocio = "";
+      }
       //insertar a la tabla de Company
       await companyDb.insertarCompany(companyModel);
 
       //recorremos la segunda lista de detalle de pedidos
-      for (var j = 0;
-          j < decodedData["result"][i]["detalle_pedido"].length;
-          j++) {
+      for (var j = 0;j < decodedData["result"][i]["detalle_pedido"].length;j++) {
         final detallePedido = DetallePedidoModel();
         detallePedido.idDetallePedido =
             decodedData["result"][i]["detalle_pedido"][j]["id_delivery_detail"];
@@ -139,8 +166,8 @@ class PedidoApi {
         final productoDb = ProductoDatabase();
         subsidiaryGoodModel.idProducto =
             decodedData["result"][i]["detalle_pedido"][j]['id_subsidiarygood'];
-        subsidiaryGoodModel.idSubsidiary =
-            decodedData["result"][i]["detalle_pedido"][j]['id_subsidiary'];
+        subsidiaryGoodModel.idSubsidiary =decodedData["result"][i]["detalle_pedido"][j]['id_subsidiary'];
+        subsidiaryGoodModel.idGood =decodedData["result"][i]["detalle_pedido"][j]['id_good'];
         subsidiaryGoodModel.productoName = decodedData["result"][i]
             ["detalle_pedido"][j]['subsidiary_good_name'];
         subsidiaryGoodModel.productoPrice = decodedData["result"][i]
@@ -169,35 +196,19 @@ class PedidoApi {
             ["detalle_pedido"][j]['subsidiary_good_updated'];
         subsidiaryGoodModel.productoStatus = decodedData["result"][i]
             ["detalle_pedido"][j]['subsidiary_good_status'];
+        
+         //Obtener la lista de Company
+      final listProducto = await productoDb
+          .obtenerProductoPorIdSubsidiaryGood( decodedData["result"][i]["detalle_pedido"][j]['id_subsidiarygood']);
 
+      if (listProducto.length > 0) {
+        subsidiaryGoodModel.productoFavourite = listProducto[0].productoFavourite;
+       
+      } else {
+        subsidiaryGoodModel.productoFavourite = "";
+      }
         //insertar a la tabla Producto
         await productoDb.insertarProducto(subsidiaryGoodModel);
-
-        final sucursalModel = SubsidiaryModel();
-        sucursalModel.idSubsidiary = decodedData["result"][i]['id_subsidiary'];
-        sucursalModel.idCompany = decodedData["result"][i]['id_company'];
-        sucursalModel.subsidiaryName =
-            decodedData["result"][i]['subsidiary_name'];
-        sucursalModel.subsidiaryAddress =
-            decodedData["result"][i]['subsidiary_address'];
-        sucursalModel.subsidiaryCellphone =
-            decodedData["result"][i]['subsidiary_cellphone'];
-        sucursalModel.subsidiaryCellphone2 =
-            decodedData["result"][i]['subsidiary_cellphone2'];
-        sucursalModel.subsidiaryEmail =
-            decodedData["result"][i]['subsidiary_email'];
-        sucursalModel.subsidiaryCoordX =
-            decodedData["result"][i]['subsidiary_coord_x'];
-        sucursalModel.subsidiaryCoordY =
-            decodedData["result"][i]['subsidiary_coord_y'];
-        sucursalModel.subsidiaryOpeningHours =
-            decodedData["result"][i]['subsidiary_opening_hours'];
-        sucursalModel.subsidiaryPrincipal =
-            decodedData["result"][i]['subsidiary_principal'];
-        sucursalModel.subsidiaryStatus =
-            decodedData["result"][i]['subsidiary_status'];
-        //insertar a la tabla sucursal
-        await sucursalDb.insertarSubsidiary(sucursalModel);
 
         //insertamos en la bd el bien
         final goodModel = BienesModel();
@@ -489,6 +500,66 @@ class PedidoApi {
     listaGeneralCarrito.add(carritoGeneralSuperior);
 
     return listaGeneralCarrito;
+  }
+
+  Future<int> valoracion(File _image,  ProductoModel producModel, PedidosModel pedidoModel, TextEditingController comentario) async {
+    final preferences = Preferences();
+
+    // open a byteStream
+    var stream = new http.ByteStream(Stream.castFrom(_image.openRead()));
+    // get file length
+    var length = await _image.length();
+
+    // string to uri
+    var uri = Uri.parse("$apiBaseURL/api/Pedido/valorar_pedido");
+
+    // create multipart request
+    var request = new http.MultipartRequest("POST", uri);
+
+    // if you need more parameters to parse, add those like this. i added "user_id". here this "user_id" is a key of the API request
+    request.fields["tn"] = preferences.token;
+    request.fields["app"] = 'true';
+    request.fields["id_subsidiary_good"] = producModel.idProducto;
+    request.fields["id_delivery"] = pedidoModel.idPedido;
+    request.fields["valoracion"] = producModel.productoStatus;
+    //Cambiar por el verdadero
+    request.fields["comentario"] = producModel.productoName;
+    
+
+    // multipart that takes file.. here this "image_file" is a key of the API request
+    var multipartFile = new http.MultipartFile('imagen', stream, length,
+        filename: basename(_image.path));
+
+    // add file to multipart
+    request.files.add(multipartFile);
+
+    // send request to upload image
+    await request.send().then((response) async {
+      // listen for response
+      response.stream.transform(utf8.decoder).listen((value) {
+        // print(value);
+
+        final decodedData = json.decode(value);
+        final int code = decodedData['result']['code'];
+
+        if (decodedData['result']['code'] == 1) {
+          print('amonos');
+          return 1;
+        } else if (code == 2) {
+          return 2;
+        } else {
+          return code;
+        }
+      }
+      
+      );
+      
+    }
+     
+    ).catchError((e) {
+      print(e);
+    });
+     return 1;
   }
 }
 

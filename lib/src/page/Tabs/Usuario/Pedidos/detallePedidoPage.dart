@@ -118,6 +118,7 @@ class _TickectPedidoState extends State<TickectPedido> {
                                 SizedBox(
                                   height: responsive.hp(1.5),
                                 ),
+                                
                                 Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: responsive.wp(5)),
@@ -286,8 +287,9 @@ class _TickectPedidoState extends State<TickectPedido> {
                                     ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              
+                              ]
+                              ),
                           ),
                         ),
                       ),

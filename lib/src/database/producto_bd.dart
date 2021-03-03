@@ -8,7 +8,10 @@ class  ProductoDatabase{
   final dbProvider = DatabaseProvider.db;
 
   insertarProducto(ProductoModel producto) async {
-    final db = await dbProvider.database;
+
+    try{
+
+      final db = await dbProvider.database;
 
     final res = await db.rawInsert(
         "INSERT OR REPLACE INTO Producto (id_producto, id_subsidiary, id_good, id_itemsubcategory,"
@@ -23,6 +26,14 @@ class  ProductoDatabase{
         " '${producto.productoRating}','${producto.productoUpdated}', '${producto.productoStatus}', '${producto.productoFavourite}')");
 
     return res;
+
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+
+      return 0;
+      //return categoriaList;
+    }
+    
   }
 
   updateProducto(ProductoModel productoModel) async {

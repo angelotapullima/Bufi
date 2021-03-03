@@ -88,6 +88,17 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                           decoration: BoxDecoration(border: Border.all()),
                           child: TextField(
                             controller: comentarioController,
+                            textAlign: TextAlign.left,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
+                              ),
+                              filled: true,
+                            ),
                             keyboardType: TextInputType.text,
                             maxLines: 3,
                           ),
@@ -134,7 +145,8 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                   ),
                 ),
               ),
-              (value)? Container(
+              (value)
+                  ? Container(
                       height: double.infinity,
                       color: Colors.white54,
                       child: Center(
@@ -209,7 +221,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
     if (foto != null) {
       if (comentarioController.text != null) {
         if (valueRating != null) {
-           _cargando.value = true;
+          _cargando.value = true;
           final int code = await pedidoApi.valoracion(
               foto,
               pedido.detallePedido[0].idProducto,
@@ -219,12 +231,12 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
           if (code == 1) {
             print("Producto Calificado");
             utils.showToast(context, 'Producto Calificado');
-             Navigator.pop(context);
+            Navigator.pop(context);
           } else {
             utils.showToast(context, 'Faltan ingresar datos');
           }
 
-           _cargando.value = false;
+          _cargando.value = false;
         } else {
           utils.showToast(context, 'Debe ingresar su comentario');
         }

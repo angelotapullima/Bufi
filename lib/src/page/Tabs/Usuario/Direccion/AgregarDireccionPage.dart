@@ -33,12 +33,12 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextField(
-                    controller: _nameController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: 'Nombre completo',
-                    )),
+                // TextField(
+                //     controller: _nameController,
+                //     keyboardType: TextInputType.text,
+                //     decoration: InputDecoration(
+                //       hintText: 'Nombre completo',
+                //     )),
                 TextField(
                     controller: _direccionController,
                     keyboardType: TextInputType.text,

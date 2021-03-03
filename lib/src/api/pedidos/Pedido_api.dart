@@ -467,7 +467,7 @@ class PedidoApi {
     return listaGeneralCarrito;
   }
 
-  Future<int> valoracion(File _image,  ProductoModel producModel, PedidosModel pedidoModel, TextEditingController comentario) async {
+  Future<int> valoracion(File _image, String idProducto, String idPedido, String  comentario, String valoracion) async {
     final preferences = Preferences();
 
     // open a byteStream
@@ -484,11 +484,10 @@ class PedidoApi {
     // if you need more parameters to parse, add those like this. i added "user_id". here this "user_id" is a key of the API request
     request.fields["tn"] = preferences.token;
     request.fields["app"] = 'true';
-    request.fields["id_subsidiary_good"] = producModel.idProducto;
-    request.fields["id_delivery"] = pedidoModel.idPedido;
-    request.fields["valoracion"] = producModel.productoStatus;
-    //Cambiar por el verdadero
-    request.fields["comentario"] = producModel.productoName;
+    request.fields["id_subsidiary_good"] = idProducto;
+    request.fields["id_delivery"] = idPedido;
+    request.fields["valoracion"] = valoracion;
+    request.fields["comentario"] = comentario;
     
 
     // multipart that takes file.. here this "image_file" is a key of the API request
@@ -505,9 +504,9 @@ class PedidoApi {
         // print(value);
 
         final decodedData = json.decode(value);
-        final int code = decodedData['result']['code'];
+        final int code = decodedData;
 
-        if (decodedData['result']['code'] == 1) {
+        if (code == 1) {
           print('amonos');
           return 1;
         } else if (code == 2) {

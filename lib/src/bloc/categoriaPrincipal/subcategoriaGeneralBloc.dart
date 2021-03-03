@@ -9,6 +9,7 @@ import 'package:rxdart/subjects.dart';
 
 class SubCategoriaGeneralBloc {
   final categoriApi = CategoriasApi();
+    final subCategoriaDb = SubcategoryDatabase();
   final _subCategoriaGeneralcontroller =
       BehaviorSubject<List<SubCategoriaGeneralModel>>();
 
@@ -27,12 +28,10 @@ class SubCategoriaGeneralBloc {
 
   Future<List<SubCategoriaGeneralModel>> itemSubcategXCategoria(
       String id) async {
-    final subCategoriaDb = SubcategoryDatabase();
     //Lista que almacenara todos los nombres de subategorias
     final listGeneral = List<SubCategoriaGeneralModel>();
     //funcion para obtener todas las subcategorias
-    final listSubcategoria =
-        await subCategoriaDb.obtenerSubcategoriasPorIdCategoria(id);
+    final listSubcategoria = await subCategoriaDb.obtenerSubcategoriasPorIdCategoria(id);
 
     for (var i = 0; i < listSubcategoria.length; i++) {
       final subCategGeneralModel = SubCategoriaGeneralModel();

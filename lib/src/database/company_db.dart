@@ -67,7 +67,7 @@ class CompanyDatabase {
     return list;
   }
 
-  Future<List<CompanySubsidiaryModel>> obtenerCompanySubsidiaryPorId(
+  /* Future<List<CompanySubsidiaryModel>> obtenerCompanySubsidiaryPorId(
       String idCompany) async {
     //CREAR OTRO MODELO DE COMPANY Y SUBSIDIARY
     final db = await dbProvider.database;
@@ -78,7 +78,7 @@ class CompanyDatabase {
         ? res.map((c) => CompanySubsidiaryModel.fromJson(c)).toList()
         : [];
     return list;
-  }
+  } */
 
   Future<List<CompanyModel>> obtenerCompanyPorId(String idCompany) async {
     final db = await dbProvider.database;

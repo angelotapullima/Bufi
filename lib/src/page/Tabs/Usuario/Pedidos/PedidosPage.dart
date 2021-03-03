@@ -184,7 +184,9 @@ class PedidosPage extends StatelessWidget {
       width: double.infinity,
       color: Colors.blueGrey[100],
       child: Padding(
-        padding: EdgeInsets.only(left: responsive.wp(2)),
+        padding: EdgeInsets.only(
+          left: responsive.wp(2),
+        ),
         child: Row(
             //crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -205,7 +207,9 @@ class PedidosPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(width: responsive.wp(4))
+              SizedBox(
+                width: responsive.wp(4),
+              )
             ]),
       ),
     );

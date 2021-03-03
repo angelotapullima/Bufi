@@ -43,7 +43,6 @@ class CategoriasApi {
       var res = jsonDecode(response.body);
 
       var cantidadTotal = res.length;
-      print('cantidadTotal $cantidadTotal');
 
       final preferences = Preferences();
 
@@ -77,8 +76,7 @@ class CategoriasApi {
         itemSubCategoriaModel.idSubcategory = res[i]['id_subcategory'];
         itemSubCategoriaModel.itemsubcategoryName =
             res[i]['itemsubcategory_name'];
-        await itemsubCategoryDatabase
-            .insertarItemSubCategoria(itemSubCategoriaModel);
+        await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel);
       }
       return 0;
       //return categoriaList;

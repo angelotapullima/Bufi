@@ -5,6 +5,7 @@ class SubsidiaryDatabase {
   final dbProvider = DatabaseProvider.db;
 
   insertarSubsidiary(SubsidiaryModel subsidiaryModel) async {
+     try {
     final db = await dbProvider.database;
 
     final res = await db.rawInsert(
@@ -17,7 +18,9 @@ class SubsidiaryDatabase {
         "'${subsidiaryModel.subsidiaryOpeningHours}','${subsidiaryModel.subsidiaryPrincipal}','${subsidiaryModel.subsidiaryStatus}',"
         "'${subsidiaryModel.subsidiaryFavourite}')");
 
-    return res;
+    return res;} catch (exception) {
+      print(exception);
+    }
   }
 
  Future<List<SubsidiaryModel>> obtenerSubsidiary() async {
@@ -73,7 +76,7 @@ class SubsidiaryDatabase {
      // print('database actualizada $res');
       return res;
     } catch (exception) {
-      //print(exception);
+      print(exception);
     }
   }
 

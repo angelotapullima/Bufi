@@ -88,7 +88,7 @@ class TickectPedido extends StatelessWidget {
                                         'Dirección',
                                         '${snapshot.data[0].deliveryAddress}',
                                         'Tipo de entrega',
-                                        '${snapshot.data[0].listCompanySubsidiary[0].companyDeliveryPropio}',
+                                        'Delivery ',
                                         responsive),
                                     SizedBox(
                                       height: responsive.hp(1.15),

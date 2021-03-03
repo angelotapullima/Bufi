@@ -27,12 +27,10 @@ class NegociosApi {
       final decodedData = json.decode(response.body);
 
       for (int i = 0; i < decodedData.length; i++) {
-        final listCompany = await companyDatabase
-            .obtenerCompanySubsidiaryPorId(decodedData[i]['id_company']);
+        final listCompany = await companyDatabase.obtenerCompanyPorId(decodedData[i]['id_company']);
 
         if (listCompany.length > 0) {
           CompanyModel cmodel = CompanyModel();
-          SubsidiaryModel smodel = SubsidiaryModel();
           cmodel.idCompany = decodedData[i]['id_company'];
           cmodel.idUser = decodedData[i]['id_user'];
           cmodel.idCity = decodedData[i]['id_city'];
@@ -55,6 +53,11 @@ class NegociosApi {
 
           await companyDatabase.insertarCompany(cmodel);
 
+
+          final listSucursal = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData[i]['id_subsidiary']);
+
+          if(listSucursal.length>0){
+SubsidiaryModel smodel = SubsidiaryModel();
           smodel.idSubsidiary = decodedData[i]['id_subsidiary'];
           smodel.idCompany = decodedData[i]['id_company'];
           smodel.subsidiaryName = decodedData[i]['subsidiary_name'];
@@ -69,9 +72,11 @@ class NegociosApi {
           smodel.subsidiaryPrincipal = decodedData[i]['subsidiary_principal'];
           smodel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
           smodel.subsidiaryAddress = decodedData[i]['subsidiary_address'];
-          smodel.subsidiaryFavourite = listCompany[0].subsidiaryFavourite;
-
+          smodel.subsidiaryFavourite = listSucursal[0].subsidiaryFavourite;
           await subsidiaryDatabase.insertarSubsidiary(smodel);
+          }
+          
+
         } else {
           CompanyModel cmodel = CompanyModel();
           SubsidiaryModel smodel = SubsidiaryModel();
@@ -131,8 +136,8 @@ class NegociosApi {
 
       final decodedData = json.decode(response.body);
 
-      final listCompany =
-          await companyDatabase.obtenerCompanySubsidiaryPorId(id);
+      final listCompany = await companyDatabase.obtenerCompanyPorId(id);
+      final listSucursal = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData['id_subsidiary']);
 
       if (listCompany.length > 0) {
         CompanyModel cmodel = CompanyModel();
@@ -171,7 +176,7 @@ class NegociosApi {
         smodel.subsidiaryPrincipal = decodedData['subsidiary_principal'];
         smodel.subsidiaryStatus = decodedData['subsidiary_status'];
         smodel.subsidiaryAddress = decodedData['subsidiary_address'];
-        smodel.subsidiaryFavourite = listCompany[0].subsidiaryFavourite;
+        smodel.subsidiaryFavourite = listSucursal[0].subsidiaryFavourite;
 
         await subsidiaryDatabase.insertarSubsidiary(smodel);
       } else {
@@ -264,8 +269,8 @@ class NegociosApi {
       final decodedData = json.decode(response.body);
 
       for (int i = 0; i < decodedData.length; i++) {
-        final listCompany = await companyDatabase
-            .obtenerCompanySubsidiaryPorId(decodedData[i]['id_company']);
+        final listCompany = await companyDatabase.obtenerCompanyPorId(decodedData[i]['id_company']);
+        final listSucursal = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData[i]['id_subsidiary']);
 
         CompanyModel cmodel = CompanyModel();
 
@@ -308,7 +313,7 @@ class NegociosApi {
         smodel.subsidiaryAddress = decodedData[i]['subsidiary_address'];
         await subsidiaryDatabase.insertarSubsidiary(smodel);
         if (listCompany.length > 0) {
-          smodel.subsidiaryFavourite = listCompany[0].subsidiaryFavourite;
+          smodel.subsidiaryFavourite = listSucursal[0].subsidiaryFavourite;
         } else {
           smodel.subsidiaryFavourite = '0';
         }

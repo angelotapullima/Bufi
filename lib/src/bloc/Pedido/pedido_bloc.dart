@@ -7,7 +7,7 @@ import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/DetallePedidoModel.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
-import 'package:bufi/src/models/productoModel.dart'; 
+import 'package:bufi/src/models/productoModel.dart';
 import 'package:rxdart/subjects.dart';
 
 class PedidoBloc {
@@ -20,12 +20,10 @@ class PedidoBloc {
 
   final _pedidoController = BehaviorSubject<List<PedidosModel>>();
   final _pedidoIDController = BehaviorSubject<List<PedidosModel>>();
-  
 
   Stream<List<PedidosModel>> get pedidoStream => _pedidoController.stream;
-  Stream<List<PedidosModel>> get pedidoPorIdStream => _pedidoIDController.stream;
-  
-  
+  Stream<List<PedidosModel>> get pedidoPorIdStream =>
+      _pedidoIDController.stream;
 
   void dispose() {
     _pedidoController?.close();
@@ -39,10 +37,12 @@ class PedidoBloc {
     _pedidoController.sink.add(await obtnerDetallePedidosPorIdEstado());
   }
 
-  void obtenerPedidoPorId(String idPedido)async{
+  void obtenerPedidoPorId(String idPedido) async {
+    _pedidoIDController.sink.add(await obtenerPedidosPorIdPedido(idPedido));
+  }
 
-
-     List<PedidosModel> listaGeneral = List<PedidosModel>();
+  Future<List<PedidosModel>> obtenerPedidosPorIdPedido(String idPedido) async {
+    List<PedidosModel> listaGeneral = List<PedidosModel>();
 
     //obtener todos los pedidos de la bd
     final listPedidos = await pedidoDb.obtenerPedidosXidPedido(idPedido);
@@ -74,7 +74,8 @@ class PedidoBloc {
       pedidosModel.deliveryMt = listPedidos[i].deliveryMt;
 
       //funcion que llama desde la bd a todos los detalles del pedido pasando el idPedido como argumento
-      final listdetallePedido = await detallePedidoDb.obtenerDetallePedidoxIdPedido(listPedidos[i].idPedido);
+      final listdetallePedido = await detallePedidoDb
+          .obtenerDetallePedidoxIdPedido(listPedidos[i].idPedido);
       //crear lista vacia para llenar el detalle del pedido
       final listDetallePedidoModel = List<DetallePedidoModel>();
 
@@ -86,16 +87,21 @@ class PedidoBloc {
         detallePedido.idPedido = listdetallePedido[j].idPedido;
         detallePedido.idProducto = listdetallePedido[j].idProducto;
         detallePedido.cantidad = listdetallePedido[j].cantidad;
-        detallePedido.detallePedidoSubtotal =listdetallePedido[j].detallePedidoSubtotal;
+        detallePedido.detallePedidoSubtotal =
+            listdetallePedido[j].detallePedidoSubtotal;
 
         //crear lista vacia para el modelo de Producto
         final listProductosModel = List<ProductoModel>();
 
-        final listProductos = await productoDb.obtenerProductoPorIdSubsidiaryGood( listdetallePedido[j].idProducto);
+        final listProductos =
+            await productoDb.obtenerProductoPorIdSubsidiaryGood(
+                listdetallePedido[j].idProducto);
         //Recorrer la lista de la tabla productos para obtenr todos los datos
         for (var l = 0; l < listProductos.length; l++) {
           final productoModel = ProductoModel();
 
+          productoModel.idProducto = listProductos[0].idProducto;
+          productoModel.idSubsidiary = listProductos[0].idSubsidiary;
           productoModel.productoName = listProductos[0].productoName;
           productoModel.productoPrice = listProductos[0].productoPrice;
           productoModel.productoCurrency = listProductos[l].productoCurrency;
@@ -118,68 +124,54 @@ class PedidoBloc {
       //------Recorrer la lista de compañías y sucursales---------
 
       //funcion que llama desde la bd a todas las sucursales y compañías
-      final listCompanysucursal = await companyDb.obtenerCompanySubsidiaryPorId(listPedidos[i].idCompany);
+      final listCompany =
+          await companyDb.obtenerCompanyPorId(listPedidos[i].idCompany);
+      final listSucursal = await subsidiaryDb.obtenerSubsidiaryPorId(listPedidos[i].idSubsidiary);
       final listCompsucursalModel = List<CompanySubsidiaryModel>();
 
-      for (var k = 0; k < listCompanysucursal.length; k++) {
-        final compSucursalModel = CompanySubsidiaryModel();
-        //Sucursal
-        compSucursalModel.subsidiaryName =
-            listCompanysucursal[k].subsidiaryName;
-        compSucursalModel.subsidiaryAddress =
-            listCompanysucursal[k].subsidiaryAddress;
-        compSucursalModel.subsidiaryCellphone =
-            listCompanysucursal[k].subsidiaryCellphone;
-        compSucursalModel.subsidiaryCellphone2 =
-            listCompanysucursal[k].subsidiaryCellphone2;
-        compSucursalModel.subsidiaryEmail =
-            listCompanysucursal[k].subsidiaryEmail;
-        compSucursalModel.subsidiaryCoordX =
-            listCompanysucursal[k].subsidiaryCoordX;
-        compSucursalModel.subsidiaryCoordY =
-            listCompanysucursal[k].subsidiaryCoordY;
-        compSucursalModel.subsidiaryOpeningHours =
-            listCompanysucursal[k].subsidiaryOpeningHours;
-        compSucursalModel.subsidiaryPrincipal =
-            listCompanysucursal[k].subsidiaryPrincipal;
-        compSucursalModel.subsidiaryStatus =
-            listCompanysucursal[k].subsidiaryStatus;
+      final compSucursalModel = CompanySubsidiaryModel();
+      //Sucursal
+      compSucursalModel.subsidiaryName = listSucursal[0].subsidiaryName;
+      compSucursalModel.subsidiaryAddress = listSucursal[0].subsidiaryAddress;
+      compSucursalModel.subsidiaryCellphone =
+          listSucursal[0].subsidiaryCellphone;
+      compSucursalModel.subsidiaryCellphone2 =
+          listSucursal[0].subsidiaryCellphone2;
+      compSucursalModel.subsidiaryEmail = listSucursal[0].subsidiaryEmail;
+      compSucursalModel.subsidiaryCoordX = listSucursal[0].subsidiaryCoordX;
+      compSucursalModel.subsidiaryCoordY = listSucursal[0].subsidiaryCoordY;
+      compSucursalModel.subsidiaryOpeningHours =
+          listSucursal[0].subsidiaryOpeningHours;
+      compSucursalModel.subsidiaryPrincipal =
+          listSucursal[0].subsidiaryPrincipal;
+      compSucursalModel.subsidiaryStatus = listSucursal[0].subsidiaryStatus;
 
-        //Company
-        compSucursalModel.companyName = listCompanysucursal[k].companyName;
-        compSucursalModel.companyRuc = listCompanysucursal[k].companyRuc;
-        compSucursalModel.companyImage = listCompanysucursal[k].companyImage;
-        compSucursalModel.companyType = listCompanysucursal[k].companyType;
-        compSucursalModel.companyShortcode =
-            listCompanysucursal[k].companyShortcode;
-        compSucursalModel.companyDeliveryPropio =
-            listCompanysucursal[k].companyDeliveryPropio;
-        compSucursalModel.companyDelivery =
-            listCompanysucursal[k].companyDelivery;
-        compSucursalModel.companyEntrega =
-            listCompanysucursal[k].companyEntrega;
-        compSucursalModel.companyTarjeta =
-            listCompanysucursal[k].companyTarjeta;
-        compSucursalModel.companyVerified =
-            listCompanysucursal[k].companyVerified;
-        compSucursalModel.companyRating = listCompanysucursal[k].companyRating;
-        compSucursalModel.companyCreatedAt =
-            listCompanysucursal[k].companyCreatedAt;
-        compSucursalModel.companyJoin = listCompanysucursal[k].companyJoin;
-        compSucursalModel.companyStatus = listCompanysucursal[k].companyStatus;
-        compSucursalModel.companyMt = listCompanysucursal[k].companyMt;
+      //Company
+      compSucursalModel.companyName = listCompany[0].companyName;
+      compSucursalModel.companyRuc = listCompany[0].companyRuc;
+      compSucursalModel.companyImage = listCompany[0].companyImage;
+      compSucursalModel.companyType = listCompany[0].companyType;
+      compSucursalModel.companyShortcode = listCompany[0].companyShortcode;
+      compSucursalModel.companyDeliveryPropio =
+          listCompany[0].companyDeliveryPropio;
+      compSucursalModel.companyDelivery = listCompany[0].companyDelivery;
+      compSucursalModel.companyEntrega = listCompany[0].companyEntrega;
+      compSucursalModel.companyTarjeta = listCompany[0].companyTarjeta;
+      compSucursalModel.companyVerified = listCompany[0].companyVerified;
+      compSucursalModel.companyRating = listCompany[0].companyRating;
+      compSucursalModel.companyCreatedAt = listCompany[0].companyCreatedAt;
+      compSucursalModel.companyJoin = listCompany[0].companyJoin;
+      compSucursalModel.companyStatus = listCompany[0].companyStatus;
+      compSucursalModel.companyMt = listCompany[0].companyMt;
 
-        listCompsucursalModel.add(compSucursalModel);
-      }
+      listCompsucursalModel.add(compSucursalModel);
 
       pedidosModel.listCompanySubsidiary = listCompsucursalModel;
 
       listaGeneral.add(pedidosModel);
     }
 
-    
-    _pedidoIDController.sink.add( listaGeneral);
-
+    return listaGeneral;
   }
 
   //Funcion para recorrer las dos tablas
@@ -216,7 +208,8 @@ class PedidoBloc {
       pedidosModel.deliveryMt = listPedidos[i].deliveryMt;
 
       //funcion que llama desde la bd a todos los detalles del pedido pasando el idPedido como argumento
-      final listdetallePedido = await detallePedidoDb.obtenerDetallePedidoxIdPedido(listPedidos[i].idPedido);
+      final listdetallePedido = await detallePedidoDb
+          .obtenerDetallePedidoxIdPedido(listPedidos[i].idPedido);
       //crear lista vacia para llenar el detalle del pedido
       final listDetallePedidoModel = List<DetallePedidoModel>();
 
@@ -228,12 +221,15 @@ class PedidoBloc {
         detallePedido.idPedido = listdetallePedido[j].idPedido;
         detallePedido.idProducto = listdetallePedido[j].idProducto;
         detallePedido.cantidad = listdetallePedido[j].cantidad;
-        detallePedido.detallePedidoSubtotal =listdetallePedido[j].detallePedidoSubtotal;
+        detallePedido.detallePedidoSubtotal =
+            listdetallePedido[j].detallePedidoSubtotal;
 
         //crear lista vacia para el modelo de Producto
         final listProductosModel = List<ProductoModel>();
 
-        final listProductos = await productoDb.obtenerProductoPorIdSubsidiaryGood( listdetallePedido[j].idProducto);
+        final listProductos =
+            await productoDb.obtenerProductoPorIdSubsidiaryGood(
+                listdetallePedido[j].idProducto);
         //Recorrer la lista de la tabla productos para obtenr todos los datos
         for (var l = 0; l < listProductos.length; l++) {
           final productoModel = ProductoModel();
@@ -260,72 +256,66 @@ class PedidoBloc {
       //------Recorrer la lista de compañías y sucursales---------
 
       //funcion que llama desde la bd a todas las sucursales y compañías
-      final listCompanysucursal = await companyDb
-          .obtenerCompanySubsidiaryPorId(listPedidos[i].idCompany);
+      final listCompany =
+          await companyDb.obtenerCompanyPorId(listPedidos[i].idCompany);
+      final listSucursal = await subsidiaryDb
+          .obtenerSubsidiaryPorId(listPedidos[i].idSubsidiary);
       final listCompsucursalModel = List<CompanySubsidiaryModel>();
 
-      for (var k = 0; k < listCompanysucursal.length; k++) {
-        final compSucursalModel = CompanySubsidiaryModel();
+      final compSucursalModel = CompanySubsidiaryModel();
+
+      if (listSucursal.length > 0) {
         //Sucursal
-        compSucursalModel.subsidiaryName =
-            listCompanysucursal[k].subsidiaryName;
-        compSucursalModel.subsidiaryAddress =
-            listCompanysucursal[k].subsidiaryAddress;
+        compSucursalModel.subsidiaryName = listSucursal[0].subsidiaryName;
+        compSucursalModel.subsidiaryAddress = listSucursal[0].subsidiaryAddress;
         compSucursalModel.subsidiaryCellphone =
-            listCompanysucursal[k].subsidiaryCellphone;
+            listSucursal[0].subsidiaryCellphone;
         compSucursalModel.subsidiaryCellphone2 =
-            listCompanysucursal[k].subsidiaryCellphone2;
-        compSucursalModel.subsidiaryEmail =
-            listCompanysucursal[k].subsidiaryEmail;
-        compSucursalModel.subsidiaryCoordX =
-            listCompanysucursal[k].subsidiaryCoordX;
-        compSucursalModel.subsidiaryCoordY =
-            listCompanysucursal[k].subsidiaryCoordY;
+            listSucursal[0].subsidiaryCellphone2;
+        compSucursalModel.subsidiaryEmail = listSucursal[0].subsidiaryEmail;
+        compSucursalModel.subsidiaryCoordX = listSucursal[0].subsidiaryCoordX;
+        compSucursalModel.subsidiaryCoordY = listSucursal[0].subsidiaryCoordY;
         compSucursalModel.subsidiaryOpeningHours =
-            listCompanysucursal[k].subsidiaryOpeningHours;
+            listSucursal[0].subsidiaryOpeningHours;
         compSucursalModel.subsidiaryPrincipal =
-            listCompanysucursal[k].subsidiaryPrincipal;
-        compSucursalModel.subsidiaryStatus =
-            listCompanysucursal[k].subsidiaryStatus;
-
-        //Company
-        compSucursalModel.companyName = listCompanysucursal[k].companyName;
-        compSucursalModel.companyRuc = listCompanysucursal[k].companyRuc;
-        compSucursalModel.companyImage = listCompanysucursal[k].companyImage;
-        compSucursalModel.companyType = listCompanysucursal[k].companyType;
-        compSucursalModel.companyShortcode =
-            listCompanysucursal[k].companyShortcode;
-        compSucursalModel.companyDeliveryPropio =
-            listCompanysucursal[k].companyDeliveryPropio;
-        compSucursalModel.companyDelivery =
-            listCompanysucursal[k].companyDelivery;
-        compSucursalModel.companyEntrega =
-            listCompanysucursal[k].companyEntrega;
-        compSucursalModel.companyTarjeta =
-            listCompanysucursal[k].companyTarjeta;
-        compSucursalModel.companyVerified =
-            listCompanysucursal[k].companyVerified;
-        compSucursalModel.companyRating = listCompanysucursal[k].companyRating;
-        compSucursalModel.companyCreatedAt =
-            listCompanysucursal[k].companyCreatedAt;
-        compSucursalModel.companyJoin = listCompanysucursal[k].companyJoin;
-        compSucursalModel.companyStatus = listCompanysucursal[k].companyStatus;
-        compSucursalModel.companyMt = listCompanysucursal[k].companyMt;
-
-        listCompsucursalModel.add(compSucursalModel);
+            listSucursal[0].subsidiaryPrincipal;
+        compSucursalModel.subsidiaryStatus = listSucursal[0].subsidiaryStatus;
+      }else{
+        print('no hay sucursal');
       }
+
+      if (listCompany.length > 0) {
+        //Company
+        compSucursalModel.companyName = listCompany[0].companyName;
+        compSucursalModel.companyRuc = listCompany[0].companyRuc;
+        compSucursalModel.companyImage = listCompany[0].companyImage;
+        compSucursalModel.companyType = listCompany[0].companyType;
+        compSucursalModel.companyShortcode = listCompany[0].companyShortcode;
+        compSucursalModel.companyDeliveryPropio =
+            listCompany[0].companyDeliveryPropio;
+        compSucursalModel.companyDelivery = listCompany[0].companyDelivery;
+        compSucursalModel.companyEntrega = listCompany[0].companyEntrega;
+        compSucursalModel.companyTarjeta = listCompany[0].companyTarjeta;
+        compSucursalModel.companyVerified = listCompany[0].companyVerified;
+        compSucursalModel.companyRating = listCompany[0].companyRating;
+        compSucursalModel.companyCreatedAt = listCompany[0].companyCreatedAt;
+        compSucursalModel.companyJoin = listCompany[0].companyJoin;
+        compSucursalModel.companyStatus = listCompany[0].companyStatus;
+        compSucursalModel.companyMt = listCompany[0].companyMt;
+      }else{
+         print('no hay company');
+      }
+
+      listCompsucursalModel.add(compSucursalModel);
 
       pedidosModel.listCompanySubsidiary = listCompsucursalModel;
 
       listaGeneral.add(pedidosModel);
     }
 
-    
     return listaGeneral;
   }
 }
-
-
 
 //-------------Recorrer la lista de Sucursales---------------
 

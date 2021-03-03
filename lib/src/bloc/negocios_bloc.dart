@@ -16,7 +16,7 @@ class NegociosBloc {
       BehaviorSubject<List<CompanySubsidiaryModel>>();
   final detalleNegocioController = BehaviorSubject<List<CompanyModel>>();
 
-  Stream<List<CompanyModel>> get negociosStream => negociosController.stream;
+  //Stream<List<CompanyModel>> get negociosStream => negociosController.stream;
   Stream<List<CompanySubsidiaryModel>> get listarNeg =>
       listarNegocioController.stream;
   Stream<List<CompanyModel>> get detalleNegStream =>
@@ -29,12 +29,12 @@ class NegociosBloc {
     detalleNegocioController?.close();
   }
 
-  void obtenernegocios() async {
-    negociosController.sink.add(await negociosDatabase.obtenerCompany());
-    await negociosApi.obtenerCompany();
+  // void obtenernegocios() async {
+  //   negociosController.sink.add(await negociosDatabase.obtenerCompany());
+  //   await negociosApi.obtenerCompany();
 
-    negociosController.sink.add(await negociosDatabase.obtenerCompany());
-  }
+  //   negociosController.sink.add(await negociosDatabase.obtenerCompany());
+  // }
 
   void listarnegocios() async {
     listarNegocioController.sink.add(await listaNegociosPrincipal());

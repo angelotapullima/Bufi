@@ -1,4 +1,5 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
+import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/cuentaModel.dart';
@@ -409,7 +410,7 @@ class Negocios extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final negociosBloc = ProviderBloc.negocios(context);
-    negociosBloc.obtenernegocios();
+    //negociosBloc.obtenernegocios();
     final responsive = Responsive.of(context);
 
     return Column(
@@ -449,8 +450,9 @@ class Negocios extends StatelessWidget {
         Container(
           height: responsive.hp(26),
           child: StreamBuilder(
-            stream: negociosBloc.negociosStream,
-            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            //stream: negociosBloc.negociosStream,
+            stream: negociosBloc.listarNeg,
+            builder: (BuildContext context, AsyncSnapshot<List<CompanySubsidiaryModel>> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data.length > 0) {
                   return ListView.builder(
@@ -474,7 +476,7 @@ class Negocios extends StatelessWidget {
   }
 
   Widget _crearItem(
-      BuildContext context, CompanyModel servicioData, Responsive responsive) {
+      BuildContext context, CompanySubsidiaryModel servicioData, Responsive responsive) {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, "detalleNegocio", arguments: servicioData);

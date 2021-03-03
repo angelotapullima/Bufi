@@ -295,6 +295,13 @@ class DatabaseProvider {
           ' cantidad TEXT,'
           ' delivery_detail_subtotal TEXT'
           ')');
+
+        await db.execute(' CREATE TABLE galeriaProducto('
+          ' id_producto_galeria TEXT PRIMARY KEY,'
+          ' id_producto TEXT,'
+          ' galeria_foto TEXT,'
+          ' estado TEXT'
+          ')');
     });
   }
 }

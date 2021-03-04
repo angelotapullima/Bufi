@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:bufi/src/database/galeriaProducto_database.dart';
+import 'package:bufi/src/models/galeriaProductoModel.dart';
 import 'package:path/path.dart';
 import 'package:bufi/src/database/good_db.dart';
 import 'package:bufi/src/database/itemSubcategory_db.dart';
@@ -133,7 +135,8 @@ class ProductosApi {
     try {
       final response = await http
           .post('$apiBaseURL/api/Negocio/deshabilitar_producto', body: {
-        'id_subsidiarygood': '$id','app': 'true',
+        'id_subsidiarygood': '$id',
+        'app': 'true',
         'tn': prefs.token,
       });
 
@@ -201,15 +204,42 @@ class ProductosApi {
         } else {
           return code;
         }
-      }
-      
-      );
-      
-    }
-     
-    ).catchError((e) {
+      });
+    }).catchError((e) {
       print(e);
     });
-     return 1;
+    return 1;
+  }
+
+  Future<dynamic> listarDetalleProducto(String idProducto) async {
+    try {
+      final response = await http
+          .post('$apiBaseURL/api/Negocio//listar_detalle_producto', body: {
+        'id': '$idProducto',
+        'app': 'true',
+        'tn': prefs.token,
+      });
+
+      final decodedData = json.decode(response.body);
+
+      for (var i = 0; i < decodedData["galeria"]; i++) {
+        GaleriaProductoModel galeriaProductoModel = GaleriaProductoModel();
+        final galeriaProductoDb = GaleriaProductoDatabase();
+        galeriaProductoModel.idGaleriaProducto =
+            decodedData["galeria"][i]["id_subsidiary_good_galeria"];
+        galeriaProductoModel.idGaleriaProducto =
+            decodedData["galeria"][i]["id_subsidiarygood"];
+        galeriaProductoModel.idGaleriaProducto =
+            decodedData["galeria"][i]["galeria_foto"];
+
+        await galeriaProductoDb.insertarGaleriaProducto(galeriaProductoModel);
+      }
+
+      return decodedData;
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+
+      return 0;
+    }
   }
 }

@@ -1,9 +1,11 @@
+import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:bufi/src/widgets/extentions.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class UserPage extends StatefulWidget {
   @override
@@ -28,11 +30,17 @@ class _UserPageState extends State<UserPage> {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          SizedBox(
-            height: responsive.hp(3.5),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: responsive.wp(4)),
+          SizedBox(height: responsive.hp(3.5)),
+          Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: responsive.ip(1.5),
+            ),
+            padding: EdgeInsets.symmetric(
+              vertical: responsive.hp(2),
+              horizontal: responsive.wp(2),
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.white),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -96,13 +104,13 @@ class _UserPageState extends State<UserPage> {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: responsive.ip(1.8)),
                         ),
-                        Text(
-                          'Ver Perfil',
-                          style: TextStyle(
-                              fontSize: responsive.ip(1.8),
-                              color: Colors.blueAccent,
-                              fontWeight: FontWeight.bold),
-                        ),
+                        // Text(
+                        //   'Ver Perfil',
+                        //   style: TextStyle(
+                        //       fontSize: responsive.ip(1.8),
+                        //       color: Colors.blueAccent,
+                        //       fontWeight: FontWeight.bold),
+                        // ),
                       ],
                     ),
                   )
@@ -111,48 +119,37 @@ class _UserPageState extends State<UserPage> {
           SizedBox(
             height: responsive.hp(2),
           ),
-          // _general(responsive)
 
           //Pedidos
           Container(
-              margin: EdgeInsets.all(
-                responsive.ip(1.5),
+              margin: EdgeInsets.symmetric(
+                horizontal: responsive.ip(1.5),
               ),
               padding: EdgeInsets.symmetric(
-                vertical: responsive.hp(4),
+                vertical: responsive.hp(2),
                 horizontal: responsive.wp(2),
               ),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10), color: Colors.white),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Column(
                 children: [
-                  bottonPedido(responsive, 'Pendientes de Envío'),
-                  bottonPedido(responsive, 'Enviados'),
-                  bottonPedido(responsive, 'Pendientes de valoración'),
+                  Text(
+                    "Mis Pedidos",
+                    style: TextStyle(
+                        fontSize: responsive.ip(2.5),
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: responsive.hp(1)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      bottonPedido(responsive, 'Pendientes de Envío'),
+                      bottonPedido(responsive, 'Enviados'),
+                      bottonPedido(responsive, 'Pendientes de valoración'),
+                    ],
+                  ),
                 ],
               )),
-          //Direccion
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, "direccion");
-            },
-            child: Container(
-                margin: EdgeInsets.symmetric(
-                  horizontal: responsive.ip(1.5),
-                ),
-                width: double.infinity,
-                height: responsive.ip(4),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white),
-                child: Center(
-                  child: Text("Direcciones de entrega",style: TextStyle(
-                    color: Colors.red,
-                        fontSize: responsive.ip(2),
-                        fontWeight: FontWeight.bold)),
-                )),
-          ),
 
           //Bufis
           Container(
@@ -170,12 +167,10 @@ class _UserPageState extends State<UserPage> {
                 Text(
                   'Bufis',
                   style: TextStyle(
-                      fontSize: responsive.ip(2.8),
+                      fontSize: responsive.ip(2.5),
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
-                  height: responsive.hp(3),
-                ),
+                SizedBox(height: responsive.hp(1.5)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -185,7 +180,7 @@ class _UserPageState extends State<UserPage> {
                   ],
                 ),
                 SizedBox(
-                  height: responsive.hp(1.8),
+                  height: responsive.hp(1),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -198,6 +193,45 @@ class _UserPageState extends State<UserPage> {
               ],
             ),
           ),
+
+          _item(responsive, "Mi perfil", "perfil", FontAwesomeIcons.user),
+
+          //Direccion
+          _item(responsive, "Direcciones de entrega", "direccion",
+              Icons.gps_fixed),
+
+          _itemCarrito(responsive, "Carrito", Icons.shopping_cart),
+
+          _item(responsive, "Políticas de Privacidad", "direccion",
+              Icons.privacy_tip_outlined),
+
+          _item(responsive, "Términos y Condiciones", "direccion",
+              Icons.save_alt),
+
+          _item(responsive, "Configuración", "direccion", Icons.settings),
+
+          //SizedBox(height: responsive.hp(2)),
+
+          Container(
+              margin: EdgeInsets.symmetric(
+                  horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
+              width: double.infinity,
+              height: responsive.ip(8),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10), color: Colors.white),
+              child: ListTile(
+                title: Text("Versión de la app",
+                    style: TextStyle(
+                        //color: Colors.red,
+                        fontSize: responsive.ip(2),
+                        fontWeight: FontWeight.bold)),
+                subtitle: Text("Versión 1.0",
+                    style: TextStyle(
+                        //color: Colors.red,
+                        fontSize: responsive.ip(2),
+                        fontWeight: FontWeight.bold)),
+                
+              )),
 
           Padding(
             padding: EdgeInsets.all(responsive.ip(1.5)),
@@ -232,6 +266,51 @@ class _UserPageState extends State<UserPage> {
         ],
       ),
     );
+  }
+
+  Widget _item(Responsive responsive, nombre, ruta, IconData icon) {
+    return Container(
+        margin: EdgeInsets.symmetric(
+            horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
+        width: double.infinity,
+        height: responsive.ip(8),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: Colors.white),
+        child: ListTile(
+          title: Text(nombre,
+              style: TextStyle(
+                  //color: Colors.red,
+                  fontSize: responsive.ip(2),
+                  fontWeight: FontWeight.bold)),
+          leading: Icon(icon),
+          trailing: Icon(Icons.arrow_right_outlined),
+          onTap: () {
+            Navigator.pushNamed(context, ruta);
+          },
+        ));
+  }
+
+  Widget _itemCarrito(Responsive responsive, nombre, IconData icon) {
+    return Container(
+        margin: EdgeInsets.symmetric(
+            horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
+        width: double.infinity,
+        height: responsive.ip(8),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: Colors.white),
+        child: ListTile(
+          title: Text(nombre,
+              style: TextStyle(
+                  //color: Colors.red,
+                  fontSize: responsive.ip(2),
+                  fontWeight: FontWeight.bold)),
+          leading: Icon(icon),
+          trailing: Icon(Icons.arrow_right_outlined),
+          onTap: () {
+            final buttonBloc = ProviderBloc.tabs(context);
+                buttonBloc.changePage(2);
+          },
+        ));
   }
 
   Widget bottonCircular(Responsive responsive, String texto) {

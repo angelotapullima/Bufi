@@ -303,7 +303,12 @@ class DatabaseProvider {
           ' referencia TEXT,'
           ' distrito TEXT,'
           ' coord_x TEXT,'
-          ' coord_y TEXT,'
+          ' coord_y TEXT,');
+          
+        await db.execute(' CREATE TABLE galeriaProducto('
+          ' id_producto_galeria TEXT PRIMARY KEY,'
+          ' id_producto TEXT,'
+          ' galeria_foto TEXT,'
           ' estado TEXT'
           ')');
     });

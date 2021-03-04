@@ -1,7 +1,10 @@
+import 'package:bufi/src/bloc/producto/galeriaProductoBloc.dart';
 import 'package:bufi/src/bloc/producto/paginaActualBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
+import 'package:bufi/src/models/galeriaProductoModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalle_carrito.dart';
+import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/extentions.dart';
@@ -20,11 +23,11 @@ class DetalleProductos extends StatefulWidget {
 
 class _DetalleProductosState extends State<DetalleProductos> {
   //Lsita de imagenes de productos
-  List<String> listProd = [
-    "https://i.blogs.es/d07883/huawei-p40-pro-1/1366_2000.jpg",
-    "https://cnet4.cbsistatic.com/img/BZhOgzaNcsc8fVQJmML9334-S-8=/2019/12/21/08bc2882-f90d-44b8-92e9-f5cf67f5db4d/samsung-galaxy-fold.jpg",
-    "https://imagenes.milenio.com/vBy00-sNYMs2038OhwndC_uQHE0=/958x596/https://www.milenio.com/uploads/media/2019/04/03/samsung-galaxy-costo-lanzamiento-mil_0_20_1024_637.jpg"
-  ];
+  // List<String> listProd = [
+  //   "https://i.blogs.es/d07883/huawei-p40-pro-1/1366_2000.jpg",
+  //   "https://cnet4.cbsistatic.com/img/BZhOgzaNcsc8fVQJmML9334-S-8=/2019/12/21/08bc2882-f90d-44b8-92e9-f5cf67f5db4d/samsung-galaxy-fold.jpg",
+  //   "https://imagenes.milenio.com/vBy00-sNYMs2038OhwndC_uQHE0=/958x596/https://www.milenio.com/uploads/media/2019/04/03/samsung-galaxy-costo-lanzamiento-mil_0_20_1024_637.jpg"
+  // ];
 
   //controlador del PageView
   final _pageController = PageController(viewportFraction: 0.9, initialPage: 0);
@@ -47,6 +50,8 @@ class _DetalleProductosState extends State<DetalleProductos> {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
+    final galeriaProdBloc = ProviderBloc.galeriaProductos(context);
+
     Widget _icon(
       IconData icon, {
       Color color = LightColor.iconColor,
@@ -85,142 +90,127 @@ class _DetalleProductosState extends State<DetalleProductos> {
 
     bool isLiked = false;
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          //DetalleCarrito
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            //DetalleCarrito
 
-          agregarAlCarrito(context, widget.producto.idProducto);
+            agregarAlCarrito(context, widget.producto.idProducto);
 
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              transitionDuration: const Duration(milliseconds: 300),
-              pageBuilder: (context, animation, secondaryAnimation) {
-                return DetalleCarrito(producto: widget.producto);
-                //return DetalleProductitos(productosData: productosData);
-              },
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: child,
-                );
-              },
-            ),
-          );
-        },
-        label: Row(
-          children: [
-            Icon(Icons.shopping_cart_outlined),
-            Text(' Agregar'),
-          ],
-        ),
-      ),
-      body: Stack(
-        children: <Widget>[
-          _backgroundImage(context, _pageController, pagActual),
-          SafeArea(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  //BackButton(),
-                  _icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.black54,
-                    size: responsive.ip(1.7),
-                    padding: responsive.ip(1.25),
-                    isOutLine: true,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  Container(
-                    height: responsive.hp(3),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: responsive.wp(2),
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey[300]),
-                    ),
-                    margin: EdgeInsets.symmetric(
-                      horizontal: responsive.wp(5),
-                      vertical: responsive.hp(1.3),
-                    ),
-                    child: Text((pagActual + 1).toString() +
-                        '/' +
-                        listProd.length.toString()),
-                  ),
-                  _icon(isLiked ? Icons.favorite : Icons.favorite_border,
-                      color: isLiked ? LightColor.lightGrey : LightColor.red,
-                      size: responsive.ip(1.7),
-                      padding: responsive.ip(1.25),
-                      isOutLine: false, onPressed: () {
-                    setState(() {
-                      isLiked = !isLiked;
-                    });
-                  }),
-
-                  // Container(
-                  //       height: responsive.hp(1),
-                  //       padding: EdgeInsets.symmetric(
-                  //         horizontal: responsive.wp(2),
-                  //       ),
-                  //       decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(15),
-                  //         color: Colors.grey[300],
-                  //         border: Border.all(color: Colors.grey[300]),
-                  //       ),
-                  //       margin: EdgeInsets.symmetric(
-                  //         horizontal: responsive.wp(5),
-                  //         vertical: responsive.hp(1.3),
-                  //       ),
-                  //       child: Row(
-                  //         children: [
-                  //           Text(
-                  //             (contadorProductosFotoLocal.pageContador + 1)
-                  //                 .toString(),
-                  //             style: TextStyle(
-                  //                 fontSize: responsive.ip(1.5),
-                  //                 color: Colors.black),
-                  //           ),
-                  //           Text(
-                  //             ' / ',
-                  //             style: TextStyle(
-                  //                 fontSize: responsive.ip(1.5),
-                  //                 color: Colors.black),
-                  //           ),
-                  //           Text(
-                  //             '${widget.cantidadItems}',
-                  //             style: TextStyle(
-                  //                 fontSize: responsive.ip(1.5),
-                  //                 color: Colors.black),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     )
-                ],
-              ),
-            ),
-          ),
-          TranslateAnimation(
-            duration: const Duration(milliseconds: 400),
-            child: _contenido(
-              responsive,
+            Navigator.push(
               context,
-            ),
+              PageRouteBuilder(
+                transitionDuration: const Duration(milliseconds: 300),
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return DetalleCarrito(producto: widget.producto);
+                  //return DetalleProductitos(productosData: productosData);
+                },
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+              ),
+            );
+          },
+          label: Row(
+            children: [
+              Icon(Icons.shopping_cart_outlined),
+              Text(' Agregar'),
+            ],
           ),
-        ],
-      ),
-    );
+        ),
+        body: StreamBuilder(
+            stream: galeriaProdBloc.galeriaProdStream,
+            builder:
+                (context, AsyncSnapshot<List<GaleriaProductoModel>> snapshot) {
+              List<GaleriaProductoModel> listProd = snapshot.data;
+              if (snapshot.hasData) {
+                if (snapshot.data.length > 0) {
+                  return Stack(
+                    children: <Widget>[
+                      _backgroundImage(
+                          context, responsive, pagActual, listProd),
+
+                      //Iconos arriba de la imagen del producto
+                      SafeArea(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              //BackButton(),
+                              _icon(
+                                Icons.arrow_back_ios,
+                                color: Colors.black54,
+                                size: responsive.ip(1.7),
+                                padding: responsive.ip(1.25),
+                                isOutLine: true,
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+
+                              Container(
+                                height: responsive.hp(3),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: responsive.wp(2),
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey[300]),
+                                ),
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: responsive.wp(5),
+                                  vertical: responsive.hp(1.3),
+                                ),
+                                child: Text((pagActual + 1).toString() +
+                                    '/' +
+                                    listProd.length.toString()),
+                              ),
+
+                              _icon(
+                                  isLiked
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: isLiked
+                                      ? LightColor.lightGrey
+                                      : LightColor.red,
+                                  size: responsive.ip(1.7),
+                                  padding: responsive.ip(1.25),
+                                  isOutLine: false, onPressed: () {
+                                setState(() {
+                                  isLiked = !isLiked;
+                                });
+                              }),
+                            ],
+                          ),
+                        ),
+                      ),
+                      TranslateAnimation(
+                        duration: const Duration(milliseconds: 400),
+                        child: _contenido(
+                          responsive,
+                          context,
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Container();
+                }
+              } else {
+                return Container();
+              }
+            }));
   }
 
-  Widget _backgroundImage(
-      BuildContext context, PageController _pageController, int pagActual) {
-    //final size = MediaQuery.of(context).size;
+  Widget _backgroundImage(BuildContext context, Responsive responsive,
+      int pagActual, List<GaleriaProductoModel> listProd) {
+    final size = MediaQuery.of(context).size;
 
     return Container(
       child: GestureDetector(
@@ -232,36 +222,89 @@ class _DetalleProductosState extends State<DetalleProductos> {
               Navigator.pop(context);
             }
           },
-          child: CarrouselProducto(listProd, _pageController)
+          child: Padding(
+            padding: EdgeInsets.only(top: responsive.ip(6)),
+            child: Container(
+             // color: Colors.red,
+              
+             height: size.height * 0.38,
+            
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
+                ),
+                color: Colors.transparent,
+              ),
+              // height: responsive.hp(19),
+              child: Stack(
+                children: [
+                  PageView.builder(
+                      itemCount: listProd.length,
+                      controller: _pageController,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: responsive.wp(1)),
 
-          // Container(
-          //   width: double.infinity,
-          //   height: size.height * 0.50,
-          //   child: Hero(
-          //     tag: widget.producto.idProducto,
-          //     child: ClipRRect(
-          //       child: CachedNetworkImage(
-          //         //cacheManager: CustomCacheManager(),
-          //         placeholder: (context, url) => Image(
-          //             image: const AssetImage('assets/jar-loading.gif'),
-          //             fit: BoxFit.cover),
-          //         errorWidget: (context, url, error) => Image(
-          //             image: AssetImage('assets/carga_fallida.jpg'),
-          //             fit: BoxFit.cover),
-          //         imageUrl: '$apiBaseURL/${widget.producto.productoImage}',
-          //         imageBuilder: (context, imageProvider) => Container(
-          //           decoration: BoxDecoration(
-          //             image: DecorationImage(
-          //               image: imageProvider,
-          //               fit: BoxFit.fitHeight,
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          ),
+                          //padding: EdgeInsets.symmetric(horizontal: responsive.wp(3)),
+
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: CachedNetworkImage(
+                                //cacheManager: CustomCacheManager(),
+
+                                placeholder: (context, url) => Image(
+                                    image: AssetImage('assets/jar-loading.gif'),
+                                    fit: BoxFit.cover),
+
+                                errorWidget: (context, url, error) => Image(
+                                    image:
+                                        AssetImage('assets/carga_fallida.jpg'),
+                                    fit: BoxFit.cover),
+
+                                imageUrl:
+                                    '$apiBaseURL/${listProd[index].galeriaFoto}',
+
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      onPageChanged: (int index) {
+                        //_currentPageNotifier.value = index;
+                        //contadorProductos.changeContador(index);
+                      }),
+                  // Positioned(
+                  //   left: 0.0,
+                  //   right: 0.0,
+                  //   bottom: responsive.hp(3.2),
+                  //   child: CirclePageIndicator(
+                  //     selectedDotColor: Colors.black,
+                  //     dotColor: Colors.grey[400],
+                  //     itemCount: listProd.length,
+                  //     currentPageNotifier: _currentPageNotifier,
+
+                  //   ),
+                  // )
+                ],
+              ),
+            ),
+          )),
     );
   }
 
@@ -523,519 +566,3 @@ class LightColor {
   static const Color black = Color(0xff20262C);
   static const Color lightblack = Color(0xff5F5F60);
 }
-
-// class ImagenProducto extends StatelessWidget {
-//   List<String> listProd = [
-//     'https://plazaisabella.com/img/descuentos/descuentos-banner.jpg',
-//     "https://elamigogeek.com/wp-content/uploads/2019/05/moto-z4-1013x1024.jpg"
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final responsive = Responsive.of(context);
-
-//     return Padding(
-//       padding: EdgeInsets.only(top: responsive.ip(6)),
-//       child: Row(
-//         children: [
-//           Container(
-//             color: Colors.blue,
-//             width: responsive.wp(20),
-//             height: responsive.hp(38),
-//             child: ListView.builder(
-//               shrinkWrap: true,
-//               itemCount: listProd.length,
-//               itemBuilder: (BuildContext context, int index) {
-//                 return Card(
-//                     child: Container(
-//                         height: responsive.hp(12),
-//                         child: Image.network(listProd[index])));
-//               },
-//             ),
-//           ),
-//           Expanded(
-//             child: GestureDetector(
-//                 onTap: () {
-//                   //Navigator.pushNamed(context, 'detalleProductoFoto', arguments: carrito);
-//                 },
-//                 onVerticalDragUpdate: (drag) {
-//                   if (drag.primaryDelta > 7) {
-//                     Navigator.pop(context);
-//                   }
-//                 },
-//                 child: CarrouselProducto(listProd)),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-class CarrouselProducto extends StatelessWidget {
-  // final _pageController = PageController(viewportFraction: 0.9, initialPage: 0);
-  // int pagActual = 0;
-
-  //final _currentPageNotifier = ValueNotifier<int>(1);
-
-  final List<String> listProd;
-  PageController _pageController;
-
-  CarrouselProducto(this.listProd, this._pageController);
-  @override
-  Widget build(BuildContext context) {
-    final responsive = Responsive.of(context);
-    final size = MediaQuery.of(context).size;
-    final contadorProductos = ProviderBloc.contadorPagina(context);
-    return _buildPageView(responsive, size, contadorProductos);
-  }
-
-  _buildPageView(Responsive responsive, Size size,
-      ContadorPaginaProductosBloc contadorProductos) {
-    return Padding(
-      padding: EdgeInsets.only(top: responsive.ip(6)),
-      child: Container(
-        //width:
-        //double.infinity,
-        height: size.height * 0.38,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
-          color: Colors.transparent,
-        ),
-        // height: responsive.hp(19),
-        child: Stack(
-          children: [
-            PageView.builder(
-                itemCount: listProd.length,
-                controller: _pageController,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: responsive.wp(1)),
-
-                    //padding: EdgeInsets.symmetric(horizontal: responsive.wp(3)),
-
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: CachedNetworkImage(
-                          //cacheManager: CustomCacheManager(),
-
-                          placeholder: (context, url) => Image(
-                              image: AssetImage('assets/jar-loading.gif'),
-                              fit: BoxFit.cover),
-
-                          errorWidget: (context, url, error) => Image(
-                              image: AssetImage('assets/carga_fallida.jpg'),
-                              fit: BoxFit.cover),
-
-                          imageUrl: listProd[index],
-
-                          // 'https://plazaisabella.com/img/descuentos/descuentos-banner.jpg',
-
-                          imageBuilder: (context, imageProvider) => Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                onPageChanged: (int index) {
-                  //_currentPageNotifier.value = index;
-                  //contadorProductos.changeContador(index);
-                }),
-            // Positioned(
-            //   left: 0.0,
-            //   right: 0.0,
-            //   bottom: responsive.hp(3.2),
-            //   child: CirclePageIndicator(
-            //     selectedDotColor: Colors.black,
-            //     dotColor: Colors.grey[400],
-            //     itemCount: listProd.length,
-            //     currentPageNotifier: _currentPageNotifier,
-
-            //   ),
-            // )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/* 
-
-
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:guabba/api/productos/productos_api.dart';
-import 'package:guabba/bloc/provider_bloc.dart';
-import 'package:guabba/database/producto_bd.dart';
-import 'package:guabba/models/productoModel.dart';
-import 'package:guabba/utils/constants.dart';
-import 'package:guabba/utils/responsive.dart';
-import 'package:guabba/utils/utils.dart';
-
-class DetalleProducto extends StatefulWidget {
-  DetalleProducto({Key key}) : super(key: key);
- 
-  @override
-  _DetalleProductoState createState() => _DetalleProductoState();
-}
-
-class _DetalleProductoState extends State<DetalleProducto> {
-  @override
-  Widget build(BuildContext context) {
-    final responsive = Responsive.of(context);
-    final String id = ModalRoute.of(context).settings.arguments;
-    final detailsProductoBloc = ProviderBloc.productos(context);
-    detailsProductoBloc.detalleProductosPorIdSubsidiaryGood(id);
-
-    //llenarTablaSugerenciaBusqueda(id,"bienes" );
-
-    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            height: double.infinity,
-            child: StreamBuilder(
-                stream: detailsProductoBloc.detailsproductostream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data.length > 0) {
-                      List<ProductoModel> listproduc = snapshot.data;
-                      return Stack(
-                        children: [
-                          SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: responsive.hp(45),
-                                  width: double.infinity,
-                                  child: Stack(
-                                    children: [
-                                      CachedNetworkImage(
-                                        //cacheManager: CustomCacheManager(),
-                                        placeholder: (context, url) => Image(
-                                            image: AssetImage(
-                                                'assets/jar-loading.gif'),
-                                            fit: BoxFit.cover),
-                                        errorWidget: (context, url, error) =>
-                                            Image(
-                                                image: AssetImage(
-                                                    'assets/carga_fallida.jpg'),
-                                                fit: BoxFit.cover),
-                                        imageUrl:
-                                            '$apiBaseURL/${listproduc[0].productoImage}',
-                                        imageBuilder:
-                                            (context, imageProvider) =>
-                                                Container(
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.contain,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        child: Container(
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: (isDark)
-                                                  ? Colors.white
-                                                  : Colors.red,
-                                            ),
-                                            child: BackButton(
-                                              color: (isDark)
-                                                  ? Colors.black
-                                                  : Colors.white,
-                                            )),
-                                        top: responsive.hp(5),
-                                        left: 10,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20.0),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "${listproduc[0].productoName} ${listproduc[0].productoBrand} ${listproduc[0].productoModel}",
-                                        style: TextStyle(fontSize: 24),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      IconButton(
-                                        onPressed: () {
-                                          showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  title: Text("Seleccione"),
-                                                  content:
-                                                      SingleChildScrollView(
-                                                    child: ListBody(
-                                                      children: <Widget>[
-                                                        GestureDetector(
-                                                          child: Text("Editar"),
-                                                          onTap: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                        ),
-                                                        SizedBox(height: 8),
-                                                        GestureDetector(
-                                                          child: Text(
-                                                              "Deshabilitar"),
-                                                          onTap: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                            showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (BuildContext
-                                                                        context) {
-                                                                  return AlertDialog(
-                                                                    title: Text(
-                                                                        "¿Está seguro de que desea deshabilitar el servicio?"),
-                                                                    content: Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceAround,
-                                                                        children: [
-                                                                          GestureDetector(
-                                                                            child:
-                                                                                Text("SI"),
-                                                                            onTap:
-                                                                                () async {
-                                                                              //Navigator.pop(context);
-
-                                                                              await _submitDeshabilitar(id, context);
-
-                                                                              // if (subsidiaryGoodModel.subsidiaryServiceStatus=='1') {
-                                                                              // }
-                                                                              // else{
-                                                                              //   final subserviceDb = SubsidiaryServiceDatabase();
-                                                                              //   await subserviceDb.habilitarSubsidiaryServiceDb(subsidiaryGoodModel);
-                                                                              // }
-                                                                            },
-                                                                          ),
-                                                                          GestureDetector(
-                                                                            child:
-                                                                                Text("NO"),
-                                                                            onTap:
-                                                                                () {
-                                                                              Navigator.pop(context);
-                                                                            },
-                                                                          ),
-                                                                        ]),
-                                                                  );
-                                                                });
-                                                          },
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
-                                              });
-                                        },
-                                        icon: Icon(Icons.edit),
-                                      )
-                                    ],
-                                  ),
-                                ),
-
-                                Text(
-                                  "${listproduc[0].productoCurrency} ${listproduc[0].productoPrice}",
-                                  style: TextStyle(fontSize: 22),
-                                ),
-                                // Text(listproduc[0].subsidiaryGoodBrand),
-                                // Text(listproduc[0].subsidiaryGoodModel),
-                                Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Card(
-                                      elevation: 2,
-                                      child: Container(
-                                        width: responsive.hp(30),
-                                        height: responsive.hp(13),
-                                        child: Column(children: [
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Text("Talla",
-                                                  style:
-                                                      TextStyle(fontSize: 16)),
-                                              Text("Stock",
-                                                  style:
-                                                      TextStyle(fontSize: 16))
-                                            ],
-                                          ),
-                                          //Text(listproduc[0].subsidiaryGoodBrand),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 25.0, bottom: 15),
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                children: [
-                                                  Text(listproduc[0]
-                                                      .productoSize),
-                                                  Text(listproduc[0]
-                                                      .productoStock),
-                                                ]),
-                                          ),
-                                        ]),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
-                                Card(
-                                  child: Column(
-                                    children: [
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'DESCRIPCION',
-                                        style: TextStyle(
-                                            fontSize: responsive.ip(2.0)),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Container(
-                                        width: responsive.hp(50),
-                                        height: responsive.hp(13),
-                                        child: Text(
-                                          ('${listproduc[0].productoCharacteristics}') ==
-                                                  'null'
-                                              ? "Ninguna descripcion por ahora"
-                                              : ('${listproduc[0].productoCharacteristics}'),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-                                SizedBox(height: 200),
-                              ],
-                            ),
-                          ),
-                          _agregarAlCarrito(responsive, listproduc, isDark)
-                        ],
-                      );
-                    } else {
-                      return Center(
-                          child: Text('No tiene productos registrados'));
-                    }
-                  } else {
-                    return Center(child: CupertinoActivityIndicator());
-                  }
-                }),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future _submitDeshabilitar(String id, BuildContext context) async {
-    ProductoModel productoModel = ProductoModel();
-    productoModel.idProducto = id;
-    final productoApi = ProductosApi();
-    final res = await productoApi.deshabilitarSubsidiaryProducto(id);
-    if (res.toString() == '1') {
-      final productoDatabase = ProductoDatabase();
-      await productoDatabase.deshabilitarSubsidiaryProductoDb(productoModel);
-      Navigator.pop(context);
-      print('Producto Deshabilitado');
-      //AlertDialog(title: Text("Servicio Deshabilitado"));
-    } else {
-      Navigator.pop(context);
-      Navigator.pop(context);
-      print('Estamos cagados');
-    }
-
-    // if (subsidiaryGoodModel.subsidiaryServiceStatus=='1') {
-    // }
-    // else{
-    //   final subserviceDb = SubsidiaryServiceDatabase();
-    //   await subserviceDb.habilitarSubsidiaryServiceDb(subsidiaryGoodModel);
-    // }
-  }
-
-  Widget _agregarAlCarrito(Responsive responsive,
-      List<ProductoModel> listproduc, bool isDark) {
-    return Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: Container(
-        height: responsive.hp(13),
-
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: const Radius.circular(50.0),
-            topRight: const Radius.circular(50.0),
-          ),
-          color: (isDark) ? Color(0xFF2C2B2B) : Colors.grey[300],
-        ),
-        //margin: EdgeInsets.only(top: responsive.hp(80)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              "${listproduc[0].productoCurrency} ${listproduc[0].productoPrice}",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            RaisedButton(
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                //padding: EdgeInsets.all(0.0),
-                child: Text(
-                  'Añadir al carrito',
-                  style: TextStyle(fontSize: 16),
-                ),
-                color: Color(0xFFF93963),
-                textColor: Colors.white,
-                onPressed: () {
-                  //  final buttonBloc = ProviderBloc.tabs(context);
-                  // buttonBloc.changePage(2);
-                  agregarAlCarrito(context, listproduc[0].idProducto);
-
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("El producto se agregó al carrito"),
-                        );
-                      });
-                }),
-          ],
-        ),
-      ),
-    );
-  }
-}
- */

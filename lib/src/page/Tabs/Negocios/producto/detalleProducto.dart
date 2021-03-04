@@ -161,7 +161,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                 ),
                                 child: Text((pagActual + 1).toString() +
                                     '/' +
-                                    listProd.length.toString()),
+                                    listProd[0].listFotos.length.toString()),
                               ),
 
                               _icon(
@@ -235,10 +235,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                       itemCount: listProd[0].listFotos.length,
                       controller: _pageController,
                       itemBuilder: (BuildContext context, int index) {
-                        return ListView.builder(
-                            itemCount: listProd[0].listFotos.length,
-                            itemBuilder: (BuildContext context, int i) {
-                              return Container(
+                        return Container(
                                 margin: EdgeInsets.symmetric(
                                     horizontal: responsive.wp(1)),
 
@@ -267,7 +264,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                               fit: BoxFit.cover),
 
                                       imageUrl:
-                                          '$apiBaseURL/${listProd[0].listFotos[i].galeriaFoto}',
+                                          '$apiBaseURL/${listProd[0].listFotos[index].galeriaFoto}',
 
                                       imageBuilder: (context, imageProvider) =>
                                           Container(
@@ -282,7 +279,6 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                   ),
                                 ),
                               );
-                            });
                       },
                       onPageChanged: (int index) {
                         //_currentPageNotifier.value = index;

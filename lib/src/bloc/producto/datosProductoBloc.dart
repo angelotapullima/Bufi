@@ -32,6 +32,9 @@ class DatosProductoBloc {
   void listarDatosProducto(String idProducto) async {
     _datosProductoController.sink
         .add(await obtenerDatosProductosPorIdProducto(idProducto));
+    productoApi.listarDetalleProductoPorIdProducto(idProducto);
+    _datosProductoController.sink
+        .add(await obtenerDatosProductosPorIdProducto(idProducto));
   }
 
   Future<List<ProductoModel>> obtenerDatosProductosPorIdProducto(
@@ -39,7 +42,8 @@ class DatosProductoBloc {
     List<ProductoModel> listaGeneral = List<ProductoModel>();
 
     //obtener todos los productos de la bd
-    final listProductos =await productoDb.obtenerProductoPorIdSubsidiaryGood(idProducto);
+    final listProductos =
+        await productoDb.obtenerProductoPorIdSubsidiaryGood(idProducto);
 
     //Recorremos la lista de todos los pedidos
     for (var i = 0; i < listProductos.length; i++) {

@@ -1,5 +1,4 @@
 import 'package:bufi/src/database/databaseProvider.dart';
-import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 

@@ -63,8 +63,8 @@ class MyApp extends StatelessWidget {
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,
            
-            darkTheme: lightTheme, //darkTheme,
-            themeMode: ThemeMode.system,
+            theme: lightTheme,
+            darkTheme:lightTheme, //darkTheme,
             home: Splash(),
             //initialRoute:(prefs.idUser=="" || prefs.idUser==null)?'login':'home',
             routes: {
@@ -106,11 +106,11 @@ class MyApp extends StatelessWidget {
               //Usuario
               
               //Direccion
-                'perfil': (BuildContext context) =>PerfilPage(),
+              'perfil': (BuildContext context) =>PerfilPage(),
                 
                 //Direccion
-                'direccion': (BuildContext context) =>DireccionDeliveryPage(),
-                'agregarDireccion': (BuildContext context) =>AgregarDireccionPage(),
+              'direccion': (BuildContext context) =>DireccionDeliveryPage(),
+              'agregarDireccion': (BuildContext context) =>AgregarDireccionPage(),
                 //Pedidos
               'pedidos': (BuildContext context) =>PedidosPage(),
               'valoracion': (BuildContext context) =>PendientesValoracionPage(),

@@ -1,15 +1,9 @@
 
 
-
-
-
 import 'package:bufi/src/database/databaseProvider.dart';
 import 'package:bufi/src/models/direccionModel.dart';
 
 class DireccionDatabase{
-
-
-
 
 final dbprovider = DatabaseProvider.db;
 

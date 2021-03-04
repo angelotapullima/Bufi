@@ -229,11 +229,11 @@ class ProductoBloc {
     return listGeneral;
   }
 
-  void detalleProductosPorIdSubsidiaryGood(String id) async {
-    _detailsproductoController.sink
-        .add(await productoDatabase.obtenerProductoPorIdSubsidiaryGood(id));
-    await productosApi.detailsProductoPorIdSubsidiaryGood(id);
-    _detailsproductoController.sink
-        .add(await productoDatabase.obtenerProductoPorIdSubsidiaryGood(id));
-  }
+//   void detalleProductosPorIdSubsidiaryGood(String id) async {
+//     _detailsproductoController.sink
+//         .add(await productoDatabase.obtenerProductoPorIdSubsidiaryGood(id));
+//     await productosApi.detailsProductoPorIdSubsidiaryGood(id);
+//     _detailsproductoController.sink
+//         .add(await productoDatabase.obtenerProductoPorIdSubsidiaryGood(id));
+//   }
 }

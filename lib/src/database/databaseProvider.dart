@@ -295,6 +295,17 @@ class DatabaseProvider {
           ' cantidad TEXT,'
           ' delivery_detail_subtotal TEXT'
           ')');
+
+
+           await db.execute(' CREATE TABLE Direccion('
+          ' id_direccion  INTEGER PRIMARY KEY AUTOINCREMENT,'
+          ' address TEXT,'
+          ' referencia TEXT,'
+          ' distrito TEXT,'
+          ' coord_x TEXT,'
+          ' coord_y TEXT,'
+          ' estado TEXT'
+          ')');
     });
   }
 }

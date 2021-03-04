@@ -8,6 +8,7 @@ import 'package:bufi/src/bloc/categoriaPrincipal/itemCategBloc.dart';
 import 'package:bufi/src/bloc/categoriaPrincipal/navegacionCategorias.dart';
 import 'package:bufi/src/bloc/categoriaPrincipal/subcategoriaGeneralBloc.dart';
 import 'package:bufi/src/bloc/cuenta_bloc.dart';
+import 'package:bufi/src/bloc/direcciones_bloc.dart';
 import 'package:bufi/src/bloc/favoritos_bloc.dart';
 import 'package:bufi/src/bloc/login_bloc.dart';
 import 'package:bufi/src/bloc/mis_movimientos_bloc.dart';
@@ -54,6 +55,7 @@ class ProviderBloc extends InheritedWidget {
   final tiposPagoBloc = TiposPagoBloc();
   final contadorBloc = ContadorPaginaProductosBloc();
   final pedidosBloc = PedidoBloc();
+  final direccionesBloc = DireccionesBloc();
 
   factory ProviderBloc({Key key, Widget child}) {
     if (_instancia == null) {
@@ -209,5 +211,10 @@ class ProviderBloc extends InheritedWidget {
   static PedidoBloc pedido(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .pedidosBloc;
+  }
+
+  static DireccionesBloc direc(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .direccionesBloc;
   }
 }

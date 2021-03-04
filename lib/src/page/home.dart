@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
     final buttonBloc = ProviderBloc.tabs(context);
     buttonBloc.changePage(4);
     return Scaffold(
+      
       body: StreamBuilder(
         stream: buttonBloc.selectPageStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {

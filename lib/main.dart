@@ -1,4 +1,3 @@
-
 import 'package:bufi/src/page/Tabs/Usuario/Direccion/AgregarDireccionPAge.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/RatingPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/ValoracionPage.dart';
@@ -17,8 +16,8 @@ import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/registrarSerivicio.dart';
 import 'package:bufi/src/page/Tabs/Points/points_bloc.dart';
 import 'package:bufi/src/page/Tabs/Principal/listarBienesAll.dart';
-import 'package:bufi/src/page/Tabs/Principal/listarServiciosAll.dart'; 
-import 'package:bufi/src/page/Tabs/Usuario/Pedidos/PedidosPage.dart'; 
+import 'package:bufi/src/page/Tabs/Principal/listarServiciosAll.dart';
+import 'package:bufi/src/page/Tabs/Usuario/Pedidos/PedidosPage.dart';
 import 'package:bufi/src/page/cuenta/recargar_saldo.dart';
 import 'package:bufi/src/page/home.dart';
 import 'package:bufi/src/page/login_page.dart';
@@ -28,6 +27,7 @@ import 'package:bufi/src/page/splash.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -44,18 +44,26 @@ class MyApp extends StatelessWidget {
     return ProviderBloc(
       child: MultiProvider(
         providers: [
-          ChangeNotifierProvider<CarritoBlocListener>(create: (_) => CarritoBlocListener()),
-          ChangeNotifierProvider<ConfirmPedidoBloc>(create: (_) => ConfirmPedidoBloc()),
-          ChangeNotifierProvider<NegociosBlocListener>(create: (_) => NegociosBlocListener()),
+          ChangeNotifierProvider<CarritoBlocListener>(
+            create: (_) => CarritoBlocListener(),
+          ),
+          ChangeNotifierProvider<ConfirmPedidoBloc>(
+            create: (_) => ConfirmPedidoBloc(),
+          ),
+          ChangeNotifierProvider<NegociosBlocListener>(
+            create: (_) => NegociosBlocListener(),
+          ),
           //ChangeNotifierProvider<RegistroNegocioBlocListener>(create: (_) => RegistroNegocioBlocListener()),
-          ChangeNotifierProvider<PointsBlocListener>(create: (_) => PointsBlocListener()),
+          ChangeNotifierProvider<PointsBlocListener>(
+            create: (_) => PointsBlocListener(),
+          ),
         ],
         child: MaterialApp(
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,
-            theme: lightTheme,
-            darkTheme:lightTheme, //darkTheme,
-            //themeMode: ThemeMode.system,
+           
+            darkTheme: lightTheme, //darkTheme,
+            themeMode: ThemeMode.system,
             home: Splash(),
             //initialRoute:(prefs.idUser=="" || prefs.idUser==null)?'login':'home',
             routes: {
@@ -76,12 +84,11 @@ class MyApp extends StatelessWidget {
               //Negocio
               //"registroNegocio": (BuildContext context) => RegistroNegocio(),
               "detalleNegocio": (BuildContext context) => DetalleNegocio(),
-              
 
               //Sucursal
               "detalleSubsidiary": (BuildContext context) =>
                   DetalleSubsidiary(),
-              
+
               //Producto
               "guardarProducto": (BuildContext context) => GuardarProducto(),
 
@@ -95,20 +102,20 @@ class MyApp extends StatelessWidget {
               "detalleServicio": (BuildContext context) => DetalleServicio(),
               // "listarServiciosXsucursal": (BuildContext context) =>
 
-              //Usuario
-
-                //Direccion
-                'direccion': (BuildContext context) =>DireccionDeliveryPage(),
-                'agregarDireccion': (BuildContext context) =>AgregarDireccionPage(),
-                //Pedidos
-              'pedidos': (BuildContext context) =>PedidosPage(),
-              'valoracion': (BuildContext context) =>PendientesValoracionPage(),
-              'ratingProductos': (BuildContext context) =>RatingProductosPage(),
-                //Bufis
+              //Direccion
+              'direccion': (BuildContext context) => DireccionDeliveryPage(),
+              'agregarDireccion': (BuildContext context) =>
+                  AgregarDireccionPage(),
+              //Pedidos
+              'pedidos': (BuildContext context) => PedidosPage(),
+              'valoracion': (BuildContext context) =>
+                  PendientesValoracionPage(),
+              'ratingProductos': (BuildContext context) =>
+                  RatingProductosPage(),
+              //Bufis
               'misMovimientos': (BuildContext context) => MisMovimientosPage(),
               'recargarSaldo': (BuildContext context) => RecargarSaldo(),
               'subirVaucher': (BuildContext context) => SubirVaucher(),
-
             }),
       ),
     );

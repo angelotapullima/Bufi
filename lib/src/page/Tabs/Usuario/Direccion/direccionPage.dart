@@ -18,12 +18,8 @@ class DireccionDeliveryPage extends StatelessWidget {
       body: StreamBuilder(
           stream: direccionesBloc.direccionesStream,
           builder: (context, AsyncSnapshot<List<DireccionModel>> snapshot) {
-
-            if(snapshot.hasData){
-
-
+            if (snapshot.hasData) {
               return SafeArea(
-              child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -101,18 +97,74 @@ class DireccionDeliveryPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    (snapshot.data.length > 0) ? Container() : Container()
+                    SizedBox(
+                      height: responsive.hp(3),
+                    ),
+                    (snapshot.data.length > 0)
+                        ? Expanded(
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: ClampingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: responsive.wp(2),
+                                      ),
+                                      Icon(Icons.home),
+                                      SizedBox(
+                                        width: responsive.wp(2),
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              '${snapshot.data[index].address}',
+                                              style: TextStyle(
+                                                fontSize: responsive.ip(1.7),
+                                                fontWeight: FontWeight.bold
+                                              ),
+                                            ),
+                                            Text(
+                                              '${snapshot.data[index].referencia}',
+                                              style: TextStyle(
+                                                fontSize: responsive.ip(1.7),
+                                              ),
+                                            ),
+                                            Text(
+                                              '${snapshot.data[index].distrito}',
+                                              style: TextStyle(
+                                                fontSize: responsive.ip(1.7),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: responsive.wp(2),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              itemCount: snapshot.data.length,
+                            ),
+                          )
+                        : Container(
+                            child: Text('No aye '),
+                          )
                   ],
                 ),
-              ),
-            );
-          
-          
-
-            }else{
-              return Center(child: CupertinoActivityIndicator(),);
+              );
+            } else {
+              return Center(
+                child: CupertinoActivityIndicator(),
+              );
             }
-            }),
+          }),
     );
   }
 }

@@ -51,6 +51,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final galeriaProdBloc = ProviderBloc.galeriaProductos(context);
+    galeriaProdBloc.listarGaleriaProducto('3');
 
     Widget _icon(
       IconData icon, {
@@ -121,91 +122,99 @@ class _DetalleProductosState extends State<DetalleProductos> {
             ],
           ),
         ),
-        body: StreamBuilder(
-            stream: galeriaProdBloc.galeriaProdStream,
-            builder:
-                (context, AsyncSnapshot<List<GaleriaProductoModel>> snapshot) {
-              List<GaleriaProductoModel> listProd = snapshot.data;
-              if (snapshot.hasData) {
-                if (snapshot.data.length > 0) {
-                  return Stack(
-                    children: <Widget>[
-                      _backgroundImage(
-                          context, responsive, pagActual, listProd),
+        body:
+            //Text("data"));
+            StreamBuilder(
+                stream: galeriaProdBloc.galeriaProdStream,
+                builder: (context,
+                    AsyncSnapshot<List<GaleriaProductoModel>> snapshot) {
+                  List<GaleriaProductoModel> listProd = snapshot.data;
+                  if (snapshot.hasData) {
+                    if (snapshot.data.length > 0) {
+                      return Stack(
+                        children: <Widget>[
+                          _backgroundImage(
+                              context, responsive, pagActual, listProd),
 
-                      //Iconos arriba de la imagen del producto
-                      SafeArea(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              //BackButton(),
-                              _icon(
-                                Icons.arrow_back_ios,
-                                color: Colors.black54,
-                                size: responsive.ip(1.7),
-                                padding: responsive.ip(1.25),
-                                isOutLine: true,
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
+                          // Iconos arriba de la imagen del producto
+                          SafeArea(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  //BackButton(),
+                                  _icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.black54,
+                                    size: responsive.ip(1.7),
+                                    padding: responsive.ip(1.25),
+                                    isOutLine: true,
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  //contador de páginas
+                                  Container(
+                                    height: responsive.hp(3),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: responsive.wp(2),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: Colors.white,
+                                      border:
+                                          Border.all(color: Colors.grey[300]),
+                                    ),
+                                    margin: EdgeInsets.symmetric(
+                                      horizontal: responsive.wp(5),
+                                      vertical: responsive.hp(1.3),
+                                    ),
+                                    child: Text((pagActual + 1).toString() +
+                                        '/' +
+                                        listProd.length.toString()),
+                                  ),
+
+                                  _icon(
+                                      isLiked
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
+                                      color: isLiked
+                                          ? LightColor.lightGrey
+                                          : LightColor.red,
+                                      size: responsive.ip(1.7),
+                                      padding: responsive.ip(1.25),
+                                      isOutLine: false, onPressed: () {
+                                    setState(() {
+                                      isLiked = !isLiked;
+                                    });
+                                  }),
+                                ],
                               ),
-
-                              Container(
-                                height: responsive.hp(3),
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: responsive.wp(2),
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: Colors.white,
-                                  border: Border.all(color: Colors.grey[300]),
-                                ),
-                                margin: EdgeInsets.symmetric(
-                                  horizontal: responsive.wp(5),
-                                  vertical: responsive.hp(1.3),
-                                ),
-                                child: Text((pagActual + 1).toString() +
-                                    '/' +
-                                    listProd.length.toString()),
-                              ),
-
-                              _icon(
-                                  isLiked
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: isLiked
-                                      ? LightColor.lightGrey
-                                      : LightColor.red,
-                                  size: responsive.ip(1.7),
-                                  padding: responsive.ip(1.25),
-                                  isOutLine: false, onPressed: () {
-                                setState(() {
-                                  isLiked = !isLiked;
-                                });
-                              }),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                      TranslateAnimation(
-                        duration: const Duration(milliseconds: 400),
-                        child: _contenido(
-                          responsive,
-                          context,
-                        ),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Container();
-                }
-              } else {
-                return Container();
-              }
-            }));
+                          TranslateAnimation(
+                            duration: const Duration(milliseconds: 400),
+                            child: _contenido(
+                              responsive,
+                              context,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Container(
+                        child: Text('vacio'),
+                      );
+                    }
+                  } else {
+                    return Container(
+                      child: Text('nulo'),
+                    );
+                  }
+                }));
   }
 
   Widget _backgroundImage(BuildContext context, Responsive responsive,
@@ -225,10 +234,10 @@ class _DetalleProductosState extends State<DetalleProductos> {
           child: Padding(
             padding: EdgeInsets.only(top: responsive.ip(6)),
             child: Container(
-             // color: Colors.red,
-              
-             height: size.height * 0.38,
-            
+              // color: Colors.red,
+
+              height: size.height * 0.38,
+
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),

@@ -37,7 +37,7 @@ final dbprovider = DatabaseProvider.db;
 
   Future<List<GaleriaProductoModel>> obtenerGaleriaProductoPorIdProducto(String idProducto) async {
     final db = await dbprovider.database;
-    final res = await db.rawQuery("SELECT * FROM galeriaProducto where id_producto='$idProducto'");
+    final res = await db.rawQuery("SELECT * FROM galeriaProducto where id_producto='$idProducto' order by id_producto");
 
     List<GaleriaProductoModel> list = res.isNotEmpty
         ? res.map((c) => GaleriaProductoModel.fromJson(c)).toList()

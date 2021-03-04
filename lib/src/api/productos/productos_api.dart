@@ -211,31 +211,28 @@ class ProductosApi {
     return 1;
   }
 
-  Future<dynamic> listarDetalleProducto(String idProducto) async {
+  Future<int> listarDetalleProducto(String idProducto) async {
     try {
       final response = await http
           .post('$apiBaseURL/api/Negocio//listar_detalle_producto', body: {
-        'id': '$idProducto',
+        'id': '3',
         'app': 'true',
         'tn': prefs.token,
       });
 
       final decodedData = json.decode(response.body);
 
-      for (var i = 0; i < decodedData["galeria"]; i++) {
+      for (var i = 0; i < decodedData["galeria"].length; i++) {
         GaleriaProductoModel galeriaProductoModel = GaleriaProductoModel();
         final galeriaProductoDb = GaleriaProductoDatabase();
-        galeriaProductoModel.idGaleriaProducto =
-            decodedData["galeria"][i]["id_subsidiary_good_galeria"];
-        galeriaProductoModel.idGaleriaProducto =
-            decodedData["galeria"][i]["id_subsidiarygood"];
-        galeriaProductoModel.idGaleriaProducto =
-            decodedData["galeria"][i]["galeria_foto"];
+        galeriaProductoModel.idGaleriaProducto =decodedData["galeria"][i]["id_subsidiary_good_galeria"];
+        galeriaProductoModel.idProducto =decodedData["galeria"][i]['id_subsidiarygood'];
+        galeriaProductoModel.galeriaFoto =decodedData["galeria"][i]["galeria_foto"];
 
         await galeriaProductoDb.insertarGaleriaProducto(galeriaProductoModel);
       }
 
-      return decodedData;
+      return 1;
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
 

@@ -1,7 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/galeriaProducto_database.dart';
+import 'package:bufi/src/database/marcaProducto_database.dart';
+import 'package:bufi/src/database/modeloProducto_database.dart';
+import 'package:bufi/src/database/tallaProducto_database.dart';
 import 'package:bufi/src/models/galeriaProductoModel.dart';
+import 'package:bufi/src/models/marcaProductoModel.dart';
+import 'package:bufi/src/models/modeloProductoModel.dart';
+import 'package:bufi/src/models/tallaProductoModel.dart';
 import 'package:path/path.dart';
 import 'package:bufi/src/database/good_db.dart';
 import 'package:bufi/src/database/itemSubcategory_db.dart';
@@ -20,6 +27,7 @@ class ProductosApi {
   final subsidiaryDatabase = SubsidiaryDatabase();
   final productoDatabase = ProductoDatabase();
   final goodDatabase = GoodDatabase();
+  final companyDatabase = CompanyDatabase();
   final itemsubCategoryDatabase = ItemsubCategoryDatabase();
   final prefs = Preferences();
 
@@ -115,22 +123,6 @@ class ProductosApi {
     return 0;
   }
 
-  Future<dynamic> detailsProductoPorIdSubsidiaryGood(String id) async {
-    try {
-      final response = await http
-          .post('$apiBaseURL/api/Negocio/listar_detalle_producto', body: {
-        'id': '$id',
-      });
-
-      final decodedData = json.decode(response.body);
-      print(decodedData);
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-
-      return 0;
-    }
-  }
-
   Future<dynamic> deshabilitarSubsidiaryProducto(String id) async {
     try {
       final response = await http
@@ -211,10 +203,10 @@ class ProductosApi {
     return 1;
   }
 
-  Future<int> listarDetalleProducto(String idProducto) async {
+  Future<int> listarDetalleProductoPorIdProducto(String idProducto) async {
     try {
       final response = await http
-          .post('$apiBaseURL/api/Negocio//listar_detalle_producto', body: {
+          .post('$apiBaseURL/api/Negocio/listar_detalle_producto', body: {
         'id': '3',
         'app': 'true',
         'tn': prefs.token,
@@ -222,14 +214,203 @@ class ProductosApi {
 
       final decodedData = json.decode(response.body);
 
+      //SubsidiaryGoodModel
+      ProductoModel productoModel = ProductoModel();
+      productoModel.idProducto = decodedData["id_subsidiarygood"];
+      productoModel.idSubsidiary = decodedData["id_subsidiary"];
+      productoModel.idGood = decodedData["id_good"];
+      productoModel.idItemsubcategory = decodedData['id_itemsubcategory'];
+      productoModel.productoName = decodedData['subsidiary_good_name'];
+      productoModel.productoPrice = decodedData['subsidiary_good_price'];
+      productoModel.productoCurrency = decodedData['subsidiary_good_currency'];
+      productoModel.productoImage = decodedData['subsidiary_good_image'];
+      productoModel.productoCharacteristics =
+          decodedData['subsidiary_good_characteristics'];
+      productoModel.productoBrand = decodedData['subsidiary_good_brand'];
+      productoModel.productoModel = decodedData['subsidiary_good_model'];
+      productoModel.productoType = decodedData['subsidiary_good_type'];
+      productoModel.productoSize = decodedData['subsidiary_good_size'];
+      //productoModel.productoStock = decodedData['subsidiary_good_stock'];
+      productoModel.productoMeasure =
+          decodedData['subsidiary_good_stock_measure'];
+      productoModel.productoStock = decodedData['subsidiary_good_stock_status'];
+      productoModel.productoRating = decodedData['subsidiary_good_rating'];
+      productoModel.productoUpdated = decodedData['subsidiary_good_updated'];
+      productoModel.productoStatus = decodedData['subsidiary_good_status'];
+
+      var productList = await productoDatabase
+          .obtenerProductoPorIdSubsidiaryGood(decodedData['id_subsidiarygood']);
+
+      if (productList.length > 0) {
+        productoModel.productoFavourite = productList[0].productoFavourite;
+      } else {
+        productoModel.productoFavourite = '';
+      }
+      await productoDatabase.insertarProducto(productoModel);
+
+      //Sucursal
+      SubsidiaryModel submodel = SubsidiaryModel();
+      submodel.idCompany = decodedData["id_company"];
+      submodel.idSubsidiary = decodedData["id_subsidiary"];
+      submodel.subsidiaryName = decodedData['subsidiary_name'];
+      submodel.subsidiaryAddress = decodedData['subsidiary_address'];
+      submodel.subsidiaryCellphone = decodedData['subsidiary_cellphone'];
+      submodel.subsidiaryCellphone2 = decodedData['subsidiary_cellphone_2'];
+      submodel.subsidiaryEmail = decodedData['subsidiary_email'];
+      submodel.subsidiaryCoordX = decodedData['subsidiary_coord_x'];
+      submodel.subsidiaryCoordY = decodedData['subsidiary_coord_y'];
+      submodel.subsidiaryOpeningHours = decodedData['subsidiary_opening_hours'];
+      submodel.subsidiaryPrincipal = decodedData['subsidiary_principal'];
+      submodel.subsidiaryStatus = decodedData['subsidiary_status'];
+
+      final list = await subsidiaryDatabase
+          .obtenerSubsidiaryPorId(decodedData["id_subsidiary"]);
+
+      if (list.length > 0) {
+        submodel.subsidiaryFavourite = list[0].subsidiaryFavourite;
+        //Subsidiary
+      } else {
+        submodel.subsidiaryFavourite = "0";
+      }
+
+      await subsidiaryDatabase.insertarSubsidiary(submodel);
+
+      //Company
+      CompanyModel companyModel = CompanyModel();
+      companyModel.idCompany = decodedData['id_company'];
+      companyModel.idUser = decodedData['id_user'];
+      companyModel.idCity = decodedData['id_city'];
+      companyModel.idCategory = decodedData['id_category'];
+      companyModel.companyName = decodedData['company_name'];
+      companyModel.companyRuc = decodedData['company_ruc'];
+      companyModel.companyImage = decodedData['company_image'];
+      companyModel.companyType = decodedData['company_type'];
+      companyModel.companyShortcode = decodedData['company_shortcode'];
+      companyModel.companyDeliveryPropio = decodedData['company_delivery_propio'];
+      companyModel.companyDelivery = decodedData['company_delivery'];
+      companyModel.companyEntrega = decodedData['company_entrega'];
+      companyModel.companyTarjeta = decodedData['company_tarjeta'];
+      companyModel.companyVerified = decodedData['company_verified'];
+      companyModel.companyRating = decodedData['company_rating'];
+      companyModel.companyCreatedAt = decodedData['company_created_at'];
+      companyModel.companyJoin = decodedData['company_join'];
+      companyModel.companyStatus = decodedData['company_status'];
+      companyModel.companyMt = decodedData['company_mt'];
+
+      await companyDatabase.insertarCompany(companyModel);
+
+      //BienesModel
+      BienesModel goodmodel = BienesModel();
+      goodmodel.idGood = decodedData['id_good'];
+      goodmodel.goodName = decodedData['good_name'];
+      goodmodel.goodSynonyms = decodedData['good_synonyms'];
+      await goodDatabase.insertarGood(goodmodel);
+
+      //ItemSubCategoriaModel
+      ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
+      itemSubCategoriaModel.idSubcategory = decodedData['id_subcategory'];
+      itemSubCategoriaModel.idItemsubcategory =
+          decodedData['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryName =
+          decodedData['itemsubcategory_name'];
+      await itemsubCategoryDatabase
+          .insertarItemSubCategoria(itemSubCategoriaModel);
+
+      //Galeria
       for (var i = 0; i < decodedData["galeria"].length; i++) {
         GaleriaProductoModel galeriaProductoModel = GaleriaProductoModel();
         final galeriaProductoDb = GaleriaProductoDatabase();
-        galeriaProductoModel.idGaleriaProducto =decodedData["galeria"][i]["id_subsidiary_good_galeria"];
-        galeriaProductoModel.idProducto =decodedData["galeria"][i]['id_subsidiarygood'];
-        galeriaProductoModel.galeriaFoto =decodedData["galeria"][i]["galeria_foto"];
+        galeriaProductoModel.idGaleriaProducto =
+            decodedData["galeria"][i]["id_subsidiary_good_galeria"];
+        galeriaProductoModel.idProducto =
+            decodedData["galeria"][i]['id_subsidiarygood'];
+        galeriaProductoModel.galeriaFoto =
+            decodedData["galeria"][i]["galeria_foto"];
+
+        final list = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
+            decodedData["galeria"][i]['id_subsidiarygood']);
+
+        if (list.length > 0) {
+          galeriaProductoModel.estado = list[0].productoStatus;
+        } else {
+          galeriaProductoModel.estado = "0";
+        }
 
         await galeriaProductoDb.insertarGaleriaProducto(galeriaProductoModel);
+      }
+      //Marca
+      for (var i = 0; i < decodedData["marcas"].length; i++) {
+        final marcaProductoModel = MarcaProductoModel();
+        final marcaProductoDb = MarcaProductoDatabase();
+        marcaProductoModel.idMarcaProducto =
+            decodedData["marcas"][i]["id_subsidiarygood_brand"];
+        marcaProductoModel.idProducto =
+            decodedData["marcas"][i]['id_subsidiary_good'];
+        marcaProductoModel.marcaProducto =
+            decodedData["marcas"][i]["subsidiarygood_brand"];
+        marcaProductoModel.marcaStatusProducto =
+            decodedData["marcas"][i]["subsidiarygood_brand_status"];
+
+        final list = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
+            decodedData["marcas"][i]['id_subsidiary_good']);
+
+        if (list.length > 0) {
+          marcaProductoModel.estado = list[0].productoStatus;
+        } else {
+          marcaProductoModel.estado = "0";
+        }
+
+        await marcaProductoDb.insertarMarcaProducto(marcaProductoModel);
+      }
+
+      //Modelo
+      for (var i = 0; i < decodedData["modelos"].length; i++) {
+        final modeloProductoModel = ModeloProductoModel();
+        final modeloProductoDb = ModeloProductoDatabase();
+        modeloProductoModel.idModeloProducto =
+            decodedData["modelos"][i]["id_subsidiarygood_model"];
+        modeloProductoModel.idProducto =
+            decodedData["modelos"][i]['id_subsidiarygood'];
+        modeloProductoModel.modeloProducto =
+            decodedData["modelos"][i]["subsidiarygood_model"];
+        modeloProductoModel.modeloStatusProducto =
+            decodedData["modelos"][i]["subsidiarygood_model_status"];
+
+        final list = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
+            decodedData["marcas"][i]['id_subsidiary_good']);
+
+        if (list.length > 0) {
+          modeloProductoModel.estado = list[0].productoStatus;
+        } else {
+          modeloProductoModel.estado = "0";
+        }
+
+        await modeloProductoDb.insertarModeloProducto(modeloProductoModel);
+      }
+
+      //Talla
+      for (var i = 0; i < decodedData["tallas"].length; i++) {
+        final tallaProductoModel = TallaProductoModel();
+        final tallaProductoDb = TallaProductoDatabase();
+        tallaProductoModel.idTallaProducto =
+            decodedData["tallas"][i]["id_subsidiarygood_size"];
+        tallaProductoModel.idProducto =
+            decodedData["tallas"][i]['id_subsidiarygood'];
+        tallaProductoModel.tallaProducto =
+            decodedData["tallas"][i]["subsidiarygood_size"];
+        tallaProductoModel.tallaProductoStatus =
+            decodedData["tallas"][i]["subsidiarygood_size_status"];
+
+        final list = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
+            decodedData["tallas"][i]['id_subsidiarygood']);
+
+        if (list.length > 0) {
+          tallaProductoModel.estado = list[0].productoStatus;
+        } else {
+          tallaProductoModel.estado = "0";
+        }
+
+        await tallaProductoDb.insertarTallaProducto(tallaProductoModel);
       }
 
       return 1;

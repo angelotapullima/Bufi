@@ -20,7 +20,7 @@ class DatabaseProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
-    final path = join(documentsDirectory.path, 'bufi5.db');
+    final path = join(documentsDirectory.path, 'bufi7.db');
 
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
@@ -298,17 +298,43 @@ class DatabaseProvider {
 
 
            await db.execute(' CREATE TABLE Direccion('
-          ' id_direccion  INTEGER PRIMARY KEY AUTOINCREMENT,'
+          ' id_direccion INTEGER PRIMARY KEY AUTOINCREMENT,'
           ' address TEXT,'
           ' referencia TEXT,'
           ' distrito TEXT,'
           ' coord_x TEXT,'
-          ' coord_y TEXT,');
+          ' coord_y TEXT,'
+          ' estado TEXT'
+          ')');
           
         await db.execute(' CREATE TABLE galeriaProducto('
           ' id_producto_galeria TEXT PRIMARY KEY,'
           ' id_producto TEXT,'
           ' galeria_foto TEXT,'
+          ' estado TEXT'
+          ')');
+
+        await db.execute(' CREATE TABLE MarcaProducto('
+          ' id_marca_producto TEXT PRIMARY KEY,'
+          ' id_producto TEXT,'
+          ' marca_producto TEXT,'
+          ' marca_status_producto TEXT,'
+          ' estado TEXT'
+          ')');
+
+        await db.execute(' CREATE TABLE ModeloProducto('
+          ' id_modelo_producto TEXT PRIMARY KEY,'
+          ' id_producto TEXT,'
+          ' modelo_producto TEXT,'
+          ' modelo_status_producto TEXT,'
+          ' estado TEXT'
+          ')');
+
+        await db.execute(' CREATE TABLE TallasProducto('
+          ' id_talla_producto TEXT PRIMARY KEY,'
+          ' id_producto TEXT,'
+          ' talla_producto TEXT,'
+          ' talla_status_producto TEXT,'
           ' estado TEXT'
           ')');
     });

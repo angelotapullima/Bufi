@@ -1,5 +1,3 @@
-import 'package:bufi/src/bloc/producto/galeriaProductoBloc.dart';
-import 'package:bufi/src/bloc/producto/paginaActualBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/galeriaProductoModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
@@ -22,13 +20,7 @@ class DetalleProductos extends StatefulWidget {
 }
 
 class _DetalleProductosState extends State<DetalleProductos> {
-  //Lsita de imagenes de productos
-  // List<String> listProd = [
-  //   "https://i.blogs.es/d07883/huawei-p40-pro-1/1366_2000.jpg",
-  //   "https://cnet4.cbsistatic.com/img/BZhOgzaNcsc8fVQJmML9334-S-8=/2019/12/21/08bc2882-f90d-44b8-92e9-f5cf67f5db4d/samsung-galaxy-fold.jpg",
-  //   "https://imagenes.milenio.com/vBy00-sNYMs2038OhwndC_uQHE0=/958x596/https://www.milenio.com/uploads/media/2019/04/03/samsung-galaxy-costo-lanzamiento-mil_0_20_1024_637.jpg"
-  // ];
-
+ 
   //controlador del PageView
   final _pageController = PageController(viewportFraction: 0.9, initialPage: 0);
   int pagActual = 0;
@@ -50,8 +42,8 @@ class _DetalleProductosState extends State<DetalleProductos> {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
-    final galeriaProdBloc = ProviderBloc.galeriaProductos(context);
-    galeriaProdBloc.listarGaleriaProducto('3');
+    final datosProdBloc = ProviderBloc.datosProductos(context);
+    datosProdBloc.listarDatosProducto('3');
 
     Widget _icon(
       IconData icon, {
@@ -122,103 +114,95 @@ class _DetalleProductosState extends State<DetalleProductos> {
             ],
           ),
         ),
-        body:
-            //Text("data"));
-            StreamBuilder(
-                stream: galeriaProdBloc.galeriaProdStream,
-                builder: (context,
-                    AsyncSnapshot<List<GaleriaProductoModel>> snapshot) {
-                  List<GaleriaProductoModel> listProd = snapshot.data;
-                  if (snapshot.hasData) {
-                    if (snapshot.data.length > 0) {
-                      return Stack(
-                        children: <Widget>[
-                          _backgroundImage(
-                              context, responsive, pagActual, listProd),
+        body: StreamBuilder(
+            stream: datosProdBloc.datosProdStream,
+            builder: (context, AsyncSnapshot<List<ProductoModel>> snapshot) {
+              List<ProductoModel> listProd = snapshot.data;
+              if (snapshot.hasData) {
+                if (snapshot.data.length > 0) {
+                  return Stack(
+                    children: <Widget>[
+                      _backgroundImage(
+                          context, responsive, pagActual, listProd),
 
-                          // Iconos arriba de la imagen del producto
-                          SafeArea(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  //BackButton(),
-                                  _icon(
-                                    Icons.arrow_back_ios,
-                                    color: Colors.black54,
-                                    size: responsive.ip(1.7),
-                                    padding: responsive.ip(1.25),
-                                    isOutLine: true,
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                  //contador de páginas
-                                  Container(
-                                    height: responsive.hp(3),
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: responsive.wp(2),
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: Colors.white,
-                                      border:
-                                          Border.all(color: Colors.grey[300]),
-                                    ),
-                                    margin: EdgeInsets.symmetric(
-                                      horizontal: responsive.wp(5),
-                                      vertical: responsive.hp(1.3),
-                                    ),
-                                    child: Text((pagActual + 1).toString() +
-                                        '/' +
-                                        listProd.length.toString()),
-                                  ),
-
-                                  _icon(
-                                      isLiked
-                                          ? Icons.favorite
-                                          : Icons.favorite_border,
-                                      color: isLiked
-                                          ? LightColor.lightGrey
-                                          : LightColor.red,
-                                      size: responsive.ip(1.7),
-                                      padding: responsive.ip(1.25),
-                                      isOutLine: false, onPressed: () {
-                                    setState(() {
-                                      isLiked = !isLiked;
-                                    });
-                                  }),
-                                ],
+                      // Iconos arriba de la imagen del producto
+                      SafeArea(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              //BackButton(),
+                              _icon(
+                                Icons.arrow_back_ios,
+                                color: Colors.black54,
+                                size: responsive.ip(1.7),
+                                padding: responsive.ip(1.25),
+                                isOutLine: true,
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
                               ),
-                            ),
+                              //contador de páginas
+                              Container(
+                                height: responsive.hp(3),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: responsive.wp(2),
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey[300]),
+                                ),
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: responsive.wp(5),
+                                  vertical: responsive.hp(1.3),
+                                ),
+                                child: Text((pagActual + 1).toString() +
+                                    '/' +
+                                    listProd.length.toString()),
+                              ),
+
+                              _icon(
+                                  isLiked
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: isLiked
+                                      ? LightColor.lightGrey
+                                      : LightColor.red,
+                                  size: responsive.ip(1.7),
+                                  padding: responsive.ip(1.25),
+                                  isOutLine: false, onPressed: () {
+                                setState(() {
+                                  isLiked = !isLiked;
+                                });
+                              }),
+                            ],
                           ),
-                          TranslateAnimation(
-                            duration: const Duration(milliseconds: 400),
-                            child: _contenido(
-                              responsive,
-                              context,
-                            ),
-                          ),
-                        ],
-                      );
-                    } else {
-                      return Container(
-                        child: Text('vacio'),
-                      );
-                    }
-                  } else {
-                    return Container(
-                      child: Text('nulo'),
-                    );
-                  }
-                }));
+                        ),
+                      ),
+                      TranslateAnimation(
+                        duration: const Duration(milliseconds: 400),
+                        child: _contenido(responsive, context, listProd),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Container(
+                    child: Text('vacio'),
+                  );
+                }
+              } else {
+                return Container(
+                  child: Text('nulo'),
+                );
+              }
+            }));
   }
 
   Widget _backgroundImage(BuildContext context, Responsive responsive,
-      int pagActual, List<GaleriaProductoModel> listProd) {
+      int pagActual, List<ProductoModel> listProd) {
     final size = MediaQuery.of(context).size;
 
     return Container(
@@ -248,51 +232,57 @@ class _DetalleProductosState extends State<DetalleProductos> {
               child: Stack(
                 children: [
                   PageView.builder(
-                      itemCount: listProd.length,
+                      itemCount: listProd[0].listFotos.length,
                       controller: _pageController,
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(1)),
+                        return ListView.builder(
+                            itemCount: listProd[0].listFotos.length,
+                            itemBuilder: (BuildContext context, int i) {
+                              return Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: responsive.wp(1)),
 
-                          //padding: EdgeInsets.symmetric(horizontal: responsive.wp(3)),
+                                //padding: EdgeInsets.symmetric(horizontal: responsive.wp(3)),
 
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
 
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: CachedNetworkImage(
-                                //cacheManager: CustomCacheManager(),
+                                child: GestureDetector(
+                                  onTap: () {},
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: CachedNetworkImage(
+                                      //cacheManager: CustomCacheManager(),
 
-                                placeholder: (context, url) => Image(
-                                    image: AssetImage('assets/jar-loading.gif'),
-                                    fit: BoxFit.cover),
+                                      placeholder: (context, url) => Image(
+                                          image: AssetImage(
+                                              'assets/jar-loading.gif'),
+                                          fit: BoxFit.cover),
 
-                                errorWidget: (context, url, error) => Image(
-                                    image:
-                                        AssetImage('assets/carga_fallida.jpg'),
-                                    fit: BoxFit.cover),
+                                      errorWidget: (context, url, error) =>
+                                          Image(
+                                              image: AssetImage(
+                                                  'assets/carga_fallida.jpg'),
+                                              fit: BoxFit.cover),
 
-                                imageUrl:
-                                    '$apiBaseURL/${listProd[index].galeriaFoto}',
+                                      imageUrl:
+                                          '$apiBaseURL/${listProd[0].listFotos[i].galeriaFoto}',
 
-                                imageBuilder: (context, imageProvider) =>
-                                    Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.cover,
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        );
+                              );
+                            });
                       },
                       onPageChanged: (int index) {
                         //_currentPageNotifier.value = index;
@@ -317,10 +307,8 @@ class _DetalleProductosState extends State<DetalleProductos> {
     );
   }
 
-  Widget _contenido(
-    Responsive responsive,
-    BuildContext context,
-  ) {
+  Widget _contenido(Responsive responsive, BuildContext context,
+      List<ProductoModel> listProd) {
     return Container(
       margin: EdgeInsets.only(
         top: responsive.hp(21),
@@ -409,7 +397,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                   SizedBox(
                     height: 20,
                   ),
-                  _availableSize(),
+                  _availableSize2(listProd),
                   SizedBox(
                     height: 20,
                   ),
@@ -417,6 +405,8 @@ class _DetalleProductosState extends State<DetalleProductos> {
                   SizedBox(
                     height: 20,
                   ),
+                  _marca(listProd),
+                  _modelo(listProd),
                   _description(),
                 ],
               ),
@@ -464,6 +454,75 @@ class _DetalleProductosState extends State<DetalleProductos> {
     );
   }
 
+  Widget _availableSize2( List<ProductoModel> listProd) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        TitleText(
+          text: "Tallas",
+          fontSize: 14,
+        ),
+        SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            _sizeWidget2(listProd),
+            // _sizeWidget("US 6"),
+             _sizeWidget("US 7", isSelected: true),
+            // _sizeWidget("US 8"),
+            // _sizeWidget("US 9"),
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget _marca( List<ProductoModel> listProd) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        TitleText(
+          text: "Marcas",
+          fontSize: 14,
+        ),
+        SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            _marcaWidget(listProd),
+            // _sizeWidget("US 6"),
+             _sizeWidget("US 7", isSelected: true),
+            // _sizeWidget("US 8"),
+            // _sizeWidget("US 9"),
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget _modelo( List<ProductoModel> listProd) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        TitleText(
+          text: "Modelo",
+          fontSize: 14,
+        ),
+        SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            _modeloWidget(listProd),
+            // _sizeWidget("US 6"),
+             _sizeWidget("US 7", isSelected: true),
+            // _sizeWidget("US 8"),
+            // _sizeWidget("US 9"),
+          ],
+        )
+      ],
+    );
+  }
+
   Widget _sizeWidget(String text, {bool isSelected = false}) {
     return Container(
       padding: EdgeInsets.all(10),
@@ -477,6 +536,63 @@ class _DetalleProductosState extends State<DetalleProductos> {
       ),
       child: TitleText(
         text: text,
+        fontSize: 16,
+        color: isSelected ? LightColor.background : LightColor.titleTextColor,
+      ),
+    ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)));
+  }
+
+  Widget _sizeWidget2(List<ProductoModel> listProd, {bool isSelected = false}) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border.all(
+            color: LightColor.iconColor,
+            style: !isSelected ? BorderStyle.solid : BorderStyle.none),
+        borderRadius: BorderRadius.all(Radius.circular(13)),
+        color:
+            isSelected ? LightColor.orange : Theme.of(context).backgroundColor,
+      ),
+      child: TitleText(
+        text: listProd[0].listTallaProd[0].tallaProducto,
+        fontSize: 16,
+        color: isSelected ? LightColor.background : LightColor.titleTextColor,
+      ),
+    ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)));
+  }
+
+  Widget _marcaWidget(List<ProductoModel> listProd, {bool isSelected = false}) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border.all(
+            color: LightColor.iconColor,
+            style: !isSelected ? BorderStyle.solid : BorderStyle.none),
+        borderRadius: BorderRadius.all(Radius.circular(13)),
+        color:
+            isSelected ? LightColor.orange : Theme.of(context).backgroundColor,
+      ),
+      child: TitleText(
+        text: listProd[0].listMarcaProd[0].marcaProducto,
+        fontSize: 16,
+        color: isSelected ? LightColor.background : LightColor.titleTextColor,
+      ),
+    ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)));
+  }
+
+  Widget _modeloWidget(List<ProductoModel> listProd, {bool isSelected = false}) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border.all(
+            color: LightColor.iconColor,
+            style: !isSelected ? BorderStyle.solid : BorderStyle.none),
+        borderRadius: BorderRadius.all(Radius.circular(13)),
+        color:
+            isSelected ? LightColor.orange : Theme.of(context).backgroundColor,
+      ),
+      child: TitleText(
+        text: listProd[0].listModeloProd[0].modeloProducto,
         fontSize: 16,
         color: isSelected ? LightColor.background : LightColor.titleTextColor,
       ),

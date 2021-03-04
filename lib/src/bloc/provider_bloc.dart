@@ -12,12 +12,10 @@ import 'package:bufi/src/bloc/direcciones_bloc.dart';
 import 'package:bufi/src/bloc/favoritos_bloc.dart';
 import 'package:bufi/src/bloc/login_bloc.dart';
 import 'package:bufi/src/bloc/mis_movimientos_bloc.dart';
-
 import 'package:bufi/src/bloc/negocios_bloc.dart';
-
 import 'package:bufi/src/bloc/porcentaje_splash.dart';
 import 'package:bufi/src/bloc/principal_bloc.dart';
-import 'package:bufi/src/bloc/producto/galeriaProductoBloc.dart';
+import 'package:bufi/src/bloc/producto/datosProductoBloc.dart';
 import 'package:bufi/src/bloc/producto/paginaActualBloc.dart';
 import 'package:bufi/src/bloc/producto/producto_bloc.dart';
 import 'package:bufi/src/bloc/servicios/servicios_bloc.dart';
@@ -57,7 +55,7 @@ class ProviderBloc extends InheritedWidget {
   final contadorBloc = ContadorPaginaProductosBloc();
   final pedidosBloc = PedidoBloc();
   final direccionesBloc = DireccionesBloc();
-  final galeriaProductosBloc = GaleriaProductoBloc();
+  final datosProductosBloc = DatosProductoBloc();
 
 
   factory ProviderBloc({Key key, Widget child}) {
@@ -220,9 +218,9 @@ class ProviderBloc extends InheritedWidget {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .direccionesBloc;
         }
-  //Galeria de Productos
-  static GaleriaProductoBloc galeriaProductos(BuildContext context) {
+  //datos de Productos
+  static DatosProductoBloc datosProductos(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .galeriaProductosBloc;
+        .datosProductosBloc;
   }
 }

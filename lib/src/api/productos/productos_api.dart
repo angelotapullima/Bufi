@@ -339,20 +339,20 @@ class ProductosApi {
         await galeriaProductoDb.insertarGaleriaProducto(galeriaProductoModel);
       }
       //Marca
-      for (var i = 0; i < decodedData["marcas"].length; i++) {
+      for (var j = 0; j < decodedData["marcas"].length; j++) {
         final marcaProductoModel = MarcaProductoModel();
         final marcaProductoDb = MarcaProductoDatabase();
         marcaProductoModel.idMarcaProducto =
-            decodedData["marcas"][i]["id_subsidiarygood_brand"];
+            decodedData["marcas"][j]["id_subsidiarygood_brand"];
         marcaProductoModel.idProducto =
-            decodedData["marcas"][i]['id_subsidiary_good'];
+            decodedData["marcas"][j]['id_subsidiary_good'];
         marcaProductoModel.marcaProducto =
-            decodedData["marcas"][i]["subsidiarygood_brand"];
+            decodedData["marcas"][j]["subsidiarygood_brand"];
         marcaProductoModel.marcaStatusProducto =
-            decodedData["marcas"][i]["subsidiarygood_brand_status"];
+            decodedData["marcas"][j]["subsidiarygood_brand_status"];
 
         final list = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
-            decodedData["marcas"][i]['id_subsidiary_good']);
+            decodedData["marcas"][j]['id_subsidiary_good']);
 
         if (list.length > 0) {
           marcaProductoModel.estado = list[0].productoStatus;
@@ -364,20 +364,20 @@ class ProductosApi {
       }
 
       //Modelo
-      for (var i = 0; i < decodedData["modelos"].length; i++) {
+      for (var k = 0; k < decodedData["modelos"].length; k++) {
         final modeloProductoModel = ModeloProductoModel();
         final modeloProductoDb = ModeloProductoDatabase();
         modeloProductoModel.idModeloProducto =
-            decodedData["modelos"][i]["id_subsidiarygood_model"];
+            decodedData["modelos"][k]["id_subsidiarygood_model"];
         modeloProductoModel.idProducto =
-            decodedData["modelos"][i]['id_subsidiarygood'];
+            decodedData["modelos"][k]['id_subsidiarygood'];
         modeloProductoModel.modeloProducto =
-            decodedData["modelos"][i]["subsidiarygood_model"];
+            decodedData["modelos"][k]["subsidiarygood_model"];
         modeloProductoModel.modeloStatusProducto =
-            decodedData["modelos"][i]["subsidiarygood_model_status"];
+            decodedData["modelos"][k]["subsidiarygood_model_status"];
 
         final list = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
-            decodedData["marcas"][i]['id_subsidiary_good']);
+            decodedData["modelos"][k]['id_subsidiarygood']);
 
         if (list.length > 0) {
           modeloProductoModel.estado = list[0].productoStatus;
@@ -389,20 +389,20 @@ class ProductosApi {
       }
 
       //Talla
-      for (var i = 0; i < decodedData["tallas"].length; i++) {
+      for (var l = 0; l < decodedData["tallas"].length; l++) {
         final tallaProductoModel = TallaProductoModel();
         final tallaProductoDb = TallaProductoDatabase();
         tallaProductoModel.idTallaProducto =
-            decodedData["tallas"][i]["id_subsidiarygood_size"];
+            decodedData["tallas"][l]["id_subsidiarygood_size"];
         tallaProductoModel.idProducto =
-            decodedData["tallas"][i]['id_subsidiarygood'];
+            decodedData["tallas"][l]['id_subsidiarygood'];
         tallaProductoModel.tallaProducto =
-            decodedData["tallas"][i]["subsidiarygood_size"];
+            decodedData["tallas"][l]["subsidiarygood_size"];
         tallaProductoModel.tallaProductoStatus =
-            decodedData["tallas"][i]["subsidiarygood_size_status"];
+            decodedData["tallas"][l]["subsidiarygood_size_status"];
 
         final list = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
-            decodedData["tallas"][i]['id_subsidiarygood']);
+            decodedData["tallas"][l]['id_subsidiarygood']);
 
         if (list.length > 0) {
           tallaProductoModel.estado = list[0].productoStatus;

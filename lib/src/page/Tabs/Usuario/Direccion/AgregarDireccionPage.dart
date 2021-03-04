@@ -1,4 +1,5 @@
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class AgregarDireccionPage extends StatefulWidget {
@@ -18,7 +19,7 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
   @override
   Widget build(BuildContext context) {
     provinciaList = [
-      Provincia('1', "Maynas"),
+      Provincia('1', "Iquitos"),
       Provincia('2', "Belen"),
       Provincia('3', "Punchana"),
       Provincia('4', "San Juan ")
@@ -132,7 +133,7 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
                       },
                       items: provinciaList.map((Provincia map) {
                         return new DropdownMenuItem<String>(
-                          value: map.id,
+                          value: map.ciudad,
                           child: new Text(
                             map.ciudad,
                             style: new TextStyle(color: Colors.black),
@@ -141,9 +142,6 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
                       }).toList(),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: responsive.hp(2),
                 ),
                 SizedBox(
                   height: responsive.hp(5),
@@ -157,7 +155,28 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                       color: Colors.red,
-                      onPressed: () {},
+                      onPressed: () {
+                        if (_direccionController.text.length > 0) {
+                          if (_referenciaController.text.length > 0) {
+                            if (idQuenecesitas != null) {
+                              agregarDireccion(
+                                  context,
+                                  _direccionController.text,
+                                  _referenciaController.text,
+                                  idQuenecesitas);
+                              print(idQuenecesitas);
+                            } else {
+                              showToast(
+                                  context, 'Por favor agregue un distrito');
+                            }
+                          } else {
+                            showToast(
+                                context, 'Por favor agregue una referencia');
+                          }
+                        } else {
+                          showToast(context, 'Por favor agregue una dirección');
+                        }
+                      },
                       child: Text(
                         "Añadir",
                         style: TextStyle(

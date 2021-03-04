@@ -1,6 +1,7 @@
 import 'package:bufi/src/api/point_api.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/database/carrito_db.dart';
+import 'package:bufi/src/database/direccion_database.dart';
 import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
@@ -8,6 +9,7 @@ import 'package:bufi/src/database/sugerenciaBusqueda_db.dart';
 import 'package:bufi/src/database/tipo_pago_database.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/carritoModel.dart';
+import 'package:bufi/src/models/direccionModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/models/sugerenciaBusquedaModel.dart';
@@ -267,9 +269,9 @@ void cambiarEstadoCarrito(
   await carritodb.updateSeleccionado(idProducto, estado);
 
   carritoBloc.obtenerCarritoPorSucursal();
-    }
+}
 //Actualizar Negocio
- /*  void actualizarNegocio(
+/*  void actualizarNegocio(
       BuildContext context, CompanySubsidiaryModel model) async {
     final detallenegocio = ProviderBloc.negocios(context);
     //final actualizarNeg = ProviderBloc.actualizarNeg(context);
@@ -346,4 +348,18 @@ void seleccionarTiposPago(BuildContext context, String idTiposPago) async {
   tiposPagoBloc.obtenerTipoPagoSeleccionado();
   tiposPagoBloc.obtenerTiposPago();
 }
-    
+
+void agregarDireccion(BuildContext context, String direccion, String referencia,
+    String distrito) async {
+  final direccionDatabase = DireccionDatabase();
+
+  DireccionModel direccionModel = DireccionModel();
+
+  direccionModel.address = direccion;
+  direccionModel.referencia = referencia;
+  direccionModel.distrito = distrito;
+
+  await direccionDatabase.insertarDireccion(direccionModel);
+
+  Navigator.pop(context);
+}

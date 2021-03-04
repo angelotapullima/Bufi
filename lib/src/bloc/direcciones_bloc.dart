@@ -7,14 +7,13 @@ class DireccionesBloc {
 
   final _direccionesController = BehaviorSubject<List<DireccionModel>>();
 
-  Stream<List<DireccionModel>> get saldoStream => _direccionesController.stream;
+  Stream<List<DireccionModel>> get direccionesStream => _direccionesController.stream;
 
   void dispose() {
     _direccionesController?.close();
   }
 
   void obtenerDirecciones() async {
-    _direccionesController.sink
-        .add(await direccionesDatabase.obtenerDirecciones());
+    _direccionesController.sink.add(await direccionesDatabase.obtenerDirecciones());
   }
 }

@@ -1,4 +1,7 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
+import 'package:bufi/src/database/marcaProducto_database.dart';
+import 'package:bufi/src/database/modeloProducto_database.dart';
+import 'package:bufi/src/database/tallaProducto_database.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido_item.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalle_carrito.dart';
@@ -23,20 +26,21 @@ class DetalleProductos extends StatefulWidget {
 class _DetalleProductosState extends State<DetalleProductos> {
   //controlador del PageView
   final _pageController = PageController(viewportFraction: 1, initialPage: 0);
-  int pagActual = 0;
+  //int pagActual = 0;
+  final tallaProductoDb = TallaProductoDatabase();
+  final marcaProductoDb = MarcaProductoDatabase();
+  final modeloProductoDb = ModeloProductoDatabase();
 
   @override
   void initState() {
+    limpiarOpciones();
     super.initState();
-    currentPage();
   }
 
-  void currentPage() {
-    _pageController.addListener(() {
-      setState(() {
-        pagActual = _pageController.page.toInt();
-      });
-    });
+  void limpiarOpciones() {
+    tallaProductoDb.updateEstadoa0();
+    marcaProductoDb.updateEstadoa0();
+    modeloProductoDb.updateEstadoa0();
   }
 
   @override
@@ -44,6 +48,9 @@ class _DetalleProductosState extends State<DetalleProductos> {
     final responsive = Responsive.of(context);
     final datosProdBloc = ProviderBloc.datosProductos(context);
     datosProdBloc.listarDatosProducto('3');
+    //contador para el PageView
+    final contadorBloc = ProviderBloc.contadorPagina(context);
+    contadorBloc.changeContador(0);
 
     Widget _icon(
       IconData icon, {
@@ -85,7 +92,6 @@ class _DetalleProductosState extends State<DetalleProductos> {
 
     bool isLiked = false;
     return Scaffold(
-     
       body: StreamBuilder(
           stream: datosProdBloc.datosProdStream,
           builder: (context, AsyncSnapshot<List<ProductoModel>> snapshot) {
@@ -94,7 +100,8 @@ class _DetalleProductosState extends State<DetalleProductos> {
               if (snapshot.data.length > 0) {
                 return Stack(
                   children: <Widget>[
-                    _backgroundImage(context, responsive, pagActual, listProd),
+                    _backgroundImage(
+                        context, responsive, listProd, contadorBloc),
 
                     // Iconos arriba de la imagen del producto
                     SafeArea(
@@ -116,26 +123,35 @@ class _DetalleProductosState extends State<DetalleProductos> {
                               },
                             ),
                             //contador de páginas
-                            Container(
-                              height: responsive.hp(3),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: responsive.wp(2),
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: Colors.white,
-                                border: Border.all(color: Colors.grey[300]),
-                              ),
-                              margin: EdgeInsets.symmetric(
-                                horizontal: responsive.wp(5),
-                                vertical: responsive.hp(1.3),
-                              ),
-                              child: Text(
-                                (pagActual + 1).toString() +
-                                    '/' +
-                                    listProd[0].listFotos.length.toString(),
-                              ),
-                            ),
+                            StreamBuilder(
+                                stream: contadorBloc.selectContadorStream,
+                                builder: (context, snapshot) {
+                                  return Container(
+                                    height: responsive.hp(3),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: responsive.wp(2),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: Colors.white,
+                                      border:
+                                          Border.all(color: Colors.grey[300]),
+                                    ),
+                                    margin: EdgeInsets.symmetric(
+                                      horizontal: responsive.wp(5),
+                                      vertical: responsive.hp(1.3),
+                                    ),
+                                    child: Text(
+                                      (contadorBloc.pageContador + 1)
+                                              .toString() +
+                                          '/' +
+                                          listProd[0]
+                                              .listFotos
+                                              .length
+                                              .toString(),
+                                    ),
+                                  );
+                                }),
 
                             _icon(
                                 isLiked
@@ -192,7 +208,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                   ),
                                 ],
                               ),
-                            ).ripple(()async {
+                            ).ripple(() async {
                               await agregarAlCarrito(
                                   context, widget.producto.idProducto);
 
@@ -289,7 +305,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
   }
 
   Widget _backgroundImage(BuildContext context, Responsive responsive,
-      int pagActual, List<ProductoModel> listProd) {
+      List<ProductoModel> listProd, contadorBloc) {
     final size = MediaQuery.of(context).size;
 
     return Container(
@@ -345,7 +361,9 @@ class _DetalleProductosState extends State<DetalleProductos> {
                       ),
                     );
                   },
-                  onPageChanged: (int index) {}),
+                  onPageChanged: (int index) {
+                    contadorBloc.changeContador(index);
+                  }),
             ],
           )),
     );
@@ -441,16 +459,13 @@ class _DetalleProductosState extends State<DetalleProductos> {
                   SizedBox(
                     height: 20,
                   ),
-                  _availableSize2(listProd),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  _availableColor(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  _marca(listProd),
-                  _modelo(listProd),
+                  _talla(responsive, listProd),
+                  //_availableColor(),
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
+                  _marca(responsive, listProd),
+                  _modelo(responsive, listProd),
                   _description(),
                 ],
               ),
@@ -475,7 +490,86 @@ class _DetalleProductosState extends State<DetalleProductos> {
       ],
     );
   }
-Widget _availableSize2(List<ProductoModel> listProd) {
+
+  Widget _talla(Responsive responsive, List<ProductoModel> listProd) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TitleText(
+          text: "Tallas",
+          fontSize: 14,
+        ),
+        Container(
+          height: responsive.hp(15),
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: listProd[0].listTallaProd.length,
+            itemBuilder: (BuildContext context, int index) {
+              return _tallaWidget(listProd, index);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _marca(Responsive responsive, List<ProductoModel> listProd) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TitleText(
+          text: "Marcas",
+          fontSize: 14,
+        ),
+        SizedBox(height: responsive.hp(1)),
+        Container(
+          height: responsive.hp(15),
+          child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: listProd[0].listMarcaProd.length,
+            itemBuilder: (BuildContext context, int index) {
+              return _marcaWidget(listProd, index);
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: <Widget>[
+              //     _marcaWidget(listProd, index),
+              //     //_sizeWidget("US 7", isSelected: true),
+              //   ],
+              // );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _modelo(Responsive responsive, List<ProductoModel> listProd) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TitleText(
+          text: "Modelo",
+          fontSize: 14,
+        ),
+        SizedBox(height: responsive.hp(1)),
+        Container(
+          height: responsive.hp(15),
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: listProd[0].listModeloProd.length,
+            itemBuilder: (BuildContext context, int index) {
+              return _modeloWidget(listProd, index);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _availableSize(List<ProductoModel> listProd) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -487,53 +581,6 @@ Widget _availableSize2(List<ProductoModel> listProd) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            _sizeWidget2(listProd),
-            // _sizeWidget("US 6"),
-            _sizeWidget("US 7", isSelected: true),
-            // _sizeWidget("US 8"),
-            // _sizeWidget("US 9"),
-          ],
-        )
-      ],
-    );
-  }
-
-  Widget _marca(List<ProductoModel> listProd) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        TitleText(
-          text: "Marcas",
-          fontSize: 14,
-        ),
-        SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            _marcaWidget(listProd),
-            // _sizeWidget("US 6"),
-            //_sizeWidget("US 7", isSelected: true),
-            // _sizeWidget("US 8"),
-            // _sizeWidget("US 9"),
-          ],
-        )
-      ],
-    );
-  }
-
-  Widget _modelo(List<ProductoModel> listProd) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        TitleText(
-          text: "Modelo",
-          fontSize: 14,
-        ),
-        SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            _modeloWidget(listProd),
             // _sizeWidget("US 6"),
             _sizeWidget("US 7", isSelected: true),
             // _sizeWidget("US 8"),
@@ -563,67 +610,102 @@ Widget _availableSize2(List<ProductoModel> listProd) {
     ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)));
   }
 
-  Widget _sizeWidget2(List<ProductoModel> listProd, {bool isSelected = false}) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: LightColor.iconColor,
-            style: !isSelected ? BorderStyle.solid : BorderStyle.none),
-        borderRadius: BorderRadius.all(Radius.circular(13)),
-        color:
-            isSelected ? LightColor.orange : Theme.of(context).backgroundColor,
-      ),
-      child: TitleText(
-        text: listProd[0].listTallaProd[0].tallaProducto,
-        fontSize: 16,
-        color: isSelected ? LightColor.background : LightColor.titleTextColor,
-      ),
-    ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)));
+  Widget _tallaWidget(List<ProductoModel> listProd, int index) {
+    return Padding(
+      padding: EdgeInsets.all(4.0),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          border: Border.all(
+              color: LightColor.iconColor,
+              style: (listProd[0].listTallaProd[index].estado == '1')
+                  ? BorderStyle.solid
+                  : BorderStyle.none),
+          borderRadius: BorderRadius.all(Radius.circular(13)),
+          color: (listProd[0].listTallaProd[index].estado == '1')
+              ? LightColor.orange
+              : Theme.of(context).backgroundColor,
+        ),
+        child: TitleText(
+          text: listProd[0].listTallaProd[index].tallaProducto,
+          fontSize: 16,
+          color: (listProd[0].listTallaProd[index].estado == '1')
+              ? LightColor.background
+              : LightColor.titleTextColor,
+        ),
+      ).ripple(() {
+        print('presionado ${listProd[0].listTallaProd[index].idTallaProducto}');
+
+        cambiarEstadoTalla(context, listProd[0].listTallaProd[index]);
+        print("estado ${listProd[0].listTallaProd[index].estado}");
+      }, borderRadius: BorderRadius.all(Radius.circular(13))),
+    );
   }
 
-  Widget _marcaWidget(List<ProductoModel> listProd, {bool isSelected = false}) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: LightColor.iconColor,
-            style: !isSelected ? BorderStyle.solid : BorderStyle.none),
-        borderRadius: BorderRadius.all(Radius.circular(13)),
-        color:
-            isSelected ? LightColor.orange : Theme.of(context).backgroundColor,
-      ),
-      child: TitleText(
-        text: listProd[0].listMarcaProd[0].marcaProducto,
-        fontSize: 16,
-        color: isSelected ? LightColor.background : LightColor.titleTextColor,
-      ),
-    ).ripple(
-      () {},
-      borderRadius: BorderRadius.all(
-        Radius.circular(13),
+  Widget _marcaWidget(List<ProductoModel> listProd, int index,
+      {bool isSelected = false}) {
+    return Padding(
+      padding: EdgeInsets.all(4.0),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          border: Border.all(
+              color: LightColor.iconColor,
+              style: !isSelected ? BorderStyle.solid : BorderStyle.none),
+          borderRadius: BorderRadius.all(Radius.circular(13)),
+          color: (listProd[0].listMarcaProd[index].estado == '1')
+              ? LightColor.orange
+              : Theme.of(context).backgroundColor,
+        ),
+        child: TitleText(
+          text: listProd[0].listMarcaProd[index].marcaProducto,
+          fontSize: 16,
+          color: (listProd[0].listMarcaProd[index].estado == '1')
+              ? LightColor.background
+              : LightColor.titleTextColor,
+        ),
+      ).ripple(
+        () {
+          print(
+              'presionado ${listProd[0].listMarcaProd[index].idMarcaProducto}');
+
+          cambiarEstadoMarca(context, listProd[0].listMarcaProd[index]);
+          //print("estado ${listProd[0].listMarcaProd[index].estado}");
+        },
+        borderRadius: BorderRadius.all(
+          Radius.circular(13),
+        ),
       ),
     );
   }
 
-  Widget _modeloWidget(List<ProductoModel> listProd,
+  Widget _modeloWidget(List<ProductoModel> listProd, int index,
       {bool isSelected = false}) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: LightColor.iconColor,
-            style: !isSelected ? BorderStyle.solid : BorderStyle.none),
-        borderRadius: BorderRadius.all(Radius.circular(13)),
-        color:
-            isSelected ? LightColor.orange : Theme.of(context).backgroundColor,
-      ),
-      child: TitleText(
-        text: listProd[0].listModeloProd[0].modeloProducto,
-        fontSize: 16,
-        color: isSelected ? LightColor.background : LightColor.titleTextColor,
-      ),
-    ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)));
+    return Padding(
+      padding: EdgeInsets.all(4.0),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          border: Border.all(
+              color: LightColor.iconColor,
+              style: !isSelected ? BorderStyle.solid : BorderStyle.none),
+          borderRadius: BorderRadius.all(Radius.circular(13)),
+          color: (listProd[0].listModeloProd[index].estado == '1')
+              ? LightColor.orange
+              : Theme.of(context).backgroundColor,
+        ),
+        child: TitleText(
+          text: listProd[0].listModeloProd[index].modeloProducto,
+          fontSize: 16,
+          color: (listProd[0].listModeloProd[index].estado == '1')
+              ? LightColor.background
+              : LightColor.titleTextColor,
+        ),
+      ).ripple(() {
+        cambiarEstadoModelo(context, listProd[0].listModeloProd[index]);
+        // print("estado ${listProd[0].listModeloProd[index].estado}");
+      }, borderRadius: BorderRadius.all(Radius.circular(13))),
+    );
   }
 
   Widget _availableColor() {

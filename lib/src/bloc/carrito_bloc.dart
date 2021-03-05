@@ -261,10 +261,8 @@ class CarritoBloc {
 
     final subsidiary = SubsidiaryDatabase();
 
-    final listCarrito =
-        await carritoDb.obtenerProductoXCarritoPorId(idProducto);
-    final sucursal =
-        await subsidiary.obtenerSubsidiaryPorId(listCarrito[0].idSubsidiary);
+    final listCarrito =  await carritoDb.obtenerProductoXCarritoPorId(idProducto);
+    final sucursal =  await subsidiary.obtenerSubsidiaryPorId(listCarrito[0].idSubsidiary);
 
     if (listCarrito.length > 0) {
       if (sucursal.length > 0) {

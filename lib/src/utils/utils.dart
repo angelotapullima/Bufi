@@ -104,7 +104,8 @@ void quitarSubsidiaryFavorito(
   deletePoint.deletePoint(companysubsidiaryModel.idSubsidiary);
 }
 
-void agregarAlCarrito(BuildContext context, String idSubsidiarygood) async {
+Future<int> agregarAlCarrito(
+    BuildContext context, String idSubsidiarygood) async {
   CarritoDb carritoDb = CarritoDb();
   final productoDatabase = ProductoDatabase();
 
@@ -139,6 +140,8 @@ void agregarAlCarrito(BuildContext context, String idSubsidiarygood) async {
 
   final carritoBloc = ProviderBloc.productosCarrito(context);
   carritoBloc.obtenerCarritoPorSucursal();
+
+  return 0;
 }
 
 void agregarAlCarritoContador(

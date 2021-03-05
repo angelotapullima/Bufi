@@ -12,9 +12,7 @@ import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedid
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubsidiary.dart';
 import 'package:bufi/src/page/Tabs/Negocios/inicio/detalleNegocio.dart';
 import 'package:bufi/src/bloc/subsidiary/negocio_bloc.dart';
-import 'package:bufi/src/page/Tabs/Negocios/producto/registrarProducto.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
-import 'package:bufi/src/page/Tabs/Negocios/servicios/registrarSerivicio.dart';
 import 'package:bufi/src/page/Tabs/Points/points_bloc.dart';
 import 'package:bufi/src/page/Tabs/Principal/listarBienesAll.dart';
 import 'package:bufi/src/page/Tabs/Principal/listarServiciosAll.dart';
@@ -28,7 +26,6 @@ import 'package:bufi/src/page/splash.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -90,8 +87,6 @@ class MyApp extends StatelessWidget {
               "detalleSubsidiary": (BuildContext context) =>
                   DetalleSubsidiary(),
 
-              //Producto
-              "guardarProducto": (BuildContext context) => GuardarProducto(),
 
               //"listarProductoAll": (BuildContext context)=> ListarProductosPorSucursal(),
 
@@ -99,7 +94,6 @@ class MyApp extends StatelessWidget {
               "agregarAlCarrito": (BuildContext context) => CarritoPage(),
 
               //Servicio
-              "guardarServicio": (BuildContext context) => GuardarServicio(),
               "detalleServicio": (BuildContext context) => DetalleServicio(),
               // "listarServiciosXsucursal": (BuildContext context) =>
 

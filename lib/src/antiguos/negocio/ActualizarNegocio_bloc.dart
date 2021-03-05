@@ -1,4 +1,4 @@
-import 'package:bufi/src/api/negocio/negocios_api.dart';
+/* import 'package:bufi/src/api/negocio/negocios_api.dart';
 import 'package:bufi/src/database/category_db.dart';
 import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
@@ -77,3 +77,4 @@ class ActualizarNegocioBloc {
     return listGeneral;
   }
 }
+ */

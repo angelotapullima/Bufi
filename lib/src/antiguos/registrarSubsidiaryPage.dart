@@ -1,4 +1,4 @@
-import 'package:bufi/src/bloc/provider_bloc.dart';
+/* import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/bloc/subsidiary/registrarSubsidiary_bloc.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -349,3 +349,4 @@ class RegistroSubsidiary extends StatelessWidget {
     }
   }
 }
+ */

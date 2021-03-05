@@ -1,4 +1,4 @@
- 
+/*  
 import 'package:bufi/src/api/negocio/negocios_api.dart';
 import 'package:bufi/src/bloc/validators.dart';
 import 'package:bufi/src/models/companyModel.dart';
@@ -70,3 +70,4 @@ class RegistroNegocioBloc with Validators {
   //   return resp;
   // }
 }
+ */

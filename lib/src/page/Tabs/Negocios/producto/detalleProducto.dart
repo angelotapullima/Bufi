@@ -1,5 +1,6 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/productoModel.dart';
+import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido_item.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalle_carrito.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -84,37 +85,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
 
     bool isLiked = false;
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          //DetalleCarrito
-
-          agregarAlCarrito(context, widget.producto.idProducto);
-
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              transitionDuration: const Duration(milliseconds: 300),
-              pageBuilder: (context, animation, secondaryAnimation) {
-                return DetalleCarrito(producto: widget.producto);
-                //return DetalleProductitos(productosData: productosData);
-              },
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: child,
-                );
-              },
-            ),
-          );
-        },
-        label: Row(
-          children: [
-            Icon(Icons.shopping_cart_outlined),
-            Text(' Agregar'),
-          ],
-        ),
-      ),
+     
       body: StreamBuilder(
           stream: datosProdBloc.datosProdStream,
           builder: (context, AsyncSnapshot<List<ProductoModel>> snapshot) {
@@ -188,6 +159,119 @@ class _DetalleProductosState extends State<DetalleProductos> {
                       duration: const Duration(milliseconds: 400),
                       child: _contenido(responsive, context, listProd),
                     ),
+
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      left: 0,
+                      child: Container(
+                        child: Row(
+                          children: [
+                            Container(
+                              width: responsive.wp(40),
+                              padding: EdgeInsets.only(
+                                bottom: responsive.hp(3),
+                                top: responsive.hp(1),
+                                left: responsive.wp(3),
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.blueGrey[400],
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.donut_large_outlined,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    ' Pedir ahora',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: responsive.ip(1.8),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ).ripple(() {
+                              agregarAlCarrito(
+                                  context, widget.producto.idProducto);
+
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration:
+                                      const Duration(milliseconds: 300),
+                                  pageBuilder:
+                                      (context, animation, secondaryAnimation) {
+                                    return ConfirmacionItemPedido(
+                                        idProducto: widget.producto.idProducto);
+                                    //return DetalleProductitos(productosData: productosData);
+                                  },
+                                  transitionsBuilder: (context, animation,
+                                      secondaryAnimation, child) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
+                            }),
+                            Container(
+                              width: responsive.wp(60),
+                              padding: EdgeInsets.only(
+                                bottom: responsive.hp(3),
+                                top: responsive.hp(1),
+                                left: responsive.wp(3),
+                                right: responsive.wp(10),
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.blue[600],
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.shopping_cart_outlined,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    ' Agregar a la cesta',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: responsive.ip(1.8),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ).ripple(() {
+                              agregarAlCarrito(
+                                  context, widget.producto.idProducto);
+
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration:
+                                      const Duration(milliseconds: 300),
+                                  pageBuilder:
+                                      (context, animation, secondaryAnimation) {
+                                    return DetalleCarrito(
+                                        producto: widget.producto);
+                                    //return DetalleProductitos(productosData: productosData);
+                                  },
+                                  transitionsBuilder: (context, animation,
+                                      secondaryAnimation, child) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
+                            }),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 );
               } else {
@@ -391,30 +475,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
       ],
     );
   }
-
-  Widget _availableSize() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        TitleText(
-          text: "Available Size",
-          fontSize: 14,
-        ),
-        SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            _sizeWidget("US 6"),
-            _sizeWidget("US 7", isSelected: true),
-            _sizeWidget("US 8"),
-            _sizeWidget("US 9"),
-          ],
-        )
-      ],
-    );
-  }
-
-  Widget _availableSize2(List<ProductoModel> listProd) {
+Widget _availableSize2(List<ProductoModel> listProd) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

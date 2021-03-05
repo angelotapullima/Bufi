@@ -56,8 +56,7 @@ class DatosProductoBloc {
       productoModel.productoPrice = listProductos[i].productoPrice;
       productoModel.productoCurrency = listProductos[i].productoCurrency;
       productoModel.productoImage = listProductos[i].productoImage;
-      productoModel.productoCharacteristics =
-          listProductos[i].productoCharacteristics;
+      productoModel.productoCharacteristics = listProductos[i].productoCharacteristics;
       productoModel.productoBrand = listProductos[i].productoBrand;
       productoModel.productoModel = listProductos[i].productoModel;
       productoModel.productoType = listProductos[i].productoType;
@@ -69,8 +68,7 @@ class DatosProductoBloc {
       productoModel.productoStatus = listProductos[i].productoStatus;
 
       //funcion que llama desde la bd a la lista de fotos del producto pasando el idPedido como argumento
-      final listGaleria = await galeriaProductoDb
-          .obtenerGaleriaProductoPorIdProducto(listProductos[i].idProducto);
+      final listGaleria = await galeriaProductoDb.obtenerGaleriaProductoPorIdProducto(listProductos[i].idProducto);
       //crear lista vacia para llenar las fotos del producto
       final listGaleriaModel = List<GaleriaProductoModel>();
 
@@ -87,16 +85,14 @@ class DatosProductoBloc {
 
       //crear lista vacia para el modelo de Producto
       final listModelProdModel = List<ModeloProductoModel>();
-      final listModeloProd = await modeloProductoDb
-          .obtenerModeloProductoPorIdProducto(listProductos[i].idProducto);
+      final listModeloProd = await modeloProductoDb.obtenerModeloProductoPorIdProducto(listProductos[i].idProducto);
 
       for (var l = 0; l < listModeloProd.length; l++) {
         final modelProduc = ModeloProductoModel();
         modelProduc.idModeloProducto = listModeloProd[l].idModeloProducto;
         modelProduc.idProducto = listModeloProd[l].idProducto;
         modelProduc.modeloProducto = listModeloProd[l].modeloProducto;
-        modelProduc.modeloStatusProducto =
-            listModeloProd[l].modeloStatusProducto;
+        modelProduc.modeloStatusProducto = listModeloProd[l].modeloStatusProducto;
         modelProduc.estado = listModeloProd[l].estado;
 
         listModelProdModel.add(modelProduc);
@@ -112,8 +108,7 @@ class DatosProductoBloc {
         marcaProdModel.idMarcaProducto = listMarcaProd[m].idMarcaProducto;
         marcaProdModel.idProducto = listMarcaProd[m].idProducto;
         marcaProdModel.marcaProducto = listMarcaProd[m].marcaProducto;
-        marcaProdModel.marcaStatusProducto =
-            listMarcaProd[m].marcaStatusProducto;
+        marcaProdModel.marcaStatusProducto = listMarcaProd[m].marcaStatusProducto;
         marcaProdModel.estado = listMarcaProd[m].estado;
 
         listMarcaProdModel.add(marcaProdModel);
@@ -129,8 +124,7 @@ class DatosProductoBloc {
         tallaProdModel.idTallaProducto = listTallaProd[n].idTallaProducto;
         tallaProdModel.idProducto = listTallaProd[n].idProducto;
         tallaProdModel.tallaProducto = listTallaProd[n].tallaProducto;
-        tallaProdModel.tallaProductoStatus =
-            listTallaProd[n].tallaProductoStatus;
+        tallaProdModel.tallaProductoStatus = listTallaProd[n].tallaProductoStatus;
         tallaProdModel.estado = listTallaProd[n].estado;
 
         listTallaProdModel.add(tallaProdModel);

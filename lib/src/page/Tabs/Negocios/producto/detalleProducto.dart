@@ -1,5 +1,4 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
-import 'package:bufi/src/models/galeriaProductoModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalle_carrito.dart';
 import 'package:bufi/src/utils/constants.dart';
@@ -8,6 +7,7 @@ import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/extentions.dart';
 import 'package:bufi/src/widgets/translate_animation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,9 +20,8 @@ class DetalleProductos extends StatefulWidget {
 }
 
 class _DetalleProductosState extends State<DetalleProductos> {
- 
   //controlador del PageView
-  final _pageController = PageController(viewportFraction: 0.9, initialPage: 0);
+  final _pageController = PageController(viewportFraction: 1, initialPage: 0);
   int pagActual = 0;
 
   @override
@@ -68,7 +67,9 @@ class _DetalleProductosState extends State<DetalleProductos> {
           ),
           color: isOutLine ? Colors.white : Colors.white,
         ),
-        child: Center(child: Icon(icon, color: color, size: size)),
+        child: Center(
+          child: Icon(icon, color: color, size: size),
+        ),
       ).ripple(
         () {
           if (onPressed != null) {
@@ -83,122 +84,124 @@ class _DetalleProductosState extends State<DetalleProductos> {
 
     bool isLiked = false;
     return Scaffold(
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            //DetalleCarrito
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          //DetalleCarrito
 
-            agregarAlCarrito(context, widget.producto.idProducto);
+          agregarAlCarrito(context, widget.producto.idProducto);
 
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                transitionDuration: const Duration(milliseconds: 300),
-                pageBuilder: (context, animation, secondaryAnimation) {
-                  return DetalleCarrito(producto: widget.producto);
-                  //return DetalleProductitos(productosData: productosData);
-                },
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-                  return FadeTransition(
-                    opacity: animation,
-                    child: child,
-                  );
-                },
-              ),
-            );
-          },
-          label: Row(
-            children: [
-              Icon(Icons.shopping_cart_outlined),
-              Text(' Agregar'),
-            ],
-          ),
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              transitionDuration: const Duration(milliseconds: 300),
+              pageBuilder: (context, animation, secondaryAnimation) {
+                return DetalleCarrito(producto: widget.producto);
+                //return DetalleProductitos(productosData: productosData);
+              },
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
+              },
+            ),
+          );
+        },
+        label: Row(
+          children: [
+            Icon(Icons.shopping_cart_outlined),
+            Text(' Agregar'),
+          ],
         ),
-        body: StreamBuilder(
-            stream: datosProdBloc.datosProdStream,
-            builder: (context, AsyncSnapshot<List<ProductoModel>> snapshot) {
-              List<ProductoModel> listProd = snapshot.data;
-              if (snapshot.hasData) {
-                if (snapshot.data.length > 0) {
-                  return Stack(
-                    children: <Widget>[
-                      _backgroundImage(
-                          context, responsive, pagActual, listProd),
+      ),
+      body: StreamBuilder(
+          stream: datosProdBloc.datosProdStream,
+          builder: (context, AsyncSnapshot<List<ProductoModel>> snapshot) {
+            List<ProductoModel> listProd = snapshot.data;
+            if (snapshot.hasData) {
+              if (snapshot.data.length > 0) {
+                return Stack(
+                  children: <Widget>[
+                    _backgroundImage(context, responsive, pagActual, listProd),
 
-                      // Iconos arriba de la imagen del producto
-                      SafeArea(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              //BackButton(),
-                              _icon(
-                                Icons.arrow_back_ios,
-                                color: Colors.black54,
+                    // Iconos arriba de la imagen del producto
+                    SafeArea(
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            //BackButton(),
+                            _icon(
+                              Icons.arrow_back_ios,
+                              color: Colors.black54,
+                              size: responsive.ip(1.7),
+                              padding: responsive.ip(1.25),
+                              isOutLine: true,
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            //contador de páginas
+                            Container(
+                              height: responsive.hp(3),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: responsive.wp(2),
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.white,
+                                border: Border.all(color: Colors.grey[300]),
+                              ),
+                              margin: EdgeInsets.symmetric(
+                                horizontal: responsive.wp(5),
+                                vertical: responsive.hp(1.3),
+                              ),
+                              child: Text(
+                                (pagActual + 1).toString() +
+                                    '/' +
+                                    listProd[0].listFotos.length.toString(),
+                              ),
+                            ),
+
+                            _icon(
+                                isLiked
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: isLiked
+                                    ? LightColor.lightGrey
+                                    : LightColor.red,
                                 size: responsive.ip(1.7),
                                 padding: responsive.ip(1.25),
-                                isOutLine: true,
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              //contador de páginas
-                              Container(
-                                height: responsive.hp(3),
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: responsive.wp(2),
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: Colors.white,
-                                  border: Border.all(color: Colors.grey[300]),
-                                ),
-                                margin: EdgeInsets.symmetric(
-                                  horizontal: responsive.wp(5),
-                                  vertical: responsive.hp(1.3),
-                                ),
-                                child: Text((pagActual + 1).toString() +
-                                    '/' +
-                                    listProd[0].listFotos.length.toString()),
-                              ),
-
-                              _icon(
-                                  isLiked
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: isLiked
-                                      ? LightColor.lightGrey
-                                      : LightColor.red,
-                                  size: responsive.ip(1.7),
-                                  padding: responsive.ip(1.25),
-                                  isOutLine: false, onPressed: () {
-                                setState(() {
-                                  isLiked = !isLiked;
-                                });
-                              }),
-                            ],
-                          ),
+                                isOutLine: false, onPressed: () {
+                              setState(() {
+                                isLiked = !isLiked;
+                              });
+                            }),
+                          ],
                         ),
                       ),
-                      TranslateAnimation(
-                        duration: const Duration(milliseconds: 400),
-                        child: _contenido(responsive, context, listProd),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Container(
-                    child: Text('vacio'),
-                  );
-                }
+                    ),
+                    TranslateAnimation(
+                      duration: const Duration(milliseconds: 400),
+                      child: _contenido(responsive, context, listProd),
+                    ),
+                  ],
+                );
               } else {
-                return Container(
-                  child: Text('nulo'),
+                return Center(
+                  child: CupertinoActivityIndicator(),
                 );
               }
-            }));
+            } else {
+              return Center(
+                child: CupertinoActivityIndicator(),
+              );
+            }
+          }),
+    );
   }
 
   Widget _backgroundImage(BuildContext context, Responsive responsive,
@@ -206,6 +209,8 @@ class _DetalleProductosState extends State<DetalleProductos> {
     final size = MediaQuery.of(context).size;
 
     return Container(
+      height: size.height * 0.47,
+      width: double.infinity,
       child: GestureDetector(
           onTap: () {
             //Navigator.pushNamed(context, 'detalleProductoFoto', arguments: carrito);
@@ -215,90 +220,49 @@ class _DetalleProductosState extends State<DetalleProductos> {
               Navigator.pop(context);
             }
           },
-          child: Padding(
-            padding: EdgeInsets.only(top: responsive.ip(6)),
-            child: Container(
-              // color: Colors.red,
+          child: Stack(
+            children: [
+              PageView.builder(
+                  itemCount: listProd[0].listFotos.length,
+                  controller: _pageController,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: CachedNetworkImage(
+                            //cacheManager: CustomCacheManager(),
 
-              height: size.height * 0.38,
+                            placeholder: (context, url) => Image(
+                                image: AssetImage('assets/jar-loading.gif'),
+                                fit: BoxFit.cover),
 
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-                color: Colors.transparent,
-              ),
-              // height: responsive.hp(19),
-              child: Stack(
-                children: [
-                  PageView.builder(
-                      itemCount: listProd[0].listFotos.length,
-                      controller: _pageController,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: responsive.wp(1)),
+                            errorWidget: (context, url, error) => Image(
+                                image: AssetImage('assets/carga_fallida.jpg'),
+                                fit: BoxFit.cover),
 
-                                //padding: EdgeInsets.symmetric(horizontal: responsive.wp(3)),
+                            imageUrl:
+                                '$apiBaseURL/${listProd[0].listFotos[index].galeriaFoto}',
 
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
                                 ),
-
-                                child: GestureDetector(
-                                  onTap: () {},
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: CachedNetworkImage(
-                                      //cacheManager: CustomCacheManager(),
-
-                                      placeholder: (context, url) => Image(
-                                          image: AssetImage(
-                                              'assets/jar-loading.gif'),
-                                          fit: BoxFit.cover),
-
-                                      errorWidget: (context, url, error) =>
-                                          Image(
-                                              image: AssetImage(
-                                                  'assets/carga_fallida.jpg'),
-                                              fit: BoxFit.cover),
-
-                                      imageUrl:
-                                          '$apiBaseURL/${listProd[0].listFotos[index].galeriaFoto}',
-
-                                      imageBuilder: (context, imageProvider) =>
-                                          Container(
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                      },
-                      onPageChanged: (int index) {
-                        //_currentPageNotifier.value = index;
-                        //contadorProductos.changeContador(index);
-                      }),
-                  // Positioned(
-                  //   left: 0.0,
-                  //   right: 0.0,
-                  //   bottom: responsive.hp(3.2),
-                  //   child: CirclePageIndicator(
-                  //     selectedDotColor: Colors.black,
-                  //     dotColor: Colors.grey[400],
-                  //     itemCount: listProd.length,
-                  //     currentPageNotifier: _currentPageNotifier,
-
-                  //   ),
-                  // )
-                ],
-              ),
-            ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  onPageChanged: (int index) {}),
+            ],
           )),
     );
   }
@@ -450,7 +414,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
     );
   }
 
-  Widget _availableSize2( List<ProductoModel> listProd) {
+  Widget _availableSize2(List<ProductoModel> listProd) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -464,7 +428,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
           children: <Widget>[
             _sizeWidget2(listProd),
             // _sizeWidget("US 6"),
-             _sizeWidget("US 7", isSelected: true),
+            _sizeWidget("US 7", isSelected: true),
             // _sizeWidget("US 8"),
             // _sizeWidget("US 9"),
           ],
@@ -473,7 +437,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
     );
   }
 
-  Widget _marca( List<ProductoModel> listProd) {
+  Widget _marca(List<ProductoModel> listProd) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -487,7 +451,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
           children: <Widget>[
             _marcaWidget(listProd),
             // _sizeWidget("US 6"),
-             _sizeWidget("US 7", isSelected: true),
+            //_sizeWidget("US 7", isSelected: true),
             // _sizeWidget("US 8"),
             // _sizeWidget("US 9"),
           ],
@@ -496,7 +460,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
     );
   }
 
-  Widget _modelo( List<ProductoModel> listProd) {
+  Widget _modelo(List<ProductoModel> listProd) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -510,7 +474,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
           children: <Widget>[
             _modeloWidget(listProd),
             // _sizeWidget("US 6"),
-             _sizeWidget("US 7", isSelected: true),
+            _sizeWidget("US 7", isSelected: true),
             // _sizeWidget("US 8"),
             // _sizeWidget("US 9"),
           ],
@@ -573,10 +537,16 @@ class _DetalleProductosState extends State<DetalleProductos> {
         fontSize: 16,
         color: isSelected ? LightColor.background : LightColor.titleTextColor,
       ),
-    ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)));
+    ).ripple(
+      () {},
+      borderRadius: BorderRadius.all(
+        Radius.circular(13),
+      ),
+    );
   }
 
-  Widget _modeloWidget(List<ProductoModel> listProd, {bool isSelected = false}) {
+  Widget _modeloWidget(List<ProductoModel> listProd,
+      {bool isSelected = false}) {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(

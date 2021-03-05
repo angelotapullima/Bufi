@@ -224,22 +224,19 @@ class ProductosApi {
       productoModel.productoPrice = decodedData['subsidiary_good_price'];
       productoModel.productoCurrency = decodedData['subsidiary_good_currency'];
       productoModel.productoImage = decodedData['subsidiary_good_image'];
-      productoModel.productoCharacteristics =
-          decodedData['subsidiary_good_characteristics'];
+      productoModel.productoCharacteristics =decodedData['subsidiary_good_characteristics'];
       productoModel.productoBrand = decodedData['subsidiary_good_brand'];
       productoModel.productoModel = decodedData['subsidiary_good_model'];
       productoModel.productoType = decodedData['subsidiary_good_type'];
       productoModel.productoSize = decodedData['subsidiary_good_size'];
       //productoModel.productoStock = decodedData['subsidiary_good_stock'];
-      productoModel.productoMeasure =
-          decodedData['subsidiary_good_stock_measure'];
+      productoModel.productoMeasure =decodedData['subsidiary_good_stock_measure'];
       productoModel.productoStock = decodedData['subsidiary_good_stock_status'];
       productoModel.productoRating = decodedData['subsidiary_good_rating'];
       productoModel.productoUpdated = decodedData['subsidiary_good_updated'];
       productoModel.productoStatus = decodedData['subsidiary_good_status'];
 
-      var productList = await productoDatabase
-          .obtenerProductoPorIdSubsidiaryGood(decodedData['id_subsidiarygood']);
+      var productList = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(decodedData['id_subsidiarygood']);
 
       if (productList.length > 0) {
         productoModel.productoFavourite = productList[0].productoFavourite;
@@ -263,8 +260,7 @@ class ProductosApi {
       submodel.subsidiaryPrincipal = decodedData['subsidiary_principal'];
       submodel.subsidiaryStatus = decodedData['subsidiary_status'];
 
-      final list = await subsidiaryDatabase
-          .obtenerSubsidiaryPorId(decodedData["id_subsidiary"]);
+      final list = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData["id_subsidiary"]);
 
       if (list.length > 0) {
         submodel.subsidiaryFavourite = list[0].subsidiaryFavourite;
@@ -309,26 +305,19 @@ class ProductosApi {
       //ItemSubCategoriaModel
       ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
       itemSubCategoriaModel.idSubcategory = decodedData['id_subcategory'];
-      itemSubCategoriaModel.idItemsubcategory =
-          decodedData['itemsubcategory_name'];
-      itemSubCategoriaModel.itemsubcategoryName =
-          decodedData['itemsubcategory_name'];
-      await itemsubCategoryDatabase
-          .insertarItemSubCategoria(itemSubCategoriaModel);
+      itemSubCategoriaModel.idItemsubcategory =decodedData['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryName =decodedData['itemsubcategory_name'];
+      await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel);
 
       //Galeria
       for (var i = 0; i < decodedData["galeria"].length; i++) {
         GaleriaProductoModel galeriaProductoModel = GaleriaProductoModel();
         final galeriaProductoDb = GaleriaProductoDatabase();
-        galeriaProductoModel.idGaleriaProducto =
-            decodedData["galeria"][i]["id_subsidiary_good_galeria"];
-        galeriaProductoModel.idProducto =
-            decodedData["galeria"][i]['id_subsidiarygood'];
-        galeriaProductoModel.galeriaFoto =
-            decodedData["galeria"][i]["galeria_foto"];
+        galeriaProductoModel.idGaleriaProducto =decodedData["galeria"][i]["id_subsidiary_good_galeria"];
+        galeriaProductoModel.idProducto =decodedData["galeria"][i]['id_subsidiarygood'];
+        galeriaProductoModel.galeriaFoto =decodedData["galeria"][i]["galeria_foto"];
 
-        final list = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
-            decodedData["galeria"][i]['id_subsidiarygood']);
+        final list = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(decodedData["galeria"][i]['id_subsidiarygood']);
 
         if (list.length > 0) {
           galeriaProductoModel.estado = list[0].productoStatus;

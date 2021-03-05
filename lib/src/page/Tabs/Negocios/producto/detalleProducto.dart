@@ -192,8 +192,8 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                   ),
                                 ],
                               ),
-                            ).ripple(() {
-                              agregarAlCarrito(
+                            ).ripple(()async {
+                              await agregarAlCarrito(
                                   context, widget.producto.idProducto);
 
                               Navigator.push(

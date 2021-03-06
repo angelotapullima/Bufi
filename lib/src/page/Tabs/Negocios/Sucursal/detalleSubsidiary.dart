@@ -37,7 +37,7 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary>
     subsidiaryBloc.obtenerSucursalporId(subsidiary.idSubsidiary);
     return Scaffold(
       body: StreamBuilder(
-          stream: subsidiaryBloc.subsidiaryStream,
+          stream: subsidiaryBloc.subsidiaryIdStream,
           builder: (context, snapshot) {
             return _crearAppbar(responsive, subsidiary);
           }),
@@ -76,8 +76,9 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary>
                         color: Colors.white),
                     ClipRRect(
                       borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(25),
-                          bottomRight: Radius.circular(25)),
+                        bottomLeft: Radius.circular(25),
+                        bottomRight: Radius.circular(25),
+                      ),
                       child: Stack(
                         children: [
                           CachedNetworkImage(

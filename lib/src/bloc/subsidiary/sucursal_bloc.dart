@@ -14,18 +14,18 @@ class SucursalBloc {
   final _listarsucursalesController = BehaviorSubject<List<SubsidiaryModel>>();
 
   //Controller de subsidiary por id
-  final _subsidiaryController = BehaviorSubject<List<SubsidiaryModel>>();
+  final _subsidiaryIdController = BehaviorSubject<List<SubsidiaryModel>>();
 
 //Stream de subsidiary por idCompany
   Stream<List<SubsidiaryModel>> get sucursalStream =>_sucursalController.stream;
 
 //Stream de subsidiary por id
-  Stream<List<SubsidiaryModel>> get subsidiaryStream =>_subsidiaryController.stream;
+  Stream<List<SubsidiaryModel>> get subsidiaryIdStream =>_subsidiaryIdController.stream;
 
   void dispose() {
     _sucursalController?.close();
     _listarsucursalesController?.close();
-    _subsidiaryController?.close();
+    _subsidiaryIdController?.close();
   }
 
   void obtenerSucursalporIdCompany(String id) async {
@@ -35,10 +35,10 @@ class SucursalBloc {
   }
 
   void obtenerSucursalporId(String id) async {
-    _subsidiaryController.sink
+    _subsidiaryIdController.sink
         .add(await sucursalDatabase.obtenerSubsidiaryPorId(id));
     await sucursalApi.listarSubsidiaryPorId(id);
-   _subsidiaryController.sink
+   _subsidiaryIdController.sink
         .add(await sucursalDatabase.obtenerSubsidiaryPorId(id));
   }
 

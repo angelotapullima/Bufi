@@ -1,5 +1,3 @@
-
-
 import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
@@ -27,7 +25,8 @@ class NegociosApi {
       final decodedData = json.decode(response.body);
 
       for (int i = 0; i < decodedData.length; i++) {
-        final listCompany = await companyDatabase.obtenerCompanyPorId(decodedData[i]['id_company']);
+        final listCompany = await companyDatabase
+            .obtenerCompanyPorId(decodedData[i]['id_company']);
 
         if (listCompany.length > 0) {
           CompanyModel cmodel = CompanyModel();
@@ -53,30 +52,28 @@ class NegociosApi {
 
           await companyDatabase.insertarCompany(cmodel);
 
+          final listSucursal = await subsidiaryDatabase
+              .obtenerSubsidiaryPorId(decodedData[i]['id_subsidiary']);
 
-          final listSucursal = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData[i]['id_subsidiary']);
-
-          if(listSucursal.length>0){
-SubsidiaryModel smodel = SubsidiaryModel();
-          smodel.idSubsidiary = decodedData[i]['id_subsidiary'];
-          smodel.idCompany = decodedData[i]['id_company'];
-          smodel.subsidiaryName = decodedData[i]['subsidiary_name'];
-          smodel.subsidiaryCellphone = decodedData[i]['subsidiary_cellphone'];
-          smodel.subsidiaryCellphone =
-              decodedData[i]['id_subsidiary_cellphone_2'];
-          smodel.subsidiaryEmail = decodedData[i]['subsidiary_email'];
-          smodel.subsidiaryCoordX = decodedData[i]['subsidiary_coord_x'];
-          smodel.subsidiaryCoordY = decodedData[i]['subsidiary_coord_y'];
-          smodel.subsidiaryOpeningHours =
-              decodedData[i]['subsidiary_opening_hours'];
-          smodel.subsidiaryPrincipal = decodedData[i]['subsidiary_principal'];
-          smodel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
-          smodel.subsidiaryAddress = decodedData[i]['subsidiary_address'];
-          smodel.subsidiaryFavourite = listSucursal[0].subsidiaryFavourite;
-          await subsidiaryDatabase.insertarSubsidiary(smodel);
+          if (listSucursal.length > 0) {
+            SubsidiaryModel smodel = SubsidiaryModel();
+            smodel.idSubsidiary = decodedData[i]['id_subsidiary'];
+            smodel.idCompany = decodedData[i]['id_company'];
+            smodel.subsidiaryName = decodedData[i]['subsidiary_name'];
+            smodel.subsidiaryCellphone = decodedData[i]['subsidiary_cellphone'];
+            smodel.subsidiaryCellphone =
+                decodedData[i]['id_subsidiary_cellphone_2'];
+            smodel.subsidiaryEmail = decodedData[i]['subsidiary_email'];
+            smodel.subsidiaryCoordX = decodedData[i]['subsidiary_coord_x'];
+            smodel.subsidiaryCoordY = decodedData[i]['subsidiary_coord_y'];
+            smodel.subsidiaryOpeningHours =
+                decodedData[i]['subsidiary_opening_hours'];
+            smodel.subsidiaryPrincipal = decodedData[i]['subsidiary_principal'];
+            smodel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
+            smodel.subsidiaryAddress = decodedData[i]['subsidiary_address'];
+            smodel.subsidiaryFavourite = listSucursal[0].subsidiaryFavourite;
+            await subsidiaryDatabase.insertarSubsidiary(smodel);
           }
-          
-
         } else {
           CompanyModel cmodel = CompanyModel();
           SubsidiaryModel smodel = SubsidiaryModel();
@@ -137,7 +134,8 @@ SubsidiaryModel smodel = SubsidiaryModel();
       final decodedData = json.decode(response.body);
 
       final listCompany = await companyDatabase.obtenerCompanyPorId(id);
-      final listSucursal = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData['id_subsidiary']);
+      final listSucursal = await subsidiaryDatabase
+          .obtenerSubsidiaryPorId(decodedData['id_subsidiary']);
 
       if (listCompany.length > 0) {
         CompanyModel cmodel = CompanyModel();
@@ -260,17 +258,19 @@ SubsidiaryModel smodel = SubsidiaryModel();
 
   Future<dynamic> listarCompany() async {
     try {
-      var response = await http.post("$apiBaseURL/api/Negocio/listar_negocios",
-          body: {
-            'id_ciudad': '1',
-            'id_usuario': prefs.idUser,
-          });
+      var response =
+          await http.post("$apiBaseURL/api/Negocio/listar_negocios", body: {
+        'id_ciudad': '1',
+        'id_usuario': prefs.idUser,
+      });
 
       final decodedData = json.decode(response.body);
 
       for (int i = 0; i < decodedData.length; i++) {
-        final listCompany = await companyDatabase.obtenerCompanyPorId(decodedData[i]['id_company']);
-        final listSucursal = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData[i]['id_subsidiary']);
+        final listCompany = await companyDatabase
+            .obtenerCompanyPorId(decodedData[i]['id_company']);
+        final listSucursal = await subsidiaryDatabase
+            .obtenerSubsidiaryPorId(decodedData[i]['id_subsidiary']);
 
         CompanyModel cmodel = CompanyModel();
 
@@ -341,7 +341,7 @@ SubsidiaryModel smodel = SubsidiaryModel();
         'empresa_coord_x': '${smodel.subsidiaryEmail}',
         'empresa_coord_y': '${smodel.subsidiaryEmail}',
         'opening_hours': '${smodel.subsidiaryEmail}',
-        'tn':prefs.token,
+        'tn': prefs.token,
         'app': 'true',
       });
 
@@ -426,7 +426,7 @@ SubsidiaryModel smodel = SubsidiaryModel();
     }
   }
 
- Future updateNegocio(CompanySubsidiaryModel csmodel) async {
+  Future updateNegocio(CompanySubsidiaryModel csmodel) async {
     try {
       final res =
           await http.post("$apiBaseURL/api/Negocio/update_negocio", body: {
@@ -478,6 +478,49 @@ SubsidiaryModel smodel = SubsidiaryModel();
 
       final decodedData = json.decode(response.body);
       print(decodedData);
+      CompanyModel cmodel = CompanyModel();
+      cmodel.idCompany = decodedData['id_company'];
+      cmodel.idUser = decodedData['id_user'];
+      cmodel.idCity = decodedData['id_city'];
+      cmodel.idCategory = decodedData['id_category'];
+      cmodel.companyName = decodedData['company_name'];
+      cmodel.companyRuc = decodedData['company_ruc'];
+      cmodel.companyImage = decodedData['company_image'];
+      cmodel.companyType = decodedData['company_type'];
+      cmodel.companyShortcode = decodedData['company_shortcode'];
+      cmodel.companyDelivery = decodedData['company_delivery'];
+      cmodel.companyEntrega = decodedData['company_entrega'];
+      cmodel.companyTarjeta = decodedData['company_tarjeta'];
+      cmodel.companyVerified = decodedData['company_verified'];
+      cmodel.companyRating = decodedData['company_rating'];
+      cmodel.companyCreatedAt = decodedData['company_created_at'];
+      cmodel.companyJoin = decodedData['company_join'];
+      cmodel.companyStatus = decodedData['company_status'];
+      cmodel.companyMt = decodedData['company_mt'];
+      cmodel.miNegocio = decodedData['mi_negocio'].toString();
+
+      await companyDatabase.insertarCompany(cmodel);
+
+      final listSucursal = await subsidiaryDatabase
+          .obtenerSubsidiaryPorId(decodedData['id_subsidiary']);
+
+      if (listSucursal.length > 0) {
+        SubsidiaryModel smodel = SubsidiaryModel();
+        smodel.idSubsidiary = decodedData['id_subsidiary'];
+        smodel.idCompany = decodedData['id_company'];
+        smodel.subsidiaryName = decodedData['subsidiary_name'];
+        smodel.subsidiaryCellphone = decodedData['subsidiary_cellphone'];
+        smodel.subsidiaryCellphone = decodedData['id_subsidiary_cellphone_2'];
+        smodel.subsidiaryEmail = decodedData['subsidiary_email'];
+        smodel.subsidiaryCoordX = decodedData['subsidiary_coord_x'];
+        smodel.subsidiaryCoordY = decodedData['subsidiary_coord_y'];
+        smodel.subsidiaryOpeningHours = decodedData['subsidiary_opening_hours'];
+        smodel.subsidiaryPrincipal = decodedData['subsidiary_principal'];
+        smodel.subsidiaryStatus = decodedData['subsidiary_status'];
+        smodel.subsidiaryAddress = decodedData['subsidiary_address'];
+        smodel.subsidiaryFavourite = listSucursal[0].subsidiaryFavourite;
+        await subsidiaryDatabase.insertarSubsidiary(smodel);
+      }
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
 

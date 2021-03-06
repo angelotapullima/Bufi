@@ -20,7 +20,7 @@ class DatabaseProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
-    final path = join(documentsDirectory.path, 'bufi7.db');
+    final path = join(documentsDirectory.path, 'bufi8.db');
 
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
@@ -336,6 +336,18 @@ class DatabaseProvider {
           ' talla_producto TEXT,'
           ' talla_status_producto TEXT,'
           ' estado TEXT'
+          ')');
+
+
+           await db.execute(' CREATE TABLE Publicidad('
+          ' id_publicidad TEXT PRIMARY KEY,'
+          ' id_city TEXT,'
+          ' id_subsidiary TEXT,'
+          ' publicidad_img TEXT,'
+          ' publicidad_orden TEXT,'
+          ' publicidad_estado TEXT,'
+          ' publicidad_datetime TEXT,'
+          ' id_pago TEXT'
           ')');
     });
   }

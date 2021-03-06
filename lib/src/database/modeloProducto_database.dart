@@ -25,6 +25,35 @@ final dbprovider = DatabaseProvider.db;
     }
   }
 
+
+  updateEstadoa0() async {
+    try {
+      final db = await dbprovider.database;
+
+      final res = await db.rawUpdate('UPDATE ModeloProducto SET estado="0"');
+
+      return res;
+    } catch (exception) {
+      print(exception);
+      print("Error en la tabla ModeloProducto");
+    }
+  }
+
+  updateEstadoa1(ModeloProductoModel modeloProductoModel) async {
+    try {
+      final db = await dbprovider.database;
+
+      final res = await db.rawUpdate('UPDATE ModeloProducto SET estado="1" where id_modelo_producto="${modeloProductoModel.idModeloProducto}" and id_producto="${modeloProductoModel.idProducto}"');
+
+      return res;
+    } catch (exception) {
+      print(exception);
+      print("Error en la tabla ModeloProductooo");
+    }
+  }
+
+  
+
   Future<List<ModeloProductoModel>> obtenerModeloProducto() async {
     final db = await dbprovider.database;
     final res = await db.rawQuery("SELECT * FROM ModeloProducto");

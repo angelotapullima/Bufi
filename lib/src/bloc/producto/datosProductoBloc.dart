@@ -39,6 +39,8 @@ class DatosProductoBloc {
 
   Future<List<ProductoModel>> obtenerDatosProductosPorIdProducto(
       String idProducto) async {
+
+        //await tallaProductoDb.updateEstadoa0();
     List<ProductoModel> listaGeneral = List<ProductoModel>();
 
     //obtener todos los productos de la bd

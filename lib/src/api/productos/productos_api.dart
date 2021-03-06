@@ -332,11 +332,11 @@ class ProductosApi {
         galeriaProductoModel.galeriaFoto =
             decodedData["galeria"][i]["galeria_foto"];
 
-        final list = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
+        final list = await galeriaProductoDb.obtenerGaleriaProductoPorIdProducto(
             decodedData["galeria"][i]['id_subsidiarygood']);
 
         if (list.length > 0) {
-          galeriaProductoModel.estado = list[0].productoStatus;
+          galeriaProductoModel.estado = list[0].estado;
         } else {
           galeriaProductoModel.estado = "0";
         }
@@ -356,11 +356,11 @@ class ProductosApi {
         marcaProductoModel.marcaStatusProducto =
             decodedData["marcas"][j]["subsidiarygood_brand_status"];
 
-        final list = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
+        final list = await marcaProductoDb.obtenerMarcaProductoPorIdProducto(
             decodedData["marcas"][j]['id_subsidiary_good']);
 
         if (list.length > 0) {
-          marcaProductoModel.estado = list[0].productoStatus;
+          marcaProductoModel.estado = list[0].estado;
         } else {
           marcaProductoModel.estado = "0";
         }
@@ -381,11 +381,11 @@ class ProductosApi {
         modeloProductoModel.modeloStatusProducto =
             decodedData["modelos"][k]["subsidiarygood_model_status"];
 
-        final list = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
+        final list = await modeloProductoDb.obtenerModeloProductoPorIdProducto(
             decodedData["modelos"][k]['id_subsidiarygood']);
 
         if (list.length > 0) {
-          modeloProductoModel.estado = list[0].productoStatus;
+          modeloProductoModel.estado = list[0].estado;
         } else {
           modeloProductoModel.estado = "0";
         }
@@ -406,11 +406,11 @@ class ProductosApi {
         tallaProductoModel.tallaProductoStatus =
             decodedData["tallas"][l]["subsidiarygood_size_status"];
 
-        final list = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
+        final list = await tallaProductoDb.obtenerTallaProductoPorIdProducto(
             decodedData["tallas"][l]['id_subsidiarygood']);
 
         if (list.length > 0) {
-          tallaProductoModel.estado = list[0].productoStatus;
+          tallaProductoModel.estado = list[0].estado;
         } else {
           tallaProductoModel.estado = "0";
         }

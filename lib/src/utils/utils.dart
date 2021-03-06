@@ -2,17 +2,23 @@ import 'package:bufi/src/api/point_api.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/database/carrito_db.dart';
 import 'package:bufi/src/database/direccion_database.dart';
+import 'package:bufi/src/database/marcaProducto_database.dart';
+import 'package:bufi/src/database/modeloProducto_database.dart';
 import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/database/sugerenciaBusqueda_db.dart';
+import 'package:bufi/src/database/tallaProducto_database.dart';
 import 'package:bufi/src/database/tipo_pago_database.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/carritoModel.dart';
 import 'package:bufi/src/models/direccionModel.dart';
+import 'package:bufi/src/models/marcaProductoModel.dart';
+import 'package:bufi/src/models/modeloProductoModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/models/sugerenciaBusquedaModel.dart';
+import 'package:bufi/src/models/tallaProductoModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -273,69 +279,6 @@ void cambiarEstadoCarrito(
 
   carritoBloc.obtenerCarritoPorSucursal();
 }
-//Actualizar Negocio
-/*  void actualizarNegocio(
-      BuildContext context, CompanySubsidiaryModel model) async {
-    final detallenegocio = ProviderBloc.negocios(context);
-    //final actualizarNeg = ProviderBloc.actualizarNeg(context);
-
-    final sucursalDb = SubsidiaryDatabase();
-    final companyDb = CompanyDatabase();
-    final sucursalModel = SubsidiaryModel();
-    final companyModel = CompanyModel();
-
-//datos que se reciben desde los controllers
-    sucursalModel.idSubsidiary = model.idSubsidiary;
-    sucursalModel.subsidiaryCellphone = model.subsidiaryCellphone;
-    sucursalModel.subsidiaryCellphone2 = model.subsidiaryCellphone2;
-    sucursalModel.subsidiaryCoordX = model.subsidiaryCoordX;
-    sucursalModel.subsidiaryCoordY = model.subsidiaryCoordY;
-    sucursalModel.subsidiaryOpeningHours = model.subsidiaryOpeningHours;
-    sucursalModel.subsidiaryAddress = model.subsidiaryAddress;
-
-//obtener todos los datos de la sucursal para pasar como argumento en update
-    final listSucursales =
-        await sucursalDb.obtenerSubsidiaryPorId(model.idSubsidiary);
-
-    sucursalModel.idCompany = listSucursales[0].idCompany;
-    sucursalModel.subsidiaryName = listSucursales[0].subsidiaryName;
-    sucursalModel.subsidiaryEmail = listSucursales[0].subsidiaryEmail;
-    sucursalModel.subsidiaryPrincipal = listSucursales[0].subsidiaryPrincipal;
-    sucursalModel.subsidiaryStatus = listSucursales[0].subsidiaryStatus;
-
-    await sucursalDb.updateSubsidiary(sucursalModel);
-
-//Obtener datos de company
-    companyModel.idCompany = model.idCompany;
-    companyModel.idCategory = model.idCategory;
-    companyModel.companyName = model.companyName;
-    companyModel.companyRuc = model.companyRuc;
-    companyModel.companyImage = model.companyImage;
-    companyModel.companyType = model.companyType;
-    companyModel.companyShortcode = model.companyShortcode;
-    companyModel.companyDelivery = model.companyDelivery;
-    companyModel.companyEntrega = model.companyEntrega;
-    companyModel.companyTarjeta = model.companyTarjeta;
-
-    final listCompany = await companyDb.obtenerCompanyPorId(model.idCompany);
-
-    companyModel.idCompany = listCompany[0].idCompany;
-    companyModel.idUser = listCompany[0].idUser;
-    companyModel.idCity = listCompany[0].idCity;
-    companyModel.idCategory = listCompany[0].idCategory;
-    companyModel.companyVerified = listCompany[0].companyVerified;
-    companyModel.companyRating = listCompany[0].companyRating;
-    companyModel.companyCreatedAt = listCompany[0].companyCreatedAt;
-    companyModel.companyJoin = listCompany[0].companyJoin;
-    companyModel.companyStatus = listCompany[0].companyStatus;
-    companyModel.companyMt = listCompany[0].companyMt;
-    companyModel.miNegocio = listCompany[0].miNegocio;
-
-    await companyDb.updateCompany(companyModel);
-    //actualizarNeg.updateNegocio(id)
-    detallenegocio.obtenernegociosporID(model.idCompany);
-  }
-} */
 
 void deseleccionarTiposPago() async {
   final tiposPagoDatabase = TiposPagoDatabase();
@@ -365,4 +308,45 @@ void agregarDireccion(BuildContext context, String direccion, String referencia,
   await direccionDatabase.insertarDireccion(direccionModel);
 
   Navigator.pop(context);
+}
+
+//Talla del producto
+void cambiarEstadoTalla(
+    BuildContext context, TallaProductoModel tallaModel) async {
+  final datosProdBloc = ProviderBloc.datosProductos(context);
+  final tallaProductoDatabase = TallaProductoDatabase();
+//cambiar todos los estado de la tabla asignada a 0.
+  await tallaProductoDatabase.updateEstadoa0();
+
+  await tallaProductoDatabase.updateEstadoa1(tallaModel);
+
+  datosProdBloc.listarDatosProducto('3');
+  
+}
+
+//Marca del producto
+void cambiarEstadoMarca(
+    BuildContext context, MarcaProductoModel marcaModel) async {
+  final datosProdBloc = ProviderBloc.datosProductos(context);
+  final marcaProductoDatabase = MarcaProductoDatabase();
+//cambiar todos los estado de la tabla asignada a 0.
+  await marcaProductoDatabase.updateEstadoa0();
+
+  await marcaProductoDatabase.updateEstadoa1(marcaModel);
+
+  datosProdBloc.listarDatosProducto('3');
+}
+
+//Modelo del producto
+void cambiarEstadoModelo(
+    BuildContext context, ModeloProductoModel modeloModel) async {
+  final datosProdBloc = ProviderBloc.datosProductos(context);
+  final modeloProductoDatabase = ModeloProductoDatabase();
+
+//cambiar todos los estado de la tabla asignada a 0.
+  await modeloProductoDatabase.updateEstadoa0();
+
+  await modeloProductoDatabase.updateEstadoa1(modeloModel);
+
+  datosProdBloc.listarDatosProducto('3');
 }

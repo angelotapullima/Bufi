@@ -449,11 +449,17 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                                 cambiarEstadoCarrito(
                                     context,
                                     '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}',
+                                    '${widget.carrito[0].car[index].carrito[indd].talla}',
+                                    '${widget.carrito[0].car[index].carrito[indd].modelo}',
+                                    '${widget.carrito[0].car[index].carrito[indd].marca}',
+
                                     '1');
                               } else {
                                 cambiarEstadoCarrito(
                                     context,
-                                    '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}',
+                                    '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}', '${widget.carrito[0].car[index].carrito[indd].talla}',
+                                    '${widget.carrito[0].car[index].carrito[indd].modelo}',
+                                    '${widget.carrito[0].car[index].carrito[indd].marca}',
                                     '0');
                               }
                             },

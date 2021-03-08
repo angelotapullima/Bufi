@@ -11,8 +11,11 @@ class CarritoDb {
       final db = await dbProvider.database;
       
       final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO Carrito (id_subsidiarygood,id_subsidiary,nombre,precio,marca,modelo,talla,image,moneda,caracteristicas,stock,cantidad,estado_seleccionado) "
-          "VALUES('${carritoModel.idSubsidiaryGood}','${carritoModel.idSubsidiary}','${carritoModel.nombre}','${carritoModel.precio}','${carritoModel.marca}','${carritoModel.modelo}','${carritoModel.talla}','${carritoModel.image}','${carritoModel.moneda}','${carritoModel.caracteristicas}','${carritoModel.stock}',"
+          "INSERT OR REPLACE INTO Carrito (id_subsidiarygood,id_subsidiary,nombre,"
+          "precio,marca,modelo,talla,image,moneda,caracteristicas,stock,cantidad,estado_seleccionado) "
+          "VALUES('${carritoModel.idSubsidiaryGood}','${carritoModel.idSubsidiary}','${carritoModel.nombre}',"
+          "'${carritoModel.precio}','${carritoModel.marca}','${carritoModel.modelo}','${carritoModel.talla}',"
+          "'${carritoModel.image}','${carritoModel.moneda}','${carritoModel.caracteristicas}','${carritoModel.stock}',"
           "'${carritoModel.cantidad}','${carritoModel.estadoSeleccionado}')");
 
       return res;
@@ -21,8 +24,6 @@ class CarritoDb {
       print(e); 
     }
   }
-
-
 
   Future<List<CarritoModel>> obtenerCarrito() async {
     final db = await dbProvider.database;
@@ -36,11 +37,6 @@ class CarritoDb {
     return list;
 
   }
-
-
-
- 
-
 
   Future<List<CarritoModel>> obtenerProductoXCarritoListHorizontal() async {
     final db = await dbProvider.database;
@@ -73,8 +69,6 @@ class CarritoDb {
      }
   }
 
-
-
   Future<List<CarritoModel>> obtenerCarritoPorSucursalSeleccionado(String idSubsi) async {
     final db = await dbProvider.database;
     try {
@@ -91,7 +85,6 @@ class CarritoDb {
        return [];
      }
   }
-
 
   Future<List<CarritoModel>> obtenerProductoXCarritoPorId(String id) async {
     final db = await dbProvider.database;
@@ -138,8 +131,6 @@ class CarritoDb {
     // }
   }
 
-
-
   Future<List<CarritoModel>> obtenerProductosSeleccionadoAgrupados() async {
     final db = await dbProvider.database;
     //try {
@@ -155,8 +146,6 @@ class CarritoDb {
     //   print("Error");
     // }
   }
-
-
 
   deleteCarritoPorIdSudsidiaryGood(String idSubsidiaryGood) async {
     final db = await dbProvider.database;
@@ -183,6 +172,8 @@ class CarritoDb {
           "nombre='${carritoModel.nombre}',"
           "precio='${carritoModel.precio}',"
           "marca='${carritoModel.marca}',"
+          "modelo='${carritoModel.modelo}',"
+          "talla='${carritoModel.talla}',"
           "image='${carritoModel.image}',"
           "moneda='${carritoModel.moneda}',"
           "caracteristicas='${carritoModel.caracteristicas}',"
@@ -196,18 +187,43 @@ class CarritoDb {
       print(exception);
     }
   }
+
+  updateCarritoPorIdSudsidiaryGoodTalla(CarritoModel carritoModel) async {
+    try {
+      final db = await dbProvider.database;
+
+      final res = await db.rawUpdate(
+          "UPDATE Carrito SET id_subsidiary='${carritoModel.idSubsidiary}', "
+          "nombre='${carritoModel.nombre}',"
+          "precio='${carritoModel.precio}',"
+          "marca='${carritoModel.marca}',"
+          "modelo='${carritoModel.modelo}',"
+          "talla='${carritoModel.talla}',"
+          "image='${carritoModel.image}',"
+          "moneda='${carritoModel.moneda}',"
+          "caracteristicas='${carritoModel.caracteristicas}',"
+          "stock='${carritoModel.stock}',"
+          "cantidad='${carritoModel.cantidad}',"
+          "estado_seleccionado='${carritoModel.estadoSeleccionado}' "
+          "WHERE id_subsidiarygood = '${carritoModel.idSubsidiaryGood}' and marca= '${carritoModel.marca}' and modelo= '${carritoModel.modelo}' and talla= '${carritoModel.talla}'");
+      print(res);
+      return res;
+    } catch (exception) {
+      print(exception);
+    }
+  }
   
 
 
 
-  updateSeleccionado(String idProducto,String seleccion) async {
+  updateSeleccionado(String idProducto,String seleccion ,String talla,String modelo,String marca ) async {
     try {
       final db = await dbProvider.database;
 
       final res = await db.rawUpdate(
           "UPDATE Carrito SET "
           "estado_seleccionado='$seleccion' "
-          "WHERE id_subsidiarygood = '$idProducto'");
+          "WHERE id_subsidiarygood = '$idProducto' and talla = '$talla' and modelo ='$modelo' and marca='$marca' ");
       print(res);
       return res;
     } catch (exception) {

@@ -39,6 +39,8 @@ class CarritoModel {
       nombre: json["nombre"],
       precio: json["precio"],
       marca: json["marca"],
+      talla: json["talla"],
+      modelo: json["modelo"],
       moneda: json["moneda"],
       image: json["image"],
       caracteristicas: json["caracteristicas"],

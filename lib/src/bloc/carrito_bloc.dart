@@ -105,6 +105,8 @@ class CarritoBloc {
           c.idSubsidiaryGood = listCarrito[y].idSubsidiaryGood;
           c.nombre = listCarrito[y].nombre;
           c.marca = listCarrito[y].marca;
+          c.modelo = listCarrito[y].modelo;
+          c.talla = listCarrito[y].talla;
           c.image = listCarrito[y].image;
           c.moneda = listCarrito[y].moneda;
           c.size = listCarrito[y].size;

@@ -242,7 +242,7 @@ class ProductosApi {
     try {
       final response = await http
           .post('$apiBaseURL/api/Negocio/listar_detalle_producto', body: {
-        'id': '3',
+        'id': idProducto,
         'app': 'true',
         'tn': prefs.token,
       });

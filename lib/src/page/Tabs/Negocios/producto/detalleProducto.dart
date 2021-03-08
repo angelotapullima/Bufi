@@ -47,7 +47,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final datosProdBloc = ProviderBloc.datosProductos(context);
-    datosProdBloc.listarDatosProducto('3');
+    datosProdBloc.listarDatosProducto(widget.producto.idProducto);
     //contador para el PageView
     final contadorBloc = ProviderBloc.contadorPagina(context);
     contadorBloc.changeContador(0);
@@ -213,18 +213,18 @@ class _DetalleProductosState extends State<DetalleProductos> {
                               final tallaDatabase = TallaProductoDatabase();
                               final tallas = await tallaDatabase
                                   .obtenerTallaProductoPorIdProductoEnEstado1(
-                                      '3');
-                                      //widget.producto.idProducto);
+                                      widget.producto.idProducto);
+                              //widget.producto.idProducto);
                               //modelo
                               final modeloDatabase = ModeloProductoDatabase();
                               final modelos = await modeloDatabase
                                   .obtenerModeloProductoPorIdProductoEnEstado1(
-                                      '3');
+                                      widget.producto.idProducto);
                               //Marca
                               final marcaDatabase = MarcaProductoDatabase();
                               final marcas = await marcaDatabase
                                   .obtenerMarcaProductoPorIdProductoEnEstado1(
-                                      '3');
+                                      widget.producto.idProducto);
 
                               await agregarAlCarrito(
                                   context,
@@ -241,7 +241,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                   pageBuilder:
                                       (context, animation, secondaryAnimation) {
                                     return ConfirmacionItemPedido(
-                                        idProducto: '3'
+                                        idProducto: widget.producto.idProducto
                                         //widget.producto.idProducto
                                         );
                                     //return DetalleProductitos(productosData: productosData);
@@ -285,21 +285,18 @@ class _DetalleProductosState extends State<DetalleProductos> {
                             ).ripple(() async {
                               //Tallas
                               final tallaDatabase = TallaProductoDatabase();
-                              final tallas = await tallaDatabase
-                                  .obtenerTallaProductoPorIdProductoEnEstado1(
-                                    
-                                      '3');
-                                      //widget.producto.idProducto);
+                              final tallas = await tallaDatabase.obtenerTallaProductoPorIdProductoEnEstado1( widget.producto.idProducto);
+                              //widget.producto.idProducto);
                               //modelo
                               final modeloDatabase = ModeloProductoDatabase();
                               final modelos = await modeloDatabase
                                   .obtenerModeloProductoPorIdProductoEnEstado1(
-                                      '3');
+                                      widget.producto.idProducto);
                               //Marca
                               final marcaDatabase = MarcaProductoDatabase();
                               final marcas = await marcaDatabase
                                   .obtenerMarcaProductoPorIdProductoEnEstado1(
-                                     '3');
+                                      widget.producto.idProducto);
 
                               await agregarAlCarrito(
                                   context,
@@ -640,8 +637,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
       ).ripple(() async {
         print('presionado ${listProd[0].listTallaProd[index].idTallaProducto}');
 
-        await cambiarEstadoTalla(context, listProd[0].listTallaProd[index]); 
-
+        await cambiarEstadoTalla(context, listProd[0].listTallaProd[index]);
       }, borderRadius: BorderRadius.all(Radius.circular(13))),
     );
   }
@@ -673,7 +669,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
           print(
               'presionado ${listProd[0].listMarcaProd[index].idMarcaProducto}');
 
-         await cambiarEstadoMarca(context, listProd[0].listMarcaProd[index]);
+          await cambiarEstadoMarca(context, listProd[0].listMarcaProd[index]);
           //print("estado ${listProd[0].listMarcaProd[index].estado}");
         },
         borderRadius: BorderRadius.all(
@@ -715,8 +711,6 @@ class _DetalleProductosState extends State<DetalleProductos> {
       ),
     );
   }
-
-  
 }
 
 class TitleText extends StatelessWidget {

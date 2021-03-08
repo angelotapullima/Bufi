@@ -316,7 +316,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                       margin: EdgeInsets.symmetric(
                                         horizontal: responsive.wp(3),
                                       ),
-                                      height: responsive.hp(15),
+                                      height: responsive.hp(25),
                                       child: Row(
                                         children: [
                                           GestureDetector(
@@ -326,12 +326,19 @@ class _CarritoPageState extends State<CarritoPage> {
                                                 cambiarEstadoCarrito(
                                                     context,
                                                     '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
-                                                    '1');
+                                                   
+                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
+                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}',
+                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}', '1'
+                                                    );
                                               } else {
                                                 cambiarEstadoCarrito(
                                                     context,
                                                     '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
-                                                    '0');
+                                                    
+                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
+                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}',
+                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}', '0');
                                               }
                                             },
                                             child: Container(

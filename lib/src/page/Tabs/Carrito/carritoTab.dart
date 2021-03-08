@@ -57,7 +57,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        'Cesta',
+                                        'Mi cesta',
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: responsive.ip(3),
@@ -124,7 +124,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        'Cesta',
+                                        'Mi cesta',
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: responsive.ip(2.5),
@@ -151,7 +151,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        'Cesta',
+                                        'Mi cesta',
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: responsive.ip(3),
@@ -244,7 +244,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                         vertical: responsive.hp(1),
                                       ),
                                       width: double.infinity,
-                                      color: Colors.blue[50],
+                                      color: Colors.grey[100],
                                       child: Row(
                                           //crossAxisAlignment: CrossAxisAlignment.center,
 
@@ -261,7 +261,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                               '${listCarritoSuperior[0].car[xxx].nombreSucursal}',
                                               style: TextStyle(
                                                   color: Colors.blueGrey[700],
-                                                  fontSize: responsive.ip(1.8),
+                                                  fontSize: responsive.ip(1.5),
                                                   fontWeight: FontWeight.w700),
                                             ),
                                             Spacer(),
@@ -317,165 +317,191 @@ class _CarritoPageState extends State<CarritoPage> {
                                         horizontal: responsive.wp(3),
                                       ),
                                       height: responsive.hp(15),
-                                      child: Row(
+                                      child: Column(
                                         children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              if ('${listCarritoSuperior[0].car[xxx].carrito[indd].estadoSeleccionado}' ==
-                                                  '0') {
-                                                cambiarEstadoCarrito(
-                                                    context,
-                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
-                                                    '1');
-                                              } else {
-                                                cambiarEstadoCarrito(
-                                                    context,
-                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
-                                                    '0');
-                                              }
-                                            },
-                                            child: Container(
-                                              width: responsive.wp(8),
-                                              child: Stack(
-                                                children: [
-                                                  Container(
-                                                    child: Center(
-                                                      child: CircleAvatar(
-                                                        radius: 10,
-                                                        backgroundColor:
-                                                            Colors.red,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  ('${listCarritoSuperior[0].car[xxx].carrito[indd].estadoSeleccionado}' ==
-                                                          '0')
-                                                      ? Container(
-                                                          child: Center(
-                                                            child: CircleAvatar(
-                                                              radius: 7,
-                                                              backgroundColor:
-                                                                  Colors.white,
-                                                            ),
-                                                          ),
-                                                        )
-                                                      : Container()
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: Container(
-                                              width: responsive.wp(35),
-                                              child: Stack(
-                                                children: [
-                                                  Container(
-                                                    height: responsive.hp(15),
-                                                    width: responsive.wp(40),
-                                                    child: CachedNetworkImage(
-                                                      cacheManager:
-                                                          CustomCacheManager(),
-                                                      placeholder:
-                                                          (context, url) =>
-                                                              Container(
-                                                        width: double.infinity,
-                                                        height: double.infinity,
-                                                        child: Image(
-                                                            image: AssetImage(
-                                                                'assets/loading.gif'),
-                                                            fit: BoxFit
-                                                                .fitWidth),
-                                                      ),
-                                                      imageUrl:
-                                                          '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    left: 0,
-                                                    right: 0,
-                                                    bottom: 0,
-                                                    child: Container(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal:
-                                                                  responsive
-                                                                      .wp(1)),
-                                                      color: Colors.black
-                                                          .withOpacity(.5),
-                                                      width: double.infinity,
-                                                      //double.infinity,
-                                                      height: responsive.hp(3),
-                                                      child: Text(
-                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].nombre}',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          //SizedBox(height: 50),
-                                          Expanded(
-                                            child: Container(
-                                              //width: responsive.wp(50),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text('${listCarritoSuperior[0].car[xxx].carrito[indd].nombre}' +
-                                                      ' ' +
-                                                      '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}'),
-                                                  Text(
-                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].moneda}' +
-                                                        ' ' +
-                                                        '$precioFinal',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            responsive.ip(2)),
-                                                  ),
-                                                  Text(
-                                                      '${listCarritoSuperior[0].car[xxx].carrito[indd].nombre}'),
-                                                  CantidadCarrito(
-                                                    carrito:
-                                                        listCarritoSuperior[0]
-                                                            .car[xxx]
-                                                            .carrito[indd],
-                                                    llamada: llamada,
-                                                    idSudsidiaryGood:
+                                          Row(
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  if ('${listCarritoSuperior[0].car[xxx].carrito[indd].estadoSeleccionado}' ==
+                                                      '0') {
+                                                    cambiarEstadoCarrito(
+                                                        context,
                                                         '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
+                                                        '1');
+                                                  } else {
+                                                    cambiarEstadoCarrito(
+                                                        context,
+                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
+                                                        '0');
+                                                  }
+                                                },
+                                                child: Container(
+                                                  width: responsive.wp(8),
+                                                  child: Stack(
+                                                    children: [
+                                                      Container(
+                                                        child: Center(
+                                                          child: CircleAvatar(
+                                                            radius: 10,
+                                                            backgroundColor:
+                                                                Colors.red,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      ('${listCarritoSuperior[0].car[xxx].carrito[indd].estadoSeleccionado}' ==
+                                                              '0')
+                                                          ? Container(
+                                                              child: Center(
+                                                                child:
+                                                                    CircleAvatar(
+                                                                  radius: 7,
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .white,
+                                                                ),
+                                                              ),
+                                                            )
+                                                          : Container()
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-
-                                          Container(
-                                            width: responsive.wp(6),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                agregarAlCarritoContador(
-                                                    context,
-                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
-                                                    0);
-                                              },
-                                              child: CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor: Colors.grey,
-                                                child: Icon(
-                                                  Icons.close,
-                                                  color: Colors.white,
                                                 ),
                                               ),
-                                            ),
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                                child: Container(
+                                                  width: responsive.ip(8),
+                                                  height: responsive.ip(8),
+                                                  child: Stack(
+                                                    children: [
+                                                      Container(
+                                                        height: double.infinity,
+                                                        width: double.infinity,
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          cacheManager:
+                                                              CustomCacheManager(),
+                                                          placeholder:
+                                                              (context, url) =>
+                                                                  Container(
+                                                            width:
+                                                                double.infinity,
+                                                            height:
+                                                                double.infinity,
+                                                            child: Image(
+                                                                image: AssetImage(
+                                                                    'assets/loading.gif'),
+                                                                fit: BoxFit
+                                                                    .fitWidth),
+                                                          ),
+                                                          imageUrl:
+                                                              '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                      /* Positioned(
+                                                        left: 0,
+                                                        right: 0,
+                                                        bottom: 0,
+                                                        child: Container(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      responsive
+                                                                          .wp(1)),
+                                                          color: Colors.black
+                                                              .withOpacity(.5),
+                                                          width:
+                                                              double.infinity,
+                                                          //double.infinity,
+                                                          height:
+                                                              responsive.hp(3),
+                                                          child: Text(
+                                                            '${listCarritoSuperior[0].car[xxx].carrito[indd].nombre}',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ),
+                                                      ) */
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(width: responsive.wp(4)),
+                                              Expanded(
+                                                child: Container(
+                                                  //width: responsive.wp(50),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text('${listCarritoSuperior[0].car[xxx].carrito[indd].nombre}' +
+                                                          ' ' +
+                                                          '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}'),
+                                                      SizedBox(
+                                                        height:
+                                                            responsive.hp(1),
+                                                      ),
+                                                      Text(
+                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].moneda}' +
+                                                            ' ' +
+                                                            '${listCarritoSuperior[0].car[xxx].carrito[indd].precio} x UND',
+                                                        style: TextStyle(
+                                                          fontSize: responsive
+                                                              .ip(1.5),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                          '${listCarritoSuperior[0].car[xxx].carrito[indd].nombre}'),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: responsive.wp(6),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    agregarAlCarritoContador(
+                                                        context,
+                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
+                                                        0);
+                                                  },
+                                                  child: CircleAvatar(
+                                                    radius: 15,
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    child: Icon(
+                                                      Icons.close,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              CantidadCarrito(
+                                                carrito: listCarritoSuperior[0]
+                                                    .car[xxx]
+                                                    .carrito[indd],
+                                                llamada: llamada,
+                                                idSudsidiaryGood:
+                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
+                                              ),
+                                              Spacer(),
+                                              Text('S/ $precioFinal')
+                                            ],
                                           )
                                         ],
                                       ),

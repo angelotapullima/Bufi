@@ -107,9 +107,10 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary>
                             ),
                           ),
                           Container(
-                              height: double.infinity,
-                              width: double.infinity,
-                              color: Colors.black.withOpacity(.1)),
+                            height: double.infinity,
+                            width: double.infinity,
+                            color: Colors.black.withOpacity(.1),
+                          ),
                         ],
                       ),
                     ),

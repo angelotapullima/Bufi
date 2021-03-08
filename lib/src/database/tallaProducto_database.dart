@@ -50,6 +50,7 @@ class TallaProductoDatabase {
   }
 
   Future<List<TallaProductoModel>> obtenerTallaProducto() async {
+    try{
     final db = await dbprovider.database;
     final res = await db.rawQuery("SELECT * FROM TallasProducto");
 
@@ -58,10 +59,19 @@ class TallaProductoDatabase {
         : [];
 
     return list;
+
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
   Future<List<TallaProductoModel>> obtenerTallaProductoPorIdProducto(
+    
       String idProducto) async {
+
+        try{
     final db = await dbprovider.database;
     final res = await db.rawQuery(
         "SELECT * FROM TallasProducto where id_producto='$idProducto' order by id_producto");
@@ -71,9 +81,16 @@ class TallaProductoDatabase {
         : [];
 
     return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
   Future<List<TallaProductoModel>> obtenerTallaProductoPorEstado0() async {
+
+    try{
     final db = await dbprovider.database;
     final res =
         await db.rawQuery("SELECT * FROM TallasProducto where estado=0");
@@ -82,7 +99,11 @@ class TallaProductoDatabase {
         ? res.map((c) => TallaProductoModel.fromJson(c)).toList()
         : [];
 
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
   Future<List<TallaProductoModel>> obtenerTallaProductoPorIdProductoEnEstado1(

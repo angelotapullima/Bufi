@@ -20,11 +20,17 @@ class CuentaDatabase {
   }
 
   Future<List<CuentaModel>> obtenerSaldo() async {
+    try{
     final db = await dbProvider.database;
     final res = await db.rawQuery("SELECT * FROM Cuenta");
 
     List<CuentaModel> list =
         res.isNotEmpty ? res.map((c) => CuentaModel.fromJson(c)).toList() : [];
     return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e); 
+      return [];
+    }
   }
 }

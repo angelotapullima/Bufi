@@ -58,12 +58,18 @@ class CompanyDatabase {
   }
 
   Future<List<CompanyModel>> obtenerCompany() async {
+    try{
     final db = await dbProvider.database;
     final res = await db.rawQuery("SELECT * FROM Company order by id_company ");
 
     List<CompanyModel> list =
         res.isNotEmpty ? res.map((c) => CompanyModel.fromJson(c)).toList() : [];
     return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e); 
+      return [];
+    }
   }
 
   /* Future<List<CompanySubsidiaryModel>> obtenerCompanySubsidiaryPorId(
@@ -80,6 +86,7 @@ class CompanyDatabase {
   } */
 
   Future<List<CompanyModel>> obtenerCompanyPorId(String idCompany) async {
+    try{
     final db = await dbProvider.database;
     final res = await db
         .rawQuery("SELECT * FROM Company WHERE id_company= '$idCompany'");
@@ -87,5 +94,10 @@ class CompanyDatabase {
     List<CompanyModel> list =
         res.isNotEmpty ? res.map((c) => CompanyModel.fromJson(c)).toList() : [];
     return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e); 
+      return [];
+    }
   }
 }

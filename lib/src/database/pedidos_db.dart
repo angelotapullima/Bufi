@@ -27,6 +27,7 @@ class PedidosDatabase {
 
  
   Future<List<PedidosModel>> obtenerPedidos() async {
+    try{
     final db = await dbProvider.database;
     final res =
         await db.rawQuery("SELECT * FROM Pedidos");
@@ -34,9 +35,16 @@ class PedidosDatabase {
     List<PedidosModel> list =
         res.isNotEmpty ? res.map((c) => PedidosModel.fromJson(c)).toList() : [];
     return list;
+
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
   Future<List<PedidosModel>> obtenerPedidosXidPedido(String idPedido) async {
+    try{
     final db = await dbProvider.database;
     final res =
         await db.rawQuery("SELECT * FROM Pedidos WHERE id_pedido= '$idPedido'");
@@ -44,9 +52,15 @@ class PedidosDatabase {
     List<PedidosModel> list =
         res.isNotEmpty ? res.map((c) => PedidosModel.fromJson(c)).toList() : [];
     return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
   Future<List<PedidosModel>> obtenerPedidosXidEstado(String idEstado) async {
+    try{
     final db = await dbProvider.database;
     final res =
         await db.rawQuery("SELECT * FROM Pedidos WHERE delivery_status= '$idEstado'");
@@ -54,5 +68,11 @@ class PedidosDatabase {
     List<PedidosModel> list =
         res.isNotEmpty ? res.map((c) => PedidosModel.fromJson(c)).toList() : [];
     return list;
+
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 }

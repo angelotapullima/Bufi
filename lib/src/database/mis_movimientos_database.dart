@@ -27,6 +27,7 @@ final dbprovider = DatabaseProvider.db;
   }
 
   Future<List<MisMovimientosModel>> obtenerMisMovimientos() async {
+    try{
     final db = await dbprovider.database;
     final res = await db.rawQuery("SELECT * FROM MisMovimientos ");
 
@@ -34,10 +35,15 @@ final dbprovider = DatabaseProvider.db;
         ? res.map((c) => MisMovimientosModel.fromJson(c)).toList()
         : [];
 
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   } 
 
   Future<List<MisMovimientosModel>> obtenerMisMovimientosPorNoperacion(String id) async {
+    try{
     final db = await dbprovider.database;
     final res = await db.rawQuery("SELECT * FROM MisMovimientos where nroOperacion='$id'");
 
@@ -45,13 +51,18 @@ final dbprovider = DatabaseProvider.db;
         ? res.map((c) => MisMovimientosModel.fromJson(c)).toList()
         : [];
 
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   } 
 
   
 
 
 Future<List<MisMovimientosModel>> obtenerMisMovimientosSoloFecha() async {
+  try{
     final db = await dbprovider.database;
     final res = await db.rawQuery("SELECT * FROM MisMovimientos GROUP BY soloFecha");
 
@@ -59,17 +70,26 @@ Future<List<MisMovimientosModel>> obtenerMisMovimientosSoloFecha() async {
         ? res.map((c) => MisMovimientosModel.fromJson(c)).toList()
         : [];
 
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   } 
 
 
 
   deleteMisMovimientos() async {
+    try{
     final db = await dbprovider.database;
 
     final res = await db.rawDelete('DELETE FROM MisMovimientos');
 
-    return res;
+    return res;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
 

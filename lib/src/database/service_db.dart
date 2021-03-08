@@ -23,12 +23,19 @@ class ServiceDatabase{
   }
 
   Future<List<ServiciosModel>> obtenerService() async {
+
+    try{
     final db = await dbProvider.database;
     final res = await db.rawQuery("SELECT * FROM Service");
 
     List<ServiciosModel> list =
         res.isNotEmpty ? res.map((c) => ServiciosModel.fromJson(c)).toList() : [];
     return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
 

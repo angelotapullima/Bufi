@@ -21,6 +21,8 @@ class TiposPagoDatabase {
   }
 
   Future<List<TiposPagoModel>> obtenerTiposPago() async {
+
+    try{
     final db = await dbProvider.database;
     final res = await db
         .rawQuery("SELECT * FROM TiposPago where tipo_pago_estado = '1'");
@@ -29,10 +31,17 @@ class TiposPagoDatabase {
         ? res.map((c) => TiposPagoModel.fromJson(c)).toList()
         : [];
     return list;
+
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
 
   Future<List<TiposPagoModel>> obtenerTiposPagoSeleccionado() async {
+    try{
     final db = await dbProvider.database;
     final res = await db
         .rawQuery("SELECT * FROM TiposPago where seleccionado = '1'");
@@ -41,6 +50,11 @@ class TiposPagoDatabase {
         ? res.map((c) => TiposPagoModel.fromJson(c)).toList()
         : [];
     return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
 

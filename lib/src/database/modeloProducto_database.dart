@@ -55,6 +55,7 @@ final dbprovider = DatabaseProvider.db;
   
 
   Future<List<ModeloProductoModel>> obtenerModeloProducto() async {
+    try{
     final db = await dbprovider.database;
     final res = await db.rawQuery("SELECT * FROM ModeloProducto");
 
@@ -63,9 +64,16 @@ final dbprovider = DatabaseProvider.db;
         : [];
 
     return list;
+
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   } 
 
   Future<List<ModeloProductoModel>> obtenerModeloProductoPorIdProducto(String idProducto) async {
+    try{
     final db = await dbprovider.database;
     final res = await db.rawQuery("SELECT * FROM ModeloProducto where id_producto='$idProducto' order by id_producto");
 
@@ -74,9 +82,16 @@ final dbprovider = DatabaseProvider.db;
         : [];
 
     return list;
+
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   } 
 
    Future<List<ModeloProductoModel>> obtenerModeloProductoPorIdProductoEnEstado1(String idProducto) async {
+     try{
     final db = await dbprovider.database;
     final res =
         await db.rawQuery("SELECT * FROM ModeloProducto where id_producto = '$idProducto' and estado='1'");
@@ -85,6 +100,10 @@ final dbprovider = DatabaseProvider.db;
         ? res.map((c) => ModeloProductoModel.fromJson(c)).toList()
         : [];
 
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 }

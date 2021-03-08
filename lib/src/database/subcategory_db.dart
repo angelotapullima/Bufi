@@ -23,22 +23,37 @@ final dbProvider = DatabaseProvider.db;
   }
 
   Future<List<SubcategoryModel>> obtenerSubcategorias() async {
+
+    try{
     final db = await dbProvider.database;
     final res = await db.rawQuery("SELECT * FROM Subcategory");
 
     List<SubcategoryModel> list =
         res.isNotEmpty ? res.map((c) => SubcategoryModel.fromJson(c)).toList() : [];
     return list;
+
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   } 
 
 //Lsitar subactegorias por Id Categorias
   Future<List<SubcategoryModel>> obtenerSubcategoriasPorIdCategoria(String id) async {
+    try{
     final db = await dbProvider.database;
     final res = await db.rawQuery("SELECT * FROM Subcategory WHERE id_category= '$id' order by id_subcategory ");
 
     List<SubcategoryModel> list =
         res.isNotEmpty ? res.map((c) => SubcategoryModel.fromJson(c)).toList() : [];
     return list;
+
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   } 
 
 }

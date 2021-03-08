@@ -457,13 +457,12 @@ class _CarritoPageState extends State<CarritoPage> {
                                                   Text(
                                                       '${listCarritoSuperior[0].car[xxx].carrito[indd].nombre}'),
                                                   CantidadCarrito(
-                                                    carrito:
-                                                        listCarritoSuperior[0]
-                                                            .car[xxx]
-                                                            .carrito[indd],
+                                                    carrito:listCarritoSuperior[0].car[xxx].carrito[indd],
                                                     llamada: llamada,
-                                                    idSudsidiaryGood:
-                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
+                                                    idSudsidiaryGood: '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
+                                                    tallaProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
+                                                    modeloProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}',
+                                                    marcaProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
                                                   ),
                                                 ],
                                               ),

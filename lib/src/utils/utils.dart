@@ -164,7 +164,7 @@ void agregarAlCarritoContador(
         .obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
 
     final carritoList =
-        await carritoDb.deleteCarritoPorIdProductoTalla(
+        await carritoDb.obtenerProductoXCarritoPorIdProductoTalla(
         idSubsidiarygood, talla, modelo, marca);
 
     CarritoModel c = CarritoModel();

@@ -24,7 +24,7 @@ class CarritoDb {
 
 
 
-  Future<List<CarritoModel>> obtenerProductoXCarrito() async {
+  Future<List<CarritoModel>> obtenerCarrito() async {
     final db = await dbProvider.database;
     //try {
       final res = await db.rawQuery("SELECT * FROM Carrito");

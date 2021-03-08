@@ -701,10 +701,15 @@ class _DetalleProductosState extends State<DetalleProductos> {
               ? LightColor.background
               : LightColor.titleTextColor,
         ),
-      ).ripple(() {
-        cambiarEstadoModelo(context, listProd[0].listModeloProd[index]);
-        // print("estado ${listProd[0].listModeloProd[index].estado}");
-      }, borderRadius: BorderRadius.all(Radius.circular(13))),
+      ).ripple(
+        () {
+          cambiarEstadoModelo(context, listProd[0].listModeloProd[index]);
+          // print("estado ${listProd[0].listModeloProd[index].estado}");
+        },
+        borderRadius: BorderRadius.all(
+          Radius.circular(13),
+        ),
+      ),
     );
   }
 

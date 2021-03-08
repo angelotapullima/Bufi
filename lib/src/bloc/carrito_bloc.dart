@@ -75,7 +75,7 @@ class CarritoBloc {
     }
 
     //obtenemos todos los elementos del carrito
-    final listCarrito = await carritoDb.obtenerProductoXCarrito();
+    final listCarrito = await carritoDb.obtenerCarrito();
     for (var x = 0; x < listaDeStringDeIds.length; x++) {
       //función para obtener los datos de la sucursal para despues usar el nombre
       final sucursal =

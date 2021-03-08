@@ -7,6 +7,9 @@ import 'package:bufi/src/widgets/widgetServicios.dart';
 import 'package:flutter/material.dart';
 
 
+
+
+//esta vista es la que se muestra con los paneles negro y blanco luego de agregar los productos al carrito
 class ListarProductosPorSucursalCarrito extends StatefulWidget {
   final String idSucursal;
 
@@ -25,8 +28,8 @@ class _ListarProductosPorSucursalCarritoState
     final responsive = Responsive.of(context);
     final productoBloc = ProviderBloc.productos(context);
     productoBloc.listarProductosPorSucursalCarrito(widget.idSucursal);
-    //final productoBloc = bienesAllBloc.obtenerServiciosAll();
-    //bienesAllBloc.obtenerBienesAll();
+   
+   
 
     return StreamBuilder(
       stream: productoBloc.productoSubsidiaryCarritoStream,

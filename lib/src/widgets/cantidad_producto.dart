@@ -63,10 +63,10 @@ class _CantidadCarritoState extends State<CantidadCarrito> {
       padding: EdgeInsets.symmetric(vertical: pad),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.red),
+          //border: Border.all(color: Colors.red),
           borderRadius: BorderRadius.circular(8),
         ),
-        width: responsive.wp(20),
+        width: responsive.wp(50),
         height: responsive.hp(3.5),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -81,29 +81,35 @@ class _CantidadCarritoState extends State<CantidadCarrito> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(5),
-                          bottomLeft: Radius.circular(5))),
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(5),
+                      bottomLeft: Radius.circular(5),
+                    ),
+                  ),
                   height: double.infinity,
                   child: Center(
-                    child: Text("-",
-                        style: TextStyle(
-                            color: Colors.white, fontSize: responsive.ip(2.1))),
+                    child: Text(
+                      "-",
+                      style: TextStyle(
+                        color: Colors.black45,
+                        fontSize: responsive.ip(2),
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
             Flexible(
-              flex: 3,
+              flex: 6,
               child: Container(
-                color: Colors.white,
+                color: Colors.grey[100],
                 height: double.infinity,
                 child: Center(
-                  child: Text(_counter.toString(),
+                  child: Text('$_counter UND',
                       style: TextStyle(
-                        color: Colors.red,
-                        fontSize: responsive.ip(2),
+                        color: Colors.black45,
+                        fontSize: responsive.ip(1.5),
                       )),
                 ),
               ),
@@ -120,15 +126,21 @@ class _CantidadCarritoState extends State<CantidadCarrito> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(5),
-                          bottomRight: Radius.circular(5))),
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(5),
+                      bottomRight: Radius.circular(5),
+                    ),
+                  ),
                   height: double.infinity,
                   child: Center(
-                    child: Text("+",
-                        style: TextStyle(
-                            color: Colors.white, fontSize: responsive.ip(2.1))),
+                    child: Text(
+                      "+",
+                      style: TextStyle(
+                        color: Colors.black45,
+                        fontSize: responsive.ip(2),
+                      ),
+                    ),
                   ),
                 ),
               ),

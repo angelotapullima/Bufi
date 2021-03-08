@@ -66,6 +66,9 @@ class ProductosApi {
     final response = await http
         .post('$apiBaseURL/api/Negocio/listar_productos_por_sucursal', body: {
       'id_sucursal': '$id',
+      'limite_sup': mayor.toString(),
+      'limite_inf': menor.toString(),
+      'id_ciudad': '1',
     });
 
     final decodedData = json.decode(response.body);
@@ -80,26 +83,20 @@ class ProductosApi {
         productoModel.idItemsubcategory = decodedData[i]['id_itemsubcategory'];
         productoModel.productoName = decodedData[i]['subsidiary_good_name'];
         productoModel.productoPrice = decodedData[i]['subsidiary_good_price'];
-        productoModel.productoCurrency =
-            decodedData[i]['subsidiary_good_currency'];
+        productoModel.productoCurrency =decodedData[i]['subsidiary_good_currency'];
         productoModel.productoImage = decodedData[i]['subsidiary_good_image'];
-        productoModel.productoCharacteristics =
-            decodedData[i]['subsidiary_good_characteristics'];
+        productoModel.productoCharacteristics =decodedData[i]['subsidiary_good_characteristics'];
         productoModel.productoBrand = decodedData[i]['subsidiary_good_brand'];
         productoModel.productoModel = decodedData[i]['subsidiary_good_model'];
         productoModel.productoType = decodedData[i]['subsidiary_good_type'];
         productoModel.productoSize = decodedData[i]['subsidiary_good_size'];
         productoModel.productoStock = decodedData[i]['subsidiary_good_stock'];
-        productoModel.productoMeasure =
-            decodedData[i]['subsidiary_good_stock_measure'];
+        productoModel.productoMeasure =decodedData[i]['subsidiary_good_stock_measure'];
         productoModel.productoRating = decodedData[i]['subsidiary_good_rating'];
-        productoModel.productoUpdated =
-            decodedData[i]['subsidiary_good_updated'];
+        productoModel.productoUpdated =decodedData[i]['subsidiary_good_updated'];
         productoModel.productoStatus = decodedData[i]['subsidiary_good_status'];
 
-        var productList =
-            await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
-                decodedData[i]['id_subsidiarygood']);
+        var productList = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(decodedData[i]['id_subsidiarygood']);
 
         if (productList.length > 0) {
           productoModel.productoFavourite = productList[0].productoFavourite;
@@ -114,18 +111,15 @@ class ProductosApi {
         submodel.subsidiaryName = decodedData[i]['subsidiary_name'];
         submodel.subsidiaryAddress = decodedData[i]['subsidiary_address'];
         submodel.subsidiaryCellphone = decodedData[i]['subsidiary_cellphone'];
-        submodel.subsidiaryCellphone2 =
-            decodedData[i]['subsidiary_cellphone_2'];
+        submodel.subsidiaryCellphone2 =decodedData[i]['subsidiary_cellphone_2'];
         submodel.subsidiaryEmail = decodedData[i]['subsidiary_email'];
         submodel.subsidiaryCoordX = decodedData[i]['subsidiary_coord_x'];
         submodel.subsidiaryCoordY = decodedData[i]['subsidiary_coord_y'];
-        submodel.subsidiaryOpeningHours =
-            decodedData[i]['subsidiary_opening_hours'];
+        submodel.subsidiaryOpeningHours =decodedData[i]['subsidiary_opening_hours'];
         submodel.subsidiaryPrincipal = decodedData[i]['subsidiary_principal'];
         submodel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
 
-        final list = await subsidiaryDatabase
-            .obtenerSubsidiaryPorId(decodedData[i]["id_subsidiary"]);
+        final list = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData[i]["id_subsidiary"]);
 
         if (list.length > 0) {
           submodel.subsidiaryFavourite = list[0].subsidiaryFavourite;
@@ -146,12 +140,9 @@ class ProductosApi {
         //ItemSubCategoriaModel
         ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
         itemSubCategoriaModel.idSubcategory = decodedData[i]['id_subcategory'];
-        itemSubCategoriaModel.idItemsubcategory =
-            decodedData[i]['itemsubcategory_name'];
-        itemSubCategoriaModel.itemsubcategoryName =
-            decodedData[i]['itemsubcategory_name'];
-        await itemsubCategoryDatabase
-            .insertarItemSubCategoria(itemSubCategoriaModel);
+        itemSubCategoriaModel.idItemsubcategory =decodedData[i]['itemsubcategory_name'];
+        itemSubCategoriaModel.itemsubcategoryName = decodedData[i]['itemsubcategory_name'];
+        await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel);
       }
     }
 

@@ -4,6 +4,8 @@ class CarritoModel {
   String nombre;
   String precio;
   String marca;
+  String modelo;
+  String talla;
   String image;
   String caracteristicas;
   String stock;
@@ -20,6 +22,8 @@ class CarritoModel {
     this.nombre,
     this.precio,
     this.marca,
+    this.modelo,
+    this.talla,
     this.image,
     this.caracteristicas,
     this.stock,

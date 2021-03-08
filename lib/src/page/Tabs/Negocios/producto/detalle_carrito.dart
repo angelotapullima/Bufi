@@ -563,7 +563,7 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                                         .carrito[0].car[index].carrito[indd],
                                     llamada: llamada,
                                     idSudsidiaryGood:
-                                        '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}',
+                                        '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}', marcaProducto: '${widget.carrito[0].car[index].carrito[indd].marca}', modeloProducto: '${widget.carrito[0].car[index].carrito[indd].modelo}', tallaProducto: '${widget.carrito[0].car[index].carrito[indd].talla}',
                                   ),
                                 ],
                               ),
@@ -576,7 +576,7 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                               onTap: () {
                                 agregarAlCarritoContador(
                                     context,
-                                    '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}',
+                                    '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}','${widget.carrito[0].car[index].carrito[indd].talla}','${widget.carrito[0].car[index].carrito[indd].modelo}','${widget.carrito[0].car[index].carrito[indd].marca}',
                                     0);
                               },
                               child: CircleAvatar(

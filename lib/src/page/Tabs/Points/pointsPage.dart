@@ -404,41 +404,42 @@ class WidgetBienesFavoritos extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  height: responsive.hp(3.5),
-                  width: responsive.wp(20),
-                  decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(.2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.shoppingCart,
-                        size: responsive.ip(1.5),
-                        color: Colors.blue[800],
-                      ),
-                      SizedBox(
-                        width: responsive.wp(1),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          final buttonBloc = ProviderBloc.tabs(context);
-                          buttonBloc.changePage(2);
+                // Container(
+                //   height: responsive.hp(3.5),
+                //   width: responsive.wp(20),
+                //   decoration: BoxDecoration(
+                //     color: Colors.blue.withOpacity(.2),
+                //     borderRadius: BorderRadius.circular(10),
+                //   ),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Icon(
+                //         FontAwesomeIcons.shoppingCart,
+                //         size: responsive.ip(1.5),
+                //         color: Colors.blue[800],
+                //       ),
+                //       SizedBox(
+                //         width: responsive.wp(1),
+                //       ),
+                //       GestureDetector(
+                //         onTap: () {
+                //           final buttonBloc = ProviderBloc.tabs(context);
+                //           buttonBloc.changePage(2);
 
-                          utils.agregarAlCarrito(context, goodData.idProducto);
-                        },
-                        child: Text(
-                          'Agregar',
-                          style: TextStyle(
-                              color: Colors.blue[800],
-                              fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                //           utils.agregarAlCarrito(context, goodData.idProducto);
+                //         },
+                //         child: Text(
+                //           'Agregar',
+                //           style: TextStyle(
+                //               color: Colors.blue[800],
+                //               fontWeight: FontWeight.bold),
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                // ),
+                
                 GestureDetector(
                   child: Container(
                     height: responsive.hp(3.5),

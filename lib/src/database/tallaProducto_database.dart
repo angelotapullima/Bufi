@@ -39,7 +39,8 @@ class TallaProductoDatabase {
     try {
       final db = await dbprovider.database;
 
-      final res = await db.rawUpdate('UPDATE TallasProducto SET estado="1" where id_talla_producto="${tallaProductoModel.idTallaProducto}" and id_producto="${tallaProductoModel.idProducto}"');
+      final res = await db.rawUpdate(
+          'UPDATE TallasProducto SET estado="1" where id_talla_producto="${tallaProductoModel.idTallaProducto}" and id_producto="${tallaProductoModel.idProducto}"');
 
       return res;
     } catch (exception) {
@@ -72,7 +73,7 @@ class TallaProductoDatabase {
     return list;
   }
 
-  Future<List<TallaProductoModel>> obtenerTallaProductoPorEstado() async {
+  Future<List<TallaProductoModel>> obtenerTallaProductoPorEstado0() async {
     final db = await dbprovider.database;
     final res =
         await db.rawQuery("SELECT * FROM TallasProducto where estado=0");
@@ -82,5 +83,24 @@ class TallaProductoDatabase {
         : [];
 
     return list;
+  }
+
+  Future<List<TallaProductoModel>> obtenerTallaProductoPorIdProductoEnEstado1(
+      String idProducto) async {
+    try {
+      final db = await dbprovider.database;
+      final res = await db.rawQuery(
+          "SELECT * FROM TallasProducto where id_producto = '$idProducto' and estado='1'");
+
+      List<TallaProductoModel> list = res.isNotEmpty
+          ? res.map((c) => TallaProductoModel.fromJson(c)).toList()
+          : [];
+
+      return list;
+    } catch (exception) {
+      print(exception);
+      print("Error en la tabla Talla de Productos");
+      return [];
+    }
   }
 }

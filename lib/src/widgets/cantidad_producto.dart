@@ -8,12 +8,18 @@ class CantidadCarrito extends StatefulWidget {
   final CarritoModel carrito;
   final Function llamada;
   final String idSudsidiaryGood;
+  final String tallaProducto;
+  final String modeloProducto;
+  final String marcaProducto;
 
   CantidadCarrito(
       {Key key,
       @required this.carrito,
       @required this.llamada,
-      @required this.idSudsidiaryGood})
+      @required this.idSudsidiaryGood,
+      @required this.tallaProducto,
+      @required this.modeloProducto,
+      @required this.marcaProducto})
       : super(key: key);
 
   @override
@@ -71,7 +77,7 @@ class _CantidadCarritoState extends State<CantidadCarrito> {
                 onTap: () {
                   _decrease();
                   utils.agregarAlCarritoContador(
-                      context, widget.idSudsidiaryGood, _counter);
+                      context, widget.idSudsidiaryGood,widget.tallaProducto,widget.modeloProducto,widget.marcaProducto, _counter);
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -114,7 +120,7 @@ class _CantidadCarritoState extends State<CantidadCarrito> {
                 onTap: () {
                   _increase();
                   utils.agregarAlCarritoContador(
-                      context, widget.idSudsidiaryGood, _counter);
+                      context, widget.idSudsidiaryGood,widget.tallaProducto,widget.modeloProducto,widget.marcaProducto, _counter);
 
                   //utils.agregarAlCarrito(context, _counter.toString());
                 },

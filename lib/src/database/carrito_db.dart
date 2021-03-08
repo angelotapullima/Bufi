@@ -11,8 +11,8 @@ class CarritoDb {
       final db = await dbProvider.database;
       
       final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO Carrito (id_subsidiarygood,id_subsidiary,nombre,precio,marca, image,moneda,caracteristicas,stock,cantidad,estado_seleccionado) "
-          "VALUES('${carritoModel.idSubsidiaryGood}','${carritoModel.idSubsidiary}','${carritoModel.nombre}','${carritoModel.precio}','${carritoModel.marca}','${carritoModel.image}','${carritoModel.moneda}','${carritoModel.caracteristicas}','${carritoModel.stock}',"
+          "INSERT OR REPLACE INTO Carrito (id_subsidiarygood,id_subsidiary,nombre,precio,marca,modelo,talla,image,moneda,caracteristicas,stock,cantidad,estado_seleccionado) "
+          "VALUES('${carritoModel.idSubsidiaryGood}','${carritoModel.idSubsidiary}','${carritoModel.nombre}','${carritoModel.precio}','${carritoModel.marca}','${carritoModel.modelo}','${carritoModel.talla}','${carritoModel.image}','${carritoModel.moneda}','${carritoModel.caracteristicas}','${carritoModel.stock}',"
           "'${carritoModel.cantidad}','${carritoModel.estadoSeleccionado}')");
 
       return res;
@@ -109,6 +109,19 @@ class CarritoDb {
     // }
   }
 
+  Future<List<CarritoModel>> obtenerProductoXCarritoPorIdProductoTalla(String idProducto, String talla, String modelo, String marca) async {
+    final db = await dbProvider.database;
+    //try {
+      final res = await db.rawQuery("SELECT * FROM Carrito where id_subsidiarygood = '$idProducto' and talla= '$talla' and modelo='$modelo' and marca= '$marca'");
+
+    List<CarritoModel> list= res.isNotEmpty
+        ? res.map((c) => CarritoModel.fromJson(c)).toList()
+        : [];
+
+    return list;
+
+  }
+
   Future<List<CarritoModel>> obtenerProductosAgrupados() async {
     final db = await dbProvider.database;
     //try {
@@ -153,6 +166,13 @@ class CarritoDb {
     return res;
   }
 
+  deleteCarritoPorIdProductoTalla(String idSubsidiaryGood,String talla,String modelo,String marca ) async {
+    final db = await dbProvider.database;
+
+    final res = await db.rawDelete("DELETE FROM Carrito where id_subsidiarygood = '$idSubsidiaryGood' and talla='$talla' and modelo='$modelo' and marca='$marca'");
+
+    return res;
+  }
 
   updateCarritoPorIdSudsidiaryGood(CarritoModel carritoModel) async {
     try {

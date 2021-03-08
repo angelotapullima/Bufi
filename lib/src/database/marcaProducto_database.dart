@@ -85,4 +85,16 @@ class MarcaProductoDatabase {
 
     return list;
   }
+
+  Future<List<MarcaProductoModel>> obtenerMarcaProductoPorIdProductoEnEstado1(String idProducto) async {
+    final db = await dbprovider.database;
+    final res =
+        await db.rawQuery("SELECT * FROM MarcaProducto where id_producto = '$idProducto' and estado='1'");
+
+    List<MarcaProductoModel> list = res.isNotEmpty
+        ? res.map((c) => MarcaProductoModel.fromJson(c)).toList()
+        : [];
+
+    return list;
+  }
 }

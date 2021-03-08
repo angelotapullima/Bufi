@@ -137,6 +137,8 @@ class DatabaseProvider {
           'nombre VARCHAR,'
           'precio VARCHAR,'
           'marca VARCHAR,'
+          'modelo VARCHAR,'
+          'talla VARCHAR,'
           'image VARCHAR,'
           'moneda VARCHAR,'
           'caracteristicas VARCHAR,'

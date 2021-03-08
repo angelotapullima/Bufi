@@ -31,12 +31,15 @@ class ProductoBloc {
     _productoController?.close();
   }
 
+
+//función que se llama al mostrar la vista de los paneles negro y blanco luego de agregar un producto al carrito
   void listarProductosPorSucursalCarrito(String id) async {
     _productosSubsidiaryCarritoController.sink.add(await datosSucursal(id));
     await productosApi.listarProductosPorSucursal(id);
     _productosSubsidiaryCarritoController.sink.add(await datosSucursal(id));
   }
 
+  //funcion que se llama cuando muestras los productos por sucursal
   void listarProductosPorSucursal(String id) async {
     _productoController.sink
         .add(await productoDatabase.obtenerProductosPorIdSubsidiary(id));
@@ -48,58 +51,38 @@ class ProductoBloc {
   Future<List<BienesServiciosModel>> datosSucursal(String idSubsidiary) async {
     final listGeneral = List<BienesServiciosModel>();
 
-    final productSubsidiary =
-        await productoDatabase.obtenerProductosPorIdSubsidiary(idSubsidiary);
-    final serviceSubsidiary =
-        await serviceDatabase.obtenerServiciosPorIdSucursal(idSubsidiary);
-    final carritoList = await carritoDatabase.obtenerProductoXCarrito();
+    final productSubsidiary = await productoDatabase.obtenerProductosPorIdSubsidiary(idSubsidiary);
+    final serviceSubsidiary = await serviceDatabase.obtenerServiciosPorIdSucursal(idSubsidiary);
+    final carritoList = await carritoDatabase.obtenerCarrito();
 
     if (carritoList.length > 0) {
       for (var x = 0; x < carritoList.length; x++) {
 
-
         for (var i = 0; i < productSubsidiary.length; i++) {
-
 
           if(carritoList[x].idSubsidiaryGood != productSubsidiary[i].idProducto){
 
-            final bienesServiciosModel = BienesServiciosModel();
+          final bienesServiciosModel = BienesServiciosModel();
 
           //Para Bienes
-          bienesServiciosModel.idSubsidiarygood =
-              productSubsidiary[i].idProducto;
+          bienesServiciosModel.idSubsidiarygood =productSubsidiary[i].idProducto;
           bienesServiciosModel.idSubsidiary = productSubsidiary[i].idSubsidiary;
           bienesServiciosModel.idGood = productSubsidiary[i].idGood;
-          bienesServiciosModel.idItemsubcategory =
-              productSubsidiary[i].idItemsubcategory;
-          bienesServiciosModel.subsidiaryGoodName =
-              productSubsidiary[i].productoName;
-          bienesServiciosModel.subsidiaryGoodPrice =
-              productSubsidiary[i].productoPrice;
-          bienesServiciosModel.subsidiaryGoodCurrency =
-              productSubsidiary[i].productoCurrency;
-          bienesServiciosModel.subsidiaryGoodImage =
-              productSubsidiary[i].productoImage;
-          bienesServiciosModel.subsidiaryGoodCharacteristics =
-              productSubsidiary[i].productoCharacteristics;
-          bienesServiciosModel.subsidiaryGoodBrand =
-              productSubsidiary[i].productoBrand;
-          bienesServiciosModel.subsidiaryGoodModel =
-              productSubsidiary[i].productoModel;
-          bienesServiciosModel.subsidiaryGoodType =
-              productSubsidiary[i].productoType;
-          bienesServiciosModel.subsidiaryGoodSize =
-              productSubsidiary[i].productoSize;
-          bienesServiciosModel.subsidiaryGoodStock =
-              productSubsidiary[i].productoStock;
-          bienesServiciosModel.subsidiaryGoodMeasure =
-              productSubsidiary[i].productoMeasure;
-          bienesServiciosModel.subsidiaryGoodRating =
-              productSubsidiary[i].productoRating;
-          bienesServiciosModel.subsidiaryGoodUpdated =
-              productSubsidiary[i].productoUpdated;
-          bienesServiciosModel.subsidiaryGoodStatus =
-              productSubsidiary[i].productoStatus;
+          bienesServiciosModel.idItemsubcategory =productSubsidiary[i].idItemsubcategory;
+          bienesServiciosModel.subsidiaryGoodName =productSubsidiary[i].productoName;
+          bienesServiciosModel.subsidiaryGoodPrice =productSubsidiary[i].productoPrice;
+          bienesServiciosModel.subsidiaryGoodCurrency =productSubsidiary[i].productoCurrency;
+          bienesServiciosModel.subsidiaryGoodImage =productSubsidiary[i].productoImage;
+          bienesServiciosModel.subsidiaryGoodCharacteristics =productSubsidiary[i].productoCharacteristics;
+          bienesServiciosModel.subsidiaryGoodBrand =productSubsidiary[i].productoBrand;
+          bienesServiciosModel.subsidiaryGoodModel =productSubsidiary[i].productoModel;
+          bienesServiciosModel.subsidiaryGoodType =productSubsidiary[i].productoType;
+          bienesServiciosModel.subsidiaryGoodSize =productSubsidiary[i].productoSize;
+          bienesServiciosModel.subsidiaryGoodStock =productSubsidiary[i].productoStock;
+          bienesServiciosModel.subsidiaryGoodMeasure =productSubsidiary[i].productoMeasure;
+          bienesServiciosModel.subsidiaryGoodRating =productSubsidiary[i].productoRating;
+          bienesServiciosModel.subsidiaryGoodUpdated =productSubsidiary[i].productoUpdated;
+          bienesServiciosModel.subsidiaryGoodStatus =productSubsidiary[i].productoStatus;
           bienesServiciosModel.tipo = 'bienes';
 
           listGeneral.add(bienesServiciosModel);
@@ -113,26 +96,17 @@ class ProductoBloc {
         for (var j = 0; j < serviceSubsidiary.length; j++) {
           final bienesServiciosModel = BienesServiciosModel();
 
-          bienesServiciosModel.idSubsidiaryservice =
-              serviceSubsidiary[j].idSubsidiaryservice;
+          bienesServiciosModel.idSubsidiaryservice =serviceSubsidiary[j].idSubsidiaryservice;
           bienesServiciosModel.idSubsidiary = serviceSubsidiary[j].idSubsidiary;
           bienesServiciosModel.idService = serviceSubsidiary[j].idService;
-          bienesServiciosModel.subsidiaryServiceName =
-              serviceSubsidiary[j].subsidiaryServiceName;
-          bienesServiciosModel.subsidiaryServiceDescription =
-              serviceSubsidiary[j].subsidiaryServiceDescription;
-          bienesServiciosModel.subsidiaryServicePrice =
-              serviceSubsidiary[j].subsidiaryServicePrice;
-          bienesServiciosModel.subsidiaryServiceCurrency =
-              serviceSubsidiary[j].subsidiaryServiceCurrency;
-          bienesServiciosModel.subsidiaryServiceImage =
-              serviceSubsidiary[j].subsidiaryServiceImage;
-          bienesServiciosModel.subsidiaryServiceRating =
-              serviceSubsidiary[j].subsidiaryServiceRating;
-          bienesServiciosModel.subsidiaryServiceUpdated =
-              serviceSubsidiary[j].subsidiaryServiceUpdated;
-          bienesServiciosModel.subsidiaryServiceStatus =
-              serviceSubsidiary[j].subsidiaryServiceStatus;
+          bienesServiciosModel.subsidiaryServiceName =serviceSubsidiary[j].subsidiaryServiceName;
+          bienesServiciosModel.subsidiaryServiceDescription =serviceSubsidiary[j].subsidiaryServiceDescription;
+          bienesServiciosModel.subsidiaryServicePrice =serviceSubsidiary[j].subsidiaryServicePrice;
+          bienesServiciosModel.subsidiaryServiceCurrency =serviceSubsidiary[j].subsidiaryServiceCurrency;
+          bienesServiciosModel.subsidiaryServiceImage =serviceSubsidiary[j].subsidiaryServiceImage;
+          bienesServiciosModel.subsidiaryServiceRating =serviceSubsidiary[j].subsidiaryServiceRating;
+          bienesServiciosModel.subsidiaryServiceUpdated =serviceSubsidiary[j].subsidiaryServiceUpdated;
+          bienesServiciosModel.subsidiaryServiceStatus =serviceSubsidiary[j].subsidiaryServiceStatus;
           bienesServiciosModel.tipo = 'servicios';
 
           listGeneral.add(bienesServiciosModel);
@@ -148,38 +122,23 @@ class ProductoBloc {
           final bienesServiciosModel = BienesServiciosModel();
 
           //Para Bienes
-          bienesServiciosModel.idSubsidiarygood =
-              productSubsidiary[i].idProducto;
+          bienesServiciosModel.idSubsidiarygood =productSubsidiary[i].idProducto;
           bienesServiciosModel.idSubsidiary = productSubsidiary[i].idSubsidiary;
           bienesServiciosModel.idGood = productSubsidiary[i].idGood;
-          bienesServiciosModel.idItemsubcategory =
-              productSubsidiary[i].idItemsubcategory;
-          bienesServiciosModel.subsidiaryGoodName =
-              productSubsidiary[i].productoName;
-          bienesServiciosModel.subsidiaryGoodPrice =
-              productSubsidiary[i].productoPrice;
-          bienesServiciosModel.subsidiaryGoodCurrency =
-              productSubsidiary[i].productoCurrency;
-          bienesServiciosModel.subsidiaryGoodImage =
-              productSubsidiary[i].productoImage;
-          bienesServiciosModel.subsidiaryGoodCharacteristics =
-              productSubsidiary[i].productoCharacteristics;
-          bienesServiciosModel.subsidiaryGoodBrand =
-              productSubsidiary[i].productoBrand;
-          bienesServiciosModel.subsidiaryGoodModel =
-              productSubsidiary[i].productoModel;
-          bienesServiciosModel.subsidiaryGoodType =
-              productSubsidiary[i].productoType;
-          bienesServiciosModel.subsidiaryGoodSize =
-              productSubsidiary[i].productoSize;
-          bienesServiciosModel.subsidiaryGoodStock =
-              productSubsidiary[i].productoStock;
-          bienesServiciosModel.subsidiaryGoodMeasure =
-              productSubsidiary[i].productoMeasure;
-          bienesServiciosModel.subsidiaryGoodRating =
-              productSubsidiary[i].productoRating;
-          bienesServiciosModel.subsidiaryGoodUpdated =
-              productSubsidiary[i].productoUpdated;
+          bienesServiciosModel.idItemsubcategory =productSubsidiary[i].idItemsubcategory;
+          bienesServiciosModel.subsidiaryGoodName =productSubsidiary[i].productoName;
+          bienesServiciosModel.subsidiaryGoodPrice =productSubsidiary[i].productoPrice;
+          bienesServiciosModel.subsidiaryGoodCurrency =productSubsidiary[i].productoCurrency;
+          bienesServiciosModel.subsidiaryGoodImage =productSubsidiary[i].productoImage;
+          bienesServiciosModel.subsidiaryGoodCharacteristics =productSubsidiary[i].productoCharacteristics;
+          bienesServiciosModel.subsidiaryGoodBrand =productSubsidiary[i].productoBrand;
+          bienesServiciosModel.subsidiaryGoodModel =productSubsidiary[i].productoModel;
+          bienesServiciosModel.subsidiaryGoodType =productSubsidiary[i].productoType;
+          bienesServiciosModel.subsidiaryGoodSize =productSubsidiary[i].productoSize;
+          bienesServiciosModel.subsidiaryGoodStock =productSubsidiary[i].productoStock;
+          bienesServiciosModel.subsidiaryGoodMeasure =productSubsidiary[i].productoMeasure;
+          bienesServiciosModel.subsidiaryGoodRating =productSubsidiary[i].productoRating;
+          bienesServiciosModel.subsidiaryGoodUpdated =productSubsidiary[i].productoUpdated;
           bienesServiciosModel.subsidiaryGoodStatus =
               productSubsidiary[i].productoStatus;
           bienesServiciosModel.tipo = 'bienes';

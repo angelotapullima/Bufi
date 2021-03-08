@@ -133,6 +133,7 @@ Future<int> agregarAlCarrito(
   c.stock = producto[0].productoStock;
 
   if (productCarrito.length > 0) {
+    //await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
     await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
     c.cantidad = (int.parse(productCarrito[0].cantidad) + 1).toString();
 

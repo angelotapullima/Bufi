@@ -156,7 +156,7 @@ class CarritoDb {
   deleteCarritoPorIdProductoTalla(String idSubsidiaryGood,CarritoModel cmodel) async {
     final db = await dbProvider.database;
 
-    final res = await db.rawDelete("DELETE FROM Carrito where id_subsidiarygood = '$idSubsidiaryGood' and talla='${cmodel.talla}',modelo='${cmodel.modelo}',marca='${cmodel.marca}'");
+    final res = await db.rawDelete("DELETE FROM Carrito where id_subsidiarygood = '$idSubsidiaryGood' and talla='${cmodel.talla}' and modelo='${cmodel.modelo}' and marca='${cmodel.marca}'");
 
     return res;
   }

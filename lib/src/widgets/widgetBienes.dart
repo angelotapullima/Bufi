@@ -1,16 +1,13 @@
 import 'dart:ui';
-import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
-import 'package:bufi/src/utils/favoritos.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:bufi/src/utils/utils.dart' as utils;
 
 Widget bienesWidgetCompelto(BuildContext context, BienesServiciosModel goodData,
     Responsive responsive) {
@@ -30,6 +27,7 @@ Widget bienesWidgetCompelto(BuildContext context, BienesServiciosModel goodData,
       color: Colors.white,
     ),
     width: responsive.wp(42.5),
+    height: responsive.hp(10),
     child: Column(
       children: <Widget>[
         Container(
@@ -203,7 +201,7 @@ class _BienesWidgetState extends State<BienesWidget> {
         children: <Widget>[
           Container(
             width: double.infinity,
-            height: responsive.hp(17),
+            height: responsive.hp(18),
             child: Stack(
               children: <Widget>[
                 Container(

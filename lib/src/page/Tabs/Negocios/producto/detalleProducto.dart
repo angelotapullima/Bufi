@@ -542,7 +542,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
           fontSize: 14,
         ),
         Container(
-          height: responsive.hp(15),
+          height: responsive.hp(8),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
@@ -566,7 +566,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
         ),
         SizedBox(height: responsive.hp(1)),
         Container(
-          height: responsive.hp(15),
+          height: responsive.hp(8),
           child: ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
@@ -597,7 +597,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
         ),
         SizedBox(height: responsive.hp(1)),
         Container(
-          height: responsive.hp(15),
+          height: responsive.hp(8),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,

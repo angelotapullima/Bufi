@@ -266,7 +266,7 @@ class _BienesResuState extends State<BienesResu> {
           height: responsive.hp(1),
         ),
         Container(
-          height: responsive.hp(32),
+          height: responsive.hp(30),
           child: StreamBuilder(
             stream: bienesBloc.bienesStream,
             builder: (BuildContext context,
@@ -625,7 +625,7 @@ class _SugerenciaBusquedaState extends State<SugerenciaBusqueda> {
                       padding: EdgeInsets.symmetric(vertical: 8),
                       itemCount: snapshot.data.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 0.6,
+                        childAspectRatio: 0.7,
                         crossAxisSpacing: 2,
                         mainAxisSpacing: 2,
                         crossAxisCount: 2,

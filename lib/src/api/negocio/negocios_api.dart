@@ -477,7 +477,7 @@ class NegociosApi {
       });
 
       final decodedData = json.decode(response.body);
-      print(decodedData);
+      
       CompanyModel cmodel = CompanyModel();
       cmodel.idCompany = decodedData['id_company'];
       cmodel.idUser = decodedData['id_user'];

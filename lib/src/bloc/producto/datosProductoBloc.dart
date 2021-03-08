@@ -31,7 +31,7 @@ class DatosProductoBloc {
 
   void listarDatosProducto(String idProducto) async {
     _datosProductoController.sink.add(await obtenerDatosProductosPorIdProducto(idProducto));
-    productoApi.listarDetalleProductoPorIdProducto(idProducto);
+    await productoApi.listarDetalleProductoPorIdProducto(idProducto);
     _datosProductoController.sink.add(await obtenerDatosProductosPorIdProducto(idProducto));
   }
 

@@ -1,6 +1,7 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/tabInfoPrincipalSucursalPage.dart';
+import 'package:bufi/src/page/Tabs/Negocios/producto/GridviewProductosPorSucursal.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/ListarProductosPorSucursal.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/ListarServiciosXsucursal.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -143,7 +144,7 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary>
           controller: _controllerTab,
           children: [
             TabProductosSucursalPage(),
-            ListarProductosPorSucursalPage(idSucursal: subsidiary.idSubsidiary),
+            GridviewProductoPorSucursal(idSucursal: subsidiary.idSubsidiary),
             ListarServiciosXSucursalPage(idSucursal: subsidiary.idSubsidiary),
           ],
         ));

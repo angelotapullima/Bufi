@@ -35,19 +35,8 @@ class SucursalBloc {
   }
 
   void obtenerSucursalporId(String id) async {
-    _subsidiaryIdController.sink
-        .add(await sucursalDatabase.obtenerSubsidiaryPorId(id));
+    _subsidiaryIdController.sink.add(await sucursalDatabase.obtenerSubsidiaryPorId(id));
     await sucursalApi.listarSubsidiaryPorId(id);
-   _subsidiaryIdController.sink
-        .add(await sucursalDatabase.obtenerSubsidiaryPorId(id));
+   _subsidiaryIdController.sink.add(await sucursalDatabase.obtenerSubsidiaryPorId(id));
   }
-
-  // void listarSucursalporId(String id) async {
-  //   _listarsucursalesController.sink
-  //       .add(await sucursalDatabase.obtenerSubsidiaryPorId(id));
-  //   await sucursalApi.listarSedesPorNegocio(id);
-  //   _listarsucursalesController.sink
-  //       .add(await sucursalDatabase.obtenerSubsidiaryPorId(id));
-
-  // }
 }

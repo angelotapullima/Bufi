@@ -33,6 +33,8 @@ class ProductosApi {
 
   Future<dynamic> listarProductosPorSucursal(String id) async {
 
+    print('listar_productos_por_sucursal');
+
 
 
     //funcion para obtener el producto con el id mas alto de la lista
@@ -73,30 +75,30 @@ class ProductosApi {
 
     final decodedData = json.decode(response.body);
 
-    if (decodedData.length > 0) {
-      for (var i = 0; i < decodedData.length; i++) {
+    if (decodedData['results'].length > 0) {
+      for (var i = 0; i < decodedData['results'].length; i++) {
         //SubsidiaryGoodModel
         ProductoModel productoModel = ProductoModel();
-        productoModel.idProducto = decodedData[i]["id_subsidiarygood"];
-        productoModel.idSubsidiary = decodedData[i]["id_subsidiary"];
-        productoModel.idGood = decodedData[i]["id_good"];
-        productoModel.idItemsubcategory = decodedData[i]['id_itemsubcategory'];
-        productoModel.productoName = decodedData[i]['subsidiary_good_name'];
-        productoModel.productoPrice = decodedData[i]['subsidiary_good_price'];
-        productoModel.productoCurrency =decodedData[i]['subsidiary_good_currency'];
-        productoModel.productoImage = decodedData[i]['subsidiary_good_image'];
-        productoModel.productoCharacteristics =decodedData[i]['subsidiary_good_characteristics'];
-        productoModel.productoBrand = decodedData[i]['subsidiary_good_brand'];
-        productoModel.productoModel = decodedData[i]['subsidiary_good_model'];
-        productoModel.productoType = decodedData[i]['subsidiary_good_type'];
-        productoModel.productoSize = decodedData[i]['subsidiary_good_size'];
-        productoModel.productoStock = decodedData[i]['subsidiary_good_stock'];
-        productoModel.productoMeasure =decodedData[i]['subsidiary_good_stock_measure'];
-        productoModel.productoRating = decodedData[i]['subsidiary_good_rating'];
-        productoModel.productoUpdated =decodedData[i]['subsidiary_good_updated'];
-        productoModel.productoStatus = decodedData[i]['subsidiary_good_status'];
+        productoModel.idProducto = decodedData['results'][i]["id_subsidiarygood"];
+        productoModel.idSubsidiary = decodedData['results'][i]["id_subsidiary"];
+        productoModel.idGood = decodedData['results'][i]["id_good"];
+        productoModel.idItemsubcategory = decodedData['results'][i]['id_itemsubcategory'];
+        productoModel.productoName = decodedData['results'][i]['subsidiary_good_name'];
+        productoModel.productoPrice = decodedData['results'][i]['subsidiary_good_price'];
+        productoModel.productoCurrency =decodedData['results'][i]['subsidiary_good_currency'];
+        productoModel.productoImage = decodedData['results'][i]['subsidiary_good_image'];
+        productoModel.productoCharacteristics =decodedData['results'][i]['subsidiary_good_characteristics'];
+        productoModel.productoBrand = decodedData['results'][i]['subsidiary_good_brand'];
+        productoModel.productoModel = decodedData['results'][i]['subsidiary_good_model'];
+        productoModel.productoType = decodedData['results'][i]['subsidiary_good_type'];
+        productoModel.productoSize = decodedData['results'][i]['subsidiary_good_size'];
+        productoModel.productoStock = decodedData['results'][i]['subsidiary_good_stock'];
+        productoModel.productoMeasure =decodedData['results'][i]['subsidiary_good_stock_measure'];
+        productoModel.productoRating = decodedData['results'][i]['subsidiary_good_rating'];
+        productoModel.productoUpdated =decodedData['results'][i]['subsidiary_good_updated'];
+        productoModel.productoStatus = decodedData['results'][i]['subsidiary_good_status'];
 
-        var productList = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(decodedData[i]['id_subsidiarygood']);
+        var productList = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(decodedData['results'][i]['id_subsidiarygood']);
 
         if (productList.length > 0) {
           productoModel.productoFavourite = productList[0].productoFavourite;
@@ -106,20 +108,20 @@ class ProductosApi {
         await productoDatabase.insertarProducto(productoModel);
 
         SubsidiaryModel submodel = SubsidiaryModel();
-        submodel.idCompany = decodedData[i]["id_company"];
-        submodel.idSubsidiary = decodedData[i]["id_subsidiary"];
-        submodel.subsidiaryName = decodedData[i]['subsidiary_name'];
-        submodel.subsidiaryAddress = decodedData[i]['subsidiary_address'];
-        submodel.subsidiaryCellphone = decodedData[i]['subsidiary_cellphone'];
-        submodel.subsidiaryCellphone2 =decodedData[i]['subsidiary_cellphone_2'];
-        submodel.subsidiaryEmail = decodedData[i]['subsidiary_email'];
-        submodel.subsidiaryCoordX = decodedData[i]['subsidiary_coord_x'];
-        submodel.subsidiaryCoordY = decodedData[i]['subsidiary_coord_y'];
-        submodel.subsidiaryOpeningHours =decodedData[i]['subsidiary_opening_hours'];
-        submodel.subsidiaryPrincipal = decodedData[i]['subsidiary_principal'];
-        submodel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
+        submodel.idCompany = decodedData['results'][i]["id_company"];
+        submodel.idSubsidiary = decodedData['results'][i]["id_subsidiary"];
+        submodel.subsidiaryName = decodedData['results'][i]['subsidiary_name'];
+        submodel.subsidiaryAddress = decodedData['results'][i]['subsidiary_address'];
+        submodel.subsidiaryCellphone = decodedData['results'][i]['subsidiary_cellphone'];
+        submodel.subsidiaryCellphone2 =decodedData['results'][i]['subsidiary_cellphone_2'];
+        submodel.subsidiaryEmail = decodedData['results'][i]['subsidiary_email'];
+        submodel.subsidiaryCoordX = decodedData['results'][i]['subsidiary_coord_x'];
+        submodel.subsidiaryCoordY = decodedData['results'][i]['subsidiary_coord_y'];
+        submodel.subsidiaryOpeningHours =decodedData['results'][i]['subsidiary_opening_hours'];
+        submodel.subsidiaryPrincipal = decodedData['results'][i]['subsidiary_principal'];
+        submodel.subsidiaryStatus = decodedData['results'][i]['subsidiary_status'];
 
-        final list = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData[i]["id_subsidiary"]);
+        final list = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData['results'][i]["id_subsidiary"]);
 
         if (list.length > 0) {
           submodel.subsidiaryFavourite = list[0].subsidiaryFavourite;
@@ -132,16 +134,16 @@ class ProductosApi {
 
         //BienesModel
         BienesModel goodmodel = BienesModel();
-        goodmodel.idGood = decodedData[i]['id_good'];
-        goodmodel.goodName = decodedData[i]['good_name'];
-        goodmodel.goodSynonyms = decodedData[i]['good_synonyms'];
+        goodmodel.idGood = decodedData['results'][i]['id_good'];
+        goodmodel.goodName = decodedData['results'][i]['good_name'];
+        goodmodel.goodSynonyms = decodedData['results'][i]['good_synonyms'];
         await goodDatabase.insertarGood(goodmodel);
 
         //ItemSubCategoriaModel
         ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
-        itemSubCategoriaModel.idSubcategory = decodedData[i]['id_subcategory'];
-        itemSubCategoriaModel.idItemsubcategory =decodedData[i]['itemsubcategory_name'];
-        itemSubCategoriaModel.itemsubcategoryName = decodedData[i]['itemsubcategory_name'];
+        itemSubCategoriaModel.idSubcategory = decodedData['results'][i]['id_subcategory'];
+        itemSubCategoriaModel.idItemsubcategory =decodedData['results'][i]['itemsubcategory_name'];
+        itemSubCategoriaModel.itemsubcategoryName = decodedData['results'][i]['itemsubcategory_name'];
         await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel);
       }
     }

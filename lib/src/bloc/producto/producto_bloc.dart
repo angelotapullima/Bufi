@@ -41,11 +41,9 @@ class ProductoBloc {
 
   //funcion que se llama cuando muestras los productos por sucursal
   void listarProductosPorSucursal(String id) async {
-    _productoController.sink
-        .add(await productoDatabase.obtenerProductosPorIdSubsidiary(id));
+    _productoController.sink .add(await productoDatabase.obtenerProductosPorIdSubsidiary(id));
     await productosApi.listarProductosPorSucursal(id);
-    _productoController.sink 
-        .add(await productoDatabase.obtenerProductosPorIdSubsidiary(id));
+    _productoController.sink.add(await productoDatabase.obtenerProductosPorIdSubsidiary(id));
   }
 
   Future<List<BienesServiciosModel>> datosSucursal(String idSubsidiary) async {

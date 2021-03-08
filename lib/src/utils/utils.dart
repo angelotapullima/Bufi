@@ -110,13 +110,14 @@ void quitarSubsidiaryFavorito(
   deletePoint.deletePoint(companysubsidiaryModel.idSubsidiary);
 }
 
-Future<int> agregarAlCarrito(
-    BuildContext context, String idSubsidiarygood) async {
+Future<int> agregarAlCarrito(BuildContext context, String idSubsidiarygood,
+    String talla, String modelo, String marca) async {
   CarritoDb carritoDb = CarritoDb();
   final productoDatabase = ProductoDatabase();
 
   final productCarrito =
-      await carritoDb.obtenerProductoXCarritoPorId(idSubsidiarygood);
+      await carritoDb.obtenerProductoXCarritoPorIdProductoTalla(
+          idSubsidiarygood, talla, modelo, marca);
 
   final producto = await productoDatabase
       .obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
@@ -126,7 +127,9 @@ Future<int> agregarAlCarrito(
   c.idSubsidiary = producto[0].idSubsidiary;
   c.precio = producto[0].productoPrice;
   c.nombre = producto[0].productoName;
-  c.marca = producto[0].productoBrand;
+  c.marca = marca;
+  c.modelo = modelo;
+  c.talla = talla;
   c.image = producto[0].productoImage;
   c.moneda = producto[0].productoCurrency;
   c.size = producto[0].productoSize;
@@ -134,7 +137,8 @@ Future<int> agregarAlCarrito(
 
   if (productCarrito.length > 0) {
     //await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
-    await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
+    await carritoDb.deleteCarritoPorIdProductoTalla(
+        idSubsidiarygood, talla, modelo, marca);
     c.cantidad = (int.parse(productCarrito[0].cantidad) + 1).toString();
 
     c.estadoSeleccionado = productCarrito[0].estadoSeleccionado;
@@ -152,13 +156,14 @@ Future<int> agregarAlCarrito(
 }
 
 void agregarAlCarritoContador(
-    BuildContext context, String idSubsidiarygood, int cantidad) async {
+    BuildContext context, String idSubsidiarygood, String talla, String modelo, String marca,int cantidad) async {
   CarritoDb carritoDb = CarritoDb();
   final productoDatabase = ProductoDatabase();
 
   if (cantidad == 0) {
     //eliminar producto del carrito
-    await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
+    //await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
+    await carritoDb.deleteCarritoPorIdProductoTalla( idSubsidiarygood, talla,modelo, marca);
   } else {
     final producto = await productoDatabase
         .obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
@@ -312,7 +317,7 @@ void agregarDireccion(BuildContext context, String direccion, String referencia,
 }
 
 //Talla del producto
-void cambiarEstadoTalla(
+Future<int> cambiarEstadoTalla(
     BuildContext context, TallaProductoModel tallaModel) async {
   final datosProdBloc = ProviderBloc.datosProductos(context);
   final tallaProductoDatabase = TallaProductoDatabase();
@@ -322,11 +327,11 @@ void cambiarEstadoTalla(
   await tallaProductoDatabase.updateEstadoa1(tallaModel);
 
   datosProdBloc.listarDatosProducto('3');
-  
+  return 1;
 }
 
 //Marca del producto
-void cambiarEstadoMarca(
+Future<int> cambiarEstadoMarca(
     BuildContext context, MarcaProductoModel marcaModel) async {
   final datosProdBloc = ProviderBloc.datosProductos(context);
   final marcaProductoDatabase = MarcaProductoDatabase();
@@ -336,10 +341,12 @@ void cambiarEstadoMarca(
   await marcaProductoDatabase.updateEstadoa1(marcaModel);
 
   datosProdBloc.listarDatosProducto('3');
+
+  return 1;
 }
 
 //Modelo del producto
-void cambiarEstadoModelo(
+Future<int> cambiarEstadoModelo(
     BuildContext context, ModeloProductoModel modeloModel) async {
   final datosProdBloc = ProviderBloc.datosProductos(context);
   final modeloProductoDatabase = ModeloProductoDatabase();
@@ -350,4 +357,5 @@ void cambiarEstadoModelo(
   await modeloProductoDatabase.updateEstadoa1(modeloModel);
 
   datosProdBloc.listarDatosProducto('3');
+  return 0;
 }

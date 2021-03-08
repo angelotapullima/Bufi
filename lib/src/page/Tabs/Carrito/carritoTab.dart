@@ -309,7 +309,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                     onDismissed: (direction) {
                                       agregarAlCarritoContador(
                                           context,
-                                          '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
+                                          '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}', '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}','${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}','${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
                                           0);
                                     },
                                     child: Container(
@@ -434,6 +434,10 @@ class _CarritoPageState extends State<CarritoPage> {
                                                   Text('${listCarritoSuperior[0].car[xxx].carrito[indd].nombre}' +
                                                       ' ' +
                                                       '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}'),
+
+                                                  Text('ee ${listCarritoSuperior[0].car[xxx].carrito[indd].talla}'),
+                                                  
+                                                   Text('mm ${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}'),
                                                   Text(
                                                     '${listCarritoSuperior[0].car[xxx].carrito[indd].moneda}' +
                                                         ' ' +
@@ -451,21 +455,22 @@ class _CarritoPageState extends State<CarritoPage> {
                                                             .carrito[indd],
                                                     llamada: llamada,
                                                     idSudsidiaryGood:
-                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
+                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}', marcaProducto:'${listCarritoSuperior[0].car[xxx].carrito[indd].marca}', modeloProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}', tallaProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
                                                   ),
                                                 ],
                                               ),
                                             ),
                                           ),
-
+                                          
+                                          //Cerrar carrito
                                           Container(
                                             width: responsive.wp(6),
                                             child: GestureDetector(
                                               onTap: () {
                                                 agregarAlCarritoContador(
-                                                    context,
-                                                    '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
-                                                    0);
+                                          context,
+                                          '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}', '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}','${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}','${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
+                                          0);
                                               },
                                               child: CircleAvatar(
                                                 radius: 15,

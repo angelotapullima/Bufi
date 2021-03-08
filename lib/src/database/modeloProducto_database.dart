@@ -76,5 +76,15 @@ final dbprovider = DatabaseProvider.db;
     return list;
   } 
 
+   Future<List<ModeloProductoModel>> obtenerModeloProductoPorIdProductoEnEstado1(String idProducto) async {
+    final db = await dbprovider.database;
+    final res =
+        await db.rawQuery("SELECT * FROM ModeloProducto where id_producto = '$idProducto' and estado='1'");
 
+    List<ModeloProductoModel> list = res.isNotEmpty
+        ? res.map((c) => ModeloProductoModel.fromJson(c)).toList()
+        : [];
+
+    return list;
+  }
 }

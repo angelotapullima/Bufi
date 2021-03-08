@@ -294,7 +294,7 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                             .carrito[indd],
                                                     llamada: llamada,
                                                     idSudsidiaryGood:
-                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
+                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}', marcaProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}', modeloProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}', tallaProducto:'${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
                                                   ),
                                                 SizedBox(
                                                   width: responsive.wp(2),

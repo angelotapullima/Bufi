@@ -109,6 +109,19 @@ class CarritoDb {
     // }
   }
 
+  Future<List<CarritoModel>> obtenerProductoXCarritoPorIdProductoTalla(String idProducto, String talla, String modelo, String marca) async {
+    final db = await dbProvider.database;
+    //try {
+      final res = await db.rawQuery("SELECT * FROM Carrito where id_subsidiarygood = '$idProducto' and talla= '$talla' and modelo='$modelo' and marca= '$marca'");
+
+    List<CarritoModel> list= res.isNotEmpty
+        ? res.map((c) => CarritoModel.fromJson(c)).toList()
+        : [];
+
+    return list;
+
+  }
+
   Future<List<CarritoModel>> obtenerProductosAgrupados() async {
     final db = await dbProvider.database;
     //try {
@@ -153,10 +166,10 @@ class CarritoDb {
     return res;
   }
 
-  deleteCarritoPorIdProductoTalla(String idSubsidiaryGood,CarritoModel cmodel) async {
+  deleteCarritoPorIdProductoTalla(String idSubsidiaryGood,String talla,String modelo,String marca ) async {
     final db = await dbProvider.database;
 
-    final res = await db.rawDelete("DELETE FROM Carrito where id_subsidiarygood = '$idSubsidiaryGood' and talla='${cmodel.talla}' and modelo='${cmodel.modelo}' and marca='${cmodel.marca}'");
+    final res = await db.rawDelete("DELETE FROM Carrito where id_subsidiarygood = '$idSubsidiaryGood' and talla='$talla' and modelo='$modelo' and marca='$marca'");
 
     return res;
   }

@@ -82,63 +82,63 @@ Widget bienesWidgetCompelto(BuildContext context, BienesServiciosModel goodData,
             ],
           ),
         ),
-        Container(
-          height: responsive.hp(5),
-          padding: EdgeInsets.symmetric(vertical: responsive.hp(1)),
-          //color: Colors.white.withOpacity(.8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                height: responsive.hp(3.5),
-                width: responsive.wp(20),
-                decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(.2),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      FontAwesomeIcons.shoppingCart,
-                      size: responsive.ip(1.5),
-                      color: Colors.blue[800],
-                    ),
-                    SizedBox(
-                      width: responsive.wp(1),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        final buttonBloc = ProviderBloc.tabs(context);
-                        buttonBloc.changePage(2);
+        // Container(
+        //   height: responsive.hp(5),
+        //   padding: EdgeInsets.symmetric(vertical: responsive.hp(1)),
+        //   //color: Colors.white.withOpacity(.8),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //     children: [
+        //       Container(
+        //         height: responsive.hp(3.5),
+        //         width: responsive.wp(20),
+        //         decoration: BoxDecoration(
+        //           color: Colors.blue.withOpacity(.2),
+        //           borderRadius: BorderRadius.circular(10),
+        //         ),
+        //         child: Row(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: [
+        //             Icon(
+        //               FontAwesomeIcons.shoppingCart,
+        //               size: responsive.ip(1.5),
+        //               color: Colors.blue[800],
+        //             ),
+        //             SizedBox(
+        //               width: responsive.wp(1),
+        //             ),
+        //             GestureDetector(
+        //               onTap: () {
+        //                 final buttonBloc = ProviderBloc.tabs(context);
+        //                 buttonBloc.changePage(2);
 
-                        utils.agregarAlCarrito(
-                            context, goodData.idSubsidiarygood);
-                        //Navigator.pushNamed(context, "")
-                      },
-                      child: Text(
-                        'Agregar',
-                        style: TextStyle(
-                            color: Colors.blue[800],
-                            fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                height: responsive.hp(3.5),
-                width: responsive.wp(12),
-                decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(.2),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(FontAwesomeIcons.heart, color: Colors.red),
-              )
-            ],
-          ),
-        ),
-        Text(
+        //                 utils.agregarAlCarrito(
+        //                     context, goodData.idSubsidiarygood);
+        //                 //Navigator.pushNamed(context, "")
+        //               },
+        //               child: Text(
+        //                 'Agregar',
+        //                 style: TextStyle(
+        //                     color: Colors.blue[800],
+        //                     fontWeight: FontWeight.bold),
+        //               ),
+        //             )
+        //           ],
+        //         ),
+        //       ),
+        //       Container(
+        //         height: responsive.hp(3.5),
+        //         width: responsive.wp(12),
+        //         decoration: BoxDecoration(
+        //           color: Colors.red.withOpacity(.2),
+        //           borderRadius: BorderRadius.circular(10),
+        //         ),
+        //         child: Icon(FontAwesomeIcons.heart, color: Colors.red),
+        //       )
+        //     ],
+        //   ),
+        // ),
+         Text(
           goodData.subsidiaryGoodName,
           style: TextStyle(
               fontSize: responsive.ip(1.5),
@@ -264,94 +264,95 @@ class _BienesWidgetState extends State<BienesWidget> {
               ],
             ),
           ),
-          Container(
-            height: responsive.hp(5),
-            padding: EdgeInsets.symmetric(vertical: responsive.hp(1)),
-            //color: Colors.white.withOpacity(.8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  height: responsive.hp(3.5),
-                  width: responsive.wp(20),
-                  decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(.2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.shoppingCart,
-                        size: responsive.ip(1.5),
-                        color: Colors.blue[800],
-                      ),
-                      SizedBox(
-                        width: responsive.wp(1),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          final buttonBloc = ProviderBloc.tabs(context);
-                          buttonBloc.changePage(2);
+          // Container(
+          //   height: responsive.hp(5),
+          //   padding: EdgeInsets.symmetric(vertical: responsive.hp(1)),
+          //   //color: Colors.white.withOpacity(.8),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //     children: [
+          //       Container(
+          //         height: responsive.hp(3.5),
+          //         width: responsive.wp(20),
+          //         decoration: BoxDecoration(
+          //           color: Colors.blue.withOpacity(.2),
+          //           borderRadius: BorderRadius.circular(10),
+          //         ),
+          //         child: Row(
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           children: [
+          //             Icon(
+          //               FontAwesomeIcons.shoppingCart,
+          //               size: responsive.ip(1.5),
+          //               color: Colors.blue[800],
+          //             ),
+          //             SizedBox(
+          //               width: responsive.wp(1),
+          //             ),
+          //             GestureDetector(
+          //               onTap: () {
+          //                 final buttonBloc = ProviderBloc.tabs(context);
+          //                 buttonBloc.changePage(2);
 
-                          utils.agregarAlCarrito(
-                              context, widget.producto.idProducto);
-                        },
-                        child: Text(
-                          'Agregar',
-                          style: TextStyle(
-                              color: Colors.blue[800],
-                              fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                favorite
-                    ? GestureDetector(
-                        child: Container(
-                          height: responsive.hp(3.5),
-                          width: responsive.wp(12),
-                          decoration: BoxDecoration(
-                            color: Colors.red.withOpacity(.2),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Icon(FontAwesomeIcons.solidHeart,
-                              color: Colors.red),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            favorite = false;
-                            final buttonBloc = ProviderBloc.tabs(context);
-                            buttonBloc.changePage(1);
-                            quitarProductoFavorito(context, widget.producto);
-                            cant++;
-                          });
-                        },
-                      )
-                    : GestureDetector(
-                        child: Container(
-                          height: responsive.hp(3.5),
-                          width: responsive.wp(12),
-                          decoration: BoxDecoration(
-                            color: Colors.red.withOpacity(.2),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child:
-                              Icon(FontAwesomeIcons.heart, color: Colors.red),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            favorite = true;
-                            final buttonBloc = ProviderBloc.tabs(context);
-                            buttonBloc.changePage(1);
-                            guardarProductoFavorito(context, widget.producto);
-                          });
-                        },
-                      )
-              ],
-            ),
-          ),
+          //                 utils.agregarAlCarrito(
+          //                     context, widget.producto.idProducto);
+          //               },
+          //               child: Text(
+          //                 'Agregar',
+          //                 style: TextStyle(
+          //                     color: Colors.blue[800],
+          //                     fontWeight: FontWeight.bold),
+          //               ),
+          //             )
+          //           ],
+          //         ),
+          //       ),
+          //       favorite
+          //           ? GestureDetector(
+          //               child: Container(
+          //                 height: responsive.hp(3.5),
+          //                 width: responsive.wp(12),
+          //                 decoration: BoxDecoration(
+          //                   color: Colors.red.withOpacity(.2),
+          //                   borderRadius: BorderRadius.circular(10),
+          //                 ),
+          //                 child: Icon(FontAwesomeIcons.solidHeart,
+          //                     color: Colors.red),
+          //               ),
+          //               onTap: () {
+          //                 setState(() {
+          //                   favorite = false;
+          //                   final buttonBloc = ProviderBloc.tabs(context);
+          //                   buttonBloc.changePage(1);
+          //                   quitarProductoFavorito(context, widget.producto);
+          //                   cant++;
+          //                 });
+          //               },
+          //             )
+          //           : GestureDetector(
+          //               child: Container(
+          //                 height: responsive.hp(3.5),
+          //                 width: responsive.wp(12),
+          //                 decoration: BoxDecoration(
+          //                   color: Colors.red.withOpacity(.2),
+          //                   borderRadius: BorderRadius.circular(10),
+          //                 ),
+          //                 child:
+          //                     Icon(FontAwesomeIcons.heart, color: Colors.red),
+          //               ),
+          //               onTap: () {
+          //                 setState(() {
+          //                   favorite = true;
+          //                   final buttonBloc = ProviderBloc.tabs(context);
+          //                   buttonBloc.changePage(1);
+          //                   guardarProductoFavorito(context, widget.producto);
+          //                 });
+          //               },
+          //             )
+          //     ],
+          //   ),
+          // ),
+          
           Text(
             widget.producto.productoName,
             style: TextStyle(

@@ -209,8 +209,29 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                 ],
                               ),
                             ).ripple(() async {
+                              //Tallas
+                              final tallaDatabase = TallaProductoDatabase();
+                              final tallas = await tallaDatabase
+                                  .obtenerTallaProductoPorIdProductoEnEstado1(
+                                      '3');
+                                      //widget.producto.idProducto);
+                              //modelo
+                              final modeloDatabase = ModeloProductoDatabase();
+                              final modelos = await modeloDatabase
+                                  .obtenerModeloProductoPorIdProductoEnEstado1(
+                                      '3');
+                              //Marca
+                              final marcaDatabase = MarcaProductoDatabase();
+                              final marcas = await marcaDatabase
+                                  .obtenerMarcaProductoPorIdProductoEnEstado1(
+                                      '3');
+
                               await agregarAlCarrito(
-                                  context, widget.producto.idProducto);
+                                  context,
+                                  widget.producto.idProducto,
+                                  tallas[0].tallaProducto,
+                                  modelos[0].modeloProducto,
+                                  marcas[0].marcaProducto);
 
                               Navigator.push(
                                 context,
@@ -220,7 +241,9 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                   pageBuilder:
                                       (context, animation, secondaryAnimation) {
                                     return ConfirmacionItemPedido(
-                                        idProducto: widget.producto.idProducto);
+                                        idProducto: '3'
+                                        //widget.producto.idProducto
+                                        );
                                     //return DetalleProductitos(productosData: productosData);
                                   },
                                   transitionsBuilder: (context, animation,
@@ -259,9 +282,31 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                   ),
                                 ],
                               ),
-                            ).ripple(() {
-                              agregarAlCarrito(
-                                  context, widget.producto.idProducto);
+                            ).ripple(() async {
+                              //Tallas
+                              final tallaDatabase = TallaProductoDatabase();
+                              final tallas = await tallaDatabase
+                                  .obtenerTallaProductoPorIdProductoEnEstado1(
+                                    
+                                      '3');
+                                      //widget.producto.idProducto);
+                              //modelo
+                              final modeloDatabase = ModeloProductoDatabase();
+                              final modelos = await modeloDatabase
+                                  .obtenerModeloProductoPorIdProductoEnEstado1(
+                                      '3');
+                              //Marca
+                              final marcaDatabase = MarcaProductoDatabase();
+                              final marcas = await marcaDatabase
+                                  .obtenerMarcaProductoPorIdProductoEnEstado1(
+                                     '3');
+
+                              await agregarAlCarrito(
+                                  context,
+                                  widget.producto.idProducto,
+                                  tallas[0].tallaProducto,
+                                  modelos[0].modeloProducto,
+                                  marcas[0].marcaProducto);
 
                               Navigator.push(
                                 context,
@@ -569,47 +614,6 @@ class _DetalleProductosState extends State<DetalleProductos> {
     );
   }
 
-  Widget _availableSize(List<ProductoModel> listProd) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        TitleText(
-          text: "Tallas",
-          fontSize: 14,
-        ),
-        SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            // _sizeWidget("US 6"),
-            _sizeWidget("US 7", isSelected: true),
-            // _sizeWidget("US 8"),
-            // _sizeWidget("US 9"),
-          ],
-        )
-      ],
-    );
-  }
-
-  Widget _sizeWidget(String text, {bool isSelected = false}) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: LightColor.iconColor,
-            style: !isSelected ? BorderStyle.solid : BorderStyle.none),
-        borderRadius: BorderRadius.all(Radius.circular(13)),
-        color:
-            isSelected ? LightColor.orange : Theme.of(context).backgroundColor,
-      ),
-      child: TitleText(
-        text: text,
-        fontSize: 16,
-        color: isSelected ? LightColor.background : LightColor.titleTextColor,
-      ),
-    ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)));
-  }
-
   Widget _tallaWidget(List<ProductoModel> listProd, int index) {
     return Padding(
       padding: EdgeInsets.all(4.0),
@@ -623,7 +627,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                   : BorderStyle.none),
           borderRadius: BorderRadius.all(Radius.circular(13)),
           color: (listProd[0].listTallaProd[index].estado == '1')
-              ? LightColor.orange
+              ? LightColor.red
               : Theme.of(context).backgroundColor,
         ),
         child: TitleText(
@@ -633,11 +637,11 @@ class _DetalleProductosState extends State<DetalleProductos> {
               ? LightColor.background
               : LightColor.titleTextColor,
         ),
-      ).ripple(() {
+      ).ripple(() async {
         print('presionado ${listProd[0].listTallaProd[index].idTallaProducto}');
 
-        cambiarEstadoTalla(context, listProd[0].listTallaProd[index]);
-        print("estado ${listProd[0].listTallaProd[index].estado}");
+        await cambiarEstadoTalla(context, listProd[0].listTallaProd[index]); 
+
       }, borderRadius: BorderRadius.all(Radius.circular(13))),
     );
   }
@@ -654,7 +658,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
               style: !isSelected ? BorderStyle.solid : BorderStyle.none),
           borderRadius: BorderRadius.all(Radius.circular(13)),
           color: (listProd[0].listMarcaProd[index].estado == '1')
-              ? LightColor.orange
+              ? LightColor.red
               : Theme.of(context).backgroundColor,
         ),
         child: TitleText(
@@ -665,11 +669,11 @@ class _DetalleProductosState extends State<DetalleProductos> {
               : LightColor.titleTextColor,
         ),
       ).ripple(
-        () {
+        () async {
           print(
               'presionado ${listProd[0].listMarcaProd[index].idMarcaProducto}');
 
-          cambiarEstadoMarca(context, listProd[0].listMarcaProd[index]);
+         await cambiarEstadoMarca(context, listProd[0].listMarcaProd[index]);
           //print("estado ${listProd[0].listMarcaProd[index].estado}");
         },
         borderRadius: BorderRadius.all(
@@ -691,7 +695,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
               style: !isSelected ? BorderStyle.solid : BorderStyle.none),
           borderRadius: BorderRadius.all(Radius.circular(13)),
           color: (listProd[0].listModeloProd[index].estado == '1')
-              ? LightColor.orange
+              ? LightColor.red
               : Theme.of(context).backgroundColor,
         ),
         child: TitleText(
@@ -702,9 +706,8 @@ class _DetalleProductosState extends State<DetalleProductos> {
               : LightColor.titleTextColor,
         ),
       ).ripple(
-        () {
-          cambiarEstadoModelo(context, listProd[0].listModeloProd[index]);
-          // print("estado ${listProd[0].listModeloProd[index].estado}");
+        () async {
+          await cambiarEstadoModelo(context, listProd[0].listModeloProd[index]);
         },
         borderRadius: BorderRadius.all(
           Radius.circular(13),
@@ -713,54 +716,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
     );
   }
 
-  Widget _availableColor() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        TitleText(
-          text: "Available Size",
-          fontSize: 14,
-        ),
-        SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            _colorWidget(LightColor.yellowColor, isSelected: true),
-            SizedBox(
-              width: 30,
-            ),
-            _colorWidget(LightColor.lightBlue),
-            SizedBox(
-              width: 30,
-            ),
-            _colorWidget(LightColor.black),
-            SizedBox(
-              width: 30,
-            ),
-            _colorWidget(LightColor.red),
-            SizedBox(
-              width: 30,
-            ),
-            _colorWidget(LightColor.skyBlue),
-          ],
-        )
-      ],
-    );
-  }
-
-  Widget _colorWidget(Color color, {bool isSelected = false}) {
-    return CircleAvatar(
-      radius: 12,
-      backgroundColor: color.withAlpha(150),
-      child: isSelected
-          ? Icon(
-              Icons.check_circle,
-              color: color,
-              size: 18,
-            )
-          : CircleAvatar(radius: 7, backgroundColor: color),
-    );
-  }
+  
 }
 
 class TitleText extends StatelessWidget {

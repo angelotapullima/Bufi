@@ -21,21 +21,31 @@ class ItemsubCategoryDatabase{
   }
 
   Future<List<ItemSubCategoriaModel>> obtenerItemSubCategoria() async {
+    try{
     final db = await dbProvider.database;
     final res = await db.rawQuery("SELECT * FROM ItemSubcategorias");
 
     List<ItemSubCategoriaModel> list =
         res.isNotEmpty ? res.map((c) => ItemSubCategoriaModel.fromJson(c)).toList() : [];
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e); 
+      return [];
+    }
   }
 
    Future<List<ItemSubCategoriaModel>> obtenerItemSubCategoriaXIdSubcategoria(String id) async {
+     try{
     final db = await dbProvider.database;
     final res = await db.rawQuery("SELECT * FROM ItemSubcategorias WHERE id_subcategory='$id'");
 
     List<ItemSubCategoriaModel> list =
         res.isNotEmpty ? res.map((c) => ItemSubCategoriaModel.fromJson(c)).toList() : [];
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e); 
+      return [];
+    }
   }
 
   

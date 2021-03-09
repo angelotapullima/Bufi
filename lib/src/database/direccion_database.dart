@@ -25,6 +25,7 @@ final dbprovider = DatabaseProvider.db;
   }
 
   Future<List<DireccionModel>> obtenerDirecciones() async {
+    try{
     final db = await dbprovider.database;
     final res = await db.rawQuery("SELECT * FROM Direccion");
 
@@ -32,11 +33,16 @@ final dbprovider = DatabaseProvider.db;
         ? res.map((c) => DireccionModel.fromJson(c)).toList()
         : [];
 
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e); 
+      return [];
+    }
   } 
 
 
   Future<List<DireccionModel>> obtenerdireccionSeleccionada(String idPedido) async {
+    try{
     final db = await dbprovider.database;
     final res = await db.rawQuery("SELECT * FROM Direccion where estado ='1' ");
 
@@ -44,7 +50,11 @@ final dbprovider = DatabaseProvider.db;
         ? res.map((c) => DireccionModel.fromJson(c)).toList()
         : [];
 
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e); 
+      return [];
+    }
   } 
 
 

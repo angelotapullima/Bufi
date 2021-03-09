@@ -23,6 +23,7 @@ final dbprovider = DatabaseProvider.db;
   }
 
   Future<List<DetallePedidoModel>> obtenerDetallePedidoxIdPedido(String idPedido) async {
+    try{
     final db = await dbprovider.database;
     final res = await db.rawQuery("SELECT * FROM DetallePedido where id_pedido='$idPedido'");
 
@@ -31,6 +32,11 @@ final dbprovider = DatabaseProvider.db;
         : [];
 
     return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e); 
+      return [];
+    }
   } 
 
 

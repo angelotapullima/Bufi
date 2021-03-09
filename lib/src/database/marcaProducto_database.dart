@@ -23,17 +23,23 @@ class MarcaProductoDatabase {
   }
 
   updateMarcaProductoDb() async {
-    final db = await dbprovider.database;
+    try {
+      final db = await dbprovider.database;
 
-    final res = await db.rawUpdate('UPDATE MarcaProducto SET '
-        'estado="0"');
-    // 'id_producto="${marcaProductoModel.idProducto}", '
-    // 'marca_producto="${marcaProductoModel.marcaProducto}", '
-    // 'marca_status_producto="${marcaProductoModel.marcaStatusProducto}", '
-    // 'estado="${marcaProductoModel.estado}" '
-    // 'WHERE id_marca_producto = "${marcaProductoModel.idMarcaProducto}"');
+      final res = await db.rawUpdate('UPDATE MarcaProducto SET '
+          'estado="0"');
+      // 'id_producto="${marcaProductoModel.idProducto}", '
+      // 'marca_producto="${marcaProductoModel.marcaProducto}", '
+      // 'marca_status_producto="${marcaProductoModel.marcaStatusProducto}", '
+      // 'estado="${marcaProductoModel.estado}" '
+      // 'WHERE id_marca_producto = "${marcaProductoModel.idMarcaProducto}"');
 
-    return res;
+      return res;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
   updateEstadoa0() async {
@@ -53,7 +59,8 @@ class MarcaProductoDatabase {
     try {
       final db = await dbprovider.database;
 
-      final res = await db.rawUpdate('UPDATE MarcaProducto SET estado="1" where id_marca_producto="${marcaProductoModel.idMarcaProducto}" and id_producto="${marcaProductoModel.idProducto}"');
+      final res = await db.rawUpdate(
+          'UPDATE MarcaProducto SET estado="1" where id_marca_producto="${marcaProductoModel.idMarcaProducto}" and id_producto="${marcaProductoModel.idProducto}"');
 
       return res;
     } catch (exception) {
@@ -63,38 +70,57 @@ class MarcaProductoDatabase {
   }
 
   Future<List<MarcaProductoModel>> obtenerMarcaProducto() async {
-    final db = await dbprovider.database;
-    final res = await db.rawQuery("SELECT * FROM MarcaProducto");
+    try {
+      final db = await dbprovider.database;
+      final res = await db.rawQuery("SELECT * FROM MarcaProducto");
 
-    List<MarcaProductoModel> list = res.isNotEmpty
-        ? res.map((c) => MarcaProductoModel.fromJson(c)).toList()
-        : [];
+      List<MarcaProductoModel> list = res.isNotEmpty
+          ? res.map((c) => MarcaProductoModel.fromJson(c)).toList()
+          : [];
 
-    return list;
+      return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
   Future<List<MarcaProductoModel>> obtenerMarcaProductoPorIdProducto(
       String idProducto) async {
-    final db = await dbprovider.database;
-    final res = await db.rawQuery(
-        "SELECT * FROM MarcaProducto where id_producto='$idProducto' order by id_producto");
+    try {
+      final db = await dbprovider.database;
+      final res = await db.rawQuery(
+          "SELECT * FROM MarcaProducto where id_producto='$idProducto' order by id_producto");
 
-    List<MarcaProductoModel> list = res.isNotEmpty
-        ? res.map((c) => MarcaProductoModel.fromJson(c)).toList()
-        : [];
+      List<MarcaProductoModel> list = res.isNotEmpty
+          ? res.map((c) => MarcaProductoModel.fromJson(c)).toList()
+          : [];
 
-    return list;
+      return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
-  Future<List<MarcaProductoModel>> obtenerMarcaProductoPorIdProductoEnEstado1(String idProducto) async {
-    final db = await dbprovider.database;
-    final res =
-        await db.rawQuery("SELECT * FROM MarcaProducto where id_producto = '$idProducto' and estado='1'");
+  Future<List<MarcaProductoModel>> obtenerMarcaProductoPorIdProductoEnEstado1(
+      String idProducto) async {
+    try {
+      final db = await dbprovider.database;
+      final res = await db.rawQuery(
+          "SELECT * FROM MarcaProducto where id_producto = '$idProducto' and estado='1'");
 
-    List<MarcaProductoModel> list = res.isNotEmpty
-        ? res.map((c) => MarcaProductoModel.fromJson(c)).toList()
-        : [];
+      List<MarcaProductoModel> list = res.isNotEmpty
+          ? res.map((c) => MarcaProductoModel.fromJson(c)).toList()
+          : [];
 
-    return list;
+      return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 }

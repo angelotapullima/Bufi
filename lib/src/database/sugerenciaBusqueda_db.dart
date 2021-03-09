@@ -27,6 +27,7 @@ class SugerenciaBusquedaDb{
   } 
 
   Future<List<SugerenciaBusquedaModel>> obtenerSugerencia() async {
+    try{
     final db = await dbProvider.database;
     final res = await db.rawQuery("SELECT * FROM SugerenciaBusqueda group by id_itemsubcategory");
     
@@ -34,6 +35,12 @@ class SugerenciaBusquedaDb{
         ? res.map((c) => SugerenciaBusquedaModel.fromJson(c)).toList()
         : [];
     return list;
+
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
 }

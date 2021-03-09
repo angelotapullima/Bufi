@@ -23,12 +23,18 @@ class GoodDatabase{
   }
 
   Future<List<BienesModel>> obtenerGood() async {
+    try{
     final db = await dbProvider.database;
     final res = await db.rawQuery("SELECT * FROM Good");
 
     List<BienesModel> list =
         res.isNotEmpty ? res.map((c) => BienesModel.fromJson(c)).toList() : [];
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e); 
+      return [];
+    }
+
   }
 
 

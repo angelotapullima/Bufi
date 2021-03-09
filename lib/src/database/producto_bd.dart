@@ -69,42 +69,74 @@ class  ProductoDatabase{
   }
 
   Future<List<ProductoModel>> obtenerSubsidiaryGood() async {
+
+    try{
     final db = await dbProvider.database;
     final res = await db.rawQuery("SELECT * FROM Producto");
 
     List<ProductoModel> list =
         res.isNotEmpty ? res.map((c) => ProductoModel.fromJson(c)).toList() : [];
     return list;
+
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   } 
 
   Future<List<ProductoModel>> obtenerProductoPorIdSubsidiaryGood(String id) async {
+
+    try{
     final db = await dbProvider.database;
     final res = await db.rawQuery("SELECT * FROM Producto WHERE id_producto= '$id'");
 
     List<ProductoModel> list =
         res.isNotEmpty ? res.map((c) => ProductoModel.fromJson(c)).toList() : [];
     return list;
+
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   } 
 
  Future<List<ProductoModel>> obtenerProductosPorIdSubsidiary(String id) async {
+
+   try{
     final db = await dbProvider.database;
     final res = await db.rawQuery("SELECT * FROM Producto WHERE id_subsidiary= '$id'  order by id_producto");
 
     List<ProductoModel> list =
         res.isNotEmpty ? res.map((c) => ProductoModel.fromJson(c)).toList() : [];
     return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   } 
 
  Future<List<ProductoModel>> obtenerProductosFavoritosPorIdSubsidiary(String id) async {
+   try{
     final db = await dbProvider.database;
     final res = await db.rawQuery("SELECT * FROM Producto WHERE id_subsidiary= '$id' and producto_favourite='1' order by id_producto");
 
     List<ProductoModel> list =
         res.isNotEmpty ? res.map((c) => ProductoModel.fromJson(c)).toList() : [];
     return list;
+
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   } 
 
 deshabilitarSubsidiaryProductoDb(ProductoModel goodModel)async{
+
+  try{
     final db = await dbProvider.database;
 
     final res = await db.rawUpdate("UPDATE Producto SET " 
@@ -114,9 +146,15 @@ deshabilitarSubsidiaryProductoDb(ProductoModel goodModel)async{
     );
 
     return res;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
 habilitarSubsidiaryProductoDb(ProductoModel goodModel)async{
+  try{
     final db = await dbProvider.database;
 
     final res = await db.rawUpdate("UPDATE Producto SET " 
@@ -125,11 +163,16 @@ habilitarSubsidiaryProductoDb(ProductoModel goodModel)async{
     "WHERE id_producto = '${goodModel.idProducto}' " 
     );
 
-    return res;
+    return res;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
 //Se utiliza para la busqueda
   Future<List<ProductoModel>> consultarProductoPorQuery(String query) async {
+    try{
     final db = await dbProvider.database;
     final res = await db.rawQuery(
         "SELECT * FROM Producto WHERE producto_name LIKE '%$query%'");
@@ -138,10 +181,15 @@ habilitarSubsidiaryProductoDb(ProductoModel goodModel)async{
         ? res.map((c) => ProductoModel.fromJson(c)).toList()
         : [];
 
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
   Future<List<ProductoModel>> obtenerProductoXIdItemSubcategoria(String id) async {
+    try{
     final db = await dbProvider.database;
     final res = await db.rawQuery(
         "SELECT * FROM Producto WHERE id_itemsubcategory='$id'");
@@ -151,9 +199,15 @@ habilitarSubsidiaryProductoDb(ProductoModel goodModel)async{
         : [];
 
     return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
   Future<List<ProductoModel>> obtenerProductosFavoritos() async {
+    try{
     final db = await dbProvider.database;
     final res = await db.rawQuery(
         "SELECT * FROM Producto WHERE producto_favourite=1");
@@ -162,10 +216,15 @@ habilitarSubsidiaryProductoDb(ProductoModel goodModel)async{
         ? res.map((c) => ProductoModel.fromJson(c)).toList()
         : [];
 
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
 
   Future<List<ProductoModel>> deleteProductosFavoritos() async {
+    try{
     final db = await dbProvider.database;
     final res = await db.rawQuery(
         "SELECT * FROM Producto WHERE producto_favourite=0");
@@ -174,7 +233,11 @@ habilitarSubsidiaryProductoDb(ProductoModel goodModel)async{
         ? res.map((c) => ProductoModel.fromJson(c)).toList()
         : [];
 
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
   }
   
   

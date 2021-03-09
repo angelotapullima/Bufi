@@ -92,7 +92,8 @@ class _CantidadCarritoState extends State<CantidadCarrito> {
                     child: Text(
                       "-",
                       style: TextStyle(
-                        color: Colors.black45,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
                         fontSize: responsive.ip(2),
                       ),
                     ),
@@ -106,9 +107,10 @@ class _CantidadCarritoState extends State<CantidadCarrito> {
                 color: Colors.grey[100],
                 height: double.infinity,
                 child: Center(
-                  child: Text('$_counter UND',
+                  child: Text('$_counter UN',
                       style: TextStyle(
-                        color: Colors.black45,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
                         fontSize: responsive.ip(1.5),
                       )),
                 ),
@@ -137,7 +139,8 @@ class _CantidadCarritoState extends State<CantidadCarrito> {
                     child: Text(
                       "+",
                       style: TextStyle(
-                        color: Colors.black45,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
                         fontSize: responsive.ip(2),
                       ),
                     ),

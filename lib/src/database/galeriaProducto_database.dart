@@ -25,6 +25,7 @@ final dbprovider = DatabaseProvider.db;
   }
 
   Future<List<GaleriaProductoModel>> obtenergaleriaProducto() async {
+    try{
     final db = await dbprovider.database;
     final res = await db.rawQuery("SELECT * FROM galeriaProducto");
 
@@ -32,10 +33,15 @@ final dbprovider = DatabaseProvider.db;
         ? res.map((c) => GaleriaProductoModel.fromJson(c)).toList()
         : [];
 
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e); 
+      return [];
+    }
   } 
 
   Future<List<GaleriaProductoModel>> obtenerGaleriaProductoPorIdProducto(String idProducto) async {
+    try{
     final db = await dbprovider.database;
     final res = await db.rawQuery("SELECT * FROM galeriaProducto where id_producto='$idProducto' order by id_producto");
 
@@ -43,7 +49,11 @@ final dbprovider = DatabaseProvider.db;
         ? res.map((c) => GaleriaProductoModel.fromJson(c)).toList()
         : [];
 
-    return list;
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e); 
+      return [];
+    }
   } 
 
 

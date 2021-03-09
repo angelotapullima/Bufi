@@ -87,6 +87,9 @@ class PedidoBloc {
         detallePedido.idPedido = listdetallePedido[j].idPedido;
         detallePedido.idProducto = listdetallePedido[j].idProducto;
         detallePedido.cantidad = listdetallePedido[j].cantidad;
+        detallePedido.detallePedidoMarca = listdetallePedido[j].detallePedidoMarca;
+        detallePedido.detallePedidoModelo = listdetallePedido[j].detallePedidoModelo;
+        detallePedido.detallePedidoTalla = listdetallePedido[j].detallePedidoTalla;
         detallePedido.detallePedidoSubtotal =
             listdetallePedido[j].detallePedidoSubtotal;
 
@@ -221,6 +224,9 @@ class PedidoBloc {
         detallePedido.idPedido = listdetallePedido[j].idPedido;
         detallePedido.idProducto = listdetallePedido[j].idProducto;
         detallePedido.cantidad = listdetallePedido[j].cantidad;
+        detallePedido.detallePedidoMarca = listdetallePedido[j].detallePedidoMarca;
+        detallePedido.detallePedidoModelo = listdetallePedido[j].detallePedidoModelo;
+        detallePedido.detallePedidoTalla = listdetallePedido[j].detallePedidoTalla;
         detallePedido.detallePedidoSubtotal =
             listdetallePedido[j].detallePedidoSubtotal;
 

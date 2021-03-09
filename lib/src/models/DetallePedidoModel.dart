@@ -6,13 +6,21 @@ class DetallePedidoModel {
       this.idPedido,
       this.idProducto,
       this.cantidad,
-      this.detallePedidoSubtotal, this.listProducto});
+      this.detallePedidoMarca,
+      this.detallePedidoModelo,
+      this.detallePedidoTalla,
+      this.detallePedidoSubtotal,
+      this.listProducto});
 
   String idDetallePedido;
   String idPedido;
   String idProducto;
   String cantidad;
+  String detallePedidoMarca;
+  String detallePedidoModelo;
+  String detallePedidoTalla;
   String detallePedidoSubtotal;
+  
   List<ProductoModel> listProducto;
 
   factory DetallePedidoModel.fromJson(Map<String, dynamic> json) =>
@@ -21,6 +29,9 @@ class DetallePedidoModel {
         idPedido: json["id_pedido"],
         idProducto: json["id_producto"],
         cantidad: json["cantidad"],
+        detallePedidoMarca: json["detalle_pedido_marca"],
+        detallePedidoModelo: json["detalle_pedido_modelo"],
+        detallePedidoTalla: json["detalle_pedido_talla"],
         detallePedidoSubtotal: json["delivery_detail_subtotal"],
       );
 }

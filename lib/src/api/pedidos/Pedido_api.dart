@@ -322,6 +322,10 @@ class PedidoApi {
         detallePedido.idPedido =decodedData["result"]['pedido']["detalle_pedido"][j]["id_delivery"];
         detallePedido.idProducto = decodedData["result"]['pedido']["detalle_pedido"][j]["id_subsidiarygood"];
         detallePedido.cantidad = decodedData["result"]['pedido']["detalle_pedido"][j]["delivery_detail_qty"];
+        //agregado rcientemente
+        detallePedido.detallePedidoMarca = decodedData["result"]['pedido']["detalle_pedido"][j]["delivery_detail_brand"];
+        detallePedido.detallePedidoModelo = decodedData["result"]['pedido']["detalle_pedido"][j]["delivery_detail_model"];
+        detallePedido.detallePedidoTalla = decodedData["result"]['pedido']["detalle_pedido"][j]["delivery_detail_size"];
         detallePedido.detallePedidoSubtotal = decodedData["result"]['pedido']["detalle_pedido"][j]["delivery_detail_subtotal"];
 
         //insertamos en la bd los productos
@@ -436,6 +440,8 @@ class PedidoApi {
           c.idSubsidiaryGood = listCarrito[y].idSubsidiaryGood;
           c.nombre = listCarrito[y].nombre;
           c.marca = listCarrito[y].marca;
+          c.modelo = listCarrito[y].modelo;
+          c.talla = listCarrito[y].talla;
           c.image = listCarrito[y].image;
           c.moneda = listCarrito[y].moneda;
           c.size = listCarrito[y].size;

@@ -11,9 +11,9 @@ final dbprovider = DatabaseProvider.db;
 
       final res = await db.rawInsert(
           "INSERT OR REPLACE INTO DetallePedido (id_detalle_pedido,id_pedido,id_producto,"
-          "cantidad,delivery_detail_subtotal) "
+          "cantidad,detalle_pedido_marca,detalle_pedido_modelo,detalle_pedido_talla,delivery_detail_subtotal) "
               "VALUES ('${detallePedidoModel.idDetallePedido}','${detallePedidoModel.idPedido}','${detallePedidoModel.idProducto}',"
-              "'${detallePedidoModel.cantidad}',"
+              "'${detallePedidoModel.cantidad}','${detallePedidoModel.detallePedidoMarca}','${detallePedidoModel.detallePedidoModelo}','${detallePedidoModel.detallePedidoTalla}',"
               "'${detallePedidoModel.detallePedidoSubtotal}')");
 
       return res;
@@ -39,5 +39,6 @@ final dbprovider = DatabaseProvider.db;
     }
   } 
 
+ 
 
 }

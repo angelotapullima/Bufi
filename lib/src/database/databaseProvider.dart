@@ -295,6 +295,9 @@ class DatabaseProvider {
           ' id_pedido TEXT,'
           ' id_producto TEXT,'
           ' cantidad TEXT,'
+          ' detalle_pedido_marca TEXT,'
+          ' detalle_pedido_modelo TEXT,'
+          ' detalle_pedido_talla TEXT,'
           ' delivery_detail_subtotal TEXT'
           ')');
 

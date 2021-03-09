@@ -290,7 +290,8 @@ class _CarritoPageState extends State<CarritoPage> {
                                           .car[xxx]
                                           .carrito[indd]
                                           .cantidad);
-
+                                  
+                                    //Borrar con swipe
                                   return Dismissible(
                                     key: UniqueKey(),
                                     background: Container(
@@ -313,6 +314,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                         ],
                                       ),
                                     ),
+
                                     direction: DismissDirection.horizontal,
                                     onDismissed: (direction) {
                                       agregarAlCarritoContador(
@@ -328,7 +330,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                         //horizontal: responsive.wp(3),
                                         vertical: responsive.hp(.5),
                                       ),
-                                      height: responsive.hp(20),
+                                      height: responsive.hp(27),
                                       child: Column(
                                         children: [
                                           Padding(
@@ -424,7 +426,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                                 SizedBox(
                                                   width: responsive.wp(5),
                                                 ),
-
+                                                //Datos del producto
                                                 Expanded(
                                                   child: Container(
                                                     //width: responsive.wp(50),
@@ -450,6 +452,18 @@ class _CarritoPageState extends State<CarritoPage> {
                                                         ),
                                                         Text(
                                                           '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .grey[600]),
+                                                        ),
+                                                        Text(
+                                                          '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}',
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .grey[600]),
+                                                        ),
+                                                        Text(
+                                                          '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
                                                           style: TextStyle(
                                                               color: Colors
                                                                   .grey[600]),

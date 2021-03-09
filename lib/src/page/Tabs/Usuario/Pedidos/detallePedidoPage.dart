@@ -339,7 +339,7 @@ class _TickectPedidoState extends State<TickectPedido> {
                 }
               } else {
                 return Center(
-                  child: CupertinoActivityIndicator(),
+                  child: Center(child: Text("No se encuentra información"),),
                 );
               }
             }),

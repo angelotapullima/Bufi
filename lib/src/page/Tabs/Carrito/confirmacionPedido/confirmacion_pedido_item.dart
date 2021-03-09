@@ -72,7 +72,7 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                             children: [
                                               BackButton(),
                                               Text(
-                                                'Confirmación de pedido',
+                                                'Confirmaciónhh de pedido',
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize:

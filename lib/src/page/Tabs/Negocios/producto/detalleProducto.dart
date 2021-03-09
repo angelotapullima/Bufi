@@ -227,7 +227,8 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                   .obtenerMarcaProductoPorIdProductoEnEstado1(
                                       widget.producto.idProducto);
 
-                              await agregarAlCarrito(
+                              if (tallas.length==1 && modelos.length==1 && marcas.length==1) {
+                                await agregarAlCarrito(
                                   context,
                                   widget.producto.idProducto,
                                   tallas[0].tallaProducto,
@@ -256,6 +257,12 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                   },
                                 ),
                               );
+                                
+                              } else {
+                                utils.showToast(context, 'Debe seleccionar todas las opciones');
+                              }
+
+                              
                             }),
                             Container(
                               width: responsive.wp(60),

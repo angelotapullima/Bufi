@@ -351,6 +351,28 @@ class DatabaseProvider {
           ' publicidad_datetime TEXT,'
           ' id_pago TEXT'
           ')');
+
+          await db.execute(' CREATE TABLE Agentes('
+          ' id_agente TEXT PRIMARY KEY,'
+          ' id_user TEXT,'
+          ' id_cuenta TEXT,'
+          ' id_city TEXT,'
+          ' agente_tipo TEXT,'
+          ' agente_nombre TEXT,'
+          ' agente_codigo TEXT,'
+          ' agente_direccion TEXT,'
+          ' agente_telefono TEXT,'
+          ' agente_coord_x TEXT,'
+          ' agente_coord_y TEXT,'
+          ' agente_estado TEXT,'
+          ' id_cuenta_empresa TEXT,'
+          ' id_company TEXT,'
+          ' cuentae_codigo TEXT,'
+          ' cuentae_saldo TEXT,'
+          ' cuentae_moneda TEXT,'
+          ' cuentae_date TEXT,'
+          ' cuentae_estado TEXT'
+          ')');
     });
   }
 }

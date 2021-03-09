@@ -226,6 +226,8 @@ class CarritoBloc {
           c.idSubsidiaryGood = listCarrito[y].idSubsidiaryGood;
           c.nombre = listCarrito[y].nombre;
           c.marca = listCarrito[y].marca;
+          c.modelo = listCarrito[y].modelo;
+          c.talla = listCarrito[y].talla;
           c.image = listCarrito[y].image;
           c.moneda = listCarrito[y].moneda;
           c.size = listCarrito[y].size;
@@ -275,6 +277,8 @@ class CarritoBloc {
         c.idSubsidiaryGood = listCarrito[0].idSubsidiaryGood;
         c.nombre = listCarrito[0].nombre;
         c.marca = listCarrito[0].marca;
+        c.modelo = listCarrito[0].modelo;
+        c.talla = listCarrito[0].talla;
         c.image = listCarrito[0].image;
         c.moneda = listCarrito[0].moneda;
         c.size = listCarrito[0].size;
@@ -325,6 +329,8 @@ class CarritoBloc {
             c.idSubsidiaryGood = listCarrito[0].idSubsidiaryGood;
             c.nombre = listCarrito[0].nombre;
             c.marca = listCarrito[0].marca;
+            c.modelo = listCarrito[0].modelo;
+            c.talla = listCarrito[0].talla;
             c.image = listCarrito[0].image;
             c.moneda = listCarrito[0].moneda;
             c.size = listCarrito[0].size;

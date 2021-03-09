@@ -1,4 +1,5 @@
 import 'package:bufi/src/bloc/Pedido/Pedido_bloc.dart';
+import 'package:bufi/src/bloc/agentes_bloc.dart';
 import 'package:bufi/src/bloc/bienesServicios_bloc.dart';
 import 'package:bufi/src/bloc/bottom_navigation_bloc.dart';
 import 'package:bufi/src/bloc/busquedaBloc.dart';
@@ -58,6 +59,7 @@ class ProviderBloc extends InheritedWidget {
   final direccionesBloc = DireccionesBloc();
   final datosProductosBloc = DatosProductoBloc();
   final publicidadBloc = PublicidadBloc();
+  final agentesdBloc = AgentesBloc();
 
 
   factory ProviderBloc({Key key, Widget child}) {
@@ -224,9 +226,14 @@ class ProviderBloc extends InheritedWidget {
   static DatosProductoBloc datosProductos(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .datosProductosBloc;}
-  //datos de Productos
+
   static PublicidadBloc publi(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .publicidadBloc;
+  }
+
+  static AgentesBloc agentes(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .agentesdBloc;
   }
 }

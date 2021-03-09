@@ -124,7 +124,7 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                             children: [
                                               BackButton(),
                                               Text(
-                                                'Confirmación de pedido',
+                                                'Confirmaciónff de pedido',
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize:
@@ -197,7 +197,7 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                           int indd = i - 1;
 
                                           return Container(
-                                            height: responsive.hp(11),
+                                            height: responsive.hp(15),
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 5),
                                             width: double.infinity,
@@ -261,6 +261,9 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                                         Text('${listCarritoSuperior[0].car[xxx].carrito[indd].nombre} ' +
                                                             '${listCarritoSuperior[0].car[xxx].carrito[indd].marca} x ' +
                                                             '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}'),
+
+                                                        Text('${listCarritoSuperior[0].car[xxx].carrito[indd].modelo} '),
+                                                        Text('${listCarritoSuperior[0].car[xxx].carrito[indd].talla} '),
                                                         Text(
                                                           'S/. ' +
                                                               (double.parse(

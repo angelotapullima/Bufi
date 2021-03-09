@@ -14,6 +14,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:bufi/src/utils/utils.dart' as utils;
 
 class DetalleProductos extends StatefulWidget {
   final ProductoModel producto;
@@ -283,10 +284,12 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                 ],
                               ),
                             ).ripple(() async {
+
+                              
                               //Tallas
                               final tallaDatabase = TallaProductoDatabase();
                               final tallas = await tallaDatabase.obtenerTallaProductoPorIdProductoEnEstado1( widget.producto.idProducto);
-                              //widget.producto.idProducto);
+                              
                               //modelo
                               final modeloDatabase = ModeloProductoDatabase();
                               final modelos = await modeloDatabase
@@ -298,14 +301,18 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                   .obtenerMarcaProductoPorIdProductoEnEstado1(
                                       widget.producto.idProducto);
 
-                              await agregarAlCarrito(
+                              if (tallas.length!=1 || modelos.length!=1 || marcas.length!=1) {
+                                utils.showToast(context, 'Debe seleccionar todas las opciones');
+                              }else{
+                                
+                                await agregarAlCarrito(
                                   context,
                                   widget.producto.idProducto,
                                   tallas[0].tallaProducto,
                                   modelos[0].modeloProducto,
                                   marcas[0].marcaProducto);
 
-                              Navigator.push(
+                                   Navigator.push(
                                 context,
                                 PageRouteBuilder(
                                   transitionDuration:
@@ -325,6 +332,11 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                   },
                                 ),
                               );
+                              }
+
+                              
+
+                             
                             }),
                           ],
                         ),

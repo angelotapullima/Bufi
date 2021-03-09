@@ -3,6 +3,8 @@ import 'package:bufi/src/page/Tabs/Usuario/Pedidos/RatingPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/ValoracionPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Direccion/direccionPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/perfilPage.dart';
+import 'package:bufi/src/page/cuenta/agentesPage.dart';
+import 'package:bufi/src/page/cuenta/puntosRecargaPage.dart';
 import 'package:bufi/src/page/cuenta/subir_vaucher_recarga.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/page/Categorias/categoriasPage.dart';
@@ -113,6 +115,8 @@ class MyApp extends StatelessWidget {
               'misMovimientos': (BuildContext context) => MisMovimientosPage(),
               'recargarSaldo': (BuildContext context) => RecargarSaldo(),
               'subirVaucher': (BuildContext context) => SubirVaucher(),
+              'puntosRecarga': (BuildContext context) => PuntosRecargaPage(),
+              'agentes': (BuildContext context) => AgentesPage(),
             }),
       ),
     );

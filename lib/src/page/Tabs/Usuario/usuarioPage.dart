@@ -165,7 +165,7 @@ class _UserPageState extends State<UserPage> {
             child: Column(
               children: [
                 Text(
-                  'Bufis',
+                  'Mis Bufis',
                   style: TextStyle(
                       fontSize: responsive.ip(2.5),
                       fontWeight: FontWeight.bold),
@@ -176,7 +176,7 @@ class _UserPageState extends State<UserPage> {
                   children: [
                     bottonCircular(responsive, 'Recargas'),
                     bottonCircular(responsive, 'misMovimientos'),
-                    bottonCircular(responsive, 'Compras'),
+                    bottonCircular(responsive, 'Agentes'),
                   ],
                 ),
                 SizedBox(
@@ -336,6 +336,12 @@ class _UserPageState extends State<UserPage> {
           Navigator.pushNamed(context, 'recargarSaldo');
           //Navigator.pushNamed(context, 'prueba');
         }
+        else if (texto == 'puntos de Recargas') {
+          Navigator.pushNamed(context, 'puntosRecarga');
+                 }
+        else if (texto == 'Agentes') {
+          Navigator.pushNamed(context, 'agentes');
+                 }
 
         /* if (onPressed != null) {
             onPressed();

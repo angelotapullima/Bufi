@@ -1,8 +1,10 @@
 import 'dart:ui';
+import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
+import 'package:bufi/src/utils/favoritos.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -244,6 +246,53 @@ class _BienesWidgetState extends State<BienesWidget> {
                     ),
                   ),
                 ),
+                //Favorito
+                Positioned(
+                  right: 0,
+                  top: 2,
+                  child: favorite
+                    ? GestureDetector(
+                        child: Container(
+                          height: responsive.hp(3.5),
+                          width: responsive.wp(12),
+                          decoration: BoxDecoration(
+                            color: Colors.red.withOpacity(.2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Icon(FontAwesomeIcons.solidHeart,
+                              color: Colors.red),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            favorite = false;
+                            final buttonBloc = ProviderBloc.tabs(context);
+                            buttonBloc.changePage(1);
+                            quitarProductoFavorito(context, widget.producto);
+                            cant++;
+                          });
+                        },
+                      )
+                    : GestureDetector(
+                        child: Container(
+                          height: responsive.hp(3.5),
+                          width: responsive.wp(12),
+                          decoration: BoxDecoration(
+                            color: Colors.red.withOpacity(.2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child:
+                              Icon(FontAwesomeIcons.heart, color: Colors.white),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            favorite = true;
+                            final buttonBloc = ProviderBloc.tabs(context);
+                            buttonBloc.changePage(1);
+                            guardarProductoFavorito(context, widget.producto);
+                          });
+                        },
+                      )
+                ),
                //Cuando el producto no esta disponible
                 // Positioned(
                 //   //left: responsive.wp(1),
@@ -305,7 +354,7 @@ class _BienesWidgetState extends State<BienesWidget> {
           //           ],
           //         ),
           //       ),
-          //       favorite
+          //        favorite
           //           ? GestureDetector(
           //               child: Container(
           //                 height: responsive.hp(3.5),

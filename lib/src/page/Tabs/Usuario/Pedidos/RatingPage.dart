@@ -20,6 +20,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
   double valueRating = 0.0;
   //widget para el cargando
   final _cargando = ValueNotifier<bool>(false);
+  TextEditingController comentarioController = TextEditingController();
 
   //Para acceder a la galeria o tomar una foto
   File foto;
@@ -30,8 +31,6 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final PedidosModel pedido = ModalRoute.of(context).settings.arguments;
-
-    TextEditingController comentarioController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(

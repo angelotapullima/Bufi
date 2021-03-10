@@ -15,6 +15,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:bufi/src/utils/utils.dart' as utils;
+import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 
 class DetalleProductos extends StatefulWidget {
   final ProductoModel producto;
@@ -72,7 +73,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
           ),
           //style: isOutLine ? BorderStyle.solid : BorderStyle.none),
           borderRadius: BorderRadius.all(
-            Radius.circular(13),
+            Radius.circular(100),
           ),
           color: isOutLine ? Colors.white : Colors.white,
         ),
@@ -98,7 +99,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
           builder: (context, AsyncSnapshot<List<ProductoModel>> snapshot) {
             List<ProductoModel> listProd = snapshot.data;
             if (snapshot.hasData) {
-              if (snapshot.data.length > 0) {
+              if (listProd[0].listTallaProd.length > 0) {
                 return Stack(
                   children: <Widget>[
                     _backgroundImage(
@@ -110,9 +111,12 @@ class _DetalleProductosState extends State<DetalleProductos> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             //BackButton(),
+
+                            SizedBox(
+                              width: responsive.wp(5),
+                            ),
                             _icon(
                               Icons.arrow_back_ios,
                               color: Colors.black54,
@@ -123,6 +127,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                 Navigator.of(context).pop();
                               },
                             ),
+                            Spacer(),
                             //contador de páginas
                             StreamBuilder(
                                 stream: contadorBloc.selectContadorStream,
@@ -153,7 +158,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                     ),
                                   );
                                 }),
-
+                            Spacer(),
                             _icon(
                                 isLiked
                                     ? Icons.favorite
@@ -168,6 +173,9 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                 isLiked = !isLiked;
                               });
                             }),
+                            SizedBox(
+                              width: responsive.wp(5),
+                            ),
                           ],
                         ),
                       ),
@@ -227,42 +235,42 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                   .obtenerMarcaProductoPorIdProductoEnEstado1(
                                       widget.producto.idProducto);
 
-                              if (tallas.length==1 && modelos.length==1 && marcas.length==1) {
+                              if (tallas.length == 1 &&
+                                  modelos.length == 1 &&
+                                  marcas.length == 1) {
                                 await agregarAlCarrito(
+                                    context,
+                                    widget.producto.idProducto,
+                                    tallas[0].tallaProducto,
+                                    modelos[0].modeloProducto,
+                                    marcas[0].marcaProducto);
+
+                                Navigator.push(
                                   context,
-                                  widget.producto.idProducto,
-                                  tallas[0].tallaProducto,
-                                  modelos[0].modeloProducto,
-                                  marcas[0].marcaProducto);
-
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  transitionDuration:
-                                      const Duration(milliseconds: 300),
-                                  pageBuilder:
-                                      (context, animation, secondaryAnimation) {
-                                    return ConfirmacionItemPedido(
-                                        idProducto: widget.producto.idProducto
-                                        //widget.producto.idProducto
-                                        );
-                                    //return DetalleProductitos(productosData: productosData);
-                                  },
-                                  transitionsBuilder: (context, animation,
-                                      secondaryAnimation, child) {
-                                    return FadeTransition(
-                                      opacity: animation,
-                                      child: child,
-                                    );
-                                  },
-                                ),
-                              );
-                                
+                                  PageRouteBuilder(
+                                    transitionDuration:
+                                        const Duration(milliseconds: 300),
+                                    pageBuilder: (context, animation,
+                                        secondaryAnimation) {
+                                      return ConfirmacionItemPedido(
+                                          idProducto: widget.producto.idProducto
+                                          //widget.producto.idProducto
+                                          );
+                                      //return DetalleProductitos(productosData: productosData);
+                                    },
+                                    transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) {
+                                      return FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
                               } else {
-                                utils.showToast(context, 'Debe seleccionar todas las opciones');
+                                utils.showToast(context,
+                                    'Debe seleccionar todas las opciones');
                               }
-
-                              
                             }),
                             Container(
                               width: responsive.wp(60),
@@ -291,12 +299,12 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                 ],
                               ),
                             ).ripple(() async {
-
-                              
                               //Tallas
                               final tallaDatabase = TallaProductoDatabase();
-                              final tallas = await tallaDatabase.obtenerTallaProductoPorIdProductoEnEstado1( widget.producto.idProducto);
-                              
+                              final tallas = await tallaDatabase
+                                  .obtenerTallaProductoPorIdProductoEnEstado1(
+                                      widget.producto.idProducto);
+
                               //modelo
                               final modeloDatabase = ModeloProductoDatabase();
                               final modelos = await modeloDatabase
@@ -308,42 +316,40 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                   .obtenerMarcaProductoPorIdProductoEnEstado1(
                                       widget.producto.idProducto);
 
-                              if (tallas.length!=1 || modelos.length!=1 || marcas.length!=1) {
-                                utils.showToast(context, 'Debe seleccionar todas las opciones');
-                              }else{
-                                
+                              if (tallas.length != 1 ||
+                                  modelos.length != 1 ||
+                                  marcas.length != 1) {
+                                utils.showToast(context,
+                                    'Debe seleccionar todas las opciones');
+                              } else {
                                 await agregarAlCarrito(
+                                    context,
+                                    widget.producto.idProducto,
+                                    tallas[0].tallaProducto,
+                                    modelos[0].modeloProducto,
+                                    marcas[0].marcaProducto);
+
+                                Navigator.push(
                                   context,
-                                  widget.producto.idProducto,
-                                  tallas[0].tallaProducto,
-                                  modelos[0].modeloProducto,
-                                  marcas[0].marcaProducto);
-
-                                   Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  transitionDuration:
-                                      const Duration(milliseconds: 300),
-                                  pageBuilder:
-                                      (context, animation, secondaryAnimation) {
-                                    return DetalleCarrito(
-                                        producto: widget.producto);
-                                    //return DetalleProductitos(productosData: productosData);
-                                  },
-                                  transitionsBuilder: (context, animation,
-                                      secondaryAnimation, child) {
-                                    return FadeTransition(
-                                      opacity: animation,
-                                      child: child,
-                                    );
-                                  },
-                                ),
-                              );
+                                  PageRouteBuilder(
+                                    transitionDuration:
+                                        const Duration(milliseconds: 300),
+                                    pageBuilder: (context, animation,
+                                        secondaryAnimation) {
+                                      return DetalleCarrito(
+                                          producto: widget.producto);
+                                      //return DetalleProductitos(productosData: productosData);
+                                    },
+                                    transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) {
+                                      return FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
                               }
-
-                              
-
-                             
                             }),
                           ],
                         ),
@@ -353,12 +359,26 @@ class _DetalleProductosState extends State<DetalleProductos> {
                 );
               } else {
                 return Center(
-                  child: CupertinoActivityIndicator(),
+                  child: NutsActivityIndicator(
+                    radius: responsive.ip(1),
+                    activeColor: Colors.white,
+                    inactiveColor: Colors.redAccent,
+                    tickCount: 11,
+                    startRatio: 0.55,
+                    animationDuration: Duration(milliseconds: 2003),
+                  ),
                 );
               }
             } else {
               return Center(
-                child: CupertinoActivityIndicator(),
+                child: NutsActivityIndicator(
+                  radius: responsive.ip(1),
+                  activeColor: Colors.white,
+                  inactiveColor: Colors.redAccent,
+                  tickCount: 11,
+                  startRatio: 0.55,
+                  animationDuration: Duration(milliseconds: 2003),
+                ),
               );
             }
           }),
@@ -583,7 +603,9 @@ class _DetalleProductosState extends State<DetalleProductos> {
           text: "Marcas",
           fontSize: 14,
         ),
-        SizedBox(height: responsive.hp(1)),
+        SizedBox(
+          height: responsive.hp(1),
+        ),
         Container(
           height: responsive.hp(8),
           child: ListView.builder(

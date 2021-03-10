@@ -11,22 +11,22 @@ class BusquedaBloc{
   final productoDatabase = ProductoDatabase();
   final subisdiaryServiceDatabase = SubsidiaryServiceDatabase();
 
-  final bienesBusquedaController = BehaviorSubject<List<ProductoModel>>();
+  final busquedaGeneralController = BehaviorSubject<List<ProductoModel>>();
 
-  Stream<List<ProductoModel>> get bienesBusquedaStream =>
-      bienesBusquedaController.stream;
+  Stream<List<ProductoModel>> get busquedaGeneralStream =>
+      busquedaGeneralController.stream;
 
   void dispose(){
-    bienesBusquedaController?.close();
+    busquedaGeneralController?.close();
   }
 
 //Para la busqueda
-  void obtenerBienesAllPorQuery(String query) async {
-    bienesBusquedaController.sink
-        .add(await productoDatabase.consultarProductoPorQuery('$query'));
+  void obtenerResultadosBusquedaPorQuery(String query) async {
+    // bienesBusquedaController.sink
+    //     .add(await productoDatabase.consultarProductoPorQuery('$query'));
     await goodApi.listarBienesAllPorCiudad();
-    bienesBusquedaController.sink
-        .add(await productoDatabase.consultarProductoPorQuery('$query'));
+    // bienesBusquedaController.sink
+    //     .add(await productoDatabase.consultarProductoPorQuery('$query'));
   }
 
 

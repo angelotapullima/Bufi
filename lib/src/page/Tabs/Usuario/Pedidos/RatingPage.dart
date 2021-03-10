@@ -111,7 +111,9 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                             SizedBox(width: responsive.wp(2)),
                             RaisedButton(
                               onPressed: () {
+                                _cargando.value = false;
                                 _subirFoto(context);
+                                //_cargando.value = true;
                               },
                               child: Text("Subir Fotos"),
                             )
@@ -302,7 +304,9 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
         ),
       );
     } else {
-      return Container();
+      return Container(
+          // child: Image(  image: AssetImage('assets/jar-loading.gif')),
+          );
     }
   }
 }

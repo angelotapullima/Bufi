@@ -40,22 +40,22 @@ class BusquedaProductos extends SearchDelegate {
     //Sugerencias de busqueda
 
 
-    final bienesBloc = ProviderBloc.busqueda(context);
-    bienesBloc.obtenerBienesAllPorQuery('$query');
+    final busquedaBloc = ProviderBloc.busqueda(context);
+    busquedaBloc.obtenerResultadosBusquedaPorQuery('$query');
     if (query.isEmpty) {
       //return Container();
       return StreamBuilder(
-        stream: bienesBloc.bienesBusquedaStream,
+        stream: busquedaBloc.busquedaGeneralStream,
         builder: (BuildContext context,
             AsyncSnapshot<List<ProductoModel>> snapshot) {
           if (snapshot.hasData) {
-            final bienes = snapshot.data;
+            final resultBusqueda = snapshot.data;
 
             if (snapshot.data.length > 0) {
               return ListView.builder(
-                itemCount: bienes.length,
+                itemCount: resultBusqueda.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Text(bienes[index].productoName);
+                  return Text(resultBusqueda[index].productoName);
                 },
               );
             } else {
@@ -68,15 +68,15 @@ class BusquedaProductos extends SearchDelegate {
       );
     } else {
       return StreamBuilder(
-        stream: bienesBloc.bienesBusquedaStream,
+        stream: busquedaBloc.busquedaGeneralStream,
         builder: (BuildContext context,
             AsyncSnapshot<List<ProductoModel>> snapshot) {
           if (snapshot.hasData) {
-            final bienes = snapshot.data;
+            final resultBusqueda = snapshot.data;
 
             if (snapshot.data.length > 0) {
               return ListView.builder(
-                itemCount: bienes.length,
+                itemCount: resultBusqueda.length,
                 itemBuilder: (BuildContext context, int index) {
                   return
                       //bienesWidget(context, snapshot.data[index], responsive);
@@ -84,18 +84,18 @@ class BusquedaProductos extends SearchDelegate {
                     leading: FadeInImage(
                       placeholder: AssetImage('assets/no-image.png'),
                       image: NetworkImage(
-                        '$apiBaseURL/${bienes[index].productoImage}',
+                        '$apiBaseURL/${resultBusqueda[index].productoImage}',
                       ),
                       width: 50,
                       fit: BoxFit.contain,
                     ),
-                    title: Text(bienes[index].productoName),
-                    subtitle: Text('${bienes[index].productoCurrency}'
-                        '${bienes[index].productoPrice}'),
+                    title: Text(resultBusqueda[index].productoName),
+                    subtitle: Text('${resultBusqueda[index].productoCurrency}'
+                        '${resultBusqueda[index].productoPrice}'),
                     onTap: () {
                       close(context, null);
                       Navigator.pushNamed(context, 'detalleProducto',
-                          arguments: bienes[index].idProducto);
+                          arguments: resultBusqueda[index].idProducto);
                     },
                   );
                   

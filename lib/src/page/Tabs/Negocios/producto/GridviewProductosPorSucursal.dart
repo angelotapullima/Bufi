@@ -23,26 +23,26 @@ class GridviewProductoPorSucursal extends StatelessWidget {
         SizedBox(
           height: responsive.hp(2),
         ),
-        Row(
-          children: [
-            SizedBox(
-              width: responsive.wp(2),
-            ),
-            Expanded(
-              child: BusquedaWidget(responsive: responsive),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(icon: Icon(Icons.category), onPressed: () {}),
-                IconButton(icon: Icon(Icons.filter), onPressed: () {}),
-              ],
-            ),
-          ],
-        ),
-        SizedBox(
-          height: responsive.hp(.5),
-        ),
+        // Row(
+        //   children: [
+        //     SizedBox(
+        //       width: responsive.wp(2),
+        //     ),
+        //     Expanded(
+        //       child: BusquedaWidget(responsive: responsive),
+        //     ),
+        //     Row(
+        //       mainAxisAlignment: MainAxisAlignment.end,
+        //       children: [
+        //         IconButton(icon: Icon(Icons.category), onPressed: () {}),
+        //         IconButton(icon: Icon(Icons.filter), onPressed: () {}),
+        //       ],
+        //     ),
+        //   ],
+        // ),
+        // SizedBox(
+        //   height: responsive.hp(.5),
+        // ),
         Expanded(
           child: StreamBuilder(
             stream: productoBloc.productoStream,

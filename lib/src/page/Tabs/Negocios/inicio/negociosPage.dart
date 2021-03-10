@@ -91,8 +91,7 @@ class _NegociosPageState extends State<NegociosPage> {
                                                             horizontal: 10,
                                                             vertical: 10),
                                                     child: Container(
-                                                      height:
-                                                          responsive.hp(40),
+                                                      height: responsive.hp(40),
                                                       child: Stack(
                                                         children: <Widget>[
                                                           ClipRRect(
@@ -102,13 +101,15 @@ class _NegociosPageState extends State<NegociosPage> {
                                                                         10),
                                                             child:
                                                                 CachedNetworkImage(
-                                                               cacheManager:
-                                                                  CustomCacheManager(), 
-                                                              placeholder: (context, url) => Image(
-                                                                  image: AssetImage(
-                                                                      'assets/jar-loading.gif'),
-                                                                  fit: BoxFit
-                                                                      .cover),
+                                                              cacheManager:
+                                                                  CustomCacheManager(),
+                                                              placeholder: (context,
+                                                                      url) =>
+                                                                  Image(
+                                                                      image: AssetImage(
+                                                                          'assets/jar-loading.gif'),
+                                                                      fit: BoxFit
+                                                                          .cover),
                                                               errorWidget: (context,
                                                                       url,
                                                                       error) =>
@@ -168,8 +169,9 @@ class _NegociosPageState extends State<NegociosPage> {
                                                                     style: TextStyle(
                                                                         color: Colors
                                                                             .white,
-                                                                        fontSize: responsive.ip(
-                                                                            2),
+                                                                        fontSize:
+                                                                            responsive.ip(
+                                                                                2),
                                                                         fontWeight:
                                                                             FontWeight.bold),
                                                                   ),
@@ -194,178 +196,190 @@ class _NegociosPageState extends State<NegociosPage> {
                                           itemCount: negocio.length,
                                           physics: ClampingScrollPhysics(),
                                           itemBuilder: (context, index) {
-                                            return Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                color: Colors.white,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.grey
-                                                        .withOpacity(0.5),
-                                                    spreadRadius: 1,
-                                                    blurRadius: 2,
-                                                    offset: Offset(3,
-                                                        2), // changes position of shadow
-                                                  ),
-                                                ],
-                                              ),
-                                              margin: EdgeInsets.all(
-                                                responsive.ip(1),
-                                              ),
-                                              height: responsive.hp(15),
-                                              child: Row(
-                                                children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                        color: Colors.white,
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                            color: Colors.grey
-                                                                .withOpacity(
-                                                                    0.5),
-                                                            spreadRadius: 1,
-                                                            blurRadius: 1,
-                                                            offset: Offset(0,
-                                                                2), // changes position of shadow
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      width: responsive.wp(42),
-                                                      child: Stack(
-                                                        children: <Widget>[
-                                                          CachedNetworkImage(
-                                                            /* cacheManager:
-                                                                CustomCacheManager(), */
-                                                            placeholder: (context,
-                                                                    url) =>
-                                                                Image(
-                                                                    image: AssetImage(
-                                                                        'assets/jar-loading.gif'),
-                                                                    fit: BoxFit
-                                                                        .cover),
-                                                            errorWidget: (context,
-                                                                    url,
-                                                                    error) =>
-                                                                Image(
-                                                                    image: AssetImage(
-                                                                        'assets/carga_fallida.jpg'),
-                                                                    fit: BoxFit
-                                                                        .cover),
-                                                            imageUrl:
-                                                                '$apiBaseURL/${negocio[index].companyImage}',
-                                                            imageBuilder: (context,
-                                                                    imageProvider) =>
-                                                                Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                image:
-                                                                    DecorationImage(
+                                            return GestureDetector(
+
+                                              onTap: (){
+                                                Navigator.pushNamed(
+                                                      context, 'detalleNegocio',
+                                                      arguments:
+                                                          negocio[index]);
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  color: Colors.white,
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.grey
+                                                          .withOpacity(0.5),
+                                                      spreadRadius: 1,
+                                                      blurRadius: 2,
+                                                      offset: Offset(3,
+                                                          2), // changes position of shadow
+                                                    ),
+                                                  ],
+                                                ),
+                                                margin: EdgeInsets.all(
+                                                  responsive.ip(1),
+                                                ),
+                                                height: responsive.hp(15),
+                                                child: Row(
+                                                  children: [
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                          color: Colors.white,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color: Colors.grey
+                                                                  .withOpacity(
+                                                                      0.5),
+                                                              spreadRadius: 1,
+                                                              blurRadius: 1,
+                                                              offset: Offset(0,
+                                                                  2), // changes position of shadow
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        width:
+                                                            responsive.wp(42),
+                                                        child: Stack(
+                                                          children: <Widget>[
+                                                            CachedNetworkImage(
+                                                              /* cacheManager:
+                                                                  CustomCacheManager(), */
+                                                              placeholder: (context,
+                                                                      url) =>
+                                                                  Image(
+                                                                      image: AssetImage(
+                                                                          'assets/jar-loading.gif'),
+                                                                      fit: BoxFit
+                                                                          .cover),
+                                                              errorWidget: (context,
+                                                                      url,
+                                                                      error) =>
+                                                                  Image(
+                                                                      image: AssetImage(
+                                                                          'assets/carga_fallida.jpg'),
+                                                                      fit: BoxFit
+                                                                          .cover),
+                                                              imageUrl:
+                                                                  '$apiBaseURL/${negocio[index].companyImage}',
+                                                              imageBuilder:
+                                                                  (context,
+                                                                          imageProvider) =>
+                                                                      Container(
+                                                                decoration:
+                                                                    BoxDecoration(
                                                                   image:
-                                                                      imageProvider,
-                                                                  fit: BoxFit
-                                                                      .cover,
+                                                                      DecorationImage(
+                                                                    image:
+                                                                        imageProvider,
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          Positioned(
-                                                            right: 0,
-                                                            left: 0,
-                                                            bottom: 0,
-                                                            child: Container(
-                                                              width: double
-                                                                  .infinity,
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                vertical:
-                                                                    responsive
-                                                                        .hp(.5),
-                                                                //horizontal: responsive.wp(2)
+                                                            Positioned(
+                                                              right: 0,
+                                                              left: 0,
+                                                              bottom: 0,
+                                                              child: Container(
+                                                                width: double
+                                                                    .infinity,
+                                                                padding: EdgeInsets
+                                                                    .symmetric(
+                                                                  vertical:
+                                                                      responsive
+                                                                          .hp(.5),
+                                                                  //horizontal: responsive.wp(2)
+                                                                ),
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Colors
+                                                                      .black
+                                                                      .withOpacity(
+                                                                          .5),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                ),
+                                                                child: Column(
+                                                                  children: [
+                                                                    Text(
+                                                                      '${negocio[index].companyName}',
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontSize: responsive.ip(
+                                                                              2),
+                                                                          fontWeight:
+                                                                              FontWeight.bold),
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                               ),
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Colors
-                                                                    .black
-                                                                    .withOpacity(
-                                                                        .5),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                              ),
-                                                              child: Column(
-                                                                children: [
-                                                                  Text(
-                                                                    '${negocio[index].companyName}',
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            responsive.ip(
-                                                                                2),
-                                                                        fontWeight:
-                                                                            FontWeight.bold),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          )
-                                                        ],
+                                                            )
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Container(
-                                                    width: responsive.wp(53),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          '${negocio[index].companyName}',
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  responsive
-                                                                      .ip(2.3),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                        Text(
-                                                            '${negocio[index].subsidiaryAddress}'),
-                                                        Text(
-                                                            '${negocio[index].companyRating}'),
-                                                        Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Icon(
-                                                                Icons.star,
-                                                                color: Colors
-                                                                    .yellow,
-                                                              ),
-                                                              SizedBox(
-                                                                  width: 5),
-                                                              //Text('${data[index].subsidiaryGoodRating}'),
-                                                              Text('bien'),
-                                                              SizedBox(
-                                                                  width: 10),
-                                                            ])
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
+                                                    Container(
+                                                      width: responsive.wp(53),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            '${negocio[index].companyName}',
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    responsive
+                                                                        .ip(
+                                                                            2.3),
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                          Text(
+                                                              '${negocio[index].subsidiaryAddress}'),
+                                                          Text(
+                                                              '${negocio[index].companyRating}'),
+                                                          Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color: Colors
+                                                                      .yellow,
+                                                                ),
+                                                                SizedBox(
+                                                                    width: 5),
+                                                                //Text('${data[index].subsidiaryGoodRating}'),
+                                                                Text('bien'),
+                                                                SizedBox(
+                                                                    width: 10),
+                                                              ])
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             );
                                           });

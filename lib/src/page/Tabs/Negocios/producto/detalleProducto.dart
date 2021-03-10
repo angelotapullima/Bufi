@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:bufi/src/utils/utils.dart' as utils;
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DetalleProductos extends StatefulWidget {
   final ProductoModel producto;
@@ -159,20 +160,39 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                   );
                                 }),
                             Spacer(),
+
                             _icon(
-                                isLiked
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
-                                color: isLiked
-                                    ? LightColor.lightGrey
-                                    : LightColor.red,
-                                size: responsive.ip(1.7),
-                                padding: responsive.ip(1.25),
-                                isOutLine: false, onPressed: () {
-                              setState(() {
-                                isLiked = !isLiked;
-                              });
-                            }),
+                              Icons.shopping_cart_outlined,
+                              color: Colors.black54,
+                              size: responsive.ip(2.4),
+                              padding: responsive.ip(1.25),
+                              // isOutLine: false,
+                              onPressed: () {
+                                final buttonBloc = ProviderBloc.tabs(context);
+                                buttonBloc.changePage(2);
+                              },
+                            ),
+                            GestureDetector(
+                              child: Icon(Icons.arrow_right_outlined),
+                              onTap: () {
+                                final buttonBloc = ProviderBloc.tabs(context);
+                                buttonBloc.changePage(2);
+                              },
+                            ),
+                            // _icon(
+                            //     isLiked
+                            //         ? Icons.favorite
+                            //         : Icons.favorite_border,
+                            //     color: isLiked
+                            //         ? LightColor.lightGrey
+                            //         : LightColor.red,
+                            //     size: responsive.ip(1.7),
+                            //     padding: responsive.ip(1.25),
+                            //     isOutLine: false, onPressed: () {
+                            //   setState(() {
+                            //     isLiked = !isLiked;
+                            //   });
+                            // }),
                             SizedBox(
                               width: responsive.wp(5),
                             ),
@@ -185,7 +205,10 @@ class _DetalleProductosState extends State<DetalleProductos> {
                       child: _contenido(responsive, context, listProd),
                     ),
 
-                    BotonAgregar(responsive: responsive, producto: widget.producto, listProd: listProd)
+                    BotonAgregar(
+                        responsive: responsive,
+                        producto: widget.producto,
+                        listProd: listProd)
                   ],
                 );
               } else {
@@ -223,61 +246,55 @@ class _DetalleProductosState extends State<DetalleProductos> {
     return Container(
       height: size.height * 0.47,
       width: double.infinity,
-      child: GestureDetector(
-          onTap: () {
-            //Navigator.pushNamed(context, 'detalleProductoFoto', arguments: carrito);
-          },
-          onVerticalDragUpdate: (drag) {
-            if (drag.primaryDelta > 7) {
-              Navigator.pop(context);
-            }
-          },
-          child: Stack(
-            children: [
-              PageView.builder(
-                  itemCount: listProd[0].listFotos.length,
-                  controller: _pageController,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: CachedNetworkImage(
-                            //cacheManager: CustomCacheManager(),
+      child: Stack(
+        children: [
+          PageView.builder(
+              itemCount: listProd[0].listFotos.length,
+              controller: _pageController,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'detalleProductoFoto',
+                          arguments: listProd[0]);
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: CachedNetworkImage(
+                        //cacheManager: CustomCacheManager(),
 
-                            placeholder: (context, url) => Image(
-                                image: AssetImage('assets/jar-loading.gif'),
-                                fit: BoxFit.cover),
+                        placeholder: (context, url) => Image(
+                            image: AssetImage('assets/jar-loading.gif'),
+                            fit: BoxFit.cover),
 
-                            errorWidget: (context, url, error) => Image(
-                                image: AssetImage('assets/carga_fallida.jpg'),
-                                fit: BoxFit.cover),
+                        errorWidget: (context, url, error) => Image(
+                            image: AssetImage('assets/carga_fallida.jpg'),
+                            fit: BoxFit.cover),
 
-                            imageUrl:
-                                '$apiBaseURL/${listProd[0].listFotos[index].galeriaFoto}',
+                        imageUrl:
+                            '$apiBaseURL/${listProd[0].listFotos[index].galeriaFoto}',
 
-                            imageBuilder: (context, imageProvider) => Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),
                       ),
-                    );
-                  },
-                  onPageChanged: (int index) {
-                    contadorBloc.changeContador(index);
-                  }),
-            ],
-          )),
+                    ),
+                  ),
+                );
+              },
+              onPageChanged: (int index) {
+                contadorBloc.changeContador(index);
+              }),
+        ],
+      ),
     );
   }
 
@@ -394,18 +411,99 @@ class _DetalleProductosState extends State<DetalleProductos> {
   }
 
   Widget _description() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        TitleText(
-          text: "Available Size",
-          fontSize: 14,
-        ),
-        SizedBox(height: 20),
-        Text(
-            "Clean lines, versatile and timeless—the people shoe returns with the Nike Air Max 90. Featuring the same iconic Waffle sole, stitched overlays and classic TPU accents you come to love, it lets you walk among the pantheon of Air. ßNothing as fly, nothing as comfortable, nothing as proven. The Nike Air Max 90 stays true to its OG running roots with the iconic Waffle sole, stitched overlays and classic TPU details. Classic colours celebrate your fresh look while Max Air cushioning adds comfort to the journey."),
-      ],
+     bool _enabled = true;
+    return Container(
+      width: double.infinity,
+      height: 200,
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Expanded(
+            child: Shimmer.fromColors(
+              baseColor: Colors.grey[300],
+              highlightColor: Colors.grey[100],
+              enabled: _enabled,
+              child: ListView.builder(
+                itemBuilder: (_, __) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 48.0,
+                        height: 48.0,
+                        color: Colors.white,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              width: double.infinity,
+                              height: 8.0,
+                              color: Colors.white,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 2.0),
+                            ),
+                            Container(
+                              width: double.infinity,
+                              height: 8.0,
+                              color: Colors.white,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 2.0),
+                            ),
+                            Container(
+                              width: 40.0,
+                              height: 8.0,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                itemCount: 6,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: FlatButton(
+                onPressed: () {
+                  setState(() {
+                    _enabled = !_enabled;
+                  });
+                },
+                child: Text(
+                  _enabled ? 'Stop' : 'Play',
+                  style: Theme.of(context).textTheme.button.copyWith(
+                      fontSize: 18.0,
+                      color: _enabled ? Colors.redAccent : Colors.green),
+                )),
+          )
+        ],
+      ),
     );
+
+    // Column(
+    //   crossAxisAlignment: CrossAxisAlignment.start,
+    //   children: <Widget>[
+    //     TitleText(
+    //       text: "Available Size",
+    //       fontSize: 14,
+    //     ),
+    //     SizedBox(height: 20),
+    //     Text(
+    //         "Clean lines, versatile and timeless—the people shoe returns with the Nike Air Max 90. Featuring the same iconic Waffle sole, stitched overlays and classic TPU accents you come to love, it lets you walk among the pantheon of Air. ßNothing as fly, nothing as comfortable, nothing as proven. The Nike Air Max 90 stays true to its OG running roots with the iconic Waffle sole, stitched overlays and classic TPU details. Classic colours celebrate your fresh look while Max Air cushioning adds comfort to the journey."),
+    //   ],
+    // );
   }
 
   Widget _talla(Responsive responsive, List<ProductoModel> listProd) {
@@ -599,7 +697,7 @@ class BotonAgregar extends StatelessWidget {
   }) : super(key: key);
 
   final Responsive responsive;
-  final ProductoModel  producto;
+  final ProductoModel producto;
   final List<ProductoModel> listProd;
 
   @override
@@ -647,7 +745,7 @@ class BotonAgregar extends StatelessWidget {
               final modeloDatabase = ModeloProductoDatabase();
               final modelos = await modeloDatabase
                   .obtenerModeloProductoPorIdProductoEnEstado1(
-                       producto.idProducto);
+                      producto.idProducto);
               //Marca
               final marcaDatabase = MarcaProductoDatabase();
               final marcas = await marcaDatabase
@@ -667,19 +765,16 @@ class BotonAgregar extends StatelessWidget {
                     Navigator.push(
                       context,
                       PageRouteBuilder(
-                        transitionDuration:
-                            const Duration(milliseconds: 300),
-                        pageBuilder: (context, animation,
-                            secondaryAnimation) {
+                        transitionDuration: const Duration(milliseconds: 300),
+                        pageBuilder: (context, animation, secondaryAnimation) {
                           return ConfirmacionItemPedido(
-                              idProducto:
-                                   producto.idProducto
+                              idProducto: producto.idProducto
                               //widget.producto.idProducto
                               );
                           //return DetalleProductitos(productosData: productosData);
                         },
-                        transitionsBuilder: (context, animation,
-                            secondaryAnimation, child) {
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
                           return FadeTransition(
                             opacity: animation,
                             child: child,
@@ -688,16 +783,13 @@ class BotonAgregar extends StatelessWidget {
                       ),
                     );
                   } else {
-                    utils.showToast(context,
-                        'Por favor seleccione una marca');
+                    utils.showToast(context, 'Por favor seleccione una marca');
                   }
                 } else {
-                  utils.showToast(context,
-                      'Por favor seleccione un modelo');
+                  utils.showToast(context, 'Por favor seleccione un modelo');
                 }
               } else {
-                utils.showToast(
-                    context, 'Por favor seleccione una talla');
+                utils.showToast(context, 'Por favor seleccione una talla');
               }
             }),
             Container(
@@ -727,29 +819,22 @@ class BotonAgregar extends StatelessWidget {
                 ],
               ),
             ).ripple(() async {
-
-
-              if(listProd[0].listTallaProd.length==1){
-
+              if (listProd[0].listTallaProd.length == 1) {
                 await cambiarEstadoTalla(context, listProd[0].listTallaProd[0]);
-
               }
-              if(listProd[0].listMarcaProd.length==1){
-
+              if (listProd[0].listMarcaProd.length == 1) {
                 await cambiarEstadoMarca(context, listProd[0].listMarcaProd[0]);
-
               }
-              if(listProd[0].listModeloProd.length==1){
-
-                await cambiarEstadoModelo(context, listProd[0].listModeloProd[0]);
-
+              if (listProd[0].listModeloProd.length == 1) {
+                await cambiarEstadoModelo(
+                    context, listProd[0].listModeloProd[0]);
               }
-              
+
               //Tallas
               final tallaDatabase = TallaProductoDatabase();
               final tallasSeleccionado = await tallaDatabase
                   .obtenerTallaProductoPorIdProductoEnEstado1(
-                       producto.idProducto);
+                      producto.idProducto);
 
               //modelo
               final modeloDatabase = ModeloProductoDatabase();
@@ -760,14 +845,14 @@ class BotonAgregar extends StatelessWidget {
               final marcaDatabase = MarcaProductoDatabase();
               final marcasSeleccionadas = await marcaDatabase
                   .obtenerMarcaProductoPorIdProductoEnEstado1(
-                       producto.idProducto);
+                      producto.idProducto);
 
-              if (tallasSeleccionado .length > 0) {
+              if (tallasSeleccionado.length > 0) {
                 if (modelosSeleccionados.length > 0) {
                   if (marcasSeleccionadas.length > 0) {
                     await agregarAlCarrito(
                         context,
-                         producto.idProducto,
+                        producto.idProducto,
                         tallasSeleccionado[0].tallaProducto,
                         modelosSeleccionados[0].modeloProducto,
                         marcasSeleccionadas[0].marcaProducto);
@@ -775,16 +860,13 @@ class BotonAgregar extends StatelessWidget {
                     Navigator.push(
                       context,
                       PageRouteBuilder(
-                        transitionDuration:
-                            const Duration(milliseconds: 300),
-                        pageBuilder: (context, animation,
-                            secondaryAnimation) {
-                          return DetalleCarrito(
-                              producto:  producto);
+                        transitionDuration: const Duration(milliseconds: 300),
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          return DetalleCarrito(producto: producto);
                           //return DetalleProductitos(productosData: productosData);
                         },
-                        transitionsBuilder: (context, animation,
-                            secondaryAnimation, child) {
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
                           return FadeTransition(
                             opacity: animation,
                             child: child,
@@ -793,16 +875,13 @@ class BotonAgregar extends StatelessWidget {
                       ),
                     );
                   } else {
-                    utils.showToast(context,
-                        'Por favor seleccione una marca');
+                    utils.showToast(context, 'Por favor seleccione una marca');
                   }
                 } else {
-                  utils.showToast(context,
-                      'Por favor seleccione un modelo');
+                  utils.showToast(context, 'Por favor seleccione un modelo');
                 }
               } else {
-                utils.showToast(
-                    context, 'Por favor seleccione una talla');
+                utils.showToast(context, 'Por favor seleccione una talla');
               }
             }),
           ],

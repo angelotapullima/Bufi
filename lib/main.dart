@@ -1,3 +1,4 @@
+import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProductoFotoPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Direccion/AgregarDireccionPAge.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/RatingPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/ValoracionPage.dart';
@@ -29,6 +30,8 @@ import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'src/page/Tabs/Negocios/producto/shimmer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -89,11 +92,12 @@ class MyApp extends StatelessWidget {
               "detalleSubsidiary": (BuildContext context) =>
                   DetalleSubsidiary(),
 
-
+              //Producto
               //"listarProductoAll": (BuildContext context)=> ListarProductosPorSucursal(),
-
               //"detalleProducto": (BuildContext context)=> DetalleProductos(),
               "agregarAlCarrito": (BuildContext context) => CarritoPage(),
+              "detalleProductoFoto": (BuildContext context)=> DetalleProductoFoto(),
+              
 
               //Servicio
               "detalleServicio": (BuildContext context) => DetalleServicio(),

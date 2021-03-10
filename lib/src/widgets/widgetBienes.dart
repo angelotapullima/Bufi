@@ -277,7 +277,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                           height: responsive.hp(3.5),
                           width: responsive.wp(12),
                           decoration: BoxDecoration(
-                            color: Colors.red.withOpacity(.2),
+                            color: Colors.white.withOpacity(.2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child:

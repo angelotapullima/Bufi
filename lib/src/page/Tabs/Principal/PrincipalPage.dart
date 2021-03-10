@@ -43,7 +43,7 @@ class PrincipalPage extends StatelessWidget {
                     height: responsive.hp(1),
                   ),
                   Container(
-                    height: responsive.hp(13),
+                    height: responsive.hp(15),
                     child: Row(
                       children: [
                         Column(

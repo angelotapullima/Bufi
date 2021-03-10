@@ -82,6 +82,8 @@ class ListCategoriasPrincipal extends StatelessWidget {
                             '${listCategoria[index].categoryName}',
                             style: TextStyle(fontSize: responsive.ip(1.2)),
                             textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           )
                         ],
                       ),

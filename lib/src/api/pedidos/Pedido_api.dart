@@ -241,7 +241,7 @@ class PedidoApi {
 
         for (var x = 0; x < listDePedidos[0].car[i].carrito.length; x++) {
           producto = producto +
-              '${listDePedidos[0].car[i].carrito[x].idSubsidiaryGood}++++${listDePedidos[0].car[i].carrito[x].cantidad}';
+              '${listDePedidos[0].car[i].carrito[x].idSubsidiaryGood}++++${listDePedidos[0].car[i].carrito[x].cantidad}++++${listDePedidos[0].car[i].carrito[x].marca}++++${listDePedidos[0].car[i].carrito[x].modelo}++++${listDePedidos[0].car[i].carrito[x].talla}';
           producto = producto + '.--.';
         }
 
@@ -280,35 +280,21 @@ class PedidoApi {
     pedidosModel.idCity = decodedData["result"]['pedido']['id_city'];
     pedidosModel.idSubsidiary =decodedData["result"]['pedido']['id_subsidiary'];
     pedidosModel.idCompany = decodedData["result"]['pedido']["detalle_pedido"][0]['id_company'];
-    pedidosModel.deliveryNumber =
-        decodedData["result"]['pedido']['delivery_number'];
-    pedidosModel.deliveryName =
-        decodedData["result"]['pedido']['delivery_name'];
-    pedidosModel.deliveryEmail =
-        decodedData["result"]['pedido']['delivery_email'];
+    pedidosModel.deliveryNumber =decodedData["result"]['pedido']['delivery_number'];
+    pedidosModel.deliveryName =decodedData["result"]['pedido']['delivery_name'];
+    pedidosModel.deliveryEmail =decodedData["result"]['pedido']['delivery_email'];
     pedidosModel.deliveryCel = decodedData["result"]['pedido']['delivery_cel'];
-    pedidosModel.deliveryAddress =
-        decodedData["result"]['pedido']['delivery_address'];
-    pedidosModel.deliveryDescription =
-        decodedData["result"]['pedido']['delivery_description'];
-    pedidosModel.deliveryCoordX =
-        decodedData["result"]['pedido']['delivery_coord_x'];
-    pedidosModel.deliveryCoordY =
-        decodedData["result"]['pedido']['delivery_coord_y'];
-    pedidosModel.deliveryAddInfo =
-        decodedData["result"]['pedido']['delivery_add_info'];
-    pedidosModel.deliveryPrice =
-        decodedData["result"]['pedido']['delivery_price'];
-    pedidosModel.deliveryTotalOrden =
-        decodedData["result"]['pedido']['delivery_total_orden'];
-    pedidosModel.deliveryPayment =
-        decodedData["result"]['pedido']['delivery_payment'];
-    pedidosModel.deliveryEntrega =
-        decodedData["result"]['pedido']['delivery_entrega'];
-    pedidosModel.deliveryDatetime =
-        decodedData["result"]['pedido']['delivery_datetime'];
-    pedidosModel.deliveryStatus =
-        decodedData["result"]['pedido']['delivery_status'];
+    pedidosModel.deliveryAddress =decodedData["result"]['pedido']['delivery_address'];
+    pedidosModel.deliveryDescription =decodedData["result"]['pedido']['delivery_description'];
+    pedidosModel.deliveryCoordX =decodedData["result"]['pedido']['delivery_coord_x'];
+    pedidosModel.deliveryCoordY =decodedData["result"]['pedido']['delivery_coord_y'];
+    pedidosModel.deliveryAddInfo =decodedData["result"]['pedido']['delivery_add_info'];
+    pedidosModel.deliveryPrice =decodedData["result"]['pedido']['delivery_price'];
+    pedidosModel.deliveryTotalOrden =decodedData["result"]['pedido']['delivery_total_orden'];
+    pedidosModel.deliveryPayment =decodedData["result"]['pedido']['delivery_payment'];
+    pedidosModel.deliveryEntrega =decodedData["result"]['pedido']['delivery_entrega'];
+    pedidosModel.deliveryDatetime =decodedData["result"]['pedido']['delivery_datetime'];
+    pedidosModel.deliveryStatus =decodedData["result"]['pedido']['delivery_status'];
     pedidosModel.deliveryMt = decodedData["result"]['pedido']['delivery_mt'];
     pedidosModel.respuestaApi = decodedData["result"]['code'].toString();
     //insertar a la tabla de Pedidos

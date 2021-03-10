@@ -110,8 +110,8 @@ class HeaderWidget extends StatelessWidget {
     return SliverPersistentHeader(
         floating: true,
         delegate: SliverCustomHeaderDelegate(
-          maxHeight: responsive.hp(13.5),
-          minHeight: responsive.hp(13.5),
+          maxHeight: responsive.hp(14.5),
+          minHeight: responsive.hp(14.5),
           child: Container(
             color: Theme.of(context).scaffoldBackgroundColor,
             padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),

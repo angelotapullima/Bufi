@@ -6,9 +6,6 @@ import 'package:bufi/src/widgets/widgetBienes.dart';
 import 'package:bufi/src/widgets/widgetServicios.dart';
 import 'package:flutter/material.dart';
 
-
-
-
 //esta vista es la que se muestra con los paneles negro y blanco luego de agregar los productos al carrito
 class ListarProductosPorSucursalCarrito extends StatefulWidget {
   final String idSucursal;
@@ -23,23 +20,49 @@ class ListarProductosPorSucursalCarrito extends StatefulWidget {
 
 class _ListarProductosPorSucursalCarritoState
     extends State<ListarProductosPorSucursalCarrito> {
+  ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => {
+          _scrollController.addListener(() {
+            if (_scrollController.position.pixels ==
+                _scrollController.position.maxScrollExtent) {
+              print('pixels ${_scrollController.position.pixels}');
+              print('maxScrool ${_scrollController.position.maxScrollExtent}');
+              print('dentro');
+
+              final productoBloc = ProviderBloc.productos(context);
+              productoBloc.listarProductosPorSucursal(widget.idSucursal);
+            }
+          })
+        });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final productoBloc = ProviderBloc.productos(context);
     productoBloc.listarProductosPorSucursalCarrito(widget.idSucursal);
-   
-   
 
     return StreamBuilder(
       stream: productoBloc.productoSubsidiaryCarritoStream,
-      builder:
-          (BuildContext context, AsyncSnapshot<List<BienesServiciosModel>> snapshot) {
+      builder: (BuildContext context,
+          AsyncSnapshot<List<BienesServiciosModel>> snapshot) {
         if (snapshot.hasData) {
           final bienes = snapshot.data;
           return GridView.builder(
+              controller: _scrollController,
               padding: EdgeInsets.only(top: cartPanel),
-              controller: ScrollController(keepScrollOffset: false),
+              //controller: ScrollController(keepScrollOffset: false),
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -48,9 +71,9 @@ class _ListarProductosPorSucursalCarritoState
               ),
               itemCount: bienes.length,
               itemBuilder: (context, index) {
-               return ('${bienes[index].tipo}' == 'bienes')
-                ? grillaBienes(responsive, bienes[index])
-                : grillaServicios(responsive, bienes[index]);
+                return ('${bienes[index].tipo}' == 'bienes')
+                    ? grillaBienes(responsive, bienes[index])
+                    : grillaServicios(responsive, bienes[index]);
               });
         } else {
           return Center(child: Text("dataaaaa")

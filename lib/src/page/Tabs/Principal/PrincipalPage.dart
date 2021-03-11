@@ -106,7 +106,9 @@ class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cuentaBloc = ProviderBloc.cuenta(context);
-    cuentaBloc.obtenerSaldo();
+    if (preferences.personName != null) {
+      cuentaBloc.obtenerSaldo();
+    }
     return SliverPersistentHeader(
         floating: true,
         delegate: SliverCustomHeaderDelegate(
@@ -119,31 +121,33 @@ class HeaderWidget extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    (preferences.personName != null)?Container(
-                      width: responsive.ip(5),
-                      height: responsive.ip(5),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: CachedNetworkImage(
-                          imageUrl: '${preferences.userImage}',
-                          //cacheManager: CustomCacheManager(),
-                          placeholder: (context, url) => Container(
-                            width: double.infinity,
-                            height: double.infinity,
-                            child: Image(
-                                image: AssetImage('assets/loading.gif'),
-                                fit: BoxFit.cover),
-                          ),
-                          errorWidget: (context, url, error) => Container(
-                            width: double.infinity,
-                            height: double.infinity,
-                            child: Center(
-                              child: Icon(Icons.error),
+                    (preferences.personName != null)
+                        ? Container(
+                            width: responsive.ip(5),
+                            height: responsive.ip(5),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: CachedNetworkImage(
+                                imageUrl: '${preferences.userImage}',
+                                //cacheManager: CustomCacheManager(),
+                                placeholder: (context, url) => Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  child: Image(
+                                      image: AssetImage('assets/loading.gif'),
+                                      fit: BoxFit.cover),
+                                ),
+                                errorWidget: (context, url, error) => Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  child: Center(
+                                    child: Icon(Icons.error),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
-                    ):Container(),
+                          )
+                        : Container(),
                     SizedBox(
                       width: responsive.wp(3),
                     ),

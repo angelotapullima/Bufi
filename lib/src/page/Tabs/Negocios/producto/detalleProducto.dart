@@ -93,8 +93,6 @@ class _DetalleProductosState extends State<DetalleProductos> {
       );
     }
  
-
- 
     return Scaffold(
       body: StreamBuilder(
           stream: datosProdBloc.datosProdStream,

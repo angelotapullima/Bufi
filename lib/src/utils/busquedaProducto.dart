@@ -34,7 +34,65 @@ class BusquedaProductos extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     //Resultados que se mostraran una vez realizada la busqueda
-    return Container(child: Text("Resultados"));
+    final busquedaBloc = ProviderBloc.busqueda(context);
+    busquedaBloc.obtenerResultadosBusquedaPorQuery('$query');
+    //Container(child: Text("Resultados"));
+     return StreamBuilder(
+        stream: busquedaBloc.busquedaGeneralStream,
+        builder: (BuildContext context,
+            AsyncSnapshot<List<BusquedaGeneralModel>> snapshot) {
+          if (snapshot.hasData) {
+            final resultBusqueda = snapshot.data;
+
+            if (snapshot.data.length > 0) {
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: resultBusqueda.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return
+                      //bienesWidget(context, snapshot.data[index], responsive);
+                      ListView.builder(
+                        shrinkWrap: true,
+                          itemCount: resultBusqueda[index].listProducto.length,
+                          itemBuilder: (BuildContext context, int i) {
+                            return
+                            ListTile(
+                              leading: FadeInImage(
+                                placeholder: AssetImage('assets/no-image.png'),
+                                image: NetworkImage(
+                                  '$apiBaseURL/${resultBusqueda[index].listProducto[i].productoImage}',
+                                ),
+                                width: 50,
+                                fit: BoxFit.contain,
+                              ),
+                              title: Text(
+                                  '${resultBusqueda[index].listProducto[i].productoName}'),
+                              subtitle: Text(
+                                  '${resultBusqueda[index].listProducto[i].productoCurrency}'),
+                              onTap: () {
+                                close(context, null);
+                                // Navigator.pushNamed(context, 'detalleProducto',
+                                //     arguments: resultBusqueda[index].idProducto);
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) => DetalleProductos(
+                                //             producto: resultBusqueda[index].listProducto[0],
+                                //           )),
+                                // );
+                              },
+                            );
+                          });
+                },
+              );
+            } else {
+              return Text("No hay resultados para la búsqueda");
+            }
+          } else {
+            return Center(child: CupertinoActivityIndicator());
+          }
+        },
+      );
   }
 
   @override
@@ -44,29 +102,65 @@ class BusquedaProductos extends SearchDelegate {
     final busquedaBloc = ProviderBloc.busqueda(context);
     busquedaBloc.obtenerResultadosBusquedaPorQuery('$query');
     if (query.isEmpty) {
-      //return Container();
-      return StreamBuilder(
-        stream: busquedaBloc.busquedaGeneralStream,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<BusquedaGeneralModel>> snapshot) {
-          if (snapshot.hasData) {
-            final resultBusqueda = snapshot.data;
+      //return Container(child: Text("data"),);
+      return Container(
+       
+        child: StreamBuilder(
+          stream: busquedaBloc.busquedaGeneralStream,
+          builder: (BuildContext context,
+              AsyncSnapshot<List<BusquedaGeneralModel>> snapshot) {
+            if (snapshot.hasData) {
+              final resultBusqueda = snapshot.data;
 
-            if (snapshot.data.length > 0) {
-              return ListView.builder(
-                itemCount: resultBusqueda.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Text(
-                      resultBusqueda[index].listProducto[0].productoName);
-                },
-              );
+              if (snapshot.data.length > 0) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: resultBusqueda.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return
+                        //bienesWidget(context, snapshot.data[index], responsive);
+                        ListView.builder(
+                          shrinkWrap: true,
+                            itemCount: resultBusqueda[index].listProducto.length,
+                            itemBuilder: (BuildContext context, int i) {
+                              return
+                              ListTile(
+                                leading: FadeInImage(
+                                  placeholder: AssetImage('assets/no-image.png'),
+                                  image: NetworkImage(
+                                    '$apiBaseURL/${resultBusqueda[index].listProducto[i].productoImage}',
+                                  ),
+                                  width: 50,
+                                  fit: BoxFit.contain,
+                                ),
+                                title: Text(
+                                    '${resultBusqueda[index].listProducto[i].productoName}'),
+                                subtitle: Text(
+                                    '${resultBusqueda[index].listProducto[i].productoCurrency}'),
+                                onTap: () {
+                                  close(context, null);
+                                  // Navigator.pushNamed(context, 'detalleProducto',
+                                  //     arguments: resultBusqueda[index].idProducto);
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //       builder: (context) => DetalleProductos(
+                                  //             producto: resultBusqueda[index].listProducto[0],
+                                  //           )),
+                                  // );
+                                },
+                              );
+                            });
+                  },
+                );
+              } else {
+                return Text("No hay resultados para la búsqueda");
+              }
             } else {
-              return Text("Algo está mal");
+              return Center(child: CupertinoActivityIndicator());
             }
-          } else {
-            return Center(child: CupertinoActivityIndicator());
-          }
-        },
+          },
+        ),
       );
     } else {
       return StreamBuilder(

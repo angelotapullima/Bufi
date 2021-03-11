@@ -26,11 +26,10 @@ class BusquedaBloc{
   void obtenerResultadosBusquedaPorQuery(String query) async {
     // bienesBusquedaController.sink
     //     .add(await productoDatabase.consultarProductoPorQuery('$query'));
-    await busquedaApi.busquedaGeneral(query);
+    busquedaGeneralController.sink.add(await busquedaApi.busquedaGeneral(query));
     // bienesBusquedaController.sink
     //     .add(await productoDatabase.consultarProductoPorQuery('$query'));
 
-    //return resp;
     
   }
 

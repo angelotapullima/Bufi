@@ -55,50 +55,50 @@ class BusquedaApi {
           final listSubService = List<SubsidiaryServiceModel>();
 
           if (context == "good") {
-            for (var i = 0; i < decodedData["result"].length; i++) {
+            for (var i = 0; i < decodedData["result"][0].length; i++) {
               //Producto
               ProductoModel productoModel = ProductoModel();
               productoModel.idProducto =
-                  decodedData["result"][i]['id_subsidiarygood'];
+                  decodedData["result"][0][i]['id_subsidiarygood'];
               productoModel.idSubsidiary =
-                  decodedData["result"][i]['id_subsidiary'];
-              productoModel.idGood = decodedData["result"][i]['id_good'];
+                  decodedData["result"][0][i]['id_subsidiary'];
+              productoModel.idGood = decodedData["result"][0][i]['id_good'];
               productoModel.idItemsubcategory =
-                  decodedData["result"][i]['id_itemsubcategory'];
+                  decodedData["result"][0][i]['id_itemsubcategory'];
               productoModel.productoName =
-                  decodedData["result"][i]['subsidiary_good_name'];
+                  decodedData["result"][0][i]['subsidiary_good_name'];
               productoModel.productoPrice =
-                  decodedData["result"][i]['subsidiary_good_price'];
+                  decodedData["result"][0][i]['subsidiary_good_price'];
               productoModel.productoCurrency =
-                  decodedData["result"][i]['subsidiary_good_currency'];
+                  decodedData["result"][0][i]['subsidiary_good_currency'];
               productoModel.productoImage =
-                  decodedData["result"][i]['subsidiary_good_image'];
+                  decodedData["result"][0][i]['subsidiary_good_image'];
               productoModel.productoCharacteristics =
-                  decodedData["result"][i]['subsidiary_good_characteristics'];
+                  decodedData["result"][0][i]['subsidiary_good_characteristics'];
               productoModel.productoBrand =
-                  decodedData["result"][i]['subsidiary_good_brand'];
+                  decodedData["result"][0][i]['subsidiary_good_brand'];
               productoModel.productoModel =
-                  decodedData["result"][i]['subsidiary_good_model'];
+                  decodedData["result"][0][i]['subsidiary_good_model'];
               productoModel.productoType =
-                  decodedData["result"][i]['subsidiary_good_type'];
+                  decodedData["result"][0][i]['subsidiary_good_type'];
               productoModel.productoSize =
-                  decodedData["result"][i]['subsidiary_good_size'];
+                  decodedData["result"][0][i]['subsidiary_good_size'];
               productoModel.productoStock =
                   decodedData['subsidiary_good_stock'];
               productoModel.productoStockStatus =
                   decodedData['subsidiary_good_stock_status'];
               productoModel.productoMeasure =
-                  decodedData["result"][i]['subsidiary_good_stock_measure'];
+                  decodedData["result"][0][i]['subsidiary_good_stock_measure'];
               productoModel.productoRating =
-                  decodedData["result"][i]['subsidiary_good_rating'];
+                  decodedData["result"][0][i]['subsidiary_good_rating'];
               productoModel.productoUpdated =
-                  decodedData["result"][i]['subsidiary_good_updated'];
+                  decodedData["result"][0][i]['subsidiary_good_updated'];
               productoModel.productoStatus =
-                  decodedData["result"][i]['subsidiary_good_status'];
+                  decodedData["result"][0][i]['subsidiary_good_status'];
 
               var productList =
                   await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
-                      decodedData["result"][i]['id_subsidiarygood']);
+                      decodedData["result"][0][i]['id_subsidiarygood']);
 
               if (productList.length > 0) {
                 productoModel.productoFavourite =
@@ -111,43 +111,43 @@ class BusquedaApi {
 
               //BienesModel
               BienesModel goodmodel = BienesModel();
-              goodmodel.idGood = decodedData["result"][i]['id_good'];
-              goodmodel.goodName = decodedData["result"][i]['good_name'];
+              goodmodel.idGood = decodedData["result"][0][i]['id_good'];
+              goodmodel.goodName = decodedData["result"][0][i]['good_name'];
               goodmodel.goodSynonyms =
-                  decodedData["result"][i]['good_synonyms'];
+                  decodedData["result"][0][i]['good_synonyms'];
 
               listbienes.add(goodmodel);
 
               //Subsidiary
               SubsidiaryModel subsidiaryModel = SubsidiaryModel();
               subsidiaryModel.idSubsidiary =
-                  decodedData["result"][i]['id_subsidiary'];
+                  decodedData["result"][0][i]['id_subsidiary'];
               subsidiaryModel.idCompany =
-                  decodedData["result"][i]['id_company'];
+                  decodedData["result"][0][i]['id_company'];
               subsidiaryModel.subsidiaryName =
-                  decodedData["result"][i]['subsidiary_name'];
+                  decodedData["result"][0][i]['subsidiary_name'];
               subsidiaryModel.subsidiaryAddress =
-                  decodedData["result"][i]['subsidiary_address'];
+                  decodedData["result"][0][i]['subsidiary_address'];
               subsidiaryModel.subsidiaryCellphone =
-                  decodedData["result"][i]['subsidiary_cellphone'];
+                  decodedData["result"][0][i]['subsidiary_cellphone'];
               subsidiaryModel.subsidiaryCellphone2 =
-                  decodedData["result"][i]['subsidiary_cellphone_2'];
+                  decodedData["result"][0][i]['subsidiary_cellphone_2'];
               subsidiaryModel.subsidiaryEmail =
-                  decodedData["result"][i]['subsidiary_email'];
+                  decodedData["result"][0][i]['subsidiary_email'];
               subsidiaryModel.subsidiaryCoordX =
-                  decodedData["result"][i]['subsidiary_coord_x'];
+                  decodedData["result"][0][i]['subsidiary_coord_x'];
               subsidiaryModel.subsidiaryCoordY =
-                  decodedData["result"][i]['subsidiary_coord_y'];
+                  decodedData["result"][0][i]['subsidiary_coord_y'];
               subsidiaryModel.subsidiaryOpeningHours =
-                  decodedData["result"][i]['subsidiary_opening_hours'];
+                  decodedData["result"][0][i]['subsidiary_opening_hours'];
               subsidiaryModel.subsidiaryPrincipal =
-                  decodedData["result"][i]['subsidiary_principal'];
+                  decodedData["result"][0][i]['subsidiary_principal'];
               subsidiaryModel.subsidiaryStatus =
-                  decodedData["result"][i]['subsidiary_status'];
+                  decodedData["result"][0][i]['subsidiary_status'];
 
               final listSubsidiaryDb =
                   await subsidiaryDatabase.obtenerSubsidiaryPorId(
-                      decodedData["result"][i]['id_subsidiary']);
+                      decodedData["result"][0][i]['id_subsidiary']);
 
               if (listSubsidiaryDb.length > 0) {
                 subsidiaryModel.subsidiaryFavourite =
@@ -159,67 +159,67 @@ class BusquedaApi {
               listSucursal.add(subsidiaryModel);
 
               CompanyModel companyModel = CompanyModel();
-              companyModel.idCompany = decodedData["result"][i]['id_company'];
-              companyModel.idUser = decodedData["result"][i]['id_user'];
-              companyModel.idCity = decodedData["result"][i]['id_city'];
-              companyModel.idCategory = decodedData["result"][i]['id_category'];
+              companyModel.idCompany = decodedData["result"][0][i]['id_company'];
+              companyModel.idUser = decodedData["result"][0][i]['id_user'];
+              companyModel.idCity = decodedData["result"][0][i]['id_city'];
+              companyModel.idCategory = decodedData["result"][0][i]['id_category'];
               companyModel.companyName =
-                  decodedData["result"][i]['company_name'];
-              companyModel.companyRuc = decodedData["result"][i]['company_ruc'];
+                  decodedData["result"][0][i]['company_name'];
+              companyModel.companyRuc = decodedData["result"][0][i]['company_ruc'];
               companyModel.companyImage =
-                  decodedData["result"][i]['company_image'];
+                  decodedData["result"][0][i]['company_image'];
               companyModel.companyType =
-                  decodedData["result"][i]['company_type'];
+                  decodedData["result"][0][i]['company_type'];
               companyModel.companyShortcode =
-                  decodedData["result"][i]['company_shortcode'];
+                  decodedData["result"][0][i]['company_shortcode'];
               companyModel.companyDelivery =
-                  decodedData["result"][i]['company_delivery'];
+                  decodedData["result"][0][i]['company_delivery'];
               companyModel.companyEntrega =
-                  decodedData["result"][i]['company_entrega'];
+                  decodedData["result"][0][i]['company_entrega'];
               companyModel.companyTarjeta =
-                  decodedData["result"][i]['company_tarjeta'];
+                  decodedData["result"][0][i]['company_tarjeta'];
               companyModel.companyVerified =
-                  decodedData["result"][i]['company_verified'];
+                  decodedData["result"][0][i]['company_verified'];
               companyModel.companyRating =
-                  decodedData["result"][i]['company_rating'];
+                  decodedData["result"][0][i]['company_rating'];
               companyModel.companyCreatedAt =
-                  decodedData["result"][i]['company_created_at'];
+                  decodedData["result"][0][i]['company_created_at'];
               companyModel.companyJoin =
-                  decodedData["result"][i]['company_join'];
+                  decodedData["result"][0][i]['company_join'];
               companyModel.companyStatus =
-                  decodedData["result"][i]['company_status'];
-              companyModel.companyMt = decodedData["result"][i]['company_mt'];
-              companyModel.idCity = decodedData["result"][i]['id_country'];
-              companyModel.cityName = decodedData["result"][i]['city_name'];
-              companyModel.distancia = decodedData["result"][i]['distancia'];
+                  decodedData["result"][0][i]['company_status'];
+              companyModel.companyMt = decodedData["result"][0][i]['company_mt'];
+              companyModel.idCity = decodedData["result"][0][i]['id_country'];
+              companyModel.cityName = decodedData["result"][0][i]['city_name'];
+              companyModel.distancia = decodedData["result"][0][i]['distancia'];
 
               listCompany.add(companyModel);
 
               //Categoria
               CategoriaModel categ = CategoriaModel();
-              categ.idCategory = decodedData["result"][i]["id_category"];
-              categ.categoryName = decodedData["result"][i]["category_name"];
+              categ.idCategory = decodedData["result"][0][i]["id_category"];
+              categ.categoryName = decodedData["result"][0][i]["category_name"];
 
               listCategory.add(categ);
 
               //Subcategoria
               final subCategoriaModel = SubcategoryModel();
               subCategoriaModel.idSubcategory =
-                  decodedData["result"][i]["id_subcategory"];
+                  decodedData["result"][0][i]["id_subcategory"];
               subCategoriaModel.idCategory =
-                  decodedData["result"][i]["id_category"];
-              // subCategoriaModel.subcategoryName =decodedData["result"][i].subcategoryName;
+                  decodedData["result"][0][i]["id_category"];
+              // subCategoriaModel.subcategoryName =decodedData["result"][0][i].subcategoryName;
               listSubCategory.add(subCategoriaModel);
 
               //ItemSubCategoriaModel
               ItemSubCategoriaModel itemSubCategoriaModel =
                   ItemSubCategoriaModel();
               itemSubCategoriaModel.idSubcategory =
-                  decodedData["result"][i]['id_subcategory'];
+                  decodedData["result"][0][i]['id_subcategory'];
               itemSubCategoriaModel.idItemsubcategory =
-                  decodedData["result"][i]['itemsubcategory_name'];
+                  decodedData["result"][0][i]['itemsubcategory_name'];
               itemSubCategoriaModel.itemsubcategoryName =
-                  decodedData["result"][i]['itemsubcategory_name'];
+                  decodedData["result"][0][i]['itemsubcategory_name'];
 
               listItemSub.add(itemSubCategoriaModel);
             }

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:bufi/src/bloc/producto/paginaActualBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/utils/constants.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:screenshot/screenshot.dart';
 
 class DetalleProductoFoto extends StatefulWidget {
@@ -32,6 +34,13 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
         ModalRoute.of(context).settings.arguments;
 
     final responsive = Responsive.of(context);
+
+    //contador
+    final contadorBloc = ProviderBloc.contadorPagina(context);
+    contadorBloc.changeContador(contadorBloc.pageContador);
+    //controlador del PageView
+    final _pageController = PageController(
+        viewportFraction: 1, initialPage: contadorBloc.pageContador);
 
     return SafeArea(
       child: Scaffold(
@@ -56,8 +65,6 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
         body: ValueListenableBuilder(
             valueListenable: _toque,
             builder: (BuildContext context, bool dataToque, Widget child) {
-              //contador para el PageView
-              final contadorBloc = ProviderBloc.contadorPagina(context);
               print(dataToque);
               return InkWell(
                 onTap: () {
@@ -74,17 +81,24 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
                       child: Stack(
                         children: <Widget>[
                           Center(
-                            child: StreamBuilder(
-                                stream: contadorBloc.selectContadorStream,
-                                builder: (context, snapshot) {
-                                  return PhotoView(
-                                    imageProvider: CachedNetworkImageProvider(
-                                      '$apiBaseURL/${productosData.listFotos[contadorBloc.pageContador].galeriaFoto}',
-                                      cacheManager: CustomCacheManager(),
-                                    ),
-                                  );
-                                }),
+                            child: 
+                            // StreamBuilder(
+                            //     stream: contadorBloc.selectContadorStream,
+                            //     builder: (context, snapshot) {
+                            //       return 
+                                  photoViewGallery(productosData,
+                                      _pageController, contadorBloc, responsive)
+
+                                  // PhotoView(
+                                  //   imageProvider: CachedNetworkImageProvider(
+                                  //     '$apiBaseURL/${productosData.listFotos[contadorBloc.pageContador].galeriaFoto}',
+                                  //     cacheManager: CustomCacheManager(),
+                                  //   ),
+                                  // );
+                                //}),
                           ),
+
+                          //Numero de paginas
                           Positioned(
                             top: 0,
                             //right: 0,
@@ -110,6 +124,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
                               ),
                             ),
                           ),
+                          //Datos del producto
                           Positioned(
                             bottom: 0,
                             right: 0,
@@ -172,7 +187,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
                       ),
                     ),
                     // Container(
-                    //   color: Colors.yellow,
+                    //   color: Colors.black,
                     //   height: double.infinity,
                     //   width: double.infinity,
                     // ),
@@ -186,14 +201,17 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
                         child: Container(
                           width: double.infinity,
                           child: Hero(
-                            tag: '${productosData.idProducto}',
-                            child: PhotoView(
-                              imageProvider: CachedNetworkImageProvider(
-                                '$apiBaseURL/${productosData.listFotos[contadorBloc.pageContador].galeriaFoto}',
-                                cacheManager: CustomCacheManager(),
+                              tag: '${productosData.idProducto}',
+                              child: photoViewGallery(
+                                  productosData, _pageController, contadorBloc, responsive)
+
+                              // PhotoView(
+                              //   imageProvider: CachedNetworkImageProvider(
+                              //     '$apiBaseURL/${productosData.listFotos[contadorBloc.pageContador].galeriaFoto}',
+                              //     cacheManager: CustomCacheManager(),
+                              //   ),
+                              // ),
                               ),
-                            ),
-                          ),
                         ),
                       ),
                     ),
@@ -259,6 +277,49 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
     );
   }
 
+  Widget photoViewGallery(
+      ProductoModel productosData,
+      PageController _pageController,
+      ContadorPaginaProductosBloc contadorBloc,Responsive responsive) {
+    return Container(
+        child: PhotoViewGallery.builder(
+            scrollPhysics:  BouncingScrollPhysics(),
+            builder: (BuildContext context, int index) {
+              return PhotoViewGalleryPageOptions(
+                imageProvider: CachedNetworkImageProvider(
+                  '$apiBaseURL/${productosData.listFotos[index].galeriaFoto}',
+                  cacheManager: CustomCacheManager(),
+                ),
+                //initialScale: PhotoViewComputedScale.contained * 0.8,
+                // heroAttributes:
+                //     PhotoViewHeroAttributes(
+                //         tag:
+                //             '${productosData.idProducto}'),
+              );
+            },
+            itemCount: productosData.listFotos.length,
+            loadingBuilder: (context, event) => Center(
+                  child: Container(
+                    width: responsive.wp(40),
+                    height: responsive.hp(60),
+                    child: CircularProgressIndicator(
+                      value: event == null
+                          ? 0
+                          : event.cumulativeBytesLoaded /
+                              event.expectedTotalBytes,
+                    ),
+                  ),
+                ),
+            // backgroundDecoration:
+            //     widget.backgroundDecoration,
+            pageController: _pageController,
+            onPageChanged: (int index) {
+              contadorBloc.changeContador(index);
+            }
+            ));
+  }
+
+  
   takeScreenshotandShare(String nombre) async {
     var now = DateTime.now();
     nombre = now.microsecond.toString();

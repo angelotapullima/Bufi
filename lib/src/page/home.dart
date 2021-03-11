@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 import 'Tabs/Carrito/carritoTab.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
 
@@ -32,15 +31,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final buttonBloc = ProviderBloc.tabs(context);
-    buttonBloc.changePage(2);
+    buttonBloc.changePage(0);
     return Scaffold(
-
-
-      
-      
       body: StreamBuilder(
         stream: buttonBloc.selectPageStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
+          print(buttonBloc.page);
           return IndexedStack(
             index: buttonBloc.page,
             children: listPages,

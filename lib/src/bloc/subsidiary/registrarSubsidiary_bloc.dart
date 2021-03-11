@@ -63,12 +63,12 @@ class RegistroSucursalBloc with Validators {
 
   Function(String) get changeemailSucursal => _emailSucursalController.sink.add;
 
-  Future<int> registroSucursal(SubsidiaryModel data) async {
+  /* Future<int> registroSucursal(SubsidiaryModel data) async {
     _cargandoRegistroSucursalController.sink.add(true);
     final resp = await registroSucursalApi.registrarSedes(data);
     _cargandoRegistroSucursalController.sink.add(false);
     return resp;
-  }
+  } */
 
   void changeCargando() {
     _cargandoRegistroSucursalController.sink.add(false);

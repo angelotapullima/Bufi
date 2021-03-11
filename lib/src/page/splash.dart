@@ -20,24 +20,24 @@ class _SplashState extends State<Splash> with AfterLayoutMixin {
   void afterFirstLayout(BuildContext context) async {
     final preferences = Preferences();
     final categoriaApi = CategoriasApi();
-    final configuracionApi =  ConfiguracionApi();
+    final configuracionApi = ConfiguracionApi();
 
     if (preferences.cargaCategorias == null) {
       await categoriaApi.obtenerCategorias(context);
       await configuracionApi.obtenerConfiguracion();
       preferences.cargaCategorias = 'paso';
-    }else{
+    } else {
       categoriaApi.obtenerCategorias(context);
       configuracionApi.obtenerConfiguracion();
     }
 
+    Navigator.pushReplacementNamed(context, 'home');
 
-   
-    if (preferences.personName != null) {
+    /*  if (preferences.personName != null) {
       Navigator.pushReplacementNamed(context, 'home');
     } else {
       Navigator.pushReplacementNamed(context, 'login');
-    } 
+    }  */
   }
 
   @override
@@ -61,7 +61,8 @@ class _SplashState extends State<Splash> with AfterLayoutMixin {
               children: [
                 FlutterLogo(
                   size: responsive.ip(20),
-                ), SizedBox(
+                ),
+                SizedBox(
                   height: responsive.hp(2.5),
                 ),
                 NutsActivityIndicator(
@@ -92,7 +93,7 @@ class _SplashState extends State<Splash> with AfterLayoutMixin {
 
                       return Text(
                         '$porcentaje%',
-                  textAlign: TextAlign.center,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: responsive.ip(1.8), color: Colors.white),
                       );

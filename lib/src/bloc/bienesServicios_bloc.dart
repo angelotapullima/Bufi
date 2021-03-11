@@ -66,12 +66,12 @@ class BienesServiciosBloc {
     serviciosController.sink.add(await subisdiaryServiceDatabase.obtenerSubsidiaryService());
   }
 
-  //Obtener los nombres de todos los bienes y servicios
-  void obtenerBienesAll() async {
+  /* //Obtener los nombres de todos los bienes y servicios
+  void obtenerBienesAll2() async {
     bienesAllController.sink.add(await goodDatabase.obtenerGood());
     await goodApi.obtenerGoodAll();
     bienesAllController.sink.add(await goodDatabase.obtenerGood());
-  }
+  } */
 
   void obtenerServiciosAll() async {
     serviciosAllController.sink.add(await servicesDatabase.obtenerService());

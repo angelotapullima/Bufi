@@ -37,11 +37,14 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary>
     final subsidiaryBloc = ProviderBloc.listarsucursalPorId(context);
     subsidiaryBloc.obtenerSucursalporId(subsidiary.idSubsidiary);
     return Scaffold(
-      body: StreamBuilder(
-          stream: subsidiaryBloc.subsidiaryIdStream,
-          builder: (context, snapshot) {
-            return _crearAppbar(responsive, subsidiary);
-          }),
+      body: DefaultTabController(
+        length: 3,
+        child: StreamBuilder(
+            stream: subsidiaryBloc.subsidiaryIdStream,
+            builder: (context, snapshot) {
+              return _crearAppbar(responsive, subsidiary);
+            }),
+      ),
       //floatingActionButton: _buttonFloating(context, subsidiary, responsive),
     );
   }

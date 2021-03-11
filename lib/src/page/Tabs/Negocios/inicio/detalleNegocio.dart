@@ -281,7 +281,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
     sucursalNegocio.obtenerSucursalporIdCompany(id);
 
     return Padding(
-      padding:  EdgeInsets.only(left: responsive.wp(3)),
+      padding: EdgeInsets.only(left: responsive.wp(3)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -332,10 +332,12 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                                     ),
                                     errorWidget: (context, url, error) =>
                                         Container(
-                                            width: double.infinity,
-                                            height: double.infinity,
-                                            child:
-                                                Center(child: Icon(Icons.error))),
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      child: Center(
+                                        child: Icon(Icons.error),
+                                      ),
+                                    ),
                                     //imageUrl: '$apiBaseURL/${companyModel.companyImage}',
                                     imageUrl:
                                         'https://i.pinimg.com/564x/23/8f/6b/238f6b5ea5ab93832c281b42d3a1a853.jpg',
@@ -383,23 +385,25 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                                 Positioned(
                                   top: 5,
                                   right: 5,
-                                  child: (sedes[index].subsidiaryFavourite == "0")
-                                      ? IconButton(
-                                          icon: Icon(FontAwesomeIcons.heart,
-                                              color: Colors.red),
-                                          onPressed: () {
-                                            guardarSubsidiaryFavorito(
-                                                context, sedes[index]);
-                                          },
-                                        )
-                                      : IconButton(
-                                          icon: Icon(FontAwesomeIcons.solidHeart,
-                                              color: Colors.red),
-                                          onPressed: () {
-                                            quitarSubsidiaryFavorito(
-                                                context, sedes[index]);
-                                          },
-                                        ),
+                                  child:
+                                      (sedes[index].subsidiaryFavourite == "0")
+                                          ? IconButton(
+                                              icon: Icon(FontAwesomeIcons.heart,
+                                                  color: Colors.red),
+                                              onPressed: () {
+                                                guardarSubsidiaryFavorito(
+                                                    context, sedes[index]);
+                                              },
+                                            )
+                                          : IconButton(
+                                              icon: Icon(
+                                                  FontAwesomeIcons.solidHeart,
+                                                  color: Colors.red),
+                                              onPressed: () {
+                                                quitarSubsidiaryFavorito(
+                                                    context, sedes[index]);
+                                              },
+                                            ),
                                 )
                               ]),
                             ),

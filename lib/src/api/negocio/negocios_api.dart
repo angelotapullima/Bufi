@@ -18,8 +18,7 @@ class NegociosApi {
     try {
       var response = await http
           .post("$apiBaseURL/api/Negocio/listar_negocios_resumen", body: {
-        'id_ciudad': '1',
-        'id_usuario': prefs.idUser,
+        'id_ciudad': '1'
       });
 
       final decodedData = json.decode(response.body);
@@ -129,7 +128,7 @@ class NegociosApi {
     try {
       var response = await http.post(
           "$apiBaseURL/api/Negocio/listar_negocio_por_id",
-          body: {'id_user': prefs.idUser, 'id_company': id});
+          body: {'id_company': id});
 
       final decodedData = json.decode(response.body);
 
@@ -226,7 +225,7 @@ class NegociosApi {
     }
   }
 
-  Future registrarNegocio(CompanyModel cmodel) async {
+  /* Future registrarNegocio(CompanyModel cmodel) async {
     try {
       final res =
           await http.post("$apiBaseURL/api/Negocio/guardar_negocio", body: {
@@ -256,12 +255,12 @@ class NegociosApi {
     }
   }
 
+   */
   Future<dynamic> listarCompany() async {
     try {
       var response =
           await http.post("$apiBaseURL/api/Negocio/listar_negocios", body: {
         'id_ciudad': '1',
-        'id_usuario': prefs.idUser,
       });
 
       final decodedData = json.decode(response.body);
@@ -328,7 +327,7 @@ class NegociosApi {
     }
   }
 
-  Future registrarSedes(SubsidiaryModel smodel) async {
+  /* Future registrarSedes(SubsidiaryModel smodel) async {
     try {
       final res =
           await http.post("$apiBaseURL/api/Negocio/guardar_sede", body: {
@@ -365,6 +364,7 @@ class NegociosApi {
     }
   }
 
+   */
   Future<dynamic> listarSedesPorNegocio(String id) async {
     try {
       final response = await http
@@ -426,7 +426,7 @@ class NegociosApi {
     }
   }
 
-  Future updateNegocio(CompanySubsidiaryModel csmodel) async {
+  /* Future updateNegocio(CompanySubsidiaryModel csmodel) async {
     try {
       final res =
           await http.post("$apiBaseURL/api/Negocio/update_negocio", body: {
@@ -469,6 +469,7 @@ class NegociosApi {
     }
   }
 
+   */
   Future<dynamic> listarSubsidiaryPorId(String id) async {
     try {
       final response = await http

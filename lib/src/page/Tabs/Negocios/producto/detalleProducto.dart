@@ -92,13 +92,15 @@ class _DetalleProductosState extends State<DetalleProductos> {
         ),
       );
     }
+ 
 
-    bool isLiked = false;
+ 
     return Scaffold(
       body: StreamBuilder(
           stream: datosProdBloc.datosProdStream,
           builder: (context, AsyncSnapshot<List<ProductoModel>> snapshot) {
             List<ProductoModel> listProd = snapshot.data;
+             bool _enabled = true;
             if (snapshot.hasData) {
               if (listProd[0].listTallaProd.length > 0) {
                 return Stack(
@@ -212,28 +214,156 @@ class _DetalleProductosState extends State<DetalleProductos> {
                   ],
                 );
               } else {
-                return Center(
-                  child: NutsActivityIndicator(
-                    radius: responsive.ip(1),
-                    activeColor: Colors.white,
-                    inactiveColor: Colors.redAccent,
-                    tickCount: 11,
-                    startRatio: 0.55,
-                    animationDuration: Duration(milliseconds: 2003),
+               
+                return SafeArea(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: responsive.wp(5),
+                          ),
+                          BackButton(),
+                          Spacer()
+                        ],
+                      ),
+                      Expanded(
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300],
+                          highlightColor: Colors.grey[100],
+                          enabled: _enabled,
+                          child: ListView.builder(
+                            itemBuilder: (_, __) => Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 48.0,
+                                    height: 48.0,
+                                    color: Colors.white,
+                                  ),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.0),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Container(
+                                          width: double.infinity,
+                                          height: 8.0,
+                                          color: Colors.white,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 2.0),
+                                        ),
+                                        Container(
+                                          width: double.infinity,
+                                          height: 8.0,
+                                          color: Colors.white,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 2.0),
+                                        ),
+                                        Container(
+                                          width: 40.0,
+                                          height: 8.0,
+                                          color: Colors.white,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            itemCount: 6,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }
             } else {
-              return Center(
-                child: NutsActivityIndicator(
-                  radius: responsive.ip(1),
-                  activeColor: Colors.white,
-                  inactiveColor: Colors.redAccent,
-                  tickCount: 11,
-                  startRatio: 0.55,
-                  animationDuration: Duration(milliseconds: 2003),
-                ),
-              );
+              return SafeArea(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: responsive.wp(5),
+                          ),
+                          BackButton(),
+                          Spacer()
+                        ],
+                      ),
+                      Expanded(
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300],
+                          highlightColor: Colors.grey[100],
+                          enabled: _enabled,
+                          child: ListView.builder(
+                            itemBuilder: (_, __) => Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 48.0,
+                                    height: 48.0,
+                                    color: Colors.white,
+                                  ),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.0),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Container(
+                                          width: double.infinity,
+                                          height: 8.0,
+                                          color: Colors.white,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 2.0),
+                                        ),
+                                        Container(
+                                          width: double.infinity,
+                                          height: 8.0,
+                                          color: Colors.white,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 2.0),
+                                        ),
+                                        Container(
+                                          width: 40.0,
+                                          height: 8.0,
+                                          color: Colors.white,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            itemCount: 6,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              
             }
           }),
     );
@@ -400,7 +530,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                   (listProd[0].listModeloProd.length > 1)
                       ? _modelo(responsive, listProd)
                       : Container(),
-                  _description(),
+                  //_description(),
                 ],
               ),
             ),
@@ -408,102 +538,6 @@ class _DetalleProductosState extends State<DetalleProductos> {
         },
       ),
     );
-  }
-
-  Widget _description() {
-     bool _enabled = true;
-    return Container(
-      width: double.infinity,
-      height: 200,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Expanded(
-            child: Shimmer.fromColors(
-              baseColor: Colors.grey[300],
-              highlightColor: Colors.grey[100],
-              enabled: _enabled,
-              child: ListView.builder(
-                itemBuilder: (_, __) => Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 48.0,
-                        height: 48.0,
-                        color: Colors.white,
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              width: double.infinity,
-                              height: 8.0,
-                              color: Colors.white,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 2.0),
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: 8.0,
-                              color: Colors.white,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 2.0),
-                            ),
-                            Container(
-                              width: 40.0,
-                              height: 8.0,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                itemCount: 6,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: FlatButton(
-                onPressed: () {
-                  setState(() {
-                    _enabled = !_enabled;
-                  });
-                },
-                child: Text(
-                  _enabled ? 'Stop' : 'Play',
-                  style: Theme.of(context).textTheme.button.copyWith(
-                      fontSize: 18.0,
-                      color: _enabled ? Colors.redAccent : Colors.green),
-                )),
-          )
-        ],
-      ),
-    );
-
-    // Column(
-    //   crossAxisAlignment: CrossAxisAlignment.start,
-    //   children: <Widget>[
-    //     TitleText(
-    //       text: "Available Size",
-    //       fontSize: 14,
-    //     ),
-    //     SizedBox(height: 20),
-    //     Text(
-    //         "Clean lines, versatile and timeless—the people shoe returns with the Nike Air Max 90. Featuring the same iconic Waffle sole, stitched overlays and classic TPU accents you come to love, it lets you walk among the pantheon of Air. ßNothing as fly, nothing as comfortable, nothing as proven. The Nike Air Max 90 stays true to its OG running roots with the iconic Waffle sole, stitched overlays and classic TPU details. Classic colours celebrate your fresh look while Max Air cushioning adds comfort to the journey."),
-    //   ],
-    // );
   }
 
   Widget _talla(Responsive responsive, List<ProductoModel> listProd) {

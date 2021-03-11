@@ -25,9 +25,9 @@ class GoodApi {
   final companyDatabase = CompanyDatabase();
   final itemsubCategoryDatabase = ItemsubCategoryDatabase();
   final prefs = Preferences();
-
+/* 
   //Retorna el nombre del bien
-  Future<dynamic> obtenerGoodAll() async {
+  Future<dynamic> obtenerGoodAll2() async {
     try {
       var response = await http.post("$apiBaseURL/api/Negocio/listar_all_good",
           body: {'app': 'true', 'tn': prefs.token});
@@ -52,7 +52,7 @@ class GoodApi {
       return 0;
     }
   }
-
+ */
   //Lista de todos los bienes en la pagina Principal
   Future<int> listarBienesAllPorCiudad() async {
     final response = await http.post(

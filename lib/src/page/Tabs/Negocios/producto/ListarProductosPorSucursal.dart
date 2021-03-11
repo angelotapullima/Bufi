@@ -19,8 +19,36 @@ class ListarProductosPorSucursalPage extends StatefulWidget {
 
 class _ListarProductosPorSucursalPageState
     extends State<ListarProductosPorSucursalPage> {
+  ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => {
+          _scrollController.addListener(() {
+            if (_scrollController.position.pixels ==
+                _scrollController.position.maxScrollExtent) {
+              print('pixels ${_scrollController.position.pixels}');
+              print('maxScrool ${_scrollController.position.maxScrollExtent}');
+              print('dentro');
+
+              final productoBloc = ProviderBloc.productos(context);
+              productoBloc.listarProductosPorSucursal(widget.idSucursal);
+            }
+          })
+        });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(widget.idSucursal);
     final responsive = Responsive.of(context);
 
     final productoBloc = ProviderBloc.productos(context);
@@ -37,7 +65,6 @@ class _ListarProductosPorSucursalPageState
             if (sucursalList.hasData) {
               if (sucursalList.data.length > 0) {
                 return SafeArea(
-                  bottom: false,
                   child: Column(
                     children: [
                       Container(
@@ -96,6 +123,7 @@ class _ListarProductosPorSucursalPageState
                               if (snapshot.data.length > 0) {
                                 final bienes = snapshot.data;
                                 return GridView.builder(
+                                    controller: _scrollController,
                                     padding: EdgeInsets.only(top: 10),
                                     //controller: ScrollController(keepScrollOffset: false),
                                     shrinkWrap: true,

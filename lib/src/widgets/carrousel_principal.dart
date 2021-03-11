@@ -60,7 +60,8 @@ class CarrouselPrincipal extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   child: CachedNetworkImage(
                     //cacheManager: CustomCacheManager(),
-                    placeholder: (context, url) => Image(
+                    placeholder: (context, url) => 
+                    Image(
                         image: AssetImage('assets/jar-loading.gif'),
                         fit: BoxFit.cover),
                     errorWidget: (context, url, error) => Image(

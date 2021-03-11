@@ -119,7 +119,7 @@ class HeaderWidget extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Container(
+                    (preferences.personName != null)?Container(
                       width: responsive.ip(5),
                       height: responsive.ip(5),
                       child: ClipRRect(
@@ -143,24 +143,33 @@ class HeaderWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
+                    ):Container(),
                     SizedBox(
                       width: responsive.wp(3),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Buenos días'),
-                        Text(
-                          '${preferences.personName}',
-                          style: GoogleFonts.pacifico(
-                            textStyle: TextStyle(
-                                fontSize: responsive.ip(2),
-                                fontWeight: FontWeight.bold),
+                    (preferences.personName != null)
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Buenos días'),
+                              Text(
+                                '${preferences.personName}',
+                                style: GoogleFonts.pacifico(
+                                  textStyle: TextStyle(
+                                      fontSize: responsive.ip(2),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Text(
+                            'Bienvenido',
+                            style: GoogleFonts.andika(
+                              textStyle: TextStyle(
+                                  fontSize: responsive.ip(2.5),
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
                     Spacer(),
                     Container(
                       width: responsive.wp(11),
@@ -451,7 +460,8 @@ class Negocios extends StatelessWidget {
           child: StreamBuilder(
             //stream: negociosBloc.negociosStream,
             stream: negociosBloc.listarNeg,
-            builder: (BuildContext context, AsyncSnapshot<List<CompanySubsidiaryModel>> snapshot) {
+            builder: (BuildContext context,
+                AsyncSnapshot<List<CompanySubsidiaryModel>> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data.length > 0) {
                   return ListView.builder(
@@ -474,8 +484,8 @@ class Negocios extends StatelessWidget {
     );
   }
 
-  Widget _crearItem(
-      BuildContext context, CompanySubsidiaryModel servicioData, Responsive responsive) {
+  Widget _crearItem(BuildContext context, CompanySubsidiaryModel servicioData,
+      Responsive responsive) {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, "detalleNegocio", arguments: servicioData);

@@ -31,8 +31,6 @@ import 'package:bufi/src/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'src/page/Tabs/Negocios/producto/shimmer.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = new Preferences();

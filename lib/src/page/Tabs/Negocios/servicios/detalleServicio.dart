@@ -122,7 +122,7 @@ class _DetalleServicioState extends State<DetalleServicio> {
                                                                               Text("SI"),
                                                                           onTap:
                                                                               () async {
-                                                                            //Navigator.pop(context);
+                                                                            /* //Navigator.pop(context);
 
                                                                             SubsidiaryServiceModel
                                                                                 subsidiaryServiceModel =
@@ -151,7 +151,7 @@ class _DetalleServicioState extends State<DetalleServicio> {
                                                                             // else{
                                                                             //   final subserviceDb = SubsidiaryServiceDatabase();
                                                                             //   await subserviceDb.habilitarSubsidiaryServiceDb(subsidiaryServiceModel);
-                                                                            // }
+                                                                            // } */
                                                                           },
                                                                         ),
                                                                         GestureDetector(
@@ -272,7 +272,7 @@ class _DetalleServicioState extends State<DetalleServicio> {
 
   Future _submit(String id, BuildContext context) async {
 
-    SubsidiaryServiceModel subsidiaryServiceModel = SubsidiaryServiceModel();
+  /*   SubsidiaryServiceModel subsidiaryServiceModel = SubsidiaryServiceModel();
     subsidiaryServiceModel.idSubsidiaryservice = id;
     final serviceApi = ServiceApi();
     final res = await serviceApi.deshabilitarSubsidiaryService(id);
@@ -286,7 +286,7 @@ class _DetalleServicioState extends State<DetalleServicio> {
       Navigator.pop(context);
       //Navigator.pop(context);
       print('Estamos cagados');
-    }
+    } */
   }
 
   Widget _agregarAlCarrito(

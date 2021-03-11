@@ -47,7 +47,7 @@ class ProductosApi {
       for (var i = 0; i < productosPorSucursal.length; i++) {
         if(double.parse(productosPorSucursal[i].idProducto) > mayor){
           mayor = double.parse(productosPorSucursal[i].idProducto);
-          print(mayor);
+          print('mayor $mayor');
 
         }
       }
@@ -59,8 +59,10 @@ class ProductosApi {
         if(double.parse(productosPorSucursal[x].idProducto) < mayor2){
           menor = double.parse(productosPorSucursal[x].idProducto);
           mayor2 = menor;
-          print(menor);
+          print('menor $menor');
 
+        }else{
+           menor = mayor2;
         }
       }
     }
@@ -151,7 +153,7 @@ class ProductosApi {
     return 0;
   }
 
-  Future<dynamic> deshabilitarSubsidiaryProducto(String id) async {
+  /* Future<dynamic> deshabilitarSubsidiaryProducto(String id) async {
     try {
       final response = await http
           .post('$apiBaseURL/api/Negocio/deshabilitar_producto', body: {
@@ -170,7 +172,8 @@ class ProductosApi {
     }
   }
 
-  Future<int> guardarProducto(File _image, CompanyModel cmodel,
+   */
+  /* Future<int> guardarProducto(File _image, CompanyModel cmodel,
       BienesModel bienModel, ProductoModel producModel) async {
     final preferences = Preferences();
 
@@ -231,13 +234,13 @@ class ProductosApi {
     return 1;
   }
 
+   */
   Future<int> listarDetalleProductoPorIdProducto(String idProducto) async {
     try {
       final response = await http
           .post('$apiBaseURL/api/Negocio/listar_detalle_producto', body: {
         'id': idProducto,
-        'app': 'true',
-        'tn': prefs.token,
+        
       });
 
       final decodedData = json.decode(response.body);

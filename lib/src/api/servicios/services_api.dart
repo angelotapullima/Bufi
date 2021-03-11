@@ -151,7 +151,7 @@ class ServiceApi {
     return 0;
   }
 
-  Future<int> guardarServicio(File _image, CompanyModel cmodel,
+  /* Future<int> guardarServicio(File _image, CompanyModel cmodel,
       ServiciosModel serviceData, SubsidiaryServiceModel servicioModel) async {
 
     // open a byteStream
@@ -200,6 +200,7 @@ class ServiceApi {
     return 1;
   }
 
+   */
   Future<dynamic> detalleSerivicioPorIdSubsidiaryService(String id) async {
     try {
       final response = await http
@@ -216,7 +217,7 @@ class ServiceApi {
     }
   }
 
-  Future<dynamic> deshabilitarSubsidiaryService(String id) async {
+  /* Future<dynamic> deshabilitarSubsidiaryService(String id) async {
     try {
       final response = await http
           .post('$apiBaseURL/api/Negocio/deshabilitar_servicio', body: {
@@ -233,7 +234,7 @@ class ServiceApi {
 
       return 0;
     }
-  }
+  } */
 
   Future<int> listarServiciosAllPorCiudad() async {
     final response = await http.post(

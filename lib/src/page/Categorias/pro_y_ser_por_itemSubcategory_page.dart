@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
+import 'package:shimmer/shimmer.dart';
 
 //Ahora vengo yo csmaree
 
@@ -40,21 +41,97 @@ class _ProYSerPorItemSubcategoryPageState
           builder: (context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data) {
-                return Container(
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      NutsActivityIndicator(
-                        radius: 12,
-                        activeColor: Colors.white,
-                        inactiveColor: Colors.redAccent,
-                        tickCount: 11,
-                        startRatio: 0.55,
-                        animationDuration: Duration(milliseconds: 2003),
-                      ),
-                      Text('Buscando Productos')
-                    ],
+                bool _enabled = true;
+                return SafeArea(
+                  child: Container(
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: responsive.hp(5),
+                          child: Stack(
+                            children: [
+                              BackButton(),
+                              Container(
+                                padding:
+                                    EdgeInsets.only(left: responsive.wp(10)),
+                                width: double.infinity,
+                                child: Center(
+                                  child: Text(
+                                    widget.nameItem,
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                        fontSize: responsive.ip(2.5),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Shimmer.fromColors(
+                            baseColor: Colors.grey[300],
+                            highlightColor: Colors.grey[100],
+                            enabled: _enabled,
+                            child: ListView.builder(
+                              itemBuilder: (_, __) => Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 48.0,
+                                      height: 48.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8.0),
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Container(
+                                            width: double.infinity,
+                                            height: 8.0,
+                                            color: Colors.white,
+                                          ),
+                                          const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 2.0),
+                                          ),
+                                          Container(
+                                            width: double.infinity,
+                                            height: 8.0,
+                                            color: Colors.white,
+                                          ),
+                                          const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 2.0),
+                                          ),
+                                          Container(
+                                            width: 40.0,
+                                            height: 8.0,
+                                            color: Colors.white,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              itemCount: 6,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               } else {
@@ -161,8 +238,7 @@ class _ProYSerPorItemSubcategoryPageState
     return Expanded(
       child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, 
-              childAspectRatio: .7),
+              crossAxisCount: 2, childAspectRatio: .7),
           itemCount: data.length,
           itemBuilder: (context, index) {
             return ('${data[index].tipo}' == 'bienes')

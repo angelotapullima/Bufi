@@ -1,5 +1,7 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
+import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
+import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +41,6 @@ class BusquedaProductos extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) {
     //Sugerencias de busqueda
 
-
     final busquedaBloc = ProviderBloc.busqueda(context);
     busquedaBloc.obtenerResultadosBusquedaPorQuery('$query');
     if (query.isEmpty) {
@@ -47,7 +48,7 @@ class BusquedaProductos extends SearchDelegate {
       return StreamBuilder(
         stream: busquedaBloc.busquedaGeneralStream,
         builder: (BuildContext context,
-            AsyncSnapshot<List<ProductoModel>> snapshot) {
+            AsyncSnapshot<List<BusquedaGeneralModel>> snapshot) {
           if (snapshot.hasData) {
             final resultBusqueda = snapshot.data;
 
@@ -55,7 +56,8 @@ class BusquedaProductos extends SearchDelegate {
               return ListView.builder(
                 itemCount: resultBusqueda.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Text(resultBusqueda[index].productoName);
+                  return Text(
+                      resultBusqueda[index].listProducto[0].productoName);
                 },
               );
             } else {
@@ -70,35 +72,49 @@ class BusquedaProductos extends SearchDelegate {
       return StreamBuilder(
         stream: busquedaBloc.busquedaGeneralStream,
         builder: (BuildContext context,
-            AsyncSnapshot<List<ProductoModel>> snapshot) {
+            AsyncSnapshot<List<BusquedaGeneralModel>> snapshot) {
           if (snapshot.hasData) {
             final resultBusqueda = snapshot.data;
 
             if (snapshot.data.length > 0) {
               return ListView.builder(
+                shrinkWrap: true,
                 itemCount: resultBusqueda.length,
                 itemBuilder: (BuildContext context, int index) {
                   return
                       //bienesWidget(context, snapshot.data[index], responsive);
-                      ListTile(
-                    leading: FadeInImage(
-                      placeholder: AssetImage('assets/no-image.png'),
-                      image: NetworkImage(
-                        '$apiBaseURL/${resultBusqueda[index].productoImage}',
-                      ),
-                      width: 50,
-                      fit: BoxFit.contain,
-                    ),
-                    title: Text(resultBusqueda[index].productoName),
-                    subtitle: Text('${resultBusqueda[index].productoCurrency}'
-                        '${resultBusqueda[index].productoPrice}'),
-                    onTap: () {
-                      close(context, null);
-                      Navigator.pushNamed(context, 'detalleProducto',
-                          arguments: resultBusqueda[index].idProducto);
-                    },
-                  );
-                  
+                      ListView.builder(
+                        shrinkWrap: true,
+                          itemCount: resultBusqueda[index].listProducto.length,
+                          itemBuilder: (BuildContext context, int i) {
+                            return
+                            ListTile(
+                              leading: FadeInImage(
+                                placeholder: AssetImage('assets/no-image.png'),
+                                image: NetworkImage(
+                                  '$apiBaseURL/${resultBusqueda[index].listProducto[i].productoImage}',
+                                ),
+                                width: 50,
+                                fit: BoxFit.contain,
+                              ),
+                              title: Text(
+                                  '${resultBusqueda[index].listProducto[i].productoName}'),
+                              subtitle: Text(
+                                  '${resultBusqueda[index].listProducto[i].productoCurrency}'),
+                              onTap: () {
+                                close(context, null);
+                                // Navigator.pushNamed(context, 'detalleProducto',
+                                //     arguments: resultBusqueda[index].idProducto);
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) => DetalleProductos(
+                                //             producto: resultBusqueda[index].listProducto[0],
+                                //           )),
+                                // );
+                              },
+                            );
+                          });
                 },
               );
             } else {

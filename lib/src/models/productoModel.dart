@@ -19,6 +19,7 @@ class ProductoModel {
     this.productoType,
     this.productoSize,
     this.productoStock,
+    this.productoStockStatus,
     this.productoMeasure,
     this.productoRating,
     this.productoUpdated,
@@ -44,6 +45,7 @@ class ProductoModel {
   String productoType;
   String productoSize;
   String productoStock;
+  String productoStockStatus;
   String productoMeasure;
   String productoRating;
   String productoUpdated;
@@ -69,6 +71,7 @@ class ProductoModel {
         productoType: json["producto_type"],
         productoSize: json["producto_size"],
         productoStock: json["producto_stock"],
+        productoStockStatus: json["producto_stock_status"],
         productoMeasure: json["producto_measure"],
         productoRating: json["producto_rating"],
         productoUpdated: json["producto_updated"],

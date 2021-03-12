@@ -1,6 +1,7 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/widgets/busquedas/widget/widgetBusqServicio.dart';
 import 'package:bufi/src/widgets/widgetServicios.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,25 +53,8 @@ class _ListarServiciosAllState extends State<ListarServiciosAll> {
             Row(
               children: [
                 SizedBox(width: responsive.wp(2),),
-                Expanded(child: Container(
-                padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
-                height: responsive.hp(5),
-                decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(25)),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.search,
-                      color: Colors.black,
-                    ),
-                    Text(
-                      'Buscar Servicios',
-                      style: TextStyle(color: Colors.black),
-                    )
-                  ],
-                ),
-              ),),
+                 //Busqueda
+                Expanded(child: BusquedaServicioWidget(responsive: responsive)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

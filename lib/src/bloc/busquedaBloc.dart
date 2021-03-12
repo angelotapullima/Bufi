@@ -51,4 +51,16 @@ class BusquedaBloc {
         .add(await busquedaApi.busquedaProducto(query));
     
   }
+
+  void obtenerBusquedaServicio(String query) async {
+        busquedaServicioController.sink
+        .add(await busquedaApi.busquedaServicio(query));
+    
+  }
+
+  void obtenerBusquedaNegocio(String query) async {
+        busquedaNegocioController.sink
+        .add(await busquedaApi.busquedaNegocio(query));
+    
+  }
 }

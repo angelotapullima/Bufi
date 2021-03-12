@@ -4,6 +4,7 @@ import 'package:bufi/src/bloc/subsidiary/negocio_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/widgets/busquedas/widget/widgetBusquNegocio.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -418,49 +419,54 @@ class HeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<NegociosBlocListener>(context, listen: false);
 
-    return Container(
-      color: Colors.white,
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: responsive.wp(2),
-        vertical: responsive.hp(1),
-      ),
-      child: Row(
-        children: [
-          Text(
-            'Negocios',
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: responsive.ip(2.5),
-                fontWeight: FontWeight.bold),
+    return Column(
+      children: [
+        Container(
+          color: Colors.white,
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: responsive.wp(2),
+            vertical: responsive.hp(1),
           ),
-          Spacer(),
-          // GestureDetector(
-          //   onTap: () {
-          //     Navigator.pushNamed(context, 'registroNegocio');
-          //   },
-          //   child: Container(
-          //     width: responsive.wp(32),
-          //     height: responsive.hp(4.5),
-          //     decoration: BoxDecoration(
-          //       color: Colors.red,
-          //       borderRadius: BorderRadius.circular(20),
-          //     ),
-          //     child: Center(
-          //       child: Text(
-          //         'Registrar Negocio',
-          //         style: TextStyle(color: Colors.white),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          IconButton(
-              icon: Icon(Icons.category, color: Colors.red),
-              onPressed: () {
-                provider.lptmr();
-              }),
-        ],
-      ),
+          child: Row(
+            children: [
+              Text(
+                'Negocios',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: responsive.ip(2.5),
+                    fontWeight: FontWeight.bold),
+              ),
+              Spacer(),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.pushNamed(context, 'registroNegocio');
+              //   },
+              //   child: Container(
+              //     width: responsive.wp(32),
+              //     height: responsive.hp(4.5),
+              //     decoration: BoxDecoration(
+              //       color: Colors.red,
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //     child: Center(
+              //       child: Text(
+              //         'Registrar Negocio',
+              //         style: TextStyle(color: Colors.white),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              IconButton(
+                  icon: Icon(Icons.category, color: Colors.red),
+                  onPressed: () {
+                    provider.lptmr();
+                  }),
+            ],
+          ),
+        ),
+      BusquedaNegocioWidget(responsive: responsive,)
+      ],
     );
   }
 }

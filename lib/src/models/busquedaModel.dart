@@ -36,9 +36,16 @@ class BusquedaProductoModel {
 class BusquedaServicioModel {
   List<ServiciosModel> listService;
   List<SubsidiaryServiceModel> listServicios;
+  List<SubsidiaryModel> listSucursal;
+  List<CompanyModel> listCompany;
+  List<CategoriaModel> listCategory;
+  List<SubcategoryModel> listSubcategory;
+  List<ItemSubCategoriaModel> listItemSubCateg;
 }
 
 class BusquedaNegocioModel {
   List<CompanyModel> listCompany;
+   List<SubsidiaryModel> listSucursal;
+  List<CategoriaModel> listCategory;
   
 }

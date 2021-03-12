@@ -1,13 +1,11 @@
 import 'package:bufi/src/bloc/busquedaBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
-import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-class BusquedaServiciosPage extends SearchDelegate {
+class BusquedaNegocioPage extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
     //Icono o acciones a la derecha, recibe una lista de widgets
@@ -37,35 +35,34 @@ class BusquedaServiciosPage extends SearchDelegate {
     //Resultados que se mostraran una vez realizada la busqueda
 
     final busquedaBloc = ProviderBloc.busqueda(context);
-    busquedaBloc.obtenerBusquedaServicio('$query');
+    busquedaBloc.obtenerBusquedaNegocio('$query');
 
-    return streamServicio(busquedaBloc);
+    return streamNegocio(busquedaBloc);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     //Sugerencias de busqueda
     final busquedaBloc = ProviderBloc.busqueda(context);
-    busquedaBloc.obtenerBusquedaServicio('$query');
+    busquedaBloc.obtenerBusquedaNegocio('$query');
 
     if (query.isEmpty) {
       return Container(
         child: Text("Ingrese una palabra para realizar la búsqueda"),
       );
-    } 
-    else {
-      return streamServicio(busquedaBloc);
+    } else {
+      return streamNegocio(busquedaBloc);
     }
 
     // return Container(child: Text("Sugerencias"));
   }
 
-  StreamBuilder<List<BusquedaServicioModel>> streamServicio(
+  StreamBuilder<List<BusquedaNegocioModel>> streamNegocio(
       BusquedaBloc busquedaBloc) {
     return StreamBuilder(
-      stream: busquedaBloc.busquedaServicioStream,
+      stream: busquedaBloc.busquedaNegocioStream,
       builder: (BuildContext context,
-          AsyncSnapshot<List<BusquedaServicioModel>> snapshot) {
+          AsyncSnapshot<List<BusquedaNegocioModel>> snapshot) {
         if (snapshot.hasData) {
           final resultBusqueda = snapshot.data;
           if (snapshot.data.length > 0) {
@@ -75,31 +72,26 @@ class BusquedaServiciosPage extends SearchDelegate {
               itemBuilder: (BuildContext context, int index) {
                 return ListView.builder(
                     shrinkWrap: true,
-                    itemCount: resultBusqueda[index].listServicios.length,
+                    itemCount: resultBusqueda[index].listCompany.length,
                     itemBuilder: (BuildContext context, int i) {
                       return ListTile(
                         leading: FadeInImage(
                           placeholder: AssetImage('assets/no-image.png'),
                           image: NetworkImage(
-                            '$apiBaseURL/${resultBusqueda[index].listServicios[i].subsidiaryServiceImage}',
+                            '$apiBaseURL/${resultBusqueda[index].listCompany[i].companyImage}',
                           ),
                           width: 50,
                           fit: BoxFit.contain,
                         ),
                         title: Text(
-                            '${resultBusqueda[index].listServicios[i].subsidiaryServiceName}'),
+                            '${resultBusqueda[index].listCompany[i].companyName}'),
                         subtitle: Text(
-                            '${resultBusqueda[index].listServicios[i].subsidiaryServiceCurrency}'),
+                            '${resultBusqueda[index].listCompany[i].companyRuc}'),
                         onTap: () {
                           close(context, null);
 
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetalleServicio(
-                                          servicio: resultBusqueda[index]
-                                            .listServicios[i],
-                                      )));
+                          Navigator.pushNamed(context, "detalleNegocio",
+                              arguments: resultBusqueda[index].listCompany[i]);
                         },
                       );
                     });

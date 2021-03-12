@@ -3,7 +3,7 @@ import 'package:bufi/src/models/categoriaGeneralModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/page/Categorias/pro_y_ser_por_itemSubcategory_page.dart';
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:bufi/src/widgets/busquedaWidget.dart';
+import 'package:bufi/src/widgets/busquedas/widget/widgetBusqProduct.dart';
 import 'package:flutter/material.dart';
 
 
@@ -46,7 +46,7 @@ class _ListaCategoriaState extends State<ListaCategoria> {
                 ],
               ),
             ),
-            BusquedaWidget(responsive: responsive),
+            BusquedaProductoWidget(responsive: responsive),
             SizedBox(
               height: responsive.hp(.5),
             ),

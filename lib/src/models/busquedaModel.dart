@@ -4,8 +4,10 @@ import 'package:bufi/src/models/goodModel.dart';
 import 'package:bufi/src/models/itemSubcategoryModel.dart';
 import 'package:bufi/src/models/marcaProductoModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
+import 'package:bufi/src/models/serviceModel.dart';
 import 'package:bufi/src/models/subcategoryModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
+import 'package:bufi/src/models/subsidiaryService.dart';
 
 class BusquedaGeneralModel {
   List<BienesModel> listBienes;
@@ -15,5 +17,28 @@ class BusquedaGeneralModel {
   List<CategoriaModel> listCategory;
   List<SubcategoryModel> listSubcategory;
   List<ItemSubCategoriaModel> listItemSubCateg;
-  List<MarcaProductoModel> listMarca;
+  List<ServiciosModel> listService;
+  List<SubsidiaryServiceModel> listServicios;
+  //List<MarcaProductoModel> listMarca;
+
+}
+
+class BusquedaProductoModel {
+  List<BienesModel> listBienes;
+  List<ProductoModel> listProducto;
+   List<SubsidiaryModel> listSucursal;
+  List<CompanyModel> listCompany;
+  List<CategoriaModel> listCategory;
+  List<SubcategoryModel> listSubcategory;
+  List<ItemSubCategoriaModel> listItemSubCateg;
+}
+
+class BusquedaServicioModel {
+  List<ServiciosModel> listService;
+  List<SubsidiaryServiceModel> listServicios;
+}
+
+class BusquedaNegocioModel {
+  List<CompanyModel> listCompany;
+  
 }

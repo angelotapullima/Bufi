@@ -15,7 +15,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:bufi/src/utils/utils.dart' as utils;
-import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:shimmer/shimmer.dart';
 
 class DetalleProductos extends StatefulWidget {

@@ -51,8 +51,7 @@ class BusquedaProductosPage extends SearchDelegate {
       return Container(
         child: Text("Ingrese una palabra para realizar la búsqueda"),
       );
-    } 
-    else {
+    } else {
       return streamProducto(busquedaBloc);
     }
 

@@ -10,6 +10,14 @@ import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 
 class BusquedaGeneralModel {
+  BusquedaGeneralModel({this.listBienes,
+    this.listProducto,
+    this.listSucursal,
+    this.listCompany,
+    this.listCategory,
+    this.listSubcategory,
+    this.listItemSubCateg,
+    this.listService, this.listServicios});
   List<BienesModel> listBienes;
   List<ProductoModel> listProducto;
   List<SubsidiaryModel> listSucursal;
@@ -24,18 +32,17 @@ class BusquedaGeneralModel {
 }
 
 class BusquedaProductoModel {
+  BusquedaProductoModel({
+    this.listBienes,
+    this.listProducto,
+    this.listSucursal,
+    this.listCompany,
+    this.listCategory,
+    this.listSubcategory,
+    this.listItemSubCateg,
+  });
   List<BienesModel> listBienes;
   List<ProductoModel> listProducto;
-   List<SubsidiaryModel> listSucursal;
-  List<CompanyModel> listCompany;
-  List<CategoriaModel> listCategory;
-  List<SubcategoryModel> listSubcategory;
-  List<ItemSubCategoriaModel> listItemSubCateg;
-}
-
-class BusquedaServicioModel {
-  List<ServiciosModel> listService;
-  List<SubsidiaryServiceModel> listServicios;
   List<SubsidiaryModel> listSucursal;
   List<CompanyModel> listCompany;
   List<CategoriaModel> listCategory;
@@ -43,9 +50,28 @@ class BusquedaServicioModel {
   List<ItemSubCategoriaModel> listItemSubCateg;
 }
 
-class BusquedaNegocioModel {
+class BusquedaServicioModel {
+  BusquedaServicioModel(
+      {this.listService,
+      this.listServicios,
+      this.listCompany,
+      this.listSucursal,
+      this.listCategory,
+      this.listSubcategory,
+      this.listItemSubCateg});
+  List<ServiciosModel> listService;
+  List<SubsidiaryServiceModel> listServicios;
   List<CompanyModel> listCompany;
-   List<SubsidiaryModel> listSucursal;
+  List<SubsidiaryModel> listSucursal;
   List<CategoriaModel> listCategory;
-  
+  List<SubcategoryModel> listSubcategory;
+  List<ItemSubCategoriaModel> listItemSubCateg;
+}
+
+class BusquedaNegocioModel {
+  BusquedaNegocioModel(
+      {this.listCompany, this.listSucursal, this.listCategory});
+  List<CompanyModel> listCompany;
+  List<SubsidiaryModel> listSucursal;
+  List<CategoriaModel> listCategory;
 }

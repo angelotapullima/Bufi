@@ -4,7 +4,6 @@ import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/busquedas/widget/widgetBusqProduct.dart';
-import 'package:bufi/src/widgets/busquedas/widget/widgetBusquedaGeneral.dart';
 import 'package:bufi/src/widgets/widgetBienes.dart';
 import 'package:bufi/src/widgets/widgetServicios.dart';
 import 'package:cached_network_image/cached_network_image.dart';

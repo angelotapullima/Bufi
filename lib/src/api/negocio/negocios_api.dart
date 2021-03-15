@@ -1,6 +1,5 @@
 import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
-
 import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';

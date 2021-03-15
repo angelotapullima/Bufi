@@ -1,13 +1,13 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
-import 'package:bufi/src/models/productoModel.dart';
-import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
-import 'package:bufi/src/widgets/widgetBienes.dart';
+import 'package:bufi/src/models/subsidiaryService.dart';
+import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/widgets/widgetServicios.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class GridviewProductoPorSucursal extends StatefulWidget {
+class GridviewServiciosPorSucursal extends StatefulWidget {
   final String idSucursal;
-  const GridviewProductoPorSucursal({Key key, @required this.idSucursal})
+  const GridviewServiciosPorSucursal({Key key, @required this.idSucursal})
       : super(key: key);
 
   @override
@@ -16,29 +16,32 @@ class GridviewProductoPorSucursal extends StatefulWidget {
 }
 
 class _GridviewProductoPorSucursalState
-    extends State<GridviewProductoPorSucursal> {
+    extends State<GridviewServiciosPorSucursal> {
   @override
   Widget build(BuildContext context) {
-    final productoBloc = ProviderBloc.productos(context);
-    productoBloc.listarProductosPorSucursal(widget.idSucursal);
+    final serviciosBloc = ProviderBloc.servi(context);
+    serviciosBloc.listarServiciosPorSucursal(widget.idSucursal);
+
+
+    final responsive = Responsive.of(context);
 
     return StreamBuilder(
-        stream: productoBloc.productoStream,
+        stream: serviciosBloc.serviciostream,
         builder: (BuildContext context,
-            AsyncSnapshot<List<ProductoModel>> snapshot) {
+            AsyncSnapshot<List<SubsidiaryServiceModel>> snapshot) {
               
           if (snapshot.hasData) {
             if (snapshot.data.length > 0) {
               return SliverGrid(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: 0.86,
+                  childAspectRatio: 0.7,
                 ),
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(
+                        /* Navigator.push(
                           context,
                           PageRouteBuilder(
                             transitionDuration:
@@ -57,11 +60,12 @@ class _GridviewProductoPorSucursalState
                               );
                             },
                           ),
-                        );
-                      },
-                      child: BienesWidget(
+                        );*/
+                      }, 
+                      child : serviceWidget(context, snapshot.data[index], responsive)
+                     /*  child: BienesWidget(
                         producto: snapshot.data[index],
-                      ),
+                      ), */
                     );
                   },
                   childCount: snapshot.data.length,

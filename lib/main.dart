@@ -15,7 +15,6 @@ import 'package:bufi/src/page/Tabs/Carrito/carrito_bloc.dart';
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido_bloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/inicio/detalleNegocio.dart';
 import 'package:bufi/src/bloc/subsidiary/negocio_bloc.dart';
-import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
 import 'package:bufi/src/page/Tabs/Points/points_bloc.dart';
 import 'package:bufi/src/page/Tabs/Principal/listarBienesAll.dart';
 import 'package:bufi/src/page/Tabs/Principal/listarServiciosAll.dart';

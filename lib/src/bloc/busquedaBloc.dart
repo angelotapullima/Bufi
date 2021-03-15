@@ -1,4 +1,4 @@
-import 'package:bufi/src/api/bienes/bienes_api.dart';
+
 import 'package:bufi/src/api/busqueda/busqueda_api.dart';
 import 'package:bufi/src/database/category_db.dart';
 import 'package:bufi/src/database/company_db.dart';
@@ -70,7 +70,7 @@ class BusquedaBloc {
   void obtenerBusquedaProducto(String query) async {
     busquedaProductoController.sink
         .add(await obtnerResultBusquedaProducto(query));
-        
+
     await busquedaApi.busquedaProducto(query);
 
     busquedaProductoController.sink

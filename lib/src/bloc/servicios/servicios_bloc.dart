@@ -5,7 +5,7 @@ import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:rxdart/subjects.dart';
 
-class ListarServiciosBloc {
+class ServiciosBloc {
   final subservicesDatabase = SubsidiaryServiceDatabase();
   final subservicesModel = SubsidiaryServiceModel();
   final serviciosApi = ServiceApi();

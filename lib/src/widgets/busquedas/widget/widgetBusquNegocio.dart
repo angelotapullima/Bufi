@@ -1,4 +1,4 @@
-import 'package:bufi/src/widgets/busquedas/busquedaGeneral.dart';
+
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/widgets/busquedas/busquedaNegocio.dart';
 import 'package:flutter/material.dart';

@@ -21,7 +21,7 @@ class _ListarServiciosXSucursalPageState
     //final id = ModalRoute.of(context).settings.arguments;
 
     final responsive = Responsive.of(context);
-    final listarServicios = ProviderBloc.listarServicios(context);
+    final listarServicios = ProviderBloc.servi(context);
     listarServicios.listarServiciosPorSucursal(widget.idSucursal);
 
     return StreamBuilder(

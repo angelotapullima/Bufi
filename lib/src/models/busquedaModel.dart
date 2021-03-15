@@ -3,7 +3,6 @@ import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/goodModel.dart';
 import 'package:bufi/src/models/itemSubcategoryModel.dart';
-import 'package:bufi/src/models/marcaProductoModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/serviceModel.dart';
 import 'package:bufi/src/models/subcategoryModel.dart';

@@ -1000,6 +1000,7 @@ class BusquedaApi {
               }
               //listGeneral.add(busqProductoModel);
             }
+            return 0;
           }
         } else {
           print("No haaaay productoooo");
@@ -1009,6 +1010,7 @@ class BusquedaApi {
       print("Exception occured: $error stackTrace: $stacktrace");
     }
     //return listGeneral;
+    return 0;
   }
 
   Future<dynamic> busquedaServicio(String query) async {

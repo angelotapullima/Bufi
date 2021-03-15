@@ -1,4 +1,3 @@
-
 import 'package:bufi/src/api/busqueda/busqueda_api.dart';
 import 'package:bufi/src/database/category_db.dart';
 import 'package:bufi/src/database/company_db.dart';
@@ -91,14 +90,16 @@ class BusquedaBloc {
       String query) async {
     List<BusquedaProductoModel> listaGeneral = List<BusquedaProductoModel>();
     final listaGeneralModel = BusquedaProductoModel();
+    final listProductos = await productoDb.consultarProductoPorQuery(query);
+    final listProductoModel = List<ProductoModel>();
 
     //Recorremos la lista general
-    for (var h = 0; h < listaGeneral.length; h++) {
+    for (var i = 0;i < listProductos.length;i++) {
       //obtener todos los productos de la bd
-      final listProductos = await productoDb.consultarProductoPorQuery(query);
-      final listProductoModel = List<ProductoModel>();
+     // final listProductos = await productoDb.consultarProductoPorQuery(query);
+      //final listProductoModel = List<ProductoModel>();
 
-      for (var i = 0; i < listProductos.length; i++) {
+    // for (var i = 0; i < listProductos.length; i++) {
         final productoModel = ProductoModel();
         productoModel.idProducto = listProductos[i].idProducto;
         productoModel.idSubsidiary = listProductos[i].idSubsidiary;
@@ -121,7 +122,7 @@ class BusquedaBloc {
         productoModel.productoStatus = listProductos[i].productoStatus;
 
         listProductoModel.add(productoModel);
-      }
+     }
 
       //------------------Bienes-----------------------
 
@@ -176,26 +177,26 @@ class BusquedaBloc {
       final listcompanyModel = List<CompanyModel>();
 
       // recorrer la tabla company
-      for (var j = 0; j < listCompany.length; j++) {
+      for (var m = 0; m < listCompany.length; m++) {
         final companyModel = CompanyModel();
-        companyModel.idCompany = listCompany[j].idCompany;
-        companyModel.companyName = listCompany[j].companyName;
-        companyModel.idUser = listCompany[j].idUser;
-        companyModel.idCity = listCompany[j].idCity;
-        companyModel.idCategory = listCompany[j].idCategory;
-        companyModel.companyImage = listCompany[j].companyImage;
-        companyModel.companyRuc = listCompany[j].companyRuc;
-        companyModel.companyType = listCompany[j].companyType;
-        companyModel.companyShortcode = listCompany[j].companyShortcode;
-        companyModel.companyDelivery = listCompany[j].companyDelivery;
-        companyModel.companyEntrega = listCompany[j].companyEntrega;
-        companyModel.companyTarjeta = listCompany[j].companyTarjeta;
-        companyModel.companyVerified = listCompany[j].companyVerified;
-        companyModel.companyRating = listCompany[j].companyRating;
-        companyModel.companyCreatedAt = listCompany[j].companyCreatedAt;
-        companyModel.companyJoin = listCompany[j].companyJoin;
-        companyModel.companyStatus = listCompany[j].companyStatus;
-        companyModel.companyMt = listCompany[j].companyMt;
+        companyModel.idCompany = listCompany[m].idCompany;
+        companyModel.companyName = listCompany[m].companyName;
+        companyModel.idUser = listCompany[m].idUser;
+        companyModel.idCity = listCompany[m].idCity;
+        companyModel.idCategory = listCompany[m].idCategory;
+        companyModel.companyImage = listCompany[m].companyImage;
+        companyModel.companyRuc = listCompany[m].companyRuc;
+        companyModel.companyType = listCompany[m].companyType;
+        companyModel.companyShortcode = listCompany[m].companyShortcode;
+        companyModel.companyDelivery = listCompany[m].companyDelivery;
+        companyModel.companyEntrega = listCompany[m].companyEntrega;
+        companyModel.companyTarjeta = listCompany[m].companyTarjeta;
+        companyModel.companyVerified = listCompany[m].companyVerified;
+        companyModel.companyRating = listCompany[m].companyRating;
+        companyModel.companyCreatedAt = listCompany[m].companyCreatedAt;
+        companyModel.companyJoin = listCompany[m].companyJoin;
+        companyModel.companyStatus = listCompany[m].companyStatus;
+        companyModel.companyMt = listCompany[m].companyMt;
 
         listcompanyModel.add(companyModel);
       }
@@ -247,7 +248,6 @@ class BusquedaBloc {
 
         listItemsubcategModel.add(itemSubcategoriaModel);
       }
-
       listaGeneralModel.listProducto = listProductoModel;
       listaGeneralModel.listBienes = listBienesModel;
       listaGeneralModel.listSucursal = listSucursalModel;
@@ -257,7 +257,9 @@ class BusquedaBloc {
       listaGeneralModel.listItemSubCateg = listItemsubcategModel;
 
       listaGeneral.add(listaGeneralModel);
-    }
+      
+    
+    
     return listaGeneral;
   }
 }

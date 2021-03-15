@@ -65,11 +65,10 @@ class BusquedaProductosPage extends SearchDelegate {
       stream: busquedaBloc.busquedaProductoStream,
       builder: (BuildContext context,
           AsyncSnapshot<List<BusquedaProductoModel>> snapshot) {
+        final resultBusqueda = snapshot.data;
         if (snapshot.hasData) {
-          final resultBusqueda = snapshot.data;
           if (snapshot.data.length > 0) {
-            return 
-               ListView.builder(
+            return ListView.builder(
               shrinkWrap: true,
               itemCount: resultBusqueda.length,
               itemBuilder: (BuildContext context, int index) {
@@ -97,7 +96,7 @@ class BusquedaProductosPage extends SearchDelegate {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => DetalleProductos(
-                                          producto: resultBusqueda[index]
+                                        producto: resultBusqueda[index]
                                             .listProducto[i],
                                       )));
                         },
@@ -105,7 +104,6 @@ class BusquedaProductosPage extends SearchDelegate {
                     });
               },
             );
-          
           } else {
             return Text("No hay resultados para la búsqueda");
           }

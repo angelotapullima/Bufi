@@ -2,6 +2,7 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
+import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubsidiary.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
@@ -312,6 +313,32 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
                             onTap: () {
+                              Navigator.of(context).push(PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) {
+                                  return DetalleSubsidiary(
+                                    idSucursal: sedes[index].idSubsidiary,
+                                    nombreSucursal: sedes[index].subsidiaryName,
+                                  );
+                                },
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  var begin = Offset(0.0, 1.0);
+                                  var end = Offset.zero;
+                                  var curve = Curves.ease;
+
+                                  var tween =
+                                      Tween(begin: begin, end: end).chain(
+                                    CurveTween(curve: curve),
+                                  );
+
+                                  return SlideTransition(
+                                    position: animation.drive(tween),
+                                    child: child,
+                                  );
+                                },
+                              ));
+
                               Navigator.pushNamed(context, 'detalleSubsidiary',
                                   arguments: sedes[index]);
                             },

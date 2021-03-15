@@ -1,3 +1,4 @@
+import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProductoFotoPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Direccion/AgregarDireccionPAge.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/RatingPage.dart';
@@ -12,7 +13,6 @@ import 'package:bufi/src/page/Categorias/categoriasPage.dart';
 import 'package:bufi/src/page/Tabs/Carrito/carritoTab.dart';
 import 'package:bufi/src/page/Tabs/Carrito/carrito_bloc.dart';
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido_bloc.dart';
-import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubsidiary.dart';
 import 'package:bufi/src/page/Tabs/Negocios/inicio/detalleNegocio.dart';
 import 'package:bufi/src/bloc/subsidiary/negocio_bloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
@@ -58,6 +58,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<PointsBlocListener>(
             create: (_) => PointsBlocListener(),
           ),
+          ChangeNotifierProvider<DetailSubsidiaryBloc>(
+            create: (_) => DetailSubsidiaryBloc(),
+          ),
         ],
         child: MaterialApp(
             title: 'Flutter Demo',
@@ -86,9 +89,7 @@ class MyApp extends StatelessWidget {
               //"registroNegocio": (BuildContext context) => RegistroNegocio(),
               "detalleNegocio": (BuildContext context) => DetalleNegocio(),
 
-              //Sucursal
-              "detalleSubsidiary": (BuildContext context) =>
-                  DetalleSubsidiary(),
+
 
               //Producto
               //"listarProductoAll": (BuildContext context)=> ListarProductosPorSucursal(),

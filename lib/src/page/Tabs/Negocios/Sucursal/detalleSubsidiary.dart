@@ -1,43 +1,286 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
-import 'package:bufi/src/models/subsidiaryModel.dart';
-import 'package:bufi/src/page/Tabs/Negocios/Sucursal/tabInfoPrincipalSucursalPage.dart';
+import 'package:bufi/src/models/productoModel.dart';
+import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart';
+
 import 'package:bufi/src/page/Tabs/Negocios/producto/GridviewProductosPorSucursal.dart';
-import 'package:bufi/src/page/Tabs/Negocios/servicios/ListarServiciosXsucursal.dart';
 import 'package:bufi/src/theme/theme.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/widgets/sliver_header_delegate.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DetalleSubsidiary extends StatelessWidget {
-  const DetalleSubsidiary({Key key}) : super(key: key);
+  final String nombreSucursal;
+  final String idSucursal;
+  const DetalleSubsidiary(
+      {Key key, @required this.nombreSucursal, @required this.idSucursal})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final SubsidiaryModel subsidiary =
-        ModalRoute.of(context).settings.arguments;
-    //final subsidiary = ModalRoute.of(context).settings.arguments;
+    final productoBloc = ProviderBloc.productos(context);
+    productoBloc.listarProductosPorSucursal(idSucursal);
 
-    final subsidiaryBloc = ProviderBloc.listarsucursalPorId(context);
-    subsidiaryBloc.obtenerSucursalporId(subsidiary.idSubsidiary);
+    final responsive = Responsive.of(context);
+
+    final provider = Provider.of<DetailSubsidiaryBloc>(context, listen: false);
 
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: CustomScrollView(
-                slivers: [CebeceraItem(), SelectCategory()],
+      body: StreamBuilder(
+          stream: productoBloc.productoStream,
+          builder: (BuildContext context,
+              AsyncSnapshot<List<ProductoModel>> snapshot) {
+            bool _enabled = true;
+            if (snapshot.hasData) {
+              if (snapshot.data.length > 0) {
+                return SafeArea(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: CustomScrollView(
+                          slivers: [
+                            CebeceraItem(
+                              nombreSucursal: nombreSucursal,
+                            ),
+                            SelectCategory(),
+                            ValueListenableBuilder<PageDetailsSucursal>(
+                                valueListenable: provider.page,
+                                builder: (_, value, __) {
+                                  return (value ==
+                                          PageDetailsSucursal.productos)
+                                      ? GridviewProductoPorSucursal(
+                                          productos: snapshot.data,
+                                        )
+                                      : (value ==
+                                              PageDetailsSucursal.informacion)
+                                          ? InformacionWidget()
+                                          : (value ==
+                                                  PageDetailsSucursal.servicios)
+                                              ? ServiciosWidget()
+                                              : Container();
+                                })
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              } else {
+                return SafeArea(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: responsive.wp(5),
+                          ),
+                          BackButton(),
+                          Spacer()
+                        ],
+                      ),
+                      Expanded(
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300],
+                          highlightColor: Colors.grey[100],
+                          enabled: _enabled,
+                          child: ListView.builder(
+                            itemBuilder: (_, __) => Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 48.0,
+                                    height: 48.0,
+                                    color: Colors.white,
+                                  ),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.0),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Container(
+                                          width: double.infinity,
+                                          height: 8.0,
+                                          color: Colors.white,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 2.0),
+                                        ),
+                                        Container(
+                                          width: double.infinity,
+                                          height: 8.0,
+                                          color: Colors.white,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 2.0),
+                                        ),
+                                        Container(
+                                          width: 40.0,
+                                          height: 8.0,
+                                          color: Colors.white,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            itemCount: 6,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            } else {
+              return SafeArea(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: responsive.wp(5),
+                        ),
+                        BackButton(),
+                        Spacer()
+                      ],
+                    ),
+                    Expanded(
+                      child: Shimmer.fromColors(
+                        baseColor: Colors.grey[300],
+                        highlightColor: Colors.grey[100],
+                        enabled: _enabled,
+                        child: ListView.builder(
+                          itemBuilder: (_, __) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 48.0,
+                                  height: 48.0,
+                                  color: Colors.white,
+                                ),
+                                const Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                        width: double.infinity,
+                                        height: 8.0,
+                                        color: Colors.white,
+                                      ),
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 2.0),
+                                      ),
+                                      Container(
+                                        width: double.infinity,
+                                        height: 8.0,
+                                        color: Colors.white,
+                                      ),
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 2.0),
+                                      ),
+                                      Container(
+                                        width: 40.0,
+                                        height: 8.0,
+                                        color: Colors.white,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          itemCount: 6,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+          }),
+    );
+  }
+}
+
+
+
+
+
+class ServiciosWidget extends StatelessWidget {
+  const ServiciosWidget({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+     final responsive = Responsive.of(context);
+   return SliverPadding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      sliver: SliverToBoxAdapter(
+        child: Container(
+          height: responsive.hp(5),
+          child: Row(
+            children: [
+             
+              Text(
+                'Servicios',
+                style: TextStyle(
+                    fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
+class InformacionWidget extends StatelessWidget {
+  const InformacionWidget({Key key}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+
+    final responsive = Responsive.of(context);
+   return SliverPadding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      sliver: SliverToBoxAdapter(
+        child: Container(
+          height: responsive.hp(5),
+          child: Row(
+            children: [
+             
+              Text(
+                'información',
+                style: TextStyle(
+                    fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  
+  }
+}
 const selectCategory = <String>['Información', 'Productos', 'Servicios'];
 
 class SelectCategory extends StatelessWidget {
@@ -45,6 +288,8 @@ class SelectCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<DetailSubsidiaryBloc>(context, listen: false);
+
     final responsive = Responsive.of(context);
     return SliverPersistentHeader(
       pinned: true,
@@ -54,7 +299,7 @@ class SelectCategory extends StatelessWidget {
         child: Container(
           color: Theme.of(context).scaffoldBackgroundColor,
           padding: EdgeInsets.symmetric(
-            horizontal: responsive.wp(2),
+            horizontal: responsive.wp(1),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -67,10 +312,22 @@ class SelectCategory extends StatelessWidget {
                   pressedOpacity: 1,
                   onPressed: () {
                     _selected.value = i;
+
+                    if (i == 0) {
+                      provider.changeToInformation();
+                    } else if (i == 1) {
+                      provider.changeToProductos();
+                    } else {
+                      provider.changeToServicios();
+                    }
                     print(i);
                   },
                   child: Container(
-                    padding: EdgeInsets.only(bottom: 5, left: 20, right: 20),
+                    padding: EdgeInsets.only(
+                      bottom: responsive.hp(.2),
+                      left: responsive.wp(5),
+                      right: responsive.wp(5),
+                    ),
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
@@ -83,11 +340,11 @@ class SelectCategory extends StatelessWidget {
                     child: Text(
                       selectCategory[i],
                       style: Theme.of(context).textTheme.headline6.copyWith(
-                            color: (i == value)
-                                ? null
-                                : Theme.of(context).dividerColor,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          color: (i == value)
+                              ? null
+                              : Theme.of(context).dividerColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: responsive.ip(1.7)),
                     ),
                   ),
                 ),
@@ -101,7 +358,9 @@ class SelectCategory extends StatelessWidget {
 }
 
 class CebeceraItem extends StatelessWidget {
-  const CebeceraItem({Key key}) : super(key: key);
+  final String nombreSucursal;
+  const CebeceraItem({Key key, @required this.nombreSucursal})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +373,11 @@ class CebeceraItem extends StatelessWidget {
           child: Row(
             children: [
               BackButton(),
-              Text('Ella no te ama'),
+              Text(
+                nombreSucursal,
+                style: TextStyle(
+                    fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
+              ),
             ],
           ),
         ),

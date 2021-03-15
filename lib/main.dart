@@ -99,7 +99,7 @@ class MyApp extends StatelessWidget {
               
 
               //Servicio
-              "detalleServicio": (BuildContext context) => DetalleServicio(),
+             // "detalleServicio": (BuildContext context) => DetalleServicio(),
               // "listarServiciosXsucursal": (BuildContext context) =>
 
               //Usuario

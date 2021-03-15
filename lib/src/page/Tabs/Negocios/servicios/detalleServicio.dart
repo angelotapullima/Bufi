@@ -9,7 +9,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DetalleServicio extends StatefulWidget {
-  DetalleServicio({Key key}) : super(key: key);
+  final SubsidiaryServiceModel servicio;
+  const DetalleServicio({Key key, @required this.servicio}) : super(key: key);
+
 
   @override
   _DetalleServicioState createState() => _DetalleServicioState();

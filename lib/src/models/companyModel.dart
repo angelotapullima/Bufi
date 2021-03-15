@@ -19,6 +19,9 @@ class CompanyModel {
     this.companyJoin,
     this.companyStatus,
     this.companyMt,
+    this.idCountry,
+    this.cityName,
+    this.distancia,
     this.miNegocio,
     this.cell,
     this.direccion,
@@ -30,7 +33,7 @@ class CompanyModel {
   String idCity;
   String idCategory;
   String companyName;
-  dynamic companyRuc;
+  String companyRuc;
   String companyImage;
   String companyType;
   String companyShortcode;
@@ -39,14 +42,18 @@ class CompanyModel {
   String companyEntrega;
   String companyTarjeta;
   String companyVerified;
-  dynamic companyRating;
+  String companyRating;
   String companyCreatedAt;
   String companyJoin;
   String companyStatus;
   String companyMt;
+  String idCountry;
+  String cityName;
+  String distancia;
   String miNegocio;
+  
+  
   String favourite;
-
   String cell;
   String direccion;
 
@@ -70,6 +77,9 @@ class CompanyModel {
         companyJoin: json["company_join"],
         companyStatus: json["company_status"],
         companyMt: json["company_mt"],
+        idCountry: json["id_country"],
+        cityName: json["city_name"],
+        distancia: json["distancia"],
         miNegocio: json["mi_negocio"],
       );
 

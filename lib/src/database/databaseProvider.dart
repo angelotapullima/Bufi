@@ -56,6 +56,7 @@ class DatabaseProvider {
           'producto_type VARCHAR,'
           'producto_size VARCHAR,'
           'producto_stock VARCHAR,'
+          'producto_stock_status VARCHAR,'
           'producto_measure VARCHAR,'
           'producto_rating VARCHAR,'
           'producto_updated VARCHAR,'
@@ -111,7 +112,10 @@ class DatabaseProvider {
           'company_join VARCHAR,'
           'company_status VARCHAR,'
           'company_mt VARCHAR,'
-          ' mi_negocio VARCHAR'
+          'id_country VARCHAR,'
+          'city_name VARCHAR,'
+          'distancia VARCHAR,'
+          'mi_negocio VARCHAR'
           ')');
 
       await db.execute('CREATE TABLE Subsidiary ('

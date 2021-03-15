@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:path/path.dart';
 import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/itemSubcategory_db.dart';
 import 'package:bufi/src/database/service_db.dart';

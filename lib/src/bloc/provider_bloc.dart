@@ -41,7 +41,7 @@ class ProviderBloc extends InheritedWidget {
   final registrarSucursalBloc = RegistroSucursalBloc();
   //final actualizarNegBloc = ActualizarNegocioBloc();
   final productosBloc = ProductoBloc();
-  final listarServiciosBloc = ListarServiciosBloc();
+  final serviciosBloc = ServiciosBloc();
   final carritoBloc = CarritoBloc();
   final naviCategBloc = CategoriasNaviBloc();
   final bottomNaviBloc = BottomNaviBloc();
@@ -141,9 +141,9 @@ class ProviderBloc extends InheritedWidget {
         .productosBloc;
   }
 
-  static ListarServiciosBloc listarServicios(BuildContext context) {
+  static ServiciosBloc servi(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .listarServiciosBloc;
+        .serviciosBloc;
   }
 
   static CarritoBloc productosCarrito(BuildContext context) {

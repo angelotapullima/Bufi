@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/galeriaProducto_database.dart';
 import 'package:bufi/src/database/marcaProducto_database.dart';
@@ -9,7 +8,6 @@ import 'package:bufi/src/models/galeriaProductoModel.dart';
 import 'package:bufi/src/models/marcaProductoModel.dart';
 import 'package:bufi/src/models/modeloProductoModel.dart';
 import 'package:bufi/src/models/tallaProductoModel.dart';
-import 'package:path/path.dart';
 import 'package:bufi/src/database/good_db.dart';
 import 'package:bufi/src/database/itemSubcategory_db.dart';
 import 'package:bufi/src/database/producto_bd.dart';

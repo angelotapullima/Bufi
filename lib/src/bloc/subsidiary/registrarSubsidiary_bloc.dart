@@ -5,7 +5,6 @@ import 'package:bufi/src/api/negocio/negocios_api.dart';
 import 'package:bufi/src/bloc/login_bloc.dart';
 
 import 'package:bufi/src/database/subsidiary_db.dart';
-import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:rxdart/subjects.dart';
 
 class RegistroSucursalBloc with Validators {

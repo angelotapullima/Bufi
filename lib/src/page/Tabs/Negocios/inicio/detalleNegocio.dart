@@ -339,8 +339,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                                 },
                               ));
 
-                              Navigator.pushNamed(context, 'detalleSubsidiary',
-                                  arguments: sedes[index]);
+                             
                             },
                             child: Container(
                               width: responsive.wp(45),

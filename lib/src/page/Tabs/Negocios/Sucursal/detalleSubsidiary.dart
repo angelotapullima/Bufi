@@ -1,16 +1,17 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
-import 'package:bufi/src/models/productoModel.dart';
+import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart';
-
 import 'package:bufi/src/page/Tabs/Negocios/producto/GridviewProductosPorSucursal.dart';
+import 'package:bufi/src/page/Tabs/Negocios/servicios/GridviewServiciosPorSucursal.dart';
 import 'package:bufi/src/theme/theme.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/widgets/sliver_header_delegate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:rating_bar/rating_bar.dart';
 
 class DetalleSubsidiary extends StatelessWidget {
   final String nombreSucursal;
@@ -24,263 +25,221 @@ class DetalleSubsidiary extends StatelessWidget {
     final productoBloc = ProviderBloc.productos(context);
     productoBloc.listarProductosPorSucursal(idSucursal);
 
-    final responsive = Responsive.of(context);
-
     final provider = Provider.of<DetailSubsidiaryBloc>(context, listen: false);
 
     return Scaffold(
-      body: StreamBuilder(
-          stream: productoBloc.productoStream,
-          builder: (BuildContext context,
-              AsyncSnapshot<List<ProductoModel>> snapshot) {
-            bool _enabled = true;
-            if (snapshot.hasData) {
-              if (snapshot.data.length > 0) {
-                return SafeArea(
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: CustomScrollView(
-                          slivers: [
-                            CebeceraItem(
-                              nombreSucursal: nombreSucursal,
-                            ),
-                            SelectCategory(),
-                            ValueListenableBuilder<PageDetailsSucursal>(
-                                valueListenable: provider.page,
-                                builder: (_, value, __) {
-                                  return (value ==
-                                          PageDetailsSucursal.productos)
-                                      ? GridviewProductoPorSucursal(
-                                          productos: snapshot.data,
-                                        )
-                                      : (value ==
-                                              PageDetailsSucursal.informacion)
-                                          ? InformacionWidget()
-                                          : (value ==
-                                                  PageDetailsSucursal.servicios)
-                                              ? ServiciosWidget()
-                                              : Container();
-                                })
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              } else {
-                return SafeArea(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: responsive.wp(5),
-                          ),
-                          BackButton(),
-                          Spacer()
-                        ],
-                      ),
-                      Expanded(
-                        child: Shimmer.fromColors(
-                          baseColor: Colors.grey[300],
-                          highlightColor: Colors.grey[100],
-                          enabled: _enabled,
-                          child: ListView.builder(
-                            itemBuilder: (_, __) => Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: 48.0,
-                                    height: 48.0,
-                                    color: Colors.white,
-                                  ),
-                                  const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 8.0),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Container(
-                                          width: double.infinity,
-                                          height: 8.0,
-                                          color: Colors.white,
-                                        ),
-                                        const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 2.0),
-                                        ),
-                                        Container(
-                                          width: double.infinity,
-                                          height: 8.0,
-                                          color: Colors.white,
-                                        ),
-                                        const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 2.0),
-                                        ),
-                                        Container(
-                                          width: 40.0,
-                                          height: 8.0,
-                                          color: Colors.white,
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            itemCount: 6,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }
-            } else {
-              return SafeArea(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: responsive.wp(5),
-                        ),
-                        BackButton(),
-                        Spacer()
-                      ],
-                    ),
-                    Expanded(
-                      child: Shimmer.fromColors(
-                        baseColor: Colors.grey[300],
-                        highlightColor: Colors.grey[100],
-                        enabled: _enabled,
-                        child: ListView.builder(
-                          itemBuilder: (_, __) => Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: 48.0,
-                                  height: 48.0,
-                                  color: Colors.white,
-                                ),
-                                const Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        width: double.infinity,
-                                        height: 8.0,
-                                        color: Colors.white,
-                                      ),
-                                      const Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 2.0),
-                                      ),
-                                      Container(
-                                        width: double.infinity,
-                                        height: 8.0,
-                                        color: Colors.white,
-                                      ),
-                                      const Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 2.0),
-                                      ),
-                                      Container(
-                                        width: 40.0,
-                                        height: 8.0,
-                                        color: Colors.white,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          itemCount: 6,
-                        ),
-                      ),
-                    ),
-                  ],
+        body: SafeArea(
+      child: Column(
+        children: [
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                CebeceraItem(
+                  nombreSucursal: nombreSucursal,
                 ),
-              );
-            }
-          }),
-    );
-  }
-}
-
-
-
-
-
-class ServiciosWidget extends StatelessWidget {
-  const ServiciosWidget({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-     final responsive = Responsive.of(context);
-   return SliverPadding(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      sliver: SliverToBoxAdapter(
-        child: Container(
-          height: responsive.hp(5),
-          child: Row(
-            children: [
-             
-              Text(
-                'Servicios',
-                style: TextStyle(
-                    fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
+                SelectCategory(),
+                ValueListenableBuilder<PageDetailsSucursal>(
+                    valueListenable: provider.page,
+                    builder: (_, value, __) {
+                      return (value == PageDetailsSucursal.productos)
+                          ? GridviewProductoPorSucursal(
+                              idSucursal: idSucursal,
+                            )
+                          : (value == PageDetailsSucursal.informacion)
+                              ? InformacionWidget(
+                                  idSucursal: idSucursal,
+                                )
+                              : (value == PageDetailsSucursal.servicios)
+                                  ? GridviewServiciosPorSucursal(
+                                    idSucursal: idSucursal,
+                                  )
+                                  : Container();
+                    })
+              ],
+            ),
+          )
+        ],
       ),
-    );
+    ));
   }
 }
+
+
 class InformacionWidget extends StatelessWidget {
-  const InformacionWidget({Key key}) : super(key: key);
+  final String idSucursal;
+  const InformacionWidget({Key key, @required this.idSucursal})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final sucursalBloc = ProviderBloc.sucursal(context);
+    sucursalBloc.obtenerSucursalporId(idSucursal);
 
     final responsive = Responsive.of(context);
-   return SliverPadding(
+    return SliverPadding(
       padding: EdgeInsets.symmetric(vertical: 10),
       sliver: SliverToBoxAdapter(
         child: Container(
-          height: responsive.hp(5),
-          child: Row(
-            children: [
-             
-              Text(
-                'información',
-                style: TextStyle(
-                    fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
+          color: Colors.white,
+          child: StreamBuilder(
+              stream: sucursalBloc.subsidiaryIdStream,
+              builder:
+                  (context, AsyncSnapshot<List<SubsidiaryModel>> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data.length > 0) {
+                    return SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: responsive.hp(3),
+                          left: responsive.wp(3),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  width: responsive.wp(30),
+                                  child: RatingBar.readOnly(
+                                    size: 20,
+                                    initialRating: double.parse(
+                                        '${snapshot.data[0].subsidiaryStatus}'),
+                                    isHalfAllowed: true,
+                                    halfFilledIcon: Icons.star_half,
+                                    filledIcon: Icons.star,
+                                    emptyIcon: Icons.star_border,
+                                    filledColor: Colors.yellow,
+                                  ),
+                                ),
+                                Text('${snapshot.data[0].subsidiaryStatus}'),
+                              ],
+                            ),
+                            SizedBox(
+                              height: responsive.hp(3),
+                            ),
+                            Text(
+                              "Información",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: responsive.ip(2.7),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Divider(color: Colors.grey),
+                            Row(
+                              children: [
+                                Icon(Icons.location_on,
+                                    size: 28, color: Colors.red[700]),
+                                SizedBox(
+                                  width: responsive.wp(2),
+                                ),
+                                Text(
+                                  '${snapshot.data[0].subsidiaryAddress}',
+                                  style: TextStyle(
+                                    fontSize: responsive.ip(2),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: responsive.hp(2.5)),
+                            Row(
+                              children: [
+                                Icon(
+                                  FontAwesomeIcons.clock,
+                                  color: Colors.red,
+                                  size: 22,
+                                ),
+                                SizedBox(
+                                  width: responsive.wp(2),
+                                ),
+                                Text(
+                                  '${snapshot.data[0].subsidiaryOpeningHours}',
+                                  style: TextStyle(
+                                    fontSize: responsive.ip(2),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: responsive.hp(2.5),
+                            ),
+                            Row(
+                              children: [
+                                Icon(FontAwesomeIcons.phoneAlt,
+                                    color: Colors.red[700], size: 22),
+                                SizedBox(
+                                  width: responsive.wp(2),
+                                ),
+                                Text(
+                                  '${snapshot.data[0].subsidiaryCellphone}',
+                                  style: TextStyle(
+                                    fontSize: responsive.ip(2),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: responsive.hp(2.5),
+                            ),
+                            Row(
+                              children: [
+                                Icon(Icons.mail,
+                                    size: 28, color: Colors.red[700]),
+                                SizedBox(
+                                  width: responsive.wp(2),
+                                ),
+                                Text(
+                                  '${snapshot.data[0].subsidiaryEmail}',
+                                  style: TextStyle(
+                                    fontSize: responsive.ip(2),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: responsive.hp(2.5)),
+                            Row(
+                              children: [
+                                Icon(FontAwesomeIcons.home,
+                                    color: Colors.red, size: 22),
+                                SizedBox(width: responsive.wp(2)),
+                                Text(
+                                  '${snapshot.data[0].subsidiaryPrincipal}',
+                                  style: TextStyle(
+                                    fontSize: responsive.ip(2),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: responsive.hp(2.5)),
+                            Row(
+                              children: [
+                                Icon(FontAwesomeIcons.home,
+                                    color: Colors.red[800], size: 22),
+                                SizedBox(width: responsive.wp(2)),
+                                Text(
+                                  '${snapshot.data[0].subsidiaryCoordX}',
+                                  style: TextStyle(
+                                    fontSize: responsive.ip(2),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                } else {
+                  return Container();
+                }
+              }),
         ),
       ),
     );
-  
   }
 }
+
 const selectCategory = <String>['Información', 'Productos', 'Servicios'];
 
 class SelectCategory extends StatelessWidget {

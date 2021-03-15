@@ -10,7 +10,6 @@ import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/busquedas/widget/widgetBusqProduct.dart';
-import 'package:bufi/src/widgets/busquedas/widget/widgetBusquedaGeneral.dart';
 import 'package:bufi/src/widgets/carrousel_principal.dart';
 import 'package:bufi/src/widgets/lista_de_categorias.dart';
 import 'package:bufi/src/widgets/sliver_header_delegate.dart';

@@ -1,6 +1,6 @@
-import 'package:bufi/src/api/servicios/services_api.dart';
+
+
 import 'package:bufi/src/bloc/provider_bloc.dart';
-import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -22,7 +22,7 @@ class _DetalleServicioState extends State<DetalleServicio> {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final String id = ModalRoute.of(context).settings.arguments;
-    final detailServicioBloc = ProviderBloc.listarServicios(context);
+    final detailServicioBloc = ProviderBloc.servi(context);
     detailServicioBloc.detalleServicioPorIdSubsidiaryService(id);
 
     return Scaffold(

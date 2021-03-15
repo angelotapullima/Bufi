@@ -1,9 +1,6 @@
-import 'package:bufi/src/api/bienes/bienes_api.dart';
+
 import 'package:bufi/src/api/busqueda/busqueda_api.dart';
-import 'package:bufi/src/database/producto_bd.dart';
-import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
-import 'package:bufi/src/models/productoModel.dart';
 import 'package:rxdart/rxdart.dart';
 
 class BusquedaBloc {

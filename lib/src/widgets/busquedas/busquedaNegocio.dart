@@ -72,26 +72,26 @@ class BusquedaNegocioPage extends SearchDelegate {
               itemBuilder: (BuildContext context, int index) {
                 return ListView.builder(
                     shrinkWrap: true,
-                    itemCount: resultBusqueda[index].listCompany.length,
+                    itemCount: resultBusqueda[index].listCompanySubsidiary.length,
                     itemBuilder: (BuildContext context, int i) {
                       return ListTile(
                         leading: FadeInImage(
                           placeholder: AssetImage('assets/no-image.png'),
                           image: NetworkImage(
-                            '$apiBaseURL/${resultBusqueda[index].listCompany[i].companyImage}',
+                            '$apiBaseURL/${resultBusqueda[index].listCompanySubsidiary[i].companyImage}',
                           ),
                           width: 50,
                           fit: BoxFit.contain,
                         ),
                         title: Text(
-                            '${resultBusqueda[index].listCompany[i].companyName}'),
+                            '${resultBusqueda[index].listCompanySubsidiary[i].companyName}'),
                         subtitle: Text(
-                            '${resultBusqueda[index].listCompany[i].companyRuc}'),
+                            '${resultBusqueda[index].listCompanySubsidiary[i].companyRuc}'),
                         onTap: () {
                           close(context, null);
 
                           Navigator.pushNamed(context, "detalleNegocio",
-                              arguments: resultBusqueda[index].listCompany[i]);
+                              arguments: resultBusqueda[index].listCompanySubsidiary[i]);
                         },
                       );
                     });

@@ -26,7 +26,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
   @override
   Widget build(BuildContext context) {
     //definir una variable que se paso por el navigator
-    CompanyModel company = ModalRoute.of(context).settings.arguments;
+    CompanySubsidiaryModel company = ModalRoute.of(context).settings.arguments;
     final detallenegocio = ProviderBloc.negocios(context);
     detallenegocio.obtenernegociosporID(company.idCompany);
     final responsive = Responsive.of(context);

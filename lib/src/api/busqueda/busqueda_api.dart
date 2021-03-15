@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
+import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
@@ -196,7 +197,7 @@ class BusquedaApi {
                 companyModel.companyStatus =
                     decodedData["result"][i]['company_status'];
                 companyModel.companyMt = decodedData["result"][i]['company_mt'];
-                companyModel.idCity = decodedData["result"][i]['id_country'];
+                companyModel.idCountry = decodedData["result"][i]['id_country'];
                 companyModel.cityName = decodedData["result"][i]['city_name'];
                 companyModel.distancia = decodedData["result"][i]['distancia'];
 
@@ -385,7 +386,7 @@ class BusquedaApi {
                         decodedData["result"][h][i]['company_status'];
                     companyModel.companyMt =
                         decodedData["result"][h][i]['company_mt'];
-                    companyModel.idCity =
+                    companyModel.idCountry =
                         decodedData["result"][h][i]['id_country'];
                     companyModel.cityName =
                         decodedData["result"][h][i]['city_name'];
@@ -707,7 +708,7 @@ class BusquedaApi {
                       decodedData["result"][j]['company_status'];
                   companyModel.companyMt =
                       decodedData["result"][j]['company_mt'];
-                  companyModel.idCity = decodedData["result"][j]['id_country'];
+                  companyModel.idCountry = decodedData["result"][j]['id_country'];
                   companyModel.cityName = decodedData["result"][j]['city_name'];
                   companyModel.distancia =
                       decodedData["result"][j]['distancia'];
@@ -751,8 +752,6 @@ class BusquedaApi {
                 busqProductoModel.listCategory = listCategory;
                 busqProductoModel.listSubcategory = listSubCategory;
                 busqProductoModel.listItemSubCateg = listItemSub;
-
-                
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
                 for (var h = 0; h < decodedData["result"].length; h++) {
@@ -899,7 +898,7 @@ class BusquedaApi {
                         decodedData["result"][h][i]['company_status'];
                     companyModel.companyMt =
                         decodedData["result"][h][i]['company_mt'];
-                    companyModel.idCity =
+                    companyModel.idCountry =
                         decodedData["result"][h][i]['id_country'];
                     companyModel.cityName =
                         decodedData["result"][h][i]['city_name'];
@@ -937,7 +936,6 @@ class BusquedaApi {
                         decodedData["result"][h][i]['itemsubcategory_name'];
 
                     listItemSub.add(itemSubCategoriaModel);
-
                   }
                   busqProductoModel.listBienes = listbienes;
                   busqProductoModel.listProducto = listProducto;
@@ -946,8 +944,6 @@ class BusquedaApi {
                   busqProductoModel.listCategory = listCategory;
                   busqProductoModel.listSubcategory = listSubCategory;
                   busqProductoModel.listItemSubCateg = listItemSub;
-
-                 
                 }
               }
               listGeneral.add(busqProductoModel);
@@ -1113,7 +1109,7 @@ class BusquedaApi {
                       decodedData["result"][j]['company_status'];
                   companyModel.companyMt =
                       decodedData["result"][j]['company_mt'];
-                  companyModel.idCity = decodedData["result"][j]['id_country'];
+                  companyModel.idCountry = decodedData["result"][j]['id_country'];
                   companyModel.cityName = decodedData["result"][j]['city_name'];
                   companyModel.distancia =
                       decodedData["result"][j]['distancia'];
@@ -1156,8 +1152,6 @@ class BusquedaApi {
                 busqServicioModel.listCategory = listCategory;
                 busqServicioModel.listSubcategory = listSubCategory;
                 busqServicioModel.listItemSubCateg = listItemSub;
-
-               
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
                 for (var h = 0; h < decodedData["result"].length; h++) {
@@ -1281,7 +1275,7 @@ class BusquedaApi {
                         decodedData["result"][h][i]['company_status'];
                     companyModel.companyMt =
                         decodedData["result"][h][i]['company_mt'];
-                    companyModel.idCity =
+                    companyModel.idCountry =
                         decodedData["result"][h][i]['id_country'];
                     companyModel.cityName =
                         decodedData["result"][h][i]['city_name'];
@@ -1328,8 +1322,6 @@ class BusquedaApi {
                   busqServicioModel.listCategory = listCategory;
                   busqServicioModel.listSubcategory = listSubCategory;
                   busqServicioModel.listItemSubCateg = listItemSub;
-
-                  
                 }
               }
               listGeneral.add(busqServicioModel);
@@ -1372,93 +1364,99 @@ class BusquedaApi {
           if (totalResult > 0) {
             final busqCompanyModel = BusquedaNegocioModel();
 
-            final listSucursal = List<SubsidiaryModel>();
-            final listCompany = List<CompanyModel>();
+            // final listSucursal = List<SubsidiaryModel>();
+            // final listCompany = List<CompanyModel>();
+            final listCompanySucursal = List<CompanySubsidiaryModel>();
             final listCategory = List<CategoriaModel>();
 
             if (context == "company") {
               if (tipoBusqueda == "exactly") {
                 for (var j = 0; j < decodedData["result"].length; j++) {
+                  //CompanySucursal
+                  final companySucursalModel = CompanySubsidiaryModel();
+
                   //Sucursal
-                  SubsidiaryModel subsidiaryModel = SubsidiaryModel();
-                  subsidiaryModel.idSubsidiary =
+                  //SubsidiaryModel subsidiaryModel = SubsidiaryModel();
+                  companySucursalModel.idSubsidiary =
                       decodedData["result"][j]['id_subsidiary'];
-                  subsidiaryModel.idCompany =
+                  companySucursalModel.idCompany =
                       decodedData["result"][j]['id_company'];
-                  subsidiaryModel.subsidiaryName =
+                  companySucursalModel.subsidiaryName =
                       decodedData["result"][j]['subsidiary_name'];
-                  subsidiaryModel.subsidiaryAddress =
+                  companySucursalModel.subsidiaryAddress =
                       decodedData["result"][j]['subsidiary_address'];
-                  subsidiaryModel.subsidiaryCellphone =
+                  companySucursalModel.subsidiaryCellphone =
                       decodedData["result"][j]['subsidiary_cellphone'];
-                  subsidiaryModel.subsidiaryCellphone2 =
+                  companySucursalModel.subsidiaryCellphone2 =
                       decodedData["result"][j]['subsidiary_cellphone_2'];
-                  subsidiaryModel.subsidiaryEmail =
+                  companySucursalModel.subsidiaryEmail =
                       decodedData["result"][j]['subsidiary_email'];
-                  subsidiaryModel.subsidiaryCoordX =
+                  companySucursalModel.subsidiaryCoordX =
                       decodedData["result"][j]['subsidiary_coord_x'];
-                  subsidiaryModel.subsidiaryCoordY =
+                  companySucursalModel.subsidiaryCoordY =
                       decodedData["result"][j]['subsidiary_coord_y'];
-                  subsidiaryModel.subsidiaryOpeningHours =
+                  companySucursalModel.subsidiaryOpeningHours =
                       decodedData["result"][j]['subsidiary_opening_hours'];
-                  subsidiaryModel.subsidiaryPrincipal =
+                  companySucursalModel.subsidiaryPrincipal =
                       decodedData["result"][j]['subsidiary_principal'];
-                  subsidiaryModel.subsidiaryStatus =
+                  companySucursalModel.subsidiaryStatus =
                       decodedData["result"][j]['subsidiary_status'];
                   final listSubsidiaryDb =
                       await subsidiaryDatabase.obtenerSubsidiaryPorId(
                           decodedData["result"][j]['id_subsidiary']);
 
                   if (listSubsidiaryDb.length > 0) {
-                    subsidiaryModel.subsidiaryFavourite =
+                    companySucursalModel.subsidiaryFavourite =
                         listSubsidiaryDb[0].subsidiaryFavourite;
                   } else {
-                    subsidiaryModel.subsidiaryFavourite = '0';
+                    companySucursalModel.subsidiaryFavourite = '0';
                   }
 
-                  listSucursal.add(subsidiaryModel);
-
-                  CompanyModel companyModel = CompanyModel();
-                  companyModel.idCompany =
+                  companySucursalModel.idCompany =
                       decodedData["result"][j]['id_company'];
-                  companyModel.idUser = decodedData["result"][j]['id_user'];
-                  companyModel.idCity = decodedData["result"][j]['id_city'];
-                  companyModel.idCategory =
+                  companySucursalModel.idUser =
+                      decodedData["result"][j]['id_user'];
+                  companySucursalModel.idCity =
+                      decodedData["result"][j]['id_city'];
+                  companySucursalModel.idCategory =
                       decodedData["result"][j]['id_category'];
-                  companyModel.companyName =
+                  companySucursalModel.companyName =
                       decodedData["result"][j]['company_name'];
-                  companyModel.companyRuc =
+                  companySucursalModel.companyRuc =
                       decodedData["result"][j]['company_ruc'];
-                  companyModel.companyImage =
+                  companySucursalModel.companyImage =
                       decodedData["result"][j]['company_image'];
-                  companyModel.companyType =
+                  companySucursalModel.companyType =
                       decodedData["result"][j]['company_type'];
-                  companyModel.companyShortcode =
+                  companySucursalModel.companyShortcode =
                       decodedData["result"][j]['company_shortcode'];
-                  companyModel.companyDelivery =
+                  companySucursalModel.companyDelivery =
                       decodedData["result"][j]['company_delivery'];
-                  companyModel.companyEntrega =
+                  companySucursalModel.companyEntrega =
                       decodedData["result"][j]['company_entrega'];
-                  companyModel.companyTarjeta =
+                  companySucursalModel.companyTarjeta =
                       decodedData["result"][j]['company_tarjeta'];
-                  companyModel.companyVerified =
+                  companySucursalModel.companyVerified =
                       decodedData["result"][j]['company_verified'];
-                  companyModel.companyRating =
+                  companySucursalModel.companyRating =
                       decodedData["result"][j]['company_rating'];
-                  companyModel.companyCreatedAt =
+                  companySucursalModel.companyCreatedAt =
                       decodedData["result"][j]['company_created_at'];
-                  companyModel.companyJoin =
+                  companySucursalModel.companyJoin =
                       decodedData["result"][j]['company_join'];
-                  companyModel.companyStatus =
+                  companySucursalModel.companyStatus =
                       decodedData["result"][j]['company_status'];
-                  companyModel.companyMt =
+                  companySucursalModel.companyMt =
                       decodedData["result"][j]['company_mt'];
-                  companyModel.idCity = decodedData["result"][j]['id_country'];
-                  companyModel.cityName = decodedData["result"][j]['city_name'];
-                  companyModel.distancia =
+                  companySucursalModel.idCountry =
+                      decodedData["result"][j]['id_country'];
+                  companySucursalModel.cityName =
+                      decodedData["result"][j]['city_name'];
+                  companySucursalModel.distancia =
                       decodedData["result"][j]['distancia'];
 
-                  listCompany.add(companyModel);
+                 
+                  listCompanySucursal.add(companySucursalModel);
 
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
@@ -1469,114 +1467,115 @@ class BusquedaApi {
                   listCategory.add(categ);
                 }
 
-                busqCompanyModel.listCompany = listCompany;
-                busqCompanyModel.listSucursal = listSucursal;
+                // busqCompanyModel.listCompany = listCompany;
+                // busqCompanyModel.listSucursal = listSucursal;
+                busqCompanyModel.listCompanySubsidiary = listCompanySucursal;
                 busqCompanyModel.listCategory = listCategory;
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
                 for (var h = 0; h < decodedData["result"].length; h++) {
-                  
-                    for (var i = 0; i < decodedData["result"][h].length; i++) {
-                      //Subsidiary
-                      SubsidiaryModel subsidiaryModel = SubsidiaryModel();
-                      subsidiaryModel.idSubsidiary =
-                          decodedData["result"][h][i]['id_subsidiary'];
-                      subsidiaryModel.idCompany =
-                          decodedData["result"][h][i]['id_company'];
-                      subsidiaryModel.subsidiaryName =
-                          decodedData["result"][h][i]['subsidiary_name'];
-                      subsidiaryModel.subsidiaryAddress =
-                          decodedData["result"][h][i]['subsidiary_address'];
-                      subsidiaryModel.subsidiaryCellphone =
-                          decodedData["result"][h][i]['subsidiary_cellphone'];
-                      subsidiaryModel.subsidiaryCellphone2 =
-                          decodedData["result"][h][i]['subsidiary_cellphone_2'];
-                      subsidiaryModel.subsidiaryEmail =
-                          decodedData["result"][h][i]['subsidiary_email'];
-                      subsidiaryModel.subsidiaryCoordX =
-                          decodedData["result"][h][i]['subsidiary_coord_x'];
-                      subsidiaryModel.subsidiaryCoordY =
-                          decodedData["result"][h][i]['subsidiary_coord_y'];
-                      subsidiaryModel.subsidiaryOpeningHours =
-                          decodedData["result"][h][i]
-                              ['subsidiary_opening_hours'];
-                      subsidiaryModel.subsidiaryPrincipal =
-                          decodedData["result"][h][i]['subsidiary_principal'];
-                      subsidiaryModel.subsidiaryStatus =
-                          decodedData["result"][h][i]['subsidiary_status'];
+                  for (var i = 0; i < decodedData["result"][h].length; i++) {
+                    //Subsidiary
+                    //SubsidiaryModel subsidiaryModel = SubsidiaryModel();
 
-                      final listSubsidiaryDb =
-                          await subsidiaryDatabase.obtenerSubsidiaryPorId(
-                              decodedData["result"][h][i]['id_subsidiary']);
+                    final companySucursalModel = CompanySubsidiaryModel();
+                    companySucursalModel.idSubsidiary =
+                        decodedData["result"][h][i]['id_subsidiary'];
+                    companySucursalModel.idCompany =
+                        decodedData["result"][h][i]['id_company'];
+                    companySucursalModel.subsidiaryName =
+                        decodedData["result"][h][i]['subsidiary_name'];
+                    companySucursalModel.subsidiaryAddress =
+                        decodedData["result"][h][i]['subsidiary_address'];
+                    companySucursalModel.subsidiaryCellphone =
+                        decodedData["result"][h][i]['subsidiary_cellphone'];
+                    companySucursalModel.subsidiaryCellphone2 =
+                        decodedData["result"][h][i]['subsidiary_cellphone_2'];
+                    companySucursalModel.subsidiaryEmail =
+                        decodedData["result"][h][i]['subsidiary_email'];
+                    companySucursalModel.subsidiaryCoordX =
+                        decodedData["result"][h][i]['subsidiary_coord_x'];
+                    companySucursalModel.subsidiaryCoordY =
+                        decodedData["result"][h][i]['subsidiary_coord_y'];
+                    companySucursalModel.subsidiaryOpeningHours =
+                        decodedData["result"][h][i]['subsidiary_opening_hours'];
+                    companySucursalModel.subsidiaryPrincipal =
+                        decodedData["result"][h][i]['subsidiary_principal'];
+                    companySucursalModel.subsidiaryStatus =
+                        decodedData["result"][h][i]['subsidiary_status'];
 
-                      if (listSubsidiaryDb.length > 0) {
-                        subsidiaryModel.subsidiaryFavourite =
-                            listSubsidiaryDb[0].subsidiaryFavourite;
-                      } else {
-                        subsidiaryModel.subsidiaryFavourite = '0';
-                      }
+                    final listSubsidiaryDb =
+                        await subsidiaryDatabase.obtenerSubsidiaryPorId(
+                            decodedData["result"][h][i]['id_subsidiary']);
 
-                      listSucursal.add(subsidiaryModel);
-
-                      CompanyModel companyModel = CompanyModel();
-                      companyModel.idCompany =
-                          decodedData["result"][h][i]['id_company'];
-                      companyModel.idUser =
-                          decodedData["result"][h][i]['id_user'];
-                      companyModel.idCity =
-                          decodedData["result"][h][i]['id_city'];
-                      companyModel.idCategory =
-                          decodedData["result"][h][i]['id_category'];
-                      companyModel.companyName =
-                          decodedData["result"][h][i]['company_name'];
-                      companyModel.companyRuc =
-                          decodedData["result"][h][i]['company_ruc'];
-                      companyModel.companyImage =
-                          decodedData["result"][h][i]['company_image'];
-                      companyModel.companyType =
-                          decodedData["result"][h][i]['company_type'];
-                      companyModel.companyShortcode =
-                          decodedData["result"][h][i]['company_shortcode'];
-                      companyModel.companyDelivery =
-                          decodedData["result"][h][i]['company_delivery'];
-                      companyModel.companyEntrega =
-                          decodedData["result"][h][i]['company_entrega'];
-                      companyModel.companyTarjeta =
-                          decodedData["result"][h][i]['company_tarjeta'];
-                      companyModel.companyVerified =
-                          decodedData["result"][h][i]['company_verified'];
-                      companyModel.companyRating =
-                          decodedData["result"][h][i]['company_rating'];
-                      companyModel.companyCreatedAt =
-                          decodedData["result"][h][i]['company_created_at'];
-                      companyModel.companyJoin =
-                          decodedData["result"][h][i]['company_join'];
-                      companyModel.companyStatus =
-                          decodedData["result"][h][i]['company_status'];
-                      companyModel.companyMt =
-                          decodedData["result"][h][i]['company_mt'];
-                      companyModel.idCity =
-                          decodedData["result"][h][i]['id_country'];
-                      companyModel.cityName =
-                          decodedData["result"][h][i]['city_name'];
-                      companyModel.distancia =
-                          decodedData["result"][h][i]['distancia'];
-
-                      listCompany.add(companyModel);
-
-                      //Categoria
-                      CategoriaModel categ = CategoriaModel();
-                      categ.idCategory =
-                          decodedData["result"][h][i]["id_category"];
-                      categ.categoryName =
-                          decodedData["result"][h][i]["category_name"];
-
-                      listCategory.add(categ);
+                    if (listSubsidiaryDb.length > 0) {
+                      companySucursalModel.subsidiaryFavourite =
+                          listSubsidiaryDb[0].subsidiaryFavourite;
+                    } else {
+                      companySucursalModel.subsidiaryFavourite = '0';
                     }
-                  
+
+                    //listSucursal.add(subsidiaryModel);
+
+                    //CompanyModel companyModel = CompanyModel();
+                    companySucursalModel.idCompany =
+                        decodedData["result"][h][i]['id_company'];
+                    companySucursalModel.idUser =
+                        decodedData["result"][h][i]['id_user'];
+                    companySucursalModel.idCity =
+                        decodedData["result"][h][i]['id_city'];
+                    companySucursalModel.idCategory =
+                        decodedData["result"][h][i]['id_category'];
+                    companySucursalModel.companyName =
+                        decodedData["result"][h][i]['company_name'];
+                    companySucursalModel.companyRuc =
+                        decodedData["result"][h][i]['company_ruc'];
+                    companySucursalModel.companyImage =
+                        decodedData["result"][h][i]['company_image'];
+                    companySucursalModel.companyType =
+                        decodedData["result"][h][i]['company_type'];
+                    companySucursalModel.companyShortcode =
+                        decodedData["result"][h][i]['company_shortcode'];
+                    companySucursalModel.companyDelivery =
+                        decodedData["result"][h][i]['company_delivery'];
+                    companySucursalModel.companyEntrega =
+                        decodedData["result"][h][i]['company_entrega'];
+                    companySucursalModel.companyTarjeta =
+                        decodedData["result"][h][i]['company_tarjeta'];
+                    companySucursalModel.companyVerified =
+                        decodedData["result"][h][i]['company_verified'];
+                    companySucursalModel.companyRating =
+                        decodedData["result"][h][i]['company_rating'];
+                    companySucursalModel.companyCreatedAt =
+                        decodedData["result"][h][i]['company_created_at'];
+                    companySucursalModel.companyJoin =
+                        decodedData["result"][h][i]['company_join'];
+                    companySucursalModel.companyStatus =
+                        decodedData["result"][h][i]['company_status'];
+                    companySucursalModel.companyMt =
+                        decodedData["result"][h][i]['company_mt'];
+                    companySucursalModel.idCountry =
+                        decodedData["result"][h][i]['id_country'];
+                    companySucursalModel.cityName =
+                        decodedData["result"][h][i]['city_name'];
+                    companySucursalModel.distancia =
+                        decodedData["result"][h][i]['distancia'];
+
+                    listCompanySucursal.add(companySucursalModel);
+
+                    //Categoria
+                    CategoriaModel categ = CategoriaModel();
+                    categ.idCategory =
+                        decodedData["result"][h][i]["id_category"];
+                    categ.categoryName =
+                        decodedData["result"][h][i]["category_name"];
+
+                    listCategory.add(categ);
+                  }
                 }
-                busqCompanyModel.listSucursal = listSucursal;
-                busqCompanyModel.listCompany = listCompany;
+                // busqCompanyModel.listSucursal = listSucursal;
+                // busqCompanyModel.listCompany = listCompany;
+                busqCompanyModel.listCompanySubsidiary = listCompanySucursal;
                 busqCompanyModel.listCategory = listCategory;
               }
             }
@@ -1592,11 +1591,11 @@ class BusquedaApi {
     return listGeneral;
   }
 
-Future<List<BusquedaNegocioModel>> busquedaCategorias(String query) async {
+  Future<List<BusquedaNegocioModel>> busquedaCategorias(String query) async {
     final listGeneral = List<BusquedaNegocioModel>();
     try {
-      final res =
-          await http.post("$apiBaseURL/api/Negocio/buscar_categorias_ws", body: {
+      final res = await http
+          .post("$apiBaseURL/api/Negocio/buscar_categorias_ws", body: {
         'buscar': '$query',
         // 'tn': prefs.token,
         // 'id_user': prefs.idUser,
@@ -1619,14 +1618,11 @@ Future<List<BusquedaNegocioModel>> busquedaCategorias(String query) async {
           if (totalResult > 0) {
             final busqCompanyModel = BusquedaNegocioModel();
 
-           
             final listCategory = List<CategoriaModel>();
 
             if (context == "category") {
               if (tipoBusqueda == "exactly") {
                 for (var j = 0; j < decodedData["result"].length; j++) {
-                  
-
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
                   categ.idCategory = decodedData["result"][j]["id_category"];
@@ -1636,27 +1632,22 @@ Future<List<BusquedaNegocioModel>> busquedaCategorias(String query) async {
                   listCategory.add(categ);
                 }
 
-                
                 busqCompanyModel.listCategory = listCategory;
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
                 for (var h = 0; h < decodedData["result"].length; h++) {
-                  
-                    for (var i = 0; i < decodedData["result"][h].length; i++) {
-                      
+                  for (var i = 0; i < decodedData["result"][h].length; i++) {
+                    //Categoria
+                    CategoriaModel categ = CategoriaModel();
+                    categ.idCategory =
+                        decodedData["result"][h][i]["id_category"];
+                    categ.categoryName =
+                        decodedData["result"][h][i]["category_name"];
 
-                      //Categoria
-                      CategoriaModel categ = CategoriaModel();
-                      categ.idCategory =
-                          decodedData["result"][h][i]["id_category"];
-                      categ.categoryName =
-                          decodedData["result"][h][i]["category_name"];
-
-                      listCategory.add(categ);
-                    }
-                  
+                    listCategory.add(categ);
+                  }
                 }
-               
+
                 busqCompanyModel.listCategory = listCategory;
               }
             }
@@ -1671,6 +1662,4 @@ Future<List<BusquedaNegocioModel>> busquedaCategorias(String query) async {
     }
     return listGeneral;
   }
-
-
 }

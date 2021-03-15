@@ -1,3 +1,4 @@
+import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/goodModel.dart';
@@ -70,8 +71,31 @@ class BusquedaServicioModel {
 
 class BusquedaNegocioModel {
   BusquedaNegocioModel(
-      {this.listCompany, this.listSucursal, this.listCategory});
+      {this.listCompany, this.listSucursal, this.listCompanySubsidiary, this.listCategory});
   List<CompanyModel> listCompany;
   List<SubsidiaryModel> listSucursal;
+   List<CompanySubsidiaryModel> listCompanySubsidiary;
   List<CategoriaModel> listCategory;
+}
+
+
+
+//---------------------Por sucursal-----------------
+class BusquedaProductoPorSucursalModel {
+  BusquedaProductoPorSucursalModel({
+    this.listBienes,
+    this.listProducto,
+    this.listSucursal,
+    this.listCompany,
+    this.listCategory,
+    this.listSubcategory,
+    this.listItemSubCateg,
+  });
+  List<BienesModel> listBienes;
+  List<ProductoModel> listProducto;
+  List<SubsidiaryModel> listSucursal;
+  List<CompanyModel> listCompany;
+  List<CategoriaModel> listCategory;
+  List<SubcategoryModel> listSubcategory;
+  List<ItemSubCategoriaModel> listItemSubCateg;
 }

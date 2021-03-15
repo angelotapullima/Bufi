@@ -30,6 +30,9 @@ class CompanySubsidiaryModel {
     this.companyCreatedAt,
     this.companyJoin,
     this.companyStatus,
+    this.idCountry,
+    this.cityName,
+    this.distancia,
     this.companyMt,
     this.miNegocio,
     this.cell,
@@ -69,6 +72,9 @@ class CompanySubsidiaryModel {
   String companyCreatedAt;
   String companyJoin;
   String companyStatus;
+  String idCountry;
+  String cityName;
+  String distancia;
   String companyMt;
   String miNegocio;
   String favourite;
@@ -109,6 +115,9 @@ class CompanySubsidiaryModel {
         companyCreatedAt: json["company_created_at"],
         companyJoin: json["company_join"],
         companyStatus: json["company_status"],
+        idCountry: json["id_country"],
+        cityName: json["city_name"],
+        distancia: json["distancia"],
         companyMt: json["company_mt"],
         miNegocio: json["mi_negocio"],
       );

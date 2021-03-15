@@ -1,5 +1,5 @@
 import 'package:bufi/src/api/bienes/bienes_api.dart';
-import 'package:bufi/src/api/busqueda_api.dart';
+import 'package:bufi/src/api/busqueda/busqueda_api.dart';
 import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
@@ -47,20 +47,17 @@ class BusquedaBloc {
   }
 
   void obtenerBusquedaProducto(String query) async {
-        busquedaProductoController.sink
+    busquedaProductoController.sink
         .add(await busquedaApi.busquedaProducto(query));
-    
   }
 
   void obtenerBusquedaServicio(String query) async {
-        busquedaServicioController.sink
+    busquedaServicioController.sink
         .add(await busquedaApi.busquedaServicio(query));
-    
   }
 
   void obtenerBusquedaNegocio(String query) async {
-        busquedaNegocioController.sink
+    busquedaNegocioController.sink
         .add(await busquedaApi.busquedaNegocio(query));
-    
   }
 }

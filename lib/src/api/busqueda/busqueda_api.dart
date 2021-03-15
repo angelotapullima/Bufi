@@ -1,5 +1,12 @@
 import 'dart:convert';
+import 'package:bufi/src/database/category_db.dart';
+import 'package:bufi/src/database/company_db.dart';
+import 'package:bufi/src/database/good_db.dart';
+import 'package:bufi/src/database/itemSubcategory_db.dart';
 import 'package:bufi/src/database/producto_bd.dart';
+import 'package:bufi/src/database/service_db.dart';
+import 'package:bufi/src/database/subcategory_db.dart';
+import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
@@ -20,6 +27,13 @@ class BusquedaApi {
   final prefs = Preferences();
   final productoDatabase = ProductoDatabase();
   final subsidiaryDatabase = SubsidiaryDatabase();
+  final subisdiaryServiceDatabase = SubsidiaryServiceDatabase();
+  final serviceDatabase = ServiceDatabase();
+  final companyDb = CompanyDatabase();
+  final goodDb = GoodDatabase();
+  final categoryDatabase = CategoryDatabase();
+  final subcategoryDatabase = SubcategoryDatabase();
+  final itemsubCategoryDatabase = ItemsubCategoryDatabase();
 
   Future<List<BusquedaGeneralModel>> busquedaGeneral(String query) async {
     final listBusquedaGeneral = List<BusquedaGeneralModel>();
@@ -112,8 +126,10 @@ class BusquedaApi {
                 } else {
                   productoModel.productoFavourite = '';
                 }
-                //Añadir a la lista de productos
-                listProducto.add(productoModel);
+
+                //listProducto.add(productoModel);
+                //insertar a la tabla Producto
+                await productoDatabase.insertarProducto(productoModel);
 
                 //BienesModel
                 BienesModel goodmodel = BienesModel();
@@ -122,7 +138,8 @@ class BusquedaApi {
                 goodmodel.goodSynonyms =
                     decodedData["result"][i]['good_synonyms'];
 
-                listbienes.add(goodmodel);
+                //listbienes.add(goodmodel);
+                await goodDb.insertarGood(goodmodel);
 
                 //Subsidiary
                 SubsidiaryModel subsidiaryModel = SubsidiaryModel();
@@ -162,7 +179,8 @@ class BusquedaApi {
                   subsidiaryModel.subsidiaryFavourite = '0';
                 }
 
-                listSucursal.add(subsidiaryModel);
+                //insertar a la tabla sucursal
+                await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
 
                 CompanyModel companyModel = CompanyModel();
                 companyModel.idCompany = decodedData["result"][i]['id_company'];
@@ -201,14 +219,16 @@ class BusquedaApi {
                 companyModel.cityName = decodedData["result"][i]['city_name'];
                 companyModel.distancia = decodedData["result"][i]['distancia'];
 
-                listCompany.add(companyModel);
+                //insertar a la tabla de Company
+                await companyDb.insertarCompany(companyModel);
 
                 //Categoria
                 CategoriaModel categ = CategoriaModel();
                 categ.idCategory = decodedData["result"][i]["id_category"];
                 categ.categoryName = decodedData["result"][i]["category_name"];
 
-                listCategory.add(categ);
+                // listCategory.add(categ);
+                await categoryDatabase.insertarCategory(categ);
 
                 //Subcategoria
                 final subCategoriaModel = SubcategoryModel();
@@ -217,7 +237,10 @@ class BusquedaApi {
                 subCategoriaModel.idCategory =
                     decodedData["result"][i]["id_category"];
                 // subCategoriaModel.subcategoryName =decodedData["result"][i].subcategoryName;
-                listSubCategory.add(subCategoriaModel);
+
+                //listSubCategory.add(subCategoriaModel);
+                await subcategoryDatabase
+                    .insertarSubCategory(subCategoriaModel);
 
                 //ItemSubCategoriaModel
                 ItemSubCategoriaModel itemSubCategoriaModel =
@@ -229,7 +252,9 @@ class BusquedaApi {
                 itemSubCategoriaModel.itemsubcategoryName =
                     decodedData["result"][i]['itemsubcategory_name'];
 
-                listItemSub.add(itemSubCategoriaModel);
+                //listItemSub.add(itemSubCategoriaModel);
+                await itemsubCategoryDatabase
+                    .insertarItemSubCategoria(itemSubCategoriaModel);
               }
 
               busqGeneralModel.listBienes = listbienes;
@@ -296,8 +321,8 @@ class BusquedaApi {
                     } else {
                       productoModel.productoFavourite = '';
                     }
-                    //Añadir a la lista de productos
-                    listProducto.add(productoModel);
+                    //insertar a la tabla Producto
+                    await productoDatabase.insertarProducto(productoModel);
 
                     //BienesModel
                     BienesModel goodmodel = BienesModel();
@@ -307,7 +332,7 @@ class BusquedaApi {
                     goodmodel.goodSynonyms =
                         decodedData["result"][h][i]['good_synonyms'];
 
-                    listbienes.add(goodmodel);
+                    await goodDb.insertarGood(goodmodel);
 
                     //Subsidiary
                     SubsidiaryModel subsidiaryModel = SubsidiaryModel();
@@ -347,7 +372,9 @@ class BusquedaApi {
                       subsidiaryModel.subsidiaryFavourite = '0';
                     }
 
-                    listSucursal.add(subsidiaryModel);
+                    //insertar a la tabla sucursal
+                    await subsidiaryDatabase
+                        .insertarSubsidiary(subsidiaryModel);
 
                     CompanyModel companyModel = CompanyModel();
                     companyModel.idCompany =
@@ -393,8 +420,8 @@ class BusquedaApi {
                     companyModel.distancia =
                         decodedData["result"][h][i]['distancia'];
 
-                    listCompany.add(companyModel);
-
+                    //insertar a la tabla de Company
+                    await companyDb.insertarCompany(companyModel);
                     //Categoria
                     CategoriaModel categ = CategoriaModel();
                     categ.idCategory =
@@ -402,7 +429,8 @@ class BusquedaApi {
                     categ.categoryName =
                         decodedData["result"][h][i]["category_name"];
 
-                    listCategory.add(categ);
+                    //listCategory.add(categ);
+                    await categoryDatabase.insertarCategory(categ);
 
                     //Subcategoria
                     final subCategoriaModel = SubcategoryModel();
@@ -411,7 +439,9 @@ class BusquedaApi {
                     subCategoriaModel.idCategory =
                         decodedData["result"][h][i]["id_category"];
                     // subCategoriaModel.subcategoryName =decodedData["result"][h][i].subcategoryName;
-                    listSubCategory.add(subCategoriaModel);
+                    //listSubCategory.add(subCategoriaModel);
+                    await subcategoryDatabase
+                        .insertarSubCategory(subCategoriaModel);
 
                     //ItemSubCategoriaModel
                     ItemSubCategoriaModel itemSubCategoriaModel =
@@ -423,7 +453,9 @@ class BusquedaApi {
                     itemSubCategoriaModel.itemsubcategoryName =
                         decodedData["result"][h][i]['itemsubcategory_name'];
 
-                    listItemSub.add(itemSubCategoriaModel);
+                    //listItemSub.add(itemSubCategoriaModel);
+                    await itemsubCategoryDatabase
+                        .insertarItemSubCategoria(itemSubCategoriaModel);
                   }
                 } else {
                   print("La lista está vacía");
@@ -477,7 +509,8 @@ class BusquedaApi {
                   decodedData["result"][j]['service_name'];
               servicemodel.serviceSynonyms =
                   decodedData["result"][j]['service_synonyms'];
-              listService.add(servicemodel);
+              //listService.add(servicemodel);
+              serviceDatabase.insertarService(servicemodel);
 
               //Sucursal
               SubsidiaryModel subsidiaryModel = SubsidiaryModel();
@@ -505,6 +538,9 @@ class BusquedaApi {
                   decodedData["result"][j]['subsidiary_principal'];
               subsidiaryModel.subsidiaryStatus =
                   decodedData["result"][j]['subsidiary_status'];
+
+              //insertar a la tabla sucursal
+              await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
             }
           }
 
@@ -533,8 +569,8 @@ class BusquedaApi {
     return listBusquedaGeneral;
   }
 
-  Future<List<BusquedaProductoModel>> busquedaProducto(String query) async {
-    final listGeneral = List<BusquedaProductoModel>();
+  Future<dynamic> busquedaProducto(String query) async {
+    //final listGeneral = List<BusquedaProductoModel>();
     try {
       final res =
           await http.post("$apiBaseURL/api/Negocio/buscar_productos_ws", body: {
@@ -558,15 +594,15 @@ class BusquedaApi {
       if (code == 1) {
         if (tipoBusqueda != null) {
           if (totalResult > 0) {
-            BusquedaProductoModel busqProductoModel = BusquedaProductoModel();
+            // BusquedaProductoModel busqProductoModel = BusquedaProductoModel();
 
-            final listProducto = List<ProductoModel>();
-            final listbienes = List<BienesModel>();
-            final listSucursal = List<SubsidiaryModel>();
-            final listCompany = List<CompanyModel>();
-            final listCategory = List<CategoriaModel>();
-            final listSubCategory = List<SubcategoryModel>();
-            final listItemSub = List<ItemSubCategoriaModel>();
+            // final listProducto = List<ProductoModel>();
+            // final listbienes = List<BienesModel>();
+            // final listSucursal = List<SubsidiaryModel>();
+            // final listCompany = List<CompanyModel>();
+            // final listCategory = List<CategoriaModel>();
+            // final listSubCategory = List<SubcategoryModel>();
+            // final listItemSub = List<ItemSubCategoriaModel>();
 
             if (context == "good") {
               if (tipoBusqueda == "exactly") {
@@ -621,8 +657,8 @@ class BusquedaApi {
                   } else {
                     productoModel.productoFavourite = '';
                   }
-                  //Añadir a la lista de productos
-                  listProducto.add(productoModel);
+                  //insertar a la tabla Producto
+                  await productoDatabase.insertarProducto(productoModel);
 
                   //BienesModel
                   BienesModel goodmodel = BienesModel();
@@ -631,7 +667,7 @@ class BusquedaApi {
                   goodmodel.goodSynonyms =
                       decodedData["result"][j]['good_synonyms'];
 
-                  listbienes.add(goodmodel);
+                  await goodDb.insertarGood(goodmodel);
 
                   //Subsidiary
                   SubsidiaryModel subsidiaryModel = SubsidiaryModel();
@@ -671,7 +707,9 @@ class BusquedaApi {
                     subsidiaryModel.subsidiaryFavourite = '0';
                   }
 
-                  listSucursal.add(subsidiaryModel);
+                  //listSucursal.add(subsidiaryModel);
+                  //insertar a la tabla sucursal
+                  await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
 
                   CompanyModel companyModel = CompanyModel();
                   companyModel.idCompany =
@@ -708,12 +746,14 @@ class BusquedaApi {
                       decodedData["result"][j]['company_status'];
                   companyModel.companyMt =
                       decodedData["result"][j]['company_mt'];
-                  companyModel.idCountry = decodedData["result"][j]['id_country'];
+                  companyModel.idCountry =
+                      decodedData["result"][j]['id_country'];
                   companyModel.cityName = decodedData["result"][j]['city_name'];
                   companyModel.distancia =
                       decodedData["result"][j]['distancia'];
 
-                  listCompany.add(companyModel);
+                  //insertar a la tabla de Company
+                  await companyDb.insertarCompany(companyModel);
 
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
@@ -721,7 +761,8 @@ class BusquedaApi {
                   categ.categoryName =
                       decodedData["result"][j]["category_name"];
 
-                  listCategory.add(categ);
+                  //listCategory.add(categ);
+                  await categoryDatabase.insertarCategory(categ);
 
                   //Subcategoria
                   final subCategoriaModel = SubcategoryModel();
@@ -730,7 +771,9 @@ class BusquedaApi {
                   subCategoriaModel.idCategory =
                       decodedData["result"][j]["id_category"];
                   // subCategoriaModel.subcategoryName =decodedData["result"][j].subcategoryName;
-                  listSubCategory.add(subCategoriaModel);
+                  //listSubCategory.add(subCategoriaModel);
+                  await subcategoryDatabase
+                      .insertarSubCategory(subCategoriaModel);
 
                   //ItemSubCategoriaModel
                   ItemSubCategoriaModel itemSubCategoriaModel =
@@ -742,16 +785,18 @@ class BusquedaApi {
                   itemSubCategoriaModel.itemsubcategoryName =
                       decodedData["result"][j]['itemsubcategory_name'];
 
-                  listItemSub.add(itemSubCategoriaModel);
+                  //listItemSub.add(itemSubCategoriaModel);
+                  await itemsubCategoryDatabase
+                      .insertarItemSubCategoria(itemSubCategoriaModel);
                 }
 
-                busqProductoModel.listBienes = listbienes;
-                busqProductoModel.listProducto = listProducto;
-                busqProductoModel.listSucursal = listSucursal;
-                busqProductoModel.listCompany = listCompany;
-                busqProductoModel.listCategory = listCategory;
-                busqProductoModel.listSubcategory = listSubCategory;
-                busqProductoModel.listItemSubCateg = listItemSub;
+                // busqProductoModel.listBienes = listbienes;
+                // busqProductoModel.listProducto = listProducto;
+                // busqProductoModel.listSucursal = listSucursal;
+                // busqProductoModel.listCompany = listCompany;
+                // busqProductoModel.listCategory = listCategory;
+                // busqProductoModel.listSubcategory = listSubCategory;
+                // busqProductoModel.listItemSubCateg = listItemSub;
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
                 for (var h = 0; h < decodedData["result"].length; h++) {
@@ -808,8 +853,8 @@ class BusquedaApi {
                     } else {
                       productoModel.productoFavourite = '';
                     }
-                    //Añadir a la lista de productos
-                    listProducto.add(productoModel);
+                    //insertar a la tabla Producto
+                    await productoDatabase.insertarProducto(productoModel);
 
                     //BienesModel
                     BienesModel goodmodel = BienesModel();
@@ -819,7 +864,7 @@ class BusquedaApi {
                     goodmodel.goodSynonyms =
                         decodedData["result"][h][i]['good_synonyms'];
 
-                    listbienes.add(goodmodel);
+                    await goodDb.insertarGood(goodmodel);
 
                     //Subsidiary
                     SubsidiaryModel subsidiaryModel = SubsidiaryModel();
@@ -859,7 +904,8 @@ class BusquedaApi {
                       subsidiaryModel.subsidiaryFavourite = '0';
                     }
 
-                    listSucursal.add(subsidiaryModel);
+                    await subsidiaryDatabase
+                        .insertarSubsidiary(subsidiaryModel);
 
                     CompanyModel companyModel = CompanyModel();
                     companyModel.idCompany =
@@ -905,7 +951,8 @@ class BusquedaApi {
                     companyModel.distancia =
                         decodedData["result"][h][i]['distancia'];
 
-                    listCompany.add(companyModel);
+                    //insertar a la tabla de Company
+                    await companyDb.insertarCompany(companyModel);
 
                     //Categoria
                     CategoriaModel categ = CategoriaModel();
@@ -914,7 +961,8 @@ class BusquedaApi {
                     categ.categoryName =
                         decodedData["result"][h][i]["category_name"];
 
-                    listCategory.add(categ);
+                    //listCategory.add(categ);
+                    await categoryDatabase.insertarCategory(categ);
 
                     //Subcategoria
                     final subCategoriaModel = SubcategoryModel();
@@ -923,7 +971,9 @@ class BusquedaApi {
                     subCategoriaModel.idCategory =
                         decodedData["result"][h][i]["id_category"];
                     // subCategoriaModel.subcategoryName =decodedData["result"][h][i].subcategoryName;
-                    listSubCategory.add(subCategoriaModel);
+                    // listSubCategory.add(subCategoriaModel);
+                    await subcategoryDatabase
+                        .insertarSubCategory(subCategoriaModel);
 
                     //ItemSubCategoriaModel
                     ItemSubCategoriaModel itemSubCategoriaModel =
@@ -935,18 +985,20 @@ class BusquedaApi {
                     itemSubCategoriaModel.itemsubcategoryName =
                         decodedData["result"][h][i]['itemsubcategory_name'];
 
-                    listItemSub.add(itemSubCategoriaModel);
+                    //listItemSub.add(itemSubCategoriaModel);
+                    await itemsubCategoryDatabase
+                        .insertarItemSubCategoria(itemSubCategoriaModel);
                   }
-                  busqProductoModel.listBienes = listbienes;
-                  busqProductoModel.listProducto = listProducto;
-                  busqProductoModel.listSucursal = listSucursal;
-                  busqProductoModel.listCompany = listCompany;
-                  busqProductoModel.listCategory = listCategory;
-                  busqProductoModel.listSubcategory = listSubCategory;
-                  busqProductoModel.listItemSubCateg = listItemSub;
+                  //   busqProductoModel.listBienes = listbienes;
+                  //   busqProductoModel.listProducto = listProducto;
+                  //   busqProductoModel.listSucursal = listSucursal;
+                  //   busqProductoModel.listCompany = listCompany;
+                  //   busqProductoModel.listCategory = listCategory;
+                  //   busqProductoModel.listSubcategory = listSubCategory;
+                  //   busqProductoModel.listItemSubCateg = listItemSub;
                 }
               }
-              listGeneral.add(busqProductoModel);
+              //listGeneral.add(busqProductoModel);
             }
           }
         } else {
@@ -956,11 +1008,11 @@ class BusquedaApi {
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
     }
-    return listGeneral;
+    //return listGeneral;
   }
 
-  Future<List<BusquedaServicioModel>> busquedaServicio(String query) async {
-    final listGeneral = List<BusquedaServicioModel>();
+  Future<dynamic> busquedaServicio(String query) async {
+    //final listGeneral = List<BusquedaServicioModel>();
     try {
       final res =
           await http.post("$apiBaseURL/api/Negocio/buscar_servicios_ws", body: {
@@ -986,13 +1038,13 @@ class BusquedaApi {
           if (totalResult > 0) {
             final busqServicioModel = BusquedaServicioModel();
 
-            final listService = List<ServiciosModel>();
-            final listSubServicio = List<SubsidiaryServiceModel>();
-            final listSucursal = List<SubsidiaryModel>();
-            final listCompany = List<CompanyModel>();
-            final listCategory = List<CategoriaModel>();
-            final listSubCategory = List<SubcategoryModel>();
-            final listItemSub = List<ItemSubCategoriaModel>();
+            // final listService = List<ServiciosModel>();
+            // final listSubServicio = List<SubsidiaryServiceModel>();
+            // final listSucursal = List<SubsidiaryModel>();
+            // final listCompany = List<CompanyModel>();
+            // final listCategory = List<CategoriaModel>();
+            // final listSubCategory = List<SubcategoryModel>();
+            // final listItemSub = List<ItemSubCategoriaModel>();
 
             if (context == "service") {
               if (tipoBusqueda == "exactly") {
@@ -1023,7 +1075,10 @@ class BusquedaApi {
                       decodedData["result"][j]['subsidiary_service_updated'];
                   subsidiaryServiceModel.subsidiaryServiceStatus =
                       decodedData["result"][j]['subsidiary_service_status'];
-                  listSubServicio.add(subsidiaryServiceModel);
+
+                  ///listSubServicio.add(subsidiaryServiceModel);
+                  await subisdiaryServiceDatabase
+                      .insertarSubsidiaryService(subsidiaryServiceModel);
 
                   //Service
                   final servicemodel = ServiciosModel();
@@ -1033,7 +1088,8 @@ class BusquedaApi {
                       decodedData["result"][j]['service_name'];
                   servicemodel.serviceSynonyms =
                       decodedData["result"][j]['service_synonyms'];
-                  listService.add(servicemodel);
+                  //listService.add(servicemodel);
+                  await serviceDatabase.insertarService(servicemodel);
 
                   //Sucursal
                   SubsidiaryModel subsidiaryModel = SubsidiaryModel();
@@ -1072,7 +1128,7 @@ class BusquedaApi {
                     subsidiaryModel.subsidiaryFavourite = '0';
                   }
 
-                  listSucursal.add(subsidiaryModel);
+                  await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
 
                   CompanyModel companyModel = CompanyModel();
                   companyModel.idCompany =
@@ -1109,12 +1165,14 @@ class BusquedaApi {
                       decodedData["result"][j]['company_status'];
                   companyModel.companyMt =
                       decodedData["result"][j]['company_mt'];
-                  companyModel.idCountry = decodedData["result"][j]['id_country'];
+                  companyModel.idCountry =
+                      decodedData["result"][j]['id_country'];
                   companyModel.cityName = decodedData["result"][j]['city_name'];
                   companyModel.distancia =
                       decodedData["result"][j]['distancia'];
 
-                  listCompany.add(companyModel);
+                  //insertar a la tabla de Company
+                  await companyDb.insertarCompany(companyModel);
 
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
@@ -1122,7 +1180,8 @@ class BusquedaApi {
                   categ.categoryName =
                       decodedData["result"][j]["category_name"];
 
-                  listCategory.add(categ);
+                  //listCategory.add(categ);
+                  await categoryDatabase.insertarCategory(categ);
 
                   //Subcategoria
                   final subCategoriaModel = SubcategoryModel();
@@ -1131,7 +1190,9 @@ class BusquedaApi {
                   subCategoriaModel.idCategory =
                       decodedData["result"][j]["id_category"];
                   // subCategoriaModel.subcategoryName =decodedData["result"][j].subcategoryName;
-                  listSubCategory.add(subCategoriaModel);
+                  //listSubCategory.add(subCategoriaModel);
+                  await subcategoryDatabase
+                      .insertarSubCategory(subCategoriaModel);
 
                   //ItemSubCategoriaModel
                   ItemSubCategoriaModel itemSubCategoriaModel =
@@ -1143,15 +1204,17 @@ class BusquedaApi {
                   itemSubCategoriaModel.itemsubcategoryName =
                       decodedData["result"][j]['itemsubcategory_name'];
 
-                  listItemSub.add(itemSubCategoriaModel);
+                  //listItemSub.add(itemSubCategoriaModel);
+                  await itemsubCategoryDatabase
+                      .insertarItemSubCategoria(itemSubCategoriaModel);
                 }
-                busqServicioModel.listService = listService;
-                busqServicioModel.listServicios = listSubServicio;
-                busqServicioModel.listSucursal = listSucursal;
-                busqServicioModel.listCompany = listCompany;
-                busqServicioModel.listCategory = listCategory;
-                busqServicioModel.listSubcategory = listSubCategory;
-                busqServicioModel.listItemSubCateg = listItemSub;
+                // busqServicioModel.listService = listService;
+                // busqServicioModel.listServicios = listSubServicio;
+                // busqServicioModel.listSucursal = listSucursal;
+                // busqServicioModel.listCompany = listCompany;
+                // busqServicioModel.listCategory = listCategory;
+                // busqServicioModel.listSubcategory = listSubCategory;
+                // busqServicioModel.listItemSubCateg = listItemSub;
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
                 for (var h = 0; h < decodedData["result"].length; h++) {
@@ -1186,7 +1249,9 @@ class BusquedaApi {
                     subsidiaryServiceModel.subsidiaryServiceStatus =
                         decodedData["result"][h][i]
                             ['subsidiary_service_status'];
-                    listSubServicio.add(subsidiaryServiceModel);
+                    // listSubServicio.add(subsidiaryServiceModel);
+                    await subisdiaryServiceDatabase
+                        .insertarSubsidiaryService(subsidiaryServiceModel);
 
                     //Service
                     final servicemodel = ServiciosModel();
@@ -1196,7 +1261,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]['service_name'];
                     servicemodel.serviceSynonyms =
                         decodedData["result"][h][i]['service_synonyms'];
-                    listService.add(servicemodel);
+                    //listService.add(servicemodel);
+                    await serviceDatabase.insertarService(servicemodel);
 
                     //Subsidiary
                     SubsidiaryModel subsidiaryModel = SubsidiaryModel();
@@ -1236,7 +1302,8 @@ class BusquedaApi {
                       subsidiaryModel.subsidiaryFavourite = '0';
                     }
 
-                    listSucursal.add(subsidiaryModel);
+                    await subsidiaryDatabase
+                        .insertarSubsidiary(subsidiaryModel);
 
                     CompanyModel companyModel = CompanyModel();
                     companyModel.idCompany =
@@ -1282,7 +1349,8 @@ class BusquedaApi {
                     companyModel.distancia =
                         decodedData["result"][h][i]['distancia'];
 
-                    listCompany.add(companyModel);
+                    //insertar a la tabla de Company
+                    await companyDb.insertarCompany(companyModel);
 
                     //Categoria
                     CategoriaModel categ = CategoriaModel();
@@ -1291,7 +1359,8 @@ class BusquedaApi {
                     categ.categoryName =
                         decodedData["result"][h][i]["category_name"];
 
-                    listCategory.add(categ);
+                    //listCategory.add(categ);
+                    await categoryDatabase.insertarCategory(categ);
 
                     //Subcategoria
                     final subCategoriaModel = SubcategoryModel();
@@ -1300,7 +1369,9 @@ class BusquedaApi {
                     subCategoriaModel.idCategory =
                         decodedData["result"][h][i]["id_category"];
                     // subCategoriaModel.subcategoryName =decodedData["result"][h][i].subcategoryName;
-                    listSubCategory.add(subCategoriaModel);
+                    //listSubCategory.add(subCategoriaModel);
+                    await subcategoryDatabase
+                        .insertarSubCategory(subCategoriaModel);
 
                     //ItemSubCategoriaModel
                     ItemSubCategoriaModel itemSubCategoriaModel =
@@ -1312,19 +1383,21 @@ class BusquedaApi {
                     itemSubCategoriaModel.itemsubcategoryName =
                         decodedData["result"][h][i]['itemsubcategory_name'];
 
-                    listItemSub.add(itemSubCategoriaModel);
+                    //listItemSub.add(itemSubCategoriaModel);
+                    await itemsubCategoryDatabase
+                        .insertarItemSubCategoria(itemSubCategoriaModel);
                   }
 
-                  busqServicioModel.listService = listService;
-                  busqServicioModel.listServicios = listSubServicio;
-                  busqServicioModel.listSucursal = listSucursal;
-                  busqServicioModel.listCompany = listCompany;
-                  busqServicioModel.listCategory = listCategory;
-                  busqServicioModel.listSubcategory = listSubCategory;
-                  busqServicioModel.listItemSubCateg = listItemSub;
+                  //   busqServicioModel.listService = listService;
+                  //   busqServicioModel.listServicios = listSubServicio;
+                  //   busqServicioModel.listSucursal = listSucursal;
+                  //   busqServicioModel.listCompany = listCompany;
+                  //   busqServicioModel.listCategory = listCategory;
+                  //   busqServicioModel.listSubcategory = listSubCategory;
+                  //   busqServicioModel.listItemSubCateg = listItemSub;
                 }
               }
-              listGeneral.add(busqServicioModel);
+              //listGeneral.add(busqServicioModel);
             }
           }
         } else {
@@ -1334,11 +1407,11 @@ class BusquedaApi {
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
     }
-    return listGeneral;
+    //return listGeneral;
   }
 
-  Future<List<BusquedaNegocioModel>> busquedaNegocio(String query) async {
-    final listGeneral = List<BusquedaNegocioModel>();
+  Future<dynamic> busquedaNegocio(String query) async {
+    //final listGeneral = List<BusquedaNegocioModel>();
     try {
       final res =
           await http.post("$apiBaseURL/api/Negocio/buscar_empresas_ws", body: {
@@ -1362,101 +1435,100 @@ class BusquedaApi {
       if (code == 1) {
         if (tipoBusqueda != null) {
           if (totalResult > 0) {
-            final busqCompanyModel = BusquedaNegocioModel();
+            //final busqCompanyModel = BusquedaNegocioModel();
 
             // final listSucursal = List<SubsidiaryModel>();
             // final listCompany = List<CompanyModel>();
-            final listCompanySucursal = List<CompanySubsidiaryModel>();
-            final listCategory = List<CategoriaModel>();
+            // final listCompanySucursal = List<CompanySubsidiaryModel>();
+            // final listCategory = List<CategoriaModel>();
 
             if (context == "company") {
               if (tipoBusqueda == "exactly") {
                 for (var j = 0; j < decodedData["result"].length; j++) {
                   //CompanySucursal
-                  final companySucursalModel = CompanySubsidiaryModel();
+                  //final companySucursalModel = CompanySubsidiaryModel();
 
                   //Sucursal
-                  //SubsidiaryModel subsidiaryModel = SubsidiaryModel();
-                  companySucursalModel.idSubsidiary =
+                  SubsidiaryModel subsidiaryModel = SubsidiaryModel();
+                  subsidiaryModel.idSubsidiary =
                       decodedData["result"][j]['id_subsidiary'];
-                  companySucursalModel.idCompany =
+                  subsidiaryModel.idCompany =
                       decodedData["result"][j]['id_company'];
-                  companySucursalModel.subsidiaryName =
+                  subsidiaryModel.subsidiaryName =
                       decodedData["result"][j]['subsidiary_name'];
-                  companySucursalModel.subsidiaryAddress =
+                  subsidiaryModel.subsidiaryAddress =
                       decodedData["result"][j]['subsidiary_address'];
-                  companySucursalModel.subsidiaryCellphone =
+                  subsidiaryModel.subsidiaryCellphone =
                       decodedData["result"][j]['subsidiary_cellphone'];
-                  companySucursalModel.subsidiaryCellphone2 =
+                  subsidiaryModel.subsidiaryCellphone2 =
                       decodedData["result"][j]['subsidiary_cellphone_2'];
-                  companySucursalModel.subsidiaryEmail =
+                  subsidiaryModel.subsidiaryEmail =
                       decodedData["result"][j]['subsidiary_email'];
-                  companySucursalModel.subsidiaryCoordX =
+                  subsidiaryModel.subsidiaryCoordX =
                       decodedData["result"][j]['subsidiary_coord_x'];
-                  companySucursalModel.subsidiaryCoordY =
+                  subsidiaryModel.subsidiaryCoordY =
                       decodedData["result"][j]['subsidiary_coord_y'];
-                  companySucursalModel.subsidiaryOpeningHours =
+                  subsidiaryModel.subsidiaryOpeningHours =
                       decodedData["result"][j]['subsidiary_opening_hours'];
-                  companySucursalModel.subsidiaryPrincipal =
+                  subsidiaryModel.subsidiaryPrincipal =
                       decodedData["result"][j]['subsidiary_principal'];
-                  companySucursalModel.subsidiaryStatus =
+                  subsidiaryModel.subsidiaryStatus =
                       decodedData["result"][j]['subsidiary_status'];
                   final listSubsidiaryDb =
                       await subsidiaryDatabase.obtenerSubsidiaryPorId(
                           decodedData["result"][j]['id_subsidiary']);
 
                   if (listSubsidiaryDb.length > 0) {
-                    companySucursalModel.subsidiaryFavourite =
+                    subsidiaryModel.subsidiaryFavourite =
                         listSubsidiaryDb[0].subsidiaryFavourite;
                   } else {
-                    companySucursalModel.subsidiaryFavourite = '0';
+                    subsidiaryModel.subsidiaryFavourite = '0';
                   }
 
-                  companySucursalModel.idCompany =
+                  await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
+
+                  CompanyModel companyModel = CompanyModel();
+                  companyModel.idCompany =
                       decodedData["result"][j]['id_company'];
-                  companySucursalModel.idUser =
-                      decodedData["result"][j]['id_user'];
-                  companySucursalModel.idCity =
-                      decodedData["result"][j]['id_city'];
-                  companySucursalModel.idCategory =
+                  companyModel.idUser = decodedData["result"][j]['id_user'];
+                  companyModel.idCity = decodedData["result"][j]['id_city'];
+                  companyModel.idCategory =
                       decodedData["result"][j]['id_category'];
-                  companySucursalModel.companyName =
+                  companyModel.companyName =
                       decodedData["result"][j]['company_name'];
-                  companySucursalModel.companyRuc =
+                  companyModel.companyRuc =
                       decodedData["result"][j]['company_ruc'];
-                  companySucursalModel.companyImage =
+                  companyModel.companyImage =
                       decodedData["result"][j]['company_image'];
-                  companySucursalModel.companyType =
+                  companyModel.companyType =
                       decodedData["result"][j]['company_type'];
-                  companySucursalModel.companyShortcode =
+                  companyModel.companyShortcode =
                       decodedData["result"][j]['company_shortcode'];
-                  companySucursalModel.companyDelivery =
+                  companyModel.companyDelivery =
                       decodedData["result"][j]['company_delivery'];
-                  companySucursalModel.companyEntrega =
+                  companyModel.companyEntrega =
                       decodedData["result"][j]['company_entrega'];
-                  companySucursalModel.companyTarjeta =
+                  companyModel.companyTarjeta =
                       decodedData["result"][j]['company_tarjeta'];
-                  companySucursalModel.companyVerified =
+                  companyModel.companyVerified =
                       decodedData["result"][j]['company_verified'];
-                  companySucursalModel.companyRating =
+                  companyModel.companyRating =
                       decodedData["result"][j]['company_rating'];
-                  companySucursalModel.companyCreatedAt =
+                  companyModel.companyCreatedAt =
                       decodedData["result"][j]['company_created_at'];
-                  companySucursalModel.companyJoin =
+                  companyModel.companyJoin =
                       decodedData["result"][j]['company_join'];
-                  companySucursalModel.companyStatus =
+                  companyModel.companyStatus =
                       decodedData["result"][j]['company_status'];
-                  companySucursalModel.companyMt =
+                  companyModel.companyMt =
                       decodedData["result"][j]['company_mt'];
-                  companySucursalModel.idCountry =
+                  companyModel.idCountry =
                       decodedData["result"][j]['id_country'];
-                  companySucursalModel.cityName =
-                      decodedData["result"][j]['city_name'];
-                  companySucursalModel.distancia =
+                  companyModel.cityName = decodedData["result"][j]['city_name'];
+                  companyModel.distancia =
                       decodedData["result"][j]['distancia'];
 
-                 
-                  listCompanySucursal.add(companySucursalModel);
+                  await companyDb.insertarCompany(companyModel);
 
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
@@ -1464,44 +1536,44 @@ class BusquedaApi {
                   categ.categoryName =
                       decodedData["result"][j]["category_name"];
 
-                  listCategory.add(categ);
+                  await categoryDatabase.insertarCategory(categ);
                 }
 
                 // busqCompanyModel.listCompany = listCompany;
                 // busqCompanyModel.listSucursal = listSucursal;
-                busqCompanyModel.listCompanySubsidiary = listCompanySucursal;
-                busqCompanyModel.listCategory = listCategory;
+                // busqCompanyModel.listCompanySubsidiary = listCompanySucursal;
+                // busqCompanyModel.listCategory = listCategory;
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
                 for (var h = 0; h < decodedData["result"].length; h++) {
                   for (var i = 0; i < decodedData["result"][h].length; i++) {
                     //Subsidiary
-                    //SubsidiaryModel subsidiaryModel = SubsidiaryModel();
+                    SubsidiaryModel subsidiaryModel = SubsidiaryModel();
 
-                    final companySucursalModel = CompanySubsidiaryModel();
-                    companySucursalModel.idSubsidiary =
+                    //final companySucursalModel = CompanySubsidiaryModel();
+                    subsidiaryModel.idSubsidiary =
                         decodedData["result"][h][i]['id_subsidiary'];
-                    companySucursalModel.idCompany =
+                    subsidiaryModel.idCompany =
                         decodedData["result"][h][i]['id_company'];
-                    companySucursalModel.subsidiaryName =
+                    subsidiaryModel.subsidiaryName =
                         decodedData["result"][h][i]['subsidiary_name'];
-                    companySucursalModel.subsidiaryAddress =
+                    subsidiaryModel.subsidiaryAddress =
                         decodedData["result"][h][i]['subsidiary_address'];
-                    companySucursalModel.subsidiaryCellphone =
+                    subsidiaryModel.subsidiaryCellphone =
                         decodedData["result"][h][i]['subsidiary_cellphone'];
-                    companySucursalModel.subsidiaryCellphone2 =
+                    subsidiaryModel.subsidiaryCellphone2 =
                         decodedData["result"][h][i]['subsidiary_cellphone_2'];
-                    companySucursalModel.subsidiaryEmail =
+                    subsidiaryModel.subsidiaryEmail =
                         decodedData["result"][h][i]['subsidiary_email'];
-                    companySucursalModel.subsidiaryCoordX =
+                    subsidiaryModel.subsidiaryCoordX =
                         decodedData["result"][h][i]['subsidiary_coord_x'];
-                    companySucursalModel.subsidiaryCoordY =
+                    subsidiaryModel.subsidiaryCoordY =
                         decodedData["result"][h][i]['subsidiary_coord_y'];
-                    companySucursalModel.subsidiaryOpeningHours =
+                    subsidiaryModel.subsidiaryOpeningHours =
                         decodedData["result"][h][i]['subsidiary_opening_hours'];
-                    companySucursalModel.subsidiaryPrincipal =
+                    subsidiaryModel.subsidiaryPrincipal =
                         decodedData["result"][h][i]['subsidiary_principal'];
-                    companySucursalModel.subsidiaryStatus =
+                    subsidiaryModel.subsidiaryStatus =
                         decodedData["result"][h][i]['subsidiary_status'];
 
                     final listSubsidiaryDb =
@@ -1509,59 +1581,64 @@ class BusquedaApi {
                             decodedData["result"][h][i]['id_subsidiary']);
 
                     if (listSubsidiaryDb.length > 0) {
-                      companySucursalModel.subsidiaryFavourite =
+                      subsidiaryModel.subsidiaryFavourite =
                           listSubsidiaryDb[0].subsidiaryFavourite;
                     } else {
-                      companySucursalModel.subsidiaryFavourite = '0';
+                      subsidiaryModel.subsidiaryFavourite = '0';
                     }
 
                     //listSucursal.add(subsidiaryModel);
+                    await subsidiaryDatabase
+                        .insertarSubsidiary(subsidiaryModel);
 
-                    //CompanyModel companyModel = CompanyModel();
-                    companySucursalModel.idCompany =
+                    CompanyModel companyModel = CompanyModel();
+                    companyModel.idCompany =
                         decodedData["result"][h][i]['id_company'];
-                    companySucursalModel.idUser =
+                    companyModel.idUser =
                         decodedData["result"][h][i]['id_user'];
-                    companySucursalModel.idCity =
+                    companyModel.idCity =
                         decodedData["result"][h][i]['id_city'];
-                    companySucursalModel.idCategory =
+                    companyModel.idCategory =
                         decodedData["result"][h][i]['id_category'];
-                    companySucursalModel.companyName =
+                    companyModel.companyName =
                         decodedData["result"][h][i]['company_name'];
-                    companySucursalModel.companyRuc =
+                    companyModel.companyRuc =
                         decodedData["result"][h][i]['company_ruc'];
-                    companySucursalModel.companyImage =
+                    companyModel.companyImage =
                         decodedData["result"][h][i]['company_image'];
-                    companySucursalModel.companyType =
+                    companyModel.companyType =
                         decodedData["result"][h][i]['company_type'];
-                    companySucursalModel.companyShortcode =
+                    companyModel.companyShortcode =
                         decodedData["result"][h][i]['company_shortcode'];
-                    companySucursalModel.companyDelivery =
+                    companyModel.companyDelivery =
                         decodedData["result"][h][i]['company_delivery'];
-                    companySucursalModel.companyEntrega =
+                    companyModel.companyEntrega =
                         decodedData["result"][h][i]['company_entrega'];
-                    companySucursalModel.companyTarjeta =
+                    companyModel.companyTarjeta =
                         decodedData["result"][h][i]['company_tarjeta'];
-                    companySucursalModel.companyVerified =
+                    companyModel.companyVerified =
                         decodedData["result"][h][i]['company_verified'];
-                    companySucursalModel.companyRating =
+                    companyModel.companyRating =
                         decodedData["result"][h][i]['company_rating'];
-                    companySucursalModel.companyCreatedAt =
+                    companyModel.companyCreatedAt =
                         decodedData["result"][h][i]['company_created_at'];
-                    companySucursalModel.companyJoin =
+                    companyModel.companyJoin =
                         decodedData["result"][h][i]['company_join'];
-                    companySucursalModel.companyStatus =
+                    companyModel.companyStatus =
                         decodedData["result"][h][i]['company_status'];
-                    companySucursalModel.companyMt =
+                    companyModel.companyMt =
                         decodedData["result"][h][i]['company_mt'];
-                    companySucursalModel.idCountry =
+                    companyModel.idCountry =
                         decodedData["result"][h][i]['id_country'];
-                    companySucursalModel.cityName =
+                    companyModel.cityName =
                         decodedData["result"][h][i]['city_name'];
-                    companySucursalModel.distancia =
+                    companyModel.distancia =
                         decodedData["result"][h][i]['distancia'];
 
-                    listCompanySucursal.add(companySucursalModel);
+                    // listCompanySucursal.add(companySucursalModel);
+
+                    //insertar a la tabla de Company
+                    await companyDb.insertarCompany(companyModel);
 
                     //Categoria
                     CategoriaModel categ = CategoriaModel();
@@ -1570,16 +1647,16 @@ class BusquedaApi {
                     categ.categoryName =
                         decodedData["result"][h][i]["category_name"];
 
-                    listCategory.add(categ);
+                    await categoryDatabase.insertarCategory(categ);
                   }
                 }
                 // busqCompanyModel.listSucursal = listSucursal;
                 // busqCompanyModel.listCompany = listCompany;
-                busqCompanyModel.listCompanySubsidiary = listCompanySucursal;
-                busqCompanyModel.listCategory = listCategory;
+                // busqCompanyModel.listCompanySubsidiary = listCompanySucursal;
+                // busqCompanyModel.listCategory = listCategory;
               }
             }
-            listGeneral.add(busqCompanyModel);
+            //listGeneral.add(busqCompanyModel);
           }
         } else {
           print("No haaaay");
@@ -1588,7 +1665,7 @@ class BusquedaApi {
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
     }
-    return listGeneral;
+    //return listGeneral;
   }
 
   Future<List<BusquedaNegocioModel>> busquedaCategorias(String query) async {
@@ -1616,10 +1693,6 @@ class BusquedaApi {
       if (code == 1) {
         if (tipoBusqueda != null) {
           if (totalResult > 0) {
-            final busqCompanyModel = BusquedaNegocioModel();
-
-            final listCategory = List<CategoriaModel>();
-
             if (context == "category") {
               if (tipoBusqueda == "exactly") {
                 for (var j = 0; j < decodedData["result"].length; j++) {
@@ -1629,10 +1702,8 @@ class BusquedaApi {
                   categ.categoryName =
                       decodedData["result"][j]["category_name"];
 
-                  listCategory.add(categ);
+                  await categoryDatabase.insertarCategory(categ);
                 }
-
-                busqCompanyModel.listCategory = listCategory;
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
                 for (var h = 0; h < decodedData["result"].length; h++) {
@@ -1644,14 +1715,14 @@ class BusquedaApi {
                     categ.categoryName =
                         decodedData["result"][h][i]["category_name"];
 
-                    listCategory.add(categ);
+                    await categoryDatabase.insertarCategory(categ);
                   }
                 }
 
-                busqCompanyModel.listCategory = listCategory;
+                //busqCompanyModel.listCategory = listCategory;
               }
             }
-            listGeneral.add(busqCompanyModel);
+            //listGeneral.add(busqCompanyModel);
           }
         } else {
           print("No haaaay");
@@ -1660,6 +1731,6 @@ class BusquedaApi {
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
     }
-    return listGeneral;
+    //return listGeneral;
   }
 }

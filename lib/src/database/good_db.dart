@@ -35,9 +35,24 @@ class GoodDatabase{
       return [];
     }
 
+    
+
   }
 
+Future<List<BienesModel>> obtenerGoodPorIdGood(String idGood) async {
+    try{
+    final db = await dbProvider.database;
+    final res = await db.rawQuery("SELECT * FROM Good where id_good= '$idGood'");
 
+    List<BienesModel> list =
+        res.isNotEmpty ? res.map((c) => BienesModel.fromJson(c)).toList() : [];
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e); 
+      return [];
+    }
+
+  }
 
 
 }

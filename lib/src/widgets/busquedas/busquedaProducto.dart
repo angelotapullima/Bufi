@@ -1,6 +1,7 @@
 import 'package:bufi/src/bloc/busquedaBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
+import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -67,7 +68,8 @@ class BusquedaProductosPage extends SearchDelegate {
         if (snapshot.hasData) {
           final resultBusqueda = snapshot.data;
           if (snapshot.data.length > 0) {
-            return ListView.builder(
+            return 
+               ListView.builder(
               shrinkWrap: true,
               itemCount: resultBusqueda.length,
               itemBuilder: (BuildContext context, int index) {
@@ -95,7 +97,7 @@ class BusquedaProductosPage extends SearchDelegate {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => DetalleProductos(
-                                        producto: resultBusqueda[index]
+                                          producto: resultBusqueda[index]
                                             .listProducto[i],
                                       )));
                         },
@@ -103,6 +105,7 @@ class BusquedaProductosPage extends SearchDelegate {
                     });
               },
             );
+          
           } else {
             return Text("No hay resultados para la búsqueda");
           }

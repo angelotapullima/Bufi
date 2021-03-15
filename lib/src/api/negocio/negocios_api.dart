@@ -1,6 +1,6 @@
 import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
-import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
+
 import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
@@ -25,7 +25,7 @@ class NegociosApi {
 
       for (int i = 0; i < decodedData.length; i++) {
         final listCompany = await companyDatabase
-            .obtenerCompanyPorId(decodedData[i]['id_company']);
+            .obtenerCompanyPorIdCompany(decodedData[i]['id_company']);
 
         if (listCompany.length > 0) {
           CompanyModel cmodel = CompanyModel();
@@ -132,7 +132,7 @@ class NegociosApi {
 
       final decodedData = json.decode(response.body);
 
-      final listCompany = await companyDatabase.obtenerCompanyPorId(id);
+      final listCompany = await companyDatabase.obtenerCompanyPorIdCompany(id);
       final listSucursal = await subsidiaryDatabase
           .obtenerSubsidiaryPorId(decodedData['id_subsidiary']);
 
@@ -267,7 +267,7 @@ class NegociosApi {
 
       for (int i = 0; i < decodedData.length; i++) {
         final listCompany = await companyDatabase
-            .obtenerCompanyPorId(decodedData[i]['id_company']);
+            .obtenerCompanyPorIdCompany(decodedData[i]['id_company']);
         final listSucursal = await subsidiaryDatabase
             .obtenerSubsidiaryPorId(decodedData[i]['id_subsidiary']);
 

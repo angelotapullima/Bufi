@@ -38,8 +38,8 @@ class CategoriasApi {
   Future<int> obtenerCategorias(BuildContext context) async {
     //List<CategoriaModel> categoriaList = [];
     try {
-      var response = await http.post("$apiBaseURL/api/Inicio/listar_categorias",
-          body: { });
+      var response =
+          await http.post("$apiBaseURL/api/Inicio/listar_categorias", body: {});
       var res = jsonDecode(response.body);
 
       var cantidadTotal = res.length;
@@ -76,7 +76,8 @@ class CategoriasApi {
         itemSubCategoriaModel.idSubcategory = res[i]['id_subcategory'];
         itemSubCategoriaModel.itemsubcategoryName =
             res[i]['itemsubcategory_name'];
-        await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel);
+        await itemsubCategoryDatabase
+            .insertarItemSubCategoria(itemSubCategoriaModel);
       }
       return 0;
       //return categoriaList;
@@ -372,15 +373,73 @@ class CategoriasApi {
 
   Future<int> obtenerProySerPorIdItemsubcategory(String idItemsub) async {
     try {
-      var response = await http.post(
-          "$apiBaseURL/api/Inicio/listar_bs_por_id_itemsubcat",
-          body: {
-            'id_ciudad': '1',
-            'id_itemsubcategoria': idItemsub,
-          });
+      final listSubgood =
+          await productoDatabase.obtenerProductoXIdItemSubcategoria(idItemsub);
+
+      double mayorPro = 0;
+      double mayor2Pro = 0;
+      double menorPro = 0;
+      if (listSubgood.length > 0) {
+        for (var i = 0; i < listSubgood.length; i++) {
+          if (double.parse(listSubgood[i].idProducto) > mayorPro) {
+            mayorPro = double.parse(listSubgood[i].idProducto);
+            print('mayor $mayorPro');
+          }
+        }
+      }
+      mayor2Pro = mayorPro;
+
+      if (listSubgood.length > 0) {
+        for (var x = 0; x < listSubgood.length; x++) {
+          if (double.parse(listSubgood[x].idProducto) < mayor2Pro) {
+            menorPro = double.parse(listSubgood[x].idProducto);
+            mayor2Pro = menorPro;
+            print('menor $menorPro');
+          } else {
+            menorPro = mayor2Pro;
+          }
+        }
+      }
+
+      final listSubservice = await subisdiaryServiceDatabase
+          .obtenerServicioXIdItemSubcategoria(idItemsub);
+      double mayorSer = 0;
+      double mayor2Ser = 0;
+      double menorSer = 0;
+      if (listSubservice.length > 0) {
+        for (var i = 0; i < listSubservice.length; i++) {
+          if (double.parse(listSubservice[i].idSubsidiaryservice) > mayorSer) {
+            mayorSer = double.parse(listSubservice[i].idSubsidiaryservice);
+            print('mayor $mayorSer');
+          }
+        }
+      }
+      mayor2Ser = mayorSer;
+
+      if (listSubservice.length > 0) {
+        for (var x = 0; x < listSubservice.length; x++) {
+          if (double.parse(listSubservice[x].idSubsidiaryservice) < mayor2Ser) {
+            menorSer = double.parse(listSubservice[x].idSubsidiaryservice);
+            mayor2Ser = menorSer;
+            print('menor $menorSer');
+          } else {
+            menorSer = mayor2Ser;
+          }
+        }
+      }
+
+      var response = await http
+          .post("$apiBaseURL/api/Inicio/listar_bs_por_id_itemsubcat", body: {
+        'id_ciudad': '1',
+        'id_itemsubcategoria': idItemsub,
+        'limite_sup_bienes': mayorPro.toString(),
+        'limite_inf_bienes': menorPro.toString(),
+        'limite_sup_servicios': mayorSer.toString(),
+        'limite_inf_servicios': menorSer.toString()
+      });
       var res = jsonDecode(response.body);
 
-      var bienesList = res['bienes'];
+      var bienesList = res['productos'];
 
       if (bienesList.length > 0) {
         for (var i = 0; i < bienesList.length; i++) {

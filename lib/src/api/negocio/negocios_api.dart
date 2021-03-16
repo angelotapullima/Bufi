@@ -304,15 +304,13 @@ class NegociosApi {
         cmodel.companyRuc = decodedData['results'][i]['company_ruc'];
         cmodel.companyImage = decodedData['results'][i]['company_image'];
         cmodel.companyType = decodedData['results'][i]['company_type'];
-        cmodel.companyShortcode =
-            decodedData['results'][i]['company_shortcode'];
+        cmodel.companyShortcode = decodedData['results'][i]['company_shortcode'];
         cmodel.companyDelivery = decodedData['results'][i]['company_delivery'];
         cmodel.companyEntrega = decodedData['results'][i]['company_entrega'];
         cmodel.companyTarjeta = decodedData['results'][i]['company_tarjeta'];
         cmodel.companyVerified = decodedData['results'][i]['company_verified'];
         cmodel.companyRating = decodedData['results'][i]['company_rating'];
-        cmodel.companyCreatedAt =
-            decodedData['results'][i]['company_created_at'];
+        cmodel.companyCreatedAt = decodedData['results'][i]['company_created_at'];
         cmodel.companyJoin = decodedData['results'][i]['company_join'];
         cmodel.companyStatus = decodedData['results'][i]['company_status'];
         cmodel.companyMt = decodedData['results'][i]['company_mt'];
@@ -324,23 +322,15 @@ class NegociosApi {
         smodel.idCompany = decodedData['results'][i]['id_company'];
         smodel.idSubsidiary = decodedData['results'][i]['id_subsidiary'];
         smodel.subsidiaryName = decodedData['results'][i]['subsidiary_name'];
-        smodel.subsidiaryCellphone =
-            decodedData['results'][i]['subsidiary_cellphone'];
-        smodel.subsidiaryCellphone =
-            decodedData['results'][i]['id_subsidiary_cellphone_2'];
+        smodel.subsidiaryCellphone =decodedData['results'][i]['subsidiary_cellphone'];
+        smodel.subsidiaryCellphone =decodedData['results'][i]['id_subsidiary_cellphone_2'];
         smodel.subsidiaryEmail = decodedData['results'][i]['subsidiary_email'];
-        smodel.subsidiaryCoordX =
-            decodedData['results'][i]['subsidiary_coord_x'];
-        smodel.subsidiaryCoordY =
-            decodedData['results'][i]['subsidiary_coord_y'];
-        smodel.subsidiaryOpeningHours =
-            decodedData['results'][i]['subsidiary_opening_hours'];
-        smodel.subsidiaryPrincipal =
-            decodedData['results'][i]['subsidiary_principal'];
-        smodel.subsidiaryStatus =
-            decodedData['results'][i]['subsidiary_status'];
-        smodel.subsidiaryAddress =
-            decodedData['results'][i]['subsidiary_address'];
+        smodel.subsidiaryCoordX =decodedData['results'][i]['subsidiary_coord_x'];
+        smodel.subsidiaryCoordY =decodedData['results'][i]['subsidiary_coord_y'];
+        smodel.subsidiaryOpeningHours =decodedData['results'][i]['subsidiary_opening_hours'];
+        smodel.subsidiaryPrincipal = decodedData['results'][i]['subsidiary_principal'];
+        smodel.subsidiaryStatus =decodedData['results'][i]['subsidiary_status'];
+        smodel.subsidiaryAddress =decodedData['results'][i]['subsidiary_address'];
         await subsidiaryDatabase.insertarSubsidiary(smodel);
 
         // final listCompany = await companyDatabase

@@ -4,7 +4,7 @@ import 'package:bufi/src/bloc/subsidiary/negocio_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:bufi/src/widgets/busquedas/widget/widgetBusquNegocio.dart';
+import 'package:bufi/src/widgets/busquedas/widgetBusquNegocio.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

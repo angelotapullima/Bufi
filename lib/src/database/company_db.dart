@@ -100,4 +100,22 @@ class CompanyDatabase {
       return [];
     }
   }
+
+  //Se utiliza para la busqueda
+  Future<List<CompanyModel>> consultarCompanyPorQuery(String query) async {
+    try{
+    final db = await dbProvider.database;
+    final res = await db.rawQuery(
+        "SELECT * FROM Company WHERE company_name LIKE '%$query%'");
+
+    List<CompanyModel> list = res.isNotEmpty
+        ? res.map((c) => CompanyModel.fromJson(c)).toList()
+        : [];
+
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
+  }
 }

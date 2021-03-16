@@ -1,11 +1,11 @@
 
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:bufi/src/widgets/busquedas/busquedaNegocio.dart';
+import 'package:bufi/src/page/busqueda/servicio.dart';
 import 'package:flutter/material.dart';
 
 
-class BusquedaNegocioWidget extends StatelessWidget {
-  const BusquedaNegocioWidget({
+class BusquedaServicioWidget extends StatelessWidget {
+  const BusquedaServicioWidget({
     Key key,
     @required this.responsive,
   }) : super(key: key);
@@ -16,7 +16,7 @@ class BusquedaNegocioWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
           onTap: () {
-            showSearch(context: context, delegate: BusquedaNegocioPage());
+            showSearch(context: context, delegate: BusquedaServiciosPage());
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
@@ -30,11 +30,11 @@ class BusquedaNegocioWidget extends StatelessWidget {
                   icon: Icon(Icons.search),
                   color: Colors.black,
                   onPressed: () {
-                    showSearch(context: context, delegate: BusquedaNegocioPage());
+                    showSearch(context: context, delegate: BusquedaServiciosPage());
                   },
                 ),
                 Text(
-                  'Buscar Negocio',
+                  'Buscar Servicios',
                   style: TextStyle(color: Colors.black),
                 ),
               ],

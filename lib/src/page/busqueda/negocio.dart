@@ -1,4 +1,4 @@
-import 'package:bufi/src/bloc/busquedaBloc.dart';
+import 'package:bufi/src/bloc/busqueda/busquedaBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:bufi/src/utils/constants.dart';

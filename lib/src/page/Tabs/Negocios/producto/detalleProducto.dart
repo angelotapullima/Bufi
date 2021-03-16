@@ -4,7 +4,7 @@ import 'package:bufi/src/database/modeloProducto_database.dart';
 import 'package:bufi/src/database/tallaProducto_database.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido_item.dart';
-import 'package:bufi/src/page/Tabs/Negocios/producto/detalle_carrito.dart';
+import 'package:bufi/src/page/Tabs/Negocios/producto/AgregarAlCarritoAnimacion.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
@@ -91,13 +91,13 @@ class _DetalleProductosState extends State<DetalleProductos> {
         ),
       );
     }
- 
+
     return Scaffold(
       body: StreamBuilder(
           stream: datosProdBloc.datosProdStream,
           builder: (context, AsyncSnapshot<List<ProductoModel>> snapshot) {
             List<ProductoModel> listProd = snapshot.data;
-             bool _enabled = true;
+            bool _enabled = true;
             if (snapshot.hasData) {
               if (listProd[0].listTallaProd.length > 0) {
                 return Stack(
@@ -178,20 +178,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                 buttonBloc.changePage(2);
                               },
                             ),
-                            // _icon(
-                            //     isLiked
-                            //         ? Icons.favorite
-                            //         : Icons.favorite_border,
-                            //     color: isLiked
-                            //         ? LightColor.lightGrey
-                            //         : LightColor.red,
-                            //     size: responsive.ip(1.7),
-                            //     padding: responsive.ip(1.25),
-                            //     isOutLine: false, onPressed: () {
-                            //   setState(() {
-                            //     isLiked = !isLiked;
-                            //   });
-                            // }),
+                           
                             SizedBox(
                               width: responsive.wp(5),
                             ),
@@ -211,7 +198,6 @@ class _DetalleProductosState extends State<DetalleProductos> {
                   ],
                 );
               } else {
-               
                 return SafeArea(
                   child: Column(
                     children: [
@@ -288,79 +274,78 @@ class _DetalleProductosState extends State<DetalleProductos> {
               }
             } else {
               return SafeArea(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: responsive.wp(5),
-                          ),
-                          BackButton(),
-                          Spacer()
-                        ],
-                      ),
-                      Expanded(
-                        child: Shimmer.fromColors(
-                          baseColor: Colors.grey[300],
-                          highlightColor: Colors.grey[100],
-                          enabled: _enabled,
-                          child: ListView.builder(
-                            itemBuilder: (_, __) => Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: 48.0,
-                                    height: 48.0,
-                                    color: Colors.white,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: responsive.wp(5),
+                        ),
+                        BackButton(),
+                        Spacer()
+                      ],
+                    ),
+                    Expanded(
+                      child: Shimmer.fromColors(
+                        baseColor: Colors.grey[300],
+                        highlightColor: Colors.grey[100],
+                        enabled: _enabled,
+                        child: ListView.builder(
+                          itemBuilder: (_, __) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 48.0,
+                                  height: 48.0,
+                                  color: Colors.white,
+                                ),
+                                const Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                        width: double.infinity,
+                                        height: 8.0,
+                                        color: Colors.white,
+                                      ),
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 2.0),
+                                      ),
+                                      Container(
+                                        width: double.infinity,
+                                        height: 8.0,
+                                        color: Colors.white,
+                                      ),
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 2.0),
+                                      ),
+                                      Container(
+                                        width: 40.0,
+                                        height: 8.0,
+                                        color: Colors.white,
+                                      ),
+                                    ],
                                   ),
-                                  const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 8.0),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Container(
-                                          width: double.infinity,
-                                          height: 8.0,
-                                          color: Colors.white,
-                                        ),
-                                        const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 2.0),
-                                        ),
-                                        Container(
-                                          width: double.infinity,
-                                          height: 8.0,
-                                          color: Colors.white,
-                                        ),
-                                        const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 2.0),
-                                        ),
-                                        Container(
-                                          width: 40.0,
-                                          height: 8.0,
-                                          color: Colors.white,
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
+                                )
+                              ],
                             ),
-                            itemCount: 6,
                           ),
+                          itemCount: 6,
                         ),
                       ),
-                    ],
-                  ),
-                );
-              
+                    ),
+                  ],
+                ),
+              );
             }
           }),
     );
@@ -388,27 +373,30 @@ class _DetalleProductosState extends State<DetalleProductos> {
                       Navigator.pushNamed(context, 'detalleProductoFoto',
                           arguments: listProd[0]);
                     },
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: CachedNetworkImage(
-                        //cacheManager: CustomCacheManager(),
+                    child: Hero(
+                      tag: '$apiBaseURL/${listProd[0].listFotos[index].galeriaFoto}',
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: CachedNetworkImage(
+                          //cacheManager: CustomCacheManager(),
 
-                        placeholder: (context, url) => Image(
-                            image: AssetImage('assets/jar-loading.gif'),
-                            fit: BoxFit.cover),
+                          placeholder: (context, url) => Image(
+                              image: AssetImage('assets/jar-loading.gif'),
+                              fit: BoxFit.cover),
 
-                        errorWidget: (context, url, error) => Image(
-                            image: AssetImage('assets/carga_fallida.jpg'),
-                            fit: BoxFit.cover),
+                          errorWidget: (context, url, error) => Image(
+                              image: AssetImage('assets/carga_fallida.jpg'),
+                              fit: BoxFit.cover),
 
-                        imageUrl:
-                            '$apiBaseURL/${listProd[0].listFotos[index].galeriaFoto}',
+                          imageUrl:
+                              '$apiBaseURL/${listProd[0].listFotos[index].galeriaFoto}',
 
-                        imageBuilder: (context, imageProvider) => Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -733,191 +721,218 @@ class BotonAgregar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0,
-      right: 0,
-      left: 0,
-      child: Container(
-        child: Row(
-          children: [
-            Container(
-              width: responsive.wp(40),
-              padding: EdgeInsets.only(
-                bottom: responsive.hp(3),
-                top: responsive.hp(1),
-                left: responsive.wp(3),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.blueGrey[400],
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.donut_large_outlined,
-                    color: Colors.white,
-                  ),
-                  Text(
-                    ' Pedir ahora',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: responsive.ip(1.8),
-                    ),
-                  ),
-                ],
-              ),
-            ).ripple(() async {
-              //Tallas
-              final tallaDatabase = TallaProductoDatabase();
-              final tallas = await tallaDatabase
-                  .obtenerTallaProductoPorIdProductoEnEstado1(
-                      producto.idProducto);
-              //widget.producto.idProducto);
-              //modelo
-              final modeloDatabase = ModeloProductoDatabase();
-              final modelos = await modeloDatabase
-                  .obtenerModeloProductoPorIdProductoEnEstado1(
-                      producto.idProducto);
-              //Marca
-              final marcaDatabase = MarcaProductoDatabase();
-              final marcas = await marcaDatabase
-                  .obtenerMarcaProductoPorIdProductoEnEstado1(
-                      producto.idProducto);
 
-              if (tallas.length > 0) {
-                if (modelos.length > 0) {
-                  if (marcas.length > 0) {
-                    await agregarAlCarrito(
-                        context,
-                        producto.idProducto,
-                        tallas[0].tallaProducto,
-                        modelos[0].modeloProducto,
-                        marcas[0].marcaProducto);
+    final contadorBloc = ProviderBloc.contadorPagina(context);
 
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        transitionDuration: const Duration(milliseconds: 300),
-                        pageBuilder: (context, animation, secondaryAnimation) {
-                          return ConfirmacionItemPedido(
-                              idProducto: producto.idProducto
-                              //widget.producto.idProducto
+    return StreamBuilder<Object>(
+     stream: contadorBloc.selectContadorStream,
+                                builder: (context, snapshot) {
+        return Positioned(
+          bottom: 0,
+          right: 0,
+          left: 0,
+          child: Container(
+            child: Row(
+              children: [
+                Container(
+                  width: responsive.wp(40),
+                  padding: EdgeInsets.only(
+                    bottom: responsive.hp(3),
+                    top: responsive.hp(1),
+                    left: responsive.wp(3),
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.blueGrey[400],
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.donut_large_outlined,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        ' Pedir ahora',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: responsive.ip(1.8),
+                        ),
+                      ),
+                    ],
+                  ),
+                ).ripple(() async {
+                  //Tallas
+                  final tallaDatabase = TallaProductoDatabase();
+                  final tallas = await tallaDatabase
+                      .obtenerTallaProductoPorIdProductoEnEstado1(
+                          producto.idProducto);
+                  //widget.producto.idProducto);
+                  //modelo
+                  final modeloDatabase = ModeloProductoDatabase();
+                  final modelos = await modeloDatabase
+                      .obtenerModeloProductoPorIdProductoEnEstado1(
+                          producto.idProducto);
+                  //Marca
+                  final marcaDatabase = MarcaProductoDatabase();
+                  final marcas = await marcaDatabase
+                      .obtenerMarcaProductoPorIdProductoEnEstado1(
+                          producto.idProducto);
+
+                  if (tallas.length > 0) {
+                    if (modelos.length > 0) {
+                      if (marcas.length > 0) {
+                        await agregarAlCarrito(
+                            context,
+                            producto.idProducto,
+                            tallas[0].tallaProducto,
+                            modelos[0].modeloProducto,
+                            marcas[0].marcaProducto);
+
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            transitionDuration: const Duration(milliseconds: 300),
+                            pageBuilder: (context, animation, secondaryAnimation) {
+                              return ConfirmacionItemPedido(
+                                  idProducto: producto.idProducto
+                                  //widget.producto.idProducto
+                                  );
+                              //return DetalleProductitos(productosData: productosData);
+                            },
+                            transitionsBuilder:
+                                (context, animation, secondaryAnimation, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
                               );
-                          //return DetalleProductitos(productosData: productosData);
-                        },
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          return FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          );
-                        },
-                      ),
-                    );
+                            },
+                          ),
+                        );
+                      } else {
+                        utils.showToast(context, 'Por favor seleccione una marca');
+                      }
+                    } else {
+                      utils.showToast(context, 'Por favor seleccione un modelo');
+                    }
                   } else {
-                    utils.showToast(context, 'Por favor seleccione una marca');
+                    utils.showToast(context, 'Por favor seleccione una talla');
                   }
-                } else {
-                  utils.showToast(context, 'Por favor seleccione un modelo');
-                }
-              } else {
-                utils.showToast(context, 'Por favor seleccione una talla');
-              }
-            }),
-            Container(
-              width: responsive.wp(60),
-              padding: EdgeInsets.only(
-                bottom: responsive.hp(3),
-                top: responsive.hp(1),
-                left: responsive.wp(3),
-                right: responsive.wp(10),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.blue[600],
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.shopping_cart_outlined,
-                    color: Colors.white,
+                }),
+                Container(
+                  width: responsive.wp(60),
+                  padding: EdgeInsets.only(
+                    bottom: responsive.hp(3),
+                    top: responsive.hp(1),
+                    left: responsive.wp(3),
+                    right: responsive.wp(10),
                   ),
-                  Text(
-                    ' Agregar a la cesta',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: responsive.ip(1.8),
-                    ),
+                  decoration: BoxDecoration(
+                    color: Colors.blue[600],
                   ),
-                ],
-              ),
-            ).ripple(() async {
-              if (listProd[0].listTallaProd.length == 1) {
-                await cambiarEstadoTalla(context, listProd[0].listTallaProd[0]);
-              }
-              if (listProd[0].listMarcaProd.length == 1) {
-                await cambiarEstadoMarca(context, listProd[0].listMarcaProd[0]);
-              }
-              if (listProd[0].listModeloProd.length == 1) {
-                await cambiarEstadoModelo(
-                    context, listProd[0].listModeloProd[0]);
-              }
-
-              //Tallas
-              final tallaDatabase = TallaProductoDatabase();
-              final tallasSeleccionado = await tallaDatabase
-                  .obtenerTallaProductoPorIdProductoEnEstado1(
-                      producto.idProducto);
-
-              //modelo
-              final modeloDatabase = ModeloProductoDatabase();
-              final modelosSeleccionados = await modeloDatabase
-                  .obtenerModeloProductoPorIdProductoEnEstado1(
-                      producto.idProducto);
-              //Marca
-              final marcaDatabase = MarcaProductoDatabase();
-              final marcasSeleccionadas = await marcaDatabase
-                  .obtenerMarcaProductoPorIdProductoEnEstado1(
-                      producto.idProducto);
-
-              if (tallasSeleccionado.length > 0) {
-                if (modelosSeleccionados.length > 0) {
-                  if (marcasSeleccionadas.length > 0) {
-                    await agregarAlCarrito(
-                        context,
-                        producto.idProducto,
-                        tallasSeleccionado[0].tallaProducto,
-                        modelosSeleccionados[0].modeloProducto,
-                        marcasSeleccionadas[0].marcaProducto);
-
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        transitionDuration: const Duration(milliseconds: 300),
-                        pageBuilder: (context, animation, secondaryAnimation) {
-                          return DetalleCarrito(producto: producto);
-                          //return DetalleProductitos(productosData: productosData);
-                        },
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          return FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          );
-                        },
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.shopping_cart_outlined,
+                        color: Colors.white,
                       ),
-                    );
-                  } else {
-                    utils.showToast(context, 'Por favor seleccione una marca');
+                      Text(
+                        ' Agregar a la cesta',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: responsive.ip(1.8),
+                        ),
+                      ),
+                    ],
+                  ),
+                ).ripple(() async {
+                  if (listProd[0].listTallaProd.length == 1) {
+                    await cambiarEstadoTalla(context, listProd[0].listTallaProd[0]);
                   }
-                } else {
-                  utils.showToast(context, 'Por favor seleccione un modelo');
-                }
-              } else {
-                utils.showToast(context, 'Por favor seleccione una talla');
-              }
-            }),
-          ],
-        ),
-      ),
+                  if (listProd[0].listMarcaProd.length == 1) {
+                    await cambiarEstadoMarca(context, listProd[0].listMarcaProd[0]);
+                  }
+                  if (listProd[0].listModeloProd.length == 1) {
+                    await cambiarEstadoModelo(
+                        context, listProd[0].listModeloProd[0]);
+                  }
+
+                  //Tallas
+                  final tallaDatabase = TallaProductoDatabase();
+                  final tallasSeleccionado = await tallaDatabase
+                      .obtenerTallaProductoPorIdProductoEnEstado1(
+                          producto.idProducto);
+
+                  //modelo
+                  final modeloDatabase = ModeloProductoDatabase();
+                  final modelosSeleccionados = await modeloDatabase
+                      .obtenerModeloProductoPorIdProductoEnEstado1(
+                          producto.idProducto);
+                  //Marca
+                  final marcaDatabase = MarcaProductoDatabase();
+                  final marcasSeleccionadas = await marcaDatabase
+                      .obtenerMarcaProductoPorIdProductoEnEstado1(
+                          producto.idProducto);
+
+                  if (tallasSeleccionado.length > 0) {
+                    if (modelosSeleccionados.length > 0) {
+                      if (marcasSeleccionadas.length > 0) {
+                        await agregarAlCarrito(
+                            context,
+                            producto.idProducto,
+                            tallasSeleccionado[0].tallaProducto,
+                            modelosSeleccionados[0].modeloProducto,
+                            marcasSeleccionadas[0].marcaProducto);
+
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            opaque: false,
+                            transitionDuration: const Duration(milliseconds: 300),
+                            pageBuilder: (context, animation, secondaryAnimation) {
+                              return Agregarcarrito(urlImage: '$apiBaseURL/${listProd[0].listFotos[contadorBloc.pageContador].galeriaFoto}',);
+                              //return DetalleProductitos(productosData: productosData);
+                            },
+                            transitionsBuilder:
+                                (context, animation, secondaryAnimation, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            },
+                          ),
+                        );
+
+                        /*  Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            transitionDuration: const Duration(milliseconds: 300),
+                            pageBuilder: (context, animation, secondaryAnimation) {
+                              return DetalleCarrito(producto: producto);
+                              //return DetalleProductitos(productosData: productosData);
+                            },
+                            transitionsBuilder:
+                                (context, animation, secondaryAnimation, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            },
+                          ),
+                        ); */
+                      } else {
+                        utils.showToast(context, 'Por favor seleccione una marca');
+                      }
+                    } else {
+                      utils.showToast(context, 'Por favor seleccione un modelo');
+                    }
+                  } else {
+                    utils.showToast(context, 'Por favor seleccione una talla');
+                  }
+                }),
+              ],
+            ),
+          ),
+        );
+      }
     );
   }
 }

@@ -171,8 +171,8 @@ class _ProYSerPorItemSubcategoryPageState
                                   width: responsive.wp(2),
                                 ),
                                 Expanded(
-                                    child:
-                                        BusquedaProductoWidget(responsive: responsive)),
+                                    child: BusquedaProductoWidget(
+                                        responsive: responsive)),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -278,7 +278,7 @@ class _ProYSerPorItemSubcategoryPageState
         child: Row(
           children: [
             Container(
-              width: responsive.wp(40),
+              width: responsive.wp(30),
               height: responsive.hp(20),
               child: Stack(
                 children: [
@@ -295,7 +295,7 @@ class _ProYSerPorItemSubcategoryPageState
                       ),
                       imageUrl:
                           '$apiBaseURL/${data[index].subsidiaryServiceImage}',
-                      fit: BoxFit.fitWidth,
+                      fit: BoxFit.cover,
                       //'assets/producto.jpg'
                       //'$apiBaseURL/${data[index].subsidiaryGoodImage}'
                     ),
@@ -341,7 +341,7 @@ class _ProYSerPorItemSubcategoryPageState
             //SizedBox(height: 50),
             Container(
               //color: Colors.red,
-              width: responsive.wp(55),
+              width: responsive.wp(60),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -397,7 +397,7 @@ class _ProYSerPorItemSubcategoryPageState
         child: Row(
           children: [
             Container(
-              width: responsive.wp(40),
+              width: responsive.wp(30),
               height: responsive.hp(16),
               child: Stack(
                 children: [
@@ -441,7 +441,9 @@ class _ProYSerPorItemSubcategoryPageState
                     left: 0,
                     top: 0,
                     child: Container(
-                      padding: EdgeInsets.all(responsive.ip(.5)),
+                      padding: EdgeInsets.all(
+                        responsive.ip(.5),
+                      ),
                       color: Colors.red,
                       //double.infinity,
                       height: responsive.hp(3),
@@ -458,7 +460,7 @@ class _ProYSerPorItemSubcategoryPageState
               ),
             ),
             Container(
-              width: responsive.wp(55),
+              width: responsive.wp(60),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

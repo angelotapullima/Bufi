@@ -27,6 +27,8 @@ class DetalleSubsidiary extends StatelessWidget {
 
     final provider = Provider.of<DetailSubsidiaryBloc>(context, listen: false);
 
+     provider.changeToInformation();
+
     return Scaffold(
         body: SafeArea(
       child: Column(

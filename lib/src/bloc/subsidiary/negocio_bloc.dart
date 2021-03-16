@@ -1,3 +1,4 @@
+import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:flutter/material.dart';
 
 enum NegocioState { normal, scrool }
@@ -13,15 +14,30 @@ class NegociosBlocListener with ChangeNotifier {
   ValueNotifier<bool> _vistaFiltro = ValueNotifier(false);
   ValueNotifier<bool> get showFiltro => this._vistaFiltro;
 
-  NegociosBlocListener() {
+  BuildContext context;
+
+  NegociosBlocListener({this.context}) {
     _init();
   }
   void _init() {
     _controller.addListener(_listener);
+
   }
 
   void _listener() {
     print(controller.offset);
+
+
+    if (_controller.position.pixels == _controller.position.maxScrollExtent) {
+      print('pixels ${_controller.position.pixels}');
+      print('maxScrool ${_controller.position.maxScrollExtent}');
+      print('dentro');
+ 
+      final negociosBloc = ProviderBloc.negocios(context);
+      negociosBloc.listarnegocios();
+    }
+
+    
 
     if (controller.offset > 50) {
       changeToScrool();
@@ -43,14 +59,13 @@ class NegociosBlocListener with ChangeNotifier {
       } else {
         _vistaFiltro.value = true;
       }
-      _show.value=false;
-    }else{
-       if (_vistaFiltro.value) {
+      _show.value = false;
+    } else {
+      if (_vistaFiltro.value) {
         _vistaFiltro.value = false;
       } else {
         _vistaFiltro.value = true;
       }
-
     }
   }
 

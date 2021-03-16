@@ -13,7 +13,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rating_bar/rating_bar.dart';
 
-class DetalleSubsidiary extends StatelessWidget {
+class DetalleSubsidiary extends StatefulWidget {
   final String nombreSucursal;
   final String idSucursal;
   const DetalleSubsidiary(
@@ -21,13 +21,45 @@ class DetalleSubsidiary extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final productoBloc = ProviderBloc.productos(context);
-    productoBloc.listarProductosPorSucursal(idSucursal);
+  _DetalleSubsidiaryState createState() => _DetalleSubsidiaryState();
+}
 
+class _DetalleSubsidiaryState extends State<DetalleSubsidiary> {
+  ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => {
+          _scrollController.addListener(() {
+            if (_scrollController.position.pixels ==
+                _scrollController.position.maxScrollExtent) {
+              print('pixels ${_scrollController.position.pixels}');
+              print('maxScrool ${_scrollController.position.maxScrollExtent}');
+              print('dentro');
+
+              final productoBloc = ProviderBloc.productos(context);
+              productoBloc.listarProductosPorSucursal(widget.idSucursal);
+
+              final serviciosBloc = ProviderBloc.servi(context);
+              serviciosBloc.listarServiciosPorSucursal(widget.idSucursal);
+            }
+          })
+        });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final provider = Provider.of<DetailSubsidiaryBloc>(context, listen: false);
 
-     provider.changeToInformation();
+    provider.changeToInformation();
 
     return Scaffold(
         body: SafeArea(
@@ -35,9 +67,10 @@ class DetalleSubsidiary extends StatelessWidget {
         children: [
           Expanded(
             child: CustomScrollView(
+              controller: _scrollController,
               slivers: [
                 CebeceraItem(
-                  nombreSucursal: nombreSucursal,
+                  nombreSucursal: widget.nombreSucursal,
                 ),
                 SelectCategory(),
                 ValueListenableBuilder<PageDetailsSucursal>(
@@ -45,16 +78,16 @@ class DetalleSubsidiary extends StatelessWidget {
                     builder: (_, value, __) {
                       return (value == PageDetailsSucursal.productos)
                           ? GridviewProductoPorSucursal(
-                              idSucursal: idSucursal,
+                              idSucursal: widget.idSucursal,
                             )
                           : (value == PageDetailsSucursal.informacion)
                               ? InformacionWidget(
-                                  idSucursal: idSucursal,
+                                  idSucursal: widget.idSucursal,
                                 )
                               : (value == PageDetailsSucursal.servicios)
                                   ? GridviewServiciosPorSucursal(
-                                    idSucursal: idSucursal,
-                                  )
+                                      idSucursal: widget.idSucursal,
+                                    )
                                   : Container();
                     })
               ],
@@ -65,7 +98,6 @@ class DetalleSubsidiary extends StatelessWidget {
     ));
   }
 }
-
 
 class InformacionWidget extends StatelessWidget {
   final String idSucursal;

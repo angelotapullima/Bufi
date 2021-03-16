@@ -60,19 +60,51 @@ class ServiceApi {
   }
 
   Future<dynamic> listarServiciosPorSucursal(String id) async {
+
+
+    //funcion para obtener el producto con el id mas alto de la lista
+    final serviciosSucursal = await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursal(id);
+
+    double mayor = 0;
+    double mayor2 = 0;
+    double menor = 0;
+    if(serviciosSucursal.length>0){
+      for (var i = 0; i < serviciosSucursal.length; i++) {
+        if(double.parse(serviciosSucursal[i].idSubsidiaryservice) > mayor){
+          mayor = double.parse(serviciosSucursal[i].idSubsidiaryservice);
+          print('mayor $mayor');
+
+        }
+      }
+    }
+    mayor2= mayor;
+
+    if(serviciosSucursal.length>0){
+      for (var x = 0; x < serviciosSucursal.length; x++) {
+        if(double.parse(serviciosSucursal[x].idSubsidiaryservice) < mayor2){
+          menor = double.parse(serviciosSucursal[x].idSubsidiaryservice);
+          mayor2 = menor;
+          print('menor $menor');
+
+        }else{
+           menor = mayor2;
+        }
+      }
+    }
+
+
+
     final response = await http
         .post('$apiBaseURL/api/Negocio/listar_servicios_por_sucursal', body: {
       'id_sucursal': '$id',
+      'limite_sup':mayor.toString(),
+      'limite_inf':menor.toString()
     });
 
-    final decodedData = json.decode(response.body);
+    final decodedDataSimple = json.decode(response.body);
+    var decodedData = decodedDataSimple['results'];
 
     for (var i = 0; i < decodedData.length; i++) {
-      // //   final listsubsidiary = await subisdiaryServiceDatabase
-      // //       .obtenerServiciosPorIdSucursal(decodedData[i]['id_subsidiary']);
-
-      // //   if (listsubsidiary.length > 0) {
-      // //     //SubsidiaryServicesModel
       SubsidiaryServiceModel subsidiaryServiceModel = SubsidiaryServiceModel();
 
       subsidiaryServiceModel.idSubsidiaryservice =

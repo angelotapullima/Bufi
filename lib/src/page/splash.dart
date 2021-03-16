@@ -49,6 +49,9 @@ class _SplashState extends State<Splash> with AfterLayoutMixin {
 
     final responsive = Responsive.of(context);
 
+    final buttonBloc = ProviderBloc.tabs(context);
+    buttonBloc.changePage(0);
+
     final porcentajeBloc = ProviderBloc.porcentaje(context);
     return Scaffold(
       backgroundColor: InstagramColors.blue,

@@ -107,7 +107,9 @@ class CarrouselPrincipal extends StatelessWidget {
               },
             );
           },
-          onPageChanged: (int index) {}),
+          onPageChanged: (int index) {
+
+          }),
     );
   }
 }

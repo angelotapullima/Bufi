@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             create: (_) => ConfirmPedidoBloc(),
           ),
           ChangeNotifierProvider<NegociosBlocListener>(
-            create: (_) => NegociosBlocListener(),
+            create: (_) => NegociosBlocListener(context: context),
           ),
           //ChangeNotifierProvider<RegistroNegocioBlocListener>(create: (_) => RegistroNegocioBlocListener()),
           ChangeNotifierProvider<PointsBlocListener>(

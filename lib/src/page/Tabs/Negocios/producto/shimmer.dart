@@ -13,7 +13,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text('Shimmer'),
       ),
-      body: Column(
+      body: Column( 
         children: [
           ListTile(
               title: const Text('Loading List'),

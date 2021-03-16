@@ -15,10 +15,9 @@ class NegociosApi {
 
   Future<dynamic> obtenerCompany() async {
     try {
-      var response = await http
-          .post("$apiBaseURL/api/Negocio/listar_negocios_resumen", body: {
-        'id_ciudad': '1'
-      });
+      var response = await http.post(
+          "$apiBaseURL/api/Negocio/listar_negocios_resumen",
+          body: {'id_ciudad': '1'});
 
       final decodedData = json.decode(response.body);
 
@@ -257,16 +256,44 @@ class NegociosApi {
    */
   Future<dynamic> listarCompany() async {
     try {
-      var response =
-          await http.post("$apiBaseURL/api/Negocio/listar_negocios", body: {
-        'id_ciudad': '1',
-      });
+      //funcion para obtener el producto con el id mas alto de la lista
+      final companys = await companyDatabase.obtenerCompany();
+
+      double mayor = 0;
+      double mayor2 = 0;
+      double menor = 0;
+      if (companys.length > 0) {
+        for (var i = 0; i < companys.length; i++) {
+          if (double.parse(companys[i].idCompany) > mayor) {
+            mayor = double.parse(companys[i].idCompany);
+            print('mayor $mayor');
+          }
+        }
+      }
+      mayor2 = mayor;
+
+      if (companys.length > 0) {
+        for (var x = 0; x < companys.length; x++) {
+          if (double.parse(companys[x].idCompany) < mayor2) {
+            menor = double.parse(companys[x].idCompany);
+            mayor2 = menor;
+            print('menor $menor');
+          } else {
+            menor = mayor2;
+          }
+        }
+      }
+
+      var response = await http.post("$apiBaseURL/api/Negocio/listar_negocios",
+          body: {
+            'id_ciudad': '1',
+            'limite_sup': mayor.toString(),
+            'limite_inf': menor.toString()
+          });
 
       final decodedData = json.decode(response.body);
 
       for (int i = 0; i < decodedData['results'].length; i++) {
-        
-
         CompanyModel cmodel = CompanyModel();
 
         cmodel.idCompany = decodedData['results'][i]['id_company'];
@@ -277,13 +304,15 @@ class NegociosApi {
         cmodel.companyRuc = decodedData['results'][i]['company_ruc'];
         cmodel.companyImage = decodedData['results'][i]['company_image'];
         cmodel.companyType = decodedData['results'][i]['company_type'];
-        cmodel.companyShortcode = decodedData['results'][i]['company_shortcode'];
+        cmodel.companyShortcode =
+            decodedData['results'][i]['company_shortcode'];
         cmodel.companyDelivery = decodedData['results'][i]['company_delivery'];
         cmodel.companyEntrega = decodedData['results'][i]['company_entrega'];
         cmodel.companyTarjeta = decodedData['results'][i]['company_tarjeta'];
         cmodel.companyVerified = decodedData['results'][i]['company_verified'];
         cmodel.companyRating = decodedData['results'][i]['company_rating'];
-        cmodel.companyCreatedAt = decodedData['results'][i]['company_created_at'];
+        cmodel.companyCreatedAt =
+            decodedData['results'][i]['company_created_at'];
         cmodel.companyJoin = decodedData['results'][i]['company_join'];
         cmodel.companyStatus = decodedData['results'][i]['company_status'];
         cmodel.companyMt = decodedData['results'][i]['company_mt'];
@@ -295,17 +324,23 @@ class NegociosApi {
         smodel.idCompany = decodedData['results'][i]['id_company'];
         smodel.idSubsidiary = decodedData['results'][i]['id_subsidiary'];
         smodel.subsidiaryName = decodedData['results'][i]['subsidiary_name'];
-        smodel.subsidiaryCellphone = decodedData['results'][i]['subsidiary_cellphone'];
+        smodel.subsidiaryCellphone =
+            decodedData['results'][i]['subsidiary_cellphone'];
         smodel.subsidiaryCellphone =
             decodedData['results'][i]['id_subsidiary_cellphone_2'];
         smodel.subsidiaryEmail = decodedData['results'][i]['subsidiary_email'];
-        smodel.subsidiaryCoordX = decodedData['results'][i]['subsidiary_coord_x'];
-        smodel.subsidiaryCoordY = decodedData['results'][i]['subsidiary_coord_y'];
+        smodel.subsidiaryCoordX =
+            decodedData['results'][i]['subsidiary_coord_x'];
+        smodel.subsidiaryCoordY =
+            decodedData['results'][i]['subsidiary_coord_y'];
         smodel.subsidiaryOpeningHours =
             decodedData['results'][i]['subsidiary_opening_hours'];
-        smodel.subsidiaryPrincipal = decodedData['results'][i]['subsidiary_principal'];
-        smodel.subsidiaryStatus = decodedData['results'][i]['subsidiary_status'];
-        smodel.subsidiaryAddress = decodedData['results'][i]['subsidiary_address'];
+        smodel.subsidiaryPrincipal =
+            decodedData['results'][i]['subsidiary_principal'];
+        smodel.subsidiaryStatus =
+            decodedData['results'][i]['subsidiary_status'];
+        smodel.subsidiaryAddress =
+            decodedData['results'][i]['subsidiary_address'];
         await subsidiaryDatabase.insertarSubsidiary(smodel);
 
         // final listCompany = await companyDatabase
@@ -480,7 +515,7 @@ class NegociosApi {
       });
 
       final decodedData = json.decode(response.body);
-      
+
       CompanyModel cmodel = CompanyModel();
       cmodel.idCompany = decodedData['id_company'];
       cmodel.idUser = decodedData['id_user'];

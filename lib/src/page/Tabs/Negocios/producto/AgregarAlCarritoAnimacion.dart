@@ -22,7 +22,9 @@ class _AgregarcarritoState extends State<Agregarcarrito>
   @override
   void initState() {
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 2000));
+      vsync: this,
+      duration: const Duration(milliseconds: 2000),
+    );
 
     _animationButton1 = Tween(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(
@@ -49,10 +51,8 @@ class _AgregarcarritoState extends State<Agregarcarrito>
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        final buttonBloc = ProviderBloc.tabs(context);
-        buttonBloc.changePage(2);
-        Navigator.pop(context);
-        Navigator.pop(context);
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
       }
     });
     super.initState();
@@ -67,13 +67,20 @@ class _AgregarcarritoState extends State<Agregarcarrito>
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
+
+    final buttonBloc = ProviderBloc.tabs(context);
+    buttonBloc.changePage(2);
+
     return Material(
       color: Colors.transparent,
       child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
-            final buttonSize = (responsive.wp(30) * _animationButton1.value)
-                .clamp(responsive.ip(6), responsive.wp(30));
+            final buttonSize =
+                (responsive.wp(30) * _animationButton1.value).clamp(
+              responsive.ip(6),
+              responsive.wp(30),
+            );
             return Stack(
               fit: StackFit.expand,
               children: [
@@ -100,11 +107,16 @@ class _AgregarcarritoState extends State<Agregarcarrito>
                                   responsive.hp(43.9)),
                           left: responsive.wp(50) -
                               (responsive.wp(100) * _animationButton1.value)
-                                      .clamp(responsive.ip(6),
-                                          responsive.wp(100)) /
+                                      .clamp(
+                                    responsive.ip(6),
+                                    responsive.wp(100),
+                                  ) /
                                   2,
                           width: (responsive.wp(100) * _animationButton1.value)
-                              .clamp(responsive.ip(6), responsive.wp(100)),
+                              .clamp(
+                            responsive.ip(6),
+                            responsive.wp(100),
+                          ),
                           child: buildPanel(responsive),
                         ),
                       Positioned(
@@ -138,7 +150,8 @@ class _AgregarcarritoState extends State<Agregarcarrito>
                                 responsive.wp(30),
                               ),
                               padding: EdgeInsets.symmetric(
-                                  vertical: responsive.hp(.5)),
+                                vertical: responsive.hp(.5),
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.black,
                                 borderRadius:

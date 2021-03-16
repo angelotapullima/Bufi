@@ -59,7 +59,7 @@ class _NegociosPageState extends State<NegociosPage> {
                                               fontSize: responsive.ip(2.5),
                                               fontWeight: FontWeight.w700),
                                         ),
-                                      );
+                                      ); 
                               },
                             ),
                             Expanded(

@@ -25,7 +25,7 @@ class ItemCategoriaBloc {
   void dispose() {
     _itemcontroller?.close(); 
     _cargandoItems?.close(); 
-  }
+  } 
 
   void listarBienesServiciosXIdItemSubcategoria(String id) async {
     _itemcontroller.sink.add(await bienesServiciosPorIdItemSubcategoria(id));

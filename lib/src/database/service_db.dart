@@ -38,6 +38,20 @@ class ServiceDatabase{
     }
   }
 
+Future<List<ServiciosModel>> obtenerServicePorIdService(String idService) async {
 
+    try{
+    final db = await dbProvider.database;
+    final res = await db.rawQuery("SELECT * FROM Service where id_service= '$idService'");
+
+    List<ServiciosModel> list =
+        res.isNotEmpty ? res.map((c) => ServiciosModel.fromJson(c)).toList() : [];
+    return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
+  }
 
 }

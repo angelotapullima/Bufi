@@ -1,7 +1,7 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:bufi/src/widgets/busquedas/widget/widgetBusqServicio.dart';
+import 'package:bufi/src/widgets/busquedas/widgetBusqServicio.dart';
 import 'package:bufi/src/widgets/widgetServicios.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

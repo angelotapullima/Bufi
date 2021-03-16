@@ -70,9 +70,11 @@ class BusquedaServicioModel {
 
 class BusquedaNegocioModel {
   BusquedaNegocioModel(
-      {this.listCompany, this.listSucursal, this.listCompanySubsidiary, this.listCategory});
-  List<CompanyModel> listCompany;
-  List<SubsidiaryModel> listSucursal;
+      {
+        // this.listCompany, this.listSucursal, 
+        this.listCompanySubsidiary, this.listCategory});
+  // List<CompanyModel> listCompany;
+  // List<SubsidiaryModel> listSucursal;
    List<CompanySubsidiaryModel> listCompanySubsidiary;
   List<CategoriaModel> listCategory;
 }

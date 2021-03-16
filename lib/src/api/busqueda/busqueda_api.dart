@@ -8,7 +8,6 @@ import 'package:bufi/src/database/service_db.dart';
 import 'package:bufi/src/database/subcategory_db.dart';
 import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
-import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/models/companyModel.dart';

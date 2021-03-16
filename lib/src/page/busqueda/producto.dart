@@ -1,4 +1,4 @@
-import 'package:bufi/src/bloc/busquedaBloc.dart';
+import 'package:bufi/src/bloc/busqueda/busquedaBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
@@ -113,4 +113,55 @@ class BusquedaProductosPage extends SearchDelegate {
       },
     );
   }
+
+//  StreamBuilder<List<ProductoModel>> streamProducto2(
+//       BusquedaBloc busquedaBloc) {
+//     return StreamBuilder(
+//       stream: busquedaBloc.busquedaProductoStream2,
+//       builder: (BuildContext context,
+//           AsyncSnapshot<List<ProductoModel>> snapshot) {
+//         final listProducto = snapshot.data;
+//         if (snapshot.hasData) {
+//           if (snapshot.data.length > 0) {
+            
+//                 return ListView.builder(
+//                     shrinkWrap: true,
+//                     itemCount: listProducto.length,
+//                     itemBuilder: (BuildContext context, int i) {
+//                       return ListTile(
+//                         leading: FadeInImage(
+//                           placeholder: AssetImage('assets/no-image.png'),
+//                           image: NetworkImage(
+//                             '$apiBaseURL/${listProducto[i].productoImage}',
+//                           ),
+//                           width: 50,
+//                           fit: BoxFit.contain,
+//                         ),
+//                         title: Text(
+//                             '${listProducto[i].productoName}'),
+//                         subtitle: Text(
+//                             '${listProducto[i].productoCurrency}'),
+//                         onTap: () {
+//                           close(context, null);
+
+//                           Navigator.push(
+//                               context,
+//                               MaterialPageRoute(
+//                                   builder: (context) => DetalleProductos(
+//                                         producto: listProducto[i],
+//                                       )));
+//                         },
+//                       );
+//                     });
+              
+//           } else {
+//             return Text("No hay resultados para la búsqueda");
+//           }
+//         } else {
+//           return Center(child: CupertinoActivityIndicator());
+//         }
+//       },
+//     );
+//   }
+
 }

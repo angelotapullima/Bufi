@@ -2,8 +2,8 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:bufi/src/widgets/busquedas/widget/widgetBusqProduct.dart';
 import 'package:bufi/src/widgets/widgetBienes.dart';
+import 'package:bufi/src/widgets/widgetBusquedas/widgetBusqProduct.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -2,7 +2,7 @@ import 'package:bufi/src/bloc/Pedido/Pedido_bloc.dart';
 import 'package:bufi/src/bloc/agentes_bloc.dart';
 import 'package:bufi/src/bloc/bienesServicios_bloc.dart';
 import 'package:bufi/src/bloc/bottom_navigation_bloc.dart';
-import 'package:bufi/src/bloc/busquedaBloc.dart';
+import 'package:bufi/src/bloc/busqueda/busquedaBloc.dart';
 import 'package:bufi/src/bloc/carrito_bloc.dart';
 import 'package:bufi/src/bloc/categoriaPrincipal/categoria_bloc.dart';
 import 'package:bufi/src/bloc/categoriaPrincipal/itemCategBloc.dart';

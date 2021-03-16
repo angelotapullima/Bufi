@@ -3,8 +3,9 @@ import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
+import 'package:bufi/src/widgets/busquedas/widgetBusqItemSubcategoria.dart';
 import 'package:bufi/src/widgets/widgetBienes.dart';
-import 'package:bufi/src/widgets/widgetBusquedas/widgetBusqProduct.dart';
+import 'package:bufi/src/widgets/busquedas/widgetBusqProduct.dart';
 import 'package:bufi/src/widgets/widgetServicios.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -171,7 +172,7 @@ class _ProYSerPorItemSubcategoryPageState
                                   width: responsive.wp(2),
                                 ),
                                 Expanded(
-                                    child: BusquedaProductoWidget(
+                                    child: BusquedaItemSubcategoriaWidget(
                                         responsive: responsive)),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,

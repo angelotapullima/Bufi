@@ -33,6 +33,20 @@ class CategoryDatabase {
       return [];
     }
   }
+  Future<List<CategoriaModel>> obtenerCategoriaPorIdCateg(String idCategoria) async {
+    try{
+    final db = await dbProvider.database;
+    final res = await db.rawQuery("SELECT * FROM Category WHERE id_category='$idCategoria'");
+
+    List<CategoriaModel> list =
+        res.isNotEmpty ? res.map((c) => CategoriaModel.fromJson(c)).toList() : [];
+    return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e); 
+      return [];
+    }
+  }
 
   //Actualizar Negocio
   Future<List<CategoriaModel>> obtenerCategoriasporNombre(String nombrecateg) async {
@@ -67,8 +81,22 @@ class CategoryDatabase {
     }
   }
 
-  
-  
+  //Se utiliza para la busqueda
+  Future<List<CategoriaModel>> consultarCategoriaPorQuery(String query) async {
+    try{
+    final db = await dbProvider.database;
+    final res = await db.rawQuery(
+        "SELECT * FROM Category WHERE category_name LIKE '%$query%'");
 
+    List<CategoriaModel> list = res.isNotEmpty
+        ? res.map((c) => CategoriaModel.fromJson(c)).toList()
+        : [];
+
+    return list;} catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
+  }
   
 }

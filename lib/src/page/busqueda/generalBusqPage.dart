@@ -34,11 +34,11 @@ class BusquedaGeneral extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     //Resultados que se mostraran una vez realizada la busqueda
     //return Container(child: Text("resultados"),);
-    final busquedaBloc = ProviderBloc.busqueda(context);
-    busquedaBloc.obtenerResultadosBusquedaPorQuery('$query');
+    final busquedaGeneralBloc = ProviderBloc.busquedaGeneral(context);
+    busquedaGeneralBloc.obtenerResultadosBusquedaPorQuery('$query');
     //Container(child: Text("Resultados"));
     return StreamBuilder(
-      stream: busquedaBloc.busquedaGeneralStream,
+      stream: busquedaGeneralBloc.busquedaGeneralStream,
       builder: (BuildContext context,
           AsyncSnapshot<List<BusquedaGeneralModel>> snapshot) {
         if (snapshot.hasData) {
@@ -97,15 +97,15 @@ class BusquedaGeneral extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) {
     //Sugerencias de busqueda
 
-    final busquedaBloc = ProviderBloc.busqueda(context);
-    busquedaBloc.obtenerResultadosBusquedaPorQuery('$query');
+    final busquedaGeneralBloc = ProviderBloc.busquedaGeneral(context);
+    busquedaGeneralBloc.obtenerResultadosBusquedaPorQuery('$query');
     if (query.isEmpty) {
       return Container(
         child: Text("Ingrese una palabra para realizar la búsqueda"),
       );
     } else {
       return StreamBuilder(
-        stream: busquedaBloc.busquedaGeneralStream,
+        stream: busquedaGeneralBloc.busquedaGeneralStream,
         builder: (BuildContext context,
             AsyncSnapshot<List<BusquedaGeneralModel>> snapshot) {
           if (snapshot.hasData) {

@@ -1,6 +1,6 @@
 
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:bufi/src/page/busqueda/negocio.dart';
+import 'package:bufi/src/page/busqueda/negocioBusqPage.dart';
 import 'package:flutter/material.dart';
 
 

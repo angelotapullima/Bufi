@@ -3,6 +3,7 @@ import 'package:bufi/src/bloc/agentes_bloc.dart';
 import 'package:bufi/src/bloc/bienesServicios_bloc.dart';
 import 'package:bufi/src/bloc/bottom_navigation_bloc.dart';
 import 'package:bufi/src/bloc/busqueda/busquedaBloc.dart';
+import 'package:bufi/src/bloc/busqueda/busquedaGeneral_bloc.dart';
 import 'package:bufi/src/bloc/carrito_bloc.dart';
 import 'package:bufi/src/bloc/categoriaPrincipal/categoria_bloc.dart';
 import 'package:bufi/src/bloc/categoriaPrincipal/itemCategBloc.dart';
@@ -25,6 +26,7 @@ import 'package:bufi/src/bloc/subsidiary/registrarSubsidiary_bloc.dart';
 import 'package:bufi/src/bloc/subsidiary/sucursal_bloc.dart';
 import 'package:bufi/src/bloc/sugerenciaBusquedaBloc.dart';
 import 'package:bufi/src/bloc/tipos_pago_bloc.dart';
+import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:flutter/material.dart';
 
 class ProviderBloc extends InheritedWidget {
@@ -45,8 +47,7 @@ class ProviderBloc extends InheritedWidget {
   final carritoBloc = CarritoBloc();
   final naviCategBloc = CategoriasNaviBloc();
   final bottomNaviBloc = BottomNaviBloc();
-  final busquedaBloc = BusquedaBloc();
-  //final itemSubcategoriaBloc = ItemSubcategoriaBloc();
+    //final itemSubcategoriaBloc = ItemSubcategoriaBloc();
   final subcategoriaGeneralBloc = SubCategoriaGeneralBloc();
   final itemSubcategBloc = ItemCategoriaBloc();
   final sugerenciaBusquedaBloc = SugerenciaBusquedaBloc();
@@ -60,6 +61,8 @@ class ProviderBloc extends InheritedWidget {
   final datosProductosBloc = DatosProductoBloc();
   final publicidadBloc = PublicidadBloc();
   final agentesdBloc = AgentesBloc();
+  final busquedaBloc = BusquedaBloc();
+  final busquedaGeneralBloc = BusquedaGeneralBloc();
 
 
   factory ProviderBloc({Key key, Widget child}) {
@@ -235,5 +238,10 @@ class ProviderBloc extends InheritedWidget {
   static AgentesBloc agentes(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .agentesdBloc;
+  }
+
+  static BusquedaGeneralBloc busquedaGeneral(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .busquedaGeneralBloc;
   }
 }

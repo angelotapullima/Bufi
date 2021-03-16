@@ -79,6 +79,17 @@ class BusquedaNegocioModel {
   List<CategoriaModel> listCategory;
 }
 
+class BusquedaCategoriaModel {
+  BusquedaCategoriaModel(
+      {
+         this.listCompany, this.listSucursal, 
+        this.listCompanySubsidiary, this.listCategory
+        });
+  List<CompanyModel> listCompany;
+  List<SubsidiaryModel> listSucursal;
+   List<CompanySubsidiaryModel> listCompanySubsidiary;
+  List<CategoriaModel> listCategory;
+}
 
 
 //---------------------Por sucursal-----------------

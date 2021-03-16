@@ -106,10 +106,10 @@ class NegociosBloc {
   }
 
   void obtenernegociosporID(String id) async {
-    detalleNegocioController.sink .add(await negociosDatabase.obtenerCompanyPorId(id));
+    detalleNegocioController.sink .add(await negociosDatabase.obtenerCompanyPorIdCompany(id));
     await negociosApi.obtenerNegocioPorId(id);
 
-    detalleNegocioController.sink .add(await negociosDatabase.obtenerCompanyPorId(id));
+    detalleNegocioController.sink .add(await negociosDatabase.obtenerCompanyPorIdCompany(id));
   }
 
 }

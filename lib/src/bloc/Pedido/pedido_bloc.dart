@@ -128,7 +128,7 @@ class PedidoBloc {
 
       //funcion que llama desde la bd a todas las sucursales y compañías
       final listCompany =
-          await companyDb.obtenerCompanyPorId(listPedidos[i].idCompany);
+          await companyDb.obtenerCompanyPorIdCompany(listPedidos[i].idCompany);
       final listSucursal = await subsidiaryDb.obtenerSubsidiaryPorId(listPedidos[i].idSubsidiary);
       final listCompsucursalModel = List<CompanySubsidiaryModel>();
 
@@ -263,7 +263,7 @@ class PedidoBloc {
 
       //funcion que llama desde la bd a todas las sucursales y compañías
       final listCompany =
-          await companyDb.obtenerCompanyPorId(listPedidos[i].idCompany);
+          await companyDb.obtenerCompanyPorIdCompany(listPedidos[i].idCompany);
       final listSucursal = await subsidiaryDb
           .obtenerSubsidiaryPorId(listPedidos[i].idSubsidiary);
       final listCompsucursalModel = List<CompanySubsidiaryModel>();

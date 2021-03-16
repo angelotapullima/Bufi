@@ -85,7 +85,7 @@ class CompanyDatabase {
     return list;
   } */
 
-  Future<List<CompanyModel>> obtenerCompanyPorId(String idCompany) async {
+  Future<List<CompanyModel>> obtenerCompanyPorIdCompany(String idCompany) async {
     try{
     final db = await dbProvider.database;
     final res = await db

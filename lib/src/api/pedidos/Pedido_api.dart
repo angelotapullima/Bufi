@@ -135,7 +135,7 @@ class PedidoApi {
 
       //Obtener la lista de Company
       final listCompany = await companyDb
-          .obtenerCompanyPorId(decodedData["result"][i]['id_company']);
+          .obtenerCompanyPorIdCompany(decodedData["result"][i]['id_company']);
 
       if (listCompany.length > 0) {
         companyModel.miNegocio = listCompany[0].miNegocio;

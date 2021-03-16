@@ -1,6 +1,7 @@
 import 'package:bufi/src/bloc/busquedaBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
+import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -64,8 +65,8 @@ class BusquedaProductosPage extends SearchDelegate {
       stream: busquedaBloc.busquedaProductoStream,
       builder: (BuildContext context,
           AsyncSnapshot<List<BusquedaProductoModel>> snapshot) {
+        final resultBusqueda = snapshot.data;
         if (snapshot.hasData) {
-          final resultBusqueda = snapshot.data;
           if (snapshot.data.length > 0) {
             return ListView.builder(
               shrinkWrap: true,

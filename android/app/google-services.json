@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "353606365624",
+    "project_id": "bufi-db3c3",
+    "storage_bucket": "bufi-db3c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353606365624:android:ed7e795a61dc1f27a7df4d",
+        "android_client_info": {
+          "package_name": "com.bufeotec.bufiApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "353606365624-d3ebp3d4i5h3f7anj4mmlivagjsorhj9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bufeotec.bufiApp",
+            "certificate_hash": "87a2f2031027ac8bd0bf1da626c04ff85c57b1d8"
+          }
+        },
+        {
+          "client_id": "353606365624-mesf2amm6cqoj8nt145ee2lv1kc8rhqv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx1FHJ85C9GZMBR7-xT70zej8YLYtBYI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "353606365624-mesf2amm6cqoj8nt145ee2lv1kc8rhqv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "353606365624-cqhn5esfehgrvkmj0idq7o2oevg5vth4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bufeotec.bufiApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

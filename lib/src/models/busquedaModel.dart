@@ -10,14 +10,16 @@ import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 
 class BusquedaGeneralModel {
-  BusquedaGeneralModel({this.listBienes,
-    this.listProducto,
-    this.listSucursal,
-    this.listCompany,
-    this.listCategory,
-    this.listSubcategory,
-    this.listItemSubCateg,
-    this.listService, this.listServicios});
+  BusquedaGeneralModel(
+      {this.listBienes,
+      this.listProducto,
+      this.listSucursal,
+      this.listCompany,
+      this.listCategory,
+      this.listSubcategory,
+      this.listItemSubCateg,
+      this.listService,
+      this.listServicios});
   List<BienesModel> listBienes;
   List<ProductoModel> listProducto;
   List<SubsidiaryModel> listSucursal;
@@ -71,15 +73,43 @@ class BusquedaServicioModel {
 class BusquedaNegocioModel {
   BusquedaNegocioModel(
       {
-        // this.listCompany, this.listSucursal, 
-        this.listCompanySubsidiary, this.listCategory});
+      // this.listCompany, this.listSucursal,
+      this.listCompanySubsidiary,
+      this.listCategory});
   // List<CompanyModel> listCompany;
   // List<SubsidiaryModel> listSucursal;
-   List<CompanySubsidiaryModel> listCompanySubsidiary;
+  List<CompanySubsidiaryModel> listCompanySubsidiary;
   List<CategoriaModel> listCategory;
 }
 
+class BusquedaCategoriaModel {
+  BusquedaCategoriaModel({
+    // this.listCompany, this.listSucursal,
+    this.listCompanySubsidiary,
+    // this.listCategory
+  });
+  // List<CompanyModel> listCompany;
+  // List<SubsidiaryModel> listSucursal;
+  List<CompanySubsidiaryModel> listCompanySubsidiary;
+  //List<CategoriaModel> listCategory;
+}
 
+class BusquedaSubcategoriaModel {
+  BusquedaSubcategoriaModel(
+      {this.listCompany,
+      this.listSucursal,
+      this.listCompanySubsidiary,
+      this.listCategory});
+  List<CompanyModel> listCompany;
+  List<SubsidiaryModel> listSucursal;
+  List<CompanySubsidiaryModel> listCompanySubsidiary;
+  List<CategoriaModel> listCategory;
+}
+
+class BusquedaItemSubcategoriaModel {
+  BusquedaItemSubcategoriaModel({this.listProducto});
+  List<ProductoModel> listProducto;
+}
 
 //---------------------Por sucursal-----------------
 class BusquedaProductoPorSucursalModel {

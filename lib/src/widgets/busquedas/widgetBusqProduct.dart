@@ -1,5 +1,5 @@
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:bufi/src/page/busqueda/producto.dart';
+import 'package:bufi/src/page/busqueda/productoBusqPage.dart';
 import 'package:flutter/material.dart';
 
 class BusquedaProductoWidget extends StatelessWidget {

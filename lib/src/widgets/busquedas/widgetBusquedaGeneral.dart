@@ -1,4 +1,4 @@
-import 'package:bufi/src/page/busqueda/general.dart';
+import 'package:bufi/src/page/busqueda/generalBusqPage.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:flutter/material.dart';
 

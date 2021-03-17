@@ -34,44 +34,46 @@ class BusquedaBloc {
   final categoriaDb = CategoryDatabase();
   final itemSubcategoriaDb = ItemsubCategoryDatabase();
 
-  final busquedaGeneralController =
-      BehaviorSubject<List<BusquedaGeneralModel>>();
-
-  Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream =>
-      busquedaGeneralController.stream;
-
   final busquedaProductoController =
       BehaviorSubject<List<BusquedaProductoModel>>();
- 
+
   final busquedaServicioController =
       BehaviorSubject<List<BusquedaServicioModel>>();
   final busquedaNegocioController =
       BehaviorSubject<List<BusquedaNegocioModel>>();
-  
+
+  final busquedaCategoriaController =
+      BehaviorSubject<List<BusquedaCategoriaModel>>();
+  final busquedaSubcategController =
+      BehaviorSubject<List<BusquedaNegocioModel>>();
+
+  final busquedaItemSubcategController =
+      BehaviorSubject<List<BusquedaItemSubcategoriaModel>>();
+
   Stream<List<BusquedaProductoModel>> get busquedaProductoStream =>
       busquedaProductoController.stream;
-   Stream<List<BusquedaServicioModel>> get busquedaServicioStream =>
+  Stream<List<BusquedaServicioModel>> get busquedaServicioStream =>
       busquedaServicioController.stream;
   Stream<List<BusquedaNegocioModel>> get busquedaNegocioStream =>
       busquedaNegocioController.stream;
+  Stream<List<BusquedaCategoriaModel>> get busquedaCategoriaStream =>
+      busquedaCategoriaController.stream;
+  Stream<List<BusquedaServicioModel>> get busquedaSubcategoriaStream =>
+      busquedaServicioController.stream;
+  Stream<List<BusquedaItemSubcategoriaModel>>
+      get busquedaItemSubcategoriaStream =>
+          busquedaItemSubcategController.stream;
 
   void dispose() {
-    busquedaGeneralController?.close();
     busquedaProductoController?.close();
     busquedaServicioController?.close();
     busquedaNegocioController?.close();
+    busquedaCategoriaController?.close();
+    busquedaSubcategController?.close();
+    busquedaItemSubcategController?.close();
   }
 
-//Para la busqueda General
-  void obtenerResultadosBusquedaPorQuery(String query) async {
-    // bienesBusquedaController.sink
-    //     .add(await productoDatabase.consultarProductoPorQuery('$query'));
-    busquedaGeneralController.sink
-        .add(await busquedaApi.busquedaGeneral(query));
-    // bienesBusquedaController.sink
-    //     .add(await productoDatabase.consultarProductoPorQuery('$query'));
-  }
-
+//Producto
   void obtenerBusquedaProducto(String query) async {
     busquedaProductoController.sink
         .add(await obtnerResultBusquedaProducto(query));
@@ -81,27 +83,46 @@ class BusquedaBloc {
     // busquedaProductoController.sink
     //     .add(await obtnerResultBusquedaProducto(query));
   }
-  
 
+//Servicio
   void obtenerBusquedaServicio(String query) async {
     busquedaServicioController.sink
         .add(await obtnerResultBusquedaServicio(query));
   }
 
+//Negocio
   void obtenerBusquedaNegocio(String query) async {
     busquedaNegocioController.sink
         .add(await obtnerResultBusquedaNegocio(query));
   }
 
+  //Categoria
+  void obtenerBusquedaCategoria(String query) async {
+    busquedaCategoriaController.sink
+        .add(await obtnerResultBusquedaCategoria(query));
+  }
+
+  //SubcategoriaCategoria
+  void obtenerBusquedaSubcategoria(String query) async {
+    busquedaCategoriaController.sink
+        .add(await obtnerResultBusquedaCategoria(query));
+  }
+
+  //SubcategoriaCategoria
+  void obtenerBusquedaItemSubcategoria(String query) async {
+    busquedaItemSubcategController.sink
+        .add(await obtnerResultBusquedaItemSubcategoria(query));
+  }
+
   Future<List<BusquedaProductoModel>> obtnerResultBusquedaProducto(
       String query) async {
     List<BusquedaProductoModel> listaGeneral = List<BusquedaProductoModel>();
-    final listaGeneralModel = BusquedaProductoModel();
+    final busquedaProductoModel = BusquedaProductoModel();
     final listProductos = await productoDb.consultarProductoPorQuery(query);
     final listProductoModel = List<ProductoModel>();
 
     for (var i = 0; i < listProductos.length; i++) {
-          final productoModel = ProductoModel();
+      final productoModel = ProductoModel();
       productoModel.idProducto = listProductos[i].idProducto;
       productoModel.idSubsidiary = listProductos[i].idSubsidiary;
       productoModel.idGood = listProductos[i].idGood;
@@ -254,51 +275,17 @@ class BusquedaBloc {
         listItemsubcategModel.add(itemSubcategoriaModel);
       }
 
-      listaGeneralModel.listProducto = listProductoModel;
-      listaGeneralModel.listBienes = listBienesModel;
-      listaGeneralModel.listSucursal = listSucursalModel;
-      listaGeneralModel.listCompany = listcompanyModel;
-      listaGeneralModel.listCategory = listcategModel;
-      listaGeneralModel.listSubcategory = listsubcategModel;
-      listaGeneralModel.listItemSubCateg = listItemsubcategModel;
+      busquedaProductoModel.listProducto = listProductoModel;
+      busquedaProductoModel.listBienes = listBienesModel;
+      busquedaProductoModel.listSucursal = listSucursalModel;
+      busquedaProductoModel.listCompany = listcompanyModel;
+      busquedaProductoModel.listCategory = listcategModel;
+      busquedaProductoModel.listSubcategory = listsubcategModel;
+      busquedaProductoModel.listItemSubCateg = listItemsubcategModel;
 
-      listaGeneral.add(listaGeneralModel);
+      listaGeneral.add(busquedaProductoModel);
     }
 
-    return listaGeneral;
-  }
-
-  Future<List<ProductoModel>> obtnerResultBusquedaProducto2(
-      String query) async {
-    List<ProductoModel> listaGeneral = List<ProductoModel>();
-
-    final listProductos = await productoDb.consultarProductoPorQuery(query);
-
-    //Recorremos la lista general
-    for (var i = 0; i < listProductos.length; i++) {
-      final productoModel = ProductoModel();
-      productoModel.idProducto = listProductos[i].idProducto;
-      productoModel.idSubsidiary = listProductos[i].idSubsidiary;
-      productoModel.idGood = listProductos[i].idGood;
-      productoModel.idItemsubcategory = listProductos[i].idItemsubcategory;
-      productoModel.productoName = listProductos[i].productoName;
-      productoModel.productoPrice = listProductos[i].productoPrice;
-      productoModel.productoCurrency = listProductos[i].productoCurrency;
-      productoModel.productoImage = listProductos[i].productoImage;
-      productoModel.productoCharacteristics =
-          listProductos[i].productoCharacteristics;
-      productoModel.productoBrand = listProductos[i].productoBrand;
-      productoModel.productoModel = listProductos[i].productoModel;
-      productoModel.productoType = listProductos[i].productoType;
-      productoModel.productoSize = listProductos[i].productoSize;
-      productoModel.productoMeasure = listProductos[i].productoMeasure;
-      productoModel.productoStock = listProductos[i].productoStock;
-      productoModel.productoRating = listProductos[i].productoRating;
-      productoModel.productoUpdated = listProductos[i].productoUpdated;
-      productoModel.productoStatus = listProductos[i].productoStatus;
-
-      listaGeneral.add(productoModel);
-    }
     return listaGeneral;
   }
 
@@ -574,6 +561,119 @@ class BusquedaBloc {
 
       listaGeneral.add(busquedaNegocioModel);
     }
+    return listaGeneral;
+  }
+
+  Future<List<BusquedaCategoriaModel>> obtnerResultBusquedaCategoria(
+      String query) async {
+    List<BusquedaCategoriaModel> listaGeneral = List<BusquedaCategoriaModel>();
+    final busquedaCategoriaModel = BusquedaCategoriaModel();
+
+    //Primero obtenemos el id de la categoria por medio del nombreCateg para asociarlo a la tabla Company
+    final listCateg = await categoriaDb.consultarCategoriaPorQuery(query);
+    //Lista vacia para guardar ids
+    final listIdCategoria = List<String>();
+    for (var x = 0; x < listCateg.length; x++) {
+      var idsCategoria = listCateg[x].idCategory;
+      listIdCategoria.add(idsCategoria);
+    }
+
+    for (var j = 0; j < listIdCategoria.length; j++) {
+      //función para obtener los datos de la compañia por idCategory
+      final listCompany = await companyDb
+          .consultarCompanyPorIdCategoria(listCateg[j].idCategory);
+      //lista vacía
+      final listCompanySubModel = List<CompanySubsidiaryModel>();
+
+      //Recorremos la lista general
+      for (var i = 0; i < listCompany.length; i++) {
+        final companySubsidiaryModel = CompanySubsidiaryModel();
+
+        companySubsidiaryModel.idCompany = listCompany[i].idCompany;
+        companySubsidiaryModel.idCategory = listCompany[i].idCategory;
+        companySubsidiaryModel.companyName = listCompany[i].companyName;
+        companySubsidiaryModel.companyRuc = listCompany[i].companyRuc;
+        companySubsidiaryModel.companyImage = listCompany[i].companyImage;
+        companySubsidiaryModel.companyType = listCompany[i].companyType;
+        companySubsidiaryModel.companyShortcode =
+            listCompany[i].companyShortcode;
+        companySubsidiaryModel.companyDelivery = listCompany[i].companyDelivery;
+        companySubsidiaryModel.companyEntrega = listCompany[i].companyEntrega;
+        companySubsidiaryModel.companyTarjeta = listCompany[i].companyTarjeta;
+        companySubsidiaryModel.idUser = listCompany[i].idUser;
+        companySubsidiaryModel.idCity = listCompany[i].idCity;
+        companySubsidiaryModel.idCategory = listCompany[i].idCategory;
+        companySubsidiaryModel.companyVerified = listCompany[i].companyVerified;
+        companySubsidiaryModel.companyRating = listCompany[i].companyRating;
+        companySubsidiaryModel.companyCreatedAt =
+            listCompany[i].companyCreatedAt;
+        companySubsidiaryModel.companyJoin = listCompany[i].companyJoin;
+        companySubsidiaryModel.companyStatus = listCompany[i].companyStatus;
+        companySubsidiaryModel.companyMt = listCompany[i].companyMt;
+        companySubsidiaryModel.idCountry = listCompany[i].idCountry;
+        companySubsidiaryModel.cityName = listCompany[i].cityName;
+        companySubsidiaryModel.distancia = listCompany[i].distancia;
+
+        listCompanySubModel.add(companySubsidiaryModel);
+      }
+      busquedaCategoriaModel.listCompanySubsidiary = listCompanySubModel;
+      listaGeneral.add(busquedaCategoriaModel);
+    }
+
+    return listaGeneral;
+  }
+
+  Future<List<BusquedaItemSubcategoriaModel>>
+      obtnerResultBusquedaItemSubcategoria(String query) async {
+    List<BusquedaItemSubcategoriaModel> listaGeneral =
+        List<BusquedaItemSubcategoriaModel>();
+    final listBusquedaItemSubModel = BusquedaItemSubcategoriaModel();
+
+    //obtenemos el id del itemSubcategoria por medio del nombreItemSubcateg para asociarlo a la tabla Producto
+    final listItemSubcateg =
+        await itemSubcategoriaDb.obtenerItemSubCategoriaXQuery(query);
+    //Lista vacia para guardar ids
+    final listIdItemSubcategoria = List<String>();
+    for (var x = 0; x < listItemSubcateg.length; x++) {
+      var idsItemSubcategoria = listItemSubcateg[x].idItemsubcategory;
+      listIdItemSubcategoria.add(idsItemSubcategoria);
+    }
+
+    final listProductoModel = List<ProductoModel>();
+
+    for (var y = 0; y < listIdItemSubcategoria.length; y++) {
+      final listProductos = await productoDb
+          .consultarProductoPorIdItemsub(listItemSubcateg[y].idItemsubcategory);
+
+      for (var i = 0; i < listProductos.length; i++) {
+        final productoModel = ProductoModel();
+        productoModel.idProducto = listProductos[i].idProducto;
+        productoModel.idSubsidiary = listProductos[i].idSubsidiary;
+        productoModel.idGood = listProductos[i].idGood;
+        productoModel.idItemsubcategory = listProductos[i].idItemsubcategory;
+        productoModel.productoName = listProductos[i].productoName;
+        productoModel.productoPrice = listProductos[i].productoPrice;
+        productoModel.productoCurrency = listProductos[i].productoCurrency;
+        productoModel.productoImage = listProductos[i].productoImage;
+        productoModel.productoCharacteristics =
+            listProductos[i].productoCharacteristics;
+        productoModel.productoBrand = listProductos[i].productoBrand;
+        productoModel.productoModel = listProductos[i].productoModel;
+        productoModel.productoType = listProductos[i].productoType;
+        productoModel.productoSize = listProductos[i].productoSize;
+        productoModel.productoMeasure = listProductos[i].productoMeasure;
+        productoModel.productoStock = listProductos[i].productoStock;
+        productoModel.productoRating = listProductos[i].productoRating;
+        productoModel.productoUpdated = listProductos[i].productoUpdated;
+        productoModel.productoStatus = listProductos[i].productoStatus;
+
+        listProductoModel.add(productoModel);
+      }
+
+      listBusquedaItemSubModel.listProducto = listProductoModel;
+      listaGeneral.add(listBusquedaItemSubModel);
+    }
+
     return listaGeneral;
   }
 }

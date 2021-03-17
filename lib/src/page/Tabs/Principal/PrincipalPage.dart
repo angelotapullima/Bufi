@@ -14,7 +14,7 @@ import 'package:bufi/src/widgets/carrousel_principal.dart';
 import 'package:bufi/src/widgets/lista_de_categorias.dart';
 import 'package:bufi/src/widgets/sliver_header_delegate.dart';
 import 'package:bufi/src/widgets/widgetBienes.dart';
-import 'package:bufi/src/widgets/widgetBusquedas/widgetBusqProduct.dart';
+import 'package:bufi/src/widgets/busquedas/widgetBusqProduct.dart';
 import 'package:bufi/src/widgets/widgetServicios.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';

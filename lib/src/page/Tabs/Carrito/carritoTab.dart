@@ -2,6 +2,8 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/carritoGeneralModel..dart';
 import 'package:bufi/src/page/Tabs/Carrito/carrito_bloc.dart';
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido.dart';
+import 'package:bufi/src/page/Tabs/iniciar_sesion.dart';
+import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -9,6 +11,7 @@ import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/cantidad_producto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import 'package:provider/provider.dart';
 
@@ -66,33 +69,56 @@ class _CarritoPageState extends State<CarritoPage> {
                                       Spacer(),
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.of(context)
-                                              .push(PageRouteBuilder(
-                                            pageBuilder: (context, animation,
-                                                secondaryAnimation) {
-                                              return ConfirmacionPedido();
-                                            },
-                                            transitionsBuilder: (context,
-                                                animation,
-                                                secondaryAnimation,
-                                                child) {
-                                              var begin = Offset(0.0, 1.0);
-                                              var end = Offset.zero;
-                                              var curve = Curves.ease;
+                                          final preferences = Preferences();
+                                          if (preferences.personName == null) {
+                                            showBarModalBottomSheet(
+                                              expand: true,
+                                              context: context,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              builder: (context) =>
+                                                  ModalLogin(),
+                                            );
+                                          } else {
+                                            double monto = double.parse(
+                                                listCarritoSuperior[0]
+                                                    .montoGeneral);
 
-                                              var tween =
-                                                  Tween(begin: begin, end: end)
+                                            if (monto > 0) {
+                                              Navigator.of(context)
+                                                  .push(PageRouteBuilder(
+                                                pageBuilder: (context,
+                                                    animation,
+                                                    secondaryAnimation) {
+                                                  return ConfirmacionPedido();
+                                                },
+                                                transitionsBuilder: (context,
+                                                    animation,
+                                                    secondaryAnimation,
+                                                    child) {
+                                                  var begin = Offset(0.0, 1.0);
+                                                  var end = Offset.zero;
+                                                  var curve = Curves.ease;
+
+                                                  var tween = Tween(
+                                                          begin: begin,
+                                                          end: end)
                                                       .chain(
-                                                CurveTween(curve: curve),
-                                              );
+                                                    CurveTween(curve: curve),
+                                                  );
 
-                                              return SlideTransition(
-                                                position:
-                                                    animation.drive(tween),
-                                                child: child,
-                                              );
-                                            },
-                                          ));
+                                                  return SlideTransition(
+                                                    position:
+                                                        animation.drive(tween),
+                                                    child: child,
+                                                  );
+                                                },
+                                              ));
+                                            } else {
+                                              showToast(context,
+                                                  'Por favor seleccione productos para confirmar el pago');
+                                            }
+                                          }
                                         },
                                         child: Container(
                                           padding: EdgeInsets.symmetric(
@@ -119,8 +145,9 @@ class _CarritoPageState extends State<CarritoPage> {
                                   color: Colors.white,
                                   width: double.infinity,
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: responsive.wp(5),
-                                      vertical: responsive.hp(1)),
+                                    horizontal: responsive.wp(5),
+                                    vertical: responsive.hp(1),
+                                  ),
                                   child: Row(
                                     children: [
                                       Text(
@@ -160,41 +187,55 @@ class _CarritoPageState extends State<CarritoPage> {
                                       Spacer(),
                                       GestureDetector(
                                         onTap: () {
-                                          double monto = double.parse(
-                                              listCarritoSuperior[0]
-                                                  .montoGeneral);
-
-                                          if (monto > 0) {
-                                            Navigator.of(context)
-                                                .push(PageRouteBuilder(
-                                              pageBuilder: (context, animation,
-                                                  secondaryAnimation) {
-                                                return ConfirmacionPedido();
-                                              },
-                                              transitionsBuilder: (context,
-                                                  animation,
-                                                  secondaryAnimation,
-                                                  child) {
-                                                var begin = Offset(0.0, 1.0);
-                                                var end = Offset.zero;
-                                                var curve = Curves.ease;
-
-                                                var tween = Tween(
-                                                        begin: begin, end: end)
-                                                    .chain(
-                                                  CurveTween(curve: curve),
-                                                );
-
-                                                return SlideTransition(
-                                                  position:
-                                                      animation.drive(tween),
-                                                  child: child,
-                                                );
-                                              },
-                                            ));
+                                          final preferences = Preferences();
+                                          if (preferences.personName == null) {
+                                            showBarModalBottomSheet(
+                                              expand: true,
+                                              context: context,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              builder: (context) =>
+                                                  ModalLogin(),
+                                            );
                                           } else {
-                                            showToast(context,
-                                                'Por favor seleccione productos para confirmar el pago');
+                                            double monto = double.parse(
+                                                listCarritoSuperior[0]
+                                                    .montoGeneral);
+
+                                            if (monto > 0) {
+                                              Navigator.of(context)
+                                                  .push(PageRouteBuilder(
+                                                pageBuilder: (context,
+                                                    animation,
+                                                    secondaryAnimation) {
+                                                  return ConfirmacionPedido();
+                                                },
+                                                transitionsBuilder: (context,
+                                                    animation,
+                                                    secondaryAnimation,
+                                                    child) {
+                                                  var begin = Offset(0.0, 1.0);
+                                                  var end = Offset.zero;
+                                                  var curve = Curves.ease;
+
+                                                  var tween = Tween(
+                                                          begin: begin,
+                                                          end: end)
+                                                      .chain(
+                                                    CurveTween(curve: curve),
+                                                  );
+
+                                                  return SlideTransition(
+                                                    position:
+                                                        animation.drive(tween),
+                                                    child: child,
+                                                  );
+                                                },
+                                              ));
+                                            } else {
+                                              showToast(context,
+                                                  'Por favor seleccione productos para confirmar el pago');
+                                            }
                                           }
                                         },
                                         child: Container(
@@ -290,8 +331,8 @@ class _CarritoPageState extends State<CarritoPage> {
                                           .car[xxx]
                                           .carrito[indd]
                                           .cantidad);
-                                  
-                                    //Borrar con swipe
+
+                                  //Borrar con swipe
                                   return Dismissible(
                                     key: UniqueKey(),
                                     background: Container(
@@ -314,7 +355,6 @@ class _CarritoPageState extends State<CarritoPage> {
                                         ],
                                       ),
                                     ),
-
                                     direction: DismissDirection.horizontal,
                                     onDismissed: (direction) {
                                       agregarAlCarritoContador(

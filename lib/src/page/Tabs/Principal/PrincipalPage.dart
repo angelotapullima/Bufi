@@ -5,6 +5,7 @@ import 'package:bufi/src/models/cuentaModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
+import 'package:bufi/src/page/Tabs/iniciar_sesion.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -20,6 +21,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class PrincipalPage extends StatelessWidget {
   @override
@@ -40,10 +42,10 @@ class PrincipalPage extends StatelessWidget {
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
                   SizedBox(
-                    height: responsive.hp(1),
+                    height: responsive.hp(.5),
                   ),
                   Container(
-                    height: responsive.hp(15),
+                    height: responsive.hp(12),
                     child: Row(
                       children: [
                         Column(
@@ -112,8 +114,8 @@ class HeaderWidget extends StatelessWidget {
     return SliverPersistentHeader(
         floating: true,
         delegate: SliverCustomHeaderDelegate(
-          maxHeight: responsive.hp(14.5),
-          minHeight: responsive.hp(14.5),
+          maxHeight: responsive.hp(13),
+          minHeight: responsive.hp(13),
           child: Container(
             color: Theme.of(context).scaffoldBackgroundColor,
             padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
@@ -205,10 +207,24 @@ class HeaderWidget extends StatelessWidget {
                         );
                       },
                     ),
-                    Icon(
-                      FontAwesomeIcons.bell,
-                      size: responsive.ip(2.5),
-                      color: Colors.yellowAccent[600],
+                    InkWell(
+                      onTap: () {
+                        if (preferences.personName == null) {
+                           showBarModalBottomSheet(
+                            expand: true,
+                            context: context,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) => ModalLogin(),
+                          );
+                        } else {
+                         
+                        }
+                      },
+                      child: Icon(
+                        FontAwesomeIcons.bell,
+                        size: responsive.ip(2.5),
+                        color: Colors.yellowAccent[600],
+                      ),
                     ),
                   ],
                 ),

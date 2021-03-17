@@ -248,7 +248,11 @@ class _LoginPageState extends State<LoginPage> {
 
     if (code == 1) {
       print(code);
-      Navigator.pushReplacementNamed(context, 'home');
+
+       Navigator.of(context)
+            .pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+
+     // Navigator.pushReplacementNamed(context, 'home');
     } else if (code == 2) {
       print(code);
       showToast1('Ocurrio un error', 2, ToastGravity.CENTER);

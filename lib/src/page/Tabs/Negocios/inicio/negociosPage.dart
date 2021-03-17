@@ -38,7 +38,7 @@ class _NegociosPageState extends State<NegociosPage> {
                       builder: (BuildContext context, bool data, Widget child) {
                         return Column(
                           children: [
-                            ValueListenableBuilder<bool>(
+                            ValueListenableBuilder<bool>( 
                               valueListenable: provider.showNegocios,
                               builder: (_, value, __) {
                                 return (value)

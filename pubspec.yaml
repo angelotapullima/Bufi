@@ -60,6 +60,7 @@ dependencies:
   google_maps_flutter: ^1.2.0
   photo_view: ^0.9.2
   shimmer: ^1.1.2
+  modal_bottom_sheet: ^1.0.0+1
   flutter_advanced_networkimage:
     git: https://github.com/mchome/flutter_advanced_networkimage
 

@@ -24,7 +24,7 @@ class ListCategoriasPrincipal extends StatelessWidget {
           if (snapshot.hasData) {
             if (snapshot.data.length > 0) {
               return Container(
-                height: responsive.hp(13),
+                height: responsive.hp(12),
                 //color: Colors.red,
                 child: ListView.builder(
                   itemCount: listCategoria.length,
@@ -71,7 +71,7 @@ class ListCategoriasPrincipal extends StatelessWidget {
                               //PantallaCategoriaItem
                             },
                             child: CircleAvatar(
-                              radius: 23,
+                              radius: responsive.hp(3.2),
                               backgroundColor: Colors.primaries[
                                   Random().nextInt(Colors.primaries.length)],
                               child: Icon(Icons.access_alarm_sharp,

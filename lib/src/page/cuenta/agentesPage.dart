@@ -1,6 +1,5 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/agentesModel.dart';
-import 'package:bufi/src/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -9,13 +8,16 @@ class AgentesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final responsive = Responsive.of(context);
     final agenteBloc = ProviderBloc.agentes(context);
     agenteBloc.obtenerAgentes();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Agentes"),
-        backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(color: Colors.black),
+        centerTitle: true,
+        title: Text("Agentes", style: TextStyle(color: Colors.black)),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        actions: [Icon(Icons.map),SizedBox(width: 20,)],
       ),
       body: StreamBuilder(
           stream: agenteBloc.agenteStream,

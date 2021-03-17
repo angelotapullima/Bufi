@@ -2,6 +2,7 @@ import 'package:bufi/src/bloc/Pedido/Pedido_bloc.dart';
 import 'package:bufi/src/bloc/agentes_bloc.dart';
 import 'package:bufi/src/bloc/bienesServicios_bloc.dart';
 import 'package:bufi/src/bloc/bottom_navigation_bloc.dart';
+import 'package:bufi/src/bloc/busqueda/BusqXSucursalBloc.dart';
 import 'package:bufi/src/bloc/busqueda/busquedaBloc.dart';
 import 'package:bufi/src/bloc/busqueda/busquedaGeneral_bloc.dart';
 import 'package:bufi/src/bloc/carrito_bloc.dart';
@@ -26,7 +27,6 @@ import 'package:bufi/src/bloc/subsidiary/registrarSubsidiary_bloc.dart';
 import 'package:bufi/src/bloc/subsidiary/sucursal_bloc.dart';
 import 'package:bufi/src/bloc/sugerenciaBusquedaBloc.dart';
 import 'package:bufi/src/bloc/tipos_pago_bloc.dart';
-import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:flutter/material.dart';
 
 class ProviderBloc extends InheritedWidget {
@@ -47,7 +47,7 @@ class ProviderBloc extends InheritedWidget {
   final carritoBloc = CarritoBloc();
   final naviCategBloc = CategoriasNaviBloc();
   final bottomNaviBloc = BottomNaviBloc();
-    //final itemSubcategoriaBloc = ItemSubcategoriaBloc();
+  //final itemSubcategoriaBloc = ItemSubcategoriaBloc();
   final subcategoriaGeneralBloc = SubCategoriaGeneralBloc();
   final itemSubcategBloc = ItemCategoriaBloc();
   final sugerenciaBusquedaBloc = SugerenciaBusquedaBloc();
@@ -63,7 +63,7 @@ class ProviderBloc extends InheritedWidget {
   final agentesdBloc = AgentesBloc();
   final busquedaBloc = BusquedaBloc();
   final busquedaGeneralBloc = BusquedaGeneralBloc();
-
+  final busquedaXSucursalBloc = BusquedaXSucursalBloc();
 
   factory ProviderBloc({Key key, Widget child}) {
     if (_instancia == null) {
@@ -224,11 +224,13 @@ class ProviderBloc extends InheritedWidget {
   static DireccionesBloc direc(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .direccionesBloc;
-        }
+  }
+
   //datos de Productos
   static DatosProductoBloc datosProductos(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .datosProductosBloc;}
+        .datosProductosBloc;
+  }
 
   static PublicidadBloc publi(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
@@ -243,5 +245,10 @@ class ProviderBloc extends InheritedWidget {
   static BusquedaGeneralBloc busquedaGeneral(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .busquedaGeneralBloc;
+  }
+
+  static BusquedaXSucursalBloc busquedaXSucursal(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .busquedaXSucursalBloc;
   }
 }

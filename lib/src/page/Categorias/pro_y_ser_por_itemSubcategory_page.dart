@@ -3,7 +3,6 @@ import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
-import 'package:bufi/src/widgets/busquedas/widgetBusqItemSubcategoria.dart';
 import 'package:bufi/src/widgets/widgetBienes.dart';
 import 'package:bufi/src/widgets/busquedas/widgetBusqProduct.dart';
 import 'package:bufi/src/widgets/widgetServicios.dart';

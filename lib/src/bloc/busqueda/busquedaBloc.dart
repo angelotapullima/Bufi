@@ -571,14 +571,8 @@ class BusquedaBloc {
 
     //Primero obtenemos el id de la categoria por medio del nombreCateg para asociarlo a la tabla Company
     final listCateg = await categoriaDb.consultarCategoriaPorQuery(query);
-    //Lista vacia para guardar ids
-    final listIdCategoria = List<String>();
-    for (var x = 0; x < listCateg.length; x++) {
-      var idsCategoria = listCateg[x].idCategory;
-      listIdCategoria.add(idsCategoria);
-    }
 
-    for (var j = 0; j < listIdCategoria.length; j++) {
+    for (var j = 0; j < listCateg.length; j++) {
       //función para obtener los datos de la compañia por idCategory
       final listCompany = await companyDb
           .consultarCompanyPorIdCategoria(listCateg[j].idCategory);
@@ -632,16 +626,10 @@ class BusquedaBloc {
     //obtenemos el id del itemSubcategoria por medio del nombreItemSubcateg para asociarlo a la tabla Producto
     final listItemSubcateg =
         await itemSubcategoriaDb.obtenerItemSubCategoriaXQuery(query);
-    //Lista vacia para guardar ids
-    final listIdItemSubcategoria = List<String>();
-    for (var x = 0; x < listItemSubcateg.length; x++) {
-      var idsItemSubcategoria = listItemSubcateg[x].idItemsubcategory;
-      listIdItemSubcategoria.add(idsItemSubcategoria);
-    }
 
     final listProductoModel = List<ProductoModel>();
 
-    for (var y = 0; y < listIdItemSubcategoria.length; y++) {
+    for (var y = 0; y < listItemSubcateg.length; y++) {
       final listProductos = await productoDb
           .consultarProductoPorIdItemsub(listItemSubcateg[y].idItemsubcategory);
 

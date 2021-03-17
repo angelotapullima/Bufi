@@ -112,21 +112,20 @@ class BusquedaItemSubcategoriaModel {
 }
 
 //---------------------Por sucursal-----------------
-class BusquedaProductoPorSucursalModel {
-  BusquedaProductoPorSucursalModel({
-    this.listBienes,
-    this.listProducto,
-    this.listSucursal,
-    this.listCompany,
-    this.listCategory,
-    this.listSubcategory,
-    this.listItemSubCateg,
+class BusquedaPorSucursalModel {
+  BusquedaPorSucursalModel({
+    this.listProducto, this.listServicios
   });
-  List<BienesModel> listBienes;
+
   List<ProductoModel> listProducto;
-  List<SubsidiaryModel> listSucursal;
-  List<CompanyModel> listCompany;
-  List<CategoriaModel> listCategory;
-  List<SubcategoryModel> listSubcategory;
-  List<ItemSubCategoriaModel> listItemSubCateg;
+  List<SubsidiaryServiceModel> listServicios;
+}
+
+class BusquedaServicioPorSucursalModel {
+  BusquedaServicioPorSucursalModel({
+    this.listService,
+    this.listServicios,
+  });
+  List<ServiciosModel> listService;
+  List<SubsidiaryServiceModel> listServicios;
 }

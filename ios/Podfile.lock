@@ -1,6 +1,20 @@
 PODS:
   - esys_flutter_share (0.0.1):
     - Flutter
+  - Firebase/CoreOnly (6.33.0):
+    - FirebaseCore (= 6.10.3)
+  - firebase_core (0.5.3):
+    - Firebase/CoreOnly (~> 6.33.0)
+    - Flutter
+  - FirebaseCore (6.10.3):
+    - FirebaseCoreDiagnostics (~> 1.6)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Logger (~> 6.7)
+  - FirebaseCoreDiagnostics (1.7.0):
+    - GoogleDataTransport (~> 7.4)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Logger (~> 6.7)
+    - nanopb (~> 1.30906.0)
   - Flutter (1.0.0)
   - fluttertoast (0.0.2):
     - Flutter
@@ -10,11 +24,17 @@ PODS:
   - google_maps_flutter (0.0.1):
     - Flutter
     - GoogleMaps (< 3.10)
+  - GoogleDataTransport (7.5.1):
+    - nanopb (~> 1.30906.0)
   - GoogleMaps (3.9.0):
     - GoogleMaps/Maps (= 3.9.0)
   - GoogleMaps/Base (3.9.0)
   - GoogleMaps/Maps (3.9.0):
     - GoogleMaps/Base
+  - GoogleUtilities/Environment (6.7.2):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (6.7.2):
+    - GoogleUtilities/Environment
   - image_cropper (0.0.3):
     - Flutter
     - TOCropViewController (~> 2.5.4)
@@ -22,8 +42,14 @@ PODS:
     - Flutter
   - image_picker (0.0.1):
     - Flutter
+  - nanopb (1.30906.0):
+    - nanopb/decode (= 1.30906.0)
+    - nanopb/encode (= 1.30906.0)
+  - nanopb/decode (1.30906.0)
+  - nanopb/encode (1.30906.0)
   - path_provider (0.0.1):
     - Flutter
+  - PromisesObjC (1.2.11)
   - shared_preferences (0.0.1):
     - Flutter
   - sqflite (0.0.1):
@@ -33,6 +59,7 @@ PODS:
 
 DEPENDENCIES:
   - esys_flutter_share (from `.symlinks/plugins/esys_flutter_share/ios`)
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
@@ -45,13 +72,22 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Firebase
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
     - FMDB
+    - GoogleDataTransport
     - GoogleMaps
+    - GoogleUtilities
+    - nanopb
+    - PromisesObjC
     - TOCropViewController
 
 EXTERNAL SOURCES:
   esys_flutter_share:
     :path: ".symlinks/plugins/esys_flutter_share/ios"
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
   fluttertoast:
@@ -73,15 +109,23 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   esys_flutter_share: 403498dab005b36ce1f8d7aff377e81f0621b0b4
+  Firebase: 8db6f2d1b2c5e2984efba4949a145875a8f65fe5
+  firebase_core: 5d6a02f3d85acd5f8321c2d6d62877626a670659
+  FirebaseCore: d889d9e12535b7f36ac8bfbf1713a0836a3012cd
+  FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   google_maps_flutter: c7f9c73576de1fbe152a227bfd6e6c4ae8088619
+  GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
   GoogleMaps: 4b5346bddfe6911bb89155d43c903020170523ac
+  GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   image_cropper: c8f9b4157933c7bb965a66d1c5e6c8fd408c6eb4
   image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
   image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
+  nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
   TOCropViewController: da59f531f8ac8a94ef6d6c0fc34009350f9e8bfe

@@ -18,10 +18,12 @@ class AgentesPage extends StatelessWidget {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         centerTitle: true,
-        title: Text("Agentes", style: TextStyle(color: Colors.black)),
+        title: Text(
+          "Agentes",
+          style: TextStyle(color: Colors.black),
+        ),
         elevation: 0,
         backgroundColor: Colors.white,
-        
       ),
       body: StreamBuilder(
           stream: agenteBloc.agenteStream,

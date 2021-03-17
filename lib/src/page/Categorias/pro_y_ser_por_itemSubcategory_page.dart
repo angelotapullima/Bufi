@@ -3,7 +3,6 @@ import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
-import 'package:bufi/src/widgets/busquedas/widgetBusqItemSubcategoria.dart';
 import 'package:bufi/src/widgets/widgetBienes.dart';
 import 'package:bufi/src/widgets/busquedas/widgetBusqProduct.dart';
 import 'package:bufi/src/widgets/widgetServicios.dart';
@@ -138,86 +137,90 @@ class _ProYSerPorItemSubcategoryPageState
                 StreamBuilder(
                   stream: itemSubcatBloc.itemSubStream,
                   builder: (BuildContext context,
-                      AsyncSnapshot<List<BienesServiciosModel>> snapshot) {
-                    if (snapshot.hasData) {
-                      if (snapshot.data.length > 0) {
+                      AsyncSnapshot<List<BienesServiciosModel>> snapshotdd) {
+                    if (snapshotdd.hasData) {
+                      if (snapshotdd.data.length > 0) {
                         return (!data)
-                            ? _listaBienesServicios(snapshot.data, responsive)
-                            : _grilla(snapshot.data, responsive);
+                            ? _listaBienesServicios(snapshotdd.data, responsive)
+                            : _grilla(snapshotdd.data, responsive);
                       } else {
                         return StreamBuilder(
                             stream: itemSubcatBloc.cargandoItemsStream,
                             builder: (context, AsyncSnapshot<bool> snapshot) {
                               bool _enabled = true;
 
-                              if (snapshot.data) {
-                                return Expanded(
-                                  child: Shimmer.fromColors(
-                                    baseColor: Colors.grey[300],
-                                    highlightColor: Colors.grey[100],
-                                    enabled: _enabled,
-                                    child: ListView.builder(
-                                      itemBuilder: (_, __) => Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              width: 48.0,
-                                              height: 48.0,
-                                              color: Colors.white,
-                                            ),
-                                            const Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 8.0),
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Container(
-                                                    width: double.infinity,
-                                                    height: 8.0,
-                                                    color: Colors.white,
-                                                  ),
-                                                  const Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 2.0),
-                                                  ),
-                                                  Container(
-                                                    width: double.infinity,
-                                                    height: 8.0,
-                                                    color: Colors.white,
-                                                  ),
-                                                  const Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 2.0),
-                                                  ),
-                                                  Container(
-                                                    width: 40.0,
-                                                    height: 8.0,
-                                                    color: Colors.white,
-                                                  ),
-                                                ],
+                              if (snapshot.hasData) {
+                                if (snapshot.data) {
+                                  return Expanded(
+                                    child: Shimmer.fromColors(
+                                      baseColor: Colors.grey[300],
+                                      highlightColor: Colors.grey[100],
+                                      enabled: _enabled,
+                                      child: ListView.builder(
+                                        itemBuilder: (_, __) => Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 8.0),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: 48.0,
+                                                height: 48.0,
+                                                color: Colors.white,
                                               ),
-                                            )
-                                          ],
+                                              const Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 8.0),
+                                              ),
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      width: double.infinity,
+                                                      height: 8.0,
+                                                      color: Colors.white,
+                                                    ),
+                                                    const Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 2.0),
+                                                    ),
+                                                    Container(
+                                                      width: double.infinity,
+                                                      height: 8.0,
+                                                      color: Colors.white,
+                                                    ),
+                                                    const Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 2.0),
+                                                    ),
+                                                    Container(
+                                                      width: 40.0,
+                                                      height: 8.0,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
+                                        itemCount: 6,
                                       ),
-                                      itemCount: 6,
                                     ),
-                                  ),
-                                );
+                                  );
+                                } else {
+                                  return Center(
+                                    child: Text(
+                                        "No existen productos para mostrar"),
+                                  );
+                                }
                               } else {
-                                return Center(
-                                  child:
-                                      Text("No existen productos para mostrar"),
-                                );
+                                return Container();
                               }
                             });
                       }
@@ -259,7 +262,7 @@ class _ProYSerPorItemSubcategoryPageState
       itemCount: data.length,
       itemBuilder: (BuildContext context, int index) {
         return ('${data[index].tipo}' == 'bienes')
-            ? _bienesWidget(responsive, data, index)
+            ? bienesWidget(responsive, data, index)
             //Servicios
             : _serviciosWidget(responsive, data, index);
       },
@@ -385,7 +388,7 @@ class _ProYSerPorItemSubcategoryPageState
     );
   }
 
-  Widget _bienesWidget(
+  Widget bienesWidget(
       Responsive responsive, List<BienesServiciosModel> data, int index) {
     return GestureDetector(
       onTap: () {

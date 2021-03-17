@@ -13,6 +13,7 @@ import 'package:bufi/src/bloc/cuenta_bloc.dart';
 import 'package:bufi/src/bloc/direcciones_bloc.dart';
 import 'package:bufi/src/bloc/favoritos_bloc.dart';
 import 'package:bufi/src/bloc/login_bloc.dart';
+import 'package:bufi/src/bloc/marker_mapa_negocios_bloc.dart';
 import 'package:bufi/src/bloc/mis_movimientos_bloc.dart';
 import 'package:bufi/src/bloc/negocios_bloc.dart';
 import 'package:bufi/src/bloc/porcentaje_splash.dart';
@@ -26,7 +27,6 @@ import 'package:bufi/src/bloc/subsidiary/registrarSubsidiary_bloc.dart';
 import 'package:bufi/src/bloc/subsidiary/sucursal_bloc.dart';
 import 'package:bufi/src/bloc/sugerenciaBusquedaBloc.dart';
 import 'package:bufi/src/bloc/tipos_pago_bloc.dart';
-import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:flutter/material.dart';
 
 class ProviderBloc extends InheritedWidget {
@@ -63,6 +63,7 @@ class ProviderBloc extends InheritedWidget {
   final agentesdBloc = AgentesBloc();
   final busquedaBloc = BusquedaBloc();
   final busquedaGeneralBloc = BusquedaGeneralBloc();
+  final markerMapaNegociosBloc =MarkerMapaNegociosBloc();
 
 
   factory ProviderBloc({Key key, Widget child}) {
@@ -244,4 +245,13 @@ class ProviderBloc extends InheritedWidget {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .busquedaGeneralBloc;
   }
+
+
+
+  static MarkerMapaNegociosBloc markerMapa(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .markerMapaNegociosBloc;
+  }
+
+  
 }

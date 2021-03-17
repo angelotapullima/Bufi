@@ -38,7 +38,8 @@ class _ProYSerPorItemSubcategoryPageState
             if (_scrollControllerListview.position.pixels + 100 >
                 _scrollControllerListview.position.maxScrollExtent) {
               print('pixels ${_scrollControllerListview.position.pixels}');
-              print('maxScrool ${_scrollControllerListview.position.maxScrollExtent}');
+              print(
+                  'maxScrool ${_scrollControllerListview.position.maxScrollExtent}');
               print('dentro');
 
               final itemSubcatBloc = ProviderBloc.itemSubcategoria(context);
@@ -46,12 +47,12 @@ class _ProYSerPorItemSubcategoryPageState
                   .listarBienesServiciosXIdItemSubcategoria(widget.idItem);
             }
           }),
-
-           _scrollControllerGridview.addListener(() {
+          _scrollControllerGridview.addListener(() {
             if (_scrollControllerGridview.position.pixels + 100 >
                 _scrollControllerGridview.position.maxScrollExtent) {
               print('pixels ${_scrollControllerGridview.position.pixels}');
-              print('maxScrool ${_scrollControllerGridview.position.maxScrollExtent}');
+              print(
+                  'maxScrool ${_scrollControllerGridview.position.maxScrollExtent}');
               print('dentro');
 
               final itemSubcatBloc = ProviderBloc.itemSubcategoria(context);
@@ -149,66 +150,75 @@ class _ProYSerPorItemSubcategoryPageState
                             builder: (context, AsyncSnapshot<bool> snapshot) {
                               bool _enabled = true;
 
-                              return Expanded(
-                                child: Shimmer.fromColors(
-                                  baseColor: Colors.grey[300],
-                                  highlightColor: Colors.grey[100],
-                                  enabled: _enabled,
-                                  child: ListView.builder(
-                                    itemBuilder: (_, __) => Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 8.0),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            width: 48.0,
-                                            height: 48.0,
-                                            color: Colors.white,
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 8.0),
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Container(
-                                                  width: double.infinity,
-                                                  height: 8.0,
-                                                  color: Colors.white,
-                                                ),
-                                                const Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 2.0),
-                                                ),
-                                                Container(
-                                                  width: double.infinity,
-                                                  height: 8.0,
-                                                  color: Colors.white,
-                                                ),
-                                                const Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 2.0),
-                                                ),
-                                                Container(
-                                                  width: 40.0,
-                                                  height: 8.0,
-                                                  color: Colors.white,
-                                                ),
-                                              ],
+                              if (snapshot.data) {
+                                return Expanded(
+                                  child: Shimmer.fromColors(
+                                    baseColor: Colors.grey[300],
+                                    highlightColor: Colors.grey[100],
+                                    enabled: _enabled,
+                                    child: ListView.builder(
+                                      itemBuilder: (_, __) => Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 48.0,
+                                              height: 48.0,
+                                              color: Colors.white,
                                             ),
-                                          )
-                                        ],
+                                            const Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 8.0),
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Container(
+                                                    width: double.infinity,
+                                                    height: 8.0,
+                                                    color: Colors.white,
+                                                  ),
+                                                  const Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 2.0),
+                                                  ),
+                                                  Container(
+                                                    width: double.infinity,
+                                                    height: 8.0,
+                                                    color: Colors.white,
+                                                  ),
+                                                  const Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 2.0),
+                                                  ),
+                                                  Container(
+                                                    width: 40.0,
+                                                    height: 8.0,
+                                                    color: Colors.white,
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
+                                      itemCount: 6,
                                     ),
-                                    itemCount: 6,
                                   ),
-                                ),
-                              );
+                                );
+                              } else {
+                                return Center(
+                                  child:
+                                      Text("No existen productos para mostrar"),
+                                );
+                              }
                             });
                       }
                     } else {
@@ -227,7 +237,7 @@ class _ProYSerPorItemSubcategoryPageState
   Widget _grilla(List<BienesServiciosModel> data, Responsive responsive) {
     return Expanded(
       child: GridView.builder(
-        controller: _scrollControllerGridview,
+          controller: _scrollControllerGridview,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, childAspectRatio: .7),
           itemCount: data.length,

@@ -23,6 +23,7 @@ class _GridviewProductoPorSucursalState
   Widget build(BuildContext context) {
     final productoBloc = ProviderBloc.productos(context);
     productoBloc.listarProductosPorSucursal(widget.idSucursal);
+   
 
     return StreamBuilder(
         stream: productoBloc.productoStream,

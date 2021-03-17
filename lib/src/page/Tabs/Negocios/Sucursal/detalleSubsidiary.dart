@@ -5,6 +5,7 @@ import 'package:bufi/src/page/Tabs/Negocios/producto/GridviewProductosPorSucursa
 import 'package:bufi/src/page/Tabs/Negocios/servicios/GridviewServiciosPorSucursal.dart';
 import 'package:bufi/src/theme/theme.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/widgets/busquedas/PorSucursal/widgetBusqProductXSucursal.dart';
 import 'package:bufi/src/widgets/sliver_header_delegate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +71,7 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary> {
               controller: _scrollController,
               slivers: [
                 CebeceraItem(
-                  nombreSucursal: widget.nombreSucursal,
+                  nombreSucursal: widget.nombreSucursal, idSucursal: widget.idSucursal,
                 ),
                 SelectCategory(),
                 ValueListenableBuilder<PageDetailsSucursal>(
@@ -351,8 +352,9 @@ class SelectCategory extends StatelessWidget {
 }
 
 class CebeceraItem extends StatelessWidget {
+  final String idSucursal;
   final String nombreSucursal;
-  const CebeceraItem({Key key, @required this.nombreSucursal})
+  const CebeceraItem({Key key, @required this.nombreSucursal,@required this.idSucursal})
       : super(key: key);
 
   @override
@@ -371,6 +373,9 @@ class CebeceraItem extends StatelessWidget {
                 style: TextStyle(
                     fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
               ),
+              Spacer(),
+              BusquedaProductoXsucursalWidget(responsive: responsive, idSucursal:idSucursal,)
+
             ],
           ),
         ),

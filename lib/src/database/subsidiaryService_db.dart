@@ -187,6 +187,23 @@ updateSubsidiaryService(SubsidiaryServiceModel subServicesModel) async {
     }
   }
 
+   //Para la busqueda del producto x sucursal
+  Future<List<SubsidiaryServiceModel>> obtenerServiciosPorIdSubsidiaryPorQuery(String idSucursal,String query) async {
+
+   try{
+    final db = await dbProvider.database;
+    final res = await db.rawQuery("SELECT * FROM Subsidiaryservice WHERE id_subsidiary= '$idSucursal' and subsidiary_service_name LIKE '%$query%'");
+
+    List<SubsidiaryServiceModel> list =
+        res.isNotEmpty ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList() : [];
+    return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
+  } 
+
   // Future<List<SubsidiaryServiceModel>> quitarSubsidiarysServicesFavoritos() async {
   //   final db = await dbProvider.database;
   //   final res =await db.rawQuery("SELECT * FROM Subsidiaryservice WHERE subsidiary_service_favourite = 0 "); //1 cuando es favorito

@@ -2,6 +2,7 @@ import 'package:bufi/src/bloc/Pedido/Pedido_bloc.dart';
 import 'package:bufi/src/bloc/agentes_bloc.dart';
 import 'package:bufi/src/bloc/bienesServicios_bloc.dart';
 import 'package:bufi/src/bloc/bottom_navigation_bloc.dart';
+import 'package:bufi/src/bloc/busqueda/BusqXSucursalBloc.dart';
 import 'package:bufi/src/bloc/busqueda/busquedaBloc.dart';
 import 'package:bufi/src/bloc/busqueda/busquedaGeneral_bloc.dart';
 import 'package:bufi/src/bloc/carrito_bloc.dart';
@@ -47,7 +48,7 @@ class ProviderBloc extends InheritedWidget {
   final carritoBloc = CarritoBloc();
   final naviCategBloc = CategoriasNaviBloc();
   final bottomNaviBloc = BottomNaviBloc();
-    //final itemSubcategoriaBloc = ItemSubcategoriaBloc();
+  //final itemSubcategoriaBloc = ItemSubcategoriaBloc();
   final subcategoriaGeneralBloc = SubCategoriaGeneralBloc();
   final itemSubcategBloc = ItemCategoriaBloc();
   final sugerenciaBusquedaBloc = SugerenciaBusquedaBloc();
@@ -63,6 +64,7 @@ class ProviderBloc extends InheritedWidget {
   final agentesdBloc = AgentesBloc();
   final busquedaBloc = BusquedaBloc();
   final busquedaGeneralBloc = BusquedaGeneralBloc();
+  final busquedaXSucursalBloc = BusquedaXSucursalBloc();
   final markerMapaNegociosBloc =MarkerMapaNegociosBloc();
 
 
@@ -225,11 +227,13 @@ class ProviderBloc extends InheritedWidget {
   static DireccionesBloc direc(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .direccionesBloc;
-        }
+  }
+
   //datos de Productos
   static DatosProductoBloc datosProductos(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .datosProductosBloc;}
+        .datosProductosBloc;
+  }
 
   static PublicidadBloc publi(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
@@ -246,6 +250,12 @@ class ProviderBloc extends InheritedWidget {
         .busquedaGeneralBloc;
   }
 
+<<<<<<< HEAD
+  static BusquedaXSucursalBloc busquedaXSucursal(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .busquedaXSucursalBloc;
+  }
+=======
 
 
   static MarkerMapaNegociosBloc markerMapa(BuildContext context) {
@@ -254,4 +264,5 @@ class ProviderBloc extends InheritedWidget {
   }
 
   
+>>>>>>> 20122d558214ce7c41d7a64952a32423e07ae518
 }

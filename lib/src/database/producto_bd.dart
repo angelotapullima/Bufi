@@ -206,6 +206,24 @@ habilitarSubsidiaryProductoDb(ProductoModel goodModel)async{
     }
   }
 
+  //Para la busqueda del producto x sucursal
+  Future<List<ProductoModel>> obtenerProductosPorIdSubsidiaryPorQuery(String idSucursal,String query) async {
+
+   try{
+    final db = await dbProvider.database;
+    final res = await db.rawQuery("SELECT * FROM Producto WHERE id_subsidiary= '$idSucursal' and producto_name LIKE '%$query%'");
+
+    List<ProductoModel> list =
+        res.isNotEmpty ? res.map((c) => ProductoModel.fromJson(c)).toList() : [];
+    return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
+  } 
+
+  
   Future<List<ProductoModel>> obtenerProductoXIdItemSubcategoria(String id) async {
     try{
     final db = await dbProvider.database;

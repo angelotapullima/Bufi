@@ -1,5 +1,4 @@
 
-import 'package:bufi/src/page/busqueda/categoriaBusqPage.dart';
 import 'package:bufi/src/page/busqueda/itemSubcategoriaBusqPage.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:flutter/material.dart';

@@ -250,12 +250,10 @@ class ProviderBloc extends InheritedWidget {
         .busquedaGeneralBloc;
   }
 
-<<<<<<< HEAD
   static BusquedaXSucursalBloc busquedaXSucursal(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .busquedaXSucursalBloc;
   }
-=======
 
 
   static MarkerMapaNegociosBloc markerMapa(BuildContext context) {
@@ -264,5 +262,4 @@ class ProviderBloc extends InheritedWidget {
   }
 
   
->>>>>>> 20122d558214ce7c41d7a64952a32423e07ae518
 }

@@ -2,6 +2,7 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/cuentaModel.dart';
+import 'package:bufi/src/models/notificacionModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
@@ -108,6 +109,10 @@ class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cuentaBloc = ProviderBloc.cuenta(context);
+    //notificaciones
+    final notificacionesBloc = ProviderBloc.notificaciones(context);
+    notificacionesBloc.listarNotificaciones();
+
     if (preferences.personName != null) {
       cuentaBloc.obtenerSaldo();
     }
@@ -207,25 +212,76 @@ class HeaderWidget extends StatelessWidget {
                         );
                       },
                     ),
+                    SizedBox(width: responsive.wp(2),),
                     InkWell(
-                      onTap: () {
-                        if (preferences.personName == null) {
-                           showBarModalBottomSheet(
-                            expand: true,
-                            context: context,
-                            backgroundColor: Colors.transparent,
-                            builder: (context) => ModalLogin(),
-                          );
-                        } else {
-                         
-                        }
-                      },
-                      child: Icon(
-                        FontAwesomeIcons.bell,
-                        size: responsive.ip(2.5),
-                        color: Colors.yellowAccent[600],
-                      ),
-                    ),
+                        onTap: () {
+                          // if (preferences.personName == null) {
+                          //    showBarModalBottomSheet(
+                          //     expand: true,
+                          //     context: context,
+                          //     backgroundColor: Colors.transparent,
+                          //     builder: (context) => ModalLogin(),
+                          //   );
+                          // } else {
+
+                          // }
+
+                          Navigator.pushNamed(context, "notificaciones");
+                        },
+                        child: Container(
+                          width: responsive.wp(8),
+                          child: Stack(
+                            children: <Widget>[
+                              Icon(
+                                FontAwesomeIcons.bell,
+                                size: responsive.ip(3.5),
+                              ),
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: 
+                                StreamBuilder(
+                                    stream: notificacionesBloc
+                                        .listarnotificacionesStream,
+                                    builder: (context,
+                                        AsyncSnapshot<List<NotificacionesModel>>
+                                            snapshot) {
+                                      List<NotificacionesModel> notificaciones =
+                                          snapshot.data;
+                                      if (snapshot.hasData) {
+                                        if (snapshot.data.length > 0) {
+                                         return  Container(
+                                                    child: Text(
+                                                      '${notificaciones.length}',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize:
+                                                              responsive.ip(1)),
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                    width: responsive.ip(2),
+                                                    height: responsive.ip(2),
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.red,
+                                                        shape: BoxShape.circle),
+                                                  );
+                                        } else {
+                                          return Center(
+                                              child: Text(
+                                                  "no tiene ninguna notificaciónfff"));
+                                        }
+                                      } else {
+                                        return Center(
+                                            child: Text(
+                                                "no tiene ninguna notificaciónfff"));
+                                      }
+                                    }),
+                                //child: Icon(Icons.brightness_1, size: 8,color: Colors.redAccent,  )
+                             
+                              )],
+                          ),
+                        )),
+                        SizedBox(width: responsive.wp(2)),
                   ],
                 ),
                 SizedBox(

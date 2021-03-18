@@ -1,5 +1,6 @@
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProductoFotoPage.dart';
+import 'package:bufi/src/page/Tabs/Principal/notificacionesPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Direccion/AgregarDireccionPAge.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/RatingPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/ValoracionPage.dart';
@@ -77,6 +78,7 @@ class MyApp extends StatelessWidget {
 
               //Pagina Principal
               "listaCategoriasAll": (BuildContext context) => ListaCategoria(),
+              "notificaciones": (BuildContext context) => NotificacionesPage(),
 
               //Bienes
               "listarBienesAll": (BuildContext context) => ListarBienesAll(),

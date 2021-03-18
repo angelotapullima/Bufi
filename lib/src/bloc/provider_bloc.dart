@@ -17,6 +17,7 @@ import 'package:bufi/src/bloc/login_bloc.dart';
 import 'package:bufi/src/bloc/marker_mapa_negocios_bloc.dart';
 import 'package:bufi/src/bloc/mis_movimientos_bloc.dart';
 import 'package:bufi/src/bloc/negocios_bloc.dart';
+import 'package:bufi/src/bloc/notificaciones_bloc.dart';
 import 'package:bufi/src/bloc/porcentaje_splash.dart';
 import 'package:bufi/src/bloc/principal_bloc.dart';
 import 'package:bufi/src/bloc/producto/datosProductoBloc.dart';
@@ -66,6 +67,7 @@ class ProviderBloc extends InheritedWidget {
   final busquedaGeneralBloc = BusquedaGeneralBloc();
   final busquedaXSucursalBloc = BusquedaXSucursalBloc();
   final markerMapaNegociosBloc =MarkerMapaNegociosBloc();
+  final notificacionBloc =NotificacionesBloc();
 
 
   factory ProviderBloc({Key key, Widget child}) {
@@ -259,6 +261,11 @@ class ProviderBloc extends InheritedWidget {
   static MarkerMapaNegociosBloc markerMapa(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .markerMapaNegociosBloc;
+  }
+
+  static NotificacionesBloc notificaciones(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .notificacionBloc;
   }
 
   

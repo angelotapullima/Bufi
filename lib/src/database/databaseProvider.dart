@@ -380,6 +380,17 @@ class DatabaseProvider {
           ' cuentae_date TEXT,'
           ' cuentae_estado TEXT'
           ')');
+
+          await db.execute(' CREATE TABLE Notificaciones('
+          ' id_notificacion TEXT PRIMARY KEY,'
+          ' id_usuario TEXT,'
+          ' notificacion_tipo TEXT,'
+          ' notificacion_id_rel TEXT,'
+          ' notificacion_mensaje TEXT,'
+          ' notificacion_imagen TEXT,'
+          ' notificacion_datetime TEXT,'
+          ' notificacion_estado TEXT'
+          ')');
     });
   }
 }

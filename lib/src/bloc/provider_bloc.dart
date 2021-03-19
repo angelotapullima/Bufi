@@ -3,6 +3,7 @@ import 'package:bufi/src/bloc/agentes_bloc.dart';
 import 'package:bufi/src/bloc/bienesServicios_bloc.dart';
 import 'package:bufi/src/bloc/bottom_navigation_bloc.dart';
 import 'package:bufi/src/bloc/busqueda/BusqXSucursalBloc.dart';
+import 'package:bufi/src/bloc/busqueda/blocDeLaBusQuedaMasnaikiJamasHechaPorAngelo.dart';
 import 'package:bufi/src/bloc/busqueda/busquedaBloc.dart';
 import 'package:bufi/src/bloc/busqueda/busquedaGeneral_bloc.dart';
 import 'package:bufi/src/bloc/carrito_bloc.dart';
@@ -66,6 +67,7 @@ class ProviderBloc extends InheritedWidget {
   final busquedaGeneralBloc = BusquedaGeneralBloc();
   final busquedaXSucursalBloc = BusquedaXSucursalBloc();
   final markerMapaNegociosBloc =MarkerMapaNegociosBloc();
+  final busquedaGeneralTab =BusquedaGeneralTab();
 
 
   factory ProviderBloc({Key key, Widget child}) {
@@ -259,6 +261,11 @@ class ProviderBloc extends InheritedWidget {
   static MarkerMapaNegociosBloc markerMapa(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .markerMapaNegociosBloc;
+  }
+
+  static BusquedaGeneralTab busquedaAngelo(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .busquedaGeneralTab;
   }
 
   

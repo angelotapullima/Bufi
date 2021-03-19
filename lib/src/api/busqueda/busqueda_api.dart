@@ -8,6 +8,7 @@ import 'package:bufi/src/database/service_db.dart';
 import 'package:bufi/src/database/subcategory_db.dart';
 import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
+import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
@@ -20,6 +21,7 @@ import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
+import 'package:bufi/src/utils/utils.dart';
 import 'package:http/http.dart' as http;
 
 class BusquedaApi {
@@ -35,7 +37,12 @@ class BusquedaApi {
   final itemsubCategoryDatabase = ItemsubCategoryDatabase();
 
   Future<List<BusquedaGeneralModel>> busquedaGeneral(String query) async {
+    print(query);
     final listBusquedaGeneral = List<BusquedaGeneralModel>();
+    final listaDeProductos = List<ProductoModel>();
+    final listaDeServicios = List<SubsidiaryServiceModel>();
+    final listaDeNegocios = List<CompanyModel>();
+    final listaDeSucursales = List<SubsidiaryModel>();
     try {
       final res = await http.post("$apiBaseURL/api/Negocio/buscar_ws", body: {
         'buscar': '$query',
@@ -131,6 +138,8 @@ class BusquedaApi {
                   //insertar a la tabla Producto
                   await productoDatabase.insertarProducto(productoModel);
 
+                  listaDeProductos.add(productoModel);
+
                   //BienesModel
                   BienesModel goodmodel = BienesModel();
                   goodmodel.idGood = decodedData["result"][i]['id_good'];
@@ -181,6 +190,7 @@ class BusquedaApi {
 
                   //insertar a la tabla sucursal
                   await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
+                  listaDeSucursales.add(subsidiaryModel);
 
                   CompanyModel companyModel = CompanyModel();
                   companyModel.idCompany =
@@ -225,6 +235,8 @@ class BusquedaApi {
 
                   //insertar a la tabla de Company
                   await companyDb.insertarCompany(companyModel);
+
+                  listaDeNegocios.add(companyModel);
 
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
@@ -305,8 +317,8 @@ class BusquedaApi {
                           decodedData["result"][h][i]['subsidiary_good_size'];
                       productoModel.productoStock =
                           decodedData["result"][h][i]['subsidiary_good_stock'];
-                      productoModel.productoStockStatus =
-                          decodedData["result"][h][i]['subsidiary_good_stock_status'];
+                      productoModel.productoStockStatus = decodedData["result"]
+                          [h][i]['subsidiary_good_stock_status'];
                       productoModel.productoMeasure = decodedData["result"][h]
                           [i]['subsidiary_good_stock_measure'];
                       productoModel.productoRating =
@@ -328,6 +340,8 @@ class BusquedaApi {
                       }
                       //insertar a la tabla Producto
                       await productoDatabase.insertarProducto(productoModel);
+
+                      listaDeProductos.add(productoModel);
 
                       //BienesModel
                       BienesModel goodmodel = BienesModel();
@@ -382,6 +396,8 @@ class BusquedaApi {
                       await subsidiaryDatabase
                           .insertarSubsidiary(subsidiaryModel);
 
+                      listaDeSucursales.add(subsidiaryModel);
+
                       CompanyModel companyModel = CompanyModel();
                       companyModel.idCompany =
                           decodedData["result"][h][i]['id_company'];
@@ -428,6 +444,8 @@ class BusquedaApi {
 
                       //insertar a la tabla de Company
                       await companyDb.insertarCompany(companyModel);
+
+                      listaDeNegocios.add(companyModel);
                       //Categoria
                       CategoriaModel categ = CategoriaModel();
                       categ.idCategory =
@@ -513,6 +531,8 @@ class BusquedaApi {
                   await subisdiaryServiceDatabase
                       .insertarSubsidiaryService(subsidiaryServiceModel);
 
+                  listaDeServicios.add(subsidiaryServiceModel);
+
                   //Service
                   final servicemodel = ServiciosModel();
                   servicemodel.idService =
@@ -563,6 +583,8 @@ class BusquedaApi {
 
                   await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
 
+                  listaDeSucursales.add(subsidiaryModel);
+
                   CompanyModel companyModel = CompanyModel();
                   companyModel.idCompany =
                       decodedData["result"][j]['id_company'];
@@ -606,6 +628,8 @@ class BusquedaApi {
 
                   //insertar a la tabla de Company
                   await companyDb.insertarCompany(companyModel);
+
+                  listaDeNegocios.add(companyModel);
 
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
@@ -679,6 +703,8 @@ class BusquedaApi {
                     await subisdiaryServiceDatabase
                         .insertarSubsidiaryService(subsidiaryServiceModel);
 
+                    listaDeServicios.add(subsidiaryServiceModel);
+
                     //Service
                     final servicemodel = ServiciosModel();
                     servicemodel.idService =
@@ -731,6 +757,8 @@ class BusquedaApi {
                     await subsidiaryDatabase
                         .insertarSubsidiary(subsidiaryModel);
 
+                    listaDeSucursales.add(subsidiaryModel);
+
                     CompanyModel companyModel = CompanyModel();
                     companyModel.idCompany =
                         decodedData["result"][h][i]['id_company'];
@@ -777,6 +805,8 @@ class BusquedaApi {
 
                     //insertar a la tabla de Company
                     await companyDb.insertarCompany(companyModel);
+
+                    listaDeNegocios.add(companyModel);
 
                     //Categoria
                     CategoriaModel categ = CategoriaModel();
@@ -859,6 +889,8 @@ class BusquedaApi {
 
                   await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
 
+                  listaDeSucursales.add(subsidiaryModel);
+
                   CompanyModel companyModel = CompanyModel();
                   companyModel.idCompany =
                       decodedData["result"][j]['id_company'];
@@ -901,6 +933,8 @@ class BusquedaApi {
                       decodedData["result"][j]['distancia'];
 
                   await companyDb.insertarCompany(companyModel);
+
+                  listaDeNegocios.add(companyModel);
 
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
@@ -958,6 +992,8 @@ class BusquedaApi {
                     await subsidiaryDatabase
                         .insertarSubsidiary(subsidiaryModel);
 
+                    listaDeSucursales.add(subsidiaryModel);
+
                     CompanyModel companyModel = CompanyModel();
                     companyModel.idCompany =
                         decodedData["result"][h][i]['id_company'];
@@ -1006,6 +1042,8 @@ class BusquedaApi {
 
                     //insertar a la tabla de Company
                     await companyDb.insertarCompany(companyModel);
+
+                    listaDeNegocios.add(companyModel);
 
                     //Categoria
                     CategoriaModel categ = CategoriaModel();
@@ -1439,8 +1477,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]['subsidiary_good_size'];
                     productoModel.productoStock =
                         decodedData["result"][h][i]['subsidiary_good_stock'];
-                    productoModel.productoStockStatus =
-                        decodedData["result"][h][i]['subsidiary_good_stock_status'];
+                    productoModel.productoStockStatus = decodedData["result"][h]
+                        [i]['subsidiary_good_stock_status'];
                     productoModel.productoMeasure = decodedData["result"][h][i]
                         ['subsidiary_good_stock_measure'];
                     productoModel.productoRating =
@@ -1613,13 +1651,33 @@ class BusquedaApi {
       //print(decodedData);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
+
+      return [];
     }
+
+    /*  for (var i = 0; i < listaDeProductos.length; i++) {
+
+      listaDeProductos.reduce((value, element) => null)
+      
+    } */
+
+    final listAlgo = await filtrarListaNegocios(listaDeNegocios);
+
+    BusquedaGeneralModel busquedaGeneralModel = BusquedaGeneralModel();
+
+    busquedaGeneralModel.listProducto = listaDeProductos.toSet().toList();
+    busquedaGeneralModel.listServicios = listaDeServicios;
+    busquedaGeneralModel.listSucursal = listaDeSucursales.toSet().toList();
+    busquedaGeneralModel.listCompany = listAlgo;
+
+    listBusquedaGeneral.add(busquedaGeneralModel);
 
     return listBusquedaGeneral;
   }
 
   //---------------------Producto-------------------------------
-  Future<dynamic> busquedaProducto(String query) async {
+  Future<List<ProductoModel>> busquedaProducto(String query) async {
+    print('api busqueda producto');
     //final listGeneral = List<BusquedaProductoModel>();
     try {
       final res =
@@ -1629,6 +1687,8 @@ class BusquedaApi {
         // 'id_user': prefs.idUser,
         // 'app': 'true'
       });
+
+      final listaDeProductos = List<ProductoModel>();
       final decodedData = json.decode(res.body);
 
       //contexto de la busqueda, ejm: good, service, company...
@@ -1696,6 +1756,8 @@ class BusquedaApi {
                       decodedData["result"][j]['subsidiary_good_updated'];
                   productoModel.productoStatus =
                       decodedData["result"][j]['subsidiary_good_status'];
+
+                  listaDeProductos.add(productoModel);
 
                   var productList =
                       await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
@@ -1882,8 +1944,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]['subsidiary_good_size'];
                     productoModel.productoStock =
                         decodedData["result"][h][i]['subsidiary_good_stock'];
-                    productoModel.productoStockStatus =
-                        decodedData["result"][h][i]['subsidiary_good_stock_status'];
+                    productoModel.productoStockStatus = decodedData["result"][h]
+                        [i]['subsidiary_good_stock_status'];
                     productoModel.productoMeasure = decodedData["result"][h][i]
                         ['subsidiary_good_stock_measure'];
                     productoModel.productoRating =
@@ -1892,6 +1954,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]['subsidiary_good_updated'];
                     productoModel.productoStatus =
                         decodedData["result"][h][i]['subsidiary_good_status'];
+
+                    listaDeProductos.add(productoModel);
 
                     var productList = await productoDatabase
                         .obtenerProductoPorIdSubsidiaryGood(
@@ -2050,22 +2114,24 @@ class BusquedaApi {
               }
               //listGeneral.add(busqProductoModel);
             }
-            return 0;
           }
         } else {
           print("No haaaay productoooo");
         }
       }
+
+      return listaDeProductos;
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
+      return [];
     }
     //return listGeneral;
-    return 0;
+    //return listaDeProductos;
   }
 
   //---------------------Servicio-------------------------------
-  Future<dynamic> busquedaServicio(String query) async {
-    //final listGeneral = List<BusquedaServicioModel>();
+  Future<List<SubsidiaryServiceModel>> busquedaServicio(String query) async {
+    final listGeneral = List<SubsidiaryServiceModel>();
     try {
       final res =
           await http.post("$apiBaseURL/api/Negocio/buscar_servicios_ws", body: {
@@ -2128,6 +2194,8 @@ class BusquedaApi {
                       decodedData["result"][j]['subsidiary_service_updated'];
                   subsidiaryServiceModel.subsidiaryServiceStatus =
                       decodedData["result"][j]['subsidiary_service_status'];
+
+                  listGeneral.add(subsidiaryServiceModel);
 
                   ///listSubServicio.add(subsidiaryServiceModel);
                   await subisdiaryServiceDatabase
@@ -2303,6 +2371,9 @@ class BusquedaApi {
                         decodedData["result"][h][i]
                             ['subsidiary_service_status'];
                     // listSubServicio.add(subsidiaryServiceModel);
+
+                    listGeneral.add(subsidiaryServiceModel);
+
                     await subisdiaryServiceDatabase
                         .insertarSubsidiaryService(subsidiaryServiceModel);
 
@@ -2457,15 +2528,16 @@ class BusquedaApi {
           print("No haaaay serviciooo");
         }
       }
+      return listGeneral;
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
     }
-    //return listGeneral;
+    return listGeneral;
   }
 
   //---------------------Negocio-------------------------------
-  Future<dynamic> busquedaNegocio(String query) async {
-    //final listGeneral = List<BusquedaNegocioModel>();
+  Future<List<CompanySubsidiaryModel>> busquedaNegocio(String query) async {
+    final listGeneral = List<CompanySubsidiaryModel>();
     try {
       final res =
           await http.post("$apiBaseURL/api/Negocio/buscar_empresas_ws", body: {
@@ -2501,6 +2573,80 @@ class BusquedaApi {
                 for (var j = 0; j < decodedData["result"].length; j++) {
                   //CompanySucursal
                   //final companySucursalModel = CompanySubsidiaryModel();
+
+                  CompanySubsidiaryModel companySubsidiaryModel =
+                      CompanySubsidiaryModel();
+
+                  companySubsidiaryModel.idSubsidiary =
+                      decodedData["result"][j]['id_subsidiary'];
+                  companySubsidiaryModel.idSubsidiary =
+                      decodedData["result"][j]['id_subsidiary'];
+                  companySubsidiaryModel.idCompany =
+                      decodedData["result"][j]['id_company'];
+                  companySubsidiaryModel.subsidiaryName =
+                      decodedData["result"][j]['subsidiary_name'];
+                  companySubsidiaryModel.subsidiaryAddress =
+                      decodedData["result"][j]['subsidiary_address'];
+                  companySubsidiaryModel.subsidiaryCellphone =
+                      decodedData["result"][j]['subsidiary_cellphone'];
+                  companySubsidiaryModel.subsidiaryCellphone2 =
+                      decodedData["result"][j]['subsidiary_cellphone_2'];
+                  companySubsidiaryModel.subsidiaryEmail =
+                      decodedData["result"][j]['subsidiary_email'];
+                  companySubsidiaryModel.subsidiaryCoordX =
+                      decodedData["result"][j]['subsidiary_coord_x'];
+                  companySubsidiaryModel.subsidiaryCoordY =
+                      decodedData["result"][j]['subsidiary_coord_y'];
+                  companySubsidiaryModel.subsidiaryOpeningHours =
+                      decodedData["result"][j]['subsidiary_opening_hours'];
+                  companySubsidiaryModel.subsidiaryPrincipal =
+                      decodedData["result"][j]['subsidiary_principal'];
+                  companySubsidiaryModel.subsidiaryStatus =
+                      decodedData["result"][j]['subsidiary_status'];
+                  companySubsidiaryModel.idCompany =
+                      decodedData["result"][j]['id_company'];
+                  companySubsidiaryModel.idUser =
+                      decodedData["result"][j]['id_user'];
+                  companySubsidiaryModel.idCity =
+                      decodedData["result"][j]['id_city'];
+                  companySubsidiaryModel.idCategory =
+                      decodedData["result"][j]['id_category'];
+                  companySubsidiaryModel.companyName =
+                      decodedData["result"][j]['company_name'];
+                  companySubsidiaryModel.companyRuc =
+                      decodedData["result"][j]['company_ruc'];
+                  companySubsidiaryModel.companyImage =
+                      decodedData["result"][j]['company_image'];
+                  companySubsidiaryModel.companyType =
+                      decodedData["result"][j]['company_type'];
+                  companySubsidiaryModel.companyShortcode =
+                      decodedData["result"][j]['company_shortcode'];
+                  companySubsidiaryModel.companyDelivery =
+                      decodedData["result"][j]['company_delivery'];
+                  companySubsidiaryModel.companyEntrega =
+                      decodedData["result"][j]['company_entrega'];
+                  companySubsidiaryModel.companyTarjeta =
+                      decodedData["result"][j]['company_tarjeta'];
+                  companySubsidiaryModel.companyVerified =
+                      decodedData["result"][j]['company_verified'];
+                  companySubsidiaryModel.companyRating =
+                      decodedData["result"][j]['company_rating'];
+                  companySubsidiaryModel.companyCreatedAt =
+                      decodedData["result"][j]['company_created_at'];
+                  companySubsidiaryModel.companyJoin =
+                      decodedData["result"][j]['company_join'];
+                  companySubsidiaryModel.companyStatus =
+                      decodedData["result"][j]['company_status'];
+                  companySubsidiaryModel.companyMt =
+                      decodedData["result"][j]['company_mt'];
+                  companySubsidiaryModel.idCountry =
+                      decodedData["result"][j]['id_country'];
+                  companySubsidiaryModel.cityName =
+                      decodedData["result"][j]['city_name'];
+                  companySubsidiaryModel.distancia =
+                      decodedData["result"][j]['distancia'];
+
+                  listGeneral.add(companySubsidiaryModel);
 
                   //Sucursal
                   SubsidiaryModel subsidiaryModel = SubsidiaryModel();
@@ -2719,7 +2865,7 @@ class BusquedaApi {
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
     }
-    //return listGeneral;
+    return listGeneral;
   }
 
   //---------------------Categoria-------------------------------
@@ -3201,8 +3347,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]['subsidiary_good_size'];
                     productoModel.productoStock =
                         decodedData["result"][h][i]['subsidiary_good_stock'];
-                    productoModel.productoStockStatus =
-                        decodedData["result"][h][i]['subsidiary_good_stock_status'];
+                    productoModel.productoStockStatus = decodedData["result"][h]
+                        [i]['subsidiary_good_stock_status'];
                     productoModel.productoMeasure = decodedData["result"][h][i]
                         ['subsidiary_good_stock_measure'];
                     productoModel.productoRating =
@@ -3388,8 +3534,7 @@ class BusquedaApi {
       });
       final decodedData = json.decode(res.body);
 
-      if (decodedData["productos"].length>0) {
-              
+      if (decodedData["productos"].length > 0) {
         for (var j = 0; j < decodedData["productos"].length; j++) {
           //Producto
           ProductoModel productoModel = ProductoModel();
@@ -3418,7 +3563,8 @@ class BusquedaApi {
               decodedData["productos"][j]['subsidiary_good_type'];
           productoModel.productoSize =
               decodedData["productos"][j]['subsidiary_good_size'];
-          productoModel.productoStock = decodedData["productos"][j]['subsidiary_good_stock'];
+          productoModel.productoStock =
+              decodedData["productos"][j]['subsidiary_good_stock'];
           productoModel.productoStockStatus =
               decodedData["productos"][j]['subsidiary_good_stock_status'];
           productoModel.productoMeasure =
@@ -3496,10 +3642,13 @@ class BusquedaApi {
           companyModel.idUser = decodedData["productos"][j]['id_user'];
           companyModel.idCity = decodedData["productos"][j]['id_city'];
           companyModel.idCategory = decodedData["productos"][j]['id_category'];
-          companyModel.companyName = decodedData["productos"][j]['company_name'];
+          companyModel.companyName =
+              decodedData["productos"][j]['company_name'];
           companyModel.companyRuc = decodedData["productos"][j]['company_ruc'];
-          companyModel.companyImage = decodedData["productos"][j]['company_image'];
-          companyModel.companyType = decodedData["productos"][j]['company_type'];
+          companyModel.companyImage =
+              decodedData["productos"][j]['company_image'];
+          companyModel.companyType =
+              decodedData["productos"][j]['company_type'];
           companyModel.companyShortcode =
               decodedData["productos"][j]['company_shortcode'];
           companyModel.companyDelivery =
@@ -3514,7 +3663,8 @@ class BusquedaApi {
               decodedData["productos"][j]['company_rating'];
           companyModel.companyCreatedAt =
               decodedData["productos"][j]['company_created_at'];
-          companyModel.companyJoin = decodedData["productos"][j]['company_join'];
+          companyModel.companyJoin =
+              decodedData["productos"][j]['company_join'];
           companyModel.companyStatus =
               decodedData["productos"][j]['company_status'];
           companyModel.companyMt = decodedData["productos"][j]['company_mt'];
@@ -3525,7 +3675,7 @@ class BusquedaApi {
           //insertar a la tabla de Company
           await companyDb.insertarCompany(companyModel);
 
-         //Subcategoria
+          //Subcategoria
           final subCategoriaModel = SubcategoryModel();
           subCategoriaModel.idSubcategory =
               decodedData["productos"][j]["id_subcategory"];
@@ -3548,164 +3698,148 @@ class BusquedaApi {
           await itemsubCategoryDatabase
               .insertarItemSubCategoria(itemSubCategoriaModel);
         }
-        }else if (decodedData["servicios"].length>0){
-            for (var j = 0; j < decodedData["servicios"].length; j++) {
-                  final subsidiaryServiceModel = SubsidiaryServiceModel();
-                  subsidiaryServiceModel.idSubsidiaryservice =
-                      decodedData["servicios"][j]['id_subsidiaryservice'];
-                  subsidiaryServiceModel.idSubsidiary =
-                      decodedData["servicios"][j]['id_subsidiary'];
-                  subsidiaryServiceModel.idService =
-                      decodedData["servicios"][j]['id_service'];
-                  subsidiaryServiceModel.idItemsubcategory =
-                      decodedData["servicios"][j]['id_itemsubcategory'];
-                  subsidiaryServiceModel.subsidiaryServiceName =
-                      decodedData["servicios"][j]['subsidiary_service_name'];
-                  subsidiaryServiceModel.subsidiaryServiceDescription =
-                      decodedData["servicios"][j]
-                          ['subsidiary_service_description'];
-                  subsidiaryServiceModel.subsidiaryServicePrice =
-                      decodedData["servicios"][j]['subsidiary_service_price'];
-                  subsidiaryServiceModel.subsidiaryServiceCurrency =
-                      decodedData["servicios"][j]['subsidiary_service_currency'];
-                  subsidiaryServiceModel.subsidiaryServiceImage =
-                      decodedData["servicios"][j]['subsidiary_service_image'];
-                  subsidiaryServiceModel.subsidiaryServiceRating =
-                      decodedData["servicios"][j]['subsidiary_service_rating'];
-                  subsidiaryServiceModel.subsidiaryServiceUpdated =
-                      decodedData["servicios"][j]['subsidiary_service_updated'];
-                  subsidiaryServiceModel.subsidiaryServiceStatus =
-                      decodedData["servicios"][j]['subsidiary_service_status'];
+      } else if (decodedData["servicios"].length > 0) {
+        for (var j = 0; j < decodedData["servicios"].length; j++) {
+          final subsidiaryServiceModel = SubsidiaryServiceModel();
+          subsidiaryServiceModel.idSubsidiaryservice =
+              decodedData["servicios"][j]['id_subsidiaryservice'];
+          subsidiaryServiceModel.idSubsidiary =
+              decodedData["servicios"][j]['id_subsidiary'];
+          subsidiaryServiceModel.idService =
+              decodedData["servicios"][j]['id_service'];
+          subsidiaryServiceModel.idItemsubcategory =
+              decodedData["servicios"][j]['id_itemsubcategory'];
+          subsidiaryServiceModel.subsidiaryServiceName =
+              decodedData["servicios"][j]['subsidiary_service_name'];
+          subsidiaryServiceModel.subsidiaryServiceDescription =
+              decodedData["servicios"][j]['subsidiary_service_description'];
+          subsidiaryServiceModel.subsidiaryServicePrice =
+              decodedData["servicios"][j]['subsidiary_service_price'];
+          subsidiaryServiceModel.subsidiaryServiceCurrency =
+              decodedData["servicios"][j]['subsidiary_service_currency'];
+          subsidiaryServiceModel.subsidiaryServiceImage =
+              decodedData["servicios"][j]['subsidiary_service_image'];
+          subsidiaryServiceModel.subsidiaryServiceRating =
+              decodedData["servicios"][j]['subsidiary_service_rating'];
+          subsidiaryServiceModel.subsidiaryServiceUpdated =
+              decodedData["servicios"][j]['subsidiary_service_updated'];
+          subsidiaryServiceModel.subsidiaryServiceStatus =
+              decodedData["servicios"][j]['subsidiary_service_status'];
 
-                  ///listSubServicio.add(subsidiaryServiceModel);
-                  await subisdiaryServiceDatabase
-                      .insertarSubsidiaryService(subsidiaryServiceModel);
+          ///listSubServicio.add(subsidiaryServiceModel);
+          await subisdiaryServiceDatabase
+              .insertarSubsidiaryService(subsidiaryServiceModel);
 
-                  //Service
-                  final servicemodel = ServiciosModel();
-                  servicemodel.idService =
-                      decodedData["servicios"][j]['id_service'];
-                  servicemodel.serviceName =
-                      decodedData["servicios"][j]['service_name'];
-                  servicemodel.serviceSynonyms =
-                      decodedData["servicios"][j]['service_synonyms'];
-                  //listService.add(servicemodel);
-                  await serviceDatabase.insertarService(servicemodel);
+          //Service
+          final servicemodel = ServiciosModel();
+          servicemodel.idService = decodedData["servicios"][j]['id_service'];
+          servicemodel.serviceName =
+              decodedData["servicios"][j]['service_name'];
+          servicemodel.serviceSynonyms =
+              decodedData["servicios"][j]['service_synonyms'];
+          //listService.add(servicemodel);
+          await serviceDatabase.insertarService(servicemodel);
 
-                  //Sucursal
-                  SubsidiaryModel subsidiaryModel = SubsidiaryModel();
-                  subsidiaryModel.idSubsidiary =
-                      decodedData["servicios"][j]['id_subsidiary'];
-                  subsidiaryModel.idCompany =
-                      decodedData["servicios"][j]['id_company'];
-                  subsidiaryModel.subsidiaryName =
-                      decodedData["servicios"][j]['subsidiary_name'];
-                  subsidiaryModel.subsidiaryAddress =
-                      decodedData["servicios"][j]['subsidiary_address'];
-                  subsidiaryModel.subsidiaryCellphone =
-                      decodedData["servicios"][j]['subsidiary_cellphone'];
-                  subsidiaryModel.subsidiaryCellphone2 =
-                      decodedData["servicios"][j]['subsidiary_cellphone_2'];
-                  subsidiaryModel.subsidiaryEmail =
-                      decodedData["servicios"][j]['subsidiary_email'];
-                  subsidiaryModel.subsidiaryCoordX =
-                      decodedData["servicios"][j]['subsidiary_coord_x'];
-                  subsidiaryModel.subsidiaryCoordY =
-                      decodedData["servicios"][j]['subsidiary_coord_y'];
-                  subsidiaryModel.subsidiaryOpeningHours =
-                      decodedData["servicios"][j]['subsidiary_opening_hours'];
-                  subsidiaryModel.subsidiaryPrincipal =
-                      decodedData["servicios"][j]['subsidiary_principal'];
-                  subsidiaryModel.subsidiaryStatus =
-                      decodedData["servicios"][j]['subsidiary_status'];
-                  final listSubsidiaryDb =
-                      await subsidiaryDatabase.obtenerSubsidiaryPorId(
-                          decodedData["servicios"][j]['id_subsidiary']);
+          //Sucursal
+          SubsidiaryModel subsidiaryModel = SubsidiaryModel();
+          subsidiaryModel.idSubsidiary =
+              decodedData["servicios"][j]['id_subsidiary'];
+          subsidiaryModel.idCompany = decodedData["servicios"][j]['id_company'];
+          subsidiaryModel.subsidiaryName =
+              decodedData["servicios"][j]['subsidiary_name'];
+          subsidiaryModel.subsidiaryAddress =
+              decodedData["servicios"][j]['subsidiary_address'];
+          subsidiaryModel.subsidiaryCellphone =
+              decodedData["servicios"][j]['subsidiary_cellphone'];
+          subsidiaryModel.subsidiaryCellphone2 =
+              decodedData["servicios"][j]['subsidiary_cellphone_2'];
+          subsidiaryModel.subsidiaryEmail =
+              decodedData["servicios"][j]['subsidiary_email'];
+          subsidiaryModel.subsidiaryCoordX =
+              decodedData["servicios"][j]['subsidiary_coord_x'];
+          subsidiaryModel.subsidiaryCoordY =
+              decodedData["servicios"][j]['subsidiary_coord_y'];
+          subsidiaryModel.subsidiaryOpeningHours =
+              decodedData["servicios"][j]['subsidiary_opening_hours'];
+          subsidiaryModel.subsidiaryPrincipal =
+              decodedData["servicios"][j]['subsidiary_principal'];
+          subsidiaryModel.subsidiaryStatus =
+              decodedData["servicios"][j]['subsidiary_status'];
+          final listSubsidiaryDb =
+              await subsidiaryDatabase.obtenerSubsidiaryPorId(
+                  decodedData["servicios"][j]['id_subsidiary']);
 
-                  if (listSubsidiaryDb.length > 0) {
-                    subsidiaryModel.subsidiaryFavourite =
-                        listSubsidiaryDb[0].subsidiaryFavourite;
-                  } else {
-                    subsidiaryModel.subsidiaryFavourite = '0';
-                  }
+          if (listSubsidiaryDb.length > 0) {
+            subsidiaryModel.subsidiaryFavourite =
+                listSubsidiaryDb[0].subsidiaryFavourite;
+          } else {
+            subsidiaryModel.subsidiaryFavourite = '0';
+          }
 
-                  await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
+          await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
 
-                  CompanyModel companyModel = CompanyModel();
-                  companyModel.idCompany =
-                      decodedData["servicios"][j]['id_company'];
-                  companyModel.idUser = decodedData["servicios"][j]['id_user'];
-                  companyModel.idCity = decodedData["servicios"][j]['id_city'];
-                  companyModel.idCategory =
-                      decodedData["servicios"][j]['id_category'];
-                  companyModel.companyName =
-                      decodedData["servicios"][j]['company_name'];
-                  companyModel.companyRuc =
-                      decodedData["servicios"][j]['company_ruc'];
-                  companyModel.companyImage =
-                      decodedData["servicios"][j]['company_image'];
-                  companyModel.companyType =
-                      decodedData["servicios"][j]['company_type'];
-                  companyModel.companyShortcode =
-                      decodedData["servicios"][j]['company_shortcode'];
-                  companyModel.companyDelivery =
-                      decodedData["servicios"][j]['company_delivery'];
-                  companyModel.companyEntrega =
-                      decodedData["servicios"][j]['company_entrega'];
-                  companyModel.companyTarjeta =
-                      decodedData["servicios"][j]['company_tarjeta'];
-                  companyModel.companyVerified =
-                      decodedData["servicios"][j]['company_verified'];
-                  companyModel.companyRating =
-                      decodedData["servicios"][j]['company_rating'];
-                  companyModel.companyCreatedAt =
-                      decodedData["servicios"][j]['company_created_at'];
-                  companyModel.companyJoin =
-                      decodedData["servicios"][j]['company_join'];
-                  companyModel.companyStatus =
-                      decodedData["servicios"][j]['company_status'];
-                  companyModel.companyMt =
-                      decodedData["servicios"][j]['company_mt'];
-                  companyModel.idCountry =
-                      decodedData["servicios"][j]['id_country'];
-                  companyModel.cityName = decodedData["servicios"][j]['city_name'];
-                  companyModel.distancia =
-                      decodedData["servicios"][j]['distancia'];
+          CompanyModel companyModel = CompanyModel();
+          companyModel.idCompany = decodedData["servicios"][j]['id_company'];
+          companyModel.idUser = decodedData["servicios"][j]['id_user'];
+          companyModel.idCity = decodedData["servicios"][j]['id_city'];
+          companyModel.idCategory = decodedData["servicios"][j]['id_category'];
+          companyModel.companyName =
+              decodedData["servicios"][j]['company_name'];
+          companyModel.companyRuc = decodedData["servicios"][j]['company_ruc'];
+          companyModel.companyImage =
+              decodedData["servicios"][j]['company_image'];
+          companyModel.companyType =
+              decodedData["servicios"][j]['company_type'];
+          companyModel.companyShortcode =
+              decodedData["servicios"][j]['company_shortcode'];
+          companyModel.companyDelivery =
+              decodedData["servicios"][j]['company_delivery'];
+          companyModel.companyEntrega =
+              decodedData["servicios"][j]['company_entrega'];
+          companyModel.companyTarjeta =
+              decodedData["servicios"][j]['company_tarjeta'];
+          companyModel.companyVerified =
+              decodedData["servicios"][j]['company_verified'];
+          companyModel.companyRating =
+              decodedData["servicios"][j]['company_rating'];
+          companyModel.companyCreatedAt =
+              decodedData["servicios"][j]['company_created_at'];
+          companyModel.companyJoin =
+              decodedData["servicios"][j]['company_join'];
+          companyModel.companyStatus =
+              decodedData["servicios"][j]['company_status'];
+          companyModel.companyMt = decodedData["servicios"][j]['company_mt'];
+          companyModel.idCountry = decodedData["servicios"][j]['id_country'];
+          companyModel.cityName = decodedData["servicios"][j]['city_name'];
+          companyModel.distancia = decodedData["servicios"][j]['distancia'];
 
-                  //insertar a la tabla de Company
-                  await companyDb.insertarCompany(companyModel);
+          //insertar a la tabla de Company
+          await companyDb.insertarCompany(companyModel);
 
-                  
+          //Subcategoria
+          final subCategoriaModel = SubcategoryModel();
+          subCategoriaModel.idSubcategory =
+              decodedData["servicios"][j]["id_subcategory"];
+          subCategoriaModel.idCategory =
+              decodedData["servicios"][j]["id_category"];
+          // subCategoriaModel.subcategoryName =decodedData["servicios"][j].subcategoryName;
+          //listSubCategory.add(subCategoriaModel);
+          await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
 
-                  //Subcategoria
-                  final subCategoriaModel = SubcategoryModel();
-                  subCategoriaModel.idSubcategory =
-                      decodedData["servicios"][j]["id_subcategory"];
-                  subCategoriaModel.idCategory =
-                      decodedData["servicios"][j]["id_category"];
-                  // subCategoriaModel.subcategoryName =decodedData["servicios"][j].subcategoryName;
-                  //listSubCategory.add(subCategoriaModel);
-                  await subcategoryDatabase
-                      .insertarSubCategory(subCategoriaModel);
+          //ItemSubCategoriaModel
+          ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
+          itemSubCategoriaModel.idSubcategory =
+              decodedData["servicios"][j]['id_subcategory'];
+          itemSubCategoriaModel.idItemsubcategory =
+              decodedData["servicios"][j]['itemsubcategory_name'];
+          itemSubCategoriaModel.itemsubcategoryName =
+              decodedData["servicios"][j]['itemsubcategory_name'];
 
-                  //ItemSubCategoriaModel
-                  ItemSubCategoriaModel itemSubCategoriaModel =
-                      ItemSubCategoriaModel();
-                  itemSubCategoriaModel.idSubcategory =
-                      decodedData["servicios"][j]['id_subcategory'];
-                  itemSubCategoriaModel.idItemsubcategory =
-                      decodedData["servicios"][j]['itemsubcategory_name'];
-                  itemSubCategoriaModel.itemsubcategoryName =
-                      decodedData["servicios"][j]['itemsubcategory_name'];
-
-                  //listItemSub.add(itemSubCategoriaModel);
-                  await itemsubCategoryDatabase
-                      .insertarItemSubCategoria(itemSubCategoriaModel);
-                }
-            
+          //listItemSub.add(itemSubCategoriaModel);
+          await itemsubCategoryDatabase
+              .insertarItemSubCategoria(itemSubCategoriaModel);
         }
-      
-
+      }
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
     }

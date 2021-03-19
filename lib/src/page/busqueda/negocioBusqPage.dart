@@ -1,11 +1,19 @@
 import 'package:bufi/src/bloc/busqueda/busquedaBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
-import 'package:bufi/src/models/busquedaModel.dart';
+import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BusquedaNegocioPage extends SearchDelegate {
+  BusquedaNegocioPage({
+    String hintText = 'Buscar Negocios',
+  }) : super(
+          searchFieldLabel: hintText,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.search,
+        );
+
   @override
   List<Widget> buildActions(BuildContext context) {
     //Icono o acciones a la derecha, recibe una lista de widgets
@@ -47,7 +55,7 @@ class BusquedaNegocioPage extends SearchDelegate {
     busquedaBloc.obtenerBusquedaNegocio('$query');
 
     if (query.isEmpty) {
-      return Container(
+      return Center(
         child: Text("Ingrese una palabra para realizar la búsqueda"),
       );
     } else {
@@ -57,12 +65,11 @@ class BusquedaNegocioPage extends SearchDelegate {
     // return Container(child: Text("Sugerencias"));
   }
 
-  StreamBuilder<List<BusquedaNegocioModel>> streamNegocio(
-      BusquedaBloc busquedaBloc) {
+  StreamBuilder<List<CompanySubsidiaryModel>> streamNegocio(BusquedaBloc busquedaBloc) {
     return StreamBuilder(
       stream: busquedaBloc.busquedaNegocioStream,
-      builder: (BuildContext context,
-          AsyncSnapshot<List<BusquedaNegocioModel>> snapshot) {
+      builder:
+          (BuildContext context, AsyncSnapshot<List<CompanySubsidiaryModel>> snapshot) {
         if (snapshot.hasData) {
           final resultBusqueda = snapshot.data;
           if (snapshot.data.length > 0) {
@@ -72,36 +79,38 @@ class BusquedaNegocioPage extends SearchDelegate {
               itemBuilder: (BuildContext context, int index) {
                 return ListView.builder(
                     shrinkWrap: true,
-                    itemCount: resultBusqueda[index].listCompanySubsidiary.length,
+                    itemCount: resultBusqueda.length,
                     itemBuilder: (BuildContext context, int i) {
                       return ListTile(
                         leading: FadeInImage(
                           placeholder: AssetImage('assets/no-image.png'),
                           image: NetworkImage(
-                            '$apiBaseURL/${resultBusqueda[index].listCompanySubsidiary[i].companyImage}',
+                            '$apiBaseURL/${resultBusqueda[index].companyImage}',
                           ),
                           width: 50,
                           fit: BoxFit.contain,
                         ),
-                        title: Text(
-                            '${resultBusqueda[index].listCompanySubsidiary[i].companyName}'),
-                        subtitle: Text(
-                            '${resultBusqueda[index].listCompanySubsidiary[i].companyRuc}'),
+                        title: Text('${resultBusqueda[index].companyName}'),
+                        subtitle: Text('${resultBusqueda[index].subsidiaryAddress}'),
                         onTap: () {
                           close(context, null);
 
                           Navigator.pushNamed(context, "detalleNegocio",
-                              arguments: resultBusqueda[index].listCompanySubsidiary[i]);
+                              arguments: resultBusqueda[index]);
                         },
                       );
                     });
               },
             );
           } else {
-            return Text("No hay resultados para la búsqueda");
+            return Center(
+              child: Text("No hay resultados para la búsqueda"),
+            );
           }
         } else {
-          return Center(child: CupertinoActivityIndicator());
+          return Center(
+            child: CupertinoActivityIndicator(),
+          );
         }
       },
     );

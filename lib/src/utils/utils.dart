@@ -12,6 +12,7 @@ import 'package:bufi/src/database/tallaProducto_database.dart';
 import 'package:bufi/src/database/tipo_pago_database.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/carritoModel.dart';
+import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/direccionModel.dart';
 import 'package:bufi/src/models/marcaProductoModel.dart';
 import 'package:bufi/src/models/modeloProductoModel.dart';
@@ -110,13 +111,17 @@ void quitarSubsidiaryFavorito(
   deletePoint.deletePoint(companysubsidiaryModel.idSubsidiary);
 }
 
-Future<int> agregarAlCarrito(BuildContext context, String idSubsidiarygood, String talla, String modelo, String marca) async {
+Future<int> agregarAlCarrito(BuildContext context, String idSubsidiarygood,
+    String talla, String modelo, String marca) async {
   CarritoDb carritoDb = CarritoDb();
   final productoDatabase = ProductoDatabase();
 
-  final productCarrito = await carritoDb.obtenerProductoXCarritoPorIdProductoTalla(  idSubsidiarygood, talla, modelo, marca);
+  final productCarrito =
+      await carritoDb.obtenerProductoXCarritoPorIdProductoTalla(
+          idSubsidiarygood, talla, modelo, marca);
 
-  final producto = await productoDatabase .obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
+  final producto = await productoDatabase
+      .obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
   CarritoModel c = CarritoModel();
 
   c.idSubsidiaryGood = producto[0].idProducto;
@@ -133,7 +138,8 @@ Future<int> agregarAlCarrito(BuildContext context, String idSubsidiarygood, Stri
 
   if (productCarrito.length > 0) {
     //await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
-    await carritoDb.deleteCarritoPorIdProductoTalla( idSubsidiarygood, talla, modelo, marca);
+    await carritoDb.deleteCarritoPorIdProductoTalla(
+        idSubsidiarygood, talla, modelo, marca);
     c.cantidad = (int.parse(productCarrito[0].cantidad) + 1).toString();
 
     c.estadoSeleccionado = productCarrito[0].estadoSeleccionado;
@@ -150,22 +156,23 @@ Future<int> agregarAlCarrito(BuildContext context, String idSubsidiarygood, Stri
   return 0;
 }
 
-void agregarAlCarritoContador(
-    BuildContext context, String idSubsidiarygood, String talla, String modelo, String marca,int cantidad) async {
+void agregarAlCarritoContador(BuildContext context, String idSubsidiarygood,
+    String talla, String modelo, String marca, int cantidad) async {
   CarritoDb carritoDb = CarritoDb();
   final productoDatabase = ProductoDatabase();
 
   if (cantidad == 0) {
     //eliminar producto del carrito
     //await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
-    await carritoDb.deleteCarritoPorIdProductoTalla( idSubsidiarygood, talla,modelo, marca);
+    await carritoDb.deleteCarritoPorIdProductoTalla(
+        idSubsidiarygood, talla, modelo, marca);
   } else {
     final producto = await productoDatabase
         .obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
 
     final carritoList =
         await carritoDb.obtenerProductoXCarritoPorIdProductoTalla(
-        idSubsidiarygood, talla, modelo, marca);
+            idSubsidiarygood, talla, modelo, marca);
 
     CarritoModel c = CarritoModel();
 
@@ -174,8 +181,8 @@ void agregarAlCarritoContador(
     c.precio = producto[0].productoPrice;
     c.nombre = producto[0].productoName;
     c.marca = marca;
-    c.modelo =modelo;
-    c.talla =talla;
+    c.modelo = modelo;
+    c.talla = talla;
     c.image = producto[0].productoImage;
     c.moneda = producto[0].productoCurrency;
     c.size = producto[0].productoSize;
@@ -274,12 +281,12 @@ void irADetalleProducto(BienesServiciosModel model, BuildContext context) {
   );
 }
 
-void cambiarEstadoCarrito(
-    BuildContext context, String idProducto,String talla,String modelo,String marca, String estado) async {
+void cambiarEstadoCarrito(BuildContext context, String idProducto, String talla,
+    String modelo, String marca, String estado) async {
   final carritoBloc = ProviderBloc.productosCarrito(context);
   final carritodb = CarritoDb();
 
-  await carritodb.updateSeleccionado(idProducto, estado,talla,modelo,marca);
+  await carritodb.updateSeleccionado(idProducto, estado, talla, modelo, marca);
 
   carritoBloc.obtenerCarritoPorSucursal();
 }
@@ -356,4 +363,119 @@ Future<int> cambiarEstadoModelo(
 
   datosProdBloc.listarDatosProducto(modeloModel.idProducto);
   return 0;
+}
+
+Future<List<ProductoModel>> filtrarListaProductos(
+    List<ProductoModel> lista) async {
+  final listAlgo = List<ProductoModel>();
+
+  final listString = List<String>();
+  for (var a = 0; a < lista.length; a++) {
+    listString.add(lista[a].idProducto);
+  }
+  var listString2 = listString.toSet().toList();
+
+  for (var x = 0; x < listString2.length; x++) {
+    for (var i = 0; i < lista.length; i++) {
+      if (listString2[x] != lista[i].idProducto) {
+        bool valor = false;
+
+        for (var y = 0; y < listAlgo.length; y++) {
+          if (lista[i].idProducto == listAlgo[y].idProducto) {
+            valor = true;
+          }
+        }
+
+        if (valor) {
+          print('Contenido');
+        } else {
+          ProductoModel productoModel = ProductoModel();
+          productoModel.idProducto = lista[i].idProducto;
+          productoModel.idSubsidiary = lista[i].idSubsidiary;
+          productoModel.idGood = lista[i].idGood;
+          productoModel.idItemsubcategory = lista[i].idItemsubcategory;
+          productoModel.productoName = lista[i].productoName;
+          productoModel.productoPrice = lista[i].productoPrice;
+          productoModel.productoCurrency = lista[i].productoCurrency;
+          productoModel.productoImage = lista[i].productoImage;
+          productoModel.productoCharacteristics =
+              lista[i].productoCharacteristics;
+          productoModel.productoBrand = lista[i].productoBrand;
+          productoModel.productoModel = lista[i].productoModel;
+          productoModel.productoType = lista[i].productoType;
+          productoModel.productoSize = lista[i].productoSize;
+          productoModel.productoStock = lista[i].productoStock;
+          productoModel.productoStockStatus = lista[i].productoStockStatus;
+          productoModel.productoMeasure = lista[i].productoMeasure;
+          productoModel.productoRating = lista[i].productoRating;
+          productoModel.productoUpdated = lista[i].productoUpdated;
+          productoModel.productoStatus = lista[i].productoStatus;
+
+          listAlgo.add(productoModel);
+        }
+      } else {
+        print('entra arriba abajo $x');
+      }
+    }
+  }
+
+  return listAlgo;
+}
+
+Future<List<CompanyModel>> filtrarListaNegocios(
+    List<CompanyModel> lista) async {
+  final listAlgo = List<CompanyModel>();
+
+  final listString = List<String>();
+  for (var a = 0; a < lista.length; a++) {
+    listString.add(lista[a].idCompany);
+  }
+  var listString2 = listString.toSet().toList();
+
+  for (var x = 0; x < listString2.length; x++) {
+    for (var i = 0; i < lista.length; i++) {
+      if (listString2[x] != lista[i].idCompany) {
+        bool valor = false;
+
+        for (var y = 0; y < listAlgo.length; y++) {
+          if (lista[i].idCompany == listAlgo[y].idCompany) {
+            valor = true;
+          }
+        }
+
+        if (valor) {
+          print('Contenido');
+        } else {
+          CompanyModel companyModel = CompanyModel();
+          companyModel.idCompany = lista[i].idCompany;
+          companyModel.idUser = lista[i].idUser;
+          companyModel.idCity = lista[i].idCity;
+          companyModel.idCategory = lista[i].idCategory;
+          companyModel.companyName =lista[i].companyName;
+          companyModel.companyRuc = lista[i].companyRuc;
+          companyModel.companyImage =lista[i].companyImage;
+          companyModel.companyType =lista[i].companyType;
+          companyModel.companyShortcode =lista[i].companyShortcode;
+          companyModel.companyDelivery =lista[i].companyDelivery;
+          companyModel.companyEntrega =lista[i].companyEntrega;
+          companyModel.companyTarjeta =lista[i].companyTarjeta;
+          companyModel.companyVerified =lista[i].companyVerified;
+          companyModel.companyRating =lista[i].companyRating;
+          companyModel.companyCreatedAt =lista[i].companyCreatedAt;
+          companyModel.companyJoin =lista[i].companyJoin;
+          companyModel.companyStatus =lista[i].companyStatus;
+          companyModel.companyMt = lista[i].companyMt;
+          companyModel.idCountry = lista[i].idCountry;
+          companyModel.cityName = lista[i].cityName;
+          companyModel.distancia = lista[i].distancia;
+
+          listAlgo.add(companyModel);
+        }
+      } else {
+        print('entra arriba abajo $x');
+      }
+    }
+  }
+
+  return listAlgo;
 }

@@ -35,12 +35,12 @@ class BusquedaBloc {
   final itemSubcategoriaDb = ItemsubCategoryDatabase();
 
   final busquedaProductoController =
-      BehaviorSubject<List<BusquedaProductoModel>>();
+      BehaviorSubject<List<ProductoModel>>();
 
   final busquedaServicioController =
-      BehaviorSubject<List<BusquedaServicioModel>>();
+      BehaviorSubject<List<SubsidiaryServiceModel>>();
   final busquedaNegocioController =
-      BehaviorSubject<List<BusquedaNegocioModel>>();
+      BehaviorSubject<List<CompanySubsidiaryModel>>();
 
   final busquedaCategoriaController =
       BehaviorSubject<List<BusquedaCategoriaModel>>();
@@ -50,16 +50,17 @@ class BusquedaBloc {
   final busquedaItemSubcategController =
       BehaviorSubject<List<BusquedaItemSubcategoriaModel>>();
 
-  Stream<List<BusquedaProductoModel>> get busquedaProductoStream =>
+  Stream<List<ProductoModel>> get busquedaProductoStream =>
       busquedaProductoController.stream;
-  Stream<List<BusquedaServicioModel>> get busquedaServicioStream =>
+      
+  Stream<List<SubsidiaryServiceModel>> get busquedaServicioStream =>
       busquedaServicioController.stream;
-  Stream<List<BusquedaNegocioModel>> get busquedaNegocioStream =>
+  Stream<List<CompanySubsidiaryModel>> get busquedaNegocioStream =>
       busquedaNegocioController.stream;
   Stream<List<BusquedaCategoriaModel>> get busquedaCategoriaStream =>
       busquedaCategoriaController.stream;
-  Stream<List<BusquedaServicioModel>> get busquedaSubcategoriaStream =>
-      busquedaServicioController.stream;
+  /* Stream<List<BusquedaServicioModel>> get busquedaSubcategoriaStream =>
+      busquedaServicioController.stream; */
   Stream<List<BusquedaItemSubcategoriaModel>>
       get busquedaItemSubcategoriaStream =>
           busquedaItemSubcategController.stream;
@@ -75,10 +76,10 @@ class BusquedaBloc {
 
 //Producto
   void obtenerBusquedaProducto(String query) async {
-    busquedaProductoController.sink
-        .add(await obtnerResultBusquedaProducto(query));
+    /* busquedaProductoController.sink
+        .add(await obtnerResultBusquedaProducto(query)); */
 
-    // await busquedaApi.busquedaProducto(query);
+     busquedaProductoController.sink.add(await busquedaApi.busquedaProducto(query));
 
     // busquedaProductoController.sink
     //     .add(await obtnerResultBusquedaProducto(query));
@@ -86,14 +87,16 @@ class BusquedaBloc {
 
 //Servicio
   void obtenerBusquedaServicio(String query) async {
-    busquedaServicioController.sink
-        .add(await obtnerResultBusquedaServicio(query));
+    //busquedaServicioController.sink.add(await obtnerResultBusquedaServicio(query));
+
+     busquedaServicioController.sink.add(await busquedaApi.busquedaServicio(query));
+    //busquedaServicioController.sink.add(await busquedaServicio(query));
   }
 
 //Negocio
   void obtenerBusquedaNegocio(String query) async {
-    busquedaNegocioController.sink
-        .add(await obtnerResultBusquedaNegocio(query));
+    //busquedaNegocioController.sink.add(await obtnerResultBusquedaNegocio(query));
+    busquedaNegocioController.sink.add(await busquedaApi.busquedaNegocio(query));
   }
 
   //Categoria

@@ -1,4 +1,8 @@
 PODS:
+  - catcher (0.0.1):
+    - Flutter
+  - device_info (0.0.1):
+    - Flutter
   - esys_flutter_share (0.0.1):
     - Flutter
   - Firebase/CoreOnly (6.33.0):
@@ -16,8 +20,11 @@ PODS:
     - GoogleUtilities/Logger (~> 6.7)
     - nanopb (~> 1.30906.0)
   - Flutter (1.0.0)
+  - flutter_mailer (0.0.1):
+    - Flutter
   - fluttertoast (0.0.2):
     - Flutter
+    - Toast
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -47,6 +54,8 @@ PODS:
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
+  - package_info (0.0.1):
+    - Flutter
   - path_provider (0.0.1):
     - Flutter
   - PromisesObjC (1.2.11)
@@ -55,17 +64,22 @@ PODS:
   - sqflite (0.0.1):
     - Flutter
     - FMDB (~> 2.7.2)
+  - Toast (4.0.0)
   - TOCropViewController (2.5.5)
 
 DEPENDENCIES:
+  - catcher (from `.symlinks/plugins/catcher/ios`)
+  - device_info (from `.symlinks/plugins/device_info/ios`)
   - esys_flutter_share (from `.symlinks/plugins/esys_flutter_share/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
+  - flutter_mailer (from `.symlinks/plugins/flutter_mailer/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
   - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
   - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
+  - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
@@ -81,15 +95,22 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
+    - Toast
     - TOCropViewController
 
 EXTERNAL SOURCES:
+  catcher:
+    :path: ".symlinks/plugins/catcher/ios"
+  device_info:
+    :path: ".symlinks/plugins/device_info/ios"
   esys_flutter_share:
     :path: ".symlinks/plugins/esys_flutter_share/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
+  flutter_mailer:
+    :path: ".symlinks/plugins/flutter_mailer/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   google_maps_flutter:
@@ -100,6 +121,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_gallery_saver/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
+  package_info:
+    :path: ".symlinks/plugins/package_info/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   shared_preferences:
@@ -108,13 +131,16 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite/ios"
 
 SPEC CHECKSUMS:
+  catcher: e5585ed31458c849f4fd9c3719b2fcb0188b8918
+  device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   esys_flutter_share: 403498dab005b36ce1f8d7aff377e81f0621b0b4
   Firebase: 8db6f2d1b2c5e2984efba4949a145875a8f65fe5
   firebase_core: 5d6a02f3d85acd5f8321c2d6d62877626a670659
   FirebaseCore: d889d9e12535b7f36ac8bfbf1713a0836a3012cd
   FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
+  flutter_mailer: 2ef5a67087bc8c6c4cefd04a178bf1ae2c94cd83
+  fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   google_maps_flutter: c7f9c73576de1fbe152a227bfd6e6c4ae8088619
   GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
@@ -124,10 +150,12 @@ SPEC CHECKSUMS:
   image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
   image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
+  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   TOCropViewController: da59f531f8ac8a94ef6d6c0fc34009350f9e8bfe
 
 PODFILE CHECKSUM: a75497545d4391e2d394c3668e20cfb1c2bbd4aa

@@ -27,6 +27,10 @@ import 'package:bufi/src/page/registro_usuarioTab.dart';
 import 'package:bufi/src/page/splash.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/theme/theme.dart';
+import 'package:catcher/core/catcher.dart';
+import 'package:catcher/handlers/email_manual_handler.dart';
+import 'package:catcher/mode/dialog_report_mode.dart';
+import 'package:catcher/model/catcher_options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +38,23 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = new Preferences();
   await prefs.initPrefs();
-  runApp(MyApp());
+
+  /// STEP 1. Create catcher configuration.
+  /// Debug configuration with dialog report mode and console handler. It will show dialog and once user accepts it, error will be shown   /// in console.
+  CatcherOptions debugOptions = CatcherOptions.getDefaultDebugOptions();
+
+  /// Release configuration. Same as above, but once user accepts dialog, user will be prompted to send email with crash to support.
+  CatcherOptions releaseOptions = CatcherOptions(DialogReportMode(), [
+    EmailManualHandler(["angelo.anked@gmail.com"])
+  ]);
+
+  /// STEP 2. Pass your root widget (MyApp) along with Catcher configuration:
+  Catcher(
+      rootWidget: MyApp(),
+      debugConfig: debugOptions,
+      releaseConfig: releaseOptions);
+
+  //runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -62,11 +82,22 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
+            navigatorKey: Catcher.navigatorKey,
+            builder: (BuildContext context, Widget widget) {
+              Catcher.addDefaultErrorWidget(
+                  showStacktrace: true,
+                  title: "Custom error title",
+                  description: "Custom error description",
+                  maxWidthForSmallMode: 150);
+              return Container(
+                //appBar: AppBar(title: Text('Error'),),
+                color: Colors.white,
+                child: widget);
+            },
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,
-           
             theme: lightTheme,
-            darkTheme:lightTheme, //darkTheme,
+            darkTheme: lightTheme, //darkTheme,
             home: Splash(),
             //initialRoute:(prefs.idUser=="" || prefs.idUser==null)?'login':'home',
             routes: {
@@ -88,32 +119,33 @@ class MyApp extends StatelessWidget {
               //"registroNegocio": (BuildContext context) => RegistroNegocio(),
               "detalleNegocio": (BuildContext context) => DetalleNegocio(),
 
-
-
               //Producto
               //"listarProductoAll": (BuildContext context)=> ListarProductosPorSucursal(),
               //"detalleProducto": (BuildContext context)=> DetalleProductos(),
               "agregarAlCarrito": (BuildContext context) => CarritoPage(),
-              "detalleProductoFoto": (BuildContext context)=> DetalleProductoFoto(),
-              
+              "detalleProductoFoto": (BuildContext context) =>
+                  DetalleProductoFoto(),
 
               //Servicio
-             // "detalleServicio": (BuildContext context) => DetalleServicio(),
+              // "detalleServicio": (BuildContext context) => DetalleServicio(),
               // "listarServiciosXsucursal": (BuildContext context) =>
 
               //Usuario
-              
+
               //Direccion
-              'perfil': (BuildContext context) =>PerfilPage(),
-                
-                //Direccion
-              'direccion': (BuildContext context) =>DireccionDeliveryPage(),
-              'agregarDireccion': (BuildContext context) =>AgregarDireccionPage(),
-                //Pedidos
-              'pedidos': (BuildContext context) =>PedidosPage(),
-              'valoracion': (BuildContext context) =>PendientesValoracionPage(),
-              'ratingProductos': (BuildContext context) =>RatingProductosPage(),
-                //Bufis
+              'perfil': (BuildContext context) => PerfilPage(),
+
+              //Direccion
+              'direccion': (BuildContext context) => DireccionDeliveryPage(),
+              'agregarDireccion': (BuildContext context) =>
+                  AgregarDireccionPage(),
+              //Pedidos
+              'pedidos': (BuildContext context) => PedidosPage(),
+              'valoracion': (BuildContext context) =>
+                  PendientesValoracionPage(),
+              'ratingProductos': (BuildContext context) =>
+                  RatingProductosPage(),
+              //Bufis
               'misMovimientos': (BuildContext context) => MisMovimientosPage(),
               'recargarSaldo': (BuildContext context) => RecargarSaldo(),
               'subirVaucher': (BuildContext context) => SubirVaucher(),

@@ -10,6 +10,7 @@ import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
+import 'package:bufi/src/widgets/busquedas/widgetBusquedaGeneral.dart';
 import 'package:bufi/src/widgets/carrousel_principal.dart';
 import 'package:bufi/src/widgets/lista_de_categorias.dart';
 import 'package:bufi/src/widgets/sliver_header_delegate.dart';
@@ -38,7 +39,9 @@ class PrincipalPage extends StatelessWidget {
           slivers: [
             HeaderWidget(responsive: responsive, preferences: preferences),
             SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
+              padding: EdgeInsets.symmetric(
+                horizontal: responsive.wp(2),
+              ),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
                   SizedBox(
@@ -62,7 +65,9 @@ class PrincipalPage extends StatelessWidget {
                         SizedBox(
                           width: responsive.wp(1.5),
                         ),
-                        Expanded(child: ListCategoriasPrincipal()),
+                        Expanded(
+                          child: ListCategoriasPrincipal(),
+                        ),
                       ],
                     ),
                   ),
@@ -210,15 +215,13 @@ class HeaderWidget extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         if (preferences.personName == null) {
-                           showBarModalBottomSheet(
+                          showBarModalBottomSheet(
                             expand: true,
                             context: context,
                             backgroundColor: Colors.transparent,
                             builder: (context) => ModalLogin(),
                           );
-                        } else {
-                         
-                        }
+                        } else {}
                       },
                       child: Icon(
                         FontAwesomeIcons.bell,
@@ -231,7 +234,7 @@ class HeaderWidget extends StatelessWidget {
                 SizedBox(
                   height: responsive.hp(2),
                 ),
-                BusquedaProductoWidget(responsive: responsive),
+                BusquedaGeneralWidget(responsive: responsive),
               ],
             ),
           ),

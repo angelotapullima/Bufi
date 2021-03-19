@@ -1,17 +1,20 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
-import 'package:bufi/src/page/busqueda/busquedaGeneral/tabGeneral.dart';
-import 'package:bufi/src/page/busqueda/busquedaGeneral/tabNegocio.dart';
-import 'package:bufi/src/page/busqueda/busquedaGeneral/tabProducto.dart';
-import 'package:bufi/src/page/busqueda/busquedaGeneral/tabServicios.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BusquedaGeneral extends SearchDelegate {
+  BusquedaGeneral({
+    String hintText = 'Buscar',
+  }) : super(
+          searchFieldLabel: hintText,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.search,
+        );
+
   @override
   List<Widget> buildActions(BuildContext context) {
     //Icono o acciones a la derecha, recibe una lista de widgets
@@ -78,19 +81,34 @@ class BusquedaGeneral extends SearchDelegate {
                               close(context, null);
 
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DetalleProductos(
-                                            producto: resultBusqueda[index]
-                                                .listProducto[i],
-                                          )));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetalleProductos(
+                                    producto:
+                                        resultBusqueda[index].listProducto[i],
+                                  ),
+                                ),
+                              );
                             },
                           );
                         });
               },
             );
           } else {
-            return Text("No hay resultados para la búsqueda");
+            return Column(
+              children: [
+                Container(
+                  child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Container(
+                          child: Text(('algo $index')),
+                        );
+                      },
+                      itemCount: 3),
+                ),
+                Text("No hay resultados para la búsqueda"),
+              ],
+            );
           }
         } else {
           return Center(child: CupertinoActivityIndicator());
@@ -103,6 +121,8 @@ class BusquedaGeneral extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) {
     final busquedaGeneralBloc = ProviderBloc.busquedaGeneral(context);
     busquedaGeneralBloc.obtenerResultadosBusquedaPorQuery('$query');
+
+    final responsive = Responsive.of(context);
     //Container(child: Text("Resultados"));
     return StreamBuilder(
       stream: busquedaGeneralBloc.busquedaGeneralStream,
@@ -128,7 +148,7 @@ class BusquedaGeneral extends SearchDelegate {
                               image: NetworkImage(
                                 '$apiBaseURL/${resultBusqueda[index].listProducto[i].productoImage}',
                               ),
-                              width: 50,
+                              width: responsive.wp(5),
                               fit: BoxFit.contain,
                             ),
                             title: Text(
@@ -139,19 +159,46 @@ class BusquedaGeneral extends SearchDelegate {
                               close(context, null);
 
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DetalleProductos(
-                                            producto: resultBusqueda[index]
-                                                .listProducto[i],
-                                          )));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetalleProductos(
+                                    producto:
+                                        resultBusqueda[index].listProducto[i],
+                                  ),
+                                ),
+                              );
                             },
                           );
                         });
               },
             );
           } else {
-            return Text("No hay resultados para la búsqueda");
+            return Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  height: responsive.hp(6),
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: responsive.wp(4),
+                          ),
+                          child: Center(
+                            child: Text(
+                              ('algo $index'),
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: 8),
+                ),
+                Text("No hay resultados para la búsqueda"),
+              ],
+            );
           }
         } else {
           return Center(child: CupertinoActivityIndicator());

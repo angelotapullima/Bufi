@@ -1,13 +1,22 @@
 import 'package:bufi/src/bloc/busqueda/busquedaBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
-import 'package:bufi/src/models/busquedaModel.dart';
+import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class BusquedaServiciosPage extends SearchDelegate {
+
+   BusquedaServiciosPage({
+    String hintText = 'Busqueda Servicios',
+  }) : super(
+          searchFieldLabel: hintText,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.search,
+        );
+
+
   @override
   List<Widget> buildActions(BuildContext context) {
     //Icono o acciones a la derecha, recibe una lista de widgets
@@ -49,23 +58,22 @@ class BusquedaServiciosPage extends SearchDelegate {
     busquedaBloc.obtenerBusquedaServicio('$query');
 
     if (query.isEmpty) {
-      return Container(
+      return Center(
         child: Text("Ingrese una palabra para realizar la búsqueda"),
       );
-    } 
-    else {
+    } else {
       return streamServicio(busquedaBloc);
     }
 
     // return Container(child: Text("Sugerencias"));
   }
 
-  StreamBuilder<List<BusquedaServicioModel>> streamServicio(
+  StreamBuilder<List<SubsidiaryServiceModel>> streamServicio(
       BusquedaBloc busquedaBloc) {
     return StreamBuilder(
       stream: busquedaBloc.busquedaServicioStream,
       builder: (BuildContext context,
-          AsyncSnapshot<List<BusquedaServicioModel>> snapshot) {
+          AsyncSnapshot<List<SubsidiaryServiceModel>> snapshot) {
         if (snapshot.hasData) {
           final resultBusqueda = snapshot.data;
           if (snapshot.data.length > 0) {
@@ -75,38 +83,39 @@ class BusquedaServiciosPage extends SearchDelegate {
               itemBuilder: (BuildContext context, int index) {
                 return ListView.builder(
                     shrinkWrap: true,
-                    itemCount: resultBusqueda[index].listServicios.length,
+                    itemCount: resultBusqueda.length,
                     itemBuilder: (BuildContext context, int i) {
                       return ListTile(
                         leading: FadeInImage(
                           placeholder: AssetImage('assets/no-image.png'),
                           image: NetworkImage(
-                            '$apiBaseURL/${resultBusqueda[index].listServicios[i].subsidiaryServiceImage}',
+                            '$apiBaseURL/${resultBusqueda[index].subsidiaryServiceImage}',
                           ),
                           width: 50,
                           fit: BoxFit.contain,
                         ),
                         title: Text(
-                            '${resultBusqueda[index].listServicios[i].subsidiaryServiceName}'),
+                            '${resultBusqueda[index].subsidiaryServiceName}'),
                         subtitle: Text(
-                            '${resultBusqueda[index].listServicios[i].subsidiaryServiceCurrency}'),
+                            '${resultBusqueda[index].subsidiaryServiceCurrency} ${resultBusqueda[index].subsidiaryServicePrice}'),
                         onTap: () {
                           close(context, null);
 
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetalleServicio(
-                                          servicio: resultBusqueda[index]
-                                            .listServicios[i],
-                                      )));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetalleServicio(
+                                servicio: resultBusqueda[index],
+                              ),
+                            ),
+                          );
                         },
                       );
                     });
               },
             );
           } else {
-            return Text("No hay resultados para la búsqueda");
+            return Center(child: Text("No hay resultados para la búsqueda"));
           }
         } else {
           return Center(child: CupertinoActivityIndicator());

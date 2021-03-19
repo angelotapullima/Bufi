@@ -1,12 +1,20 @@
 import 'package:bufi/src/bloc/busqueda/busquedaBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
-import 'package:bufi/src/models/busquedaModel.dart';
+import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BusquedaProductosPage extends SearchDelegate {
+  BusquedaProductosPage({
+    String hintText = 'Busqueda Productos',
+  }) : super(
+          searchFieldLabel: hintText,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.search,
+        );
+
   @override
   List<Widget> buildActions(BuildContext context) {
     //Icono o acciones a la derecha, recibe una lista de widgets
@@ -14,7 +22,7 @@ class BusquedaProductosPage extends SearchDelegate {
       IconButton(
           icon: Icon(Icons.clear),
           onPressed: () {
-            print("click");
+            print("click b");
             query = "";
           })
     ];
@@ -22,13 +30,15 @@ class BusquedaProductosPage extends SearchDelegate {
 
   @override
   Widget buildLeading(BuildContext context) {
-    //Iconos que van a la izquierda
-    return IconButton(
-      icon: Icon(Icons.arrow_back),
+    // Icono a la Izquierda del AppBar
+    return BackButton();
+    /* IconButton(
+      icon: AnimatedIcon(
+          icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
       onPressed: () {
         close(context, null);
       },
-    );
+    ); */
   }
 
   @override
@@ -43,6 +53,14 @@ class BusquedaProductosPage extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    if (query.isEmpty) {
+      return Container(
+        child: Center(
+          child: Text('Búsqueda de productos'),
+        ),
+      );
+    }
+
     //Sugerencias de busqueda
     final busquedaBloc = ProviderBloc.busqueda(context);
     busquedaBloc.obtenerBusquedaProducto('$query');
@@ -58,12 +76,11 @@ class BusquedaProductosPage extends SearchDelegate {
     // return Container(child: Text("Sugerencias"));
   }
 
-  StreamBuilder<List<BusquedaProductoModel>> streamProducto(
-      BusquedaBloc busquedaBloc) {
+  StreamBuilder<List<ProductoModel>> streamProducto(BusquedaBloc busquedaBloc) {
     return StreamBuilder(
       stream: busquedaBloc.busquedaProductoStream,
-      builder: (BuildContext context,
-          AsyncSnapshot<List<BusquedaProductoModel>> snapshot) {
+      builder:
+          (BuildContext context, AsyncSnapshot<List<ProductoModel>> snapshot) {
         final resultBusqueda = snapshot.data;
         if (snapshot.hasData) {
           if (snapshot.data.length > 0) {
@@ -73,31 +90,31 @@ class BusquedaProductosPage extends SearchDelegate {
               itemBuilder: (BuildContext context, int index) {
                 return ListView.builder(
                     shrinkWrap: true,
-                    itemCount: resultBusqueda[index].listProducto.length,
+                    itemCount: resultBusqueda.length,
                     itemBuilder: (BuildContext context, int i) {
                       return ListTile(
                         leading: FadeInImage(
                           placeholder: AssetImage('assets/no-image.png'),
                           image: NetworkImage(
-                            '$apiBaseURL/${resultBusqueda[index].listProducto[i].productoImage}',
+                            '$apiBaseURL/${resultBusqueda[index].productoImage}',
                           ),
                           width: 50,
                           fit: BoxFit.contain,
                         ),
-                        title: Text(
-                            '${resultBusqueda[index].listProducto[i].productoName}'),
+                        title: Text('${resultBusqueda[index].productoName}'),
                         subtitle: Text(
-                            '${resultBusqueda[index].listProducto[i].productoCurrency}'),
+                            '${resultBusqueda[index].productoCurrency} ${resultBusqueda[index].productoPrice}'),
                         onTap: () {
                           close(context, null);
 
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetalleProductos(
-                                        producto: resultBusqueda[index]
-                                            .listProducto[i],
-                                      )));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetalleProductos(
+                                producto: resultBusqueda[index],
+                              ),
+                            ),
+                          );
                         },
                       );
                     });
@@ -122,7 +139,7 @@ class BusquedaProductosPage extends SearchDelegate {
 //         final listProducto = snapshot.data;
 //         if (snapshot.hasData) {
 //           if (snapshot.data.length > 0) {
-            
+
 //                 return ListView.builder(
 //                     shrinkWrap: true,
 //                     itemCount: listProducto.length,
@@ -152,7 +169,7 @@ class BusquedaProductosPage extends SearchDelegate {
 //                         },
 //                       );
 //                     });
-              
+
 //           } else {
 //             return Text("No hay resultados para la búsqueda");
 //           }

@@ -1,3 +1,4 @@
+import 'package:bufi/introPage.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProductoFotoPage.dart';
 import 'package:bufi/src/page/Tabs/Principal/notificacionesPage.dart';
@@ -153,6 +154,7 @@ class MyApp extends StatelessWidget {
               'subirVaucher': (BuildContext context) => SubirVaucher(),
               'puntosRecarga': (BuildContext context) => PuntosRecargaPage(),
               'agentes': (BuildContext context) => AgentesPage(),
+              'intro': (BuildContext context) => ExampleHorizontal(),
             }),
       ),
     );

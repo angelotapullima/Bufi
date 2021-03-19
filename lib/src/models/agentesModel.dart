@@ -11,6 +11,7 @@ class AgenteModel {
     this.agenteCodigo,
     this.agenteDireccion,
     this.agenteTelefono,
+    this.agenteImagen,
     this.agenteCoordX,
     this.agenteCoordY,
     this.agenteEstado,
@@ -49,6 +50,7 @@ class AgenteModel {
   String agenteCodigo;
   String agenteDireccion;
   String agenteTelefono;
+  String agenteImagen;
   String agenteCoordX;
   String agenteCoordY;
   String agenteEstado;
@@ -87,6 +89,7 @@ class AgenteModel {
         agenteCodigo: json["agente_codigo"],
         agenteDireccion: json["agente_direccion"],
         agenteTelefono: json["agente_telefono"],
+        agenteImagen: json["agente_imagen"],
         agenteCoordX: json["agente_coord_x"],
         agenteCoordY: json["agente_coord_y"],
         agenteEstado: json["agente_estado"],

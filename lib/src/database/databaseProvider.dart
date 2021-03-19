@@ -369,6 +369,7 @@ class DatabaseProvider {
           ' agente_codigo TEXT,'
           ' agente_direccion TEXT,'
           ' agente_telefono TEXT,'
+          ' agente_imagen TEXT,'
           ' agente_coord_x TEXT,'
           ' agente_coord_y TEXT,'
           ' agente_estado TEXT,'

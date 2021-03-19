@@ -28,6 +28,7 @@ class AgentesApi {
         agenteModel.agenteCodigo = decodedData["agentes"][i]["agente_codigo"];
         agenteModel.agenteDireccion = decodedData["agentes"][i]["agente_direccion"];
         agenteModel.agenteTelefono = decodedData["agentes"][i]["agente_telefono"];
+        agenteModel.agenteImagen = decodedData["agentes"][i]["agente_imagen"];
         agenteModel.agenteCoordX = decodedData["agentes"][i]["agente_coord_x"];
         agenteModel.agenteCoordY = decodedData["agentes"][i]["agente_coord_y"];
         agenteModel.agenteEstado = decodedData["agentes"][i]["agente_estado"];

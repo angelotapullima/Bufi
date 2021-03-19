@@ -1,5 +1,6 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/agentesModel.dart';
+import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:flutter/material.dart';
@@ -211,7 +212,7 @@ class _MapaNegociosState extends State<MapaAgentes> {
                                               child: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(10.0),
-                                                child: CachedNetworkImage(
+                                                child:CachedNetworkImage (
                                                   cacheManager:
                                                       CustomCacheManager(),
                                                   placeholder: (context, url) =>
@@ -232,9 +233,7 @@ class _MapaNegociosState extends State<MapaAgentes> {
                                                       child: Icon(Icons.error),
                                                     ),
                                                   ),
-                                                  imageUrl: widget
-                                                      .agentes[index]
-                                                      .agenteCodigo,
+                                                  imageUrl: '$apiBaseURL/${widget.agentes[index].agenteImagen}',
                                                   imageBuilder: (context,
                                                           imageProvider) =>
                                                       Container(

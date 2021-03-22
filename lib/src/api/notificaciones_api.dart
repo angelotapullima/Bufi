@@ -20,7 +20,7 @@ class NotificacionesApi {
       });
 
       final decodedData = json.decode(res.body);
-      print(res);
+      //print(res);
 
       for (var i = 0; i < decodedData.length; i++) {
         final notificacionModel = NotificacionesModel();

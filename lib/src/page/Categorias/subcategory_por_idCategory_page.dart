@@ -1,9 +1,11 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/categoriaGeneralModel.dart';
 import 'package:bufi/src/page/Categorias/pro_y_ser_por_itemSubcategory_page.dart';
+import 'package:bufi/src/utils/constants.dart';
+import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 
 class SubcategoryPorCategoryPage extends StatelessWidget {
   final String nombreCategoria;
@@ -65,9 +67,9 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                                 child: Text(
                                   '${subcategoriasGeneral[index].nombre}',
                                   style: TextStyle(
-                                      color: Colors.blueGrey[700],
-                                      fontSize: responsive.ip(1.7),
-                                      fontWeight: FontWeight.w500),
+                                      color: Colors.blueGrey[900],
+                                      fontSize: responsive.ip(2),
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                               GridView.builder(
@@ -122,19 +124,52 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Container(
-                                                padding: EdgeInsets.all(
-                                                  responsive.ip(2),
+                                              padding: EdgeInsets.all(
+                                                responsive.ip(2),
+                                              ),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.grey[400]),
+                                              ),
+                                              child: Container(
+                                                transform:
+                                                    Matrix4.translationValues(
+                                                        0, 0, 0),
+                                                child: CachedNetworkImage(
+                                                  cacheManager:
+                                                      CustomCacheManager(),
+                                                  placeholder: (context, url) =>
+                                                      Image(
+                                                          image: const AssetImage(
+                                                              'assets/jar-loading.gif'),
+                                                          fit: BoxFit.cover),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      Image(
+                                                          image: AssetImage(
+                                                              'assets/carga_fallida.jpg'),
+                                                          fit: BoxFit.cover),
+                                                  imageUrl:
+                                                      '$apiBaseURL/${subcategoriasGeneral[index].itemSubcategoria[i].itemsubcategoryImage}',
+                                                  imageBuilder: (context,
+                                                          imageProvider) =>
+                                                      Container(
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                        image: imageProvider,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.grey[400]),
-                                                ),
-                                                child: Image(
-                                                  image: AssetImage(
-                                                      'assets/book.png'),
-                                                  height: responsive.hp(4),
-                                                  fit: BoxFit.cover,
-                                                )),
+                                              ),
+                                              // Image(
+                                              //   image: AssetImage(
+                                              //       'assets/book.png'),
+                                              //   height: responsive.hp(4),
+                                              //   fit: BoxFit.cover,
+                                              // )
+                                            ),
                                             SizedBox(
                                               height: responsive.hp(1),
                                             ),

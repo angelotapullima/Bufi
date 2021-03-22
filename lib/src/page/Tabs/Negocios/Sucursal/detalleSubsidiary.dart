@@ -71,7 +71,8 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary> {
               controller: _scrollController,
               slivers: [
                 CebeceraItem(
-                  nombreSucursal: widget.nombreSucursal, idSucursal: widget.idSucursal,
+                  nombreSucursal: widget.nombreSucursal,
+                  idSucursal: widget.idSucursal,
                 ),
                 SelectCategory(),
                 ValueListenableBuilder<PageDetailsSucursal>(
@@ -116,6 +117,7 @@ class InformacionWidget extends StatelessWidget {
       sliver: SliverToBoxAdapter(
         child: Container(
           color: Colors.white,
+          height: responsive.hp(80),
           child: StreamBuilder(
               stream: sucursalBloc.subsidiaryIdStream,
               builder:
@@ -354,7 +356,8 @@ class SelectCategory extends StatelessWidget {
 class CebeceraItem extends StatelessWidget {
   final String idSucursal;
   final String nombreSucursal;
-  const CebeceraItem({Key key, @required this.nombreSucursal,@required this.idSucursal})
+  const CebeceraItem(
+      {Key key, @required this.nombreSucursal, @required this.idSucursal})
       : super(key: key);
 
   @override
@@ -364,18 +367,34 @@ class CebeceraItem extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 10),
       sliver: SliverToBoxAdapter(
         child: Container(
-          height: responsive.hp(5),
-          child: Row(
+          height: responsive.hp(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BackButton(),
-              Text(
-                nombreSucursal,
-                style: TextStyle(
-                    fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
-              ),
-              Spacer(),
-              BusquedaProductoXsucursalWidget(responsive: responsive, idSucursal:idSucursal,)
+              Row(children: [
+                BackButton(),
+                BusquedaProductoXsucursalWidget(
+                  responsive: responsive,
+                  idSucursal: idSucursal,
+                )
+              ]),
 
+              Padding(
+                padding: EdgeInsets.only(left: responsive.ip(2), top:  responsive.ip(1)),
+                child: Row(
+                  children: [
+                    Icon(Icons.store),
+                    SizedBox(width: responsive.wp(2)),
+                    Text(
+                      nombreSucursal,
+                      style: TextStyle(
+                          fontSize: responsive.ip(2.4),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+              //Spacer(),
             ],
           ),
         ),

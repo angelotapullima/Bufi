@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class BusquedaProductoXsucursalWidget extends StatelessWidget {
   const BusquedaProductoXsucursalWidget({
     Key key,
-    @required this.responsive, 
+    @required this.responsive,
     @required this.idSucursal,
   }) : super(key: key);
 
@@ -17,12 +17,14 @@ class BusquedaProductoXsucursalWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         showSearch(
-            context: context, delegate: BusquedaProductosXSucursalPage(idSucursal: idSucursal));
+            context: context,
+            delegate: BusquedaProductosXSucursalPage(idSucursal: idSucursal));
       },
       child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: responsive.wp(2),
-        ),
+        // padding: EdgeInsets.symmetric(
+        //   horizontal: responsive.wp(10),
+        // ),
+        width:responsive.wp(80) ,
         height: responsive.hp(5),
         decoration: BoxDecoration(
           color: Colors.grey[300],
@@ -36,11 +38,12 @@ class BusquedaProductoXsucursalWidget extends StatelessWidget {
               onPressed: () {
                 showSearch(
                     context: context,
-                    delegate: BusquedaProductosXSucursalPage(idSucursal: idSucursal));
+                    delegate: BusquedaProductosXSucursalPage(
+                        idSucursal: idSucursal));
               },
             ),
             Text(
-              'Buscar Producto o servicio',
+              'Buscar productos o servicios',
               style: TextStyle(color: Colors.black),
             ),
           ],

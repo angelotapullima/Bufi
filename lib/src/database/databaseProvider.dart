@@ -26,7 +26,9 @@ class DatabaseProvider {
         onCreate: (Database db, int version) async {
       await db.execute('CREATE TABLE Category ('
           'id_category VARCHAR  PRIMARY KEY,'
-          'category_name VARCHAR'
+          'category_name VARCHAR,'
+          'category_estado VARCHAR,'
+          'category_img VARCHAR'
           ')');
 
       await db.execute('CREATE TABLE Subcategory ('
@@ -38,6 +40,8 @@ class DatabaseProvider {
       await db.execute('CREATE TABLE ItemSubcategorias ('
           'id_itemsubcategory VARCHAR  PRIMARY KEY,'
           'id_subcategory VARCHAR,'
+          'itemsubcategory_img VARCHAR,'
+          'itemsubcategory_estado VARCHAR,'
           'itemsubcategory_name VARCHAR'
           ')');
 

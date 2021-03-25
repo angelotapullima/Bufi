@@ -1,8 +1,6 @@
 import 'package:bufi/src/bloc/busqueda/busquedaBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
-import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
-import 'package:bufi/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -72,7 +70,9 @@ class BusquedaCategoriaPage extends SearchDelegate {
               itemCount: resultBusqueda.length,
               itemBuilder: (BuildContext context, int index) {
 
-                return Container();
+                return Container(
+                  
+                );
                 /* return ListView.builder(
                     shrinkWrap: true,
                     itemCount: resultBusqueda[index].listCompanySubsidiary.length,

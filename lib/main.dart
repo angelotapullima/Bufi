@@ -82,6 +82,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<DetailSubsidiaryBloc>(
             create: (_) => DetailSubsidiaryBloc(),
           ),
+          
         ],
         child: MaterialApp(
             navigatorKey: Catcher.navigatorKey,
@@ -92,9 +93,9 @@ class MyApp extends StatelessWidget {
                   description: "Custom error description",
                   maxWidthForSmallMode: 150);
               return Container(
-                //appBar: AppBar(title: Text('Error'),),
-                color: Colors.white,
-                child: widget);
+                  //appBar: AppBar(title: Text('Error'),),
+                  color: Colors.white,
+                  child: widget);
             },
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,

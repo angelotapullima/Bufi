@@ -27,10 +27,10 @@ class _ExampleHorizontalState extends State<ExampleHorizontal> {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     return Scaffold(
-        appBar: AppBar(
+        /* appBar: AppBar(
           title: Text("Intro"),
           backgroundColor: Colors.transparent,
-        ),
+        ), */
         body: Swiper(
           itemBuilder: (BuildContext context, int index) {
             return Stack(
@@ -90,20 +90,20 @@ class _ExampleHorizontalState extends State<ExampleHorizontal> {
         children: [
           Container(
               margin: EdgeInsets.symmetric(
-                  horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
+                horizontal: responsive.ip(1.5),
+                vertical: responsive.ip(0.5),
+              ),
               width: double.infinity,
               height: responsive.ip(8),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10), color: Colors.white),
               child: Text("Inicia sesión")),
           ClipRRect(
-            
-            child: Container(
-               width:  responsive.wp(20),
-              height: responsive.hp(20),
-              child: Text("Ingresar como invitado"))
-              
-              ),
+              child: Container(
+            width: responsive.wp(20),
+            height: responsive.hp(20),
+            child: Text("Ingresar como invitado"),
+          )),
         ],
       ),
     );

@@ -1,12 +1,14 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/utils/constants.dart';
+import 'package:bufi/src/utils/filtro.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/widgetBienes.dart';
 import 'package:bufi/src/widgets/busquedas/widgetBusqProduct.dart';
 import 'package:bufi/src/widgets/widgetServicios.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:filter_list/filter_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -30,7 +32,7 @@ class _ProYSerPorItemSubcategoryPageState
   ScrollController _scrollControllerListview = ScrollController();
   ScrollController _scrollControllerGridview = ScrollController();
 
-  @override
+    @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => {
           _scrollControllerListview.addListener(() {
@@ -129,7 +131,18 @@ class _ProYSerPorItemSubcategoryPageState
                               }
                             }),
                         IconButton(
-                            icon: Icon(Icons.filter_list), onPressed: () {}),
+                            icon: Icon(Icons.filter_list),
+                            onPressed: () {
+                              //print("estoy presionando");
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FiltroPage(idItemSub: widget.idItem,
+                                  
+                                  ),
+                                ),
+                              );
+                            }),
                       ],
                     ),
                   ],

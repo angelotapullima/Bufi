@@ -1,6 +1,7 @@
 import 'package:bufi/src/bloc/busqueda/busquedaBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
+import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,12 +58,12 @@ class BusquedaCategoriaPage extends SearchDelegate {
     // return Container(child: Text("Sugerencias"));
   }
 
-  StreamBuilder<List<BusquedaCategoriaModel>> streamCategoria(
+  StreamBuilder<List<CategoriaModel>> streamCategoria(
       BusquedaBloc busquedaBloc) {
     return StreamBuilder(
       stream: busquedaBloc.busquedaCategoriaStream,
       builder: (BuildContext context,
-          AsyncSnapshot<List<BusquedaCategoriaModel>> snapshot) {
+          AsyncSnapshot<List<CategoriaModel>> snapshot) {
         if (snapshot.hasData) {
           final resultBusqueda = snapshot.data;
           if (snapshot.data.length > 0) {
@@ -70,7 +71,9 @@ class BusquedaCategoriaPage extends SearchDelegate {
               shrinkWrap: true,
               itemCount: resultBusqueda.length,
               itemBuilder: (BuildContext context, int index) {
-                return ListView.builder(
+
+                return Container();
+                /* return ListView.builder(
                     shrinkWrap: true,
                     itemCount: resultBusqueda[index].listCompanySubsidiary.length,
                     itemBuilder: (BuildContext context, int i) {
@@ -94,7 +97,7 @@ class BusquedaCategoriaPage extends SearchDelegate {
                               arguments: resultBusqueda[index].listCompanySubsidiary[i]);
                         },
                       );
-                    });
+                    }); */
               },
             );
           } else {

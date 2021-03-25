@@ -218,23 +218,7 @@ class HeaderWidget extends StatelessWidget {
                       },
                     ),
                     SizedBox(width: responsive.wp(2),),
-                    InkWell(
-                      onTap: () {
-                        if (preferences.personName == null) {
-                          showBarModalBottomSheet(
-                            expand: true,
-                            context: context,
-                            backgroundColor: Colors.transparent,
-                            builder: (context) => ModalLogin(),
-                          );
-                        } else {}
-                      },
-                      child: Icon(
-                        FontAwesomeIcons.bell,
-                        size: responsive.ip(2.5),
-                        color: Colors.yellowAccent[600],
-                      ),
-                    ),
+                    
                     InkWell(
                         onTap: () {
                           // if (preferences.personName == null) {

@@ -9,8 +9,8 @@ class CategoryDatabase {
     try {
       final db = await dbProvider.database;
       final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO Category (id_category,category_name) "
-          "VALUES('${categoriaModel.idCategory}', '${categoriaModel.categoryName}')"
+          "INSERT OR REPLACE INTO Category (id_category,category_name,category_estado,category_img) "
+          "VALUES('${categoriaModel.idCategory}', '${categoriaModel.categoryName}', '${categoriaModel.categoryEstado}', '${categoriaModel.categoryImage}')"
           );
 
       return res;

@@ -10,8 +10,8 @@ class AgentesDatabase {
     try {
       final db = await dbProvider.database;
       final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO Agentes (id_agente,id_user,id_cuenta,id_city,agente_tipo,agente_nombre,agente_codigo,agente_direccion,agente_telefono,agente_coord_x,agente_coord_y,agente_estado,id_cuenta_empresa,id_company,cuentae_codigo,cuentae_saldo,cuentae_moneda,cuentae_date,cuentae_estado) "
-          "VALUES('${agenteModel.idAgente}','${agenteModel.idUser}','${agenteModel.idCuenta}','${agenteModel.idCity}','${agenteModel.agenteTipo}','${agenteModel.agenteNombre}','${agenteModel.agenteCodigo}','${agenteModel.agenteDireccion}','${agenteModel.agenteTelefono}','${agenteModel.agenteCoordX}','${agenteModel.agenteCoordY}','${agenteModel.agenteEstado}','${agenteModel.idCuentaEmpresa}','${agenteModel.idCompany}','${agenteModel.cuentaeCodigo}','${agenteModel.cuentaeSaldo}','${agenteModel.cuentaeMoneda}','${agenteModel.cuentaeDate}','${agenteModel.cuentaeEstado}')");
+          "INSERT OR REPLACE INTO Agentes (id_agente,id_user,id_cuenta,id_city,agente_tipo,agente_nombre,agente_codigo,agente_direccion,agente_telefono,agente_imagen,agente_coord_x,agente_coord_y,agente_estado,id_cuenta_empresa,id_company,cuentae_codigo,cuentae_saldo,cuentae_moneda,cuentae_date,cuentae_estado) "
+          "VALUES('${agenteModel.idAgente}','${agenteModel.idUser}','${agenteModel.idCuenta}','${agenteModel.idCity}','${agenteModel.agenteTipo}','${agenteModel.agenteNombre}','${agenteModel.agenteCodigo}','${agenteModel.agenteDireccion}','${agenteModel.agenteTelefono}','${agenteModel.agenteImagen}','${agenteModel.agenteCoordX}','${agenteModel.agenteCoordY}','${agenteModel.agenteEstado}','${agenteModel.idCuentaEmpresa}','${agenteModel.idCompany}','${agenteModel.cuentaeCodigo}','${agenteModel.cuentaeSaldo}','${agenteModel.cuentaeMoneda}','${agenteModel.cuentaeDate}','${agenteModel.cuentaeEstado}')");
 
       return res;
     } catch (e) {

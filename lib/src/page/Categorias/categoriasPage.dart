@@ -2,10 +2,12 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/categoriaGeneralModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/page/Categorias/pro_y_ser_por_itemSubcategory_page.dart';
+import 'package:bufi/src/utils/constants.dart';
+import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/widgets/busquedas/widgetBusqCategoria.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 
 class ListaCategoria extends StatefulWidget {
   ListaCategoria({Key key}) : super(key: key);
@@ -91,7 +93,7 @@ class _ListaCategoriaState extends State<ListaCategoria> {
               Container(
                 width: responsive.wp(30),
                 //height: responsive.hp(90),
-                child: CategoriaBienesServicios(categorias:categorias),
+                child: CategoriaBienesServicios(categorias: categorias),
               ),
               Container(
                 width: responsive.wp(69),
@@ -103,15 +105,13 @@ class _ListaCategoriaState extends State<ListaCategoria> {
           );
         });
   }
-
-  
 }
 
 class CategoriaBienesServicios extends StatefulWidget {
-
   final List<CategoriaModel> categorias;
 
-  const CategoriaBienesServicios({Key key,@required this.categorias}) : super(key: key);
+  const CategoriaBienesServicios({Key key, @required this.categorias})
+      : super(key: key);
 
   @override
   _CategoriaBienesServiciosState createState() =>
@@ -198,6 +198,7 @@ class _SubcategoriaPorIdCategoriaState
     final subcategoriasBloc = ProviderBloc.subcategoriaGeneral(context);
     //subCategoriasBloc.cargandoProductosFalse();
     subcategoriasBloc.obtenerSubcategoriaXIdCategoria(widget.index);
+    final responsive = Responsive.of(context);
 
     return Scaffold(
       body: StreamBuilder(
@@ -244,15 +245,47 @@ class _SubcategoriaPorIdCategoriaState
                               '${subcategoriasGeneral[index].itemSubcategoria[indd].itemsubcategoryName}',
                               style: TextStyle(fontSize: 16),
                             ),
-                            leading: Icon(Icons.arrow_circle_up),
-                            onTap: () {
+                            leading: 
+                            //Image.network('${subcategoriasGeneral[index].itemSubcategoria[indd].itemsubcategoryImage}'),
+                                CircleAvatar(
+                                radius: responsive.wp(5),
+                                child: Container(
+                                  transform: Matrix4.translationValues(0, 0, 0),
+                                  child: CachedNetworkImage(
+                                    cacheManager: CustomCacheManager(),
+                                    placeholder: (context, url) => Image(
+                                        image: const AssetImage(
+                                            'assets/jar-loading.gif'),
+                                        fit: BoxFit.cover),
+                                    errorWidget: (context, url, error) => Image(
+                                        image: AssetImage(
+                                            'assets/carga_fallida.jpg'),
+                                        fit: BoxFit.cover),
+                                    imageUrl:
+                                        '$apiBaseURL/${subcategoriasGeneral[index].itemSubcategoria[indd].itemsubcategoryImage}',
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
 
+                               
+                            onTap: () {
                               Navigator.of(context).push(PageRouteBuilder(
                                 pageBuilder:
                                     (context, animation, secondaryAnimation) {
                                   return ProYSerPorItemSubcategoryPage(
-                                    nameItem:  '${subcategoriasGeneral[index].itemSubcategoria[indd].itemsubcategoryName}',
-                                    idItem:  '${subcategoriasGeneral[index].itemSubcategoria[indd].idItemsubcategory}',
+                                    nameItem:
+                                        '${subcategoriasGeneral[index].itemSubcategoria[indd].itemsubcategoryName}',
+                                    idItem:
+                                        '${subcategoriasGeneral[index].itemSubcategoria[indd].idItemsubcategory}',
                                   );
                                 },
                                 transitionsBuilder: (context, animation,
@@ -272,9 +305,6 @@ class _SubcategoriaPorIdCategoriaState
                                   );
                                 },
                               ));
-
-
-                             
                             },
                           ),
                         );

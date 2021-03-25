@@ -261,7 +261,7 @@ class _UserPageState extends State<UserPage> {
           _item(responsive, "Políticas de Privacidad", "direccion",
               Icons.privacy_tip_outlined),
 
-          _item(responsive, "Términos y Condiciones", "direccion",
+          _item(responsive, "Términos y Condiciones", "intro",
               Icons.save_alt),
 
           _item(responsive, "Configuración", "direccion", Icons.settings),

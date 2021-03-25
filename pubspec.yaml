@@ -63,6 +63,8 @@ dependencies:
   shimmer: ^1.1.2
   modal_bottom_sheet: ^1.0.0+1
   firebase_core: ^0.5.2+1
+  flutter_swiper: ^1.1.6
+  filter_list: ^0.0.6
   flutter_advanced_networkimage:
     git: https://github.com/mchome/flutter_advanced_networkimage
 

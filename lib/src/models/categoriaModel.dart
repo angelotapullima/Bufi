@@ -10,18 +10,24 @@ class CategoriaModel {
   CategoriaModel({
     this.idCategory,
     this.categoryName,
+    this.categoryImage,
+    this.categoryEstado,
     /* this.idSubcategory,
     this.subcategoryName, */
   });
 
   String idCategory;
   String categoryName;
+  String categoryImage;
+  String categoryEstado;
   //String idSubcategory;
   //String subcategoryName;
 
   factory CategoriaModel.fromJson(Map<String, dynamic> json) => CategoriaModel(
         idCategory: json["id_category"],
         categoryName: json["category_name"],
+        categoryImage: json["category_img"],
+         categoryEstado: json["category_estado"],
        /*  idSubcategory: json["id_subcategory"],
         subcategoryName: json["subcategory_name"] */
       );

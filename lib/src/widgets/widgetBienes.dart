@@ -260,7 +260,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Icon(FontAwesomeIcons.solidHeart,
-                              color: Colors.red),
+                              color: Colors.white),
                         ),
                         onTap: () {
                           setState(() {

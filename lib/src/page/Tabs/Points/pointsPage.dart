@@ -6,6 +6,7 @@ import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/favoritos.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _PointsPageState extends State<PointsPage> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      'Puntos Favoritos',
+                                      'Puntos Favoritos11',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: responsive.ip(3),
@@ -68,7 +69,7 @@ class _PointsPageState extends State<PointsPage> {
                                     horizontal: responsive.wp(5),
                                     vertical: responsive.hp(1)),
                                 child: Text(
-                                  'Puntos Favoritos',
+                                  'Puntos Favoritosff',
                                   style: TextStyle(
                                       color: Colors.transparent,
                                       fontSize: responsive.ip(2.5),
@@ -94,7 +95,7 @@ class _PointsPageState extends State<PointsPage> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      'Puntos Favoritos',
+                                      'Puntos Favoritosddd',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: responsive.ip(3),
@@ -165,7 +166,7 @@ class _PointsPageState extends State<PointsPage> {
                                 ),
                               );
                             }
-
+                            //Lista que muestra los productos por sucursal
                             int xxx = index - 1;
                             return (snapshot.data[xxx].listProducto.length > 0)
                                 ? Column(
@@ -245,20 +246,32 @@ class _PointsPageState extends State<PointsPage> {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             Spacer(),
-                                            Container(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: responsive.wp(1),
-                                                vertical: responsive.hp(.5),
-                                              ),
-                                              child: Text(
-                                                'Ver más',
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                  color: Colors.red),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal:
+                                                        responsive.wp(1),
+                                                    vertical: responsive.hp(.5),
+                                                  ),
+                                                  child: Text(
+                                                    'Ver más',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      color: Colors.red),
+                                                ),
+                                                IconButton(
+                                                    icon: Icon(Icons.delete),
+                                                    onPressed: () {
+                                                      print("Cerrar");
+                                                      quitarSubsidiaryFavoritodePointPage(context, snapshot.data[xxx]);
+                                                    })
+                                              ],
                                             )
                                           ],
                                         ),
@@ -438,7 +451,7 @@ class WidgetBienesFavoritos extends StatelessWidget {
                 //     ],
                 //   ),
                 // ),
-                
+
                 GestureDetector(
                   child: Container(
                     height: responsive.hp(3.5),

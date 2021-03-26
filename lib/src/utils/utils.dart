@@ -16,6 +16,7 @@ import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/direccionModel.dart';
 import 'package:bufi/src/models/marcaProductoModel.dart';
 import 'package:bufi/src/models/modeloProductoModel.dart';
+import 'package:bufi/src/models/pointModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/models/sugerenciaBusquedaModel.dart';
@@ -109,6 +110,42 @@ void quitarSubsidiaryFavorito(
   sucursalBloc.obtenerSucursalporIdCompany(subsidiaryModel.idSubsidiary);
   pointsBloc.obtenerPoints();
   deletePoint.deletePoint(companysubsidiaryModel.idSubsidiary);
+}
+
+
+void quitarSubsidiaryFavoritodePointPage(
+    BuildContext context, PointModel pointModel) async {
+  final sucursalBloc = ProviderBloc.sucursal(context);
+  final pointsBloc = ProviderBloc.points(context);
+  final pointsProdBloc = ProviderBloc.points(context);
+
+  SubsidiaryModel subsidiaryModel = SubsidiaryModel();
+  final sucursalDataBase = SubsidiaryDatabase(); 
+
+  subsidiaryModel.idSubsidiary = pointModel.idSubsidiary;
+  subsidiaryModel.idCompany = pointModel.idCompany;
+  subsidiaryModel.subsidiaryName = pointModel.subsidiaryName;
+  subsidiaryModel.subsidiaryCellphone =
+      pointModel.subsidiaryCellphone;
+  subsidiaryModel.subsidiaryCellphone2 =
+      pointModel.subsidiaryCellphone2;
+  subsidiaryModel.subsidiaryEmail = pointModel.subsidiaryEmail;
+  subsidiaryModel.subsidiaryCoordX = pointModel.subsidiaryCoordX;
+  subsidiaryModel.subsidiaryCoordY = pointModel.subsidiaryCoordY;
+  subsidiaryModel.subsidiaryOpeningHours =
+      pointModel.subsidiaryOpeningHours;
+  subsidiaryModel.subsidiaryPrincipal =
+      pointModel.subsidiaryPrincipal;
+  subsidiaryModel.subsidiaryStatus = pointModel.subsidiaryStatus;
+  subsidiaryModel.subsidiaryFavourite = "0";
+
+  final res = await sucursalDataBase.updateSubsidiary(subsidiaryModel);
+  print('update $res');
+
+  sucursalBloc.obtenerSucursalporIdCompany(pointModel.idSubsidiary);
+  pointsBloc.obtenerPoints();
+    pointsProdBloc.obtenerPointsProductosXSucursal();
+  //deletePoint.deletePoint(subsidiaryModel.idSubsidiary);
 }
 
 Future<int> agregarAlCarrito(BuildContext context, String idSubsidiarygood,

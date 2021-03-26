@@ -1,6 +1,7 @@
 import 'package:bufi/src/bloc/busqueda/busquedaBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
+import 'package:bufi/src/models/itemSubcategoryModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -58,12 +59,12 @@ class BusquedaItemSubcategoriaPage extends SearchDelegate {
     // return Container(child: Text("Sugerencias"));
   }
 
-  StreamBuilder<List<BusquedaItemSubcategoriaModel>> streamItemSubcategoria(
+  StreamBuilder<List<ItemSubCategoriaModel>> streamItemSubcategoria(
       BusquedaBloc busquedaBloc) {
     return StreamBuilder(
       stream: busquedaBloc.busquedaItemSubcategoriaStream,
       builder: (BuildContext context,
-          AsyncSnapshot<List<BusquedaItemSubcategoriaModel>> snapshot) {
+          AsyncSnapshot<List<ItemSubCategoriaModel>> snapshot) {
         if (snapshot.hasData) {
           final resultBusqueda = snapshot.data;
           if (snapshot.data.length > 0) {
@@ -73,31 +74,32 @@ class BusquedaItemSubcategoriaPage extends SearchDelegate {
               itemBuilder: (BuildContext context, int index) {
                 return ListView.builder(
                     shrinkWrap: true,
-                    itemCount: resultBusqueda[index].listProducto.length,
+                    itemCount: resultBusqueda.length,
                     itemBuilder: (BuildContext context, int i) {
                       return ListTile(
-                        leading: FadeInImage(
+                        /* leading: FadeInImage(
                           placeholder: AssetImage('assets/no-image.png'),
                           image: NetworkImage(
-                            '$apiBaseURL/${resultBusqueda[index].listProducto[i].productoImage}',
+                            '$apiBaseURL/${resultBusqueda[i].}',
                           ),
                           width: 50,
                           fit: BoxFit.contain,
-                        ),
+                        ), */
                         title: Text(
-                            '${resultBusqueda[index].listProducto[i].productoName}'),
+                            '${resultBusqueda[i].itemsubcategoryName}'),
                         subtitle: Text(
-                            '${resultBusqueda[index].listProducto[i].productoPrice}'),
+                            '${resultBusqueda[i].idItemsubcategory}'),
                         onTap: () {
                           close(context, null);
 
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetalleProductos(
-                                        producto: resultBusqueda[index]
-                                            .listProducto[i],
-                                      )));
+                          /* Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetalleProductos(
+                                producto: resultBusqueda[index].listProducto[i],
+                              ),
+                            ),
+                          ); */
                         },
                       );
                     });

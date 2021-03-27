@@ -221,7 +221,7 @@ class CategoriasApi {
           subsidiaryGoodModel.productoFavourite =
               productList[0].productoFavourite;
         } else {
-          subsidiaryGoodModel.productoFavourite = '';
+          subsidiaryGoodModel.productoFavourite = '0';
         }
         await productoDatabase.insertarProducto(subsidiaryGoodModel);
       }
@@ -509,7 +509,7 @@ class CategoriasApi {
           if (productList.length > 0) {
             productoModel.productoFavourite = productList[0].productoFavourite;
           } else {
-            productoModel.productoFavourite = '';
+            productoModel.productoFavourite = '0';
           }
           await productoDatabase.insertarProducto(productoModel);
 

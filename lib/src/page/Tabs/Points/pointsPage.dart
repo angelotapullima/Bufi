@@ -4,7 +4,6 @@ import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Points/points_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
-import 'package:bufi/src/utils/favoritos.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -207,19 +206,33 @@ class _PointsPageState extends State<PointsPage> {
                                     ],
                                   )
                                 :
-                                //Dismissible(
-                                //     key: Key(snapshot.data[xxx].toString()),
-                                //     direction: DismissDirection.endToStart,
-                                //     onDismissed: (direction) {
-                                //       setState(() {
-                                //         //snapshot.data[xxx].removeAt(index);
-                                //         // final sucursal=SubsidiaryModel();
-                                //         // quitarSubsidiaryFavorito(
-                                //         //   context,sucursal
-                                //         // );
-                                //       });
-                                //     },
-                                //     child:
+                                Dismissible(
+                                    key: UniqueKey(),
+                                    direction: DismissDirection.horizontal,
+                                    background: Container(
+                                      margin: EdgeInsets.symmetric(
+                                        horizontal: responsive.wp(1),
+                                      ),
+                                      color: Colors.red,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Icon(Icons.delete,
+                                                  color: Colors.white)),
+                                          Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Icon(Icons.delete,
+                                                  color: Colors.white)),
+                                        ],
+                                      ),
+                                    ),
+                                    onDismissed: (direction) {
+                                      quitarSubsidiaryFavoritodePointPage(context, snapshot.data[xxx]);
+                                    },
+                                    child:
                                 Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(color: Colors.black12),
@@ -297,8 +310,8 @@ class _PointsPageState extends State<PointsPage> {
                                         ),
                                       ],
                                     ),
-                                  );
-                            //);
+                                  )
+                            );
                           }),
                     ),
                   ],

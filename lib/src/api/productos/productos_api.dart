@@ -103,7 +103,7 @@ class ProductosApi {
         if (productList.length > 0) {
           productoModel.productoFavourite = productList[0].productoFavourite;
         } else {
-          productoModel.productoFavourite = '';
+          productoModel.productoFavourite = '0';
         }
         await productoDatabase.insertarProducto(productoModel);
 
@@ -273,7 +273,7 @@ class ProductosApi {
       if (productList.length > 0) {
         productoModel.productoFavourite = productList[0].productoFavourite;
       } else {
-        productoModel.productoFavourite = '';
+        productoModel.productoFavourite = '0';
       }
       await productoDatabase.insertarProducto(productoModel);
 

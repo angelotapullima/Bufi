@@ -252,6 +252,17 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                       ],
                     ),
 
+                    SizedBox(height: responsive.hp(2.5)),
+                    Row(
+                      children: [
+                        Text("id Negocio:"),
+                        SizedBox(width: responsive.wp(2)),
+                        Text(
+                            ('${company.idCompany}'),
+                            style: TextStyle(fontSize: responsive.ip(2)))
+                      ],
+                    ),
+
                     // ListTile(
                     //   leading: Text("Mi negocio:"),
                     //   title:
@@ -303,7 +314,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
             height: responsive.hp(25),
             child: StreamBuilder(
                 stream: sucursalNegocio.sucursalStream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                builder: (BuildContext context, AsyncSnapshot <List<SubsidiaryModel>> snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data.length > 0) {
                       List<SubsidiaryModel> sedes = snapshot.data;
@@ -338,8 +349,6 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                                   );
                                 },
                               ));
-
-                             
                             },
                             child: Container(
                               width: responsive.wp(45),
@@ -417,8 +426,11 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                                               icon: Icon(FontAwesomeIcons.heart,
                                                   color: Colors.red),
                                               onPressed: () {
-                                                guardarSubsidiaryFavorito(
+                                                setState(() {
+                                                  guardarSubsidiaryFavorito(
                                                     context, sedes[index]);
+                                                });
+                                                
                                               },
                                             )
                                           : IconButton(
@@ -426,8 +438,8 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                                                   FontAwesomeIcons.solidHeart,
                                                   color: Colors.red),
                                               onPressed: () {
-                                                quitarSubsidiaryFavorito(
-                                                    context, sedes[index]);
+                                                // quitarSubsidiaryFavorito(
+                                                //     context, sedes[index]);
                                               },
                                             ),
                                 )

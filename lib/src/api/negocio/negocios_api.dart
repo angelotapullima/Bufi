@@ -331,7 +331,7 @@ class NegociosApi {
         smodel.subsidiaryPrincipal = decodedData['results'][i]['subsidiary_principal'];
         smodel.subsidiaryStatus =decodedData['results'][i]['subsidiary_status'];
         smodel.subsidiaryAddress =decodedData['results'][i]['subsidiary_address'];
-        await subsidiaryDatabase.insertarSubsidiary(smodel);
+        //await subsidiaryDatabase.insertarSubsidiary(smodel);
 
         // final listCompany = await companyDatabase
         //     .obtenerCompanyPorIdCompany(decodedData['results'][i]['id_company']);
@@ -531,9 +531,7 @@ class NegociosApi {
 
       final listSucursal = await subsidiaryDatabase
           .obtenerSubsidiaryPorId(decodedData['id_subsidiary']);
-
-      if (listSucursal.length > 0) {
-        SubsidiaryModel smodel = SubsidiaryModel();
+SubsidiaryModel smodel = SubsidiaryModel();
         smodel.idSubsidiary = decodedData['id_subsidiary'];
         smodel.idCompany = decodedData['id_company'];
         smodel.subsidiaryName = decodedData['subsidiary_name'];
@@ -546,9 +544,14 @@ class NegociosApi {
         smodel.subsidiaryPrincipal = decodedData['subsidiary_principal'];
         smodel.subsidiaryStatus = decodedData['subsidiary_status'];
         smodel.subsidiaryAddress = decodedData['subsidiary_address'];
+      if (listSucursal.length > 0) {
+        
         smodel.subsidiaryFavourite = listSucursal[0].subsidiaryFavourite;
-        await subsidiaryDatabase.insertarSubsidiary(smodel);
+        
+      }else{
+ smodel.subsidiaryFavourite = '0';
       }
+      await subsidiaryDatabase.insertarSubsidiary(smodel);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
 

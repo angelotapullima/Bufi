@@ -70,6 +70,7 @@ class ProviderBloc extends InheritedWidget {
   final markerMapaNegociosBloc =MarkerMapaNegociosBloc();
   final busquedaGeneralTab =BusquedaGeneralTab();
   final notificacionBloc =NotificacionesBloc();
+  
 
 
   factory ProviderBloc({Key key, Widget child}) {
@@ -272,7 +273,7 @@ class ProviderBloc extends InheritedWidget {
   static NotificacionesBloc notificaciones(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .notificacionBloc;
-  }
+  } 
 
   
 }

@@ -1,7 +1,5 @@
 import 'package:bufi/src/models/galeriaProductoModel.dart';
-import 'package:bufi/src/models/marcaProductoModel.dart';
-import 'package:bufi/src/models/modeloProductoModel.dart';
-import 'package:bufi/src/models/tallaProductoModel.dart';
+
 
 class ProductoModel {
   ProductoModel({
@@ -26,9 +24,7 @@ class ProductoModel {
     this.productoStatus,
     this.productoFavourite,
     this.listFotos,
-    this.listMarcaProd,
-    this.listModeloProd,
-    this.listTallaProd
+  
   });
 
   String idProducto;
@@ -52,9 +48,7 @@ class ProductoModel {
   String productoStatus;
   String productoFavourite;
   List<GaleriaProductoModel> listFotos;
-  List<MarcaProductoModel> listMarcaProd;
-  List<ModeloProductoModel> listModeloProd;
-  List<TallaProductoModel> listTallaProd;
+  
 
   factory ProductoModel.fromJson(Map<String, dynamic> json) => ProductoModel(
         idProducto: json["id_producto"],

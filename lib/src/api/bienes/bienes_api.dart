@@ -193,7 +193,7 @@ class GoodApi {
     }
     return 0;
   }
-
+/* 
   Future<dynamic> obtenerBienesPorIdItemsubcategoria(String id) async {
     try {
       var response = await http.post(
@@ -332,4 +332,7 @@ class GoodApi {
       return 0;
     }
   }
+}
+ */
+
 }

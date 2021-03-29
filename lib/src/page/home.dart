@@ -24,7 +24,6 @@ class _HomePageState extends State<HomePage> {
     listPages.add(CarritoPage());
     listPages.add(NegociosPage());
     listPages.add(UserPage());
-
     super.initState();
   }
 
@@ -44,41 +43,42 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       bottomNavigationBar: StreamBuilder(
-          stream: buttonBloc.selectPageStream,
-          builder: (context, snapshot) {
-            return BottomNavigationBar(
-              selectedItemColor: Theme.of(context).textSelectionColor,
-              type: BottomNavigationBarType.fixed,
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                  ),
-                  label: "Principal",
+        stream: buttonBloc.selectPageStream,
+        builder: (context, snapshot) {
+          return BottomNavigationBar(
+            selectedItemColor: Theme.of(context).textSelectionColor,
+            type: BottomNavigationBarType.fixed,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.data_usage),
-                  label: "Points",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart),
-                  label: "Carrito",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.business),
-                  label: "Negocios",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.supervised_user_circle),
-                  label: "Usuario",
-                ),
-              ],
-              currentIndex: buttonBloc.page,
-              onTap: (valor) {
-                buttonBloc.changePage(valor);
-              },
-            );
-          }),
+                label: "Principal",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.data_usage),
+                label: "Points",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart),
+                label: "Carrito",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.business),
+                label: "Negocios",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.supervised_user_circle),
+                label: "Usuario",
+              ),
+            ],
+            currentIndex: buttonBloc.page,
+            onTap: (valor) {
+              buttonBloc.changePage(valor);
+            },
+          );
+        },
+      ),
     );
   }
 }

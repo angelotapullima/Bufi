@@ -1,23 +1,16 @@
 import 'package:bufi/src/api/productos/productos_api.dart';
 import 'package:bufi/src/database/galeriaProducto_database.dart';
-import 'package:bufi/src/database/marcaProducto_database.dart';
-import 'package:bufi/src/database/modeloProducto_database.dart';
 import 'package:bufi/src/database/producto_bd.dart';
-import 'package:bufi/src/database/tallaProducto_database.dart';
 import 'package:bufi/src/models/galeriaProductoModel.dart';
-import 'package:bufi/src/models/marcaProductoModel.dart';
-import 'package:bufi/src/models/modeloProductoModel.dart';
+
 import 'package:bufi/src/models/productoModel.dart';
-import 'package:bufi/src/models/tallaProductoModel.dart';
+
 import 'package:rxdart/rxdart.dart';
 
 class DatosProductoBloc {
   final galeriaProductoModel = GaleriaProductoModel();
   final productoDb = ProductoDatabase();
   final galeriaProductoDb = GaleriaProductoDatabase();
-  final marcaProductoDb = MarcaProductoDatabase();
-  final modeloProductoDb = ModeloProductoDatabase();
-  final tallaProductoDb = TallaProductoDatabase();
   final productoApi = ProductosApi();
 
   final _datosProductoController = BehaviorSubject<List<ProductoModel>>();
@@ -82,57 +75,12 @@ class DatosProductoBloc {
         listGaleriaModel.add(galeriaProductos);
       }
 
-      //crear lista vacia para el modelo de Producto
-      final listModelProdModel = List<ModeloProductoModel>();
-      final listModeloProd = await modeloProductoDb.obtenerModeloProductoPorIdProducto(listProductos[i].idProducto);
-
-      for (var l = 0; l < listModeloProd.length; l++) {
-        final modelProduc = ModeloProductoModel();
-        modelProduc.idModeloProducto = listModeloProd[l].idModeloProducto;
-        modelProduc.idProducto = listModeloProd[l].idProducto;
-        modelProduc.modeloProducto = listModeloProd[l].modeloProducto;
-        modelProduc.modeloStatusProducto = listModeloProd[l].modeloStatusProducto;
-        modelProduc.estado = listModeloProd[l].estado;
-
-        listModelProdModel.add(modelProduc);
-      }
-
-      //crear lista vacia para la marca del Producto
-      final listMarcaProdModel = List<MarcaProductoModel>();
-      final listMarcaProd = await marcaProductoDb
-          .obtenerMarcaProductoPorIdProducto(listProductos[i].idProducto);
-      //Recorrer la lista de la tabla productos para obtenr todos los datos
-      for (var m = 0; m < listMarcaProd.length; m++) {
-        final marcaProdModel = MarcaProductoModel();
-        marcaProdModel.idMarcaProducto = listMarcaProd[m].idMarcaProducto;
-        marcaProdModel.idProducto = listMarcaProd[m].idProducto;
-        marcaProdModel.marcaProducto = listMarcaProd[m].marcaProducto;
-        marcaProdModel.marcaStatusProducto = listMarcaProd[m].marcaStatusProducto;
-        marcaProdModel.estado = listMarcaProd[m].estado;
-
-        listMarcaProdModel.add(marcaProdModel);
-      }
-
-      //crear lista vacia para la talla del Producto
-      final listTallaProdModel = List<TallaProductoModel>();
-      final listTallaProd = await tallaProductoDb
-          .obtenerTallaProductoPorIdProducto(listProductos[i].idProducto);
-      //Recorrer la lista de la tabla productos para obtenr todos los datos
-      for (var n = 0; n < listTallaProd.length; n++) {
-        final tallaProdModel = TallaProductoModel();
-        tallaProdModel.idTallaProducto = listTallaProd[n].idTallaProducto;
-        tallaProdModel.idProducto = listTallaProd[n].idProducto;
-        tallaProdModel.tallaProducto = listTallaProd[n].tallaProducto;
-        tallaProdModel.tallaProductoStatus = listTallaProd[n].tallaProductoStatus;
-        tallaProdModel.estado = listTallaProd[n].estado;
-
-        listTallaProdModel.add(tallaProdModel);
-      }
+     
+     
+     
 
       productoModel.listFotos = listGaleriaModel;
-      productoModel.listMarcaProd = listMarcaProdModel;
-      productoModel.listModeloProd = listModelProdModel;
-      productoModel.listTallaProd = listTallaProdModel;
+      
 
       listaGeneral.add(productoModel);
     }

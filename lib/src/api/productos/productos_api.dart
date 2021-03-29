@@ -1,13 +1,7 @@
 import 'dart:convert';
 import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/galeriaProducto_database.dart';
-import 'package:bufi/src/database/marcaProducto_database.dart';
-import 'package:bufi/src/database/modeloProducto_database.dart';
-import 'package:bufi/src/database/tallaProducto_database.dart';
 import 'package:bufi/src/models/galeriaProductoModel.dart';
-import 'package:bufi/src/models/marcaProductoModel.dart';
-import 'package:bufi/src/models/modeloProductoModel.dart';
-import 'package:bufi/src/models/tallaProductoModel.dart';
 import 'package:bufi/src/database/good_db.dart';
 import 'package:bufi/src/database/itemSubcategory_db.dart';
 import 'package:bufi/src/database/producto_bd.dart';
@@ -368,80 +362,8 @@ class ProductosApi {
 
         await galeriaProductoDb.insertarGaleriaProducto(galeriaProductoModel);
       }
-      //Marca
-      for (var j = 0; j < decodedData["marcas"].length; j++) {
-        final marcaProductoModel = MarcaProductoModel();
-        final marcaProductoDb = MarcaProductoDatabase();
-        marcaProductoModel.idMarcaProducto =
-            decodedData["marcas"][j]["id_subsidiarygood_brand"];
-        marcaProductoModel.idProducto =
-            decodedData["marcas"][j]['id_subsidiary_good'];
-        marcaProductoModel.marcaProducto =
-            decodedData["marcas"][j]["subsidiarygood_brand"];
-        marcaProductoModel.marcaStatusProducto =
-            decodedData["marcas"][j]["subsidiarygood_brand_status"];
-
-        final list = await marcaProductoDb.obtenerMarcaProductoPorIdProducto(
-            decodedData["marcas"][j]['id_subsidiary_good']);
-
-        if (list.length > 0) {
-          marcaProductoModel.estado = list[0].estado;
-        } else {
-          marcaProductoModel.estado = "0";
-        }
-
-        await marcaProductoDb.insertarMarcaProducto(marcaProductoModel);
-      }
-
-      //Modelo
-      for (var k = 0; k < decodedData["modelos"].length; k++) {
-        final modeloProductoModel = ModeloProductoModel();
-        final modeloProductoDb = ModeloProductoDatabase();
-        modeloProductoModel.idModeloProducto =
-            decodedData["modelos"][k]["id_subsidiarygood_model"];
-        modeloProductoModel.idProducto =
-            decodedData["modelos"][k]['id_subsidiarygood'];
-        modeloProductoModel.modeloProducto =
-            decodedData["modelos"][k]["subsidiarygood_model"];
-        modeloProductoModel.modeloStatusProducto =
-            decodedData["modelos"][k]["subsidiarygood_model_status"];
-
-        final list = await modeloProductoDb.obtenerModeloProductoPorIdProducto(
-            decodedData["modelos"][k]['id_subsidiarygood']);
-
-        if (list.length > 0) {
-          modeloProductoModel.estado = list[0].estado;
-        } else {
-          modeloProductoModel.estado = "0";
-        }
-
-        await modeloProductoDb.insertarModeloProducto(modeloProductoModel);
-      }
-
-      //Talla
-      for (var l = 0; l < decodedData["tallas"].length; l++) {
-        final tallaProductoModel = TallaProductoModel();
-        final tallaProductoDb = TallaProductoDatabase();
-        tallaProductoModel.idTallaProducto =
-            decodedData["tallas"][l]["id_subsidiarygood_size"];
-        tallaProductoModel.idProducto =
-            decodedData["tallas"][l]['id_subsidiarygood'];
-        tallaProductoModel.tallaProducto =
-            decodedData["tallas"][l]["subsidiarygood_size"];
-        tallaProductoModel.tallaProductoStatus =
-            decodedData["tallas"][l]["subsidiarygood_size_status"];
-
-        final list = await tallaProductoDb.obtenerTallaProductoPorIdProducto(
-            decodedData["tallas"][l]['id_subsidiarygood']);
-
-        if (list.length > 0) {
-          tallaProductoModel.estado = list[0].estado;
-        } else {
-          tallaProductoModel.estado = "0";
-        }
-
-        await tallaProductoDb.insertarTallaProducto(tallaProductoModel);
-      }
+      
+      
 
       return 1;
     } catch (error, stacktrace) {

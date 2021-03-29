@@ -18,7 +18,7 @@ import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedid
 import 'package:bufi/src/page/Tabs/Negocios/inicio/detalleNegocio.dart';
 import 'package:bufi/src/bloc/subsidiary/negocio_bloc.dart';
 import 'package:bufi/src/page/Tabs/Points/points_bloc.dart';
-import 'package:bufi/src/page/Tabs/Principal/listarBienesAll.dart';
+import 'package:bufi/src/page/Tabs/Principal/TodosLosProductos/listarBienesAll.dart';
 import 'package:bufi/src/page/Tabs/Principal/listarServiciosAll.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/PedidosPage.dart';
 import 'package:bufi/src/page/cuenta/recargar_saldo.dart';

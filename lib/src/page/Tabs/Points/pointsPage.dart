@@ -4,8 +4,8 @@ import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Points/points_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
-import 'package:bufi/src/utils/favoritos.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +52,7 @@ class _PointsPageState extends State<PointsPage> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      'Puntos Favoritos',
+                                      'Puntos Favoritos11',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: responsive.ip(3),
@@ -68,7 +68,7 @@ class _PointsPageState extends State<PointsPage> {
                                     horizontal: responsive.wp(5),
                                     vertical: responsive.hp(1)),
                                 child: Text(
-                                  'Puntos Favoritos',
+                                  'Puntos Favoritosff',
                                   style: TextStyle(
                                       color: Colors.transparent,
                                       fontSize: responsive.ip(2.5),
@@ -94,7 +94,7 @@ class _PointsPageState extends State<PointsPage> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      'Puntos Favoritos',
+                                      'Puntos Favoritosddd',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: responsive.ip(3),
@@ -165,7 +165,7 @@ class _PointsPageState extends State<PointsPage> {
                                 ),
                               );
                             }
-
+                            //Lista que muestra los productos por sucursal
                             int xxx = index - 1;
                             return (snapshot.data[xxx].listProducto.length > 0)
                                 ? Column(
@@ -206,19 +206,33 @@ class _PointsPageState extends State<PointsPage> {
                                     ],
                                   )
                                 :
-                                //Dismissible(
-                                //     key: Key(snapshot.data[xxx].toString()),
-                                //     direction: DismissDirection.endToStart,
-                                //     onDismissed: (direction) {
-                                //       setState(() {
-                                //         //snapshot.data[xxx].removeAt(index);
-                                //         // final sucursal=SubsidiaryModel();
-                                //         // quitarSubsidiaryFavorito(
-                                //         //   context,sucursal
-                                //         // );
-                                //       });
-                                //     },
-                                //     child:
+                                Dismissible(
+                                    key: UniqueKey(),
+                                    direction: DismissDirection.horizontal,
+                                    background: Container(
+                                      margin: EdgeInsets.symmetric(
+                                        horizontal: responsive.wp(1),
+                                      ),
+                                      color: Colors.red,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Icon(Icons.delete,
+                                                  color: Colors.white)),
+                                          Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Icon(Icons.delete,
+                                                  color: Colors.white)),
+                                        ],
+                                      ),
+                                    ),
+                                    onDismissed: (direction) {
+                                      quitarSubsidiaryFavoritodePointPage(context, snapshot.data[xxx]);
+                                    },
+                                    child:
                                 Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(color: Colors.black12),
@@ -245,20 +259,32 @@ class _PointsPageState extends State<PointsPage> {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             Spacer(),
-                                            Container(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: responsive.wp(1),
-                                                vertical: responsive.hp(.5),
-                                              ),
-                                              child: Text(
-                                                'Ver más',
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                  color: Colors.red),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal:
+                                                        responsive.wp(1),
+                                                    vertical: responsive.hp(.5),
+                                                  ),
+                                                  child: Text(
+                                                    'Ver más',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      color: Colors.red),
+                                                ),
+                                                IconButton(
+                                                    icon: Icon(Icons.delete),
+                                                    onPressed: () {
+                                                      print("Cerrar");
+                                                      quitarSubsidiaryFavoritodePointPage(context, snapshot.data[xxx]);
+                                                    })
+                                              ],
                                             )
                                           ],
                                         ),
@@ -284,8 +310,8 @@ class _PointsPageState extends State<PointsPage> {
                                         ),
                                       ],
                                     ),
-                                  );
-                            //);
+                                  )
+                            );
                           }),
                     ),
                   ],
@@ -438,7 +464,7 @@ class WidgetBienesFavoritos extends StatelessWidget {
                 //     ],
                 //   ),
                 // ),
-                
+
                 GestureDetector(
                   child: Container(
                     height: responsive.hp(3.5),

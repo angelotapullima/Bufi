@@ -4,8 +4,8 @@ import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
-import 'package:bufi/src/utils/favoritos.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -238,7 +238,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                     //double.infinity,
                     height: responsive.hp(3),
                     child: Text(
-                      'Producto',
+                      'Productosss',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: responsive.ip(1.5),
@@ -250,7 +250,9 @@ class _BienesWidgetState extends State<BienesWidget> {
                 Positioned(
                   right: 0,
                   top: 2,
-                  child: favorite
+                  child: 
+                  //(widget.producto.productoFavourite == '1')
+                  favorite
                     ? GestureDetector(
                         child: Container(
                           height: responsive.hp(3.5),
@@ -265,8 +267,8 @@ class _BienesWidgetState extends State<BienesWidget> {
                         onTap: () {
                           setState(() {
                             favorite = false;
-                            final buttonBloc = ProviderBloc.tabs(context);
-                            buttonBloc.changePage(1);
+                            //final buttonBloc = ProviderBloc.tabs(context);
+                            //buttonBloc.changePage(1);
                             quitarProductoFavorito(context, widget.producto);
                             cant++;
                           });
@@ -286,8 +288,8 @@ class _BienesWidgetState extends State<BienesWidget> {
                         onTap: () {
                           setState(() {
                             favorite = true;
-                            final buttonBloc = ProviderBloc.tabs(context);
-                            buttonBloc.changePage(1);
+                            //final buttonBloc = ProviderBloc.tabs(context);
+                            //buttonBloc.changePage(1);
                             guardarProductoFavorito(context, widget.producto);
                           });
                         },
@@ -311,94 +313,7 @@ class _BienesWidgetState extends State<BienesWidget> {
               ],
             ),
           ),
-          // Container(
-          //   height: responsive.hp(5),
-          //   padding: EdgeInsets.symmetric(vertical: responsive.hp(1)),
-          //   //color: Colors.white.withOpacity(.8),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //     children: [
-          //       Container(
-          //         height: responsive.hp(3.5),
-          //         width: responsive.wp(20),
-          //         decoration: BoxDecoration(
-          //           color: Colors.blue.withOpacity(.2),
-          //           borderRadius: BorderRadius.circular(10),
-          //         ),
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           children: [
-          //             Icon(
-          //               FontAwesomeIcons.shoppingCart,
-          //               size: responsive.ip(1.5),
-          //               color: Colors.blue[800],
-          //             ),
-          //             SizedBox(
-          //               width: responsive.wp(1),
-          //             ),
-          //             GestureDetector(
-          //               onTap: () {
-          //                 final buttonBloc = ProviderBloc.tabs(context);
-          //                 buttonBloc.changePage(2);
-
-          //                 utils.agregarAlCarrito(
-          //                     context, widget.producto.idProducto);
-          //               },
-          //               child: Text(
-          //                 'Agregar',
-          //                 style: TextStyle(
-          //                     color: Colors.blue[800],
-          //                     fontWeight: FontWeight.bold),
-          //               ),
-          //             )
-          //           ],
-          //         ),
-          //       ),
-          //        favorite
-          //           ? GestureDetector(
-          //               child: Container(
-          //                 height: responsive.hp(3.5),
-          //                 width: responsive.wp(12),
-          //                 decoration: BoxDecoration(
-          //                   color: Colors.red.withOpacity(.2),
-          //                   borderRadius: BorderRadius.circular(10),
-          //                 ),
-          //                 child: Icon(FontAwesomeIcons.solidHeart,
-          //                     color: Colors.red),
-          //               ),
-          //               onTap: () {
-          //                 setState(() {
-          //                   favorite = false;
-          //                   final buttonBloc = ProviderBloc.tabs(context);
-          //                   buttonBloc.changePage(1);
-          //                   quitarProductoFavorito(context, widget.producto);
-          //                   cant++;
-          //                 });
-          //               },
-          //             )
-          //           : GestureDetector(
-          //               child: Container(
-          //                 height: responsive.hp(3.5),
-          //                 width: responsive.wp(12),
-          //                 decoration: BoxDecoration(
-          //                   color: Colors.red.withOpacity(.2),
-          //                   borderRadius: BorderRadius.circular(10),
-          //                 ),
-          //                 child:
-          //                     Icon(FontAwesomeIcons.heart, color: Colors.red),
-          //               ),
-          //               onTap: () {
-          //                 setState(() {
-          //                   favorite = true;
-          //                   final buttonBloc = ProviderBloc.tabs(context);
-          //                   buttonBloc.changePage(1);
-          //                   guardarProductoFavorito(context, widget.producto);
-          //                 });
-          //               },
-          //             )
-          //     ],
-          //   ),
-          // ),
+         
           
           Text(
             widget.producto.productoName,

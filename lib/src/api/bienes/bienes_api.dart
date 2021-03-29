@@ -151,7 +151,7 @@ class GoodApi {
       if (productList.length > 0) {
         productoModel.productoFavourite = productList[0].productoFavourite;
       } else {
-        productoModel.productoStatus = '';
+        productoModel.productoStatus = '0';
       }
       await productoDatabase.insertarProducto(productoModel);
 
@@ -292,7 +292,7 @@ class GoodApi {
           subsidiaryGoodModel.productoFavourite =
               productList[0].productoFavourite;
         } else {
-          subsidiaryGoodModel.productoStatus = '';
+          subsidiaryGoodModel.productoStatus = '0';
         }
         await productoDatabase.insertarProducto(subsidiaryGoodModel);
 

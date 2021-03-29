@@ -57,10 +57,10 @@ class SubsidiaryDatabase {
     }
   }
 
-  Future<List<SubsidiaryModel>> obtenerSubsidiaryPorId(String id) async {
+  Future<List<SubsidiaryModel>> obtenerSubsidiaryPorId(String idSubsidiary) async {
     try{
     final db = await dbProvider.database;
-    final res = await db.rawQuery("SELECT * FROM Subsidiary WHERE id_subsidiary= '$id' ");
+    final res = await db.rawQuery("SELECT * FROM Subsidiary WHERE id_subsidiary= '$idSubsidiary' ");
 
     List<SubsidiaryModel> list = res.isNotEmpty
         ? res.map((c) => SubsidiaryModel.fromJson(c)).toList()

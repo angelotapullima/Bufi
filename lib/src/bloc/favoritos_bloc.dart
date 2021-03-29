@@ -1,9 +1,11 @@
 import 'package:bufi/src/api/point_api.dart';
 import 'package:bufi/src/database/producto_bd.dart';
+import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/models/pointModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
+import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PointsBloc {
@@ -52,7 +54,6 @@ class PointsBloc {
   //   _favController.sink.add(await productoDb.);
   // }
 }
-
 
 
 
@@ -106,7 +107,32 @@ Future<List<PointModel>> favoritoPorSucursal() async {
 
       listProductosFavoritos.add(productoModel);
     }
+
+    //Creamos la lista para agregar los servicios obtenidos por sucursal
+    final listServiciosFavModel = List<SubsidiaryServiceModel>();
+     final servicioDb = SubsidiaryServiceDatabase();
+   
+    final listServicioFav = await servicioDb.obtenerSubsidiarysServicesFavoritosPorIdSubsidiary(listsucursal[k].idSubsidiary);
+    for (var i = 0; i < listServicioFav.length; i++) {
+      final servicioModel = SubsidiaryServiceModel();
+      servicioModel.idSubsidiaryservice = listServicioFav[i].idSubsidiaryservice;
+      servicioModel.idSubsidiary = listServicioFav[i].idSubsidiary;
+      servicioModel.idService = listServicioFav[i].idService;
+      servicioModel.idItemsubcategory = listServicioFav[i].idItemsubcategory;
+      servicioModel.subsidiaryServiceName = listServicioFav[i].subsidiaryServiceName;
+      servicioModel.subsidiaryServicePrice = listServicioFav[i].subsidiaryServicePrice;
+      servicioModel.subsidiaryServiceDescription = listServicioFav[i].subsidiaryServiceDescription;
+      servicioModel.subsidiaryServiceCurrency = listServicioFav[i].subsidiaryServiceCurrency;
+      servicioModel.subsidiaryServiceImage = listServicioFav[i].subsidiaryServiceImage;
+      servicioModel.subsidiaryServiceRating = listServicioFav[i].subsidiaryServiceRating;
+      servicioModel.subsidiaryServiceUpdated = listServicioFav[i].subsidiaryServiceUpdated;
+      servicioModel.subsidiaryServiceStatus = listServicioFav[i].subsidiaryServiceStatus;
+      servicioModel.subsidiaryServiceFavourite = '1';
+
+      listServiciosFavModel.add(servicioModel);
+    }
     pointModel.listProducto = listProductosFavoritos;
+    pointModel.listServicio = listServiciosFavModel;
     listGeneral.add(pointModel);
   }
   return listGeneral;

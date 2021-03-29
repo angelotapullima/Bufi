@@ -131,7 +131,7 @@ class BusquedaApi {
                     productoModel.productoFavourite =
                         productList[0].productoFavourite;
                   } else {
-                    productoModel.productoFavourite = '';
+                    productoModel.productoFavourite = '0';
                   }
 
                   //listProducto.add(productoModel);
@@ -182,8 +182,7 @@ class BusquedaApi {
                           decodedData["result"][i]['id_subsidiary']);
 
                   if (listSubsidiaryDb.length > 0) {
-                    subsidiaryModel.subsidiaryFavourite =
-                        listSubsidiaryDb[0].subsidiaryFavourite;
+                    subsidiaryModel.subsidiaryFavourite = listSubsidiaryDb[0].subsidiaryFavourite;
                   } else {
                     subsidiaryModel.subsidiaryFavourite = '0';
                   }
@@ -386,15 +385,13 @@ class BusquedaApi {
                               decodedData["result"][h][i]['id_subsidiary']);
 
                       if (listSubsidiaryDb.length > 0) {
-                        subsidiaryModel.subsidiaryFavourite =
-                            listSubsidiaryDb[0].subsidiaryFavourite;
+                        subsidiaryModel.subsidiaryFavourite = listSubsidiaryDb[0].subsidiaryFavourite;
                       } else {
                         subsidiaryModel.subsidiaryFavourite = '0';
                       }
 
                       //insertar a la tabla sucursal
-                      await subsidiaryDatabase
-                          .insertarSubsidiary(subsidiaryModel);
+                      await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
 
                       listaDeSucursales.add(subsidiaryModel);
 
@@ -575,8 +572,7 @@ class BusquedaApi {
                           decodedData["result"][j]['id_subsidiary']);
 
                   if (listSubsidiaryDb.length > 0) {
-                    subsidiaryModel.subsidiaryFavourite =
-                        listSubsidiaryDb[0].subsidiaryFavourite;
+                    subsidiaryModel.subsidiaryFavourite =listSubsidiaryDb[0].subsidiaryFavourite;
                   } else {
                     subsidiaryModel.subsidiaryFavourite = '0';
                   }
@@ -1308,7 +1304,7 @@ class BusquedaApi {
                     productoModel.productoFavourite =
                         productList[0].productoFavourite;
                   } else {
-                    productoModel.productoFavourite = '';
+                    productoModel.productoFavourite = '0';
                   }
                   //insertar a la tabla Producto
                   await productoDatabase.insertarProducto(productoModel);
@@ -1496,7 +1492,7 @@ class BusquedaApi {
                       productoModel.productoFavourite =
                           productList[0].productoFavourite;
                     } else {
-                      productoModel.productoFavourite = '';
+                      productoModel.productoFavourite = '0';
                     }
                     //insertar a la tabla Producto
                     await productoDatabase.insertarProducto(productoModel);
@@ -1767,7 +1763,7 @@ class BusquedaApi {
                     productoModel.productoFavourite =
                         productList[0].productoFavourite;
                   } else {
-                    productoModel.productoFavourite = '';
+                    productoModel.productoFavourite = '0';
                   }
                   //insertar a la tabla Producto
                   await productoDatabase.insertarProducto(productoModel);
@@ -1965,7 +1961,7 @@ class BusquedaApi {
                       productoModel.productoFavourite =
                           productList[0].productoFavourite;
                     } else {
-                      productoModel.productoFavourite = '';
+                      productoModel.productoFavourite = '0';
                     }
                     //insertar a la tabla Producto
                     await productoDatabase.insertarProducto(productoModel);
@@ -3256,7 +3252,7 @@ class BusquedaApi {
                     productoModel.productoFavourite =
                         productList[0].productoFavourite;
                   } else {
-                    productoModel.productoFavourite = '';
+                    productoModel.productoFavourite = '0';
                   }
                   //insertar a la tabla Producto
                   await productoDatabase.insertarProducto(productoModel);
@@ -3444,7 +3440,7 @@ class BusquedaApi {
                       productoModel.productoFavourite =
                           productList[0].productoFavourite;
                     } else {
-                      productoModel.productoFavourite = '';
+                      productoModel.productoFavourite = '0';
                     }
                     //insertar a la tabla Producto
                     await productoDatabase.insertarProducto(productoModel);
@@ -3661,7 +3657,7 @@ class BusquedaApi {
           if (productList.length > 0) {
             productoModel.productoFavourite = productList[0].productoFavourite;
           } else {
-            productoModel.productoFavourite = '';
+            productoModel.productoFavourite = '0';
           }
           //insertar a la tabla Producto
           await productoDatabase.insertarProducto(productoModel);

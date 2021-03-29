@@ -1,4 +1,5 @@
 import 'package:bufi/src/models/productoModel.dart';
+import 'package:bufi/src/models/subsidiaryService.dart';
 
 class PointModel {
   PointModel(
@@ -16,6 +17,7 @@ class PointModel {
       this.subsidiaryOpeningHours,
       this.subsidiaryPrincipal,
       this.subsidiaryStatus,
+      this.subsidiaryFavourite,
       this.idCity,
       this.idCategory,
       this.companyName,
@@ -49,6 +51,7 @@ class PointModel {
   String subsidiaryOpeningHours;
   String subsidiaryPrincipal;
   String subsidiaryStatus;
+  String subsidiaryFavourite;
   String idCity;
   String idCategory;
   String companyName;
@@ -67,6 +70,7 @@ class PointModel {
   String companyMt;
   String categoryName;
   List<ProductoModel> listProducto;
+  List<SubsidiaryServiceModel> listServicio;
 
   factory PointModel.fromJson(Map<String, dynamic> json) => PointModel(
         idPoint: json["id_point"],

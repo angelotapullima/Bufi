@@ -1,6 +1,7 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/pointModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
+import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubsidiary.dart';
 import 'package:bufi/src/page/Tabs/Points/points_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
@@ -198,14 +199,12 @@ class _PointsPageState extends State<PointsPage> {
                                               return WidgetBienesFavoritos(
                                                   responsive: responsive,
                                                   goodData: goodData);
-
-                                              // : Container(color: Colors.red,
-                                              // child: Text("data"),);
                                             }),
                                       ),
                                     ],
                                   )
                                 :
+                                //Lista de Sucursales favoritas
                                 Dismissible(
                                     key: UniqueKey(),
                                     direction: DismissDirection.horizontal,
@@ -230,88 +229,113 @@ class _PointsPageState extends State<PointsPage> {
                                       ),
                                     ),
                                     onDismissed: (direction) {
-                                      quitarSubsidiaryFavoritodePointPage(context, snapshot.data[xxx]);
+                                      quitarSubsidiaryFavoritodePointPage(
+                                          context, snapshot.data[xxx]);
                                     },
-                                    child:
-                                Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.black12),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: responsive.hp(1),
-                                      horizontal: responsive.wp(2),
-                                    ),
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: responsive.wp(3),
-                                      vertical: responsive.wp(2),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              '${snapshot.data[xxx].subsidiaryName}',
-                                              style: TextStyle(
-                                                  fontSize: responsive.ip(2.5),
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Spacer(),
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        responsive.wp(1),
-                                                    vertical: responsive.hp(.5),
-                                                  ),
-                                                  child: Text(
-                                                    'Ver más',
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                      color: Colors.red),
-                                                ),
-                                                IconButton(
-                                                    icon: Icon(Icons.delete),
-                                                    onPressed: () {
-                                                      print("Cerrar");
-                                                      quitarSubsidiaryFavoritodePointPage(context, snapshot.data[xxx]);
-                                                    })
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              '${snapshot.data[xxx].companyRating}',
-                                              style: TextStyle(
-                                                fontSize: responsive.ip(1.8),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border:
+                                            Border.all(color: Colors.black12),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      margin: EdgeInsets.symmetric(
+                                        vertical: responsive.hp(1),
+                                        horizontal: responsive.wp(2),
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: responsive.wp(3),
+                                        vertical: responsive.wp(2),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '${snapshot.data[xxx].subsidiaryName}',
+                                                style: TextStyle(
+                                                    fontSize:
+                                                        responsive.ip(2.5),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
-                                            ),
-                                            Icon(
-                                              Icons.star,
-                                              color: Colors.yellow,
-                                            )
-                                          ],
-                                        ),
-                                        Text(
-                                          '${snapshot.data[xxx].subsidiaryAddress}',
-                                          style: TextStyle(
-                                            fontSize: responsive.ip(1.8),
+                                              Spacer(),
+                                              Row(
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              DetalleSubsidiary(
+                                                            idSucursal: snapshot
+                                                                .data[xxx]
+                                                                .idSubsidiary,
+                                                            nombreSucursal: snapshot
+                                                                .data[xxx]
+                                                                .subsidiaryName,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Container(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                        horizontal:
+                                                            responsive.wp(1),
+                                                        vertical:
+                                                            responsive.hp(.5),
+                                                      ),
+                                                      child: Text(
+                                                        'Ver más',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
+                                                          color: Colors.red),
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                      icon: Icon(Icons.delete),
+                                                      onPressed: () {
+                                                        print("Cerrar");
+                                                        quitarSubsidiaryFavoritodePointPage(
+                                                            context,
+                                                            snapshot.data[xxx]);
+                                                      })
+                                                ],
+                                              )
+                                            ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                            );
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '${snapshot.data[xxx].companyRating}',
+                                                style: TextStyle(
+                                                  fontSize: responsive.ip(1.8),
+                                                ),
+                                              ),
+                                              Icon(
+                                                Icons.star,
+                                                color: Colors.yellow,
+                                              )
+                                            ],
+                                          ),
+                                          Text(
+                                            '${snapshot.data[xxx].subsidiaryAddress}',
+                                            style: TextStyle(
+                                              fontSize: responsive.ip(1.8),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ));
                           }),
                     ),
                   ],

@@ -240,13 +240,8 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
                                 SizedBox(
                                   height: responsive.hp(2),
                                 ),
-                                Text(
-                                  '${productosData.listMarcaProd[0].marcaProducto} ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: responsive.ip(1.8),
-                                  ),
-                                ),
+                               
+                               
                                 SizedBox(
                                   height: responsive.hp(5),
                                 ),

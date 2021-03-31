@@ -377,7 +377,7 @@ class _BienesResuState extends State<BienesResu> {
           height: responsive.hp(1),
         ),
         Container(
-          height: responsive.hp(30),
+          height: responsive.hp(32),
           child: StreamBuilder(
             stream: bienesBloc.bienesStream,
             builder: (BuildContext context,

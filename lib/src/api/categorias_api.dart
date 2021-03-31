@@ -376,7 +376,7 @@ class CategoriasApi {
       final listSubgood =
           await productoDatabase.obtenerProductoXIdItemSubcategoria(idItemsub);
 
-      double mayorPro = 0;
+      double mayorPro = 0; 
       double mayor2Pro = 0;
       double menorPro = 0;
       if (listSubgood.length > 0) {

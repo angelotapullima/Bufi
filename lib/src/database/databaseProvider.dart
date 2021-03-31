@@ -327,31 +327,7 @@ class DatabaseProvider {
           ' estado TEXT'
           ')');
 
-        await db.execute(' CREATE TABLE MarcaProducto('
-          ' id_marca_producto TEXT PRIMARY KEY,'
-          ' id_producto TEXT,'
-          ' marca_producto TEXT,'
-          ' marca_status_producto TEXT,'
-          ' estado TEXT'
-          ')');
-
-        await db.execute(' CREATE TABLE ModeloProducto('
-          ' id_modelo_producto TEXT PRIMARY KEY,'
-          ' id_producto TEXT,'
-          ' modelo_producto TEXT,'
-          ' modelo_status_producto TEXT,'
-          ' estado TEXT'
-          ')');
-
-        await db.execute(' CREATE TABLE TallasProducto('
-          ' id_talla_producto TEXT PRIMARY KEY,'
-          ' id_producto TEXT,'
-          ' talla_producto TEXT,'
-          ' talla_status_producto TEXT,'
-          ' estado TEXT'
-          ')');
-
-
+      
            await db.execute(' CREATE TABLE Publicidad('
           ' id_publicidad TEXT PRIMARY KEY,'
           ' id_city TEXT,'

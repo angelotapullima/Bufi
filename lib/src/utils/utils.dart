@@ -2,26 +2,20 @@ import 'package:bufi/src/api/point_api.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/database/carrito_db.dart';
 import 'package:bufi/src/database/direccion_database.dart';
-import 'package:bufi/src/database/marcaProducto_database.dart';
-import 'package:bufi/src/database/modeloProducto_database.dart';
 import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/database/sugerenciaBusqueda_db.dart';
-import 'package:bufi/src/database/tallaProducto_database.dart';
 import 'package:bufi/src/database/tipo_pago_database.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/carritoModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/direccionModel.dart';
-import 'package:bufi/src/models/marcaProductoModel.dart';
-import 'package:bufi/src/models/modeloProductoModel.dart';
 import 'package:bufi/src/models/pointModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/models/sugerenciaBusquedaModel.dart';
-import 'package:bufi/src/models/tallaProductoModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -506,49 +500,10 @@ void eliminarTodasLasDirecciones(BuildContext context) async {
   direccionesBloc.obtenerDirecciones();
 }
 
-//Talla del producto
-Future<int> cambiarEstadoTalla(
-    BuildContext context, TallaProductoModel tallaModel) async {
-  final datosProdBloc = ProviderBloc.datosProductos(context);
-  final tallaProductoDatabase = TallaProductoDatabase();
-//cambiar todos los estado de la tabla asignada a 0.
-  await tallaProductoDatabase.updateEstadoa0();
 
-  await tallaProductoDatabase.updateEstadoa1(tallaModel);
 
-  datosProdBloc.listarDatosProducto(tallaModel.idProducto);
-  return 1;
-}
 
-//Marca del producto
-Future<int> cambiarEstadoMarca(
-    BuildContext context, MarcaProductoModel marcaModel) async {
-  final datosProdBloc = ProviderBloc.datosProductos(context);
-  final marcaProductoDatabase = MarcaProductoDatabase();
-//cambiar todos los estado de la tabla asignada a 0.
-  await marcaProductoDatabase.updateEstadoa0();
 
-  await marcaProductoDatabase.updateEstadoa1(marcaModel);
-
-  datosProdBloc.listarDatosProducto(marcaModel.idProducto);
-
-  return 1;
-}
-
-//Modelo del producto
-Future<int> cambiarEstadoModelo(
-    BuildContext context, ModeloProductoModel modeloModel) async {
-  final datosProdBloc = ProviderBloc.datosProductos(context);
-  final modeloProductoDatabase = ModeloProductoDatabase();
-
-//cambiar todos los estado de la tabla asignada a 0.
-  await modeloProductoDatabase.updateEstadoa0();
-
-  await modeloProductoDatabase.updateEstadoa1(modeloModel);
-
-  datosProdBloc.listarDatosProducto(modeloModel.idProducto);
-  return 0;
-}
 
 Future<List<ProductoModel>> filtrarListaProductos(
     List<ProductoModel> lista) async {

@@ -1,9 +1,13 @@
 
 
+import 'package:bufi/src/database/producto_bd.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 class FiltroContinuoBloc with ChangeNotifier {
+
+
+  final productoDatabase=  ProductoDatabase();
   
   List<CategoriaTab> tabsMarcas = [];
   List<CategoriaTab> tabsModelos = [];
@@ -15,24 +19,23 @@ class FiltroContinuoBloc with ChangeNotifier {
 
   void init() async {
 
-   /*  final listTallitas = List<String>();
+
+    final productos = await productoDatabase.obtenerSubsidiaryGood();
+
+   final listTallitas = List<String>();
     final listMarquitas = List<String>();
     final listModelitos = List<String>();
 
-    final tallasDatos = await tallasDatabase.obtenerTallaProducto();
-    final modelosDatos = await modelosDatabase.obtenerModeloProducto();
-    final marcasDatos = await marcasDatabase.obtenerMarcaProducto();
+    
+    for (var i = 0; i < productos.length; i++) {
 
-    for (var i = 0; i < tallasDatos.length; i++) {
-      listTallitas.add(tallasDatos[i].tallaProducto);
+      listTallitas.add(productos[i].productoSize);
+      listMarquitas.add(productos[i].productoBrand);
+      listModelitos.add(productos[i].productoModel);
+      
     }
-    for (var i = 0; i < marcasDatos.length; i++) {
-      listMarquitas.add(marcasDatos[i].marcaProducto);
-    }
-    for (var i = 0; i < modelosDatos.length; i++) {
-      listModelitos.add(modelosDatos[i].modeloProducto);
-    }
-
+    
+    
     final listTallitas2 = listTallitas.toSet().toList();
     final listMarquitas2 = listMarquitas.toSet().toList();
     final listModelitos2 = listModelitos.toSet().toList();
@@ -60,6 +63,7 @@ class FiltroContinuoBloc with ChangeNotifier {
   }
 
   void onCategorySelectedMarcas(int value) {
+    marcasFiltradas.clear();
     final selected = tabsMarcas[value];
 
     print(tabsMarcas[value].itemNombre);
@@ -87,12 +91,13 @@ class FiltroContinuoBloc with ChangeNotifier {
       if (tabsMarcas[i].selected) {
         marcasFiltradas.add(tabsMarcas[i].itemNombre);
       }
-    } */
+    } 
 
     notifyListeners();
   }
 
   void onCategorySelectedModelos(int value) {
+    modelosFiltradas.clear();
     final selected = tabsModelos[value];
 
     print(tabsModelos[value].itemNombre);
@@ -127,6 +132,7 @@ class FiltroContinuoBloc with ChangeNotifier {
   }
 
   void onCategorySelectedTallas(int value) {
+    tallasFiltradas.clear();
     final selected = tabsTallas[value];
 
     print(tabsTallas[value].itemNombre);
@@ -134,7 +140,6 @@ class FiltroContinuoBloc with ChangeNotifier {
     for (var i = 0; i < tabsTallas.length; i++) {
       bool ctv;
       bool algo;
-
       //if (!condition) {
       if (selected.itemNombre == tabsTallas[i].itemNombre) {
         algo = selected.selected;

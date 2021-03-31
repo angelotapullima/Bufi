@@ -1,10 +1,10 @@
 import 'package:bufi/src/api/bienes/bienes_api.dart';
 import 'package:bufi/src/api/categorias_api.dart';
 import 'package:bufi/src/api/servicios/services_api.dart';
-import 'package:bufi/src/database/good_db.dart'; 
+import 'package:bufi/src/database/good_db.dart';
 import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/service_db.dart';
-import 'package:bufi/src/database/subsidiaryService_db.dart'; 
+import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/models/goodModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/serviceModel.dart';
@@ -12,8 +12,7 @@ import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:logger/logger.dart';
 import 'package:rxdart/subjects.dart';
 
-class BienesServiciosBloc { 
-
+class BienesServiciosBloc {
   final logger = Logger();
   final categoriaApi = CategoriasApi();
   final productoDatabase = ProductoDatabase();
@@ -96,7 +95,7 @@ class BienesServiciosBloc {
     serviciosController.sink
         .add(await subisdiaryServiceDatabase.obtenerSubsidiaryService());
   }
-/* 
+
   void obtenerBienesAllPorCiudadFiltrado(
       List<String> tallas, List<String> modelos, List<String> marcas) async {
     final listFinal = List<ProductoModel>();
@@ -112,17 +111,16 @@ class BienesServiciosBloc {
         if (x == 0) {
           consultaMarcas += "'${marcas[x]}' ";
         } else {
-          consultaMarcas += "or marca_producto = '${marcas[x]}' ";
+          consultaMarcas += "or producto_brand = '${marcas[x]}' ";
         }
       }
-
       String sqlMarcas =
-          'SELECT * FROM MarcaProducto where marca_producto  = $consultaMarcas';
+          'SELECT * FROM Producto where  producto_brand = $consultaMarcas';
 
-      final marquitas = await marcasProductoDatabase.sqlConsulta(sqlMarcas);
+      final productitosMarcas = await productoDatabase.sqlConsulta(sqlMarcas);
 
-      for (var i = 0; i < marquitas.length; i++) {
-        listIdSinRepetir.add(marquitas[i].idProducto);
+      for (var i = 0; i < productitosMarcas.length; i++) {
+        listIdSinRepetir.add(productitosMarcas[i].idProducto);
       }
     }
 
@@ -131,15 +129,17 @@ class BienesServiciosBloc {
         if (i == tallas.length - 1) {
           consultaTallas += "'${tallas[i]}' ";
         } else {
-          consultaTallas += "or talla_producto = ${tallas[i]} ";
+          consultaTallas += "or producto_size = ${tallas[i]} ";
         }
       }
 
       String sqlTallas =
-          'SELECT * FROM TallasProducto where talla_producto  = $consultaTallas';
-      final tallitas = await tallaProductoDatabase.sqlConsulta(sqlTallas);
-      for (var i = 0; i < tallitas.length; i++) {
-        listIdSinRepetir.add(tallitas[i].idProducto);
+          'SELECT * FROM Producto where producto_size  = $consultaTallas ';
+
+      final productitosTallas = await productoDatabase.sqlConsulta(sqlTallas);
+
+      for (var i = 0; i < productitosTallas.length; i++) {
+        listIdSinRepetir.add(productitosTallas[i].idProducto);
       }
     }
 
@@ -148,24 +148,27 @@ class BienesServiciosBloc {
         if (y == modelos.length - 1) {
           consultaModelos += "'${modelos[y]}' ";
         } else {
-          consultaModelos += "or modelo_producto = '${modelos[y]}' ";
+          consultaModelos += "or producto_model = '${modelos[y]}' ";
         }
       }
 
-      //"SELECT * FROM Pedido where pedido_estado in (0,1,2,3)  "
+
+
 
       String sqlModelos =
-          'SELECT * FROM ModeloProducto where modelo_producto  = $consultaModelos';
+          'SELECT * FROM Producto where producto_model = $consultaModelos ';
 
-      final modelitos = await modeloProductoDatabase.sqlConsulta(sqlModelos);
+      final productitosModelo = await productoDatabase.sqlConsulta(sqlModelos);
 
-      for (var i = 0; i < modelitos.length; i++) {
-        listIdSinRepetir.add(modelitos[i].idProducto);
+      for (var i = 0; i < productitosModelo.length; i++) {
+        listIdSinRepetir.add(productitosModelo[i].idProducto);
       }
     }
 
+   
+   
+
     final listGeneral = listIdSinRepetir.toSet().toList();
-    
 
     for (var i = 0; i < listGeneral.length; i++) {
       final producto = await productoDatabase
@@ -198,6 +201,4 @@ class BienesServiciosBloc {
 
     bienesController.sink.add(listFinal);
   }
-}
- */
 }

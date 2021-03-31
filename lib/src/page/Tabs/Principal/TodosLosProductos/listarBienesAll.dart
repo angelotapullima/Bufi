@@ -34,8 +34,6 @@ class _ListarBienesAllState extends State<ListarBienesAll>
   final bloc = FiltroContinuoBloc();
   @override
   void initState() {
-    
-
     super.initState();
     _animationController =
         AnimationController(vsync: this, duration: _animationDuration);
@@ -169,7 +167,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                                               gridDelegate:
                                                   SliverGridDelegateWithFixedCrossAxisCount(
                                                       crossAxisCount: 2,
-                                                      childAspectRatio: 0.73),
+                                                      childAspectRatio: 0.7),
                                               itemCount: listProduct.length,
                                               itemBuilder: (context, index) {
                                                 return GestureDetector(
@@ -360,7 +358,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
         //irADetalleProducto(data[index], context);
       },
       child: Container(
-        height: responsive.hp(16),
+        height: responsive.hp(18),
         color: Colors.white,
         margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         width: double.infinity,
@@ -451,10 +449,22 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                   Text(
                     '${data[index].productoBrand}',
                     style: TextStyle(
-                        fontSize: responsive.ip(2.5),
+                        fontSize: responsive.ip(1.5),
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 8),
+                  Text(
+                    '${data[index].productoSize}',
+                    style: TextStyle(
+                        fontSize: responsive.ip(1.5),
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '${data[index].productoModel}',
+                    style: TextStyle(
+                        fontSize: responsive.ip(1.5),
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 2),
                   Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                     Icon(
                       Icons.star,
@@ -685,21 +695,20 @@ class _ContenidoFilterState extends State<ContenidoFilter> {
                         color: Colors.white,
                         fontSize: responsive.ip(2),
                         fontWeight: FontWeight.bold),
+                  ).ripple(
+                    () {
+                      final tashas = bloc.tallasFiltradas.toSet().toList();
+                      final modeshos = bloc.modelosFiltradas.toSet().toList();
+                      final marcash = bloc.marcasFiltradas.toSet().toList();
+
+                      bienesBloc.obtenerBienesAllPorCiudadFiltrado(
+                          tashas, modeshos, marcash);
+
+                      widget.iconPressed();
+                    },
+                    
+                    
                   ),
-                ).ripple(
-                  () {
-                    final tashas = bloc.tallasFiltradas.toSet().toList();
-                    final modeshos = bloc.modelosFiltradas.toSet().toList();
-                    final marcash = bloc.marcasFiltradas.toSet().toList();
-
-                   /*  bienesBloc.obtenerBienesAllPorCiudadFiltrado(
-                        tashas, modeshos, marcash); */
-
-                    widget.iconPressed();
-                  },
-                  /* borderRadius: BorderRadius.all(
-          Radius.circular(13),
-        ), */
                 )
               ],
             ),

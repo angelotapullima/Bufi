@@ -89,7 +89,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
             List<ProductoModel> listProd = snapshot.data;
             bool _enabled = true;
             if (snapshot.hasData) {
-              if (listProd[0].listTallaProd.length > 0) {
+              if (listProd.length > 0) {
                 return Stack(
                   children: <Widget>[
                     _backgroundImage(
@@ -497,9 +497,8 @@ class _DetalleProductosState extends State<DetalleProductos> {
                   SizedBox(
                     height: 20,
                   ),
-                  _talla(responsive, listProd),
-                   _marca(responsive, listProd),
-                  _modelo(responsive, listProd),
+                  
+                  
                   //_description(),
                 ],
               ),
@@ -510,186 +509,9 @@ class _DetalleProductosState extends State<DetalleProductos> {
     );
   }
 
-  Widget _talla(Responsive responsive, List<ProductoModel> listProd) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TitleText(
-          text: "Tallas",
-          fontSize: 14,
-        ),
-        Container(
-          height: responsive.hp(8),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemCount: listProd[0].listTallaProd.length,
-            itemBuilder: (BuildContext context, int index) {
-              return _tallaWidget(listProd, index);
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _marca(Responsive responsive, List<ProductoModel> listProd) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TitleText(
-          text: "Marcas",
-          fontSize: 14,
-        ),
-        SizedBox(
-          height: responsive.hp(1),
-        ),
-        Container(
-          height: responsive.hp(8),
-          child: ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: listProd[0].listMarcaProd.length,
-            itemBuilder: (BuildContext context, int index) {
-              return _marcaWidget(listProd, index);
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: <Widget>[
-              //     _marcaWidget(listProd, index),
-              //     //_sizeWidget("US 7", isSelected: true),
-              //   ],
-              // );
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _modelo(Responsive responsive, List<ProductoModel> listProd) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TitleText(
-          text: "Modelo",
-          fontSize: 14,
-        ),
-        SizedBox(height: responsive.hp(1)),
-        Container(
-          height: responsive.hp(8),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemCount: listProd[0].listModeloProd.length,
-            itemBuilder: (BuildContext context, int index) {
-              return _modeloWidget(listProd, index);
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _tallaWidget(List<ProductoModel> listProd, int index) {
-    return Padding(
-      padding: EdgeInsets.all(4.0),
-      child: Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          border: Border.all(
-              color: LightColor.iconColor,
-              style: (listProd[0].listTallaProd[index].estado == '1')
-                  ? BorderStyle.solid
-                  : BorderStyle.none),
-          borderRadius: BorderRadius.all(Radius.circular(13)),
-          color: (listProd[0].listTallaProd[index].estado == '1')
-              ? LightColor.red
-              : Theme.of(context).backgroundColor,
-        ),
-        child: TitleText(
-          text: listProd[0].listTallaProd[index].tallaProducto,
-          fontSize: 16,
-          color: (listProd[0].listTallaProd[index].estado == '1')
-              ? LightColor.background
-              : LightColor.titleTextColor,
-        ),
-      ).ripple(() async {
-        print('presionado ${listProd[0].listTallaProd[index].idTallaProducto}');
-
-        await cambiarEstadoTalla(context, listProd[0].listTallaProd[index]);
-      }, borderRadius: BorderRadius.all(Radius.circular(13))),
-    );
-  }
-
-  Widget _marcaWidget(List<ProductoModel> listProd, int index,
-      {bool isSelected = false}) {
-    return Padding(
-      padding: EdgeInsets.all(4.0),
-      child: Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          border: Border.all(
-              color: LightColor.iconColor,
-              style: !isSelected ? BorderStyle.solid : BorderStyle.none),
-          borderRadius: BorderRadius.all(Radius.circular(13)),
-          color: (listProd[0].listMarcaProd[index].estado == '1')
-              ? LightColor.red
-              : Theme.of(context).backgroundColor,
-        ),
-        child: TitleText(
-          text: listProd[0].listMarcaProd[index].marcaProducto,
-          fontSize: 16,
-          color: (listProd[0].listMarcaProd[index].estado == '1')
-              ? LightColor.background
-              : LightColor.titleTextColor,
-        ),
-      ).ripple(
-        () async {
-          print(
-              'presionado ${listProd[0].listMarcaProd[index].idMarcaProducto}');
-
-          await cambiarEstadoMarca(context, listProd[0].listMarcaProd[index]);
-          //print("estado ${listProd[0].listMarcaProd[index].estado}");
-        },
-        borderRadius: BorderRadius.all(
-          Radius.circular(13),
-        ),
-      ),
-    );
-  }
-
-  Widget _modeloWidget(List<ProductoModel> listProd, int index,
-      {bool isSelected = false}) {
-    return Padding(
-      padding: EdgeInsets.all(4.0),
-      child: Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          border: Border.all(
-              color: LightColor.iconColor,
-              style: !isSelected ? BorderStyle.solid : BorderStyle.none),
-          borderRadius: BorderRadius.all(Radius.circular(13)),
-          color: (listProd[0].listModeloProd[index].estado == '1')
-              ? LightColor.red
-              : Theme.of(context).backgroundColor,
-        ),
-        child: TitleText(
-          text: listProd[0].listModeloProd[index].modeloProducto,
-          fontSize: 16,
-          color: (listProd[0].listModeloProd[index].estado == '1')
-              ? LightColor.background
-              : LightColor.titleTextColor,
-        ),
-      ).ripple(
-        () async {
-          await cambiarEstadoModelo(context, listProd[0].listModeloProd[index]);
-        },
-        borderRadius: BorderRadius.all(
-          Radius.circular(13),
-        ),
-      ),
-    );
-  }
+  
+  
+  
 }
 
 class BotonAgregar extends StatelessWidget {
@@ -698,6 +520,7 @@ class BotonAgregar extends StatelessWidget {
     @required this.responsive,
     @required this.producto,
     @required this.listProd,
+    
   }) : super(key: key);
 
   final Responsive responsive;
@@ -745,31 +568,14 @@ class BotonAgregar extends StatelessWidget {
                     ),
                   ).ripple(() async {
                     //Tallas
-                    final tallaDatabase = TallaProductoDatabase();
-                    final tallas = await tallaDatabase
-                        .obtenerTallaProductoPorIdProductoEnEstado1(
-                            producto.idProducto);
-                    //widget.producto.idProducto);
-                    //modelo
-                    final modeloDatabase = ModeloProductoDatabase();
-                    final modelos = await modeloDatabase
-                        .obtenerModeloProductoPorIdProductoEnEstado1(
-                            producto.idProducto);
-                    //Marca
-                    final marcaDatabase = MarcaProductoDatabase();
-                    final marcas = await marcaDatabase
-                        .obtenerMarcaProductoPorIdProductoEnEstado1(
-                            producto.idProducto);
-
-                    if (tallas.length > 0) {
-                      if (modelos.length > 0) {
-                        if (marcas.length > 0) {
-                          await agregarAlCarrito(
+                  
+                  
+                     await agregarAlCarrito(
                               context,
                               producto.idProducto,
-                              tallas[0].tallaProducto,
-                              modelos[0].modeloProducto,
-                              marcas[0].marcaProducto);
+                              producto.productoSize,
+                              producto.productoModel,
+                              producto.productoBrand);
 
                           Navigator.push(
                             context,
@@ -793,18 +599,7 @@ class BotonAgregar extends StatelessWidget {
                               },
                             ),
                           );
-                        } else {
-                          utils.showToast(
-                              context, 'Por favor seleccione una marca');
-                        }
-                      } else {
-                        utils.showToast(
-                            context, 'Por favor seleccione un modelo');
-                      }
-                    } else {
-                      utils.showToast(
-                          context, 'Por favor seleccione una talla');
-                    }
+                        
                   }),
                   Container(
                     width: responsive.wp(60),
@@ -833,45 +628,11 @@ class BotonAgregar extends StatelessWidget {
                       ],
                     ),
                   ).ripple(() async {
-                    if (listProd[0].listTallaProd.length == 1) {
-                      await cambiarEstadoTalla(
-                          context, listProd[0].listTallaProd[0]);
-                    }
-                    if (listProd[0].listMarcaProd.length == 1) {
-                      await cambiarEstadoMarca(
-                          context, listProd[0].listMarcaProd[0]);
-                    }
-                    if (listProd[0].listModeloProd.length == 1) {
-                      await cambiarEstadoModelo(
-                          context, listProd[0].listModeloProd[0]);
-                    }
-
-                    //Tallas
-                    final tallaDatabase = TallaProductoDatabase();
-                    final tallasSeleccionado = await tallaDatabase
-                        .obtenerTallaProductoPorIdProductoEnEstado1(
-                            producto.idProducto);
-
-                    //modelo
-                    final modeloDatabase = ModeloProductoDatabase();
-                    final modelosSeleccionados = await modeloDatabase
-                        .obtenerModeloProductoPorIdProductoEnEstado1(
-                            producto.idProducto);
-                    //Marca
-                    final marcaDatabase = MarcaProductoDatabase();
-                    final marcasSeleccionadas = await marcaDatabase
-                        .obtenerMarcaProductoPorIdProductoEnEstado1(
-                            producto.idProducto);
-
-                    if (tallasSeleccionado.length > 0) {
-                      if (modelosSeleccionados.length > 0) {
-                        if (marcasSeleccionadas.length > 0) {
-                          await agregarAlCarrito(
+                     await agregarAlCarrito(
                               context,
-                              producto.idProducto,
-                              tallasSeleccionado[0].tallaProducto,
-                              modelosSeleccionados[0].modeloProducto,
-                              marcasSeleccionadas[0].marcaProducto);
+                              producto.idProducto, producto.productoSize,
+                              producto.productoModel,
+                              producto.productoBrand);
 
                           Navigator.push(
                             context,
@@ -897,35 +658,9 @@ class BotonAgregar extends StatelessWidget {
                             ),
                           );
 
-                          /*  Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            transitionDuration: const Duration(milliseconds: 300),
-                            pageBuilder: (context, animation, secondaryAnimation) {
-                              return DetalleCarrito(producto: producto);
-                              //return DetalleProductitos(productosData: productosData);
-                            },
-                            transitionsBuilder:
-                                (context, animation, secondaryAnimation, child) {
-                              return FadeTransition(
-                                opacity: animation,
-                                child: child,
-                              );
-                            },
-                          ),
-                        ); */
-                        } else {
-                          utils.showToast(
-                              context, 'Por favor seleccione una marca');
-                        }
-                      } else {
-                        utils.showToast(
-                            context, 'Por favor seleccione un modelo');
-                      }
-                    } else {
-                      utils.showToast(
-                          context, 'Por favor seleccione una talla');
-                    }
+                         
+                    
+                    
                   }),
                 ],
               ),

@@ -138,7 +138,7 @@ Widget bienesWidgetCompelto(BuildContext context, BienesServiciosModel goodData,
         //     ],
         //   ),
         // ),
-         Text(
+        Text(
           goodData.subsidiaryGoodName,
           style: TextStyle(
               fontSize: responsive.ip(1.5),
@@ -248,54 +248,55 @@ class _BienesWidgetState extends State<BienesWidget> {
                 ),
                 //Favorito
                 Positioned(
-                  right: 0,
-                  top: 2,
-                  child: 
-                  //(widget.producto.productoFavourite == '1')
-                  favorite
-                    ? GestureDetector(
-                        child: Container(
-                          height: responsive.hp(3.5),
-                          width: responsive.wp(12),
-                          decoration: BoxDecoration(
-                            color: Colors.red.withOpacity(.2),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Icon(FontAwesomeIcons.solidHeart,
-                              color: Colors.white),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            favorite = false;
-                            //final buttonBloc = ProviderBloc.tabs(context);
-                            //buttonBloc.changePage(1);
-                            quitarProductoFavorito(context, widget.producto);
-                            cant++;
-                          });
-                        },
-                      )
-                    : GestureDetector(
-                        child: Container(
-                          height: responsive.hp(3.5),
-                          width: responsive.wp(12),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(.2),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child:
-                              Icon(FontAwesomeIcons.heart, color: Colors.white),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            favorite = true;
-                            //final buttonBloc = ProviderBloc.tabs(context);
-                            //buttonBloc.changePage(1);
-                            guardarProductoFavorito(context, widget.producto);
-                          });
-                        },
-                      )
-                ),
-               //Cuando el producto no esta disponible
+                    right: 0,
+                    top: 2,
+                    child:
+                        //(widget.producto.productoFavourite == '1')
+                        favorite
+                            ? GestureDetector(
+                                child: Container(
+                                  height: responsive.hp(3.5),
+                                  width: responsive.wp(12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red.withOpacity(.2),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Icon(FontAwesomeIcons.solidHeart,
+                                      color: Colors.white),
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    favorite = false;
+                                    //final buttonBloc = ProviderBloc.tabs(context);
+                                    //buttonBloc.changePage(1);
+                                    quitarProductoFavorito(
+                                        context, widget.producto);
+                                    cant++;
+                                  });
+                                },
+                              )
+                            : GestureDetector(
+                                child: Container(
+                                  height: responsive.hp(3.5),
+                                  width: responsive.wp(12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(.2),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Icon(FontAwesomeIcons.heart,
+                                      color: Colors.white),
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    favorite = true;
+                                    //final buttonBloc = ProviderBloc.tabs(context);
+                                    //buttonBloc.changePage(1);
+                                    guardarProductoFavorito(
+                                        context, widget.producto);
+                                  });
+                                },
+                              )),
+                //Cuando el producto no esta disponible
                 // Positioned(
                 //   //left: responsive.wp(1),
                 //   top: responsive.hp(5),
@@ -309,12 +310,9 @@ class _BienesWidgetState extends State<BienesWidget> {
                 //     child: const Text('No disponible'),
                 //   ),
                 // ),
-
               ],
             ),
           ),
-         
-          
           Text(
             widget.producto.productoName,
             style: TextStyle(
@@ -331,10 +329,19 @@ class _BienesWidgetState extends State<BienesWidget> {
           Text(
             widget.producto.productoBrand,
             style: TextStyle(
-              color: Colors.grey,
               fontSize: responsive.ip(1.5),
             ),
-          )
+          ),
+          Text(
+            '${widget.producto.productoSize}',
+            style: TextStyle(
+                fontSize: responsive.ip(1.5), fontWeight: FontWeight.w700),
+          ),
+          Text(
+            '${widget.producto.productoModel}',
+            style: TextStyle(
+                fontSize: responsive.ip(1.5), fontWeight: FontWeight.w700),
+          ),
         ],
       ),
     );

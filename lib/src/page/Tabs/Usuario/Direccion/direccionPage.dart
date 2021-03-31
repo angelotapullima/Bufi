@@ -1,6 +1,8 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
+import 'package:bufi/src/database/direccion_database.dart';
 import 'package:bufi/src/models/direccionModel.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bufi/src/widgets/extentions.dart';
@@ -40,7 +42,8 @@ class DireccionDeliveryPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
-                          width: responsive.wp(30),
+                          width: responsive.wp(60),
+                          height: responsive.hp(7),
                           padding: EdgeInsets.symmetric(
                               vertical: responsive.hp(.5),
                               horizontal: responsive.wp(2)),
@@ -58,7 +61,8 @@ class DireccionDeliveryPage extends StatelessWidget {
                                 child: Text(
                                   'Agregar una dirección',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18),
                                 ),
                               ),
                             ],
@@ -68,33 +72,35 @@ class DireccionDeliveryPage extends StatelessWidget {
                             Navigator.pushNamed(context, 'agregarDireccion');
                           },
                         ),
-                        Container(
-                          width: responsive.wp(30),
-                          padding: EdgeInsets.symmetric(
-                              vertical: responsive.hp(.5),
-                              horizontal: responsive.wp(2)),
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(35),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.delete,
-                                color: Colors.white,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  'Eliminar direcciones',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ).ripple(
-                          () {},
-                        ),
+                        // (snapshot.data.length > 0)
+                        //     ? Container(
+                        //         width: responsive.wp(30),
+                        //         padding: EdgeInsets.symmetric(
+                        //             vertical: responsive.hp(.5),
+                        //             horizontal: responsive.wp(2)),
+                        //         decoration: BoxDecoration(
+                        //           color: Colors.red,
+                        //           borderRadius: BorderRadius.circular(35),
+                        //         ),
+                        //         child: Row(
+                        //           children: [
+                        //             Icon(
+                        //               Icons.delete,
+                        //               color: Colors.white,
+                        //             ),
+                        //             Expanded(
+                        //               child: Text(
+                        //                 'Eliminar direcciones',
+                        //                 textAlign: TextAlign.center,
+                        //                 style: TextStyle(color: Colors.white),
+                        //               ),
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       ).ripple(
+                        //         () {},
+                        //       )
+                        //     : Container()
                       ],
                     ),
                     SizedBox(
@@ -105,8 +111,47 @@ class DireccionDeliveryPage extends StatelessWidget {
                             child: ListView.builder(
                               shrinkWrap: true,
                               physics: ClampingScrollPhysics(),
+                              itemCount: snapshot.data.length + 1,
                               itemBuilder: (context, index) {
+                                if (index == 0) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                        left: responsive.wp(70)),
+                                    child: Container(
+                                      width: responsive.wp(30),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: responsive.hp(.5),
+                                          horizontal: responsive.wp(2)),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(35),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.check,
+                                            color: Colors.white,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              'Eliminar todo',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ).ripple(
+                                      () async {
+                                        eliminarTodasLasDirecciones(context);
+                                      },
+                                    ),
+                                  );
+                                }
+                                int i = index - 1;
                                 return Container(
+                                  //color: Colors.blue,
                                   child: Row(
                                     children: [
                                       SizedBox(
@@ -122,20 +167,19 @@ class DireccionDeliveryPage extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              '${snapshot.data[index].address}',
+                                              '${snapshot.data[i].address}',
+                                              style: TextStyle(
+                                                  fontSize: responsive.ip(1.7),
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(
+                                              '${snapshot.data[i].referencia}',
                                               style: TextStyle(
                                                 fontSize: responsive.ip(1.7),
-                                                fontWeight: FontWeight.bold
                                               ),
                                             ),
                                             Text(
-                                              '${snapshot.data[index].referencia}',
-                                              style: TextStyle(
-                                                fontSize: responsive.ip(1.7),
-                                              ),
-                                            ),
-                                            Text(
-                                              '${snapshot.data[index].distrito}',
+                                              '${snapshot.data[i].distrito}',
                                               style: TextStyle(
                                                 fontSize: responsive.ip(1.7),
                                               ),
@@ -146,15 +190,20 @@ class DireccionDeliveryPage extends StatelessWidget {
                                       SizedBox(
                                         width: responsive.wp(2),
                                       ),
+                                      IconButton(
+                                          icon: Icon(Icons.delete),
+                                          onPressed: () {
+                                            eliminarDireccion(
+                                                context, snapshot.data[i]);
+                                          })
                                     ],
                                   ),
                                 );
                               },
-                              itemCount: snapshot.data.length,
                             ),
                           )
                         : Container(
-                            child: Text('No aye '),
+                            child: Text('No se regitró ninguna dirección'),
                           )
                   ],
                 ),

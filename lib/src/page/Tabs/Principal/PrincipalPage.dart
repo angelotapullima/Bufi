@@ -115,7 +115,7 @@ class HeaderWidget extends StatelessWidget {
     final cuentaBloc = ProviderBloc.cuenta(context);
     //notificaciones
     final notificacionesBloc = ProviderBloc.notificaciones(context);
-    notificacionesBloc.listarNotificaciones();
+    notificacionesBloc.listarNotificacionesPendientes();
 
     if (preferences.personName != null) {
       cuentaBloc.obtenerSaldo();
@@ -252,6 +252,7 @@ class HeaderWidget extends StatelessWidget {
                           Navigator.pushNamed(context, "notificaciones");
                         },
                         child: Container(
+                          //color: Colors.blue,
                           width: responsive.wp(8),
                           child: Stack(
                             children: <Widget>[
@@ -264,7 +265,7 @@ class HeaderWidget extends StatelessWidget {
                                 right: 0,
                                 child: StreamBuilder(
                                     stream: notificacionesBloc
-                                        .listarnotificacionesStream,
+                                        .notificacionesPendientesStream,
                                     builder: (context,
                                         AsyncSnapshot<List<NotificacionesModel>>
                                             snapshot) {
@@ -272,34 +273,30 @@ class HeaderWidget extends StatelessWidget {
                                           snapshot.data;
                                       if (snapshot.hasData) {
                                         if (snapshot.data.length > 0) {
-                                          return (notificaciones[0]
-                                                      .notificacionEstado ==
-                                                  '0')
-                                              ? Container(
-                                                  child: Text(
-                                                    '${notificaciones[0].notificacionEstado.length}',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize:
-                                                            responsive.ip(1)),
-                                                  ),
-                                                  alignment: Alignment.center,
-                                                  width: responsive.ip(2),
-                                                  height: responsive.ip(2),
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.red,
-                                                      shape: BoxShape.circle),
-                                                )
-                                              : Text('0');
+                                          return Container(
+                                            child: Text(
+                                              '${notificaciones.length}',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: responsive.ip(1.5)),
+                                            ),
+                                            alignment:
+                                                Alignment.center,
+                                            width: responsive.ip(2),
+                                            height: responsive.ip(2),
+                                            decoration: BoxDecoration(
+                                                color: Colors.red,
+                                                shape: BoxShape.circle),
+                                          );
                                         } else {
                                           return Center(
                                               child: Text(
-                                                  "no tiene ninguna notificaciónfff"));
+                                                  "no tiene ninguna notificaciónjj"));
                                         }
                                       } else {
                                         return Center(
                                             child: Text(
-                                                "no tiene ninguna notificaciónfff"));
+                                                "0"));
                                       }
                                     }),
                                 //child: Icon(Icons.brightness_1, size: 8,color: Colors.redAccent,  )

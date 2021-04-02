@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:bufi/src/utils/utils.dart' as utils;
 
 class PointsPage extends StatefulWidget {
   @override
@@ -504,6 +505,7 @@ class WidgetBienesFavoritos extends StatelessWidget {
                   onTap: () {
                     print("desfavorito");
                     quitarProductoFavorito(context, goodData);
+                    utils.showToast(context, 'el producto se quitó de favoritos');
                   },
                 )
               ],

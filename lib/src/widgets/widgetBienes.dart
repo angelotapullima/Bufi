@@ -10,6 +10,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:bufi/src/utils/utils.dart' as utils;
 
 Widget bienesWidgetCompelto(BuildContext context, BienesServiciosModel goodData,
     Responsive responsive) {
@@ -238,7 +239,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                     //double.infinity,
                     height: responsive.hp(3),
                     child: Text(
-                      'Productosss',
+                      'Productos',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: responsive.ip(1.5),
@@ -293,6 +294,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                                     //buttonBloc.changePage(1);
                                     guardarProductoFavorito(
                                         context, widget.producto);
+                                        utils.showToast(context, 'el producto se agregó a favoritos');
                                   });
                                 },
                               )),

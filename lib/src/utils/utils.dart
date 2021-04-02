@@ -109,6 +109,8 @@ void guardarProductoFavorito(
     BuildContext context, ProductoModel dataModel) async {
   final pointsProdBloc = ProviderBloc.points(context);
   final bienesBloc = ProviderBloc.bienesServicios(context);
+  final productoBloc = ProviderBloc.productos(context);
+    
 
   final productoModel = ProductoModel();
   final productoDb = ProductoDatabase();
@@ -156,15 +158,19 @@ void guardarProductoFavorito(
 
   await sucursalDataBase.updateSubsidiary(subModel);
 
-  //await sucursalDataBase.obtenerSubsidiaryPorId(productoModel.idSubsidiary);
+  //Para dibujar el widget de favorito en la vista de Point
   pointsProdBloc.obtenerPointsProductosXSucursal();
+   //Para dibujar el widget de favorito en la vista principal
   bienesBloc.obtenerBienesServiciosResumen();
+  //Para dibujar el widget de favorito en la vista de productos por sucursal
+  productoBloc.listarProductosPorSucursal(dataModel.idSubsidiary);
 }
 
 void quitarProductoFavorito(
     BuildContext context, ProductoModel dataModel) async {
   final pointsProdBloc = ProviderBloc.points(context);
   final bienesBloc = ProviderBloc.bienesServicios(context);
+   final productoBloc = ProviderBloc.productos(context);
   final sucursalDataBase = SubsidiaryDatabase();
   // final deletePoint = PointApi();
 
@@ -216,6 +222,8 @@ void quitarProductoFavorito(
 
   pointsProdBloc.obtenerPointsProductosXSucursal();
   bienesBloc.obtenerBienesServiciosResumen();
+   //Para dibujar el widget de favorito en la vista de productos por sucursal
+  productoBloc.listarProductosPorSucursal(dataModel.idSubsidiary);
 }
 
 void guardarServicioFavorito(

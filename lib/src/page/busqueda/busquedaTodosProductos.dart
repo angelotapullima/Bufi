@@ -3,14 +3,14 @@ import 'package:bufi/src/page/busqueda/buquedaGeneralHechoPorAngeloMasNaiki.dart
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
-class BusquedaNegocio extends StatefulWidget {
-  const BusquedaNegocio({Key key}) : super(key: key);
+class BusquedaTodosProductos extends StatefulWidget {
+  const BusquedaTodosProductos({Key key}) : super(key: key);
 
   @override
-  _BusquedaNegocioState createState() => _BusquedaNegocioState();
+  _BusquedaTodosProductosState createState() => _BusquedaTodosProductosState();
 }
 
-class _BusquedaNegocioState extends State<BusquedaNegocio> {
+class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
   TextEditingController _controllerBusquedaNegocio = TextEditingController();
 
   @override
@@ -53,7 +53,7 @@ class _BusquedaNegocioState extends State<BusquedaNegocio> {
                         onChanged: (value) {
                           print('$value');
 
-                          busquedaBloc.obtenerBusquedaNegocio('$value');
+                         busquedaBloc.obtenerBusquedaProducto('$value');
                         }),
                   ),
                   IconButton(
@@ -68,7 +68,7 @@ class _BusquedaNegocioState extends State<BusquedaNegocio> {
               ),
             ),
            Expanded(
-              child:ListaNegocios(),
+              child:ListaProductos(),
             ) 
           ],
         ),

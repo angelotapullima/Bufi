@@ -1,5 +1,5 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
-import 'package:bufi/src/page/busqueda/busquedaGeneral/buquedaGeneralHechoPorAngeloMasNaiki.dart';
+import 'package:bufi/src/page/busqueda/buquedaGeneralHechoPorAngeloMasNaiki.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:flutter/material.dart';
 

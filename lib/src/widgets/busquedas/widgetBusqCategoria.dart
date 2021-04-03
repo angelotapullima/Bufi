@@ -1,5 +1,5 @@
 
-import 'package:bufi/src/page/busqueda/categoriaBusqPage.dart';
+
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,7 @@ class BusquedaCategoriaWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
           onTap: () {
-            showSearch(context: context, delegate: BusquedaCategoriaPage());
+            //showSearch(context: context, delegate: BusquedaCategoriaPage());
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
@@ -30,7 +30,7 @@ class BusquedaCategoriaWidget extends StatelessWidget {
                   icon: Icon(Icons.search),
                   color: Colors.black,
                   onPressed: () {
-                    showSearch(context: context, delegate: BusquedaCategoriaPage());
+                    //showSearch(context: context, delegate: BusquedaCategoriaPage());
                   },
                 ),
                 Text(

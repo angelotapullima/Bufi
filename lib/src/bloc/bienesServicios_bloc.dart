@@ -152,9 +152,6 @@ class BienesServiciosBloc {
         }
       }
 
-
-
-
       String sqlModelos =
           'SELECT * FROM Producto where producto_model = $consultaModelos ';
 
@@ -164,9 +161,6 @@ class BienesServiciosBloc {
         listIdSinRepetir.add(productitosModelo[i].idProducto);
       }
     }
-
-   
-   
 
     final listGeneral = listIdSinRepetir.toSet().toList();
 

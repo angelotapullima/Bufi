@@ -81,7 +81,7 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                                       .length,
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
-                                          childAspectRatio: .8,
+                                          childAspectRatio: .7,
                                           crossAxisCount: 4),
                                   itemBuilder: (context, i) {
                                     return GestureDetector(
@@ -163,12 +163,7 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                                                   ),
                                                 ),
                                               ),
-                                              // Image(
-                                              //   image: AssetImage(
-                                              //       'assets/book.png'),
-                                              //   height: responsive.hp(4),
-                                              //   fit: BoxFit.cover,
-                                              // )
+                                             
                                             ),
                                             SizedBox(
                                               height: responsive.hp(1),

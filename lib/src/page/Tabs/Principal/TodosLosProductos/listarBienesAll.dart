@@ -697,17 +697,34 @@ class _ContenidoFilterState extends State<ContenidoFilter> {
                         fontWeight: FontWeight.bold),
                   ).ripple(
                     () {
+                      bool pase = true;
                       final tashas = bloc.tallasFiltradas.toSet().toList();
                       final modeshos = bloc.modelosFiltradas.toSet().toList();
                       final marcash = bloc.marcasFiltradas.toSet().toList();
 
-                      bienesBloc.obtenerBienesAllPorCiudadFiltrado(
-                          tashas, modeshos, marcash);
+                      if (tashas.length > 0) {
+                        pase = true;
+                      } else {
+                        if (modeshos.length > 0) {
+                          pase = true;
+                        } else {
+                          if (marcash.length > 0) {
+                            pase = true;
+                          } else {
+                            pase = false;
+                          }
+                        }
+                      }
+
+                      if (pase) {
+                        bienesBloc.obtenerBienesAllPorCiudadFiltrado(
+                            tashas, modeshos, marcash);
+                      } else {
+                        bienesBloc.obtenerBienesAllPorCiudad();
+                      }
 
                       widget.iconPressed();
                     },
-                    
-                    
                   ),
                 )
               ],

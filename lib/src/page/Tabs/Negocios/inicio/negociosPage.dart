@@ -438,25 +438,7 @@ class HeaderWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               Spacer(),
-              // GestureDetector(
-              //   onTap: () {
-              //     Navigator.pushNamed(context, 'registroNegocio');
-              //   },
-              //   child: Container(
-              //     width: responsive.wp(32),
-              //     height: responsive.hp(4.5),
-              //     decoration: BoxDecoration(
-              //       color: Colors.red,
-              //       borderRadius: BorderRadius.circular(20),
-              //     ),
-              //     child: Center(
-              //       child: Text(
-              //         'Registrar Negocio',
-              //         style: TextStyle(color: Colors.white),
-              //       ),
-              //     ),
-              //   ),
-              // ),
+              
               IconButton(
                   icon: Icon(Icons.category, color: Colors.red),
                   onPressed: () {

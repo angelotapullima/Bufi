@@ -1,6 +1,6 @@
 
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:bufi/src/page/busqueda/servicioBusqPage.dart';
+
 import 'package:flutter/material.dart';
 
 
@@ -16,7 +16,7 @@ class BusquedaServicioWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
           onTap: () {
-            showSearch(context: context, delegate: BusquedaServiciosPage());
+            //showSearch(context: context, delegate: BusquedaServiciosPage());
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
@@ -30,7 +30,7 @@ class BusquedaServicioWidget extends StatelessWidget {
                   icon: Icon(Icons.search),
                   color: Colors.black,
                   onPressed: () {
-                    showSearch(context: context, delegate: BusquedaServiciosPage());
+                    //showSearch(context: context, delegate: BusquedaServiciosPage());
                   },
                 ),
                 Text(

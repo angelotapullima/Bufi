@@ -1,6 +1,5 @@
 import 'package:bufi/src/page/busqueda/BuquedaNegocioPage.dart';
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:bufi/src/page/busqueda/negocioBusqPage.dart';
 import 'package:flutter/material.dart';
 
 class BusquedaNegocioWidget extends StatelessWidget {
@@ -15,6 +14,9 @@ class BusquedaNegocioWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+
+
+
         Navigator.of(context).push(PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) {
             return BusquedaNegocio();
@@ -48,7 +50,7 @@ class BusquedaNegocioWidget extends StatelessWidget {
               icon: Icon(Icons.search),
               color: Colors.black,
               onPressed: () {
-                showSearch(context: context, delegate: BusquedaNegocioPage());
+                //showSearch(context: context, delegate: BusquedaNegocioPage());
               },
             ),
             Text(

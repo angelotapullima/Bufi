@@ -102,26 +102,29 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                         fit: BoxFit.cover,
                                       ),
                                     ),
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                            '${notificaciones[index].notificacionMensaje}',
-                                            style: TextStyle(
-                                                color: pendiente
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontSize: responsive.ip(2),
-                                                fontWeight: FontWeight.bold)),
-                                        Text(
-                                            '${notificaciones[index].notificacionDatetime}',
-                                            style: TextStyle(
-                                                color: pendiente
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontSize: responsive.ip(2),
-                                                fontWeight: FontWeight.bold)),
-                                      ],
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                              '${notificaciones[index].notificacionMensaje}',
+                                              style: TextStyle(
+                                                  color: pendiente
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: responsive.ip(2),
+                                                  fontWeight: FontWeight.bold)),
+                                          Text(
+                                              '${notificaciones[index].notificacionDatetime}',
+                                              style: TextStyle(
+                                                  color: pendiente
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: responsive.ip(2),
+                                                  fontWeight: FontWeight.bold)),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),

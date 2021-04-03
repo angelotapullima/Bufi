@@ -79,7 +79,6 @@ void quitarSubsidiaryFavoritodePointPage(
     BuildContext context, PointModel pointModel) async {
   final sucursalBloc = ProviderBloc.sucursal(context);
   final pointsBloc = ProviderBloc.points(context);
-  final pointsProdBloc = ProviderBloc.points(context);
 
   SubsidiaryModel subsidiaryModel = SubsidiaryModel();
   final sucursalDataBase = SubsidiaryDatabase();
@@ -102,7 +101,7 @@ void quitarSubsidiaryFavoritodePointPage(
 
   sucursalBloc.obtenerSucursalporIdCompany(pointModel.idSubsidiary);
   pointsBloc.obtenerPoints();
-  pointsProdBloc.obtenerPointsProductosXSucursal();
+  pointsBloc.obtenerPointsProductosXSucursal();
   //deletePoint.deletePoint(subsidiaryModel.idSubsidiary);
 }
 
@@ -110,6 +109,8 @@ void guardarProductoFavorito(
     BuildContext context, ProductoModel dataModel) async {
   final pointsProdBloc = ProviderBloc.points(context);
   final bienesBloc = ProviderBloc.bienesServicios(context);
+  final productoBloc = ProviderBloc.productos(context);
+    
 
   final productoModel = ProductoModel();
   final productoDb = ProductoDatabase();
@@ -157,15 +158,19 @@ void guardarProductoFavorito(
 
   await sucursalDataBase.updateSubsidiary(subModel);
 
-  //await sucursalDataBase.obtenerSubsidiaryPorId(productoModel.idSubsidiary);
+  //Para dibujar el widget de favorito en la vista de Point
   pointsProdBloc.obtenerPointsProductosXSucursal();
+   //Para dibujar el widget de favorito en la vista principal
   bienesBloc.obtenerBienesServiciosResumen();
+  //Para dibujar el widget de favorito en la vista de productos por sucursal
+  productoBloc.listarProductosPorSucursal(dataModel.idSubsidiary);
 }
 
 void quitarProductoFavorito(
     BuildContext context, ProductoModel dataModel) async {
   final pointsProdBloc = ProviderBloc.points(context);
   final bienesBloc = ProviderBloc.bienesServicios(context);
+   final productoBloc = ProviderBloc.productos(context);
   final sucursalDataBase = SubsidiaryDatabase();
   // final deletePoint = PointApi();
 
@@ -217,6 +222,8 @@ void quitarProductoFavorito(
 
   pointsProdBloc.obtenerPointsProductosXSucursal();
   bienesBloc.obtenerBienesServiciosResumen();
+   //Para dibujar el widget de favorito en la vista de productos por sucursal
+  productoBloc.listarProductosPorSucursal(dataModel.idSubsidiary);
 }
 
 void guardarServicioFavorito(
@@ -437,8 +444,25 @@ void seleccionarTiposPago(BuildContext context, String idTiposPago) async {
   tiposPagoBloc.obtenerTiposPago();
 }
 
+// void agregarDireccion(BuildContext context, String direccion, String referencia,
+//     String distrito) async {
+//   final direccionDatabase = DireccionDatabase();
+
+//   DireccionModel direccionModel = DireccionModel();
+
+//   direccionModel.address = direccion;
+//   direccionModel.referencia = referencia;
+//   direccionModel.distrito = distrito;
+//   direccionModel.estado = '1';
+
+//   await direccionDatabase.insertarDireccion(direccionModel);
+
+//   Navigator.pop(context);
+// }
+
 void agregarDireccion(BuildContext context, String direccion, String referencia,
     String distrito) async {
+  final direccionesBloc = ProviderBloc.direc(context);
   final direccionDatabase = DireccionDatabase();
 
   DireccionModel direccionModel = DireccionModel();
@@ -446,10 +470,42 @@ void agregarDireccion(BuildContext context, String direccion, String referencia,
   direccionModel.address = direccion;
   direccionModel.referencia = referencia;
   direccionModel.distrito = distrito;
+  direccionModel.estado = '1';
 
   await direccionDatabase.insertarDireccion(direccionModel);
-
+  
+  direccionesBloc.obtenerDireccionEstado1();
   Navigator.pop(context);
+
+}
+
+void eliminarDireccion(BuildContext context, DireccionModel direccion) async {
+  final direccionesBloc = ProviderBloc.direc(context);
+  final direccionDatabase = DireccionDatabase();
+
+  // DireccionModel direccionModel = DireccionModel();
+
+  // direccionModel.address = direccion.address;
+  // direccionModel.referencia = direccion.referencia;
+  // direccionModel.distrito = direccion.distrito;
+  // direccionModel.estado = '0';
+
+  final res = await direccionDatabase.deleteDireccionPorID(direccion.idDireccion);
+  //final res = await direccionDatabase.updateDireccion(direccionModel);
+  print('update $res');
+
+  //direccionesBloc.deleteDireccion();
+  direccionesBloc.obtenerDirecciones();
+}
+
+void eliminarTodasLasDirecciones(BuildContext context) async {
+  final direccionesBloc = ProviderBloc.direc(context);
+  final direccionDatabase = DireccionDatabase();
+
+ 
+   await direccionDatabase.deleteDireccion();
+  
+  direccionesBloc.obtenerDirecciones();
 }
 
 

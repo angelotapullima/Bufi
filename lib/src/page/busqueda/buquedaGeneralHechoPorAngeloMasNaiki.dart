@@ -1,5 +1,6 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
+import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/models/itemSubcategoryModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
@@ -77,7 +78,7 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                 filled: true,
                                 contentPadding: EdgeInsets.all(16),
                               ),
-                              onChanged: (value) {
+                              onSubmitted: (value) {
                                 print('$value');
 
                                 busquedaBloc.obtenerBusquedaProducto('$value');
@@ -517,6 +518,92 @@ class ListaCategorias extends StatelessWidget {
         }
       },
     );
+  }
+}
+
+
+
+
+
+
+class ListaProductosYServiciosItemSubca extends StatelessWidget {
+  const ListaProductosYServiciosItemSubca({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final busquedaBloc = ProviderBloc.busqueda(context);
+    //busquedaBloc.obtenerBusquedaProducto('$query');
+
+    final responsive = Responsive.of(context);
+    return StreamBuilder(
+        stream: busquedaBloc.busProySerPorIdItemsubController,
+        builder: (BuildContext context,
+            AsyncSnapshot<List<BienesServiciosModel>> snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.length > 0) {
+              return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int i) {
+                    return ('${snapshot.data[i].tipo}' == 'producto')?ListTile(
+                      leading: FadeInImage(
+                        placeholder: AssetImage('assets/no-image.png'),
+                        image: NetworkImage(
+                          '$apiBaseURL/${snapshot.data[i].subsidiaryGoodImage}',
+                        ),
+                        width: responsive.wp(5),
+                        fit: BoxFit.contain,
+                      ),
+                      title: Text('${snapshot.data[i].subsidiaryGoodName}'),
+                      subtitle: Text('${snapshot.data[i].subsidiaryGoodCurrency}'),
+                      onTap: () {
+                        //close(context, null);
+
+                        /* Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetalleProductos(
+                              producto: snapshot.data[i],
+                            ),
+                          ),
+                        ); */
+                      },
+                    ):ListTile(
+                      leading: FadeInImage(
+                        placeholder: AssetImage('assets/no-image.png'),
+                        image: NetworkImage(
+                          '$apiBaseURL/${snapshot.data[i].subsidiaryServiceImage}',
+                        ),
+                        width: responsive.wp(5),
+                        fit: BoxFit.contain,
+                      ),
+                      title: Text('${snapshot.data[i].subsidiaryServiceName}'),
+                      subtitle: Text('${snapshot.data[i].subsidiaryServiceCurrency}'),
+                      onTap: () {
+                        //close(context, null);
+
+                        /* Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetalleProductos(
+                              producto: snapshot.data[i],
+                            ),
+                          ),
+                        ); */
+                      },
+                    );
+                  });
+            } else {
+              return Center(
+                child: CupertinoActivityIndicator(),
+              );
+            }
+          } else {
+            return Center(
+              child: CupertinoActivityIndicator(),
+            );
+          }
+        });
   }
 }
 

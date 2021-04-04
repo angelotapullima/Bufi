@@ -50,7 +50,7 @@ class _BusquedaNegocioState extends State<BusquedaNegocio> {
                           filled: true,
                           contentPadding: EdgeInsets.all(16),
                         ),
-                        onChanged: (value) {
+                        onSubmitted: (value) {
                           print('$value');
 
                           busquedaBloc.obtenerBusquedaNegocio('$value');

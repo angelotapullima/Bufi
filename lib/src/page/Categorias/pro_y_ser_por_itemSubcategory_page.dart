@@ -1,8 +1,9 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
-import 'package:bufi/src/utils/constants.dart'; 
+import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
+import 'package:bufi/src/widgets/busquedas/widgetBusqProAndSerPorItemSubcategoria.dart';
 import 'package:bufi/src/widgets/widgetBienes.dart';
 import 'package:bufi/src/widgets/busquedas/widgetBusqProduct.dart';
 import 'package:bufi/src/widgets/widgetServicios.dart';
@@ -30,8 +31,10 @@ class _ProYSerPorItemSubcategoryPageState
   ScrollController _scrollControllerListview = ScrollController();
   ScrollController _scrollControllerGridview = ScrollController();
 
-    @override
+  @override
   void initState() {
+    print(widget.nameItem);
+    print(widget.idItem);
     WidgetsBinding.instance.addPostFrameCallback((_) => {
           _scrollControllerListview.addListener(() {
             if (_scrollControllerListview.position.pixels + 100 >
@@ -115,7 +118,9 @@ class _ProYSerPorItemSubcategoryPageState
                       width: responsive.wp(2),
                     ),
                     Expanded(
-                        child: BusquedaProductoWidget(responsive: responsive)),
+                        child: BusquedaProAndSerItemSubcategoriaWidget(
+                            responsive: responsive,
+                            idItemsubcategory: widget.idItem)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -132,7 +137,7 @@ class _ProYSerPorItemSubcategoryPageState
                             icon: Icon(Icons.filter_list),
                             onPressed: () {
                               //print("estoy presionando");
-                             /*  Navigator.push(
+                              /*  Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => FiltroPage(idItemSub: widget.idItem,

@@ -9,6 +9,7 @@ import 'package:bufi/src/database/subcategory_db.dart';
 import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
+import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
@@ -35,32 +36,19 @@ class BusquedaBloc {
   final itemSubcategoriaDb = ItemsubCategoryDatabase();
 
   final busquedaProductoController = BehaviorSubject<List<ProductoModel>>();
-
-  final busquedaServicioController =
-      BehaviorSubject<List<SubsidiaryServiceModel>>();
-  final busquedaNegocioController =
-      BehaviorSubject<List<CompanySubsidiaryModel>>();
-
+  final busquedaServicioController =BehaviorSubject<List<SubsidiaryServiceModel>>();
+  final busquedaNegocioController =BehaviorSubject<List<CompanySubsidiaryModel>>();
   final busquedaCategoriaController = BehaviorSubject<List<CategoriaModel>>();
-  final busquedaSubcategController =
-      BehaviorSubject<List<BusquedaNegocioModel>>();
+  final busquedaSubcategController =BehaviorSubject<List<BusquedaNegocioModel>>();
+  final busquedaItemSubcategController =BehaviorSubject<List<ItemSubCategoriaModel>>();
+  final busProySerPorIdItemsubController =BehaviorSubject<List<BienesServiciosModel>>();
 
-  final busquedaItemSubcategController =
-      BehaviorSubject<List<ItemSubCategoriaModel>>();
-
-  Stream<List<ProductoModel>> get busquedaProductoStream =>
-      busquedaProductoController.stream;
-
-  Stream<List<SubsidiaryServiceModel>> get busquedaServicioStream =>
-      busquedaServicioController.stream;
-  Stream<List<CompanySubsidiaryModel>> get busquedaNegocioStream =>
-      busquedaNegocioController.stream;
-  Stream<List<CategoriaModel>> get busquedaCategoriaStream =>
-      busquedaCategoriaController.stream;
-  /* Stream<List<BusquedaServicioModel>> get busquedaSubcategoriaStream =>
-      busquedaServicioController.stream; */
-  Stream<List<ItemSubCategoriaModel>> get busquedaItemSubcategoriaStream =>
-      busquedaItemSubcategController.stream;
+  Stream<List<ProductoModel>> get busquedaProductoStream =>busquedaProductoController.stream;
+  Stream<List<SubsidiaryServiceModel>> get busquedaServicioStream =>busquedaServicioController.stream;
+  Stream<List<CompanySubsidiaryModel>> get busquedaNegocioStream =>busquedaNegocioController.stream;
+  Stream<List<CategoriaModel>> get busquedaCategoriaStream =>busquedaCategoriaController.stream;
+  Stream<List<ItemSubCategoriaModel>> get busquedaItemSubcategoriaStream =>busquedaItemSubcategController.stream;
+  Stream<List<BienesServiciosModel>> get busProySerItemSubcategoriaStream =>busProySerPorIdItemsubController.stream;
 
   void dispose() {
     busquedaProductoController?.close();
@@ -69,6 +57,15 @@ class BusquedaBloc {
     busquedaCategoriaController?.close();
     busquedaSubcategController?.close();
     busquedaItemSubcategController?.close();
+    busProySerPorIdItemsubController?.close();
+  }
+
+
+  //productos y servicios por IdItemSubcategory
+  
+  void obtenerBusquedaProductosYserviciosPorIdItemSubcategory(String idItemsubcategory,String query)async{
+     busProySerPorIdItemsubController.sink.add([]);
+    busProySerPorIdItemsubController.sink.add(await busquedaApi.busquedaDeProductosYServiciosPorIdItemsubcat( idItemsubcategory,query));
   }
 
 //Producto

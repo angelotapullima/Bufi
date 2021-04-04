@@ -1,15 +1,16 @@
-import 'package:bufi/src/page/busqueda/busquedaTodosProductos.dart';
+import 'package:bufi/src/page/busqueda/busProYSerPorIdtemSub.dart';
 import 'package:bufi/src/utils/responsive.dart';
-
 import 'package:flutter/material.dart';
 
-class BusquedaProductoWidget extends StatelessWidget {
-  const BusquedaProductoWidget({
+class BusquedaProAndSerItemSubcategoriaWidget extends StatelessWidget {
+  const BusquedaProAndSerItemSubcategoriaWidget({
     Key key,
     @required this.responsive,
+    @required this.idItemsubcategory,
   }) : super(key: key);
 
   final Responsive responsive;
+  final String idItemsubcategory;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,8 @@ class BusquedaProductoWidget extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) {
-            return BusquedaTodosProductos();
+            return BusquedaDeProYSerPorIdItemsubcat(
+                idItemsubcategory: idItemsubcategory);
           },
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             var begin = Offset(0.0, 1.0);
@@ -34,28 +36,25 @@ class BusquedaProductoWidget extends StatelessWidget {
             );
           },
         ));
-
+        //BusquedaDeProYSerPorIdItemsubcat
+        //showSearch(context: context, delegate: BusquedaItemSubcategoriaPage());
       },
       child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: responsive.wp(2),
-        ),
+        padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
         height: responsive.hp(5),
         decoration: BoxDecoration(
-          color: Colors.grey[300],
-          borderRadius: BorderRadius.circular(25),
-        ),
+            color: Colors.grey[300], borderRadius: BorderRadius.circular(25)),
         child: Row(
           children: [
             IconButton(
               icon: Icon(Icons.search),
               color: Colors.black,
               onPressed: () {
-                //showSearch(context: context, delegate: BusquedaProductosPage());
+                //showSearch(context: context, delegate: BusquedaItemSubcategoriaPage());
               },
             ),
             Text(
-              'Buscar Productos',
+              'Buscar ItemSubcategoria',
               style: TextStyle(color: Colors.black),
             ),
           ],

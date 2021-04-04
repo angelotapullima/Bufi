@@ -3,14 +3,19 @@ import 'package:bufi/src/page/busqueda/buquedaGeneralHechoPorAngeloMasNaiki.dart
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
-class BusquedaTodosProductos extends StatefulWidget {
-  const BusquedaTodosProductos({Key key}) : super(key: key);
+class BusquedaDeProYSerPorIdItemsubcat extends StatefulWidget {
+  const BusquedaDeProYSerPorIdItemsubcat(
+      {Key key, @required this.idItemsubcategory})
+      : super(key: key);
+
+  final String idItemsubcategory;
 
   @override
   _BusquedaTodosProductosState createState() => _BusquedaTodosProductosState();
 }
 
-class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
+class _BusquedaTodosProductosState
+    extends State<BusquedaDeProYSerPorIdItemsubcat> {
   TextEditingController _controllerBusquedaNegocio = TextEditingController();
 
   @override
@@ -23,10 +28,12 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final busquedaBloc = ProviderBloc.busqueda(context);
+    busquedaBloc.obtenerBusquedaProductosYserviciosPorIdItemSubcategory(
+        widget.idItemsubcategory, '');
 
     return Scaffold(
       backgroundColor: Colors.white,
-          body: SafeArea(
+      body: SafeArea(
         child: Column(
           children: [
             Container(
@@ -39,22 +46,27 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                   BackButton(),
                   Expanded(
                     child: TextField(
-                        controller: _controllerBusquedaNegocio,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          hintText: 'Buscame papi',
-                          hintStyle: TextStyle(
-                            fontSize: responsive.ip(1.6),
-                          ),
-                          
-                          filled: true,
-                          contentPadding: EdgeInsets.all(16),
+                      controller: _controllerBusquedaNegocio,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        hintText: 'Buscame papi',
+                        hintStyle: TextStyle(
+                          fontSize: responsive.ip(1.6),
                         ),
-                        onSubmitted: (value) {
-                          print('$value');
+                        filled: true,
+                        contentPadding: EdgeInsets.all(16),
+                      ),
+                      onSubmitted: (value) {
+                        print('$value');
 
-                         busquedaBloc.obtenerBusquedaProducto('$value');
-                        }),
+                        busquedaBloc
+                            .obtenerBusquedaProductosYserviciosPorIdItemSubcategory(
+                                widget.idItemsubcategory, '$value');
+                      },
+                      /* onChanged: (value) {
+                         
+                        }, */
+                    ),
                   ),
                   IconButton(
                       icon: Icon(Icons.close),
@@ -67,9 +79,9 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                 ],
               ),
             ),
-           Expanded(
-              child:ListaProductos(),
-            ) 
+            Expanded(
+              child: ListaProductosYServiciosItemSubca(),
+            )
           ],
         ),
       ),

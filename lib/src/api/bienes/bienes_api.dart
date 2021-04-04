@@ -83,14 +83,11 @@ class GoodApi {
       ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
       final itemsubCategoryDatabase = ItemsubCategoryDatabase();
 
-      itemSubCategoriaModel.idItemsubcategory =
-          productosListModel['id_itemsubcategory'];
-      itemSubCategoriaModel.idSubcategory =
-          productosListModel['id_subcategory'];
-      itemSubCategoriaModel.itemsubcategoryName =
-          productosListModel['itemsubcategory_name'];
-      await itemsubCategoryDatabase
-          .insertarItemSubCategoria(itemSubCategoriaModel);
+      itemSubCategoriaModel.idItemsubcategory = productosListModel['id_itemsubcategory'];
+      itemSubCategoriaModel.idSubcategory = productosListModel['id_subcategory'];
+      itemSubCategoriaModel.itemsubcategoryName = productosListModel['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryImage = productosListModel['itemsubcategory_img'];
+      await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_bienes_por_id_ciudad');
 
       //----ingresamos Company:
       CompanyModel companyModel = CompanyModel();

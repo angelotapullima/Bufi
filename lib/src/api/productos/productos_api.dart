@@ -138,7 +138,8 @@ class ProductosApi {
         itemSubCategoriaModel.idSubcategory = decodedData['results'][i]['id_subcategory'];
         itemSubCategoriaModel.idItemsubcategory =decodedData['results'][i]['itemsubcategory_name'];
         itemSubCategoriaModel.itemsubcategoryName = decodedData['results'][i]['itemsubcategory_name'];
-        await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel);
+        itemSubCategoriaModel.itemsubcategoryImage = decodedData['results'][i]['itemsubcategory_img'];
+        await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/listar_productos_por_sucursal');
       }
     }
 
@@ -335,10 +336,10 @@ class ProductosApi {
       itemSubCategoriaModel.idSubcategory = decodedData['id_subcategory'];
       itemSubCategoriaModel.idItemsubcategory =
           decodedData['itemsubcategory_name'];
-      itemSubCategoriaModel.itemsubcategoryName =
-          decodedData['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryName = decodedData['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryImage = decodedData['itemsubcategory_img'];
       await itemsubCategoryDatabase
-          .insertarItemSubCategoria(itemSubCategoriaModel);
+          .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/listar_detalle_producto');
 
       //Galeria
       for (var i = 0; i < decodedData["galeria"].length; i++) {

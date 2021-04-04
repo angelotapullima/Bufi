@@ -1,18 +1,20 @@
-
 import 'package:bufi/src/database/databaseProvider.dart';
 import 'package:bufi/src/models/itemSubcategoryModel.dart';
 
-class ItemsubCategoryDatabase{
-
+class ItemsubCategoryDatabase {
   final dbProvider = DatabaseProvider.db;
 
-  insertarItemSubCategoria(ItemSubCategoriaModel itemSubCategoriaModel) async {
+  insertarItemSubCategoria(ItemSubCategoriaModel itemSubCategoriaModel,String funcion) async {
+    
+   /*  print('******************************************');
+    print(itemSubCategoriaModel.itemsubcategoryImage);
+    print(funcion);
+    print('******************************************'); */
     try {
       final db = await dbProvider.database;
       final res = await db.rawInsert(
           "INSERT OR REPLACE INTO ItemSubcategorias (id_itemsubcategory,id_subcategory,itemsubcategory_img,itemsubcategory_estado,itemsubcategory_name) "
-          "VALUES('${itemSubCategoriaModel.idItemsubcategory}', '${itemSubCategoriaModel.idSubcategory}', '${itemSubCategoriaModel.itemsubcategoryImage}', '${itemSubCategoriaModel.itemsubcategoryEstado}', '${itemSubCategoriaModel.itemsubcategoryName}')"
-          );
+          "VALUES('${itemSubCategoriaModel.idItemsubcategory}', '${itemSubCategoriaModel.idSubcategory}', '${itemSubCategoriaModel.itemsubcategoryImage}', '${itemSubCategoriaModel.itemsubcategoryEstado}', '${itemSubCategoriaModel.itemsubcategoryName}')");
 
       return res;
     } catch (e) {
@@ -21,62 +23,75 @@ class ItemsubCategoryDatabase{
   }
 
   Future<List<ItemSubCategoriaModel>> obtenerItemSubCategoria() async {
-    try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery("SELECT * FROM ItemSubcategorias");
+    try {
+      final db = await dbProvider.database;
+      final res = await db.rawQuery("SELECT * FROM ItemSubcategorias");
 
-    List<ItemSubCategoriaModel> list =
-        res.isNotEmpty ? res.map((c) => ItemSubCategoriaModel.fromJson(c)).toList() : [];
-    return list;} catch (e) {
+      List<ItemSubCategoriaModel> list = res.isNotEmpty
+          ? res.map((c) => ItemSubCategoriaModel.fromJson(c)).toList()
+          : [];
+      return list;
+    } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
+      print(e);
       return [];
     }
   }
 
-   Future<List<ItemSubCategoriaModel>> obtenerItemSubCategoriaXIdSubcategoria(String id) async {
-     try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery("SELECT * FROM ItemSubcategorias WHERE id_subcategory='$id'");
+  Future<List<ItemSubCategoriaModel>> obtenerItemSubCategoriaXIdSubcategoria(
+      String id) async {
+    try {
+      final db = await dbProvider.database;
+      final res = await db.rawQuery(
+          "SELECT * FROM ItemSubcategorias WHERE id_subcategory='$id'");
 
-    List<ItemSubCategoriaModel> list =
-        res.isNotEmpty ? res.map((c) => ItemSubCategoriaModel.fromJson(c)).toList() : [];
-    return list;} catch (e) {
+      List<ItemSubCategoriaModel> list = res.isNotEmpty
+          ? res.map((c) => ItemSubCategoriaModel.fromJson(c)).toList()
+          : [];
+      return list;
+    } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
+      print(e);
       return [];
     }
   }
 
-  Future<List<ItemSubCategoriaModel>> obtenerItemSubCategoriaXIdItemSubcategoria(String idItemSubcateg) async {
-     try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery("SELECT * FROM ItemSubcategorias WHERE id_itemsubcategory='$idItemSubcateg'");
+  Future<List<ItemSubCategoriaModel>>
+      obtenerItemSubCategoriaXIdItemSubcategoria(String idItemSubcateg) async {
+    try {
+      final db = await dbProvider.database;
+      final res = await db.rawQuery(
+          "SELECT * FROM ItemSubcategorias WHERE id_itemsubcategory='$idItemSubcateg'");
 
-    List<ItemSubCategoriaModel> list =
-        res.isNotEmpty ? res.map((c) => ItemSubCategoriaModel.fromJson(c)).toList() : [];
-    return list;} catch (e) {
+      List<ItemSubCategoriaModel> list = res.isNotEmpty
+          ? res.map((c) => ItemSubCategoriaModel.fromJson(c)).toList()
+          : [];
+      return list;
+    } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
+      print(e);
       return [];
     }
   }
 
-  Future<List<ItemSubCategoriaModel>> obtenerItemSubCategoriaXQuery(String query) async {
-     try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery("SELECT * FROM ItemSubcategorias WHERE itemsubcategory_name LIKE '%$query%'");
+  Future<List<ItemSubCategoriaModel>> obtenerItemSubCategoriaXQuery(
+      String query) async {
+    try {
+      final db = await dbProvider.database;
+      final res = await db.rawQuery(
+          "SELECT * FROM ItemSubcategorias WHERE itemsubcategory_name LIKE '%$query%'");
 
-    List<ItemSubCategoriaModel> list =
-        res.isNotEmpty ? res.map((c) => ItemSubCategoriaModel.fromJson(c)).toList() : [];
-    return list;} catch (e) {
+      List<ItemSubCategoriaModel> list = res.isNotEmpty
+          ? res.map((c) => ItemSubCategoriaModel.fromJson(c)).toList()
+          : [];
+      return list;
+    } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
+      print(e);
       return [];
     }
   }
 
-  
   // Future<List<ItemSubCategoriaModel>> obtenerItemSubCategoriaX(String id) async {
   //   final db = await dbProvider.database;
   //   final res = await db.rawQuery("SELECT * FROM ItemSubcategorias i inner join Subsidiarygood sg ON i.id_itemsubcategory= sg.id_itemsubcategory INNER JOIN Subsidiaryservice sc ON i.id_itemsubcategory= sc.id_itemsubcategory WHERE id_itemsubcategory");
@@ -85,6 +100,5 @@ class ItemsubCategoryDatabase{
   //       res.isNotEmpty ? res.map((c) => ItemSubCategoriaModel.fromJson(c)).toList() : [];
   //   return list;
   // }
-
 
 }

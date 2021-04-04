@@ -172,10 +172,10 @@ class ServiceApi {
       itemSubCategoriaModel.idItemsubcategory =
           decodedData[i]['id_itemsubcategory'];
       itemSubCategoriaModel.idSubcategory = decodedData[i]['id_subcategory'];
-      itemSubCategoriaModel.itemsubcategoryName =
-          decodedData[i]['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryName =  decodedData[i]['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryImage =  decodedData[i]['itemsubcategory_img'];
       await itemsubCategoryDatabase
-          .insertarItemSubCategoria(itemSubCategoriaModel);
+          .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/listar_servicios_por_sucursal');
       //}
     }
     return 0;
@@ -292,10 +292,10 @@ class ServiceApi {
           decodedData['servicios'][i]['id_itemsubcategory'];
       itemSubCategoriaModel.idSubcategory =
           decodedData['servicios'][i]['id_subcategory'];
-      itemSubCategoriaModel.itemsubcategoryName =
-          decodedData['servicios'][i]['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryName = decodedData['servicios'][i]['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryImage = decodedData['servicios'][i]['itemsubcategory_img'];
       await itemsubCategoryDatabase
-          .insertarItemSubCategoria(itemSubCategoriaModel);
+          .insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_servicios_por_id_ciudad');
 
       //completo
       CompanyModel companyModel = CompanyModel();
@@ -459,10 +459,10 @@ class ServiceApi {
           decodedData['servicios'][i]['id_itemsubcategory'];
       itemSubCategoriaModel.idSubcategory =
           decodedData['servicios'][i]['id_subcategory'];
-      itemSubCategoriaModel.itemsubcategoryName =
-          decodedData['servicios'][i]['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryName = decodedData['servicios'][i]['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryImage = decodedData['servicios'][i]['itemsubcategory_img'];
       await itemsubCategoryDatabase
-          .insertarItemSubCategoria(itemSubCategoriaModel);
+          .insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_servicios_por_id_itemsu');
 
       //completo
       CompanyModel companyModel = CompanyModel();

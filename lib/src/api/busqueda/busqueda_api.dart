@@ -265,12 +265,12 @@ class BusquedaApi {
                       decodedData["result"][i]['id_subcategory'];
                   itemSubCategoriaModel.idItemsubcategory =
                       decodedData["result"][i]['itemsubcategory_name'];
-                  itemSubCategoriaModel.itemsubcategoryName =
-                      decodedData["result"][i]['itemsubcategory_name'];
+                  itemSubCategoriaModel.itemsubcategoryName = decodedData["result"][i]['itemsubcategory_name'];
+                  itemSubCategoriaModel.itemsubcategoryImage = decodedData["result"][i]['itemsubcategory_img'];
 
                   //listItemSub.add(itemSubCategoriaModel);
                   await itemsubCategoryDatabase
-                      .insertarItemSubCategoria(itemSubCategoriaModel);
+                      .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/buscar_ws');
                 }
 
                 // busqGeneralModel.listBienes = listbienes;
@@ -471,12 +471,12 @@ class BusquedaApi {
                           decodedData["result"][h][i]['id_subcategory'];
                       itemSubCategoriaModel.idItemsubcategory =
                           decodedData["result"][h][i]['itemsubcategory_name'];
-                      itemSubCategoriaModel.itemsubcategoryName =
-                          decodedData["result"][h][i]['itemsubcategory_name'];
+                      itemSubCategoriaModel.itemsubcategoryName = decodedData["result"][h][i]['itemsubcategory_name'];
+                      itemSubCategoriaModel.itemsubcategoryImage = decodedData["result"][h][i]['itemsubcategory_img'];
 
                       //listItemSub.add(itemSubCategoriaModel);
                       await itemsubCategoryDatabase
-                          .insertarItemSubCategoria(itemSubCategoriaModel);
+                          .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/buscar_ws');
                     }
                   } else {
                     print("La lista está vacía");
@@ -654,12 +654,12 @@ class BusquedaApi {
                       decodedData["result"][j]['id_subcategory'];
                   itemSubCategoriaModel.idItemsubcategory =
                       decodedData["result"][j]['itemsubcategory_name'];
-                  itemSubCategoriaModel.itemsubcategoryName =
-                      decodedData["result"][j]['itemsubcategory_name'];
+                  itemSubCategoriaModel.itemsubcategoryName =decodedData["result"][j]['itemsubcategory_name'];
+                  itemSubCategoriaModel.itemsubcategoryImage =decodedData["result"][j]['itemsubcategory_img'];
 
                   //listItemSub.add(itemSubCategoriaModel);
                   await itemsubCategoryDatabase
-                      .insertarItemSubCategoria(itemSubCategoriaModel);
+                      .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/buscar_ws');
                 }
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
@@ -832,12 +832,12 @@ class BusquedaApi {
                         decodedData["result"][h][i]['id_subcategory'];
                     itemSubCategoriaModel.idItemsubcategory =
                         decodedData["result"][h][i]['itemsubcategory_name'];
-                    itemSubCategoriaModel.itemsubcategoryName =
-                        decodedData["result"][h][i]['itemsubcategory_name'];
+                    itemSubCategoriaModel.itemsubcategoryName = decodedData["result"][h][i]['itemsubcategory_name'];
+                    itemSubCategoriaModel.itemsubcategoryImage = decodedData["result"][h][i]['itemsubcategory_img'];
 
                     //listItemSub.add(itemSubCategoriaModel);
                     await itemsubCategoryDatabase
-                        .insertarItemSubCategoria(itemSubCategoriaModel);
+                        .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/buscar_ws');
                   }
                 }
               }
@@ -1431,12 +1431,12 @@ class BusquedaApi {
                       decodedData["result"][j]['id_subcategory'];
                   itemSubCategoriaModel.idItemsubcategory =
                       decodedData["result"][j]['itemsubcategory_name'];
-                  itemSubCategoriaModel.itemsubcategoryName =
-                      decodedData["result"][j]['itemsubcategory_name'];
+                  itemSubCategoriaModel.itemsubcategoryName = decodedData["result"][j]['itemsubcategory_name'];
+                  itemSubCategoriaModel.itemsubcategoryImage = decodedData["result"][j]['itemsubcategory_img'];
 
                   //listItemSub.add(itemSubCategoriaModel);
                   await itemsubCategoryDatabase
-                      .insertarItemSubCategoria(itemSubCategoriaModel);
+                      .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/buscar_ws');
                 }
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
@@ -1623,12 +1623,12 @@ class BusquedaApi {
                         decodedData["result"][h][i]['id_subcategory'];
                     itemSubCategoriaModel.idItemsubcategory =
                         decodedData["result"][h][i]['itemsubcategory_name'];
-                    itemSubCategoriaModel.itemsubcategoryName =
-                        decodedData["result"][h][i]['itemsubcategory_name'];
+                    itemSubCategoriaModel.itemsubcategoryName = decodedData["result"][h][i]['itemsubcategory_name'];
+                    itemSubCategoriaModel.itemsubcategoryImage = decodedData["result"][h][i]['itemsubcategory_img'];
 
                     //listItemSub.add(itemSubCategoriaModel);
                     await itemsubCategoryDatabase
-                        .insertarItemSubCategoria(itemSubCategoriaModel);
+                        .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/buscar_ws');
                   }
                 }
               }
@@ -1890,12 +1890,11 @@ class BusquedaApi {
                       decodedData["result"][j]['id_subcategory'];
                   itemSubCategoriaModel.idItemsubcategory =
                       decodedData["result"][j]['itemsubcategory_name'];
-                  itemSubCategoriaModel.itemsubcategoryName =
-                      decodedData["result"][j]['itemsubcategory_name'];
+                  itemSubCategoriaModel.itemsubcategoryImage = decodedData["result"][j]['itemsubcategory_img'];
 
                   //listItemSub.add(itemSubCategoriaModel);
                   await itemsubCategoryDatabase
-                      .insertarItemSubCategoria(itemSubCategoriaModel);
+                      .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/buscar_productos_ws');
                 }
 
                 // busqProductoModel.listBienes = listbienes;
@@ -2092,12 +2091,12 @@ class BusquedaApi {
                         decodedData["result"][h][i]['id_subcategory'];
                     itemSubCategoriaModel.idItemsubcategory =
                         decodedData["result"][h][i]['itemsubcategory_name'];
-                    itemSubCategoriaModel.itemsubcategoryName =
-                        decodedData["result"][h][i]['itemsubcategory_name'];
+                    itemSubCategoriaModel.itemsubcategoryName = decodedData["result"][h][i]['itemsubcategory_name'];
+                    itemSubCategoriaModel.itemsubcategoryImage = decodedData["result"][h][i]['itemsubcategory_img'];
 
                     //listItemSub.add(itemSubCategoriaModel);
                     await itemsubCategoryDatabase
-                        .insertarItemSubCategoria(itemSubCategoriaModel);
+                        .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/buscar_productos_ws');
                   }
                   //   busqProductoModel.listBienes = listbienes;
                   //   busqProductoModel.listProducto = listProducto;
@@ -2318,12 +2317,12 @@ class BusquedaApi {
                       decodedData["result"][j]['id_subcategory'];
                   itemSubCategoriaModel.idItemsubcategory =
                       decodedData["result"][j]['itemsubcategory_name'];
-                  itemSubCategoriaModel.itemsubcategoryName =
-                      decodedData["result"][j]['itemsubcategory_name'];
+                  itemSubCategoriaModel.itemsubcategoryName = decodedData["result"][j]['itemsubcategory_name'];
+                  itemSubCategoriaModel.itemsubcategoryImage = decodedData["result"][j]['itemsubcategory_img'];
 
                   //listItemSub.add(itemSubCategoriaModel);
                   await itemsubCategoryDatabase
-                      .insertarItemSubCategoria(itemSubCategoriaModel);
+                      .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/buscar_servicios_ws');
                 }
                 // busqServicioModel.listService = listService;
                 // busqServicioModel.listServicios = listSubServicio;
@@ -2500,12 +2499,11 @@ class BusquedaApi {
                         decodedData["result"][h][i]['id_subcategory'];
                     itemSubCategoriaModel.idItemsubcategory =
                         decodedData["result"][h][i]['itemsubcategory_name'];
-                    itemSubCategoriaModel.itemsubcategoryName =
-                        decodedData["result"][h][i]['itemsubcategory_name'];
+                    itemSubCategoriaModel.itemsubcategoryImage = decodedData["result"][h][i]['itemsubcategory_img'];
 
                     //listItemSub.add(itemSubCategoriaModel);
                     await itemsubCategoryDatabase
-                        .insertarItemSubCategoria(itemSubCategoriaModel);
+                        .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/buscar_servicios_ws');
                   }
 
                   //   busqServicioModel.listService = listService;
@@ -3379,12 +3377,12 @@ class BusquedaApi {
                       decodedData["result"][j]['id_subcategory'];
                   itemSubCategoriaModel.idItemsubcategory =
                       decodedData["result"][j]['itemsubcategory_name'];
-                  itemSubCategoriaModel.itemsubcategoryName =
-                      decodedData["result"][j]['itemsubcategory_name'];
+                  itemSubCategoriaModel.itemsubcategoryName = decodedData["result"][j]['itemsubcategory_name'];
+                  itemSubCategoriaModel.itemsubcategoryImage = decodedData["result"][j]['itemsubcategory_img'];
 
                   //listItemSub.add(itemSubCategoriaModel);
                   await itemsubCategoryDatabase
-                      .insertarItemSubCategoria(itemSubCategoriaModel);
+                      .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/buscar_itemsubcategory_ws');
                 }
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
@@ -3571,12 +3569,12 @@ class BusquedaApi {
                         decodedData["result"][h][i]['id_subcategory'];
                     itemSubCategoriaModel.idItemsubcategory =
                         decodedData["result"][h][i]['itemsubcategory_name'];
-                    itemSubCategoriaModel.itemsubcategoryName =
-                        decodedData["result"][h][i]['itemsubcategory_name'];
+                    itemSubCategoriaModel.itemsubcategoryName = decodedData["result"][h][i]['itemsubcategory_name'];
+                    itemSubCategoriaModel.itemsubcategoryImage = decodedData["result"][h][i]['itemsubcategory_img'];
 
                     //listItemSub.add(itemSubCategoriaModel);
                     await itemsubCategoryDatabase
-                        .insertarItemSubCategoria(itemSubCategoriaModel);
+                        .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/buscar_itemsubcategory_ws');
                   }
                 }
               }
@@ -3765,12 +3763,12 @@ class BusquedaApi {
               decodedData["productos"][j]['id_subcategory'];
           itemSubCategoriaModel.idItemsubcategory =
               decodedData["productos"][j]['itemsubcategory_name'];
-          itemSubCategoriaModel.itemsubcategoryName =
-              decodedData["productos"][j]['itemsubcategory_name'];
+          itemSubCategoriaModel.itemsubcategoryName =decodedData["productos"][j]['itemsubcategory_name'];
+          itemSubCategoriaModel.itemsubcategoryImage =decodedData["productos"][j]['itemsubcategory_img'];
 
           //listItemSub.add(itemSubCategoriaModel);
           await itemsubCategoryDatabase
-              .insertarItemSubCategoria(itemSubCategoriaModel);
+              .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/buscar_bs_por_sucursal');
         }
       } else if (decodedData["servicios"].length > 0) {
         for (var j = 0; j < decodedData["servicios"].length; j++) {
@@ -3906,12 +3904,11 @@ class BusquedaApi {
               decodedData["servicios"][j]['id_subcategory'];
           itemSubCategoriaModel.idItemsubcategory =
               decodedData["servicios"][j]['itemsubcategory_name'];
-          itemSubCategoriaModel.itemsubcategoryName =
-              decodedData["servicios"][j]['itemsubcategory_name'];
+          itemSubCategoriaModel.itemsubcategoryName =decodedData["servicios"][j]['itemsubcategory_name'];
+          itemSubCategoriaModel.itemsubcategoryImage =decodedData["servicios"][j]['itemsubcategory_img'];
 
           //listItemSub.add(itemSubCategoriaModel);
-          await itemsubCategoryDatabase
-              .insertarItemSubCategoria(itemSubCategoriaModel);
+          await itemsubCategoryDatabase .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/buscar_bs_por_sucursal');
         }
       }
     } catch (error, stacktrace) {

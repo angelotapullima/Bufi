@@ -219,7 +219,7 @@ class HeaderWidget extends StatelessWidget {
                     SizedBox(
                       width: responsive.wp(2),
                     ),
-                    InkWell(
+                    /* InkWell(
                       onTap: () {
                         if (preferences.personName == null) {
                           showBarModalBottomSheet(
@@ -236,7 +236,7 @@ class HeaderWidget extends StatelessWidget {
                         color: Colors.yellowAccent[600],
                       ),
                     ),
-                    InkWell(
+                     */InkWell(
                         onTap: () {
                           // if (preferences.personName == null) {
                           //    showBarModalBottomSheet(
@@ -291,7 +291,7 @@ class HeaderWidget extends StatelessWidget {
                                         } else {
                                           return Center(
                                               child: Text(
-                                                  "no tiene ninguna notificaciónjj"));
+                                                  "no tiene ninguna notificación"),);
                                         }
                                       } else {
                                         return Center(

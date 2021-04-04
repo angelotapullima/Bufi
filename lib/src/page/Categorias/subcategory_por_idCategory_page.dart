@@ -61,14 +61,15 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                               Container(
                                 width: double.infinity,
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
+                                    horizontal: responsive.wp(2),
+                                    vertical: responsive.hp(1)),
                                 margin: EdgeInsets.all(3),
                                 color: Colors.blueGrey[100],
                                 child: Text(
                                   '${subcategoriasGeneral[index].nombre}',
                                   style: TextStyle(
                                       color: Colors.blueGrey[900],
-                                      fontSize: responsive.ip(2),
+                                      fontSize: responsive.ip(1.6),
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -81,9 +82,10 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                                       .length,
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
-                                          childAspectRatio: .7,
+                                          childAspectRatio: .85,
                                           crossAxisCount: 4),
                                   itemBuilder: (context, i) {
+                                    
                                     return GestureDetector(
                                       onTap: () {
                                         Navigator.of(context)
@@ -120,24 +122,27 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                                       },
                                       child: Container(
                                         margin: EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 0),
+                                            horizontal: responsive.wp(2),
+                                            vertical: responsive.hp(.2)),
                                         child: Column(
                                           children: [
                                             Container(
                                               padding: EdgeInsets.all(
-                                                responsive.ip(2),
+                                                responsive.ip(1),
                                               ),
                                               decoration: BoxDecoration(
                                                 border: Border.all(
                                                     color: Colors.grey[400]),
                                               ),
                                               child: Container(
-                                                transform:
+                                                height: responsive.ip(5),
+                                                width: responsive.ip(5),
+                                                /* transform:
                                                     Matrix4.translationValues(
-                                                        0, 0, 0),
+                                                        0, 0, 0), */
                                                 child: CachedNetworkImage(
-                                                  cacheManager:
-                                                      CustomCacheManager(),
+                                                  /* cacheManager:
+                                                      CustomCacheManager(), */
                                                   placeholder: (context, url) =>
                                                       Image(
                                                           image: const AssetImage(
@@ -163,16 +168,15 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                                                   ),
                                                 ),
                                               ),
-                                             
                                             ),
                                             SizedBox(
-                                              height: responsive.hp(1),
+                                              height: responsive.hp(.5),
                                             ),
                                             Text(
                                               '${subcategoriasGeneral[index].itemSubcategoria[i].itemsubcategoryName}',
                                               style: TextStyle(
-                                                fontSize: responsive.ip(1.5),
-                                              ),
+                                                  fontSize: responsive.ip(1.3),
+                                                  fontWeight: FontWeight.bold),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 2,
                                               textAlign: TextAlign.center,

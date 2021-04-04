@@ -49,15 +49,14 @@ class SubCategoriaGeneralBloc {
     //obtener todos los items
     final listItem = List<ItemSubCategoriaModel>();
     final itemSubcategoriaDb = ItemsubCategoryDatabase();
-    final listItemSubcategoria =
-        await itemSubcategoriaDb.obtenerItemSubCategoriaXIdSubcategoria(id);
+    final listItemSubcategoria =  await itemSubcategoriaDb.obtenerItemSubCategoriaXIdSubcategoria(id);
 
     for (var x = 0; x < listItemSubcategoria.length; x++) {
       final itemModel = ItemSubCategoriaModel();
       itemModel.idItemsubcategory = listItemSubcategoria[x].idItemsubcategory;
       itemModel.idSubcategory = listItemSubcategoria[x].idSubcategory;
-      itemModel.itemsubcategoryName =
-          listItemSubcategoria[x].itemsubcategoryName;
+      itemModel.itemsubcategoryName = listItemSubcategoria[x].itemsubcategoryName;
+      itemModel.itemsubcategoryImage = listItemSubcategoria[x].itemsubcategoryImage;
 
       listItem.add(itemModel);
     }

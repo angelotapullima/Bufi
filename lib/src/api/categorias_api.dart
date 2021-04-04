@@ -74,10 +74,10 @@ class CategoriasApi {
         ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
         itemSubCategoriaModel.idItemsubcategory = res[i]['id_itemsubcategory'];
         itemSubCategoriaModel.idSubcategory = res[i]['id_subcategory'];
-        itemSubCategoriaModel.itemsubcategoryName =
-            res[i]['itemsubcategory_name'];
+        itemSubCategoriaModel.itemsubcategoryName = res[i]['itemsubcategory_name'];
+        itemSubCategoriaModel.itemsubcategoryImage = res[i]['itemsubcategory_img'];
         await itemsubCategoryDatabase
-            .insertarItemSubCategoria(itemSubCategoriaModel);
+            .insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_categorias');
       }
       return 0;
       //return categoriaList;
@@ -128,10 +128,10 @@ class CategoriasApi {
         itemSubCategoriaModel.idItemsubcategory =
             bienesList['id_itemsubcategory'];
         itemSubCategoriaModel.idSubcategory = bienesList['id_subcategory'];
-        itemSubCategoriaModel.itemsubcategoryName =
-            bienesList['itemsubcategory_name'];
+        itemSubCategoriaModel.itemsubcategoryName = bienesList['itemsubcategory_name'];
+        itemSubCategoriaModel.itemsubcategoryImage = bienesList['itemsubcategory_img'];
         await itemsubCategoryDatabase
-            .insertarItemSubCategoria(itemSubCategoriaModel);
+            .insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_bs_por_id_ciudad_resume');
 
         //completo
         CompanyModel companyModel = CompanyModel();
@@ -258,10 +258,10 @@ class CategoriasApi {
             decodedData['servicios'][i]['id_itemsubcategory'];
         itemSubCategoriaModel.idSubcategory =
             decodedData['servicios'][i]['id_subcategory'];
-        itemSubCategoriaModel.itemsubcategoryName =
-            decodedData['servicios'][i]['itemsubcategory_name'];
+        itemSubCategoriaModel.itemsubcategoryName = decodedData['servicios'][i]['itemsubcategory_name'];
+        itemSubCategoriaModel.itemsubcategoryImage = decodedData['servicios'][i]['itemsubcategory_img'];
         await itemsubCategoryDatabase
-            .insertarItemSubCategoria(itemSubCategoriaModel);
+            .insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_bs_por_id_ciudad_resume');
 
         //completo
         CompanyModel companyModel = CompanyModel();
@@ -465,10 +465,10 @@ class CategoriasApi {
           itemSubCategoriaModel.idItemsubcategory =
               bienesList[i]['id_itemsubcategory'];
           itemSubCategoriaModel.idSubcategory = bienesList[i]['id_subcategory'];
-          itemSubCategoriaModel.itemsubcategoryName =
-              bienesList[i]['itemsubcategory_name'];
+          itemSubCategoriaModel.itemsubcategoryName = bienesList[i]['itemsubcategory_name'];
+          itemSubCategoriaModel.itemsubcategoryImage = bienesList[i]['itemsubcategory_img'];
           await itemsubCategoryDatabase
-              .insertarItemSubCategoria(itemSubCategoriaModel);
+              .insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_bs_por_id_itemsubcat');
 
           BienesModel goodmodel = BienesModel();
           goodmodel.idGood = bienesList[i]['id_good'];
@@ -598,10 +598,10 @@ class CategoriasApi {
               serviciosList[i]['id_itemsubcategory'];
           itemSubCategoriaModel.idSubcategory =
               serviciosList[i]['id_subcategory'];
-          itemSubCategoriaModel.itemsubcategoryName =
-              serviciosList[i]['itemsubcategory_name'];
+          itemSubCategoriaModel.itemsubcategoryName = serviciosList[i]['itemsubcategory_name'];
+          itemSubCategoriaModel.itemsubcategoryImage = serviciosList[i]['itemsubcategory_img'];
           await itemsubCategoryDatabase
-              .insertarItemSubCategoria(itemSubCategoriaModel);
+              .insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_bs_por_id_itemsubcat');
 
           SubsidiaryModel subsidiaryModel = SubsidiaryModel();
           subsidiaryModel.idSubsidiary = serviciosList[i]['id_subsidiary'];

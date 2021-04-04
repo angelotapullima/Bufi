@@ -1,41 +1,34 @@
-
-
 import 'package:bufi/src/database/producto_bd.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-class FiltroContinuoBloc with ChangeNotifier {
+class FiltroProAndSerPorItemBloc with ChangeNotifier {
+  final productoDatabase = ProductoDatabase();
 
-
-  final productoDatabase=  ProductoDatabase();
-  
   List<CategoriaTab> tabsMarcas = [];
   List<CategoriaTab> tabsModelos = [];
   List<CategoriaTab> tabsTallas = [];
+  List<CategoriaTab> tabsTipos = [];
 
   List<String> tallasFiltradas = [];
   List<String> modelosFiltradas = [];
   List<String> marcasFiltradas = [];
+  List<String> tiposFiltradas = [];
 
-  void init() async {
+  void init(String idItemsubcategory) async {
+    final productos = await productoDatabase.consultarProductoPorIdItemsub(idItemsubcategory);
 
-
-    final productos = await productoDatabase.obtenerSubsidiaryGood();
-
-   final listTallitas = List<String>();
+    final listTallitas = List<String>();
     final listMarquitas = List<String>();
     final listModelitos = List<String>();
-
     
-    for (var i = 0; i < productos.length; i++) {
 
+    for (var i = 0; i < productos.length; i++) {
       listTallitas.add(productos[i].productoSize);
       listMarquitas.add(productos[i].productoBrand);
       listModelitos.add(productos[i].productoModel);
-      
     }
-    
-    
+
     final listTallitas2 = listTallitas.toSet().toList();
     final listMarquitas2 = listMarquitas.toSet().toList();
     final listModelitos2 = listModelitos.toSet().toList();
@@ -48,8 +41,7 @@ class FiltroContinuoBloc with ChangeNotifier {
 
     for (var i = 0; i < listModelitos2.length; i++) {
       tabsModelos.add(
-        CategoriaTab(
-            itemNombre: listModelitos2[i], selected: false),
+        CategoriaTab(itemNombre: listModelitos2[i], selected: false),
       );
     }
 
@@ -59,7 +51,11 @@ class FiltroContinuoBloc with ChangeNotifier {
       );
     }
 
-    print(tabsMarcas.length);
+    tabsTipos.add( CategoriaTab(itemNombre: 'Productos', selected: false));
+    tabsTipos.add( CategoriaTab(itemNombre: 'Servicios', selected: false));
+
+
+
   }
 
   void onCategorySelectedMarcas(int value) {
@@ -91,7 +87,7 @@ class FiltroContinuoBloc with ChangeNotifier {
       if (tabsMarcas[i].selected) {
         marcasFiltradas.add(tabsMarcas[i].itemNombre);
       }
-    } 
+    }
 
     notifyListeners();
   }
@@ -159,6 +155,39 @@ class FiltroContinuoBloc with ChangeNotifier {
     for (var i = 0; i < tabsTallas.length; i++) {
       if (tabsTallas[i].selected) {
         tallasFiltradas.add(tabsTallas[i].itemNombre);
+      }
+    }
+    notifyListeners();
+  }
+
+void onCategorySelectedTipo(int value) {
+    tiposFiltradas.clear();
+    final selected = tabsTipos[value];
+
+
+
+    for (var i = 0; i < tabsTipos.length; i++) {
+      bool ctv;
+      bool algo;
+      //if (!condition) {
+      if (selected.itemNombre == tabsTipos[i].itemNombre) {
+        algo = selected.selected;
+
+        if (algo) {
+          ctv = false;
+        } else {
+          ctv = true;
+        }
+      } else {
+        ctv = tabsTipos[i].selected;
+      }
+
+      tabsTipos[i] = tabsTipos[i].copyWith(ctv);
+    }
+
+    for (var i = 0; i < tabsTipos.length; i++) {
+      if (tabsTipos[i].selected) {
+        tiposFiltradas.add(tabsTipos[i].itemNombre);
       }
     }
     notifyListeners();

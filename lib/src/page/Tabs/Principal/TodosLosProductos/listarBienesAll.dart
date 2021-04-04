@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
-import 'package:bufi/src/page/Tabs/Principal/TodosLosProductos/bloc_interno_todos_los_productos.dart';
+import 'package:bufi/src/page/Tabs/Principal/TodosLosProductos/Filtro_todos_los_productos_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -31,7 +31,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
   StreamSink<bool> isSidebarOpenedSink;
   final _animationDuration = const Duration(milliseconds: 100);
 
-  final bloc = FiltroContinuoBloc();
+  final bloc = FiltroTodosLosProductosBloc();
   @override
   void initState() {
     super.initState();
@@ -335,7 +335,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                       Container(
                         width: responsive.wp(60),
                         color: Colors.white,
-                        child: FiltroPage(
+                        child: FiltroPageTodosLosProductos(
                           iconPressed: onIconPressed,
                           //productos: listProduct,
                         ),
@@ -485,8 +485,8 @@ class _ListarBienesAllState extends State<ListarBienesAll>
   }
 }
 
-class FiltroPage extends StatefulWidget {
-  const FiltroPage({
+class FiltroPageTodosLosProductos extends StatefulWidget {
+  const FiltroPageTodosLosProductos({
     Key key,
     @required this.iconPressed,
   }) : super(key: key);
@@ -497,8 +497,8 @@ class FiltroPage extends StatefulWidget {
   _FiltroPageState createState() => _FiltroPageState();
 }
 
-class _FiltroPageState extends State<FiltroPage> {
-  final bloc = FiltroContinuoBloc();
+class _FiltroPageState extends State<FiltroPageTodosLosProductos> {
+  final bloc = FiltroTodosLosProductosBloc();
 
   final logger = Logger();
 
@@ -522,7 +522,7 @@ class _FiltroPageState extends State<FiltroPage> {
               padding: EdgeInsets.symmetric(
                 horizontal: responsive.wp(3),
               ),
-              child: ContenidoFilter(
+              child: ContenidoFilterTodosLosProductos(
                 iconPressed: widget.iconPressed,
               ),
             ),
@@ -533,8 +533,8 @@ class _FiltroPageState extends State<FiltroPage> {
   }
 }
 
-class ContenidoFilter extends StatefulWidget {
-  ContenidoFilter({
+class ContenidoFilterTodosLosProductos extends StatefulWidget {
+  ContenidoFilterTodosLosProductos({
     Key key,
     @required this.iconPressed,
   }) : super(key: key);
@@ -545,8 +545,8 @@ class ContenidoFilter extends StatefulWidget {
   _ContenidoFilterState createState() => _ContenidoFilterState();
 }
 
-class _ContenidoFilterState extends State<ContenidoFilter> {
-  final bloc = FiltroContinuoBloc();
+class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
+  final bloc = FiltroTodosLosProductosBloc();
 
   @override
   void initState() {

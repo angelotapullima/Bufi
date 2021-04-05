@@ -40,7 +40,8 @@ class _ListarServiciosXSucursalPageState
                     mainAxisSpacing: 3),
                 itemCount: servicios.length,
                 itemBuilder: (context, index) {
-                  return serviceWidget(context, snapshot.data[index], responsive);
+                  return ServiciosWidget(
+                            serviceData:snapshot.data[index]);
                 });
           } else {
             return Center(child: Text("No tiene registrado ningún servicio", style: TextStyle(fontSize: responsive.ip(2)),));

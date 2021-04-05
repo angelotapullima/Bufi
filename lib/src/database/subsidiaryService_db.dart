@@ -14,9 +14,9 @@ class SubsidiaryServiceDatabase {
     final db = await dbProvider.database;
 
     final res = await db.rawInsert(
-        "INSERT OR REPLACE INTO Subsidiaryservice (id_subsidiaryservice, id_subsidiary, id_service, id_itemsubcategory,"
-        "subsidiary_service_name, subsidiary_service_description, subsidiary_service_price, subsidiary_service_currency, subsidiary_service_image,"
-        "subsidiary_service_rating, subsidiary_service_updated,subsidiary_service_status, subsidiary_service_favourite) "
+        "INSERT OR REPLACE INTO Subsidiaryservice (id_subsidiaryservice, id_subsidiary,id_service,id_itemsubcategory,"
+        "subsidiary_service_name, subsidiary_service_description,subsidiary_service_price,subsidiary_service_currency,subsidiary_service_image,"
+        "subsidiary_service_rating, subsidiary_service_updated,subsidiary_service_status,subsidiary_service_favourite) "
         "VALUES('${subsidiaryServiceModel.idSubsidiaryservice}','${subsidiaryServiceModel.idSubsidiary}','${subsidiaryServiceModel.idService}',"
         "'${subsidiaryServiceModel.idItemsubcategory}','${subsidiaryServiceModel.subsidiaryServiceName}','${subsidiaryServiceModel.subsidiaryServiceDescription}',"
         "'${subsidiaryServiceModel.subsidiaryServicePrice}', '${subsidiaryServiceModel.subsidiaryServiceCurrency}','${subsidiaryServiceModel.subsidiaryServiceImage}',"
@@ -30,13 +30,14 @@ updateSubsidiaryService(SubsidiaryServiceModel subServicesModel) async {
       final db = await dbProvider.database;
 
       final res = await db.rawUpdate(
-          "UPDATE Subsidiary SET id_subsidiary= '${subServicesModel.idSubsidiary}',"
+          "UPDATE Subsidiaryservice SET id_subsidiary= '${subServicesModel.idSubsidiary}',"
           "id_service='${subServicesModel.idService}',"
           "id_itemsubcategory='${subServicesModel.idItemsubcategory}',"
           "subsidiary_service_name='${subServicesModel.subsidiaryServiceName}',"
           "subsidiary_service_description='${subServicesModel.subsidiaryServiceDescription}',"
           "subsidiary_service_price='${subServicesModel.subsidiaryServicePrice}',"
           "subsidiary_service_currency='${subServicesModel.subsidiaryServiceCurrency}',"
+          "subsidiary_service_image='${subServicesModel.subsidiaryServiceImage}',"
           "subsidiary_service_rating='${subServicesModel.subsidiaryServiceRating}',"
           "subsidiary_service_updated='${subServicesModel.subsidiaryServiceUpdated}',"
           "subsidiary_service_status='${subServicesModel.subsidiaryServiceStatus}',"
@@ -172,7 +173,7 @@ updateSubsidiaryService(SubsidiaryServiceModel subServicesModel) async {
   Future<List<SubsidiaryServiceModel>> obtenerSubsidiarysServicesFavoritosPorIdSubsidiary(String idSubsidiary) async {
     try{
     final db = await dbProvider.database;
-    final res =await db.rawQuery("SELECT * FROM Subsidiaryservice WHERE id_subsidiary= '$idSubsidiary' and subsidiary_service_favourite = 1 "); //1 cuando es favorito
+    final res =await db.rawQuery("SELECT * FROM Subsidiaryservice WHERE id_subsidiary= '$idSubsidiary' and subsidiary_service_favourite ='1'"); //1 cuando es favorito
 
     List<SubsidiaryServiceModel> list = res.isNotEmpty ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList() : [];
 

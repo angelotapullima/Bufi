@@ -93,8 +93,8 @@ class _ListarServiciosAllState extends State<ListarServiciosAll> {
                         ),
                         itemCount: servicios.length,
                         itemBuilder: (context, index) {
-                          return serviceWidget(
-                              context, snapshot.data[index], responsive);
+                          return ServiciosWidget(
+                            serviceData:snapshot.data[index]);
                         });
                   } else {
                     return Center(child: CupertinoActivityIndicator()

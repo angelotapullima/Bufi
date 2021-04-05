@@ -130,154 +130,8 @@ class _PointsPageState extends State<PointsPage> {
                                   : (!productosList && servicesList)
                                       ? ServiciosVerdaderos(
                                           xxx: xxx, servicios: snapshot.data)
-                                      : Dismissible(
-                                          key: UniqueKey(),
-                                          direction:
-                                              DismissDirection.horizontal,
-                                          background: Container(
-                                            margin: EdgeInsets.symmetric(
-                                              horizontal: responsive.wp(1),
-                                            ),
-                                            color: Colors.red,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Align(
-                                                    alignment:
-                                                        Alignment.centerLeft,
-                                                    child: Icon(Icons.delete,
-                                                        color: Colors.white)),
-                                                Align(
-                                                    alignment:
-                                                        Alignment.centerRight,
-                                                    child: Icon(Icons.delete,
-                                                        color: Colors.white)),
-                                              ],
-                                            ),
-                                          ),
-                                          onDismissed: (direction) {
-                                            quitarSubsidiaryFavoritodePointPage(
-                                                context, snapshot.data[xxx]);
-                                          },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.black12),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            margin: EdgeInsets.symmetric(
-                                              vertical: responsive.hp(1),
-                                              horizontal: responsive.wp(2),
-                                            ),
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: responsive.wp(3),
-                                              vertical: responsive.wp(2),
-                                            ),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      '${snapshot.data[xxx].subsidiaryName}',
-                                                      style: TextStyle(
-                                                          fontSize: responsive
-                                                              .ip(2.5),
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    Spacer(),
-                                                    Row(
-                                                      children: [
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        DetalleSubsidiary(
-                                                                  idSucursal: snapshot
-                                                                      .data[xxx]
-                                                                      .idSubsidiary,
-                                                                  nombreSucursal:
-                                                                      snapshot
-                                                                          .data[
-                                                                              xxx]
-                                                                          .subsidiaryName,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                          child: Container(
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                              horizontal:
-                                                                  responsive
-                                                                      .wp(1),
-                                                              vertical:
-                                                                  responsive
-                                                                      .hp(.5),
-                                                            ),
-                                                            child: Text(
-                                                              'Ver más',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                            ),
-                                                            decoration: BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5),
-                                                                color:
-                                                                    Colors.red),
-                                                          ),
-                                                        ),
-                                                        IconButton(
-                                                            icon: Icon(
-                                                                Icons.delete),
-                                                            onPressed: () {
-                                                              print("Cerrar");
-                                                              quitarSubsidiaryFavoritodePointPage(
-                                                                  context,
-                                                                  snapshot.data[
-                                                                      xxx]);
-                                                            })
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      '${snapshot.data[xxx].companyRating}',
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            responsive.ip(1.8),
-                                                      ),
-                                                    ),
-                                                    Icon(
-                                                      Icons.star,
-                                                      color: Colors.yellow,
-                                                    )
-                                                  ],
-                                                ),
-                                                Text(
-                                                  '${snapshot.data[xxx].subsidiaryAddress}',
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        responsive.ip(1.8),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
+                                      : _soloSucursal(
+                                          responsive, context, snapshot, xxx);
                         }),
                   )
                 ]),
@@ -293,6 +147,121 @@ class _PointsPageState extends State<PointsPage> {
             );
           }
         },
+      ),
+    );
+  }
+
+  Widget _soloSucursal(Responsive responsive, BuildContext context,
+      AsyncSnapshot<List<PointModel>> snapshot, int xxx) {
+    return Dismissible(
+      key: UniqueKey(),
+      direction: DismissDirection.horizontal,
+      background: Container(
+        margin: EdgeInsets.symmetric(
+          horizontal: responsive.wp(1),
+        ),
+        color: Colors.red,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Icon(Icons.delete, color: Colors.white)),
+            Align(
+                alignment: Alignment.centerRight,
+                child: Icon(Icons.delete, color: Colors.white)),
+          ],
+        ),
+      ),
+      onDismissed: (direction) {
+        quitarSubsidiaryFavoritodePointPage(context, snapshot.data[xxx]);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black12),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        margin: EdgeInsets.symmetric(
+          vertical: responsive.hp(1),
+          horizontal: responsive.wp(2),
+        ),
+        padding: EdgeInsets.symmetric(
+          horizontal: responsive.wp(3),
+          vertical: responsive.wp(2),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  '${snapshot.data[xxx].subsidiaryName}',
+                  style: TextStyle(
+                      fontSize: responsive.ip(2.5),
+                      fontWeight: FontWeight.bold),
+                ),
+                Spacer(),
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetalleSubsidiary(
+                              idSucursal: snapshot.data[xxx].idSubsidiary,
+                              nombreSucursal: snapshot.data[xxx].subsidiaryName,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: responsive.wp(1),
+                          vertical: responsive.hp(.5),
+                        ),
+                        child: Text(
+                          'Ver más',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.red),
+                      ),
+                    ),
+                    IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          print("Cerrar");
+                          quitarSubsidiaryFavoritodePointPage(
+                              context, snapshot.data[xxx]);
+                        })
+                  ],
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  '${snapshot.data[xxx].companyRating}',
+                  style: TextStyle(
+                    fontSize: responsive.ip(1.8),
+                  ),
+                ),
+                Icon(
+                  Icons.star,
+                  color: Colors.yellow,
+                )
+              ],
+            ),
+            Text(
+              '${snapshot.data[xxx].subsidiaryAddress}',
+              style: TextStyle(
+                fontSize: responsive.ip(1.8),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -328,20 +297,16 @@ class ProductosVerdaderos extends StatelessWidget {
         ),
         Container(
           height: responsive.hp(34),
-          child: Column(
-            children: [
-              ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: producto[xxx].listProducto.length,
-                  itemBuilder: (BuildContext context, int i) {
-                    final goodData = producto[xxx].listProducto[i];
+          child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: producto[xxx].listProducto.length,
+              itemBuilder: (BuildContext context, int i) {
+                final goodData = producto[xxx].listProducto[i];
 
-                    return WidgetBienesFavoritos(
-                        responsive: responsive, goodData: goodData);
-                  }),
-            ],
-          ),
+                return WidgetBienesFavoritos(
+                    responsive: responsive, goodData: goodData);
+              }),
         ),
       ],
     );
@@ -378,20 +343,16 @@ class ServiciosVerdaderos extends StatelessWidget {
           ),
           Container(
             height: responsive.hp(34),
-            child: Column(
-              children: [
-                ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: servicios[xxx].listProducto.length,
-                    itemBuilder: (BuildContext context, int i) {
-                      final goodData = servicios[xxx].listServicio[i];
+            child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: servicios[xxx].listServicio.length,
+                itemBuilder: (BuildContext context, int i) {
+                  final goodData = servicios[xxx].listServicio[i];
 
-                      return WidgetServiciosFavoritos(
-                          responsive: responsive, serviceData: goodData);
-                    }),
-              ],
-            ),
+                  return WidgetServiciosFavoritos(
+                      responsive: responsive, serviceData: goodData);
+                }),
           ),
         ],
       ),
@@ -428,6 +389,7 @@ class AmbosVerdaderos extends StatelessWidget {
         Container(
           height: responsive.hp(68),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 height: responsive.hp(34),
@@ -463,9 +425,7 @@ class AmbosVerdaderos extends StatelessWidget {
   }
 }
 
-// //Lista de Sucursales favoritas
-//
-//
+
 class WidgetBienesFavoritos extends StatelessWidget {
   const WidgetBienesFavoritos({
     Key key,

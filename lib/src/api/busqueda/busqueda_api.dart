@@ -533,6 +533,17 @@ class BusquedaApi {
                       decodedData["result"][j]['subsidiary_service_status'];
 
                   ///listSubServicio.add(subsidiaryServiceModel);
+                  final list = await subisdiaryServiceDatabase
+                      .obtenerServiciosPorIdSucursalService(
+                          decodedData["result"][j]['id_subsidiaryservice']);
+
+                  if (list.length > 0) {
+                    subsidiaryServiceModel.subsidiaryServiceFavourite =
+                        list[0].subsidiaryServiceFavourite;
+                    //Subsidiary
+                  } else {
+                    subsidiaryServiceModel.subsidiaryServiceFavourite = "0";
+                  }
                   await subisdiaryServiceDatabase
                       .insertarSubsidiaryService(subsidiaryServiceModel);
 
@@ -707,6 +718,17 @@ class BusquedaApi {
                         decodedData["result"][h][i]
                             ['subsidiary_service_status'];
                     // listSubServicio.add(subsidiaryServiceModel);
+                    final list = await subisdiaryServiceDatabase
+                      .obtenerServiciosPorIdSucursalService(
+                          decodedData["result"][h][i]['id_subsidiaryservice']);
+
+                  if (list.length > 0) {
+                    subsidiaryServiceModel.subsidiaryServiceFavourite =
+                        list[0].subsidiaryServiceFavourite;
+                    //Subsidiary
+                  } else {
+                    subsidiaryServiceModel.subsidiaryServiceFavourite = "0";
+                  }
                     await subisdiaryServiceDatabase
                         .insertarSubsidiaryService(subsidiaryServiceModel);
 
@@ -2210,11 +2232,24 @@ class BusquedaApi {
                   subsidiaryServiceModel.subsidiaryServiceStatus =
                       decodedData["result"][j]['subsidiary_service_status'];
 
-                  listGeneral.add(subsidiaryServiceModel);
+                  
 
                   ///listSubServicio.add(subsidiaryServiceModel);
+                  final list = await subisdiaryServiceDatabase
+                      .obtenerServiciosPorIdSucursalService(
+                          decodedData["result"][j]['id_subsidiaryservice']);
+
+                  if (list.length > 0) {
+                    subsidiaryServiceModel.subsidiaryServiceFavourite =
+                        list[0].subsidiaryServiceFavourite;
+                    //Subsidiary
+                  } else {
+                    subsidiaryServiceModel.subsidiaryServiceFavourite = "0";
+                  }
                   await subisdiaryServiceDatabase
                       .insertarSubsidiaryService(subsidiaryServiceModel);
+                
+                listGeneral.add(subsidiaryServiceModel);
 
                   //Service
                   final servicemodel = ServiciosModel();
@@ -2389,10 +2424,24 @@ class BusquedaApi {
                             ['subsidiary_service_status'];
                     // listSubServicio.add(subsidiaryServiceModel);
 
-                    listGeneral.add(subsidiaryServiceModel);
+                    
+                    final list = await subisdiaryServiceDatabase
+                      .obtenerServiciosPorIdSucursalService(
+                          decodedData["result"][h][i]['id_subsidiaryservice']);
+
+                  if (list.length > 0) {
+                    subsidiaryServiceModel.subsidiaryServiceFavourite =
+                        list[0].subsidiaryServiceFavourite;
+                    //Subsidiary
+                  } else {
+                    subsidiaryServiceModel.subsidiaryServiceFavourite = "0";
+                  }
+
 
                     await subisdiaryServiceDatabase
                         .insertarSubsidiaryService(subsidiaryServiceModel);
+
+                listGeneral.add(subsidiaryServiceModel);
 
                     //Service
                     final servicemodel = ServiciosModel();
@@ -3618,8 +3667,8 @@ class BusquedaApi {
   }
 
 //-------------------Por Sucursal-------------------------------------
-  Future<List<ProductoModel>> busquedaXSucursal(String idSucursal, String query) async {
-    
+  Future<List<ProductoModel>> busquedaXSucursal(
+      String idSucursal, String query) async {
     try {
       final res = await http
           .post("$apiBaseURL/api/Negocio/buscar_bs_por_sucursal", body: {
@@ -3830,6 +3879,17 @@ class BusquedaApi {
               decodedData["servicios"][j]['subsidiary_service_status'];
 
           ///listSubServicio.add(subsidiaryServiceModel);
+          final list = await subisdiaryServiceDatabase
+                      .obtenerServiciosPorIdSucursalService(
+                         decodedData["servicios"][j]['id_subsidiaryservice']);
+
+                  if (list.length > 0) {
+                    subsidiaryServiceModel.subsidiaryServiceFavourite =
+                        list[0].subsidiaryServiceFavourite;
+                    //Subsidiary
+                  } else {
+                    subsidiaryServiceModel.subsidiaryServiceFavourite = "0";
+                  }
           await subisdiaryServiceDatabase
               .insertarSubsidiaryService(subsidiaryServiceModel);
 
@@ -3945,8 +4005,8 @@ class BusquedaApi {
               itemSubCategoriaModel, 'Negocio/buscar_bs_por_sucursal');
         }
       }
-      
-    return listGeneral;
+
+      return listGeneral;
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
 
@@ -4063,7 +4123,8 @@ class BusquedaApi {
               productoModel.productoUpdated;
           bienesServiciosModel.subsidiaryGoodStatus =
               productoModel.productoStatus;
-          bienesServiciosModel.subsidiaryGoodFavourite =productoModel.productoFavourite;
+          bienesServiciosModel.subsidiaryGoodFavourite =
+              productoModel.productoFavourite;
           bienesServiciosModel.tipo = 'producto';
 
           listGeneral.add(bienesServiciosModel);
@@ -4209,23 +4270,44 @@ class BusquedaApi {
               decodedData["servicios"][j]['subsidiary_service_status'];
 
           ///listSubServicio.add(subsidiaryServiceModel);
+          final list = await subisdiaryServiceDatabase
+                      .obtenerServiciosPorIdSucursalService(
+                         decodedData["servicios"][j]['id_subsidiaryservice']);
+
+                  if (list.length > 0) {
+                    subsidiaryServiceModel.subsidiaryServiceFavourite =
+                        list[0].subsidiaryServiceFavourite;
+                    //Subsidiary
+                  } else {
+                    subsidiaryServiceModel.subsidiaryServiceFavourite = "0";
+                  }
           await subisdiaryServiceDatabase
               .insertarSubsidiaryService(subsidiaryServiceModel);
 
           BienesServiciosModel bienesServiciosModel = BienesServiciosModel();
-          bienesServiciosModel.idSubsidiaryservice = subsidiaryServiceModel.idSubsidiaryservice;
+          bienesServiciosModel.idSubsidiaryservice =
+              subsidiaryServiceModel.idSubsidiaryservice;
           bienesServiciosModel.idService = subsidiaryServiceModel.idService;
-          bienesServiciosModel.subsidiaryServiceName = subsidiaryServiceModel.subsidiaryServiceName;
-          bienesServiciosModel.subsidiaryServiceDescription = subsidiaryServiceModel.subsidiaryServiceDescription;
-          bienesServiciosModel.subsidiaryServicePrice = subsidiaryServiceModel.subsidiaryServicePrice;
-          bienesServiciosModel.subsidiaryServiceCurrency = subsidiaryServiceModel.subsidiaryServiceCurrency;
-          bienesServiciosModel.subsidiaryServiceImage = subsidiaryServiceModel.subsidiaryServiceImage;
-          bienesServiciosModel.subsidiaryServiceRating = subsidiaryServiceModel.subsidiaryServiceRating;
-          bienesServiciosModel.subsidiaryServiceUpdated = subsidiaryServiceModel.subsidiaryServiceUpdated;
-          bienesServiciosModel.subsidiaryServiceStatus = subsidiaryServiceModel.subsidiaryServiceStatus;
-          bienesServiciosModel.subsidiaryServiceFavourite = subsidiaryServiceModel.subsidiaryServiceFavourite;
+          bienesServiciosModel.subsidiaryServiceName =
+              subsidiaryServiceModel.subsidiaryServiceName;
+          bienesServiciosModel.subsidiaryServiceDescription =
+              subsidiaryServiceModel.subsidiaryServiceDescription;
+          bienesServiciosModel.subsidiaryServicePrice =
+              subsidiaryServiceModel.subsidiaryServicePrice;
+          bienesServiciosModel.subsidiaryServiceCurrency =
+              subsidiaryServiceModel.subsidiaryServiceCurrency;
+          bienesServiciosModel.subsidiaryServiceImage =
+              subsidiaryServiceModel.subsidiaryServiceImage;
+          bienesServiciosModel.subsidiaryServiceRating =
+              subsidiaryServiceModel.subsidiaryServiceRating;
+          bienesServiciosModel.subsidiaryServiceUpdated =
+              subsidiaryServiceModel.subsidiaryServiceUpdated;
+          bienesServiciosModel.subsidiaryServiceStatus =
+              subsidiaryServiceModel.subsidiaryServiceStatus;
+          bienesServiciosModel.subsidiaryServiceFavourite =
+              subsidiaryServiceModel.subsidiaryServiceFavourite;
           bienesServiciosModel.tipo = 'services';
-         
+
           listGeneral.add(bienesServiciosModel);
 
           //Service

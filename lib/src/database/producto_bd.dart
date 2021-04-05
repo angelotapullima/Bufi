@@ -64,7 +64,7 @@ class ProductoDatabase {
   Future<List<ProductoModel>> obtenerSubsidiaryGood() async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawQuery("SELECT * FROM Producto");
+      final res = await db.rawQuery("SELECT * FROM Producto order by id_producto");
 
       List<ProductoModel> list = res.isNotEmpty
           ? res.map((c) => ProductoModel.fromJson(c)).toList()
@@ -291,4 +291,36 @@ class ProductoDatabase {
       return [];
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Future<List<ProductoModel>> obtenerProductosPorIdGood(
+      String id) async {
+    try {
+      final db = await dbProvider.database;
+      final res =
+          await db.rawQuery("SELECT * FROM Producto WHERE id_good= '$id'");
+
+      List<ProductoModel> list = res.isNotEmpty
+          ? res.map((c) => ProductoModel.fromJson(c)).toList()
+          : [];
+      return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
+  }
+
+
 }

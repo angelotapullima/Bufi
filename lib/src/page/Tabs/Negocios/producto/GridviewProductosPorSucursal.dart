@@ -1,6 +1,6 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/productoModel.dart';
-import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
+import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
 import 'package:bufi/src/widgets/widgetBienes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

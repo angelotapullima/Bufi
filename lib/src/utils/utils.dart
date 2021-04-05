@@ -16,7 +16,7 @@ import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/models/sugerenciaBusquedaModel.dart';
-import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
+import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:toast/toast.dart' as T;

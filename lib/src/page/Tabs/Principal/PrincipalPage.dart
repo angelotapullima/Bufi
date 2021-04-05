@@ -5,7 +5,7 @@ import 'package:bufi/src/models/cuentaModel.dart';
 import 'package:bufi/src/models/notificacionModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
-import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
+import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
 import 'package:bufi/src/page/Tabs/iniciar_sesion.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';

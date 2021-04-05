@@ -35,7 +35,8 @@ class PointModel {
       this.companyStatus,
       this.companyMt,
       this.categoryName,
-      this.listProducto});
+      this.listProducto,
+      this.listServicio});
 
   String idPoint;
   String idUser;

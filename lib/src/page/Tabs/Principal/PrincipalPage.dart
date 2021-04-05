@@ -494,8 +494,8 @@ class _ServiciosState extends State<Servicios> {
                       scrollDirection: Axis.horizontal,
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
-                        return serviceWidget(
-                            context, snapshot.data[index], responsive);
+                        return ServiciosWidget(
+                            serviceData:snapshot.data[index]);
                         // _crearItem(
                         //     context, snapshot.data[index], responsive);
                       });

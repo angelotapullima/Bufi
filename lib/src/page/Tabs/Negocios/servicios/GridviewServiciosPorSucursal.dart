@@ -62,7 +62,8 @@ class _GridviewProductoPorSucursalState
                           ),
                         );*/
                       }, 
-                      child : serviceWidget(context, snapshot.data[index], responsive)
+                      child : ServiciosWidget(
+                            serviceData:snapshot.data[index])
                      /*  child: BienesWidget(
                         producto: snapshot.data[index],
                       ), */

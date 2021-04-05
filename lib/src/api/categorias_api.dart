@@ -359,8 +359,16 @@ class CategoriasApi {
             decodedData['servicios'][i]['subsidiary_service_updated'];
         subsidiaryServiceModel.subsidiaryServiceStatus =
             decodedData['servicios'][i]['subsidiary_service_status'];
-        await subisdiaryServiceDatabase
-            .insertarSubsidiaryService(subsidiaryServiceModel);
+
+        final list = await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursalService(decodedData['servicios'][i]['id_subsidiaryservice']);
+
+          if (list.length > 0) {
+            subsidiaryServiceModel.subsidiaryServiceFavourite = list[0].subsidiaryServiceFavourite;
+            //Subsidiary
+          } else {
+            subsidiaryServiceModel.subsidiaryServiceFavourite = "0";
+          }
+        await subisdiaryServiceDatabase.insertarSubsidiaryService(subsidiaryServiceModel);
       }
 
       return 0;
@@ -626,8 +634,7 @@ class CategoriasApi {
           subsidiaryModel.subsidiaryStatus =
               serviciosList[i]['subsidiary_status'];
 
-          final list = await subsidiaryDatabase
-              .obtenerSubsidiaryPorId(serviciosList[i]["id_subsidiary"]);
+          final list = await subsidiaryDatabase.obtenerSubsidiaryPorId(serviciosList[i]["id_subsidiary"]);
 
           if (list.length > 0) {
             subsidiaryModel.subsidiaryFavourite = list[0].subsidiaryFavourite;

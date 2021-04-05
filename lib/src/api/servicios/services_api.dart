@@ -15,13 +15,13 @@ import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
-
 class ServiceApi {
   final prefs = Preferences();
 
   final subisdiaryServiceDatabase = SubsidiaryServiceDatabase();
   final serviceModel = ServiciosModel();
   final serviceDatabase = ServiceDatabase();
+  final subsidiaryDatabase = SubsidiaryDatabase();
 
   Future<dynamic> obtenerServicesAll() async {
     try {
@@ -60,45 +60,40 @@ class ServiceApi {
   }
 
   Future<dynamic> listarServiciosPorSucursal(String id) async {
-
-
     //funcion para obtener el producto con el id mas alto de la lista
-    final serviciosSucursal = await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursal(id);
+    final serviciosSucursal =
+        await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursal(id);
 
     double mayor = 0;
     double mayor2 = 0;
     double menor = 0;
-    if(serviciosSucursal.length>0){
+    if (serviciosSucursal.length > 0) {
       for (var i = 0; i < serviciosSucursal.length; i++) {
-        if(double.parse(serviciosSucursal[i].idSubsidiaryservice) > mayor){
+        if (double.parse(serviciosSucursal[i].idSubsidiaryservice) > mayor) {
           mayor = double.parse(serviciosSucursal[i].idSubsidiaryservice);
           print('mayor $mayor');
-
         }
       }
     }
-    mayor2= mayor;
+    mayor2 = mayor;
 
-    if(serviciosSucursal.length>0){
+    if (serviciosSucursal.length > 0) {
       for (var x = 0; x < serviciosSucursal.length; x++) {
-        if(double.parse(serviciosSucursal[x].idSubsidiaryservice) < mayor2){
+        if (double.parse(serviciosSucursal[x].idSubsidiaryservice) < mayor2) {
           menor = double.parse(serviciosSucursal[x].idSubsidiaryservice);
           mayor2 = menor;
           print('menor $menor');
-
-        }else{
-           menor = mayor2;
+        } else {
+          menor = mayor2;
         }
       }
     }
-
-
 
     final response = await http
         .post('$apiBaseURL/api/Negocio/listar_servicios_por_sucursal', body: {
       'id_sucursal': '$id',
-      'limite_sup':mayor.toString(),
-      'limite_inf':menor.toString()
+      'limite_sup': mayor.toString(),
+      'limite_inf': menor.toString()
     });
 
     final decodedDataSimple = json.decode(response.body);
@@ -129,6 +124,20 @@ class ServiceApi {
           decodedData[i]['subsidiary_service_updated'];
       subsidiaryServiceModel.subsidiaryServiceStatus =
           decodedData[i]['subsidiary_service_status'];
+      //subsidiaryServiceModel.subsidiaryServiceFavourite = "0";
+
+      final list =
+          await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursalService(
+              decodedData[i]['id_subsidiaryservice']);
+
+      if (list.length > 0) {
+        subsidiaryServiceModel.subsidiaryServiceFavourite =
+            list[0].subsidiaryServiceFavourite;
+        //Subsidiary
+      } else {
+        subsidiaryServiceModel.subsidiaryServiceFavourite = "0";
+      }
+
       await subisdiaryServiceDatabase
           .insertarSubsidiaryService(subsidiaryServiceModel);
 
@@ -152,7 +161,18 @@ class ServiceApi {
       subsidiaryModel.subsidiaryPrincipal =
           decodedData[i]['subsidiary_principal'];
       subsidiaryModel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
-      subsidiaryModel.subsidiaryFavourite = '0';
+      //subsidiaryModel.subsidiaryFavourite = '0';
+      final listSubsidiaryDb =
+              await subsidiaryDatabase.obtenerSubsidiaryPorId(
+                  decodedData[i]['id_subsidiary']);
+
+          if (listSubsidiaryDb.length > 0) {
+            subsidiaryModel.subsidiaryFavourite =
+                listSubsidiaryDb[0].subsidiaryFavourite;
+          } else {
+            subsidiaryModel.subsidiaryFavourite = '0';
+          }
+      
 
       await subisdiaryDatabase.insertarSubsidiary(subsidiaryModel);
 
@@ -172,10 +192,12 @@ class ServiceApi {
       itemSubCategoriaModel.idItemsubcategory =
           decodedData[i]['id_itemsubcategory'];
       itemSubCategoriaModel.idSubcategory = decodedData[i]['id_subcategory'];
-      itemSubCategoriaModel.itemsubcategoryName =  decodedData[i]['itemsubcategory_name'];
-      itemSubCategoriaModel.itemsubcategoryImage =  decodedData[i]['itemsubcategory_img'];
-      await itemsubCategoryDatabase
-          .insertarItemSubCategoria(itemSubCategoriaModel,'Negocio/listar_servicios_por_sucursal');
+      itemSubCategoriaModel.itemsubcategoryName =
+          decodedData[i]['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryImage =
+          decodedData[i]['itemsubcategory_img'];
+      await itemsubCategoryDatabase.insertarItemSubCategoria(
+          itemSubCategoriaModel, 'Negocio/listar_servicios_por_sucursal');
       //}
     }
     return 0;
@@ -292,10 +314,12 @@ class ServiceApi {
           decodedData['servicios'][i]['id_itemsubcategory'];
       itemSubCategoriaModel.idSubcategory =
           decodedData['servicios'][i]['id_subcategory'];
-      itemSubCategoriaModel.itemsubcategoryName = decodedData['servicios'][i]['itemsubcategory_name'];
-      itemSubCategoriaModel.itemsubcategoryImage = decodedData['servicios'][i]['itemsubcategory_img'];
-      await itemsubCategoryDatabase
-          .insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_servicios_por_id_ciudad');
+      itemSubCategoriaModel.itemsubcategoryName =
+          decodedData['servicios'][i]['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryImage =
+          decodedData['servicios'][i]['itemsubcategory_img'];
+      await itemsubCategoryDatabase.insertarItemSubCategoria(
+          itemSubCategoriaModel, 'Inicio/listar_servicios_por_id_ciudad');
 
       //completo
       CompanyModel companyModel = CompanyModel();
@@ -353,6 +377,18 @@ class ServiceApi {
           decodedData['servicios'][i]['subsidiary_service_updated'];
       subsidiaryServiceModel.subsidiaryServiceStatus =
           decodedData['servicios'][i]['subsidiary_service_status'];
+
+      final list =
+          await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursalService(
+              decodedData['servicios'][i]['id_subsidiaryservice']);
+
+      if (list.length > 0) {
+        subsidiaryServiceModel.subsidiaryServiceFavourite =
+            list[0].subsidiaryServiceFavourite;
+        //Subsidiary
+      } else {
+        subsidiaryServiceModel.subsidiaryServiceFavourite = "0";
+      }
       await subisdiaryServiceDatabase
           .insertarSubsidiaryService(subsidiaryServiceModel);
 
@@ -459,10 +495,12 @@ class ServiceApi {
           decodedData['servicios'][i]['id_itemsubcategory'];
       itemSubCategoriaModel.idSubcategory =
           decodedData['servicios'][i]['id_subcategory'];
-      itemSubCategoriaModel.itemsubcategoryName = decodedData['servicios'][i]['itemsubcategory_name'];
-      itemSubCategoriaModel.itemsubcategoryImage = decodedData['servicios'][i]['itemsubcategory_img'];
-      await itemsubCategoryDatabase
-          .insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_servicios_por_id_itemsu');
+      itemSubCategoriaModel.itemsubcategoryName =
+          decodedData['servicios'][i]['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryImage =
+          decodedData['servicios'][i]['itemsubcategory_img'];
+      await itemsubCategoryDatabase.insertarItemSubCategoria(
+          itemSubCategoriaModel, 'Inicio/listar_servicios_por_id_itemsu');
 
       //completo
       CompanyModel companyModel = CompanyModel();
@@ -520,6 +558,18 @@ class ServiceApi {
           decodedData['servicios'][i]['subsidiary_service_updated'];
       subsidiaryServiceModel.subsidiaryServiceStatus =
           decodedData['servicios'][i]['subsidiary_service_status'];
+
+      final list =
+          await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursalService(
+              decodedData['servicios'][i]['id_subsidiaryservice']);
+
+      if (list.length > 0) {
+        subsidiaryServiceModel.subsidiaryServiceFavourite =
+            list[0].subsidiaryServiceFavourite;
+        //Subsidiary
+      } else {
+        subsidiaryServiceModel.subsidiaryServiceFavourite = "0";
+      }
       await subisdiaryServiceDatabase
           .insertarSubsidiaryService(subsidiaryServiceModel);
 

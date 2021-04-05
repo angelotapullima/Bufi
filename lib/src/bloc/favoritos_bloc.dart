@@ -50,6 +50,11 @@ class PointsBloc {
     _favController.sink.add(await favoritoPorSucursal());
   }
 
+   //Servicios y Sucursales Fav
+  void obtenerPointsServiciosXSucursal() async {
+    _favController.sink.add(await favoritoPorSucursal());
+  }
+
   //  void deletePointsProductosXSucursal() async {
   //   _favController.sink.add(await productoDb.);
   // }
@@ -113,20 +118,20 @@ Future<List<PointModel>> favoritoPorSucursal() async {
      final servicioDb = SubsidiaryServiceDatabase();
    
     final listServicioFav = await servicioDb.obtenerSubsidiarysServicesFavoritosPorIdSubsidiary(listsucursal[k].idSubsidiary);
-    for (var i = 0; i < listServicioFav.length; i++) {
+    for (var j = 0; j < listServicioFav.length; j++) {
       final servicioModel = SubsidiaryServiceModel();
-      servicioModel.idSubsidiaryservice = listServicioFav[i].idSubsidiaryservice;
-      servicioModel.idSubsidiary = listServicioFav[i].idSubsidiary;
-      servicioModel.idService = listServicioFav[i].idService;
-      servicioModel.idItemsubcategory = listServicioFav[i].idItemsubcategory;
-      servicioModel.subsidiaryServiceName = listServicioFav[i].subsidiaryServiceName;
-      servicioModel.subsidiaryServicePrice = listServicioFav[i].subsidiaryServicePrice;
-      servicioModel.subsidiaryServiceDescription = listServicioFav[i].subsidiaryServiceDescription;
-      servicioModel.subsidiaryServiceCurrency = listServicioFav[i].subsidiaryServiceCurrency;
-      servicioModel.subsidiaryServiceImage = listServicioFav[i].subsidiaryServiceImage;
-      servicioModel.subsidiaryServiceRating = listServicioFav[i].subsidiaryServiceRating;
-      servicioModel.subsidiaryServiceUpdated = listServicioFav[i].subsidiaryServiceUpdated;
-      servicioModel.subsidiaryServiceStatus = listServicioFav[i].subsidiaryServiceStatus;
+      servicioModel.idSubsidiaryservice = listServicioFav[j].idSubsidiaryservice;
+      servicioModel.idSubsidiary = listServicioFav[j].idSubsidiary;
+      servicioModel.idService = listServicioFav[j].idService;
+      servicioModel.idItemsubcategory = listServicioFav[j].idItemsubcategory;
+      servicioModel.subsidiaryServiceName = listServicioFav[j].subsidiaryServiceName;
+      servicioModel.subsidiaryServicePrice = listServicioFav[j].subsidiaryServicePrice;
+      servicioModel.subsidiaryServiceDescription = listServicioFav[j].subsidiaryServiceDescription;
+      servicioModel.subsidiaryServiceCurrency = listServicioFav[j].subsidiaryServiceCurrency;
+      servicioModel.subsidiaryServiceImage = listServicioFav[j].subsidiaryServiceImage;
+      servicioModel.subsidiaryServiceRating = listServicioFav[j].subsidiaryServiceRating;
+      servicioModel.subsidiaryServiceUpdated = listServicioFav[j].subsidiaryServiceUpdated;
+      servicioModel.subsidiaryServiceStatus = listServicioFav[j].subsidiaryServiceStatus;
       servicioModel.subsidiaryServiceFavourite = '1';
 
       listServiciosFavModel.add(servicioModel);

@@ -1,7 +1,7 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/pointModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
-import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubsidiary.dart';
+import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/detalleSubsidiary.dart';
 import 'package:bufi/src/page/Tabs/Points/points_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';

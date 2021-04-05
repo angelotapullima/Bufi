@@ -2,7 +2,6 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/categoriaGeneralModel.dart';
 import 'package:bufi/src/page/Categorias/ProductosPotItemsubcategory/pro_y_ser_por_itemSubcategory_page.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

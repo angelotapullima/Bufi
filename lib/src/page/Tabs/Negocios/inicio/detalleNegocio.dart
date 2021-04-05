@@ -2,13 +2,15 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
-import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubsidiary.dart';
+import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart';
+import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/detalleSubsidiary.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:rating_bar/rating_bar.dart';
 
 class DetalleNegocio extends StatefulWidget {
@@ -97,52 +99,6 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                           filledColor: Colors.yellow,
                         ),
                       ),
-                      // Spacer(),
-                      // Container(
-                      //   width: responsive.wp(30),
-                      //   child: Row(
-                      //     children: [
-                      //       Container(
-                      //         height: responsive.ip(3),
-                      //         width: responsive.ip(3),
-                      //         decoration: BoxDecoration(
-                      //           border: Border.all(color: Colors.grey[300]),
-                      //           borderRadius: BorderRadius.circular(10),
-                      //         ),
-                      //         child: Icon(
-                      //           FontAwesomeIcons.phoneVolume,
-                      //           color: Colors.red[300],
-                      //         ),
-                      //       ),
-                      //       SizedBox(
-                      //         width: responsive.wp(2),
-                      //       ),
-                      //       Container(
-                      //         height: responsive.ip(3.5),
-                      //         width: responsive.ip(3.5),
-                      //         decoration: BoxDecoration(
-                      //           border: Border.all(color: Colors.grey[300]),
-                      //           borderRadius: BorderRadius.circular(10),
-                      //         ),
-                      //         child: Icon(FontAwesomeIcons.mapSigns,
-                      //             color: Colors.green),
-                      //       ),
-                      //       SizedBox(
-                      //         width: responsive.wp(2),
-                      //       ),
-                      //       Container(
-                      //         height: responsive.ip(3.5),
-                      //         width: responsive.ip(3.5),
-                      //         decoration: BoxDecoration(
-                      //           border: Border.all(color: Colors.grey[300]),
-                      //           borderRadius: BorderRadius.circular(10),
-                      //         ),
-                      //         child: Icon(FontAwesomeIcons.mapSigns,
-                      //             color: Colors.green),
-                      //       )
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),
                 ],
@@ -257,8 +213,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                       children: [
                         Text("id Negocio:"),
                         SizedBox(width: responsive.wp(2)),
-                        Text(
-                            ('${company.idCompany}'),
+                        Text(('${company.idCompany}'),
                             style: TextStyle(fontSize: responsive.ip(2)))
                       ],
                     ),
@@ -314,7 +269,8 @@ class _DetalleNegocioState extends State<DetalleNegocio>
             height: responsive.hp(25),
             child: StreamBuilder(
                 stream: sucursalNegocio.sucursalStream,
-                builder: (BuildContext context, AsyncSnapshot <List<SubsidiaryModel>> snapshot) {
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<SubsidiaryModel>> snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data.length > 0) {
                       List<SubsidiaryModel> sedes = snapshot.data;
@@ -324,6 +280,12 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
                             onTap: () {
+                              final provider =
+                                  Provider.of<DetailSubsidiaryBloc>(context,
+                                      listen: false);
+
+                              provider.changeToInformation();
+
                               Navigator.of(context).push(PageRouteBuilder(
                                 pageBuilder:
                                     (context, animation, secondaryAnimation) {
@@ -428,9 +390,8 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                                               onPressed: () {
                                                 setState(() {
                                                   guardarSubsidiaryFavorito(
-                                                    context, sedes[index]);
+                                                      context, sedes[index]);
                                                 });
-                                                
                                               },
                                             )
                                           : IconButton(

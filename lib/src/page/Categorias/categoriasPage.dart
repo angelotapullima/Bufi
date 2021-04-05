@@ -5,7 +5,7 @@ import 'package:bufi/src/page/Categorias/ProductosPotItemsubcategory/pro_y_ser_p
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:bufi/src/widgets/busquedas/widgetBusqCategoria.dart';
+import 'package:bufi/src/widgets/busquedas/widgetBusquedaGeneral.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +48,7 @@ class _ListaCategoriaState extends State<ListaCategoria> {
                 ],
               ),
             ),
-            BusquedaCategoriaWidget(responsive: responsive),
+            BusquedaGeneralWidget(responsive: responsive),
             SizedBox(
               height: responsive.hp(.5),
             ),
@@ -153,10 +153,18 @@ class _CategoriaBienesServiciosState extends State<CategoriaBienesServicios> {
         return GestureDetector(
             child: Container(
                 margin: EdgeInsets.all(2),
+                padding: EdgeInsets.symmetric(
+                  horizontal: responsive.wp(2),
+                ),
                 height: responsive.hp(10),
                 //width: size.width * 0.25,
                 decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: responsive.hp(1),
+                    )
+                  ],
                   color: (categoria.idCategory == snapshot.data)
                       ? Colors.black
                       : Color(0xFFF93963),
@@ -167,7 +175,7 @@ class _CategoriaBienesServiciosState extends State<CategoriaBienesServicios> {
                   child: Text(
                     '${categoria.categoryName}',
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: responsive.ip(1.3),
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -245,38 +253,36 @@ class _SubcategoriaPorIdCategoriaState
                               '${subcategoriasGeneral[index].itemSubcategoria[indd].itemsubcategoryName}',
                               style: TextStyle(fontSize: 16),
                             ),
-                            leading: 
-                            //Image.network('${subcategoriasGeneral[index].itemSubcategoria[indd].itemsubcategoryImage}'),
+                            leading:
+                                //Image.network('${subcategoriasGeneral[index].itemSubcategoria[indd].itemsubcategoryImage}'),
                                 CircleAvatar(
-                                radius: responsive.wp(5),
-                                child: Container(
-                                  transform: Matrix4.translationValues(0, 0, 0),
-                                  child: CachedNetworkImage(
-                                    cacheManager: CustomCacheManager(),
-                                    placeholder: (context, url) => Image(
-                                        image: const AssetImage(
-                                            'assets/jar-loading.gif'),
-                                        fit: BoxFit.cover),
-                                    errorWidget: (context, url, error) => Image(
-                                        image: AssetImage(
-                                            'assets/carga_fallida.jpg'),
-                                        fit: BoxFit.cover),
-                                    imageUrl:
-                                        '$apiBaseURL/${subcategoriasGeneral[index].itemSubcategoria[indd].itemsubcategoryImage}',
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.cover,
-                                        ),
+                              radius: responsive.wp(5),
+                              child: Container(
+                                transform: Matrix4.translationValues(0, 0, 0),
+                                child: CachedNetworkImage(
+                                  cacheManager: CustomCacheManager(),
+                                  placeholder: (context, url) => Image(
+                                      image: const AssetImage(
+                                          'assets/jar-loading.gif'),
+                                      fit: BoxFit.cover),
+                                  errorWidget: (context, url, error) => Image(
+                                      image: AssetImage(
+                                          'assets/carga_fallida.jpg'),
+                                      fit: BoxFit.cover),
+                                  imageUrl:
+                                      '$apiBaseURL/${subcategoriasGeneral[index].itemSubcategoria[indd].itemsubcategoryImage}',
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-
-                               
+                            ),
                             onTap: () {
                               Navigator.of(context).push(PageRouteBuilder(
                                 pageBuilder:

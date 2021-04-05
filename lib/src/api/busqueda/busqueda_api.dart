@@ -3618,8 +3618,8 @@ class BusquedaApi {
   }
 
 //-------------------Por Sucursal-------------------------------------
-  Future<dynamic> busquedaXSucursal(String idSucursal, String query) async {
-    //final listGeneral = List<BusquedaProductoModel>();
+  Future<List<ProductoModel>> busquedaXSucursal(String idSucursal, String query) async {
+    
     try {
       final res = await http
           .post("$apiBaseURL/api/Negocio/buscar_bs_por_sucursal", body: {
@@ -3629,6 +3629,8 @@ class BusquedaApi {
         // 'id_user': prefs.idUser,
         // 'app': 'true'
       });
+
+      final listGeneral = List<ProductoModel>();
       final decodedData = json.decode(res.body);
 
       if (decodedData["productos"].length > 0) {
@@ -3684,6 +3686,8 @@ class BusquedaApi {
           }
           //insertar a la tabla Producto
           await productoDatabase.insertarProducto(productoModel);
+
+          listGeneral.add(productoModel);
 
           //BienesModel
           BienesModel goodmodel = BienesModel();
@@ -3941,11 +3945,14 @@ class BusquedaApi {
               itemSubCategoriaModel, 'Negocio/buscar_bs_por_sucursal');
         }
       }
+      
+    return listGeneral;
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
+
+      return [];
     }
-    //return listGeneral;
-    return 0;
+    //return
   }
 
   Future<List<BienesServiciosModel>>

@@ -504,6 +504,7 @@ class CebeceraItem extends StatelessWidget {
                 BusquedaProductoXsucursalWidget(
                   responsive: responsive,
                   idSucursal: idSucursal,
+                  nameSucursal: nombreSucursal,
                 )
               ]),
 

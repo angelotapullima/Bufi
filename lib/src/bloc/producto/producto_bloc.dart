@@ -118,8 +118,7 @@ class ProductoBloc {
     final listGeneral = listIdSinRepetir.toSet().toList();
 
     for (var i = 0; i < listGeneral.length; i++) {
-      final producto = await productoDatabase
-          .obtenerProductoPorIdSubsidiaryGood(listGeneral[i]);
+      final producto = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(listGeneral[i]);
 
       ProductoModel productoModel = ProductoModel();
       productoModel.idProducto = producto[0].idProducto;

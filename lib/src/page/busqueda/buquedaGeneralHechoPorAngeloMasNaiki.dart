@@ -607,6 +607,77 @@ class ListaProductosYServiciosItemSubca extends StatelessWidget {
   }
 }
 
+
+
+
+
+
+
+
+class ListaProductosYServiciosIdSubisdiary extends StatelessWidget {
+  const ListaProductosYServiciosIdSubisdiary({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final busquedaBloc = ProviderBloc.busqueda(context);
+    //busquedaBloc.obtenerBusquedaProducto('$query');
+
+    final responsive = Responsive.of(context);
+    return StreamBuilder(
+        stream: busquedaBloc.busquedaProductoPorIdSucursalStream,
+        builder: (BuildContext context,
+            AsyncSnapshot<List<ProductoModel>> snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.length > 0) {
+              return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int i) {
+                    return ListTile(
+                      leading: FadeInImage(
+                        placeholder: AssetImage('assets/no-image.png'),
+                        image: NetworkImage(
+                          '$apiBaseURL/${snapshot.data[i].productoImage}',
+                        ),
+                        width: responsive.wp(5),
+                        fit: BoxFit.contain,
+                      ),
+                      title: Text('${snapshot.data[i].productoName}'),
+                      subtitle: Text('${snapshot.data[i].productoCurrency}'),
+                      onTap: () {
+                        //close(context, null);
+
+                        /* Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetalleProductos(
+                              producto: snapshot.data[i],
+                            ),
+                          ),
+                        ); */
+                      },
+                    );
+                  });
+            } else {
+              return Center(
+                child: CupertinoActivityIndicator(),
+              );
+            }
+          } else {
+            return Center(
+              child: CupertinoActivityIndicator(),
+            );
+          }
+        });
+  }
+}
+
+
+
+
+
+
+
 class ItemsBusqueda {
   ItemsBusqueda({this.titulo, this.index, this.cantidad});
 

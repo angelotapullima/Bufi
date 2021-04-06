@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/productoModel.dart';
-import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
+import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
 import 'package:bufi/src/page/Tabs/Principal/TodosLosProductos/Filtro_todos_los_productos_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';

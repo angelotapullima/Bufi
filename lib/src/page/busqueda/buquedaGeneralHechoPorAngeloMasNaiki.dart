@@ -5,7 +5,7 @@ import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/models/itemSubcategoryModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
-import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto.dart';
+import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:flutter/cupertino.dart';

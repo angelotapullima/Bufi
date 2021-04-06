@@ -14,31 +14,34 @@ class DatosProductoBloc {
   final productoApi = ProductosApi();
 
   final _datosProductoController = BehaviorSubject<List<ProductoModel>>();
+  
 
-  Stream<List<ProductoModel>> get datosProdStream =>
-      _datosProductoController.stream;
+  Stream<List<ProductoModel>> get datosProdStream => _datosProductoController.stream;
+  
 
   void dispose() {
     _datosProductoController?.close();
+    
   }
 
   void listarDatosProducto(String idProducto) async {
-    _datosProductoController.sink.add(await obtenerDatosProductosPorIdProducto(idProducto));
+    _datosProductoController.sink.add(await obtenerDatosProductosRelacionados(idProducto));
     await productoApi.listarDetalleProductoPorIdProducto(idProducto);
-    _datosProductoController.sink.add(await obtenerDatosProductosPorIdProducto(idProducto));
+    _datosProductoController.sink.add(await obtenerDatosProductosRelacionados(idProducto));
   }
 
-  Future<List<ProductoModel>> obtenerDatosProductosPorIdProducto(
+
+  Future<List<ProductoModel>> obtenerDatosProductosRelacionados(
       String idProducto) async {
 
         //await tallaProductoDb.updateEstadoa0();
     List<ProductoModel> listaGeneral = List<ProductoModel>();
 
     //obtener todos los productos de la bd
-    final listProductos = await productoDb.obtenerProductoPorIdSubsidiaryGood(idProducto);
+    final listProductos = await productoDb.obtenerSubsidiaryGood();
 
     //Recorremos la lista de todos los pedidos
-    for (var i = 0; i < listProductos.length; i++) {
+    for (var i = 0; i < 4; i++) {
       final productoModel = ProductoModel();
       productoModel.idProducto = listProductos[i].idProducto;
       productoModel.idSubsidiary = listProductos[i].idSubsidiary;
@@ -86,4 +89,7 @@ class DatosProductoBloc {
     }
     return listaGeneral;
   }
+
+
+
 }

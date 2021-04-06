@@ -324,8 +324,7 @@ void quitarServicioFavorito(
 void leerNotificacion(
     BuildContext context, NotificacionesModel notificaciones) async {
   final notiDb = NotificacionesDataBase();
-   final notificacionesBloc = ProviderBloc.notificaciones(context);
-    
+  final notificacionesBloc = ProviderBloc.notificaciones(context);
 
   final notificacionModel = NotificacionesModel();
   notificacionModel.idNotificacion = notificaciones.idNotificacion;
@@ -337,7 +336,7 @@ void leerNotificacion(
   notificacionModel.notificacionDatetime = notificaciones.notificacionDatetime;
   notificacionModel.notificacionEstado = "1";
 
-  notiDb.updateNotificaciones(notificacionModel);
+  await notiDb.updateNotificaciones(notificacionModel);
   notificacionesBloc.listarNotificacionesPendientes();
   notificacionesBloc.listarNotificaciones();
 }

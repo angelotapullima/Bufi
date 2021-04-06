@@ -23,19 +23,35 @@ class NotificacionesBloc {
     notificacionesPendientesController?.close();
   }
 
+//Llamar a la api para obtener el estado real de las notificaciones: 0:No leídas, 1:leídas
   void listarNotificaciones() async {
     listarNotificacionesController.sink
         .add(await notificacionDb.obtenerNotificaciones());
     // await notificacionApi.listarNotificaciones();
     // listarNotificacionesController.sink
-    //     .add(await notificacionDb.obtenerNotificaciones());
+    //    .add(await notificacionDb.obtenerNotificaciones()); 
   }
 
+//Llamar a la api para obtener el estado real de las notificaciones: 0:No leídas, 1:leídas
   void listarNotificacionesPendientes() async {
     notificacionesPendientesController.sink
-        .add(await notificacionDb.obtenerNotificacionesPendientes());
+        .add(await notificacionesPendientes());
     // await notificacionApi.listarNotificaciones();
-    // listarNotificacionesController.sink
-    //     .add(await notificacionDb.obtenerNotificaciones());
+    // notificacionesPendientesController.sink
+    //     .add(await notificacionesPendientes());
   }
+
+  //funcion que obtiene la lista de notificaciones pendientes
+  Future<List<NotificacionesModel>> notificacionesPendientes() async {
+  final notiDb = NotificacionesDataBase();
+  final listNotificacionModel = List<NotificacionesModel>();
+  final listpendientes = await notiDb.obtenerNotificacionesPendientes();
+
+  for (var i = 0; i < listpendientes.length; i++) {
+    final notificacionModel = NotificacionesModel();
+    notificacionModel.notificacionEstado = listpendientes[i].notificacionEstado;
+    listNotificacionModel.add(notificacionModel);
+  }
+  return listNotificacionModel;
+}
 }

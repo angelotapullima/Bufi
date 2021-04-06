@@ -26,16 +26,16 @@ class NotificacionesBloc {
   void listarNotificaciones() async {
     listarNotificacionesController.sink
         .add(await notificacionDb.obtenerNotificaciones());
-    await notificacionApi.listarNotificaciones();
-    listarNotificacionesController.sink
-        .add(await notificacionDb.obtenerNotificaciones());
+    // await notificacionApi.listarNotificaciones();
+    // listarNotificacionesController.sink
+    //     .add(await notificacionDb.obtenerNotificaciones());
   }
 
   void listarNotificacionesPendientes() async {
     notificacionesPendientesController.sink
         .add(await notificacionDb.obtenerNotificacionesPendientes());
-    await notificacionApi.listarNotificaciones();
-    listarNotificacionesController.sink
-        .add(await notificacionDb.obtenerNotificaciones());
+    // await notificacionApi.listarNotificaciones();
+    // listarNotificacionesController.sink
+    //     .add(await notificacionDb.obtenerNotificaciones());
   }
 }

@@ -2,6 +2,7 @@ import 'package:bufi/src/api/point_api.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/database/carrito_db.dart';
 import 'package:bufi/src/database/direccion_database.dart';
+import 'package:bufi/src/database/notificaciones_database.dart';
 import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
@@ -11,6 +12,7 @@ import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/carritoModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/direccionModel.dart';
+import 'package:bufi/src/models/notificacionModel.dart';
 import 'package:bufi/src/models/pointModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
@@ -111,7 +113,7 @@ void guardarProductoFavorito(
   final bienesBloc = ProviderBloc.bienesServicios(context);
   final productoBloc = ProviderBloc.productos(context);
   final sucursalNegocio = ProviderBloc.sucursal(context);
-    
+
   final productoModel = ProductoModel();
   final productoDb = ProductoDatabase();
   final sucursalDataBase = SubsidiaryDatabase();
@@ -160,20 +162,19 @@ void guardarProductoFavorito(
 
   //Para dibujar el widget de favorito en la vista de Point
   pointsProdBloc.obtenerPointsProductosXSucursal();
-   //Para dibujar el widget de favorito en la vista principal
+  //Para dibujar el widget de favorito en la vista principal
   bienesBloc.obtenerBienesServiciosResumen();
   //Para dibujar el widget de favorito en la vista de detalle de negocio
   sucursalNegocio.obtenerSucursalporIdCompany(sucursal[0].idCompany);
   //Para dibujar el widget de favorito en la vista de productos por sucursal
   productoBloc.listarProductosPorSucursal(dataModel.idSubsidiary);
-  
 }
 
 void quitarProductoFavorito(
     BuildContext context, ProductoModel dataModel) async {
   final pointsProdBloc = ProviderBloc.points(context);
   final bienesBloc = ProviderBloc.bienesServicios(context);
-   final productoBloc = ProviderBloc.productos(context);
+  final productoBloc = ProviderBloc.productos(context);
   final sucursalDataBase = SubsidiaryDatabase();
   // final deletePoint = PointApi();
 
@@ -225,7 +226,7 @@ void quitarProductoFavorito(
 
   pointsProdBloc.obtenerPointsProductosXSucursal();
   bienesBloc.obtenerBienesServiciosResumen();
-   //Para dibujar el widget de favorito en la vista de productos por sucursal
+  //Para dibujar el widget de favorito en la vista de productos por sucursal
   productoBloc.listarProductosPorSucursal(dataModel.idSubsidiary);
 }
 
@@ -239,8 +240,7 @@ void guardarServicioFavorito(
   final serviciosBloc = ProviderBloc.bienesServicios(context);
   final sucursalNegocio = ProviderBloc.sucursal(context);
   final serviceBloc = ProviderBloc.servi(context);
-    
-   
+
   servicioModel.idSubsidiaryservice = dataModel.idSubsidiaryservice;
   servicioModel.idSubsidiary = dataModel.idSubsidiary;
   servicioModel.idService = dataModel.idService;
@@ -259,7 +259,8 @@ void guardarServicioFavorito(
   await subservicesDb.updateSubsidiaryService(servicioModel);
 
   //Obtenemos la lista de sucursales por id
-  final sucursal =await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
+  final sucursal =
+      await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
   final subModel = SubsidiaryModel();
   subModel.idSubsidiary = sucursal[0].idSubsidiary;
   subModel.idCompany = sucursal[0].idCompany;
@@ -275,32 +276,29 @@ void guardarServicioFavorito(
   subModel.subsidiaryFavourite = '1';
 
   await sucursalDataBase.updateSubsidiary(subModel);
-   //Para dibujar el widget de favorito en la vista de Point
+  //Para dibujar el widget de favorito en la vista de Point
   pointsProdBloc.obtenerPointsServiciosXSucursal();
-   //Para dibujar el widget de favorito en la vista principal
+  //Para dibujar el widget de favorito en la vista principal
   serviciosBloc.obtenerBienesServiciosResumen();
   //Para dibujar el widget de favorito en la vista de detalle de negocio
   sucursalNegocio.obtenerSucursalporIdCompany(sucursal[0].idCompany);
   //Para dibujar el widget de favorito en la vista de servicios por sucursal
- serviceBloc.listarServiciosPorSucursal( sucursal[0].idSubsidiary);
-
+  serviceBloc.listarServiciosPorSucursal(sucursal[0].idSubsidiary);
 }
 
 void quitarServicioFavorito(
     BuildContext context, SubsidiaryServiceModel dataModel) async {
   final servicioModel = SubsidiaryServiceModel();
   final subservicesDb = SubsidiaryServiceDatabase();
-  
 
   final pointsProdBloc = ProviderBloc.points(context);
   final serviciosBloc = ProviderBloc.bienesServicios(context);
   //final sucursalNegocio = ProviderBloc.sucursal(context);
   final serviceBloc = ProviderBloc.servi(context);
-    
-   
+
   servicioModel.idSubsidiaryservice = dataModel.idSubsidiaryservice;
   servicioModel.idSubsidiary = dataModel.idSubsidiary;
-   servicioModel.idService = dataModel.idService;
+  servicioModel.idService = dataModel.idService;
   servicioModel.idItemsubcategory = dataModel.idItemsubcategory;
   servicioModel.subsidiaryServiceName = dataModel.subsidiaryServiceName;
   servicioModel.subsidiaryServicePrice = dataModel.subsidiaryServicePrice;
@@ -317,11 +315,31 @@ void quitarServicioFavorito(
 
   //Para dibujar el widget de favorito en la vista de Point
   pointsProdBloc.obtenerPointsServiciosXSucursal();
-   //Para dibujar el widget de favorito en la vista principal
+  //Para dibujar el widget de favorito en la vista principal
   serviciosBloc.obtenerBienesServiciosResumen();
   //Para dibujar el widget de favorito en la vista de servicios por sucursal
- serviceBloc.listarServiciosPorSucursal(dataModel.idSubsidiary);
+  serviceBloc.listarServiciosPorSucursal(dataModel.idSubsidiary);
+}
 
+void leerNotificacion(
+    BuildContext context, NotificacionesModel notificaciones) async {
+  final notiDb = NotificacionesDataBase();
+   final notificacionesBloc = ProviderBloc.notificaciones(context);
+    
+
+  final notificacionModel = NotificacionesModel();
+  notificacionModel.idNotificacion = notificaciones.idNotificacion;
+  notificacionModel.idUsuario = notificaciones.idUsuario;
+  notificacionModel.notificacionTipo = notificaciones.notificacionTipo;
+  notificacionModel.notificacionIdRel = notificaciones.notificacionIdRel;
+  notificacionModel.notificacionMensaje = notificaciones.notificacionMensaje;
+  notificacionModel.notificacionImagen = notificaciones.notificacionImagen;
+  notificacionModel.notificacionDatetime = notificaciones.notificacionDatetime;
+  notificacionModel.notificacionEstado = "1";
+
+  notiDb.updateNotificaciones(notificacionModel);
+  notificacionesBloc.listarNotificacionesPendientes();
+  notificacionesBloc.listarNotificaciones();
 }
 
 //----------------------Carrito-------------------------------------
@@ -549,10 +567,9 @@ void agregarDireccion(BuildContext context, String direccion, String referencia,
   direccionModel.estado = '1';
 
   await direccionDatabase.insertarDireccion(direccionModel);
-  
+
   direccionesBloc.obtenerDireccionEstado1();
   Navigator.pop(context);
-
 }
 
 void eliminarDireccion(BuildContext context, DireccionModel direccion) async {
@@ -566,7 +583,8 @@ void eliminarDireccion(BuildContext context, DireccionModel direccion) async {
   // direccionModel.distrito = direccion.distrito;
   // direccionModel.estado = '0';
 
-  final res = await direccionDatabase.deleteDireccionPorID(direccion.idDireccion);
+  final res =
+      await direccionDatabase.deleteDireccionPorID(direccion.idDireccion);
   //final res = await direccionDatabase.updateDireccion(direccionModel);
   print('update $res');
 
@@ -578,16 +596,10 @@ void eliminarTodasLasDirecciones(BuildContext context) async {
   final direccionesBloc = ProviderBloc.direc(context);
   final direccionDatabase = DireccionDatabase();
 
- 
-   await direccionDatabase.deleteDireccion();
-  
+  await direccionDatabase.deleteDireccion();
+
   direccionesBloc.obtenerDirecciones();
 }
-
-
-
-
-
 
 Future<List<ProductoModel>> filtrarListaProductos(
     List<ProductoModel> lista) async {

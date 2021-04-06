@@ -289,9 +289,8 @@ class HeaderWidget extends StatelessWidget {
                                                 shape: BoxShape.circle),
                                           );
                                         } else {
-                                          return Center(
-                                              child: Text(
-                                                  "no tiene ninguna notificación"),);
+                                          return Container(
+                                              );
                                         }
                                       } else {
                                         return Center(

@@ -68,6 +68,7 @@ class NegociosApi {
             smodel.subsidiaryPrincipal = decodedData[i]['subsidiary_principal'];
             smodel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
             smodel.subsidiaryAddress = decodedData[i]['subsidiary_address'];
+            smodel.subsidiaryImg = decodedData[i]['subsidiary_img'];
             smodel.subsidiaryFavourite = listSucursal[0].subsidiaryFavourite;
             await subsidiaryDatabase.insertarSubsidiary(smodel);
           }
@@ -110,6 +111,7 @@ class NegociosApi {
           smodel.subsidiaryPrincipal = decodedData[i]['subsidiary_principal'];
           smodel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
           smodel.subsidiaryAddress = decodedData[i]['subsidiary_address'];
+          smodel.subsidiaryImg = decodedData[i]['subsidiary_img'];
           smodel.subsidiaryFavourite = '0';
           await subsidiaryDatabase.insertarSubsidiary(smodel);
         }
@@ -171,6 +173,7 @@ class NegociosApi {
         smodel.subsidiaryPrincipal = decodedData['subsidiary_principal'];
         smodel.subsidiaryStatus = decodedData['subsidiary_status'];
         smodel.subsidiaryAddress = decodedData['subsidiary_address'];
+        smodel.subsidiaryImg = decodedData['subsidiary_img'];
         smodel.subsidiaryFavourite = listSucursal[0].subsidiaryFavourite;
 
         await subsidiaryDatabase.insertarSubsidiary(smodel);
@@ -211,6 +214,7 @@ class NegociosApi {
         smodel.subsidiaryPrincipal = decodedData['subsidiary_principal'];
         smodel.subsidiaryStatus = decodedData['subsidiary_status'];
         smodel.subsidiaryAddress = decodedData['subsidiary_address'];
+        smodel.subsidiaryImg = decodedData['subsidiary_img'];
         smodel.subsidiaryFavourite = '0';
         await subsidiaryDatabase.insertarSubsidiary(smodel);
       }
@@ -223,37 +227,7 @@ class NegociosApi {
     }
   }
 
-  /* Future registrarNegocio(CompanyModel cmodel) async {
-    try {
-      final res =
-          await http.post("$apiBaseURL/api/Negocio/guardar_negocio", body: {
-        'empresa_nombre': '${cmodel.companyName}',
-        'empresa_type': '${cmodel.companyType}',
-        'id_category': '${cmodel.idCategory}',
-        'empresa_cel': '${cmodel.cell}',
-        'empresa_direccion': '${cmodel.direccion}',
-        'shortcode': '${cmodel.companyShortcode}',
-        'delivery': '${cmodel.companyDelivery}',
-        'entrega': '${cmodel.companyEntrega}',
-        'tarjeta': '${cmodel.companyTarjeta}',
-        'tn': prefs.token,
-        'id_user': prefs.idUser,
-        'app': 'true'
-      });
 
-      final decodesData = json.decode(res.body);
-
-      final int code = decodesData['result']['code'];
-
-      return code;
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-
-      return 0;
-    }
-  }
-
-   */
   Future<dynamic> listarCompany() async {
     try {
       //funcion para obtener el producto con el id mas alto de la lista
@@ -331,6 +305,7 @@ class NegociosApi {
         smodel.subsidiaryPrincipal = decodedData['results'][i]['subsidiary_principal'];
         smodel.subsidiaryStatus =decodedData['results'][i]['subsidiary_status'];
         smodel.subsidiaryAddress =decodedData['results'][i]['subsidiary_address'];
+        smodel.subsidiaryImg =decodedData['results'][i]['subsidiary_img'];
         //await subsidiaryDatabase.insertarSubsidiary(smodel);
 
         // final listCompany = await companyDatabase
@@ -354,44 +329,7 @@ class NegociosApi {
     }
   }
 
-  /* Future registrarSedes(SubsidiaryModel smodel) async {
-    try {
-      final res =
-          await http.post("$apiBaseURL/api/Negocio/guardar_sede", body: {
-        'id': '${smodel.idCompany}',
-        'empresa_nombre': '${smodel.subsidiaryName}',
-        'empresa_cel': '${smodel.subsidiaryCellphone}',
-        'empresa_cel2': '${smodel.subsidiaryCellphone2}',
-        'empresa_direccion': '${smodel.subsidiaryAddress}',
-        'empresa_email': '${smodel.subsidiaryEmail}',
-        'empresa_coord_x': '${smodel.subsidiaryEmail}',
-        'empresa_coord_y': '${smodel.subsidiaryEmail}',
-        'opening_hours': '${smodel.subsidiaryEmail}',
-        'tn': prefs.token,
-        'app': 'true',
-      });
-
-      final decodedData = json.decode(res.body);
-
-      final int code = decodedData['result']['code'];
-
-      /*  if (code == 1) {
-        return 1;
-      } else if (code == 2) {
-        return 2;
-      } else {
-        return code;
-      } */
-
-      return code;
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-
-      return 0;
-    }
-  }
-
-   */
+  
   Future<dynamic> listarSedesPorNegocio(String id) async {
     try {
       final response = await http
@@ -411,6 +349,7 @@ class NegociosApi {
           sucmodel.idSubsidiary = decodedData[i]["id_subsidiary"];
           sucmodel.idCompany = decodedData[i]["id_company"];
           sucmodel.subsidiaryName = decodedData[i]['subsidiary_name'];
+          sucmodel.subsidiaryImg = decodedData[i]['subsidiary_img'];
           sucmodel.subsidiaryAddress = decodedData[i]['subsidiary_address'];
           sucmodel.subsidiaryCellphone = decodedData[i]['subsidiary_cellphone'];
           sucmodel.subsidiaryCellphone2 =
@@ -422,27 +361,21 @@ class NegociosApi {
               decodedData[i]['subsidiary_opening_hours'];
           sucmodel.subsidiaryPrincipal = decodedData[i]['subsidiary_principal'];
           sucmodel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
+          sucmodel.subsidiaryImg = decodedData[i]['subsidiary_img'];
+
+           if (listsubsidiary.length > 0) {
+
           sucmodel.subsidiaryFavourite = listsubsidiary[0].subsidiaryFavourite;
-          await subsidiaryDatabase.insertarSubsidiary(sucmodel);
+             
         } else {
-          SubsidiaryModel sucmodel = SubsidiaryModel();
-          sucmodel.idSubsidiary = decodedData[i]["id_subsidiary"];
-          sucmodel.idCompany = decodedData[i]["id_company"];
-          sucmodel.subsidiaryName = decodedData[i]['subsidiary_name'];
-          sucmodel.subsidiaryAddress = decodedData[i]['subsidiary_address'];
-          sucmodel.subsidiaryCellphone = decodedData[i]['subsidiary_cellphone'];
-          sucmodel.subsidiaryCellphone2 =
-              decodedData[i]['subsidiary_cellphone_2'];
-          sucmodel.subsidiaryEmail = decodedData[i]['subsidiary_email'];
-          sucmodel.subsidiaryCoordX = decodedData[i]['subsidiary_coord_x'];
-          sucmodel.subsidiaryCoordY = decodedData[i]['subsidiary_coord_y'];
-          sucmodel.subsidiaryOpeningHours =
-              decodedData[i]['subsidiary_opening_hours'];
-          sucmodel.subsidiaryPrincipal = decodedData[i]['subsidiary_principal'];
+
           sucmodel.subsidiaryFavourite = '0';
-          sucmodel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
-          await subsidiaryDatabase.insertarSubsidiary(sucmodel);
+         
+         
         }
+
+          await subsidiaryDatabase.insertarSubsidiary(sucmodel);
+      }
       }
 
       //list.add(decodedData);
@@ -452,6 +385,8 @@ class NegociosApi {
       return 0;
     }
   }
+  
+  
 
   /* Future updateNegocio(CompanySubsidiaryModel csmodel) async {
     try {
@@ -544,6 +479,7 @@ SubsidiaryModel smodel = SubsidiaryModel();
         smodel.subsidiaryPrincipal = decodedData['subsidiary_principal'];
         smodel.subsidiaryStatus = decodedData['subsidiary_status'];
         smodel.subsidiaryAddress = decodedData['subsidiary_address'];
+        smodel.subsidiaryImg = decodedData['subsidiary_img'];
       if (listSucursal.length > 0) {
         
         smodel.subsidiaryFavourite = listSucursal[0].subsidiaryFavourite;

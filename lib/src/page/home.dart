@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Widget> listPages = List<Widget>();
+  List<Widget> listPages = [];
 
   @override
   void initState() {

@@ -41,6 +41,7 @@ class ProductoBloc {
 
   //funcion que se llama cuando muestras los productos por sucursal
   void listarProductosPorSucursal(String id) async {
+    print('ihbrgiubergr $id');
     _productoController.sink .add(await productoDatabase.obtenerProductosPorIdSubsidiary(id));
     await productosApi.listarProductosPorSucursal(id);
     _productoController.sink.add(await productoDatabase.obtenerProductosPorIdSubsidiary(id));
@@ -50,9 +51,9 @@ class ProductoBloc {
 
 
   void listarProductosPorSucursalFiltrado(
-      List<String> tallas, List<String> modelos, List<String> marcas) async {
-    final listFinal = List<ProductoModel>();
-    final listIdSinRepetir = List<String>();
+      List<String> tallas, List<String> modelos, List<String> marcas,String idSucursal) async {
+    final List<ProductoModel>listFinal=[];
+    final  List<String>listIdSinRepetir=[];
     String consultaTallas = '';
     String consultaMarcas = '';
     String consultaModelos = '';
@@ -68,7 +69,7 @@ class ProductoBloc {
         }
       }
       String sqlMarcas =
-          'SELECT * FROM Producto where  producto_brand = $consultaMarcas';
+          'SELECT * FROM Producto where  producto_brand = $consultaMarcas and id_subsidiary="$idSucursal"';
 
       final productitosMarcas = await productoDatabase.sqlConsulta(sqlMarcas);
 
@@ -87,7 +88,7 @@ class ProductoBloc {
       }
 
       String sqlTallas =
-          'SELECT * FROM Producto where producto_size  = $consultaTallas ';
+          'SELECT * FROM Producto where producto_size  = $consultaTallas and id_subsidiary="$idSucursal"';
 
       final productitosTallas = await productoDatabase.sqlConsulta(sqlTallas);
 
@@ -106,7 +107,7 @@ class ProductoBloc {
       }
 
       String sqlModelos =
-          'SELECT * FROM Producto where producto_model = $consultaModelos ';
+          'SELECT * FROM Producto where producto_model = $consultaModelos and id_subsidiary="$idSucursal"';
 
       final productitosModelo = await productoDatabase.sqlConsulta(sqlModelos);
 
@@ -151,7 +152,7 @@ class ProductoBloc {
 
 
   Future<List<BienesServiciosModel>> datosSucursal(String idSubsidiary) async {
-    final listGeneral = List<BienesServiciosModel>();
+    final List<BienesServiciosModel>listGeneral=[];
 
     final productSubsidiary = await productoDatabase.obtenerProductosPorIdSubsidiary(idSubsidiary);
     final serviceSubsidiary = await serviceDatabase.obtenerServiciosPorIdSucursal(idSubsidiary);

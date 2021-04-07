@@ -159,26 +159,17 @@ class GoodApi {
       SubsidiaryModel subsidiaryModel = SubsidiaryModel();
       subsidiaryModel.idSubsidiary = decodedData['bienes'][i]['id_subsidiary'];
       subsidiaryModel.idCompany = decodedData['bienes'][i]['id_company'];
-      subsidiaryModel.subsidiaryName =
-          decodedData['bienes'][i]['subsidiary_name'];
-      subsidiaryModel.subsidiaryAddress =
-          decodedData['bienes'][i]['subsidiary_address'];
-      subsidiaryModel.subsidiaryCellphone =
-          decodedData['bienes'][i]['subsidiary_cellphone'];
-      subsidiaryModel.subsidiaryCellphone2 =
-          decodedData['bienes'][i]['subsidiary_cellphone_2'];
-      subsidiaryModel.subsidiaryEmail =
-          decodedData['bienes'][i]['subsidiary_email'];
-      subsidiaryModel.subsidiaryCoordX =
-          decodedData['bienes'][i]['subsidiary_coord_x'];
-      subsidiaryModel.subsidiaryCoordY =
-          decodedData['bienes'][i]['subsidiary_coord_y'];
-      subsidiaryModel.subsidiaryOpeningHours =
-          decodedData['bienes'][i]['subsidiary_opening_hours'];
-      subsidiaryModel.subsidiaryPrincipal =
-          decodedData['bienes'][i]['subsidiary_principal'];
-      subsidiaryModel.subsidiaryStatus =
-          decodedData['bienes'][i]['subsidiary_status'];
+      subsidiaryModel.subsidiaryName =decodedData['bienes'][i]['subsidiary_name'];
+      subsidiaryModel.subsidiaryAddress =decodedData['bienes'][i]['subsidiary_address'];
+      subsidiaryModel.subsidiaryCellphone =decodedData['bienes'][i]['subsidiary_cellphone'];
+      subsidiaryModel.subsidiaryCellphone2 =decodedData['bienes'][i]['subsidiary_cellphone_2'];
+      subsidiaryModel.subsidiaryEmail =decodedData['bienes'][i]['subsidiary_email'];
+      subsidiaryModel.subsidiaryCoordX =decodedData['bienes'][i]['subsidiary_coord_x'];
+      subsidiaryModel.subsidiaryCoordY =decodedData['bienes'][i]['subsidiary_coord_y'];
+      subsidiaryModel.subsidiaryOpeningHours =decodedData['bienes'][i]['subsidiary_opening_hours'];
+      subsidiaryModel.subsidiaryPrincipal = decodedData['bienes'][i]['subsidiary_principal'];
+      subsidiaryModel.subsidiaryStatus =decodedData['bienes'][i]['subsidiary_status'];
+      subsidiaryModel.subsidiaryImg =decodedData['bienes'][i]['subsidiary_img'];
 
       if (list.length > 0) {
         subsidiaryModel.subsidiaryFavourite = list[0].subsidiaryFavourite;

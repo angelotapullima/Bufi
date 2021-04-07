@@ -68,7 +68,6 @@ class CarrouselPrincipal extends StatelessWidget {
                         image: AssetImage('assets/carga_fallida.jpg'),
                         fit: BoxFit.cover),
                     imageUrl: "$apiBaseURL/${list[index].publicidadImg}",
-                    //'https://plazaisabella.com/img/descuentos/descuentos-banner.jpg',
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(

@@ -6,7 +6,6 @@ import 'package:bufi/src/models/notificacionModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
-import 'package:bufi/src/page/Tabs/iniciar_sesion.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -22,7 +21,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class PrincipalPage extends StatelessWidget {
   @override

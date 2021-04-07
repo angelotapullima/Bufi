@@ -210,6 +210,7 @@ class _PointsPageState extends State<PointsPage> {
                             builder: (context) => DetalleSubsidiary(
                               idSucursal: snapshot.data[xxx].idSubsidiary,
                               nombreSucursal: snapshot.data[xxx].subsidiaryName,
+                              imgSucursal: snapshot.data[xxx].subsidiaryImg,
                             ),
                           ),
                         );

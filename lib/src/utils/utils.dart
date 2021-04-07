@@ -1,4 +1,5 @@
-import 'package:bufi/src/api/point_api.dart';
+
+
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/database/carrito_db.dart';
 import 'package:bufi/src/database/direccion_database.dart';
@@ -174,8 +175,7 @@ void quitarProductoFavorito(
     BuildContext context, ProductoModel dataModel) async {
   final pointsProdBloc = ProviderBloc.points(context);
   final bienesBloc = ProviderBloc.bienesServicios(context);
-  final productoBloc = ProviderBloc.productos(context);
-  final sucursalDataBase = SubsidiaryDatabase();
+   final productoBloc = ProviderBloc.productos(context);
   // final deletePoint = PointApi();
 
   final productoDb = ProductoDatabase();
@@ -602,9 +602,9 @@ void eliminarTodasLasDirecciones(BuildContext context) async {
 
 Future<List<ProductoModel>> filtrarListaProductos(
     List<ProductoModel> lista) async {
-  final listAlgo = List<ProductoModel>();
+  final List<ProductoModel>listAlgo=[];
 
-  final listString = List<String>();
+  final List<String>listString=[];
   for (var a = 0; a < lista.length; a++) {
     listString.add(lista[a].idProducto);
   }
@@ -659,9 +659,9 @@ Future<List<ProductoModel>> filtrarListaProductos(
 
 Future<List<CompanyModel>> filtrarListaNegocios(
     List<CompanyModel> lista) async {
-  final listAlgo = List<CompanyModel>();
+  final List<CompanyModel>listAlgo=[];
 
-  final listString = List<String>();
+  final List<String>listString=[];
   for (var a = 0; a < lista.length; a++) {
     listString.add(lista[a].idCompany);
   }

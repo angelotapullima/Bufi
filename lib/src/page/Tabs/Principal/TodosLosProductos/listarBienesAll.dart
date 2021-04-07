@@ -602,38 +602,41 @@ class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
                       );
                     }),
                 ListView.builder(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    itemCount: bloc.tabsModelos.length + 1,
-                    itemBuilder: (context, indexx) {
-                      if (indexx == 0) {
-                        return Padding(
-                          padding: EdgeInsets.only(
-                            bottom: responsive.hp(1),
-                            top: responsive.hp(1.5),
-                          ),
-                          child: Text(
-                            'Modelos',
-                            style: TextStyle(
-                                fontSize: responsive.ip(2),
-                                fontWeight: FontWeight.bold),
-                          ),
-                        );
-                      }
-
-                      int x = indexx - 1;
-
-                      return Row(
-                        children: [
-                          Checkbox(
-                              value: bloc.tabsModelos[x].selected,
-                              onChanged: (valor) {
-                                bloc.onCategorySelectedModelos(x);
-                              }),
-                          Text('${bloc.tabsModelos[x].itemNombre}'),
-                        ],
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  itemCount: bloc.tabsModelos.length + 1,
+                  itemBuilder: (context, indexx) {
+                    if (indexx == 0) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          bottom: responsive.hp(1),
+                          top: responsive.hp(1.5),
+                        ),
+                        child: Text(
+                          'Modelos',
+                          style: TextStyle(
+                              fontSize: responsive.ip(2),
+                              fontWeight: FontWeight.bold),
+                        ),
                       );
-                    }),
+                    }
+
+                    int x = indexx - 1;
+
+                    return Row(
+                      children: [
+                        Checkbox(
+                            value: bloc.tabsModelos[x].selected,
+                            onChanged: (valor) {
+                              bloc.onCategorySelectedModelos(x);
+                            }),
+                        Text('${bloc.tabsModelos[x].itemNombre}'),
+                      ],
+                    );
+                  },
+                ),
+
+                
                 ListView.builder(
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),

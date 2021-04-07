@@ -8,6 +8,7 @@ class PointModel {
       this.idSubsidiary,
       this.idCompany,
       this.subsidiaryName,
+      this.subsidiaryImg,
       this.subsidiaryAddress,
       this.subsidiaryCellphone,
       this.subsidiaryCellphone2,
@@ -43,6 +44,7 @@ class PointModel {
   String idSubsidiary;
   String idCompany;
   String subsidiaryName;
+  String subsidiaryImg;
   String subsidiaryAddress;
   String subsidiaryCellphone;
   String subsidiaryCellphone2;
@@ -79,6 +81,7 @@ class PointModel {
         idSubsidiary: json["id_subsidiary"],
         idCompany: json["id_company"],
         subsidiaryName: json["subsidiary_name"],
+        subsidiaryImg: json["subsidiary_img"],
         subsidiaryAddress: json["subsidiary_address"],
         subsidiaryCellphone: json["subsidiary_cellphone"],
         subsidiaryCellphone2: json["subsidiary_cellphone_2"],

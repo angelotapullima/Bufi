@@ -98,8 +98,8 @@ class BienesServiciosBloc {
 
   void obtenerBienesAllPorCiudadFiltrado(
       List<String> tallas, List<String> modelos, List<String> marcas) async {
-    final listFinal = List<ProductoModel>();
-    final listIdSinRepetir = List<String>();
+    final List<ProductoModel>listFinal=[];
+    final List<String>listIdSinRepetir=[];
     String consultaTallas = '';
     String consultaMarcas = '';
     String consultaModelos = '';

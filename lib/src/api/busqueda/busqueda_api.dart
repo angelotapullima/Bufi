@@ -39,11 +39,11 @@ class BusquedaApi {
 
   Future<List<BusquedaGeneralModel>> busquedaGeneral(String query) async {
     print(query);
-    final listBusquedaGeneral = List<BusquedaGeneralModel>();
-    final listaDeProductos = List<ProductoModel>();
-    final listaDeServicios = List<SubsidiaryServiceModel>();
-    final listaDeNegocios = List<CompanyModel>();
-    final listaDeSucursales = List<SubsidiaryModel>();
+    final List<BusquedaGeneralModel>listBusquedaGeneral = [];
+    final List<ProductoModel>listaDeProductos = [];
+    final List<SubsidiaryServiceModel> listaDeServicios= [];
+    final List<CompanyModel> listaDeNegocios= [];
+    final List<SubsidiaryModel> listaDeSucursales=[];
     try {
       final res = await http.post("$apiBaseURL/api/Negocio/buscar_ws", body: {
         'buscar': '$query',
@@ -175,8 +175,8 @@ class BusquedaApi {
                       decodedData["result"][i]['subsidiary_opening_hours'];
                   subsidiaryModel.subsidiaryPrincipal =
                       decodedData["result"][i]['subsidiary_principal'];
-                  subsidiaryModel.subsidiaryStatus =
-                      decodedData["result"][i]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryStatus =decodedData["result"][i]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryImg =decodedData["result"][i]['subsidiary_img'];
 
                   final listSubsidiaryDb =
                       await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -381,8 +381,8 @@ class BusquedaApi {
                               ['subsidiary_opening_hours'];
                       subsidiaryModel.subsidiaryPrincipal =
                           decodedData["result"][h][i]['subsidiary_principal'];
-                      subsidiaryModel.subsidiaryStatus =
-                          decodedData["result"][h][i]['subsidiary_status'];
+                      subsidiaryModel.subsidiaryStatus = decodedData["result"][h][i]['subsidiary_status'];
+                      subsidiaryModel.subsidiaryImg = decodedData["result"][h][i]['subsidiary_img'];
 
                       final listSubsidiaryDb =
                           await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -584,8 +584,8 @@ class BusquedaApi {
                       decodedData["result"][j]['subsidiary_opening_hours'];
                   subsidiaryModel.subsidiaryPrincipal =
                       decodedData["result"][j]['subsidiary_principal'];
-                  subsidiaryModel.subsidiaryStatus =
-                      decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryStatus = decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryImg = decodedData["result"][j]['subsidiary_img'];
                   final listSubsidiaryDb =
                       await subsidiaryDatabase.obtenerSubsidiaryPorId(
                           decodedData["result"][j]['id_subsidiary']);
@@ -769,8 +769,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]['subsidiary_opening_hours'];
                     subsidiaryModel.subsidiaryPrincipal =
                         decodedData["result"][h][i]['subsidiary_principal'];
-                    subsidiaryModel.subsidiaryStatus =
-                        decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryStatus = decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryImg = decodedData["result"][h][i]['subsidiary_img'];
 
                     final listSubsidiaryDb =
                         await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -905,8 +905,8 @@ class BusquedaApi {
                       decodedData["result"][j]['subsidiary_opening_hours'];
                   subsidiaryModel.subsidiaryPrincipal =
                       decodedData["result"][j]['subsidiary_principal'];
-                  subsidiaryModel.subsidiaryStatus =
-                      decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryStatus = decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryImg = decodedData["result"][j]['subsidiary_img'];
                   final listSubsidiaryDb =
                       await subsidiaryDatabase.obtenerSubsidiaryPorId(
                           decodedData["result"][j]['id_subsidiary']);
@@ -1005,8 +1005,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]['subsidiary_opening_hours'];
                     subsidiaryModel.subsidiaryPrincipal =
                         decodedData["result"][h][i]['subsidiary_principal'];
-                    subsidiaryModel.subsidiaryStatus =
-                        decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryStatus = decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryImg = decodedData["result"][h][i]['subsidiary_img'];
 
                     final listSubsidiaryDb =
                         await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -1115,8 +1115,8 @@ class BusquedaApi {
                       decodedData["result"][j]['subsidiary_opening_hours'];
                   subsidiaryModel.subsidiaryPrincipal =
                       decodedData["result"][j]['subsidiary_principal'];
-                  subsidiaryModel.subsidiaryStatus =
-                      decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryStatus = decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryImg = decodedData["result"][j]['subsidiary_img'];
                   final listSubsidiaryDb =
                       await subsidiaryDatabase.obtenerSubsidiaryPorId(
                           decodedData["result"][j]['id_subsidiary']);
@@ -1211,8 +1211,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]['subsidiary_opening_hours'];
                     subsidiaryModel.subsidiaryPrincipal =
                         decodedData["result"][h][i]['subsidiary_principal'];
-                    subsidiaryModel.subsidiaryStatus =
-                        decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryStatus = decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryImg = decodedData["result"][h][i]['subsidiary_img'];
 
                     final listSubsidiaryDb =
                         await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -1377,8 +1377,8 @@ class BusquedaApi {
                       decodedData["result"][j]['subsidiary_opening_hours'];
                   subsidiaryModel.subsidiaryPrincipal =
                       decodedData["result"][j]['subsidiary_principal'];
-                  subsidiaryModel.subsidiaryStatus =
-                      decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryStatus = decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryImg = decodedData["result"][j]['subsidiary_img'];
 
                   final listSubsidiaryDb =
                       await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -1568,8 +1568,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]['subsidiary_opening_hours'];
                     subsidiaryModel.subsidiaryPrincipal =
                         decodedData["result"][h][i]['subsidiary_principal'];
-                    subsidiaryModel.subsidiaryStatus =
-                        decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryStatus =  decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryImg =  decodedData["result"][h][i]['subsidiary_img'];
 
                     final listSubsidiaryDb =
                         await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -1723,7 +1723,7 @@ class BusquedaApi {
         // 'app': 'true'
       });
 
-      final listaDeProductos = List<ProductoModel>();
+      final List<ProductoModel>listaDeProductos=[];
       final decodedData = json.decode(res.body);
 
       //contexto de la busqueda, ejm: good, service, company...
@@ -1840,8 +1840,8 @@ class BusquedaApi {
                       decodedData["result"][j]['subsidiary_opening_hours'];
                   subsidiaryModel.subsidiaryPrincipal =
                       decodedData["result"][j]['subsidiary_principal'];
-                  subsidiaryModel.subsidiaryStatus =
-                      decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryStatus =  decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryImg =  decodedData["result"][j]['subsidiary_img'];
 
                   final listSubsidiaryDb =
                       await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -2039,8 +2039,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]['subsidiary_opening_hours'];
                     subsidiaryModel.subsidiaryPrincipal =
                         decodedData["result"][h][i]['subsidiary_principal'];
-                    subsidiaryModel.subsidiaryStatus =
-                        decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryStatus = decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryImg = decodedData["result"][h][i]['subsidiary_img'];
 
                     final listSubsidiaryDb =
                         await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -2168,7 +2168,7 @@ class BusquedaApi {
 
   //---------------------Servicio-------------------------------
   Future<List<SubsidiaryServiceModel>> busquedaServicio(String query) async {
-    final listGeneral = List<SubsidiaryServiceModel>();
+    final  List<SubsidiaryServiceModel>listGeneral = [];
     try {
       final res =
           await http.post("$apiBaseURL/api/Negocio/buscar_servicios_ws", body: {
@@ -2286,8 +2286,8 @@ class BusquedaApi {
                       decodedData["result"][j]['subsidiary_opening_hours'];
                   subsidiaryModel.subsidiaryPrincipal =
                       decodedData["result"][j]['subsidiary_principal'];
-                  subsidiaryModel.subsidiaryStatus =
-                      decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryStatus =  decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryImg =  decodedData["result"][j]['subsidiary_img'];
                   final listSubsidiaryDb =
                       await subsidiaryDatabase.obtenerSubsidiaryPorId(
                           decodedData["result"][j]['id_subsidiary']);
@@ -2478,8 +2478,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]['subsidiary_opening_hours'];
                     subsidiaryModel.subsidiaryPrincipal =
                         decodedData["result"][h][i]['subsidiary_principal'];
-                    subsidiaryModel.subsidiaryStatus =
-                        decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryStatus = decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryImg = decodedData["result"][h][i]['subsidiary_img'];
 
                     final listSubsidiaryDb =
                         await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -2603,7 +2603,7 @@ class BusquedaApi {
 
   //---------------------Negocio-------------------------------
   Future<List<CompanySubsidiaryModel>> busquedaNegocio(String query) async {
-    final listGeneral = List<CompanySubsidiaryModel>();
+    final List<CompanySubsidiaryModel>listGeneral=[];
     try {
       final res =
           await http.post("$apiBaseURL/api/Negocio/buscar_empresas_ws", body: {
@@ -2738,8 +2738,8 @@ class BusquedaApi {
                       decodedData["result"][j]['subsidiary_opening_hours'];
                   subsidiaryModel.subsidiaryPrincipal =
                       decodedData["result"][j]['subsidiary_principal'];
-                  subsidiaryModel.subsidiaryStatus =
-                      decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryStatus = decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryImg = decodedData["result"][j]['subsidiary_img'];
                   final listSubsidiaryDb =
                       await subsidiaryDatabase.obtenerSubsidiaryPorId(
                           decodedData["result"][j]['id_subsidiary']);
@@ -2913,8 +2913,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]['subsidiary_opening_hours'];
                     subsidiaryModel.subsidiaryPrincipal =
                         decodedData["result"][h][i]['subsidiary_principal'];
-                    subsidiaryModel.subsidiaryStatus =
-                        decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryStatus = decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryImg = decodedData["result"][h][i]['subsidiary_img'];
 
                     final listSubsidiaryDb =
                         await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -3059,8 +3059,8 @@ class BusquedaApi {
                       decodedData["result"][j]['subsidiary_opening_hours'];
                   subsidiaryModel.subsidiaryPrincipal =
                       decodedData["result"][j]['subsidiary_principal'];
-                  subsidiaryModel.subsidiaryStatus =
-                      decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryStatus = decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryImg = decodedData["result"][j]['subsidiary_img'];
                   final listSubsidiaryDb =
                       await subsidiaryDatabase.obtenerSubsidiaryPorId(
                           decodedData["result"][j]['id_subsidiary']);
@@ -3155,8 +3155,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]['subsidiary_opening_hours'];
                     subsidiaryModel.subsidiaryPrincipal =
                         decodedData["result"][h][i]['subsidiary_principal'];
-                    subsidiaryModel.subsidiaryStatus =
-                        decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryStatus =  decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryImg =  decodedData["result"][h][i]['subsidiary_img'];
 
                     final listSubsidiaryDb =
                         await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -3356,8 +3356,8 @@ class BusquedaApi {
                       decodedData["result"][j]['subsidiary_opening_hours'];
                   subsidiaryModel.subsidiaryPrincipal =
                       decodedData["result"][j]['subsidiary_principal'];
-                  subsidiaryModel.subsidiaryStatus =
-                      decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryStatus = decodedData["result"][j]['subsidiary_status'];
+                  subsidiaryModel.subsidiaryImg = decodedData["result"][j]['subsidiary_img'];
 
                   final listSubsidiaryDb =
                       await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -3548,8 +3548,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]['subsidiary_opening_hours'];
                     subsidiaryModel.subsidiaryPrincipal =
                         decodedData["result"][h][i]['subsidiary_principal'];
-                    subsidiaryModel.subsidiaryStatus =
-                        decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryStatus = decodedData["result"][h][i]['subsidiary_status'];
+                    subsidiaryModel.subsidiaryImg = decodedData["result"][h][i]['subsidiary_img'];
 
                     final listSubsidiaryDb =
                         await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -3679,7 +3679,7 @@ class BusquedaApi {
         // 'app': 'true'
       });
 
-      final listGeneral = List<ProductoModel>();
+      final List<ProductoModel>listGeneral=[];
       final decodedData = json.decode(res.body);
 
       if (decodedData["productos"].length > 0) {
@@ -3769,8 +3769,8 @@ class BusquedaApi {
               decodedData["productos"][j]['subsidiary_opening_hours'];
           subsidiaryModel.subsidiaryPrincipal =
               decodedData["productos"][j]['subsidiary_principal'];
-          subsidiaryModel.subsidiaryStatus =
-              decodedData["productos"][j]['subsidiary_status'];
+          subsidiaryModel.subsidiaryStatus = decodedData["productos"][j]['subsidiary_status'];
+          subsidiaryModel.subsidiaryImg = decodedData["productos"][j]['subsidiary_img'];
 
           final listSubsidiaryDb =
               await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -3926,8 +3926,8 @@ class BusquedaApi {
               decodedData["servicios"][j]['subsidiary_opening_hours'];
           subsidiaryModel.subsidiaryPrincipal =
               decodedData["servicios"][j]['subsidiary_principal'];
-          subsidiaryModel.subsidiaryStatus =
-              decodedData["servicios"][j]['subsidiary_status'];
+          subsidiaryModel.subsidiaryStatus = decodedData["servicios"][j]['subsidiary_status'];
+          subsidiaryModel.subsidiaryImg = decodedData["servicios"][j]['subsidiary_img'];
           final listSubsidiaryDb =
               await subsidiaryDatabase.obtenerSubsidiaryPorId(
                   decodedData["servicios"][j]['id_subsidiary']);
@@ -4034,7 +4034,7 @@ class BusquedaApi {
       });
       final decodedData = json.decode(res.body);
 
-      final listGeneral = List<BienesServiciosModel>();
+      final List<BienesServiciosModel>listGeneral=[];
 
       if (decodedData["productos"].length > 0) {
         for (var j = 0; j < decodedData["productos"].length; j++) {
@@ -4160,8 +4160,8 @@ class BusquedaApi {
               decodedData["productos"][j]['subsidiary_opening_hours'];
           subsidiaryModel.subsidiaryPrincipal =
               decodedData["productos"][j]['subsidiary_principal'];
-          subsidiaryModel.subsidiaryStatus =
-              decodedData["productos"][j]['subsidiary_status'];
+          subsidiaryModel.subsidiaryStatus = decodedData["productos"][j]['subsidiary_status'];
+          subsidiaryModel.subsidiaryImg = decodedData["productos"][j]['subsidiary_img'];
 
           final listSubsidiaryDb =
               await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -4343,8 +4343,8 @@ class BusquedaApi {
               decodedData["servicios"][j]['subsidiary_opening_hours'];
           subsidiaryModel.subsidiaryPrincipal =
               decodedData["servicios"][j]['subsidiary_principal'];
-          subsidiaryModel.subsidiaryStatus =
-              decodedData["servicios"][j]['subsidiary_status'];
+          subsidiaryModel.subsidiaryStatus =  decodedData["servicios"][j]['subsidiary_status'];
+          subsidiaryModel.subsidiaryImg =  decodedData["servicios"][j]['subsidiary_img'];
           final listSubsidiaryDb =
               await subsidiaryDatabase.obtenerSubsidiaryPorId(
                   decodedData["servicios"][j]['id_subsidiary']);

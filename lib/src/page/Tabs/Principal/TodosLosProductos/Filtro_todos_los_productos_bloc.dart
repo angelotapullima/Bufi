@@ -22,9 +22,9 @@ class FiltroTodosLosProductosBloc with ChangeNotifier {
 
     final productos = await productoDatabase.obtenerSubsidiaryGood();
 
-   final listTallitas = List<String>();
-    final listMarquitas = List<String>();
-    final listModelitos = List<String>();
+    final List<String>listTallitas=[];
+    final List<String>listMarquitas=[];
+    final List<String>listModelitos=[];
 
     
     for (var i = 0; i < productos.length; i++) {

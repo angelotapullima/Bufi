@@ -34,7 +34,7 @@ class _CarritoPageState extends State<CarritoPage> {
     final provider = Provider.of<CarritoBlocListener>(context, listen: false);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white, 
       body: StreamBuilder(
           stream: carritoBloc.carritoGeneralStream,
           builder: (BuildContext context,
@@ -43,7 +43,7 @@ class _CarritoPageState extends State<CarritoPage> {
               List<CarritoGeneralSuperior> listCarritoSuperior = snapshot.data;
 
               if (listCarritoSuperior.length > 0) {
-                return SafeArea(
+                return SafeArea( 
                   child: Column(
                     children: [
                       ValueListenableBuilder<bool>(

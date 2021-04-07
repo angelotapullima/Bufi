@@ -42,7 +42,7 @@ class CuentaApi {
   }
 
   Future<List<RecargaModel>> obtenerRecargaPendiente() async {
-    final listGeneral = List<RecargaModel>();
+    final List<RecargaModel>listGeneral=[];
 
     var response = await http.post(
         "$apiBaseURL/api/Cuenta/listar_recarga_pendiente",
@@ -67,7 +67,7 @@ class CuentaApi {
 
   Future<List<RecargaModel>> recargarCuenta(String monto,String tipo)async{
 
- final listGeneral = List<RecargaModel>();
+ final  List<RecargaModel>listGeneral=[];
 
     var response = await http.post(
         "$apiBaseURL/api/Cuenta/save_recargar_mi_cuenta",

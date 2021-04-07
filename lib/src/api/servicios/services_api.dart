@@ -161,6 +161,7 @@ class ServiceApi {
       subsidiaryModel.subsidiaryPrincipal =
           decodedData[i]['subsidiary_principal'];
       subsidiaryModel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
+      subsidiaryModel.subsidiaryImg = decodedData[i]['subsidiary_img'];
       //subsidiaryModel.subsidiaryFavourite = '0';
       final listSubsidiaryDb =
               await subsidiaryDatabase.obtenerSubsidiaryPorId(
@@ -396,7 +397,7 @@ class ServiceApi {
       final listservices = await subsidiaryDatabase
           .obtenerSubsidiaryPorId(decodedData["servicios"][i]["id_subsidiary"]);
 
-      if (listservices.length > 0) {
+     
         //completo
         SubsidiaryModel subsidiaryModel = SubsidiaryModel();
         subsidiaryModel.idSubsidiary =
@@ -420,41 +421,19 @@ class ServiceApi {
             decodedData['servicios'][i]['subsidiary_opening_hours'];
         subsidiaryModel.subsidiaryPrincipal =
             decodedData['servicios'][i]['subsidiary_principal'];
-        subsidiaryModel.subsidiaryStatus =
-            decodedData['servicios'][i]['subsidiary_status'];
+        subsidiaryModel.subsidiaryStatus = decodedData['servicios'][i]['subsidiary_status'];
+        subsidiaryModel.subsidiaryImg = decodedData['servicios'][i]['subsidiary_img'];
+         if (listservices.length > 0) {
         subsidiaryModel.subsidiaryFavourite =
             listservices[0].subsidiaryFavourite;
 
-        await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
       } else {
-        SubsidiaryModel subsidiaryModel = SubsidiaryModel();
-        subsidiaryModel.idSubsidiary =
-            decodedData['servicios'][i]['id_subsidiary'];
-        subsidiaryModel.idCompany = decodedData['servicios'][i]['id_company'];
-        subsidiaryModel.subsidiaryName =
-            decodedData['servicios'][i]['subsidiary_name'];
-        subsidiaryModel.subsidiaryAddress =
-            decodedData['servicios'][i]['subsidiary_address'];
-        subsidiaryModel.subsidiaryCellphone =
-            decodedData['servicios'][i]['subsidiary_cellphone'];
-        subsidiaryModel.subsidiaryCellphone2 =
-            decodedData['servicios'][i]['subsidiary_cellphone_2'];
-        subsidiaryModel.subsidiaryEmail =
-            decodedData['servicios'][i]['subsidiary_email'];
-        subsidiaryModel.subsidiaryCoordX =
-            decodedData['servicios'][i]['subsidiary_coord_x'];
-        subsidiaryModel.subsidiaryCoordY =
-            decodedData['servicios'][i]['subsidiary_coord_y'];
-        subsidiaryModel.subsidiaryOpeningHours =
-            decodedData['servicios'][i]['subsidiary_opening_hours'];
-        subsidiaryModel.subsidiaryPrincipal =
-            decodedData['servicios'][i]['subsidiary_principal'];
-        subsidiaryModel.subsidiaryStatus =
-            decodedData['servicios'][i]['subsidiary_status'];
+        
         subsidiaryModel.subsidiaryFavourite = '0';
 
-        await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
+        
       }
+      await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
     }
 
     return 0;
@@ -577,7 +556,7 @@ class ServiceApi {
       final listservices = await subsidiaryDatabase
           .obtenerSubsidiaryPorId(decodedData["servicios"][i]["id_subsidiary"]);
 
-      if (listservices.length > 0) {
+      
         //completo
         SubsidiaryModel subsidiaryModel = SubsidiaryModel();
         subsidiaryModel.idSubsidiary =
@@ -601,41 +580,20 @@ class ServiceApi {
             decodedData['servicios'][i]['subsidiary_opening_hours'];
         subsidiaryModel.subsidiaryPrincipal =
             decodedData['servicios'][i]['subsidiary_principal'];
-        subsidiaryModel.subsidiaryStatus =
-            decodedData['servicios'][i]['subsidiary_status'];
+        subsidiaryModel.subsidiaryStatus = decodedData['servicios'][i]['subsidiary_status'];
+        subsidiaryModel.subsidiaryImg = decodedData['servicios'][i]['subsidiary_img'];
+        if (listservices.length > 0) {
         subsidiaryModel.subsidiaryFavourite =
             listservices[0].subsidiaryFavourite;
 
-        await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
+
       } else {
-        SubsidiaryModel subsidiaryModel = SubsidiaryModel();
-        subsidiaryModel.idSubsidiary =
-            decodedData['servicios'][i]['id_subsidiary'];
-        subsidiaryModel.idCompany = decodedData['servicios'][i]['id_company'];
-        subsidiaryModel.subsidiaryName =
-            decodedData['servicios'][i]['subsidiary_name'];
-        subsidiaryModel.subsidiaryAddress =
-            decodedData['servicios'][i]['subsidiary_address'];
-        subsidiaryModel.subsidiaryCellphone =
-            decodedData['servicios'][i]['subsidiary_cellphone'];
-        subsidiaryModel.subsidiaryCellphone2 =
-            decodedData['servicios'][i]['subsidiary_cellphone_2'];
-        subsidiaryModel.subsidiaryEmail =
-            decodedData['servicios'][i]['subsidiary_email'];
-        subsidiaryModel.subsidiaryCoordX =
-            decodedData['servicios'][i]['subsidiary_coord_x'];
-        subsidiaryModel.subsidiaryCoordY =
-            decodedData['servicios'][i]['subsidiary_coord_y'];
-        subsidiaryModel.subsidiaryOpeningHours =
-            decodedData['servicios'][i]['subsidiary_opening_hours'];
-        subsidiaryModel.subsidiaryPrincipal =
-            decodedData['servicios'][i]['subsidiary_principal'];
-        subsidiaryModel.subsidiaryStatus =
-            decodedData['servicios'][i]['subsidiary_status'];
+       
         subsidiaryModel.subsidiaryFavourite = '0';
 
-        await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
       }
+
+        await subsidiaryDatabase.insertarSubsidiary(subsidiaryModel);
     }
     return 0;
   }

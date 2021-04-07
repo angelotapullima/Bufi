@@ -42,12 +42,12 @@ class MisMovimientosBloc {
   }
 
   Future<List<MovimientosPorFecha>> movimientosPorFecha() async {
-    var listFechas = List<String>();
+    final List<String>listFechas=[];
     final listMovement = await misMovimientosDatabase.obtenerMisMovimientos();
     final listFechasModel =
         await misMovimientosDatabase.obtenerMisMovimientosSoloFecha();
 
-    final listAlgo = List<MovimientosPorFecha>();
+    final List<MovimientosPorFecha>listAlgo=[];
     if (listFechasModel.length > 0) {
       for (var i = 0; i < listFechasModel.length; i++) {
         listFechas.add(listFechasModel[i].soloFecha);
@@ -57,7 +57,7 @@ class MisMovimientosBloc {
        for (var x = 0; x < reversedAnimals.length; x++) {
          print('${listFechas[x]}');
         MovimientosPorFecha movimientosPorFecha = MovimientosPorFecha();
-        final listPrevio = List<MisMovimientosModel>();
+        final List<MisMovimientosModel>listPrevio=[];
         for (var y = 0; y < listMovement.length; y++) {
           
           if (reversedAnimals[x] == listMovement[y].soloFecha) {

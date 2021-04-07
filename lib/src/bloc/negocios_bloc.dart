@@ -44,7 +44,7 @@ class NegociosBloc {
   }
 
   Future<List<CompanySubsidiaryModel>> listaNegociosPrincipal() async {
-    final listGeneral = List<CompanySubsidiaryModel>();
+    final List<CompanySubsidiaryModel>listGeneral=[];
     final listCompany = await negociosDatabase.obtenerCompany();
 
     if (listCompany.length > 0) {

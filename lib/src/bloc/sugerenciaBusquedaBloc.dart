@@ -25,7 +25,7 @@ class SugerenciaBusquedaBloc {
   }
 
   Future<List<BienesServiciosModel>> obtenerSugerencias() async {
-    final listGeneral = List<BienesServiciosModel>();
+    final List<BienesServiciosModel>listGeneral=[];
     final sugerenciaDb = SugerenciaBusquedaDb();
     final listSugerencia = await sugerenciaDb.obtenerSugerencia();
 

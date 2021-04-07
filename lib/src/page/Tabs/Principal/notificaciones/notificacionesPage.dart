@@ -79,53 +79,54 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                     builder: (context,
                                         AsyncSnapshot<List<NotificacionesModel>>
                                             snapshot) {
-                                       if (snapshot.hasData) {
-                                         //Para mostrar el mensaje cuando no hay ninguna notificacion pendiente de leer
-                                         return (snapshot.data.length == 0) ? 
-                                         Container(
-                                            color: Colors.transparent,
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: responsive.wp(5),
-                                              vertical: responsive.hp(2),
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  'No tienes notificaciones pendientes',
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize:
-                                                          responsive.ip(2),
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                      if (snapshot.hasData) {
+                                        //Para mostrar el mensaje cuando no hay ninguna notificacion pendiente de leer
+                                        return (snapshot.data.length == 0)
+                                            ? Container(
+                                                color: Colors.transparent,
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: responsive.wp(5),
+                                                  vertical: responsive.hp(2),
                                                 ),
-                                                Divider(),
-                                                SizedBox(
-                                                  height: responsive.hp(3)
+                                                child: Column(
+                                                  children: [
+                                                    Text(
+                                                      'No tienes notificaciones pendientes',
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize:
+                                                              responsive.ip(2),
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Divider(),
+                                                    SizedBox(
+                                                        height:
+                                                            responsive.hp(3)),
+                                                    Text(
+                                                      'Anteriores',
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: responsive
+                                                              .ip(2.5),
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )
+                                                  ],
                                                 ),
-                                                Text(
-                                                  'Anteriores',
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize:
-                                                          responsive.ip(2.5),
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                )
-                                              ],
-                                            ),
-                                          )
-                                        : Container();
+                                              )
+                                            : Container();
                                       } else {
                                         return Center(child: Text("nada"));
                                       }
                                     });
-
                               }
                               int index = i - 1;
                               final pendiente =
                                   notificaciones[index].notificacionEstado ==
                                       "0";
+                              var fecha = obtenerFechaHora(
+                                  notificaciones[index].notificacionDatetime);
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -187,8 +188,7 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                                     fontSize: responsive.ip(2),
                                                     fontWeight:
                                                         FontWeight.bold)),
-                                            Text(
-                                                '${notificaciones[index].notificacionDatetime}',
+                                            Text('$fecha',
                                                 style: TextStyle(
                                                     color: pendiente
                                                         ? Colors.white

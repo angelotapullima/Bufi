@@ -31,6 +31,16 @@ class _SplashState extends State<Splash> with AfterLayoutMixin {
       configuracionApi.obtenerConfiguracion();
     }
 
+    var fecha = DateTime.now();
+    var hora = fecha.hour;
+    if (hora >= 18) {
+      preferences.saludo = 'Buenas noches';
+    } else if (hora >= 12) {
+      preferences.saludo = 'Buenas tardes';
+    } else {
+      preferences.saludo = 'Buenos días';
+    }
+
     Navigator.pushReplacementNamed(context, 'home');
 
     /*  if (preferences.personName != null) {

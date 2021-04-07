@@ -35,6 +35,7 @@ import 'package:catcher/handlers/email_manual_handler.dart';
 import 'package:catcher/mode/dialog_report_mode.dart';
 import 'package:catcher/model/catcher_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -86,7 +87,6 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<DetalleProductoBloc>(
             create: (_) => DetalleProductoBloc(),
           ),
-          
         ],
         child: MaterialApp(
             navigatorKey: Catcher.navigatorKey,
@@ -103,6 +103,15 @@ class MyApp extends StatelessWidget {
             },
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              //const Locale('en', ''), // English, no country code
+              const Locale('es', ''), // Spanish, no country code
+            ],
             theme: lightTheme,
             darkTheme: lightTheme, //darkTheme,
             home: Splash(),

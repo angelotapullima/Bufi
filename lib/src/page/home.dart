@@ -3,6 +3,7 @@ import 'package:bufi/src/page/Tabs/Negocios/inicio/negociosPage.dart';
 import 'package:bufi/src/page/Tabs/Points/pointsPage.dart';
 import 'package:bufi/src/page/Tabs/Principal/PrincipalPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/usuarioPage.dart';
+import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:flutter/material.dart';
 
 import 'Tabs/Carrito/carritoTab.dart';
@@ -74,6 +75,16 @@ class _HomePageState extends State<HomePage> {
             ],
             currentIndex: buttonBloc.page,
             onTap: (valor) {
+              final preferences = Preferences();
+              var fecha = DateTime.now();
+              var hora = fecha.hour;
+              if (hora >= 18) {
+                preferences.saludo = 'Buenas noches';
+              } else if (hora >= 12) {
+                preferences.saludo = 'Buenas tardes';
+              } else {
+                preferences.saludo = 'Buenos días';
+              }
               buttonBloc.changePage(valor);
             },
           );

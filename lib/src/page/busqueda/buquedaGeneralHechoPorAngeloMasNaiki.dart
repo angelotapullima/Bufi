@@ -15,7 +15,7 @@ class BusquedaDeLaPtmr extends StatefulWidget {
   const BusquedaDeLaPtmr({Key key}) : super(key: key);
 
   @override
-  _BusquedaDeLaPtmrState createState() => _BusquedaDeLaPtmrState(); 
+  _BusquedaDeLaPtmrState createState() => _BusquedaDeLaPtmrState();
 }
 
 class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
@@ -64,7 +64,7 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                               controller: _controllerBusquedaAngelo,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
-                                hintText: 'Buscame papi',
+                                hintText: 'Buscar en Bufi',
                                 hintStyle: TextStyle(
                                   fontSize: responsive.ip(1.6),
                                 ),
@@ -84,7 +84,8 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                 busquedaBloc.obtenerBusquedaProducto('$value');
                                 busquedaBloc.obtenerBusquedaServicio('$value');
                                 busquedaBloc.obtenerBusquedaNegocio('$value');
-                                busquedaBloc.obtenerBusquedaItemSubcategoria('$value');
+                                busquedaBloc
+                                    .obtenerBusquedaItemSubcategoria('$value');
                                 busquedaBloc.obtenerBusquedaCategoria('$value');
                               }),
                         ),
@@ -303,7 +304,7 @@ class ListaServicios extends StatelessWidget {
                   });
             } else {
               return Center(
-                child: Text('No aye datos'),
+                child: Text('No hay datos'),
               );
             }
           } else {
@@ -401,12 +402,12 @@ class ListaNegocios extends StatelessWidget {
                   });
             } else {
               return Center(
-                child: Text('No aye datos'),
+                child: Text('No hay datos'),
               );
             }
           } else {
             return Center(
-              child: Text('No aye datos'),
+              child: Text('No hay datos'),
             );
           }
         });
@@ -466,8 +467,6 @@ class ListaItemsubcategoria extends StatelessWidget {
   }
 }
 
-
-
 class ListaCategorias extends StatelessWidget {
   const ListaCategorias({Key key}) : super(key: key);
 
@@ -479,8 +478,8 @@ class ListaCategorias extends StatelessWidget {
 
     return StreamBuilder(
       stream: busquedaBloc.busquedaCategoriaController,
-      builder: (BuildContext context,
-          AsyncSnapshot<List<CategoriaModel>> snapshot) {
+      builder:
+          (BuildContext context, AsyncSnapshot<List<CategoriaModel>> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.length > 0) {
             return ListView.builder(
@@ -521,11 +520,6 @@ class ListaCategorias extends StatelessWidget {
   }
 }
 
-
-
-
-
-
 class ListaProductosYServiciosItemSubca extends StatelessWidget {
   const ListaProductosYServiciosItemSubca({Key key}) : super(key: key);
 
@@ -545,21 +539,24 @@ class ListaProductosYServiciosItemSubca extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int i) {
-                    return ('${snapshot.data[i].tipo}' == 'producto')?ListTile(
-                      leading: FadeInImage(
-                        placeholder: AssetImage('assets/no-image.png'),
-                        image: NetworkImage(
-                          '$apiBaseURL/${snapshot.data[i].subsidiaryGoodImage}',
-                        ),
-                        width: responsive.wp(5),
-                        fit: BoxFit.contain,
-                      ),
-                      title: Text('${snapshot.data[i].subsidiaryGoodName}'),
-                      subtitle: Text('${snapshot.data[i].subsidiaryGoodCurrency}'),
-                      onTap: () {
-                        //close(context, null);
+                    return ('${snapshot.data[i].tipo}' == 'producto')
+                        ? ListTile(
+                            leading: FadeInImage(
+                              placeholder: AssetImage('assets/no-image.png'),
+                              image: NetworkImage(
+                                '$apiBaseURL/${snapshot.data[i].subsidiaryGoodImage}',
+                              ),
+                              width: responsive.wp(5),
+                              fit: BoxFit.contain,
+                            ),
+                            title:
+                                Text('${snapshot.data[i].subsidiaryGoodName}'),
+                            subtitle: Text(
+                                '${snapshot.data[i].subsidiaryGoodCurrency}'),
+                            onTap: () {
+                              //close(context, null);
 
-                        /* Navigator.push(
+                              /* Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => DetalleProductos(
@@ -567,22 +564,25 @@ class ListaProductosYServiciosItemSubca extends StatelessWidget {
                             ),
                           ),
                         ); */
-                      },
-                    ):ListTile(
-                      leading: FadeInImage(
-                        placeholder: AssetImage('assets/no-image.png'),
-                        image: NetworkImage(
-                          '$apiBaseURL/${snapshot.data[i].subsidiaryServiceImage}',
-                        ),
-                        width: responsive.wp(5),
-                        fit: BoxFit.contain,
-                      ),
-                      title: Text('${snapshot.data[i].subsidiaryServiceName}'),
-                      subtitle: Text('${snapshot.data[i].subsidiaryServiceCurrency}'),
-                      onTap: () {
-                        //close(context, null);
+                            },
+                          )
+                        : ListTile(
+                            leading: FadeInImage(
+                              placeholder: AssetImage('assets/no-image.png'),
+                              image: NetworkImage(
+                                '$apiBaseURL/${snapshot.data[i].subsidiaryServiceImage}',
+                              ),
+                              width: responsive.wp(5),
+                              fit: BoxFit.contain,
+                            ),
+                            title: Text(
+                                '${snapshot.data[i].subsidiaryServiceName}'),
+                            subtitle: Text(
+                                '${snapshot.data[i].subsidiaryServiceCurrency}'),
+                            onTap: () {
+                              //close(context, null);
 
-                        /* Navigator.push(
+                              /* Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => DetalleProductos(
@@ -590,8 +590,8 @@ class ListaProductosYServiciosItemSubca extends StatelessWidget {
                             ),
                           ),
                         ); */
-                      },
-                    );
+                            },
+                          );
                   });
             } else {
               return Center(
@@ -606,13 +606,6 @@ class ListaProductosYServiciosItemSubca extends StatelessWidget {
         });
   }
 }
-
-
-
-
-
-
-
 
 class ListaProductosYServiciosIdSubisdiary extends StatelessWidget {
   const ListaProductosYServiciosIdSubisdiary({Key key}) : super(key: key);
@@ -671,12 +664,6 @@ class ListaProductosYServiciosIdSubisdiary extends StatelessWidget {
         });
   }
 }
-
-
-
-
-
-
 
 class ItemsBusqueda {
   ItemsBusqueda({this.titulo, this.index, this.cantidad});

@@ -1,8 +1,7 @@
-
-
 import 'package:bufi/src/bloc/mis_movimientos_bloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +41,7 @@ class MisMovimientosPage extends StatelessWidget {
               AsyncSnapshot<List<MovimientosPorFecha>> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data.length > 0) {
-                return CustomScrollView( 
+                return CustomScrollView(
                   slivers: [
                     SliverAppBar(
                       leading: null,
@@ -76,6 +75,7 @@ class MisMovimientosPage extends StatelessWidget {
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
+                          var fecha = obtenerFecha(snapshot.data[index].fecha);
                           return ListView.builder(
                               padding: EdgeInsets.symmetric(
                                 vertical: responsive.hp(.8),
@@ -88,7 +88,7 @@ class MisMovimientosPage extends StatelessWidget {
                               itemBuilder: (context, i) {
                                 if (i == 0) {
                                   return Text(
-                                    '${snapshot.data[index].fecha}',
+                                    '$fecha',
                                     style: TextStyle(
                                         fontSize: responsive.ip(2),
                                         fontWeight: FontWeight.bold),
@@ -155,8 +155,8 @@ class MisMovimientosPage extends StatelessWidget {
                                         Container(
                                           width: responsive.wp(11),
                                           child: Image(
-                                            image: AssetImage(
-                                                'assets/moneda.png'),
+                                            image:
+                                                AssetImage('assets/moneda.png'),
                                           ),
                                         ),
                                       ],

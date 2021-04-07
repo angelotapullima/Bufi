@@ -110,6 +110,16 @@ class HeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var fecha = DateTime.now();
+    var hora = fecha.hour;
+    if (hora >= 18) {
+      preferences.saludo = 'Buenas noches';
+    } else if (hora >= 12) {
+      preferences.saludo = 'Buenas tardes';
+    } else {
+      preferences.saludo = 'Buenos días';
+    }
+
     final cuentaBloc = ProviderBloc.cuenta(context);
     //notificaciones
     final notificacionesBloc = ProviderBloc.notificaciones(context);
@@ -164,7 +174,7 @@ class HeaderWidget extends StatelessWidget {
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Buenos días'),
+                              Text('${preferences.saludo}'),
                               Text(
                                 '${preferences.personName}',
                                 style: GoogleFonts.pacifico(
@@ -234,7 +244,8 @@ class HeaderWidget extends StatelessWidget {
                         color: Colors.yellowAccent[600],
                       ),
                     ),
-                     */InkWell(
+                     */
+                    InkWell(
                         onTap: () {
                           // if (preferences.personName == null) {
                           //    showBarModalBottomSheet(
@@ -278,8 +289,7 @@ class HeaderWidget extends StatelessWidget {
                                                   color: Colors.white,
                                                   fontSize: responsive.ip(1.5)),
                                             ),
-                                            alignment:
-                                                Alignment.center,
+                                            alignment: Alignment.center,
                                             width: responsive.ip(2),
                                             height: responsive.ip(2),
                                             decoration: BoxDecoration(
@@ -287,13 +297,10 @@ class HeaderWidget extends StatelessWidget {
                                                 shape: BoxShape.circle),
                                           );
                                         } else {
-                                          return Container(
-                                              );
+                                          return Container();
                                         }
                                       } else {
-                                        return Center(
-                                            child: Text(
-                                                "0"));
+                                        return Center(child: Text("0"));
                                       }
                                     }),
                                 //child: Icon(Icons.brightness_1, size: 8,color: Colors.redAccent,  )
@@ -492,7 +499,7 @@ class _ServiciosState extends State<Servicios> {
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         return ServiciosWidget(
-                            serviceData:snapshot.data[index]);
+                            serviceData: snapshot.data[index]);
                         // _crearItem(
                         //     context, snapshot.data[index], responsive);
                       });

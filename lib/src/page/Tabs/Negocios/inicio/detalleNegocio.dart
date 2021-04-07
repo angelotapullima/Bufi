@@ -77,13 +77,6 @@ class _DetalleNegocioState extends State<DetalleNegocio>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Text(
-                  //   '${company.companyName}',
-                  //   textAlign: TextAlign.start,
-                  //   style: TextStyle(
-                  //       fontSize: responsive.ip(4),
-                  //       fontWeight: FontWeight.bold),
-                  // ),
                   Row(
                     children: [
                       Container(
@@ -105,11 +98,15 @@ class _DetalleNegocioState extends State<DetalleNegocio>
               ),
             ),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: responsive.wp(4)),
+                padding: EdgeInsets.symmetric(
+                  horizontal: responsive.wp(4),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: responsive.hp(3)),
+                    SizedBox(
+                      height: responsive.hp(3),
+                    ),
                     Text(
                       "Información",
                       style: TextStyle(
@@ -122,14 +119,20 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                     Row(
                       children: [
                         Text("Delivery:"),
-                        SizedBox(width: responsive.wp(2)),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
                         Text(
                           ('${company.companyDelivery}') == "0" ? "No" : "Si",
-                          style: TextStyle(fontSize: responsive.ip(2)),
+                          style: TextStyle(
+                            fontSize: responsive.ip(2),
+                          ),
                         )
                       ],
                     ),
-                    SizedBox(height: responsive.hp(2.5)),
+                    SizedBox(
+                      height: responsive.hp(2.5),
+                    ),
                     Row(
                       children: [
                         Text("Entrega:"),
@@ -138,42 +141,68 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                         //   color: Colors.red,
                         //   size: 22,
                         // ),
-                        SizedBox(width: responsive.wp(2)),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
                         Text(
                           ('${company.companyEntrega}') == "0" ? "No" : "Si",
-                          style: TextStyle(fontSize: responsive.ip(2)),
+                          style: TextStyle(
+                            fontSize: responsive.ip(2),
+                          ),
                         )
                       ],
                     ),
-                    SizedBox(height: responsive.hp(2.5)),
+                    SizedBox(
+                      height: responsive.hp(2.5),
+                    ),
                     Row(
                       children: [
                         Text("Tarjeta:"),
                         // Icon(FontAwesomeIcons.phoneAlt,
                         //     color: Colors.red[700], size: 22),
-                        SizedBox(width: responsive.wp(2)),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
                         Text(
                           ('${company.companyTarjeta}') == "0" ? "No" : "Si",
-                          style: TextStyle(fontSize: responsive.ip(2)),
+                          style: TextStyle(
+                            fontSize: responsive.ip(2),
+                          ),
                         )
                       ],
                     ),
-                    SizedBox(height: responsive.hp(2.5)),
+                    SizedBox(
+                      height: responsive.hp(2.5),
+                    ),
                     Row(
                       children: [
                         Text("Codigo Corto:"),
-                        SizedBox(width: responsive.wp(2)),
-                        Text('${company.companyShortcode}',
-                            style: TextStyle(fontSize: responsive.ip(2))),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          '${company.companyShortcode}',
+                          style: TextStyle(
+                            fontSize: responsive.ip(2),
+                          ),
+                        ),
                       ],
                     ),
-                    SizedBox(height: responsive.hp(2.5)),
+                    SizedBox(
+                      height: responsive.hp(2.5),
+                    ),
                     Row(
                       children: [
                         Text("Creado:"),
-                        SizedBox(width: responsive.wp(2)),
-                        Text('${company.companyCreatedAt}',
-                            style: TextStyle(fontSize: responsive.ip(2))),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          '${company.companyCreatedAt}',
+                          style: TextStyle(
+                            fontSize: responsive.ip(2),
+                          ),
+                        ),
                       ],
                     ),
                     //SizedBox(height: responsive.hp(2.5)),
@@ -186,52 +215,66 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                     //         style: TextStyle(fontSize: responsive.ip(2))),
                     //   ],
                     // ),
-                    SizedBox(height: responsive.hp(2.5)),
+                    SizedBox(
+                      height: responsive.hp(2.5),
+                    ),
                     Row(
                       children: [
                         Text("Se unió:"),
-                        SizedBox(width: responsive.wp(2)),
-                        Text('${company.companyJoin}',
-                            style: TextStyle(fontSize: responsive.ip(2))),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          '${company.companyJoin}',
+                          style: TextStyle(
+                            fontSize: responsive.ip(2),
+                          ),
+                        ),
                       ],
                     ),
-                    SizedBox(height: responsive.hp(2.5)),
+                    SizedBox(
+                      height: responsive.hp(2.5),
+                    ),
                     Row(
                       children: [
                         Text("Estado:"),
-                        SizedBox(width: responsive.wp(2)),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
                         Text(
-                            ('${company.companyStatus}') == "1"
-                                ? "Activo"
-                                : "Desactivado",
-                            style: TextStyle(fontSize: responsive.ip(2)))
+                          ('${company.companyStatus}') == "1"
+                              ? "Activo"
+                              : "Desactivado",
+                          style: TextStyle(
+                            fontSize: responsive.ip(2),
+                          ),
+                        )
                       ],
                     ),
 
-                    SizedBox(height: responsive.hp(2.5)),
+                    SizedBox(
+                      height: responsive.hp(2.5),
+                    ),
                     Row(
                       children: [
                         Text("id Negocio:"),
-                        SizedBox(width: responsive.wp(2)),
-                        Text(('${company.idCompany}'),
-                            style: TextStyle(fontSize: responsive.ip(2)))
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          ('${company.idCompany}'),
+                          style: TextStyle(
+                            fontSize: responsive.ip(2),
+                          ),
+                        )
                       ],
                     ),
 
-                    // ListTile(
-                    //   leading: Text("Mi negocio:"),
-                    //   title:
-                    //       Text(('${company.miNegocio}') == "0" ? "No" : "Si"),
-                    // )
+
                   ],
                 )
 
-                // Text(
-                //   '$parrafo',
-                //   style: TextStyle(
-                //     fontSize: responsive.ip(2),
-                //   ),
-                // ),
+
                 ),
             SizedBox(
               height: 30,
@@ -292,6 +335,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                                   return DetalleSubsidiary(
                                     idSucursal: sedes[index].idSubsidiary,
                                     nombreSucursal: sedes[index].subsidiaryName,
+                                    imgSucursal: sedes[index].subsidiaryImg,
                                   );
                                 },
                                 transitionsBuilder: (context, animation,
@@ -337,7 +381,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                                     ),
                                     //imageUrl: '$apiBaseURL/${companyModel.companyImage}',
                                     imageUrl:
-                                        'https://i.pinimg.com/564x/23/8f/6b/238f6b5ea5ab93832c281b42d3a1a853.jpg',
+                                        '$apiBaseURL/${sedes[index].subsidiaryImg}',
                                     imageBuilder: (context, imageProvider) =>
                                         Container(
                                       decoration: BoxDecoration(

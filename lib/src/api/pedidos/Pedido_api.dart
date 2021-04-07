@@ -95,8 +95,8 @@ class PedidoApi {
           decodedData["result"][i]['subsidiary_opening_hours'];
       sucursalModel.subsidiaryPrincipal =
           decodedData["result"][i]['subsidiary_principal'];
-      sucursalModel.subsidiaryStatus =
-          decodedData["result"][i]['subsidiary_status'];
+      sucursalModel.subsidiaryStatus =  decodedData["result"][i]['subsidiary_status'];
+      sucursalModel.subsidiaryImg =  decodedData["result"][i]['subsidiary_img'];
 
       //Obtener la lista de sucursales para asignar a favoritos
       final list = await sucursalDb
@@ -422,8 +422,8 @@ class PedidoApi {
             ["detalle_pedido"][j]['subsidiary_opening_hours'];
         sucursalModel.subsidiaryPrincipal = decodedData["result"]['pedido']
             ["detalle_pedido"][j]['subsidiary_principal'];
-        sucursalModel.subsidiaryStatus = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_status'];
+        sucursalModel.subsidiaryStatus = decodedData["result"]['pedido'] ["detalle_pedido"][j]['subsidiary_status'];
+        sucursalModel.subsidiaryImg = decodedData["result"]['pedido'] ["detalle_pedido"][j]['subsidiary_img'];
 
         //Obtener la lista de sucursales para asignar a favoritos
         final list = await sucursalDb.obtenerSubsidiaryPorId(

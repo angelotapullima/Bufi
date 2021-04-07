@@ -178,6 +178,7 @@ class CategoriasApi {
         subsidiaryModel.subsidiaryPrincipal =
             bienesList['subsidiary_principal'];
         subsidiaryModel.subsidiaryStatus = bienesList['subsidiary_status'];
+        subsidiaryModel.subsidiaryImg = bienesList['subsidiary_img'];
         if (list.length > 0) {
           subsidiaryModel.subsidiaryFavourite = list[0].subsidiaryFavourite;
         } else {
@@ -319,8 +320,8 @@ class CategoriasApi {
             decodedData['servicios'][i]['subsidiary_opening_hours'];
         subsidiaryModel.subsidiaryPrincipal =
             decodedData['servicios'][i]['subsidiary_principal'];
-        subsidiaryModel.subsidiaryStatus =
-            decodedData['servicios'][i]['subsidiary_status'];
+        subsidiaryModel.subsidiaryStatus = decodedData['servicios'][i]['subsidiary_status'];
+        subsidiaryModel.subsidiaryImg = decodedData['servicios'][i]['subsidiary_img'];
 
         if (listservices.length > 0) {
           //completo
@@ -541,6 +542,7 @@ class CategoriasApi {
           subsidiaryModel.subsidiaryPrincipal =
               bienesList[i]['subsidiary_principal'];
           subsidiaryModel.subsidiaryStatus = bienesList[i]['subsidiary_status'];
+          subsidiaryModel.subsidiaryImg = bienesList[i]['subsidiary_img'];
 
           final list = await subsidiaryDatabase
               .obtenerSubsidiaryPorId(bienesList[i]["id_subsidiary"]);
@@ -631,8 +633,8 @@ class CategoriasApi {
               serviciosList[i]['subsidiary_opening_hours'];
           subsidiaryModel.subsidiaryPrincipal =
               serviciosList[i]['subsidiary_principal'];
-          subsidiaryModel.subsidiaryStatus =
-              serviciosList[i]['subsidiary_status'];
+          subsidiaryModel.subsidiaryStatus = serviciosList[i]['subsidiary_status'];
+          subsidiaryModel.subsidiaryImg = serviciosList[i]['subsidiary_img'];
 
           final list = await subsidiaryDatabase.obtenerSubsidiaryPorId(serviciosList[i]["id_subsidiary"]);
 

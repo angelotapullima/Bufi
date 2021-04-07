@@ -1,50 +1,39 @@
 
 
-
-
 import 'package:flutter/material.dart';
 
+enum PageDetailsSucursal { informacion, productos, servicios }
 
-enum PageDetailsSucursal { informacion, productos,servicios }
-
-class DetailSubsidiaryBloc with ChangeNotifier { 
+class DetailSubsidiaryBloc with ChangeNotifier {
+  ScrollController controller = ScrollController();
 
   ValueNotifier<PageDetailsSucursal> _page = ValueNotifier(PageDetailsSucursal.informacion);
   ValueNotifier<PageDetailsSucursal> get page => this._page;
 
 
-  /* 
-  ScrollController _controller = ScrollController();
-  ScrollController get controller => this._controller;
-  
- 
- */
-/* 
-  ValueNotifier<bool> _vistaFiltro = ValueNotifier(false);
-  ValueNotifier<bool> get showFiltrod => this._vistaFiltro; */
 
-  DetailSubsidiaryBloc() {
-    print('init');
-     
-  }  
-  
+  ValueNotifier<bool> ocultarSafeArea = ValueNotifier(true);
+  ValueNotifier<bool> get ocultarSafeAreaStream => this.ocultarSafeArea;
+
+  BuildContext context;
+
+
   @override
-  void dispose() { 
+  void dispose() {
     super.dispose();
   }
 
-  void changeToInformation() { 
+  void changeToInformation() {
     _page.value = PageDetailsSucursal.informacion;
     notifyListeners();
   }
 
-  void changeToProductos() { 
+  void changeToProductos() {
     _page.value = PageDetailsSucursal.productos;
     notifyListeners();
   }
 
-
-  void changeToServicios() { 
+  void changeToServicios() {
     _page.value = PageDetailsSucursal.servicios;
     notifyListeners();
   }

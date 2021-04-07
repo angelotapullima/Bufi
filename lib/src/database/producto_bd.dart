@@ -99,7 +99,7 @@ class ProductoDatabase {
     try {
       final db = await dbProvider.database;
       final res = await db.rawQuery(
-          "SELECT * FROM Producto WHERE id_subsidiary= '$id'  order by id_producto");
+          "SELECT * FROM Producto WHERE id_subsidiary= '$id' order by id_producto");
 
       List<ProductoModel> list = res.isNotEmpty
           ? res.map((c) => ProductoModel.fromJson(c)).toList()

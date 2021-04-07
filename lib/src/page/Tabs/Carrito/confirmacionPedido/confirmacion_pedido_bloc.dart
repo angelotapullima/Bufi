@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 enum ConfirMPedidoState { normal, scrool }
 
 class ConfirmPedidoBloc with ChangeNotifier {
-  ConfirMPedidoState screenState = ConfirMPedidoState.normal;
+  ConfirMPedidoState screenState = ConfirMPedidoState.normal; 
   ScrollController _controller = ScrollController();
   ScrollController get controller => this._controller;
   

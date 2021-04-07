@@ -83,6 +83,7 @@ Future<List<PointModel>> favoritoPorSucursal() async {
     pointModel.subsidiaryPrincipal = listsucursal[k].subsidiaryPrincipal;
     pointModel.subsidiaryStatus = listsucursal[k].subsidiaryStatus;
     pointModel.subsidiaryAddress = listsucursal[k].subsidiaryAddress;
+    pointModel.subsidiaryImg = listsucursal[k].subsidiaryImg;
 
  //Creamos la lista para agregar los productos obtenidos por sucursal
     final listProductosFavoritos = List<ProductoModel>();

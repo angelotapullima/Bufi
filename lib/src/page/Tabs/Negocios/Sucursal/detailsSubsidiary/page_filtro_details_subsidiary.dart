@@ -246,7 +246,7 @@ class _ContenidoFilterState
 
                       if (pase) {
                         productoBloc.listarProductosPorSucursalFiltrado(
-                            tashas, modeshos, marcash);
+                            tashas, modeshos, marcash,widget.idSubsidiary);
                       } else {
                         productoBloc
                             .listarProductosPorSucursal(widget.idSubsidiary);

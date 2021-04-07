@@ -20,7 +20,7 @@ class DatabaseProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
-    final path = join(documentsDirectory.path, 'bufi13.db');
+    final path = join(documentsDirectory.path, 'bufi15.db');
 
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
@@ -127,6 +127,7 @@ class DatabaseProvider {
           'id_company VARCHAR,'
           'subsidiary_name VARCHAR,'
           'subsidiary_address VARCHAR,'
+          'subsidiary_img VARCHAR,'
           'subsidiary_cellphone VARCHAR,'
           'subsidiary_cellphone_2 VARCHAR,'
           'subsidiary_email VARCHAR,'

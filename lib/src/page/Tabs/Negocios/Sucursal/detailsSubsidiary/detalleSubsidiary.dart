@@ -8,9 +8,12 @@ import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart
 import 'package:bufi/src/page/Tabs/Negocios/producto/GridviewProductosPorSucursal.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/GridviewServiciosPorSucursal.dart';
 import 'package:bufi/src/theme/theme.dart';
+import 'package:bufi/src/utils/constants.dart';
+import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/widgets/busquedas/PorSucursal/widgetBusqProductXSucursal.dart';
 import 'package:bufi/src/widgets/sliver_header_delegate.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -22,8 +25,12 @@ import 'package:rxdart/subjects.dart';
 class DetalleSubsidiary extends StatefulWidget {
   final String nombreSucursal;
   final String idSucursal;
+  final String imgSucursal;
   const DetalleSubsidiary(
-      {Key key, @required this.nombreSucursal, @required this.idSucursal})
+      {Key key,
+      @required this.nombreSucursal,
+      @required this.idSucursal,
+      @required this.imgSucursal})
       : super(key: key);
 
   @override
@@ -48,22 +55,34 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary>
     isSidebarOpenedStream = isSidebarOpenedStreamController.stream;
     isSidebarOpenedSink = isSidebarOpenedStreamController.sink;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => {
-          _scrollController.addListener(() {
-            if (_scrollController.position.pixels ==
-                _scrollController.position.maxScrollExtent) {
-              print('pixels ${_scrollController.position.pixels}');
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider =
+          Provider.of<DetailSubsidiaryBloc>(context, listen: false);
+
+      _scrollController.addListener(() {
+        print(_scrollController.position.pixels);
+        if (_scrollController.position.pixels > 200) {
+          print('ella no te ama');
+          print(_scrollController.position.pixels);
+          provider.ocultarSafeArea.value = false;
+        } else if (_scrollController.position.pixels < 10) {
+          provider.ocultarSafeArea.value = true;
+        }
+        // print(_scrollController.position.pixels);
+        if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent) {
+          /*  print('pixels ${_scrollController.position.pixels}');
               print('maxScrool ${_scrollController.position.maxScrollExtent}');
-              print('dentro');
+              print('dentro'); */
 
-              final productoBloc = ProviderBloc.productos(context);
-              productoBloc.listarProductosPorSucursal(widget.idSucursal);
+          final productoBloc = ProviderBloc.productos(context);
+          productoBloc.listarProductosPorSucursal(widget.idSucursal);
 
-              final serviciosBloc = ProviderBloc.servi(context);
-              serviciosBloc.listarServiciosPorSucursal(widget.idSucursal);
-            }
-          })
-        });
+          final serviciosBloc = ProviderBloc.servi(context);
+          serviciosBloc.listarServiciosPorSucursal(widget.idSucursal);
+        }
+      });
+    });
 
     super.initState();
   }
@@ -99,98 +118,98 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary>
     final responsive = Responsive.of(context);
 
     return Scaffold(
-        body: SafeArea(
-      bottom: false,
-      child: Stack(
-        children: [
-          Column(
-            children: [
-              Expanded(
-                child: CustomScrollView(
-                  controller: _scrollController,
-                  slivers: [
-                    CebeceraItem(
-                      nombreSucursal: widget.nombreSucursal,
-                      idSucursal: widget.idSucursal,
+        body: Stack(
+      children: [
+        Column(
+          children: [
+            Expanded(
+              child: CustomScrollView(
+                controller: _scrollController,
+                slivers: [
+                  CebeceraItem(
+                    nombreSucursal: widget.nombreSucursal,
+                    idSucursal: widget.idSucursal,
+                    imgSucursal: widget.imgSucursal,
+                  ),
+                  SelectCategory(
+                      iconPressed: onIconPressed,
                     ),
-                    SelectCategory(
-                      iconPressed:onIconPressed,
-                    ),
-                    ValueListenableBuilder<PageDetailsSucursal>(
-                        valueListenable: provider.page,
-                        builder: (_, value, __) {
-                          return (value == PageDetailsSucursal.productos)
-                              ? GridviewProductoPorSucursal(
+                  
+                  ValueListenableBuilder<PageDetailsSucursal>(
+                    valueListenable: provider.page,
+                    builder: (_, value, __) {
+                      return (value == PageDetailsSucursal.productos)
+                          ? GridviewProductoPorSucursal(
+                              idSucursal: widget.idSucursal,
+                            )
+                          : (value == PageDetailsSucursal.informacion)
+                              ? InformacionWidget(
                                   idSucursal: widget.idSucursal,
                                 )
-                              : (value == PageDetailsSucursal.informacion)
-                                  ? InformacionWidget(
+                              : (value == PageDetailsSucursal.servicios)
+                                  ? GridviewServiciosPorSucursal(
                                       idSucursal: widget.idSucursal,
                                     )
-                                  : (value == PageDetailsSucursal.servicios)
-                                      ? GridviewServiciosPorSucursal(
-                                          idSucursal: widget.idSucursal,
-                                        )
-                                      : Container();
-                        })
-                  ],
-                ),
-              )
-            ],
-          ),
-          StreamBuilder<bool>(
-            initialData: false,
-            stream: isSidebarOpenedStream,
-            builder: (context, isSideBarOpenedAsync) {
-              return AnimatedPositioned(
-                duration: _animationDuration,
-                top: 0,
-                bottom: 0,
-                left: isSideBarOpenedAsync.data ? 0 : responsive.wp(100),
-                right: isSideBarOpenedAsync.data ? 0 : -responsive.wp(100),
-                child: Container(
-                  decoration: BoxDecoration(),
-                  child: Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          onIconPressed();
-                        },
-                        child: Container(
-                          width: responsive.wp(40),
-                          decoration: new BoxDecoration(
-                            color: Colors.black.withOpacity(.1),
-                          ),
-                          child: ClipRRect(
-                            child: new BackdropFilter(
-                              filter: new ImageFilter.blur(
-                                  sigmaX: 5.0, sigmaY: 5.0),
-                              child: new Container(
-                                decoration: new BoxDecoration(
-                                  color: Colors.white.withOpacity(0.0),
-                                ),
+                                  : Container();
+                    },
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+        StreamBuilder<bool>(
+          initialData: false,
+          stream: isSidebarOpenedStream,
+          builder: (context, isSideBarOpenedAsync) {
+            return AnimatedPositioned(
+              duration: _animationDuration,
+              top: 0,
+              bottom: 0,
+              left: isSideBarOpenedAsync.data ? 0 : responsive.wp(100),
+              right: isSideBarOpenedAsync.data ? 0 : -responsive.wp(100),
+              child: Container(
+                decoration: BoxDecoration(),
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        onIconPressed();
+                      },
+                      child: Container(
+                        width: responsive.wp(40),
+                        decoration: new BoxDecoration(
+                          color: Colors.black.withOpacity(.1),
+                        ),
+                        child: ClipRRect(
+                          child: new BackdropFilter(
+                            filter:
+                                new ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                            child: new Container(
+                              decoration: new BoxDecoration(
+                                color: Colors.white.withOpacity(0.0),
                               ),
                             ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: responsive.wp(60),
-                        color: Colors.white,
-                        child: FiltroPageProductosPorSubsidiary(
-                          iconPressed: onIconPressed,
-                          idSubsidiary: widget.idSucursal,
-                          //productos: listProduct,
-                        ),
+                    ),
+                    Container(
+                      width: responsive.wp(60),
+                      color: Colors.white,
+                      child: FiltroPageProductosPorSubsidiary(
+                        iconPressed: onIconPressed,
+                        idSubsidiary: widget.idSucursal,
+                        //productos: listProduct,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              );
-            },
-          )
-        ],
-      ),
+              ),
+            );
+          },
+        )
+      ],
     ));
   }
 }
@@ -386,145 +405,228 @@ class SelectCategory extends StatelessWidget {
     return ValueListenableBuilder<PageDetailsSucursal>(
         valueListenable: provider.page,
         builder: (_, value, __) {
-          return SliverPersistentHeader(
-            pinned: true,
-            delegate: SliverCustomHeaderDelegate(
-              maxHeight: (value == PageDetailsSucursal.productos)
-                  ? responsive.hp(10.5)
-                  : responsive.hp(6),
-              minHeight: (value == PageDetailsSucursal.productos)
-                  ? responsive.hp(10.5)
-                  : responsive.hp(6),
-              child: Container(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                padding: EdgeInsets.symmetric(
-                  horizontal: responsive.wp(1),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: List.generate(
-                        selectCategory.length,
-                        (i) => ValueListenableBuilder(
-                          valueListenable: _selected,
-                          builder: (_, value, __) => CupertinoButton(
-                            padding: EdgeInsets.zero,
-                            pressedOpacity: 1,
-                            onPressed: () {
-                              _selected.value = i;
-
-                              if (i == 0) {
-                                provider.changeToInformation();
-                              } else if (i == 1) {
-                                provider.changeToProductos();
-                              } else {
-                                provider.changeToServicios();
-                              }
-                              print(i);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                bottom: responsive.hp(.2),
-                                left: responsive.wp(5),
-                                right: responsive.wp(5),
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                      color: (i == value)
-                                          ? InstagramColors.pink
-                                          : Colors.transparent,
-                                      width: 2.5),
-                                ),
-                              ),
-                              child: Text(
-                                selectCategory[i],
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline6
-                                    .copyWith(
-                                        color: (i == value)
-                                            ? null
-                                            : Theme.of(context).dividerColor,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: responsive.ip(1.7)),
-                              ),
+          return ValueListenableBuilder<bool>(
+              valueListenable: provider.ocultarSafeArea,
+              builder: (_, valorDeSafeArea, __) {
+                return SliverPersistentHeader(
+                  pinned: true,
+                  delegate: SliverCustomHeaderDelegate(
+                    maxHeight: (value == PageDetailsSucursal.productos)
+                        ? (valorDeSafeArea)
+                            ? responsive.hp(12)
+                            : responsive.hp(16)
+                        : (valorDeSafeArea)
+                            ? responsive.hp(6)
+                            : responsive.hp(11),
+                    minHeight: (value == PageDetailsSucursal.productos)
+                        ? (valorDeSafeArea)
+                            ? responsive.hp(12)
+                            : responsive.hp(16)
+                        : (valorDeSafeArea)
+                            ? responsive.hp(6)
+                            : responsive.hp(11),
+                    child: Container(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: responsive.wp(1),
+                      ),
+                      child: (valorDeSafeArea)
+                          ? algoep(context, value)
+                          : SafeArea(
+                              bottom: false,
+                              child: algoep(context, value),
                             ),
-                          ),
-                        ),
+                    ),
+                  ),
+                );
+              });
+        });
+  }
+
+  Widget algoep(BuildContext context, PageDetailsSucursal value) {
+    final provider = Provider.of<DetailSubsidiaryBloc>(context, listen: false);
+    final responsive = Responsive.of(context);
+    return Column(
+      children: [
+        Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: List.generate(
+              selectCategory.length,
+              (i) => ValueListenableBuilder(
+                valueListenable: _selected,
+                builder: (_, value, __) => CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  pressedOpacity: 1,
+                  onPressed: () {
+                    _selected.value = i;
+
+                    if (i == 0) {
+                      provider.changeToInformation();
+                    } else if (i == 1) {
+                      provider.changeToProductos();
+                    } else {
+                      provider.changeToServicios();
+                    }
+                    print(i);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(
+                      bottom: responsive.hp(.2),
+                      left: responsive.wp(5),
+                      right: responsive.wp(5),
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                            color: (i == value)
+                                ? InstagramColors.pink
+                                : Colors.transparent,
+                            width: 2.5),
                       ),
                     ),
-                    (value == PageDetailsSucursal.productos)
-                        ? Row(
-                            children: [
-                              Spacer(),
-                              /* IconButton(
-                                  icon: Icon(Icons.category), onPressed: () {}), */
-                              IconButton(
-                                icon: Icon(Icons.filter_list),
-                                onPressed: () {
-
-                                   iconPressed();
-                                },
-                              ),
-                              SizedBox(width: responsive.wp(5))
-                            ],
-                          )
-                        : Container()
-                  ],
+                    child: Text(
+                      selectCategory[i],
+                      style: Theme.of(context).textTheme.headline6.copyWith(
+                          color: (i == value)
+                              ? null
+                              : Theme.of(context).dividerColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: responsive.ip(1.7)),
+                    ),
+                  ),
                 ),
               ),
             ),
-          );
-        });
+          ),
+        ),
+        (value == PageDetailsSucursal.productos)
+            ? Container(
+                child: Row(
+                  children: [
+                    Spacer(),
+                    /* IconButton(
+                                        icon: Icon(Icons.category), onPressed: () {}), */
+                    IconButton(
+                      icon: Icon(Icons.filter_list),
+                      onPressed: () {
+                        iconPressed();
+                      },
+                    ),
+                    SizedBox(width: responsive.wp(5))
+                  ],
+                ),
+              )
+            : Container()
+      ],
+    );
   }
 }
 
 class CebeceraItem extends StatelessWidget {
+  const CebeceraItem(
+      {Key key,
+      @required this.nombreSucursal,
+      @required this.idSucursal,
+      @required this.imgSucursal})
+      : super(key: key);
+
   final String idSucursal;
   final String nombreSucursal;
-  const CebeceraItem(
-      {Key key, @required this.nombreSucursal, @required this.idSucursal})
-      : super(key: key);
+  final String imgSucursal;
 
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     return SliverPadding(
-      padding: EdgeInsets.only(top: 10),
+      padding: EdgeInsets.only(top: 0),
       sliver: SliverToBoxAdapter(
         child: Container(
-          height: responsive.hp(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          height: responsive.hp(25),
+          child: Stack(
             children: [
-              Row(children: [
-                BackButton(),
-                BusquedaProductoXsucursalWidget(
-                  responsive: responsive,
-                  idSucursal: idSucursal,
-                  nameSucursal: nombreSucursal,
-                )
-              ]),
-
-              Padding(
-                padding: EdgeInsets.only(
-                    left: responsive.ip(2), top: responsive.ip(1)),
-                child: Row(
+              Container(
+                width: double.infinity,
+                child: Stack(
                   children: [
-                    Icon(Icons.store),
-                    SizedBox(width: responsive.wp(2)),
-                    Text(
-                      nombreSucursal,
-                      style: TextStyle(
-                          fontSize: responsive.ip(2.4),
-                          fontWeight: FontWeight.bold),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: CachedNetworkImage(
+                        cacheManager: CustomCacheManager(),
+                        placeholder: (context, url) => Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: Image(
+                              image: AssetImage('assets/jar-loading.gif'),
+                              fit: BoxFit.cover),
+                        ),
+                        errorWidget: (context, url, error) => Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: Center(
+                            child: Icon(Icons.error),
+                          ),
+                        ),
+                        //imageUrl: '$apiBaseURL/${companyModel.companyImage}',
+                        imageUrl: '$apiBaseURL/$imgSucursal',
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
-              //Spacer(),
+              Container(
+                width: double.infinity,
+                height: double.infinity,
+                color: Colors.black.withOpacity(.4),
+              ),
+              SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(children: [
+                      BackButton(
+                        color: Colors.white,
+                      ),
+                      BusquedaProductoXsucursalWidget(
+                        responsive: responsive,
+                        idSucursal: idSucursal,
+                        nameSucursal: nombreSucursal,
+                      )
+                    ]),
+
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: responsive.ip(2),
+                        top: responsive.ip(1),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.store, color: Colors.white),
+                          SizedBox(
+                            width: responsive.wp(2),
+                          ),
+                          Text(
+                            nombreSucursal,
+                            style: TextStyle(
+                                fontSize: responsive.ip(2.4),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    //Spacer(),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

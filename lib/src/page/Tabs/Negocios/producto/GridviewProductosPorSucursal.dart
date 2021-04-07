@@ -15,21 +15,17 @@ class GridviewProductoPorSucursal extends StatefulWidget {
       _GridviewProductoPorSucursalState();
 }
 
-
-
 class _GridviewProductoPorSucursalState
     extends State<GridviewProductoPorSucursal> {
   @override
   Widget build(BuildContext context) {
     final productoBloc = ProviderBloc.productos(context);
     productoBloc.listarProductosPorSucursal(widget.idSucursal);
-   
 
     return StreamBuilder(
         stream: productoBloc.productoStream,
         builder: (BuildContext context,
             AsyncSnapshot<List<ProductoModel>> snapshot) {
-              
           if (snapshot.hasData) {
             if (snapshot.data.length > 0) {
               return SliverGrid(
@@ -72,9 +68,9 @@ class _GridviewProductoPorSucursalState
               );
             } else {
               return SliverList(
-                delegate: SliverChildListDelegate([
-
-                  Padding(
+                delegate: SliverChildListDelegate(
+                  [
+                    Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,67 +114,58 @@ class _GridviewProductoPorSucursalState
                         ],
                       ),
                     ),
-                    
-
-
-              
-            ]));
-
-           }
+                  ],
+                ),
+              );
+            }
           } else {
-           return SliverList(
+            return SliverList(
                 delegate: SliverChildListDelegate([
-
-                  Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Row(
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 48.0,
+                      height: 48.0,
+                      color: Colors.white,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    ),
+                    Expanded(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        children: <Widget>[
                           Container(
-                            width: 48.0,
-                            height: 48.0,
+                            width: double.infinity,
+                            height: 8.0,
                             color: Colors.white,
                           ),
                           const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: EdgeInsets.symmetric(vertical: 2.0),
                           ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  width: double.infinity,
-                                  height: 8.0,
-                                  color: Colors.white,
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 2.0),
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  height: 8.0,
-                                  color: Colors.white,
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 2.0),
-                                ),
-                                Container(
-                                  width: 40.0,
-                                  height: 8.0,
-                                  color: Colors.white,
-                                ),
-                              ],
-                            ),
-                          )
+                          Container(
+                            width: double.infinity,
+                            height: 8.0,
+                            color: Colors.white,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 2.0),
+                          ),
+                          Container(
+                            width: 40.0,
+                            height: 8.0,
+                            color: Colors.white,
+                          ),
                         ],
                       ),
-                    ),
-                    
-
-
-              
+                    )
+                  ],
+                ),
+              ),
             ]));
-
           }
         });
   }

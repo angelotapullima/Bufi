@@ -4,15 +4,15 @@ import 'package:bufi/src/models/subsidiaryModel.dart';
 class SubsidiaryDatabase {
   final dbProvider = DatabaseProvider.db;
 
-  insertarSubsidiary(SubsidiaryModel subsidiaryModel) async {
+   insertarSubsidiary(SubsidiaryModel subsidiaryModel) async {
      try {
     final db = await dbProvider.database;
 
     final res = await db.rawInsert(
-        "INSERT OR REPLACE INTO Subsidiary (id_subsidiary,id_company,subsidiary_name,subsidiary_address,"
+        "INSERT OR REPLACE INTO Subsidiary (id_subsidiary,id_company,subsidiary_name,subsidiary_img,subsidiary_address,"
         "subsidiary_cellphone,subsidiary_cellphone_2,subsidiary_email,subsidiary_coord_x,subsidiary_coord_y,"
         "subsidiary_opening_hours,subsidiary_principal,subsidiary_status,subsidiary_favourite) "
-        "VALUES('${subsidiaryModel.idSubsidiary}','${subsidiaryModel.idCompany}','${subsidiaryModel.subsidiaryName}',"
+        "VALUES('${subsidiaryModel.idSubsidiary}','${subsidiaryModel.idCompany}','${subsidiaryModel.subsidiaryName}','${subsidiaryModel.subsidiaryImg}',"
         "'${subsidiaryModel.subsidiaryAddress}','${subsidiaryModel.subsidiaryCellphone}','${subsidiaryModel.subsidiaryCellphone2}',"
         "'${subsidiaryModel.subsidiaryEmail}','${subsidiaryModel.subsidiaryCoordX}','${subsidiaryModel.subsidiaryCoordY}',"
         "'${subsidiaryModel.subsidiaryOpeningHours}','${subsidiaryModel.subsidiaryPrincipal}','${subsidiaryModel.subsidiaryStatus}',"
@@ -21,7 +21,7 @@ class SubsidiaryDatabase {
     return res;} catch (exception) {
       print(exception);
     }
-  }
+  } 
 
  Future<List<SubsidiaryModel>> obtenerSubsidiary() async {
    try{
@@ -81,6 +81,7 @@ class SubsidiaryDatabase {
           "UPDATE Subsidiary SET id_company= '${subsidiaryModel.idCompany}',"
           "subsidiary_name='${subsidiaryModel.subsidiaryName}',"
           "subsidiary_address='${subsidiaryModel.subsidiaryAddress}',"
+          "subsidiary_address='${subsidiaryModel.subsidiaryImg}',"
           "subsidiary_cellphone='${subsidiaryModel.subsidiaryCellphone}',"
           "subsidiary_cellphone_2='${subsidiaryModel.subsidiaryCellphone2}',"
           "subsidiary_email='${subsidiaryModel.subsidiaryEmail}',"

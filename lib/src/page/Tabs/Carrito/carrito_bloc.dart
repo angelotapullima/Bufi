@@ -9,7 +9,7 @@ class CarritoBlocListener with ChangeNotifier {
   ScrollController get controller => this._controller;
   
   ValueNotifier<bool> _show = ValueNotifier(false);
-  ValueNotifier<bool> get show => this._show;
+  ValueNotifier<bool> get show => this._show; 
 
 /* 
   ValueNotifier<bool> _vistaFiltro = ValueNotifier(false);

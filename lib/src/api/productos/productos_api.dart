@@ -114,6 +114,7 @@ class ProductosApi {
         submodel.subsidiaryOpeningHours =decodedData['results'][i]['subsidiary_opening_hours'];
         submodel.subsidiaryPrincipal = decodedData['results'][i]['subsidiary_principal'];
         submodel.subsidiaryStatus = decodedData['results'][i]['subsidiary_status'];
+        submodel.subsidiaryImg = decodedData['results'][i]['subsidiary_img'];
 
         final list = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData['results'][i]["id_subsidiary"]);
 
@@ -286,6 +287,7 @@ class ProductosApi {
       submodel.subsidiaryOpeningHours = decodedData['subsidiary_opening_hours'];
       submodel.subsidiaryPrincipal = decodedData['subsidiary_principal'];
       submodel.subsidiaryStatus = decodedData['subsidiary_status'];
+      submodel.subsidiaryImg = decodedData['subsidiary_img'];
 
       final list = await subsidiaryDatabase
           .obtenerSubsidiaryPorId(decodedData["id_subsidiary"]);

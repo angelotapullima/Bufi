@@ -6,6 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:bufi/src/widgets/extentions.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserPage extends StatefulWidget {
   @override
@@ -13,6 +14,19 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  Future<void> _launchInBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: false,
+        headers: <String, String>{'my_header_key': 'my_header_value'},
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
@@ -258,10 +272,16 @@ class _UserPageState extends State<UserPage> {
 
           _itemCarrito(responsive, "Carrito", Icons.shopping_cart),
 
-          _item(responsive, "Políticas de Privacidad", "direccion",
+          _itemUrl(
+              responsive,
+              "Políticas de Privacidad",
+              'https://politicas.lacasadelasenchiladas.pe/politicas-privacidad.html',
               Icons.privacy_tip_outlined),
 
-          _item(responsive, "Términos y Condiciones", "intro",
+          _itemUrl(
+              responsive,
+              "Términos y Condiciones",
+              'https://politicas.lacasadelasenchiladas.pe/politicas-privacidad.html',
               Icons.save_alt),
 
           _item(responsive, "Configuración", "direccion", Icons.settings),
@@ -341,6 +361,28 @@ class _UserPageState extends State<UserPage> {
           trailing: Icon(Icons.arrow_right_outlined),
           onTap: () {
             Navigator.pushNamed(context, ruta);
+          },
+        ));
+  }
+
+  Widget _itemUrl(Responsive responsive, nombre, url, IconData icon) {
+    return Container(
+        margin: EdgeInsets.symmetric(
+            horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
+        width: double.infinity,
+        height: responsive.ip(8),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: Colors.white),
+        child: ListTile(
+          title: Text(nombre,
+              style: TextStyle(
+                  //color: Colors.red,
+                  fontSize: responsive.ip(2),
+                  fontWeight: FontWeight.bold)),
+          leading: Icon(icon),
+          trailing: Icon(Icons.arrow_right_outlined),
+          onTap: () {
+            _launchInBrowser(url);
           },
         ));
   }

@@ -65,8 +65,10 @@ dependencies:
   firebase_core: ^0.5.2+1
   flutter_swiper: ^1.1.6
   logger: ^0.9.4
+  url_launcher: ^6.0.3
   flutter_advanced_networkimage:
     git: https://github.com/mchome/flutter_advanced_networkimage
+  
 
 dev_dependencies:
   flutter_test:

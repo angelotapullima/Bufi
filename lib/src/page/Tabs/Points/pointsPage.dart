@@ -54,7 +54,7 @@ class _PointsPageState extends State<PointsPage> {
                               child: Row(
                                 children: [
                                   Text(
-                                    'Puntos Favoritos11',
+                                    'Mis Points',
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: responsive.ip(3),
@@ -70,7 +70,7 @@ class _PointsPageState extends State<PointsPage> {
                                   horizontal: responsive.wp(5),
                                   vertical: responsive.hp(1)),
                               child: Text(
-                                'Puntos Favoritosff',
+                                'Mis Points',
                                 style: TextStyle(
                                     color: Colors.transparent,
                                     fontSize: responsive.ip(2.5),
@@ -99,7 +99,7 @@ class _PointsPageState extends State<PointsPage> {
                               child: Row(
                                 children: [
                                   Text(
-                                    'Puntos Favoritosddd',
+                                    'Mis Points',
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: responsive.ip(3),
@@ -423,7 +423,6 @@ class AmbosVerdaderos extends StatelessWidget {
     );
   }
 }
-
 
 class WidgetBienesFavoritos extends StatelessWidget {
   const WidgetBienesFavoritos({

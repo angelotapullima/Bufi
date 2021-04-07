@@ -66,7 +66,7 @@ Future<List<PointModel>> favoritoPorSucursal() async {
   final sucursalDb = SubsidiaryDatabase();
   final productoDb = ProductoDatabase();
 
-  final listGeneral = List<PointModel>();
+  final List<PointModel>listGeneral=[];
   //Obtener lista de sucursales favoritas
   final listsucursal = await sucursalDb.obtenerSubsidiaryFavoritas();
   for (var k = 0; k < listsucursal.length; k++) {
@@ -86,7 +86,7 @@ Future<List<PointModel>> favoritoPorSucursal() async {
     pointModel.subsidiaryImg = listsucursal[k].subsidiaryImg;
 
  //Creamos la lista para agregar los productos obtenidos por sucursal
-    final listProductosFavoritos = List<ProductoModel>();
+    final List<ProductoModel>listProductosFavoritos=[];
    
     final listprod = await productoDb.obtenerProductosFavoritosPorIdSubsidiary(listsucursal[k].idSubsidiary);
     for (var i = 0; i < listprod.length; i++) {
@@ -115,7 +115,7 @@ Future<List<PointModel>> favoritoPorSucursal() async {
     }
 
     //Creamos la lista para agregar los servicios obtenidos por sucursal
-    final listServiciosFavModel = List<SubsidiaryServiceModel>();
+    final List<SubsidiaryServiceModel>listServiciosFavModel=[];
      final servicioDb = SubsidiaryServiceDatabase();
    
     final listServicioFav = await servicioDb.obtenerSubsidiarysServicesFavoritosPorIdSubsidiary(listsucursal[k].idSubsidiary);

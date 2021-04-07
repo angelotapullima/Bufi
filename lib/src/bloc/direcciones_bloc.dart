@@ -26,7 +26,7 @@ void obtenerDireccionEstado1() async {
   
   Future<List<DireccionModel>> agregarDireccion() async { 
   
-  final listDireccionModel = List<DireccionModel>();
+  final List<DireccionModel>listDireccionModel=[];
   
   final listDirecciones = await direccionesDatabase.obtenerdireccionEstado1();
 
@@ -44,7 +44,7 @@ void obtenerDireccionEstado1() async {
 }
   Future<List<DireccionModel>> eliminarDireccion() async { 
   
-  final listDireccionModel = List<DireccionModel>();
+  final List<DireccionModel>listDireccionModel=[];
   
   final listDirecciones = await direccionesDatabase.obtenerDireccionEstado0();
 

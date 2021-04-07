@@ -29,7 +29,7 @@ class SubCategoriaGeneralBloc {
   Future<List<SubCategoriaGeneralModel>> itemSubcategXCategoria(
       String id) async {
     //Lista que almacenara todos los nombres de subategorias
-    final listGeneral = List<SubCategoriaGeneralModel>();
+    final List<SubCategoriaGeneralModel>listGeneral=[];
     //funcion para obtener todas las subcategorias
     final listSubcategoria = await subCategoriaDb.obtenerSubcategoriasPorIdCategoria(id);
 
@@ -47,7 +47,7 @@ class SubCategoriaGeneralBloc {
 
   Future<List<ItemSubCategoriaModel>> listItems(String id) async {
     //obtener todos los items
-    final listItem = List<ItemSubCategoriaModel>();
+    final List<ItemSubCategoriaModel>listItem=[];
     final itemSubcategoriaDb = ItemsubCategoryDatabase();
     final listItemSubcategoria =  await itemSubcategoriaDb.obtenerItemSubCategoriaXIdSubcategoria(id);
 

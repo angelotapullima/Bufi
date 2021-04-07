@@ -1,6 +1,5 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
-import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/widgets/widgetServicios.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,6 @@ class _GridviewProductoPorSucursalState
     serviciosBloc.listarServiciosPorSucursal(widget.idSucursal);
 
 
-    final responsive = Responsive.of(context);
 
     return StreamBuilder(
         stream: serviciosBloc.serviciostream,

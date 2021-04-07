@@ -10,7 +10,6 @@ import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/widgets/busquedas/PorSucursal/widgetBusqProductXSucursal.dart';
 import 'package:bufi/src/widgets/widgetBienes.dart';
-import 'package:bufi/src/widgets/busquedas/widgetBusqProduct.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

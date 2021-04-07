@@ -25,7 +25,7 @@ class AgentesBloc {
   }
 
   Future<List<AgenteModel>> listarAgentes() async {
-    List<AgenteModel> listaGeneral = List<AgenteModel>();
+    List<AgenteModel> listaGeneral = [];
 
     //obtener todos los agentes de la bd
     final listAgentes = await agenteDatabase.obtenerAgentes();
@@ -57,7 +57,7 @@ class AgentesBloc {
       //funcion que llama desde la bd a la lista de companys 
       final listCompany= await companyDatabase.obtenerCompanyPorIdCompany(listAgentes[i].idCompany);
       // lista vacia para llenar los datos de la Company
-      final listcompanyModel = List<CompanyModel>();
+      final List<CompanyModel>listcompanyModel=[];
 
       // recorrer la tabla company
       for (var j = 0; j < listCompany.length; j++) {

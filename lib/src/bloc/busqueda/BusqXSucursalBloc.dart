@@ -36,20 +36,19 @@ class BusquedaXSucursalBloc {
 
   Future<List<BusquedaPorSucursalModel>> obtnerResultBusquedaPorSucursal(
       String idSucursal, String query) async {
-    List<BusquedaPorSucursalModel> listaGeneral =
-        List<BusquedaPorSucursalModel>();
+    List<BusquedaPorSucursalModel> listaGeneral = [];
     final busqXSucursalModel = BusquedaPorSucursalModel();
 
     //función para obtener los productos por sucursal
     final listProductos = await productoDb
         .obtenerProductosPorIdSubsidiaryPorQuery(idSucursal, query);
     //Lista vacía
-    final listProductoModel = List<ProductoModel>();
+    final List<ProductoModel>listProductoModel=[];
 
  //función para obtener los servicios por sucursal
     final listServicios = await subisdiaryServiceDb.obtenerServiciosPorIdSubsidiaryPorQuery(idSucursal, query);
   //Lista vacía
-    final listServicioModel = List<SubsidiaryServiceModel>();
+    final List<SubsidiaryServiceModel>listServicioModel=[];
 
     if (listProductos.length > 0) {
       for (var i = 0; i < listProductos.length; i++) {

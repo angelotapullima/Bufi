@@ -37,7 +37,7 @@ class ItemCategoriaBloc {
 
   Future<List<BienesServiciosModel>> bienesServiciosPorIdItemSubcategoria(
       String id) async {
-    final listGeneral = List<BienesServiciosModel>();
+    final List<BienesServiciosModel>listGeneral=[];
     final listSubservice =
         await subServiceDb.obtenerServicioXIdItemSubcategoria(id);
     final listSubgood =
@@ -113,8 +113,8 @@ class ItemCategoriaBloc {
       List<String> modelos,
       List<String> marcas) async {
     bool pasoProdcutos = false;
-    final listFinal = List<BienesServiciosModel>();
-    final listIdSinRepetir = List<String>();
+    final List<BienesServiciosModel>listFinal=[];
+    final List<String>listIdSinRepetir=[];
     String consultaTallas = '';
     String consultaMarcas = '';
     String consultaModelos = '';

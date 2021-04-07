@@ -46,7 +46,7 @@ class CategoriaBloc {
   void obtenerSubcategoriaPorIdCategoria(String id) async {
     _cargandoProductosController.sink.add(true);
 
-    final listGeneral = List<SubcategoryModel>();
+    final List<SubcategoryModel>listGeneral=[];
 
     final subCategoriaDb = SubcategoryDatabase();
     final listSubcategoria =

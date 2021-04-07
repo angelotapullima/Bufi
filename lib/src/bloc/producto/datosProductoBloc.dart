@@ -35,7 +35,7 @@ class DatosProductoBloc {
       String idProducto) async {
 
         //await tallaProductoDb.updateEstadoa0();
-    List<ProductoModel> listaGeneral = List<ProductoModel>();
+    List<ProductoModel> listaGeneral = [];
 
     //obtener todos los productos de la bd
     final listProductos = await productoDb.obtenerSubsidiaryGood();
@@ -65,7 +65,7 @@ class DatosProductoBloc {
       //funcion que llama desde la bd a la lista de fotos del producto pasando el idPedido como argumento
       final listGaleria = await galeriaProductoDb.obtenerGaleriaProductoPorIdProducto(listProductos[i].idProducto);
       //crear lista vacia para llenar las fotos del producto
-      final listGaleriaModel = List<GaleriaProductoModel>();
+      final List<GaleriaProductoModel>listGaleriaModel=[];
 
       // recorrer la tabla galeria
       for (var j = 0; j < listGaleria.length; j++) {

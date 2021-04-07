@@ -62,19 +62,13 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary>
       _scrollController.addListener(() {
         print(_scrollController.position.pixels);
         if (_scrollController.position.pixels > 200) {
-          print('ella no te ama');
-          print(_scrollController.position.pixels);
           provider.ocultarSafeArea.value = false;
         } else if (_scrollController.position.pixels < 10) {
           provider.ocultarSafeArea.value = true;
         }
-        // print(_scrollController.position.pixels);
+
         if (_scrollController.position.pixels ==
             _scrollController.position.maxScrollExtent) {
-          /*  print('pixels ${_scrollController.position.pixels}');
-              print('maxScrool ${_scrollController.position.maxScrollExtent}');
-              print('dentro'); */
-
           final productoBloc = ProviderBloc.productos(context);
           productoBloc.listarProductosPorSucursal(widget.idSucursal);
 
@@ -132,9 +126,8 @@ class _DetalleSubsidiaryState extends State<DetalleSubsidiary>
                     imgSucursal: widget.imgSucursal,
                   ),
                   SelectCategory(
-                      iconPressed: onIconPressed,
-                    ),
-                  
+                    iconPressed: onIconPressed,
+                  ),
                   ValueListenableBuilder<PageDetailsSucursal>(
                     valueListenable: provider.page,
                     builder: (_, value, __) {

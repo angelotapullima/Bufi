@@ -237,7 +237,7 @@ class PedidoApi {
   }
 
   Future<List<PedidosModel>> enviarPedido() async {
-    final listRespuesta = List<PedidosModel>();
+    final List<PedidosModel>listRespuesta=[];
     final listDePedidos = await carritoPorSucursalSeleccionado();
 
     String sucursales = '';
@@ -460,10 +460,10 @@ class PedidoApi {
   }
 
   Future<List<CarritoGeneralSuperior>> carritoPorSucursalSeleccionado() async {
-    final listaGeneralCarrito = List<CarritoGeneralSuperior>();
-    final listaGeneral = List<CarritoGeneralModel>();
+    final List<CarritoGeneralSuperior>listaGeneralCarrito=[];
+    final List<CarritoGeneralModel>listaGeneral=[];
     final carritoDb = CarritoDb();
-    final listaDeStringDeIds = List<String>();
+    final List<String>listaDeStringDeIds=[];
     final subsidiary = SubsidiaryDatabase();
 
     double cantidadTotalSucursal = 0;
@@ -488,7 +488,7 @@ class PedidoApi {
       final sucursal =
           await subsidiary.obtenerSubsidiaryPorId(listaDeStringDeIds[x]);
 
-      final listCarritoModel = List<CarritoModel>();
+      final List<CarritoModel>listCarritoModel=[];
 
       CarritoGeneralModel carritoGeneralModel = CarritoGeneralModel();
 

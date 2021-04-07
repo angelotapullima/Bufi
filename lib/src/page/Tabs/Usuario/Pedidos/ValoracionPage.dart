@@ -18,7 +18,10 @@ class PendientesValoracionPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-          title: Text("Pendientes de Valoración",style: TextStyle(color: Colors.black),),
+          title: Text(
+            "Pendientes de Valoración",
+            style: TextStyle(color: Colors.black),
+          ),
           elevation: 0,
           iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Colors.white),
@@ -82,7 +85,8 @@ class PendientesValoracionPage extends StatelessWidget {
           child: Container(
             color: Colors.white,
             height: responsive.hp(25),
-            margin: EdgeInsets.symmetric(horizontal: responsive.wp(2), vertical:responsive.hp(1) ),
+            margin: EdgeInsets.symmetric(
+                horizontal: responsive.wp(2), vertical: responsive.hp(1)),
             padding: EdgeInsets.symmetric(vertical: 10),
             width: double.infinity,
             child: Column(
@@ -144,18 +148,19 @@ class PendientesValoracionPage extends StatelessWidget {
       List<PedidosModel> listPedidos, int index) {
     return SizedBox(
       width: responsive.wp(60),
-      child: RaisedButton(
-        elevation: 3,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-        color: Colors.red,
+      child: ElevatedButton(
+        style: ButtonStyle(
+            elevation: MaterialStateProperty.all(3),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0))),
+            backgroundColor: MaterialStateProperty.all(Colors.red)),
+        child: Text("Calificar",
+            style:
+                TextStyle(color: Colors.white, fontSize: responsive.ip(2.2))),
         onPressed: () {
           Navigator.pushNamed(context, 'ratingProductos',
               arguments: listPedidos[index]);
         },
-        child: Text("Calificar",
-            style:
-                TextStyle(color: Colors.white, fontSize: responsive.ip(2.2))),
       ),
     );
   }
@@ -220,8 +225,9 @@ class PendientesValoracionPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-
-              SizedBox(width: responsive.wp(3),)
+              SizedBox(
+                width: responsive.wp(3),
+              )
             ]),
       ),
     );

@@ -54,7 +54,7 @@ class BusquedaProAndSerItemSubcategoriaWidget extends StatelessWidget {
               },
             ),
             Text(
-              'Buscar ItemSubcategoria',
+              'Buscar Familia',
               style: TextStyle(color: Colors.black),
             ),
           ],

@@ -212,7 +212,7 @@ class _MapaNegociosState extends State<MapaAgentes> {
                                               child: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(10.0),
-                                                child:CachedNetworkImage (
+                                                child: CachedNetworkImage(
                                                   cacheManager:
                                                       CustomCacheManager(),
                                                   placeholder: (context, url) =>
@@ -233,7 +233,8 @@ class _MapaNegociosState extends State<MapaAgentes> {
                                                       child: Icon(Icons.error),
                                                     ),
                                                   ),
-                                                  imageUrl: '$apiBaseURL/${widget.agentes[index].agenteImagen}',
+                                                  imageUrl:
+                                                      '$apiBaseURL/${widget.agentes[index].agenteImagen}',
                                                   imageBuilder: (context,
                                                           imageProvider) =>
                                                       Container(
@@ -329,9 +330,8 @@ class _MapaNegociosState extends State<MapaAgentes> {
                                                       child: Icon(Icons.error),
                                                     ),
                                                   ),
-                                                  imageUrl: widget
-                                                      .agentes[index]
-                                                      .agenteTipo,
+                                                  imageUrl:
+                                                      '$apiBaseURL/${widget.agentes[index].agenteImagen}',
                                                   imageBuilder: (context,
                                                           imageProvider) =>
                                                       Container(
@@ -428,7 +428,7 @@ class _MapaNegociosState extends State<MapaAgentes> {
                                               ),
                                             ),
                                             imageUrl:
-                                                widget.agentes[index].idAgente,
+                                                '$apiBaseURL/${widget.agentes[index].agenteImagen}',
                                             imageBuilder:
                                                 (context, imageProvider) =>
                                                     Container(

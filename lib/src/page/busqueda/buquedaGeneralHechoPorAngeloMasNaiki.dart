@@ -4,6 +4,7 @@ import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/models/itemSubcategoryModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
+import 'package:bufi/src/models/subcategoryModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
 import 'package:bufi/src/utils/constants.dart';
@@ -25,10 +26,10 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
     ItemsBusqueda(titulo: 'Productos', index: 1),
     ItemsBusqueda(titulo: 'Servicios', index: 2),
     ItemsBusqueda(titulo: 'Negocios', index: 3),
-    ItemsBusqueda(titulo: 'Sucursales', index: 4),
-    ItemsBusqueda(titulo: 'Marcas', index: 5),
-    ItemsBusqueda(titulo: 'Categorías', index: 6),
-    ItemsBusqueda(titulo: 'Itemsubcategorías', index: 7),
+    ItemsBusqueda(titulo: 'Marcas', index: 4),
+    ItemsBusqueda(titulo: 'Categorías', index: 5),
+    ItemsBusqueda(titulo: 'Subcategorías', index: 6),
+    ItemsBusqueda(titulo: 'Familia', index: 7),
   ];
 
   @override
@@ -87,6 +88,8 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                 busquedaBloc
                                     .obtenerBusquedaItemSubcategoria('$value');
                                 busquedaBloc.obtenerBusquedaCategoria('$value');
+                                busquedaBloc
+                                    .obtenerBusquedaSubcategoria('$value');
                               }),
                         ),
                         IconButton(
@@ -176,11 +179,11 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                   : (selectorTabBusqueda.page == 2)
                                       ? ListaNegocios()
                                       : (selectorTabBusqueda.page == 3)
-                                          ? ListaNegocios()
+                                          ? Container()
                                           : (selectorTabBusqueda.page == 4)
-                                              ? Container()
+                                              ? ListaCategorias()
                                               : (selectorTabBusqueda.page == 5)
-                                                  ? ListaCategorias()
+                                                  ? ListaSubCategorias()
                                                   : (selectorTabBusqueda.page ==
                                                           6)
                                                       ? ListaItemsubcategoria()
@@ -459,7 +462,7 @@ class ListaItemsubcategoria extends StatelessWidget {
           }
         } else {
           return Center(
-            child: Text("Itemsubcategory"),
+            child: Text("No hay datos"),
           );
         }
       },
@@ -513,6 +516,59 @@ class ListaCategorias extends StatelessWidget {
         } else {
           return Center(
             child: Text("Category"),
+          );
+        }
+      },
+    );
+  }
+}
+
+class ListaSubCategorias extends StatelessWidget {
+  const ListaSubCategorias({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final busquedaBloc = ProviderBloc.busqueda(context);
+
+    final responsive = Responsive.of(context);
+
+    return StreamBuilder(
+      stream: busquedaBloc.busquedaSubcategoryController,
+      builder: (BuildContext context,
+          AsyncSnapshot<List<SubcategoryModel>> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data.length > 0) {
+            return ListView.builder(
+                shrinkWrap: true,
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context, int i) {
+                  return InkWell(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: responsive.wp(3),
+                        vertical: responsive.hp(1),
+                      ),
+                      child: Text(
+                        '${snapshot.data[i].subcategoryName}',
+                        style: TextStyle(
+                            fontSize: responsive.ip(1.8),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  );
+                });
+          } else {
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: responsive.wp(3),
+                vertical: responsive.hp(1),
+              ),
+              child: Text("No hay resultados para la búsqueda"),
+            );
+          }
+        } else {
+          return Center(
+            child: Text("No hay datos"),
           );
         }
       },

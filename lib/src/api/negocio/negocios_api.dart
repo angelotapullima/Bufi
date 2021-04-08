@@ -227,7 +227,6 @@ class NegociosApi {
     }
   }
 
-
   Future<dynamic> listarCompany() async {
     try {
       //funcion para obtener el producto con el id mas alto de la lista
@@ -278,13 +277,15 @@ class NegociosApi {
         cmodel.companyRuc = decodedData['results'][i]['company_ruc'];
         cmodel.companyImage = decodedData['results'][i]['company_image'];
         cmodel.companyType = decodedData['results'][i]['company_type'];
-        cmodel.companyShortcode = decodedData['results'][i]['company_shortcode'];
+        cmodel.companyShortcode =
+            decodedData['results'][i]['company_shortcode'];
         cmodel.companyDelivery = decodedData['results'][i]['company_delivery'];
         cmodel.companyEntrega = decodedData['results'][i]['company_entrega'];
         cmodel.companyTarjeta = decodedData['results'][i]['company_tarjeta'];
         cmodel.companyVerified = decodedData['results'][i]['company_verified'];
         cmodel.companyRating = decodedData['results'][i]['company_rating'];
-        cmodel.companyCreatedAt = decodedData['results'][i]['company_created_at'];
+        cmodel.companyCreatedAt =
+            decodedData['results'][i]['company_created_at'];
         cmodel.companyJoin = decodedData['results'][i]['company_join'];
         cmodel.companyStatus = decodedData['results'][i]['company_status'];
         cmodel.companyMt = decodedData['results'][i]['company_mt'];
@@ -296,16 +297,24 @@ class NegociosApi {
         smodel.idCompany = decodedData['results'][i]['id_company'];
         smodel.idSubsidiary = decodedData['results'][i]['id_subsidiary'];
         smodel.subsidiaryName = decodedData['results'][i]['subsidiary_name'];
-        smodel.subsidiaryCellphone =decodedData['results'][i]['subsidiary_cellphone'];
-        smodel.subsidiaryCellphone =decodedData['results'][i]['id_subsidiary_cellphone_2'];
+        smodel.subsidiaryCellphone =
+            decodedData['results'][i]['subsidiary_cellphone'];
+        smodel.subsidiaryCellphone =
+            decodedData['results'][i]['id_subsidiary_cellphone_2'];
         smodel.subsidiaryEmail = decodedData['results'][i]['subsidiary_email'];
-        smodel.subsidiaryCoordX =decodedData['results'][i]['subsidiary_coord_x'];
-        smodel.subsidiaryCoordY =decodedData['results'][i]['subsidiary_coord_y'];
-        smodel.subsidiaryOpeningHours =decodedData['results'][i]['subsidiary_opening_hours'];
-        smodel.subsidiaryPrincipal = decodedData['results'][i]['subsidiary_principal'];
-        smodel.subsidiaryStatus =decodedData['results'][i]['subsidiary_status'];
-        smodel.subsidiaryAddress =decodedData['results'][i]['subsidiary_address'];
-        smodel.subsidiaryImg =decodedData['results'][i]['subsidiary_img'];
+        smodel.subsidiaryCoordX =
+            decodedData['results'][i]['subsidiary_coord_x'];
+        smodel.subsidiaryCoordY =
+            decodedData['results'][i]['subsidiary_coord_y'];
+        smodel.subsidiaryOpeningHours =
+            decodedData['results'][i]['subsidiary_opening_hours'];
+        smodel.subsidiaryPrincipal =
+            decodedData['results'][i]['subsidiary_principal'];
+        smodel.subsidiaryStatus =
+            decodedData['results'][i]['subsidiary_status'];
+        smodel.subsidiaryAddress =
+            decodedData['results'][i]['subsidiary_address'];
+        smodel.subsidiaryImg = decodedData['results'][i]['subsidiary_img'];
         //await subsidiaryDatabase.insertarSubsidiary(smodel);
 
         // final listCompany = await companyDatabase
@@ -329,7 +338,6 @@ class NegociosApi {
     }
   }
 
-  
   Future<dynamic> listarSedesPorNegocio(String id) async {
     try {
       final response = await http
@@ -363,19 +371,15 @@ class NegociosApi {
           sucmodel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
           sucmodel.subsidiaryImg = decodedData[i]['subsidiary_img'];
 
-           if (listsubsidiary.length > 0) {
-
-          sucmodel.subsidiaryFavourite = listsubsidiary[0].subsidiaryFavourite;
-             
-        } else {
-
-          sucmodel.subsidiaryFavourite = '0';
-         
-         
-        }
+          if (listsubsidiary.length > 0) {
+            sucmodel.subsidiaryFavourite =
+                listsubsidiary[0].subsidiaryFavourite;
+          } else {
+            sucmodel.subsidiaryFavourite = '0';
+          }
 
           await subsidiaryDatabase.insertarSubsidiary(sucmodel);
-      }
+        }
       }
 
       //list.add(decodedData);
@@ -385,8 +389,6 @@ class NegociosApi {
       return 0;
     }
   }
-  
-  
 
   /* Future updateNegocio(CompanySubsidiaryModel csmodel) async {
     try {
@@ -466,26 +468,24 @@ class NegociosApi {
 
       final listSucursal = await subsidiaryDatabase
           .obtenerSubsidiaryPorId(decodedData['id_subsidiary']);
-SubsidiaryModel smodel = SubsidiaryModel();
-        smodel.idSubsidiary = decodedData['id_subsidiary'];
-        smodel.idCompany = decodedData['id_company'];
-        smodel.subsidiaryName = decodedData['subsidiary_name'];
-        smodel.subsidiaryCellphone = decodedData['subsidiary_cellphone'];
-        smodel.subsidiaryCellphone = decodedData['id_subsidiary_cellphone_2'];
-        smodel.subsidiaryEmail = decodedData['subsidiary_email'];
-        smodel.subsidiaryCoordX = decodedData['subsidiary_coord_x'];
-        smodel.subsidiaryCoordY = decodedData['subsidiary_coord_y'];
-        smodel.subsidiaryOpeningHours = decodedData['subsidiary_opening_hours'];
-        smodel.subsidiaryPrincipal = decodedData['subsidiary_principal'];
-        smodel.subsidiaryStatus = decodedData['subsidiary_status'];
-        smodel.subsidiaryAddress = decodedData['subsidiary_address'];
-        smodel.subsidiaryImg = decodedData['subsidiary_img'];
+      SubsidiaryModel smodel = SubsidiaryModel();
+      smodel.idSubsidiary = decodedData['id_subsidiary'];
+      smodel.idCompany = decodedData['id_company'];
+      smodel.subsidiaryName = decodedData['subsidiary_name'];
+      smodel.subsidiaryCellphone = decodedData['subsidiary_cellphone'];
+      smodel.subsidiaryCellphone2 = decodedData['subsidiary_cellphone_2'];
+      smodel.subsidiaryEmail = decodedData['subsidiary_email'];
+      smodel.subsidiaryCoordX = decodedData['subsidiary_coord_x'];
+      smodel.subsidiaryCoordY = decodedData['subsidiary_coord_y'];
+      smodel.subsidiaryOpeningHours = decodedData['subsidiary_opening_hours'];
+      smodel.subsidiaryPrincipal = decodedData['subsidiary_principal'];
+      smodel.subsidiaryStatus = decodedData['subsidiary_status'];
+      smodel.subsidiaryAddress = decodedData['subsidiary_address'];
+      smodel.subsidiaryImg = decodedData['subsidiary_img'];
       if (listSucursal.length > 0) {
-        
         smodel.subsidiaryFavourite = listSucursal[0].subsidiaryFavourite;
-        
-      }else{
- smodel.subsidiaryFavourite = '0';
+      } else {
+        smodel.subsidiaryFavourite = '0';
       }
       await subsidiaryDatabase.insertarSubsidiary(smodel);
     } catch (error, stacktrace) {

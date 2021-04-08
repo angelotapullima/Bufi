@@ -36,21 +36,38 @@ class BusquedaBloc {
   final itemSubcategoriaDb = ItemsubCategoryDatabase();
 
   final busquedaProductoController = BehaviorSubject<List<ProductoModel>>();
-  final busquedaProductoPorIdSucursalController = BehaviorSubject<List<ProductoModel>>();
-  final busquedaServicioController =BehaviorSubject<List<SubsidiaryServiceModel>>();
-  final busquedaNegocioController =BehaviorSubject<List<CompanySubsidiaryModel>>();
+  final busquedaProductoPorIdSucursalController =
+      BehaviorSubject<List<ProductoModel>>();
+  final busquedaServicioController =
+      BehaviorSubject<List<SubsidiaryServiceModel>>();
+  final busquedaNegocioController =
+      BehaviorSubject<List<CompanySubsidiaryModel>>();
   final busquedaCategoriaController = BehaviorSubject<List<CategoriaModel>>();
-  final busquedaSubcategController =BehaviorSubject<List<BusquedaNegocioModel>>();
-  final busquedaItemSubcategController =BehaviorSubject<List<ItemSubCategoriaModel>>();
-  final busProySerPorIdItemsubController =BehaviorSubject<List<BienesServiciosModel>>();
+  final busquedaSubcategController =
+      BehaviorSubject<List<BusquedaNegocioModel>>();
+  final busquedaItemSubcategController =
+      BehaviorSubject<List<ItemSubCategoriaModel>>();
+  final busquedaSubcategoryController =
+      BehaviorSubject<List<SubcategoryModel>>();
+  final busProySerPorIdItemsubController =
+      BehaviorSubject<List<BienesServiciosModel>>();
 
-  Stream<List<ProductoModel>> get busquedaProductoStream =>busquedaProductoController.stream;
-  Stream<List<ProductoModel>> get busquedaProductoPorIdSucursalStream =>busquedaProductoPorIdSucursalController.stream;
-  Stream<List<SubsidiaryServiceModel>> get busquedaServicioStream =>busquedaServicioController.stream;
-  Stream<List<CompanySubsidiaryModel>> get busquedaNegocioStream =>busquedaNegocioController.stream;
-  Stream<List<CategoriaModel>> get busquedaCategoriaStream =>busquedaCategoriaController.stream;
-  Stream<List<ItemSubCategoriaModel>> get busquedaItemSubcategoriaStream =>busquedaItemSubcategController.stream;
-  Stream<List<BienesServiciosModel>> get busProySerItemSubcategoriaStream =>busProySerPorIdItemsubController.stream;
+  Stream<List<ProductoModel>> get busquedaProductoStream =>
+      busquedaProductoController.stream;
+  Stream<List<ProductoModel>> get busquedaProductoPorIdSucursalStream =>
+      busquedaProductoPorIdSucursalController.stream;
+  Stream<List<SubsidiaryServiceModel>> get busquedaServicioStream =>
+      busquedaServicioController.stream;
+  Stream<List<CompanySubsidiaryModel>> get busquedaNegocioStream =>
+      busquedaNegocioController.stream;
+  Stream<List<CategoriaModel>> get busquedaCategoriaStream =>
+      busquedaCategoriaController.stream;
+  Stream<List<ItemSubCategoriaModel>> get busquedaItemSubcategoriaStream =>
+      busquedaItemSubcategController.stream;
+  Stream<List<BienesServiciosModel>> get busProySerItemSubcategoriaStream =>
+      busProySerPorIdItemsubController.stream;
+  Stream<List<SubcategoryModel>> get busPorSubcategoriaStream =>
+      busquedaSubcategoryController.stream;
 
   void dispose() {
     busquedaProductoController?.close();
@@ -61,20 +78,25 @@ class BusquedaBloc {
     busquedaItemSubcategController?.close();
     busProySerPorIdItemsubController?.close();
     busquedaProductoPorIdSucursalController?.close();
+    busquedaSubcategoryController?.close();
   }
 
   //productos por IdSucursal
-   void obtenerBusquedaProductosIdSubsidiary(String idSucursal,String query)async{
-     busquedaProductoPorIdSucursalController.sink.add([]);
-    busquedaProductoPorIdSucursalController.sink.add(await busquedaApi.busquedaXSucursal( idSucursal,query));
+  void obtenerBusquedaProductosIdSubsidiary(
+      String idSucursal, String query) async {
+    busquedaProductoPorIdSucursalController.sink.add([]);
+    busquedaProductoPorIdSucursalController.sink
+        .add(await busquedaApi.busquedaXSucursal(idSucursal, query));
   }
 
-
   //productos y servicios por IdItemSubcategory
-  
-  void obtenerBusquedaProductosYserviciosPorIdItemSubcategory(String idItemsubcategory,String query)async{
-     busProySerPorIdItemsubController.sink.add([]);
-    busProySerPorIdItemsubController.sink.add(await busquedaApi.busquedaDeProductosYServiciosPorIdItemsubcat( idItemsubcategory,query));
+
+  void obtenerBusquedaProductosYserviciosPorIdItemSubcategory(
+      String idItemsubcategory, String query) async {
+    busProySerPorIdItemsubController.sink.add([]);
+    busProySerPorIdItemsubController.sink.add(
+        await busquedaApi.busquedaDeProductosYServiciosPorIdItemsubcat(
+            idItemsubcategory, query));
   }
 
 //Producto
@@ -113,11 +135,11 @@ class BusquedaBloc {
 
   //SubcategoriaCategoria
   void obtenerBusquedaSubcategoria(String query) async {
-    busquedaCategoriaController.sink
-        .add(await obtnerResultBusquedaCategoria(query));
+    busquedaSubcategoryController.sink
+        .add(await obtnerResultBusquedaSubcategoria(query));
   }
 
-  //SubcategoriaCategoria
+  //ItemSubcategoriaCategoria
   void obtenerBusquedaItemSubcategoria(String query) async {
     busquedaItemSubcategController.sink
         .add(await obtnerResultBusquedaItemSubcategoria(query));
@@ -611,5 +633,25 @@ class BusquedaBloc {
     }
 
     return listItemSubCateg;
+  }
+
+  Future<List<SubcategoryModel>> obtnerResultBusquedaSubcategoria(
+      String query) async {
+    //obtenemos el id del itemSubcategoria por medio del nombreItemSubcateg para asociarlo a la tabla Producto
+    final listSubcategDb =
+        await subCategoriaDb.obtenerSubCategoriaXQuery(query);
+
+    final listSubCateg = List<SubcategoryModel>();
+
+    for (var y = 0; y < listSubcategDb.length; y++) {
+      SubcategoryModel subCategoriaModel = SubcategoryModel();
+      subCategoriaModel.idSubcategory = listSubcategDb[y].idCategory;
+      subCategoriaModel.idCategory = listSubcategDb[y].idCategory;
+      subCategoriaModel.subcategoryName = listSubcategDb[y].subcategoryName;
+
+      listSubCateg.add(subCategoriaModel);
+    }
+
+    return listSubCateg;
   }
 }

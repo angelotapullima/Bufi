@@ -208,9 +208,13 @@ class HeaderWidget extends StatelessWidget {
 
                         if (snapshot.hasData) {
                           if (snapshot.data.length > 0) {
-                            valorcito =
-                                double.parse(snapshot.data[0].cuentaSaldo)
-                                    .toInt();
+                            if (double.parse(snapshot.data[0].cuentaSaldo)
+                                    .toInt() >
+                                0) {
+                              valorcito =
+                                  double.parse(snapshot.data[0].cuentaSaldo)
+                                      .toInt();
+                            }
                           }
                         }
 

@@ -1,4 +1,5 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
+import 'package:bufi/src/models/cuentaModel.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -39,232 +40,275 @@ class _UserPageState extends State<UserPage> {
   }
 
   Widget _datos(BuildContext context, Responsive responsive) {
+    final cuentaBloc = ProviderBloc.cuenta(context);
     final prefs = new Preferences();
 
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
           SizedBox(height: responsive.hp(3.5)),
-          (prefs.personName != null)
-              ? Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                        horizontal: responsive.ip(1.5),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        vertical: responsive.hp(2),
-                        horizontal: responsive.wp(2),
-                      ),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              width: responsive.ip(10),
-                              height: responsive.ip(10),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: CachedNetworkImage(
-                                  cacheManager: CustomCacheManager(),
-                                  placeholder: (context, url) => Container(
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    child: Image(
-                                        image:
-                                            AssetImage('assets/no-image.png'),
-                                        fit: BoxFit.cover),
-                                  ),
-                                  errorWidget: (context, url, error) =>
-                                      Container(
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                          child:
-                                              Center(child: Icon(Icons.error))),
-                                  imageUrl: '${prefs.userImage}',
-                                  imageBuilder: (context, imageProvider) =>
-                                      Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+          if (prefs.personName != null)
+            Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: responsive.ip(1.5),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: responsive.hp(2),
+                    horizontal: responsive.wp(2),
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          width: responsive.ip(10),
+                          height: responsive.ip(10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: CachedNetworkImage(
+                              cacheManager: CustomCacheManager(),
+                              placeholder: (context, url) => Container(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: Image(
+                                    image: AssetImage('assets/no-image.png'),
+                                    fit: BoxFit.cover),
+                              ),
+                              errorWidget: (context, url, error) => Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  child: Center(child: Icon(Icons.error))),
+                              imageUrl: '${prefs.userImage}',
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              width: responsive.wp(4.5),
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    '${prefs.personName} ${prefs.personSurname}',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: responsive.ip(1.8),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    '${prefs.userEmail}',
-                                    overflow: TextOverflow.ellipsis,
-                                    style:
-                                        TextStyle(fontSize: responsive.ip(1.8)),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    '${prefs.userNickname}',
-                                    overflow: TextOverflow.ellipsis,
-                                    style:
-                                        TextStyle(fontSize: responsive.ip(1.8)),
-                                  ),
-                                  // Text(
-                                  //   'Ver Perfil',
-                                  //   style: TextStyle(
-                                  //       fontSize: responsive.ip(1.8),
-                                  //       color: Colors.blueAccent,
-                                  //       fontWeight: FontWeight.bold),
-                                  // ),
-                                ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: responsive.wp(4.5),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                '${prefs.personName} ${prefs.personSurname}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: responsive.ip(1.8),
+                                ),
                               ),
-                            )
-                          ]),
-                    ),
-                    SizedBox(
-                      height: responsive.hp(2),
-                    ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                '${prefs.userEmail}',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: responsive.ip(1.8)),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                '${prefs.userNickname}',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: responsive.ip(1.8)),
+                              ),
+                              // Text(
+                              //   'Ver Perfil',
+                              //   style: TextStyle(
+                              //       fontSize: responsive.ip(1.8),
+                              //       color: Colors.blueAccent,
+                              //       fontWeight: FontWeight.bold),
+                              // ),
+                            ],
+                          ),
+                        )
+                      ]),
+                ),
+                SizedBox(
+                  height: responsive.hp(2),
+                ),
 
-                    //Pedidos
-                    Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: responsive.ip(1.5),
+                //Pedidos
+                Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: responsive.ip(1.5),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      vertical: responsive.hp(2),
+                      horizontal: responsive.wp(2),
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Mis Pedidos",
+                          style: TextStyle(
+                              fontSize: responsive.ip(2.5),
+                              fontWeight: FontWeight.bold),
                         ),
-                        padding: EdgeInsets.symmetric(
-                          vertical: responsive.hp(2),
-                          horizontal: responsive.wp(2),
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white),
-                        child: Column(
+                        SizedBox(height: responsive.hp(1)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              "Mis Pedidos",
+                            bottonPedido(responsive, 'Pendientes de Envío'),
+                            bottonPedido(responsive, 'Enviados'),
+                            bottonPedido(
+                                responsive, 'Pendientes de valoración'),
+                          ],
+                        ),
+                      ],
+                    )),
+
+                //Bufis
+                Container(
+                  margin: EdgeInsets.all(
+                    responsive.ip(1.5),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: responsive.hp(2),
+                    horizontal: responsive.wp(2),
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white),
+                  child: Column(
+                    children: [
+                      Stack(
+                        children: [
+                          Center(
+                            child: Text(
+                              'Mis Bufis',
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: responsive.ip(2.5),
                                   fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(height: responsive.hp(1)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                bottonPedido(responsive, 'Pendientes de Envío'),
-                                bottonPedido(responsive, 'Enviados'),
-                                bottonPedido(
-                                    responsive, 'Pendientes de valoración'),
-                              ],
-                            ),
-                          ],
-                        )),
+                          ),
+                          Row(
+                            children: [
+                              Spacer(),
+                              Container(
+                                width: responsive.wp(11),
+                                child: Image(
+                                  image: AssetImage('assets/moneda.png'),
+                                ),
+                              ),
+                              StreamBuilder(
+                                stream: cuentaBloc.saldoStream,
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<List<CuentaModel>> snapshot) {
+                                  int valorcito = 0;
 
-                    //Bufis
-                    Container(
-                      margin: EdgeInsets.all(
-                        responsive.ip(1.5),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        vertical: responsive.hp(2),
-                        horizontal: responsive.wp(2),
-                      ),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Mis Bufis',
-                            style: TextStyle(
-                                fontSize: responsive.ip(2.5),
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: responsive.hp(1.5)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              bottonCircular(responsive, 'Recargas'),
-                              bottonCircular(responsive, 'misMovimientos'),
-                              bottonCircular(responsive, 'Agentes'),
+                                  if (snapshot.hasData) {
+                                    if (snapshot.data.length > 0) {
+                                      if (double.parse(
+                                                  snapshot.data[0].cuentaSaldo)
+                                              .toInt() >
+                                          0) {
+                                        valorcito = double.parse(
+                                                snapshot.data[0].cuentaSaldo)
+                                            .toInt();
+                                      }
+                                    }
+                                  }
+
+                                  return Container(
+                                    child: Text(
+                                      valorcito.toString(),
+                                      style: TextStyle(
+                                          fontSize: responsive.ip(1.8),
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  );
+                                },
+                              ),
                             ],
                           ),
-                          SizedBox(
-                            height: responsive.hp(1),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              bottonCircular(responsive, 'puntos de Recargas'),
-                              bottonCircular(
-                                  responsive, 'información de mi cuenta'),
-                              bottonCircular(responsive, 'Compras'),
-                            ],
-                          )
                         ],
                       ),
-                    ),
+                      SizedBox(height: responsive.hp(1.5)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          bottonCircular(responsive, 'Recargas'),
+                          bottonCircular(responsive, 'misMovimientos'),
+                          bottonCircular(responsive, 'Agentes'),
+                        ],
+                      ),
+                      SizedBox(
+                        height: responsive.hp(1),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          bottonCircular(responsive, 'puntos de Recargas'),
+                          bottonCircular(
+                              responsive, 'información de mi cuenta'),
+                          bottonCircular(responsive, 'Compras'),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
 
-                    _item(responsive, "Mi perfil", "perfil",
-                        FontAwesomeIcons.user),
-                  ],
-                )
-              : Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(responsive.ip(1.5)),
-                      child: InkWell(
-                        onTap: () async {
-                          prefs.clearPreferences();
+                _item(responsive, "Mi perfil", "perfil", FontAwesomeIcons.user),
+              ],
+            )
+          else
+            Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(responsive.ip(1.5)),
+                  child: InkWell(
+                    onTap: () async {
+                      prefs.clearPreferences();
 
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, 'login', (route) => false);
-                        },
-                        child: new Container(
-                          //width: 100.0,
-                          height: responsive.hp(6),
-                          decoration: new BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(color: Colors.black12, blurRadius: 3)
-                            ],
-                            color: Colors.white,
-                            border: new Border.all(
-                                color: Colors.grey[300], width: 1.0),
-                            borderRadius: new BorderRadius.circular(8.0),
-                          ),
-                          child: new Center(
-                            child: new Text(
-                              'Iniciar sesión',
-                              style: new TextStyle(
-                                  fontSize: responsive.ip(2),
-                                  fontWeight: FontWeight.w800,
-                                  color: Colors.red),
-                            ),
-                          ),
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, 'login', (route) => false);
+                    },
+                    child: new Container(
+                      //width: 100.0,
+                      height: responsive.hp(6),
+                      decoration: new BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(color: Colors.black12, blurRadius: 3)
+                        ],
+                        color: Colors.white,
+                        border:
+                            new Border.all(color: Colors.grey[300], width: 1.0),
+                        borderRadius: new BorderRadius.circular(8.0),
+                      ),
+                      child: new Center(
+                        child: new Text(
+                          'Iniciar sesión',
+                          style: new TextStyle(
+                              fontSize: responsive.ip(2),
+                              fontWeight: FontWeight.w800,
+                              color: Colors.red),
                         ),
                       ),
                     ),
-                    Text('No hay Usuario'),
-                    _item(responsive, "Agentes", "agentes", Icons.gps_fixed),
-                  ],
+                  ),
                 ),
+                Text('No hay Usuario'),
+                _item(responsive, "Agentes", "agentes", Icons.gps_fixed),
+              ],
+            ),
 
           //Direccion
           _item(responsive, "Direcciones de entrega", "direccion",
@@ -307,37 +351,39 @@ class _UserPageState extends State<UserPage> {
                         fontSize: responsive.ip(2),
                         fontWeight: FontWeight.bold)),
               )),
+          if (prefs.personName != null)
+            Padding(
+              padding: EdgeInsets.all(responsive.ip(1.5)),
+              child: InkWell(
+                onTap: () async {
+                  prefs.clearPreferences();
 
-          Padding(
-            padding: EdgeInsets.all(responsive.ip(1.5)),
-            child: InkWell(
-              onTap: () async {
-                prefs.clearPreferences();
-
-                Navigator.pushNamedAndRemoveUntil(
-                    context, 'login', (route) => false);
-              },
-              child: new Container(
-                //width: 100.0,
-                height: responsive.hp(6),
-                decoration: new BoxDecoration(
-                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 3)],
-                  color: Colors.white,
-                  border: new Border.all(color: Colors.grey[300], width: 1.0),
-                  borderRadius: new BorderRadius.circular(8.0),
-                ),
-                child: new Center(
-                  child: new Text(
-                    'Cerrar sesión',
-                    style: new TextStyle(
-                        fontSize: responsive.ip(2),
-                        fontWeight: FontWeight.w800,
-                        color: Colors.red),
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, 'login', (route) => false);
+                },
+                child: new Container(
+                  //width: 100.0,
+                  height: responsive.hp(6),
+                  decoration: new BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(color: Colors.black12, blurRadius: 3)
+                    ],
+                    color: Colors.white,
+                    border: new Border.all(color: Colors.grey[300], width: 1.0),
+                    borderRadius: new BorderRadius.circular(8.0),
+                  ),
+                  child: new Center(
+                    child: new Text(
+                      'Cerrar sesión',
+                      style: new TextStyle(
+                          fontSize: responsive.ip(2),
+                          fontWeight: FontWeight.w800,
+                          color: Colors.red),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
         ],
       ),
     );

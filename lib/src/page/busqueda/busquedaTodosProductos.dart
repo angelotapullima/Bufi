@@ -26,7 +26,7 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-          body: SafeArea(
+      body: SafeArea(
         child: Column(
           children: [
             Container(
@@ -42,18 +42,17 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                         controller: _controllerBusquedaNegocio,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          hintText: 'Buscame papi',
+                          hintText: 'Buscar',
                           hintStyle: TextStyle(
                             fontSize: responsive.ip(1.6),
                           ),
-                          
                           filled: true,
                           contentPadding: EdgeInsets.all(16),
                         ),
                         onSubmitted: (value) {
                           print('$value');
 
-                         busquedaBloc.obtenerBusquedaProducto('$value');
+                          busquedaBloc.obtenerBusquedaProducto('$value');
                         }),
                   ),
                   IconButton(
@@ -67,9 +66,9 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                 ],
               ),
             ),
-           Expanded(
-              child:ListaProductos(),
-            ) 
+            Expanded(
+              child: ListaProductos(),
+            )
           ],
         ),
       ),

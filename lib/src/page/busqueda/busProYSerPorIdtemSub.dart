@@ -49,7 +49,7 @@ class _BusquedaTodosProductosState
                       controller: _controllerBusquedaNegocio,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                        hintText: 'Buscame papi',
+                        hintText: 'Buscar en Bufi',
                         hintStyle: TextStyle(
                           fontSize: responsive.ip(1.6),
                         ),

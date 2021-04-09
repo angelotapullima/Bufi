@@ -278,12 +278,14 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
         // maxHeight: 30
       );
 
-      this.setState(() {
+      setState(() {
         foto = cropped;
         _inProcess = false;
+        print('FOTO null: ${foto.path}');
       });
     } else {
-      this.setState(() {
+      setState(() {
+        print('FOTO no null: ${foto.path}');
         _inProcess = false;
       });
     }
@@ -291,13 +293,15 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
 
   Widget _mostrarFoto(Responsive responsive) {
     if (foto != null) {
+      print('FOTO: ${foto.path}');
       return Container(
         height: responsive.hp(10),
         width: responsive.wp(20),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Image(
-            image: AssetImage(foto.path),
+            image:
+                AssetImage(foto?.path ?? AssetImage('assets/jar-loading.gif')),
             height: responsive.hp(38),
             fit: BoxFit.cover,
           ),

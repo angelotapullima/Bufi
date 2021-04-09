@@ -26,7 +26,7 @@ class _BusquedaNegocioState extends State<BusquedaNegocio> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-          body: SafeArea(
+      body: SafeArea(
         child: Column(
           children: [
             Container(
@@ -42,11 +42,10 @@ class _BusquedaNegocioState extends State<BusquedaNegocio> {
                         controller: _controllerBusquedaNegocio,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          hintText: 'Buscame papi',
+                          hintText: 'Buscar negocio',
                           hintStyle: TextStyle(
                             fontSize: responsive.ip(1.6),
                           ),
-                          
                           filled: true,
                           contentPadding: EdgeInsets.all(16),
                         ),
@@ -67,9 +66,9 @@ class _BusquedaNegocioState extends State<BusquedaNegocio> {
                 ],
               ),
             ),
-           Expanded(
-              child:ListaNegocios(),
-            ) 
+            Expanded(
+              child: ListaNegocios(),
+            )
           ],
         ),
       ),

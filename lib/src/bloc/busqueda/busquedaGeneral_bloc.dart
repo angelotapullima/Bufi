@@ -3,9 +3,8 @@ import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:rxdart/rxdart.dart';
 
 class BusquedaGeneralBloc {
-
   final busquedaApi = BusquedaApi();
-  
+
   final busquedaGeneralController =
       BehaviorSubject<List<BusquedaGeneralModel>>();
 
@@ -19,6 +18,7 @@ class BusquedaGeneralBloc {
   void obtenerResultadosBusquedaPorQuery(String query) async {
     // bienesBusquedaController.sink
     //     .add(await productoDatabase.consultarProductoPorQuery('$query'));
+    busquedaGeneralController.sink.add([]);
     busquedaGeneralController.sink
         .add(await busquedaApi.busquedaGeneral(query));
     // bienesBusquedaController.sink

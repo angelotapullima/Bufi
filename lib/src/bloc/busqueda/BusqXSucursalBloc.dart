@@ -29,7 +29,9 @@ class BusquedaXSucursalBloc {
     //busquedaServicioXSucursalController?.close();
   }
 
-  void obtenerResultadoBusquedaXSucursal(String idSucursal, String query) async {
+  void obtenerResultadoBusquedaXSucursal(
+      String idSucursal, String query) async {
+    busquedaXSucursalController.sink.add([]);
     busquedaXSucursalController.sink
         .add(await obtnerResultBusquedaPorSucursal(idSucursal, query));
   }
@@ -43,12 +45,13 @@ class BusquedaXSucursalBloc {
     final listProductos = await productoDb
         .obtenerProductosPorIdSubsidiaryPorQuery(idSucursal, query);
     //Lista vacía
-    final List<ProductoModel>listProductoModel=[];
+    final List<ProductoModel> listProductoModel = [];
 
- //función para obtener los servicios por sucursal
-    final listServicios = await subisdiaryServiceDb.obtenerServiciosPorIdSubsidiaryPorQuery(idSucursal, query);
-  //Lista vacía
-    final List<SubsidiaryServiceModel>listServicioModel=[];
+    //función para obtener los servicios por sucursal
+    final listServicios = await subisdiaryServiceDb
+        .obtenerServiciosPorIdSubsidiaryPorQuery(idSucursal, query);
+    //Lista vacía
+    final List<SubsidiaryServiceModel> listServicioModel = [];
 
     if (listProductos.length > 0) {
       for (var i = 0; i < listProductos.length; i++) {

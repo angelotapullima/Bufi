@@ -46,8 +46,10 @@ class ListCategoriasPrincipal extends StatelessWidget {
                                 pageBuilder:
                                     (context, animation, secondaryAnimation) {
                                   return SubcategoryPorCategoryPage(
-                                    nombreCategoria: snapshot.data[index].categoryName,
-                                    idCategoria: snapshot.data[index].idCategory ,
+                                    nombreCategoria:
+                                        snapshot.data[index].categoryName,
+                                    idCategoria:
+                                        snapshot.data[index].idCategory,
                                   );
                                 },
                                 transitionsBuilder: (context, animation,
@@ -95,7 +97,7 @@ class ListCategoriasPrincipal extends StatelessWidget {
               return Center(child: CircularProgressIndicator());
             }
           } else {
-            return Text("errorrr");
+            return Text("Error");
           }
         });
   }

@@ -61,6 +61,8 @@ class _DetalleNegocioState extends State<DetalleNegocio>
   }
 
   Widget _custonScroll(Responsive responsive, CompanyModel company) {
+    var dateCreacion = obtenerFechaHora(company.companyCreatedAt);
+    var dateUnion = obtenerFechaHora(company.companyJoin);
     return CustomScrollView(
       controller: controller,
       slivers: [
@@ -198,7 +200,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                           width: responsive.wp(2),
                         ),
                         Text(
-                          '${company.companyCreatedAt}',
+                          '$dateCreacion',
                           style: TextStyle(
                             fontSize: responsive.ip(2),
                           ),
@@ -225,7 +227,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                           width: responsive.wp(2),
                         ),
                         Text(
-                          '${company.companyJoin}',
+                          '$dateUnion',
                           style: TextStyle(
                             fontSize: responsive.ip(2),
                           ),
@@ -269,13 +271,8 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                         )
                       ],
                     ),
-
-
                   ],
-                )
-
-
-                ),
+                )),
             SizedBox(
               height: 30,
             ),

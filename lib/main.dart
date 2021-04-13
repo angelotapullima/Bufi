@@ -2,8 +2,10 @@ import 'package:bufi/introPage.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProductoBloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProductoFotoPage.dart';
+import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
 import 'package:bufi/src/page/Tabs/Principal/notificaciones/notificacionesPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Direccion/AgregarDireccionPAge.dart';
+import 'package:bufi/src/page/Tabs/Usuario/Pedidos/PedidosEnviadosPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/RatingPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/ValoracionPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Direccion/direccionPage.dart';
@@ -144,7 +146,7 @@ class MyApp extends StatelessWidget {
                   DetalleProductoFoto(),
 
               //Servicio
-              // "detalleServicio": (BuildContext context) => DetalleServicio(),
+              "detalleServicio": (BuildContext context) => DetalleServicio(),
               // "listarServiciosXsucursal": (BuildContext context) =>
 
               //Usuario
@@ -158,6 +160,8 @@ class MyApp extends StatelessWidget {
                   AgregarDireccionPage(),
               //Pedidos
               'pedidos': (BuildContext context) => PedidosPage(),
+              'pedidosEnviados': (BuildContext context) =>
+                  PedidosEnviadosPage(),
               'valoracion': (BuildContext context) =>
                   PendientesValoracionPage(),
               'ratingProductos': (BuildContext context) =>

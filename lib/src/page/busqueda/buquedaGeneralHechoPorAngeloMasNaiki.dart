@@ -6,9 +6,13 @@ import 'package:bufi/src/models/itemSubcategoryModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subcategoryModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
+import 'package:bufi/src/page/Categorias/ProductosPotItemsubcategory/pro_y_ser_por_itemSubcategory_page.dart';
+import 'package:bufi/src/page/Categorias/itemSubcategory_por_idSubcategory_page.dart';
+import 'package:bufi/src/page/Categorias/subcategory_por_idCategory_page.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -219,30 +223,7 @@ class ListaProductos extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int i) {
-                    return ListTile(
-                      leading: FadeInImage(
-                        placeholder: AssetImage('assets/no-image.png'),
-                        image: NetworkImage(
-                          '$apiBaseURL/${snapshot.data[i].productoImage}',
-                        ),
-                        width: responsive.wp(5),
-                        fit: BoxFit.contain,
-                      ),
-                      title: Text('${snapshot.data[i].productoName}'),
-                      subtitle: Text('${snapshot.data[i].productoCurrency}'),
-                      onTap: () {
-                        //close(context, null);
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DetalleProductos(
-                              producto: snapshot.data[i],
-                            ),
-                          ),
-                        );
-                      },
-                    );
+                    return _crearItem(context, snapshot.data[i], responsive);
                   });
             } else {
               return Center(
@@ -255,6 +236,102 @@ class ListaProductos extends StatelessWidget {
             );
           }
         });
+  }
+
+  Widget _crearItem(
+      BuildContext context, ProductoModel productoData, Responsive responsive) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetalleProductos(
+              producto: productoData,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.15),
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: Offset(2, 3),
+            ),
+          ],
+        ),
+        margin: EdgeInsets.all(responsive.ip(1)),
+        height: responsive.hp(15),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                width: responsive.wp(42),
+                child: CachedNetworkImage(
+                  placeholder: (context, url) => Image(
+                    image: AssetImage('assets/jar-loading.gif'),
+                    fit: BoxFit.cover,
+                  ),
+                  errorWidget: (context, url, error) => Image(
+                      image: AssetImage('assets/carga_fallida.jpg'),
+                      fit: BoxFit.cover),
+                  imageUrl: '$apiBaseURL/${productoData.productoImage}',
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: responsive.wp(53),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    '${productoData.productoName}',
+                    style: TextStyle(
+                        fontSize: responsive.ip(2.3),
+                        fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                      '${productoData.productoCurrency} ${productoData.productoPrice}',
+                      style: TextStyle(
+                          fontSize: responsive.ip(2.5),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red)),
+                  Text('${productoData.productoBrand}'),
+                  Text('${productoData.productoSize}'),
+                  Text('${productoData.productoModel}')
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -279,31 +356,7 @@ class ListaServicios extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int i) {
-                    return ListTile(
-                      leading: FadeInImage(
-                        placeholder: AssetImage('assets/no-image.png'),
-                        image: NetworkImage(
-                          '$apiBaseURL/${snapshot.data[i].subsidiaryServiceImage}',
-                        ),
-                        width: responsive.wp(5),
-                        fit: BoxFit.contain,
-                      ),
-                      title: Text('${snapshot.data[i].subsidiaryServiceName}'),
-                      subtitle: Text(
-                          '${snapshot.data[i].subsidiaryServiceCurrency} ${snapshot.data[i].subsidiaryServicePrice}'),
-                      onTap: () {
-                        //close(context, null);
-
-                        /* Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetalleProductos(
-                        producto: servicios[i],
-                      ),
-                    ),
-                  ); */
-                      },
-                    );
+                    return _crearItem(context, snapshot.data[i], responsive);
                   });
             } else {
               return Center(
@@ -316,6 +369,96 @@ class ListaServicios extends StatelessWidget {
             );
           }
         });
+  }
+
+  Widget _crearItem(BuildContext context, SubsidiaryServiceModel servicioData,
+      Responsive responsive) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, 'detalleServicio',
+            arguments: servicioData.idSubsidiaryservice);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.15),
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: Offset(2, 3),
+            ),
+          ],
+        ),
+        margin: EdgeInsets.all(responsive.ip(1)),
+        height: responsive.hp(11),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                width: responsive.wp(42),
+                child: CachedNetworkImage(
+                  placeholder: (context, url) => Image(
+                    image: AssetImage('assets/jar-loading.gif'),
+                    fit: BoxFit.cover,
+                  ),
+                  errorWidget: (context, url, error) => Image(
+                      image: AssetImage('assets/carga_fallida.jpg'),
+                      fit: BoxFit.cover),
+                  imageUrl:
+                      '$apiBaseURL/${servicioData.subsidiaryServiceImage}',
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: responsive.wp(53),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    '${servicioData.subsidiaryServiceName}',
+                    style: TextStyle(
+                        fontSize: responsive.ip(2.3),
+                        fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                      '${servicioData.subsidiaryServiceCurrency} ${servicioData.subsidiaryServicePrice}',
+                      style: TextStyle(
+                          fontSize: responsive.ip(2.5),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red)),
+                  Text('${servicioData.subsidiaryServiceDescription}',
+                      style: TextStyle(color: Colors.red)),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 /* 
@@ -365,6 +508,7 @@ class ListaNegocios extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive.of(context);
     final busquedaBloc = ProviderBloc.busqueda(context);
     //busquedaBloc.obtenerBusquedaNegocio('$query');
 
@@ -378,30 +522,7 @@ class ListaNegocios extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int i) {
-                    return ListTile(
-                      /* leading: FadeInImage(
-                  placeholder: AssetImage('assets/no-image.png'),
-                  image: NetworkImage(
-                    '$apiBaseURL/${companys[i].companyName}',
-                  ),
-                  width: responsive.wp(5),
-                  fit: BoxFit.contain,
-                ), */
-                      title: Text('${snapshot.data[i].companyName}'),
-                      subtitle: Text('${snapshot.data[i].cityName} '),
-                      onTap: () {
-                        //close(context, null);
-
-                        /* Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetalleProductos(
-                        producto: servicios[i],
-                      ),
-                    ),
-                  ); */
-                      },
-                    );
+                    return _crearItem(context, snapshot.data[i], responsive);
                   });
             } else {
               return Center(
@@ -414,6 +535,121 @@ class ListaNegocios extends StatelessWidget {
             );
           }
         });
+  }
+
+  Widget _crearItem(BuildContext context, CompanySubsidiaryModel negocioData,
+      Responsive responsive) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, 'detalleNegocio', arguments: negocioData);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.15),
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: Offset(2, 3),
+            ),
+          ],
+        ),
+        margin: EdgeInsets.all(responsive.ip(1)),
+        height: responsive.hp(15),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                width: responsive.wp(42),
+                child: Stack(
+                  children: <Widget>[
+                    CachedNetworkImage(
+                      placeholder: (context, url) => Image(
+                        image: AssetImage('assets/jar-loading.gif'),
+                        fit: BoxFit.cover,
+                      ),
+                      errorWidget: (context, url, error) => Image(
+                          image: AssetImage('assets/carga_fallida.jpg'),
+                          fit: BoxFit.cover),
+                      imageUrl: '$apiBaseURL/${negocioData.companyImage}',
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      right: 0,
+                      left: 0,
+                      bottom: 0,
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(
+                          vertical: responsive.hp(.5),
+                          //horizontal: responsive.wp(2)
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(.5),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              '${negocioData.companyName}',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: responsive.ip(2),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              width: responsive.wp(53),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    '${negocioData.companyName}',
+                    style: TextStyle(
+                        fontSize: responsive.ip(2.3),
+                        fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text('${negocioData.companyType}',
+                      style: TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.bold)),
+                  Text('${negocioData.cityName}'),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -449,6 +685,31 @@ class ListaItemsubcategoria extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
+                    onTap: () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          return ProYSerPorItemSubcategoryPage(
+                            nameItem: '${snapshot.data[i].itemsubcategoryName}',
+                            idItem: '${snapshot.data[i].idItemsubcategory}',
+                          );
+                        },
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          var begin = Offset(0.0, 1.0);
+                          var end = Offset.zero;
+                          var curve = Curves.ease;
+
+                          var tween = Tween(begin: begin, end: end).chain(
+                            CurveTween(curve: curve),
+                          );
+
+                          return SlideTransition(
+                            position: animation.drive(tween),
+                            child: child,
+                          );
+                        },
+                      ));
+                    },
                   );
                 });
           } else {
@@ -502,6 +763,31 @@ class ListaCategorias extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
+                    onTap: () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          return SubcategoryPorCategoryPage(
+                            nombreCategoria: snapshot.data[i].categoryName,
+                            idCategoria: snapshot.data[i].idCategory,
+                          );
+                        },
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          var begin = Offset(0.0, 1.0);
+                          var end = Offset.zero;
+                          var curve = Curves.ease;
+
+                          var tween = Tween(begin: begin, end: end).chain(
+                            CurveTween(curve: curve),
+                          );
+
+                          return SlideTransition(
+                            position: animation.drive(tween),
+                            child: child,
+                          );
+                        },
+                      ));
+                    },
                   );
                 });
           } else {
@@ -555,6 +841,32 @@ class ListaSubCategorias extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
+                    onTap: () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          return ItemSubcategoryPorSubcategoryPage(
+                            nombreSubcategoria:
+                                snapshot.data[i].subcategoryName,
+                            idSubCategoria: snapshot.data[i].idSubcategory,
+                          );
+                        },
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          var begin = Offset(0.0, 1.0);
+                          var end = Offset.zero;
+                          var curve = Curves.ease;
+
+                          var tween = Tween(begin: begin, end: end).chain(
+                            CurveTween(curve: curve),
+                          );
+
+                          return SlideTransition(
+                            position: animation.drive(tween),
+                            child: child,
+                          );
+                        },
+                      ));
+                    },
                   );
                 });
           } else {

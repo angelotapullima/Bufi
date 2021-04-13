@@ -95,8 +95,9 @@ class PedidoApi {
           decodedData["result"][i]['subsidiary_opening_hours'];
       sucursalModel.subsidiaryPrincipal =
           decodedData["result"][i]['subsidiary_principal'];
-      sucursalModel.subsidiaryStatus =  decodedData["result"][i]['subsidiary_status'];
-      sucursalModel.subsidiaryImg =  decodedData["result"][i]['subsidiary_img'];
+      sucursalModel.subsidiaryStatus =
+          decodedData["result"][i]['subsidiary_status'];
+      sucursalModel.subsidiaryImg = decodedData["result"][i]['subsidiary_img'];
 
       //Obtener la lista de sucursales para asignar a favoritos
       final list = await sucursalDb
@@ -237,7 +238,7 @@ class PedidoApi {
   }
 
   Future<List<PedidosModel>> enviarPedido() async {
-    final List<PedidosModel>listRespuesta=[];
+    final List<PedidosModel> listRespuesta = [];
     final listDePedidos = await carritoPorSucursalSeleccionado();
 
     String sucursales = '';
@@ -384,7 +385,7 @@ class PedidoApi {
             ["detalle_pedido"][j]['subsidiary_good_updated'];
         subsidiaryGoodModel.productoStatus = decodedData["result"]['pedido']
             ["detalle_pedido"][j]['subsidiary_good_status'];
-            
+
         var productList = await productoDb.obtenerProductoPorIdSubsidiaryGood(
             decodedData["result"]['pedido']["detalle_pedido"][j]
                 ['id_subsidiarygood']);
@@ -422,8 +423,10 @@ class PedidoApi {
             ["detalle_pedido"][j]['subsidiary_opening_hours'];
         sucursalModel.subsidiaryPrincipal = decodedData["result"]['pedido']
             ["detalle_pedido"][j]['subsidiary_principal'];
-        sucursalModel.subsidiaryStatus = decodedData["result"]['pedido'] ["detalle_pedido"][j]['subsidiary_status'];
-        sucursalModel.subsidiaryImg = decodedData["result"]['pedido'] ["detalle_pedido"][j]['subsidiary_img'];
+        sucursalModel.subsidiaryStatus = decodedData["result"]['pedido']
+            ["detalle_pedido"][j]['subsidiary_status'];
+        sucursalModel.subsidiaryImg = decodedData["result"]['pedido']
+            ["detalle_pedido"][j]['subsidiary_img'];
 
         //Obtener la lista de sucursales para asignar a favoritos
         final list = await sucursalDb.obtenerSubsidiaryPorId(
@@ -460,10 +463,10 @@ class PedidoApi {
   }
 
   Future<List<CarritoGeneralSuperior>> carritoPorSucursalSeleccionado() async {
-    final List<CarritoGeneralSuperior>listaGeneralCarrito=[];
-    final List<CarritoGeneralModel>listaGeneral=[];
+    final List<CarritoGeneralSuperior> listaGeneralCarrito = [];
+    final List<CarritoGeneralModel> listaGeneral = [];
     final carritoDb = CarritoDb();
-    final List<String>listaDeStringDeIds=[];
+    final List<String> listaDeStringDeIds = [];
     final subsidiary = SubsidiaryDatabase();
 
     double cantidadTotalSucursal = 0;
@@ -488,7 +491,7 @@ class PedidoApi {
       final sucursal =
           await subsidiary.obtenerSubsidiaryPorId(listaDeStringDeIds[x]);
 
-      final List<CarritoModel>listCarritoModel=[];
+      final List<CarritoModel> listCarritoModel = [];
 
       CarritoGeneralModel carritoGeneralModel = CarritoGeneralModel();
 

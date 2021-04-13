@@ -518,7 +518,7 @@ class _UserPageState extends State<UserPage> {
         if (texto == 'Pendientes de Envío') {
           Navigator.pushNamed(context, 'pedidos');
         } else if (texto == 'Enviados') {
-          Navigator.pushNamed(context, 'pedidos');
+          Navigator.pushNamed(context, 'pedidosEnviados');
         } else if (texto == 'Pendientes de valoración') {
           Navigator.pushNamed(context, 'valoracion');
           //Navigator.pushNamed(context, 'prueba');

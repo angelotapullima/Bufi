@@ -5,8 +5,8 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/page_filtro_details_subsidiary.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart';
-import 'package:bufi/src/page/Tabs/Negocios/producto/GridviewProductosPorSucursal.dart';
-import 'package:bufi/src/page/Tabs/Negocios/servicios/GridviewServiciosPorSucursal.dart';
+import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/GridviewProductosPorSucursal.dart';
+import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/GridviewServiciosPorSucursal.dart';
 import 'package:bufi/src/theme/theme.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
@@ -22,11 +22,11 @@ import 'package:provider/provider.dart';
 import 'package:rating_bar/rating_bar.dart';
 import 'package:rxdart/subjects.dart';
 
-class DetalleSubsidiary extends StatefulWidget {
+class DetalleSubsidiary2 extends StatefulWidget {
   final String nombreSucursal;
   final String idSucursal;
   final String imgSucursal;
-  const DetalleSubsidiary(
+  const DetalleSubsidiary2(
       {Key key,
       @required this.nombreSucursal,
       @required this.idSucursal,
@@ -37,8 +37,9 @@ class DetalleSubsidiary extends StatefulWidget {
   _DetalleSubsidiaryState createState() => _DetalleSubsidiaryState();
 }
 
-class _DetalleSubsidiaryState extends State<DetalleSubsidiary>
-    with SingleTickerProviderStateMixin<DetalleSubsidiary> {
+class _DetalleSubsidiaryState extends State<DetalleSubsidiary2>
+    with SingleTickerProviderStateMixin<DetalleSubsidiary2> {
+
   ScrollController _scrollController = ScrollController();
 
   AnimationController _animationController;

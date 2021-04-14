@@ -38,9 +38,9 @@ class PedidoBloc {
   void obtenerPedidosEnviados(String idEstado) async {
     _pedidosEnviadoController.sink
         .add(await obtnerDetallePedidosEnviados(idEstado));
-    //pedidoApi.obtenerPedidosEnviados(idEstado);
-    //_pedidosEnviadoController.sink
-    //  .add(await obtnerDetallePedidosEnviados(idEstado));
+    pedidoApi.obtenerPedidosEnviados(idEstado);
+    _pedidosEnviadoController.sink
+        .add(await obtnerDetallePedidosEnviados(idEstado));
   }
 
   void obtenerPedidosPorIdEstado(String idEstado) async {
@@ -343,11 +343,10 @@ class PedidoBloc {
 
   Future<List<PedidosModel>> obtnerDetallePedidosEnviados(
       String idEstado) async {
-    List<PedidosModel> listaGeneral = [];
+    List<PedidosModel> listaGeneral = List<PedidosModel>();
 
     //obtener todos los pedidos de la bd
     final listPedidos = await pedidoDb.obtenerPedidosXidEstado(idEstado);
-
     //Recorremos la lista de todos los pedidos
     for (var i = 0; i < listPedidos.length; i++) {
       final pedidosModel = PedidosModel();

@@ -35,7 +35,6 @@ class PedidoApi {
         body: {'estado': '99', 'tn': prefs.token, 'app': 'true'});
 
     final decodedData = json.decode(response.body);
-
 //recorremos la lista de pedidos
     for (var i = 0; i < decodedData["result"].length; i++) {
       final pedidosModel = PedidosModel();

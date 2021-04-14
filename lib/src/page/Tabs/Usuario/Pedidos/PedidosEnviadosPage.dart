@@ -61,7 +61,7 @@ class PedidosEnviadosPage extends StatelessWidget {
                 );
               } else {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Text("No existe ningún producto enviado"),
                 );
               }
             } else {

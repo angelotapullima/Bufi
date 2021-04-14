@@ -62,80 +62,80 @@ class _UserPageState extends State<UserPage> {
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white),
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          width: responsive.ip(10),
-                          height: responsive.ip(10),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: CachedNetworkImage(
-                              cacheManager: CustomCacheManager(),
-                              placeholder: (context, url) => Container(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        width: responsive.ip(10),
+                        height: responsive.ip(10),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: CachedNetworkImage(
+                            cacheManager: CustomCacheManager(),
+                            placeholder: (context, url) => Container(
+                              width: double.infinity,
+                              height: double.infinity,
+                              child: Image(
+                                  image: AssetImage('assets/no-image.png'),
+                                  fit: BoxFit.cover),
+                            ),
+                            errorWidget: (context, url, error) => Container(
                                 width: double.infinity,
                                 height: double.infinity,
-                                child: Image(
-                                    image: AssetImage('assets/no-image.png'),
-                                    fit: BoxFit.cover),
-                              ),
-                              errorWidget: (context, url, error) => Container(
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  child: Center(child: Icon(Icons.error))),
-                              imageUrl: '${prefs.userImage}',
-                              imageBuilder: (context, imageProvider) =>
-                                  Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
-                                  ),
+                                child: Center(child: Icon(Icons.error))),
+                            imageUrl: '${prefs.userImage}',
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: responsive.wp(4.5),
+                      ),
+                      SizedBox(
+                        width: responsive.wp(4.5),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              '${prefs.personName} ${prefs.personSurname}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              '${prefs.userEmail}',
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontSize: responsive.ip(1.8)),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              '${prefs.userNickname}',
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontSize: responsive.ip(1.8)),
+                            ),
+                            // Text(
+                            //   'Ver Perfil',
+                            //   style: TextStyle(
+                            //       fontSize: responsive.ip(1.8),
+                            //       color: Colors.blueAccent,
+                            //       fontWeight: FontWeight.bold),
+                            // ),
+                          ],
                         ),
-                        Expanded(
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                '${prefs.personName} ${prefs.personSurname}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: responsive.ip(1.8),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                '${prefs.userEmail}',
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: responsive.ip(1.8)),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                '${prefs.userNickname}',
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: responsive.ip(1.8)),
-                              ),
-                              // Text(
-                              //   'Ver Perfil',
-                              //   style: TextStyle(
-                              //       fontSize: responsive.ip(1.8),
-                              //       color: Colors.blueAccent,
-                              //       fontWeight: FontWeight.bold),
-                              // ),
-                            ],
-                          ),
-                        )
-                      ]),
+                      )
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: responsive.hp(2),
@@ -161,7 +161,9 @@ class _UserPageState extends State<UserPage> {
                               fontSize: responsive.ip(2.5),
                               fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: responsive.hp(1)),
+                        SizedBox(
+                          height: responsive.hp(1),
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

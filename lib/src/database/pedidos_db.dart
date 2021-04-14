@@ -25,17 +25,16 @@ class PedidosDatabase {
     }
   }
 
- 
   Future<List<PedidosModel>> obtenerPedidos() async {
-    try{
-    final db = await dbProvider.database;
-    final res =
-        await db.rawQuery("SELECT * FROM Pedidos");
+    try {
+      final db = await dbProvider.database;
+      final res = await db.rawQuery(
+          "SELECT * FROM Pedidos WHERE (delivery_status>='0' AND delivery_status<'5')");
 
-    List<PedidosModel> list =
-        res.isNotEmpty ? res.map((c) => PedidosModel.fromJson(c)).toList() : [];
-    return list;
-
+      List<PedidosModel> list = res.isNotEmpty
+          ? res.map((c) => PedidosModel.fromJson(c)).toList()
+          : [];
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
       print(e);
@@ -44,14 +43,16 @@ class PedidosDatabase {
   }
 
   Future<List<PedidosModel>> obtenerPedidosXidPedido(String idPedido) async {
-    try{
-    final db = await dbProvider.database;
-    final res =
-        await db.rawQuery("SELECT * FROM Pedidos WHERE id_pedido= '$idPedido'");
+    try {
+      final db = await dbProvider.database;
+      final res = await db
+          .rawQuery("SELECT * FROM Pedidos WHERE id_pedido= '$idPedido'");
 
-    List<PedidosModel> list =
-        res.isNotEmpty ? res.map((c) => PedidosModel.fromJson(c)).toList() : [];
-    return list;
+      List<PedidosModel> list = res.isNotEmpty
+          ? res.map((c) => PedidosModel.fromJson(c)).toList()
+          : [];
+      print(list);
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
       print(e);
@@ -60,15 +61,15 @@ class PedidosDatabase {
   }
 
   Future<List<PedidosModel>> obtenerPedidosXidEstado(String idEstado) async {
-    try{
-    final db = await dbProvider.database;
-    final res =
-        await db.rawQuery("SELECT * FROM Pedidos WHERE delivery_status= '$idEstado'");
+    try {
+      final db = await dbProvider.database;
+      final res = await db
+          .rawQuery("SELECT * FROM Pedidos WHERE delivery_status= '$idEstado'");
 
-    List<PedidosModel> list =
-        res.isNotEmpty ? res.map((c) => PedidosModel.fromJson(c)).toList() : [];
-    return list;
-
+      List<PedidosModel> list = res.isNotEmpty
+          ? res.map((c) => PedidosModel.fromJson(c)).toList()
+          : [];
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
       print(e);

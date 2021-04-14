@@ -1,8 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences {
-
-  //instancia singleton para crear una sola instancia en toda la aplicación de 
+  //instancia singleton para crear una sola instancia en toda la aplicación de
   //Sharedpreferences
   static final Preferences _instancia = new Preferences._internal();
 
@@ -11,7 +10,7 @@ class Preferences {
   }
 
   SharedPreferences _prefs;
- 
+
   Preferences._internal();
 
   initPrefs() async {
@@ -110,12 +109,19 @@ class Preferences {
     _prefs.setString('token', value);
   }
 
-  
   get cargaCategorias {
     return _prefs.getString('cargaCategorias');
   }
 
   set cargaCategorias(String value) {
     _prefs.setString('cargaCategorias', value);
+  }
+
+  get saludo {
+    return _prefs.getString('saludo');
+  }
+
+  set saludo(String value) {
+    _prefs.setString('saludo', value);
   }
 }

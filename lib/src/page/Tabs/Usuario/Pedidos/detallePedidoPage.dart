@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ticket_widget/flutter_ticket_widget.dart';
@@ -36,6 +37,7 @@ class _TickectPedidoState extends State<TickectPedido> {
           builder: (context, AsyncSnapshot<List<PedidosModel>> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data.length > 0) {
+                var fecha = obtenerFechaHora(snapshot.data[0].deliveryDatetime);
                 return Stack(
                   children: [
                     Screenshot(
@@ -93,7 +95,7 @@ class _TickectPedidoState extends State<TickectPedido> {
                                       children: <Widget>[
                                         ticketDetailsWidget(
                                             'Fecha',
-                                            '${snapshot.data[0].deliveryDatetime}',
+                                            '$fecha',
                                             'Cliente',
                                             '${snapshot.data[0].deliveryName} ',
                                             responsive),
@@ -211,7 +213,7 @@ class _TickectPedidoState extends State<TickectPedido> {
                                                         "${snapshot.data[0].detallePedido[index].listProducto[0].productoName} x ${snapshot.data[0].detallePedido[index].cantidad}"),
                                                     // Text(
                                                     //     "${snapshot.data[0].detallePedido[index].listProducto[0].listMarcaProd[0].marcaProducto}  "),
-                                                     SizedBox(
+                                                    SizedBox(
                                                       height: responsive.hp(.5),
                                                     )
                                                   ],

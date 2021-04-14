@@ -19,9 +19,9 @@ class AgentesBloc {
   }
 
   void obtenerAgentes() async {
-     _agenteController.sink.add( await listarAgentes());
+    _agenteController.sink.add(await listarAgentes());
     await agenteApi.obtenerAgentes();
-    _agenteController.sink.add( await listarAgentes());
+    _agenteController.sink.add(await listarAgentes());
   }
 
   Future<List<AgenteModel>> listarAgentes() async {
@@ -43,6 +43,7 @@ class AgentesBloc {
       agenteModel.agenteCodigo = listAgentes[i].agenteCodigo;
       agenteModel.agenteDireccion = listAgentes[i].agenteDireccion;
       agenteModel.agenteTelefono = listAgentes[i].agenteTelefono;
+      agenteModel.agenteImagen = listAgentes[i].agenteImagen;
       agenteModel.agenteCoordX = listAgentes[i].agenteCoordX;
       agenteModel.agenteCoordY = listAgentes[i].agenteCoordY;
       agenteModel.agenteEstado = listAgentes[i].agenteEstado;
@@ -54,36 +55,33 @@ class AgentesBloc {
       agenteModel.cuentaeEstado = listAgentes[i].cuentaeEstado;
       agenteModel.idCompany = listAgentes[i].idCompany;
 
-      //funcion que llama desde la bd a la lista de companys 
-      final listCompany= await companyDatabase.obtenerCompanyPorIdCompany(listAgentes[i].idCompany);
+      //funcion que llama desde la bd a la lista de companys
+      final listCompany = await companyDatabase
+          .obtenerCompanyPorIdCompany(listAgentes[i].idCompany);
       // lista vacia para llenar los datos de la Company
-      final List<CompanyModel>listcompanyModel=[];
+      final List<CompanyModel> listcompanyModel = [];
 
       // recorrer la tabla company
       for (var j = 0; j < listCompany.length; j++) {
         final companyModel = CompanyModel();
         companyModel.idCompany = listCompany[j].idCompany;
-          companyModel.companyName = listCompany[j].companyName;
-          companyModel.idUser = listCompany[j].idUser;
-          companyModel.idCity = listCompany[j].idCity;
-          companyModel.idCategory = listCompany[j].idCategory;
-          companyModel.companyImage = listCompany[j].companyImage;
-          companyModel.companyRuc = listCompany[j].companyRuc;
-          companyModel.companyType = listCompany[j].companyType;
-          companyModel.companyShortcode =
-              listCompany[j].companyShortcode;
-          companyModel.companyDelivery =
-              listCompany[j].companyDelivery;
-          companyModel.companyEntrega = listCompany[j].companyEntrega;
-          companyModel.companyTarjeta = listCompany[j].companyTarjeta;
-          companyModel.companyVerified =
-              listCompany[j].companyVerified;
-          companyModel.companyRating = listCompany[j].companyRating;
-          companyModel.companyCreatedAt =
-              listCompany[j].companyCreatedAt;
-          companyModel.companyJoin = listCompany[j].companyJoin;
-          companyModel.companyStatus = listCompany[j].companyStatus;
-          companyModel.companyMt = listCompany[j].companyMt;
+        companyModel.companyName = listCompany[j].companyName;
+        companyModel.idUser = listCompany[j].idUser;
+        companyModel.idCity = listCompany[j].idCity;
+        companyModel.idCategory = listCompany[j].idCategory;
+        companyModel.companyImage = listCompany[j].companyImage;
+        companyModel.companyRuc = listCompany[j].companyRuc;
+        companyModel.companyType = listCompany[j].companyType;
+        companyModel.companyShortcode = listCompany[j].companyShortcode;
+        companyModel.companyDelivery = listCompany[j].companyDelivery;
+        companyModel.companyEntrega = listCompany[j].companyEntrega;
+        companyModel.companyTarjeta = listCompany[j].companyTarjeta;
+        companyModel.companyVerified = listCompany[j].companyVerified;
+        companyModel.companyRating = listCompany[j].companyRating;
+        companyModel.companyCreatedAt = listCompany[j].companyCreatedAt;
+        companyModel.companyJoin = listCompany[j].companyJoin;
+        companyModel.companyStatus = listCompany[j].companyStatus;
+        companyModel.companyMt = listCompany[j].companyMt;
 
         listcompanyModel.add(companyModel);
       }

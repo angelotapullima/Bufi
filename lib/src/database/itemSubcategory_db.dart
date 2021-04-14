@@ -4,9 +4,9 @@ import 'package:bufi/src/models/itemSubcategoryModel.dart';
 class ItemsubCategoryDatabase {
   final dbProvider = DatabaseProvider.db;
 
-  insertarItemSubCategoria(ItemSubCategoriaModel itemSubCategoriaModel,String funcion) async {
-    
-   /*  print('******************************************');
+  insertarItemSubCategoria(
+      ItemSubCategoriaModel itemSubCategoriaModel, String funcion) async {
+    /*  print('******************************************');
     print(itemSubCategoriaModel.itemsubcategoryImage);
     print(funcion);
     print('******************************************'); */
@@ -86,7 +86,7 @@ class ItemsubCategoryDatabase {
           : [];
       return list;
     } catch (e) {
-      print(" $e Error en la base de datossss");
+      print(" $e Error en la base de datos");
       print(e);
       return [];
     }

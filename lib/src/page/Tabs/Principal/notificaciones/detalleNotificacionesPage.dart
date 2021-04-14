@@ -1,5 +1,6 @@
 import 'package:bufi/src/models/notificacionModel.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class DetalleNotificacionesPage extends StatefulWidget {
@@ -15,6 +16,7 @@ class DetalleNotificacionesPage extends StatefulWidget {
 class _DetalleNotificacionesPageState extends State<DetalleNotificacionesPage> {
   @override
   Widget build(BuildContext context) {
+    var fecha = obtenerFechaHora(widget.noti.notificacionDatetime);
     final responsive = Responsive.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -28,12 +30,12 @@ class _DetalleNotificacionesPageState extends State<DetalleNotificacionesPage> {
             children: [
               Text('${widget.noti.notificacionMensaje}',
                   style: TextStyle(
-                      color:  Colors.black,
+                      color: Colors.black,
                       fontSize: responsive.ip(2),
                       fontWeight: FontWeight.bold)),
-              Text('${widget.noti.notificacionDatetime}',
+              Text('$fecha',
                   style: TextStyle(
-                      color:  Colors.black,
+                      color: Colors.black,
                       fontSize: responsive.ip(2),
                       fontWeight: FontWeight.bold)),
             ],

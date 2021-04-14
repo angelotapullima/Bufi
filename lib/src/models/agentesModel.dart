@@ -128,6 +128,7 @@ class AgenteModel {
         "agente_codigo": agenteCodigo,
         "agente_direccion": agenteDireccion,
         "agente_telefono": agenteTelefono,
+        //"agente_imagen": agenteImagen,
         "agente_coord_x": agenteCoordX,
         "agente_coord_y": agenteCoordY,
         "agente_estado": agenteEstado,

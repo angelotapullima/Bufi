@@ -1,5 +1,3 @@
-
-
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/database/carrito_db.dart';
 import 'package:bufi/src/database/direccion_database.dart';
@@ -22,6 +20,7 @@ import 'package:bufi/src/models/sugerenciaBusquedaModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.Dart';
 import 'package:toast/toast.dart' as T;
 
 void showToast(BuildContext context, String msg, {int duration, int gravity}) {
@@ -175,7 +174,7 @@ void quitarProductoFavorito(
     BuildContext context, ProductoModel dataModel) async {
   final pointsProdBloc = ProviderBloc.points(context);
   final bienesBloc = ProviderBloc.bienesServicios(context);
-   final productoBloc = ProviderBloc.productos(context);
+  final productoBloc = ProviderBloc.productos(context);
   // final deletePoint = PointApi();
 
   final productoDb = ProductoDatabase();
@@ -602,9 +601,9 @@ void eliminarTodasLasDirecciones(BuildContext context) async {
 
 Future<List<ProductoModel>> filtrarListaProductos(
     List<ProductoModel> lista) async {
-  final List<ProductoModel>listAlgo=[];
+  final List<ProductoModel> listAlgo = [];
 
-  final List<String>listString=[];
+  final List<String> listString = [];
   for (var a = 0; a < lista.length; a++) {
     listString.add(lista[a].idProducto);
   }
@@ -659,9 +658,9 @@ Future<List<ProductoModel>> filtrarListaProductos(
 
 Future<List<CompanyModel>> filtrarListaNegocios(
     List<CompanyModel> lista) async {
-  final List<CompanyModel>listAlgo=[];
+  final List<CompanyModel> listAlgo = [];
 
-  final List<String>listString=[];
+  final List<String> listString = [];
   for (var a = 0; a < lista.length; a++) {
     listString.add(lista[a].idCompany);
   }
@@ -713,6 +712,22 @@ Future<List<CompanyModel>> filtrarListaNegocios(
   }
 
   return listAlgo;
+}
+
+obtenerFechaHora(String date) {
+  var fecha = DateTime.parse(date);
+
+  final DateFormat fech = new DateFormat('dd MMM yyyy, H:m', 'es');
+
+  return fech.format(fecha);
+}
+
+obtenerFecha(String date) {
+  var fecha = DateTime.parse(date);
+
+  final DateFormat fech = new DateFormat('dd MMMM yyyy', 'es');
+
+  return fech.format(fecha);
 }
 
 // void quitarSubsidiaryFavorito(

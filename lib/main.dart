@@ -2,8 +2,10 @@ import 'package:bufi/introPage.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProductoBloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProductoFotoPage.dart';
+import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
 import 'package:bufi/src/page/Tabs/Principal/notificaciones/notificacionesPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Direccion/AgregarDireccionPAge.dart';
+import 'package:bufi/src/page/Tabs/Usuario/Pedidos/PedidosEnviadosPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/RatingPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/ValoracionPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Direccion/direccionPage.dart';
@@ -35,6 +37,7 @@ import 'package:catcher/handlers/email_manual_handler.dart';
 import 'package:catcher/mode/dialog_report_mode.dart';
 import 'package:catcher/model/catcher_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -86,7 +89,6 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<DetalleProductoBloc>(
             create: (_) => DetalleProductoBloc(),
           ),
-          
         ],
         child: MaterialApp(
             navigatorKey: Catcher.navigatorKey,
@@ -103,6 +105,15 @@ class MyApp extends StatelessWidget {
             },
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              //const Locale('en', ''), // English, no country code
+              const Locale('es', ''), // Spanish, no country code
+            ],
             theme: lightTheme,
             darkTheme: lightTheme, //darkTheme,
             home: Splash(),
@@ -135,7 +146,7 @@ class MyApp extends StatelessWidget {
                   DetalleProductoFoto(),
 
               //Servicio
-              // "detalleServicio": (BuildContext context) => DetalleServicio(),
+              "detalleServicio": (BuildContext context) => DetalleServicio(),
               // "listarServiciosXsucursal": (BuildContext context) =>
 
               //Usuario
@@ -149,6 +160,8 @@ class MyApp extends StatelessWidget {
                   AgregarDireccionPage(),
               //Pedidos
               'pedidos': (BuildContext context) => PedidosPage(),
+              'pedidosEnviados': (BuildContext context) =>
+                  PedidosEnviadosPage(),
               'valoracion': (BuildContext context) =>
                   PendientesValoracionPage(),
               'ratingProductos': (BuildContext context) =>

@@ -27,7 +27,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Necesitamos acceso a la camara para captura de fotos .</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Necesitamos acceso a la Galeeria para compartir fotos .</string>
+	<string>Necesitamos acceso a la Galeria para compartir fotos .</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Necesitamos acceso a su galeria para captura de fotos .</string>
 	<key>UILaunchStoryboardName</key>

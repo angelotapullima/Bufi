@@ -23,6 +23,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
   TextEditingController comentarioController = TextEditingController();
 
   //Para acceder a la galeria o tomar una foto
+
   File foto;
   //Usar en cropper
   bool _inProcess = false;
@@ -195,7 +196,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                     child: Text("Galeria"),
                     onTap: () {
                       Navigator.pop(context);
-                      getImage(ImageSource.gallery);
+                      onSelect(ImageSource.gallery);
                     },
                   ),
                   Padding(
@@ -205,7 +206,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                     child: Text("Camara"),
                     onTap: () {
                       Navigator.pop(context);
-                      getImage(ImageSource.camera);
+                      onSelect(ImageSource.camera);
                     },
                   )
                 ],
@@ -249,14 +250,35 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
     }
   }
 
-  getImage(ImageSource source) async {
-    this.setState(() {
-      _inProcess = true;
+  static Future<File> pickImage({
+    ImageSource source,
+    Future<File> Function(File file) cropImage,
+  }) async {
+    final pickedFile = await ImagePicker().getImage(source: source);
+    if (pickedFile == null) return null;
+    if (cropImage == null) {
+      return File(pickedFile.path);
+    } else {
+      final file = File(pickedFile.path);
+
+      return cropImage(file);
+    }
+  }
+
+  Future onSelect(
+    ImageSource source,
+  ) async {
+    final file = await pickImage(source: source, cropImage: cropRectangleImage);
+    if (file == null) return;
+    setState(() {
+      foto = file;
+      print('FOTO: ${foto.path}');
     });
-    File image = await ImagePicker.pickImage(source: source);
-    if (image != null) {
-      File cropped = await ImageCropper.cropImage(
-        sourcePath: image.path,
+  }
+
+  Future<File> cropRectangleImage(File imageFile) async =>
+      await ImageCropper.cropImage(
+        sourcePath: imageFile.path,
         aspectRatioPresets: Platform.isAndroid
             ? [
                 CropAspectRatioPreset.ratio3x2,
@@ -273,21 +295,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
         iosUiSettings: IOSUiSettings(
           title: 'Imagen',
         ),
-
-        // maxWidth: 20,
-        // maxHeight: 30
       );
-
-      this.setState(() {
-        foto = cropped;
-        _inProcess = false;
-      });
-    } else {
-      this.setState(() {
-        _inProcess = false;
-      });
-    }
-  }
 
   Widget _mostrarFoto(Responsive responsive) {
     if (foto != null) {
@@ -296,11 +304,13 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
         width: responsive.wp(20),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
-          child: Image(
+          child: Image.file(
+              foto) /*Image(
             image: AssetImage(foto.path),
             height: responsive.hp(38),
             fit: BoxFit.cover,
-          ),
+          )*/
+          ,
         ),
       );
     } else {

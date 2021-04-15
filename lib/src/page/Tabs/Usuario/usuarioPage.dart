@@ -190,59 +190,6 @@ class _UserPageState extends State<UserPage> {
                       color: Colors.white),
                   child: Column(
                     children: [
-                      Stack(
-                        children: [
-                          Center(
-                            child: Text(
-                              'Mis Bufis',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: responsive.ip(2.5),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Spacer(),
-                              Container(
-                                width: responsive.wp(11),
-                                child: Image(
-                                  image: AssetImage('assets/moneda.png'),
-                                ),
-                              ),
-                              StreamBuilder(
-                                stream: cuentaBloc.saldoStream,
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<List<CuentaModel>> snapshot) {
-                                  int valorcito = 0;
-
-                                  if (snapshot.hasData) {
-                                    if (snapshot.data.length > 0) {
-                                      if (double.parse(
-                                                  snapshot.data[0].cuentaSaldo)
-                                              .toInt() >
-                                          0) {
-                                        valorcito = double.parse(
-                                                snapshot.data[0].cuentaSaldo)
-                                            .toInt();
-                                      }
-                                    }
-                                  }
-
-                                  return Container(
-                                    child: Text(
-                                      valorcito.toString(),
-                                      style: TextStyle(
-                                          fontSize: responsive.ip(1.8),
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
                       SizedBox(height: responsive.hp(1.5)),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

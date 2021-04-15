@@ -39,11 +39,27 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
   @override
   void dispose() {
     _controllerBusquedaAngelo.dispose();
+    _controllerBusquedaAngelo.text = '';
     super.dispose();
   }
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final busquedaBloc = ProviderBloc.busqueda(context);
+      busquedaBloc.obtenerBusquedaProducto('');
+      busquedaBloc.obtenerBusquedaServicio('');
+      busquedaBloc.obtenerBusquedaNegocio('');
+      busquedaBloc.obtenerBusquedaItemSubcategoria('');
+      busquedaBloc.obtenerBusquedaCategoria('');
+      busquedaBloc.obtenerBusquedaSubcategoria('');
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print('Primera vez');
     final responsive = Responsive.of(context);
     final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
     final busquedaBloc = ProviderBloc.busqueda(context);

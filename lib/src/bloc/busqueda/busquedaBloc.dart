@@ -104,8 +104,9 @@ class BusquedaBloc {
     /* busquedaProductoController.sink
         .add(await obtnerResultBusquedaProducto(query)); */
     busquedaProductoController.sink.add([]);
-    busquedaProductoController.sink
-        .add(await busquedaApi.busquedaProducto(query));
+    if (query != '')
+      busquedaProductoController.sink
+          .add(await busquedaApi.busquedaProducto(query));
 
     // busquedaProductoController.sink
     //     .add(await obtnerResultBusquedaProducto(query));
@@ -115,8 +116,9 @@ class BusquedaBloc {
   void obtenerBusquedaServicio(String query) async {
     //busquedaServicioController.sink.add(await obtnerResultBusquedaServicio(query));
     busquedaServicioController.sink.add([]);
-    busquedaServicioController.sink
-        .add(await busquedaApi.busquedaServicio(query));
+    if (query != '')
+      busquedaServicioController.sink
+          .add(await busquedaApi.busquedaServicio(query));
     //busquedaServicioController.sink.add(await busquedaServicio(query));
   }
 
@@ -124,29 +126,33 @@ class BusquedaBloc {
   void obtenerBusquedaNegocio(String query) async {
     //busquedaNegocioController.sink.add(await obtnerResultBusquedaNegocio(query));
     busquedaNegocioController.sink.add([]);
-    busquedaNegocioController.sink
-        .add(await busquedaApi.busquedaNegocio(query));
+    if (query != '')
+      busquedaNegocioController.sink
+          .add(await busquedaApi.busquedaNegocio(query));
   }
 
   //Categoria
   void obtenerBusquedaCategoria(String query) async {
     busquedaCategoriaController.sink.add([]);
-    busquedaCategoriaController.sink
-        .add(await obtnerResultBusquedaCategoria(query));
+    if (query != '')
+      busquedaCategoriaController.sink
+          .add(await obtnerResultBusquedaCategoria(query));
   }
 
   //SubcategoriaCategoria
   void obtenerBusquedaSubcategoria(String query) async {
     busquedaSubcategoryController.sink.add([]);
-    busquedaSubcategoryController.sink
-        .add(await obtnerResultBusquedaSubcategoria(query));
+    if (query != '')
+      busquedaSubcategoryController.sink
+          .add(await obtnerResultBusquedaSubcategoria(query));
   }
 
   //ItemSubcategoriaCategoria
   void obtenerBusquedaItemSubcategoria(String query) async {
     busquedaItemSubcategController.sink.add([]);
-    busquedaItemSubcategController.sink
-        .add(await obtnerResultBusquedaItemSubcategoria(query));
+    if (query != '')
+      busquedaItemSubcategController.sink
+          .add(await obtnerResultBusquedaItemSubcategoria(query));
     //busquedaItemSubcategController.sink .add(await busquedaApi.busquedaItemsubcategorias(query));
   }
 

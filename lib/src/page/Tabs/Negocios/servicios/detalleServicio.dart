@@ -32,9 +32,14 @@ class _DetalleServicioState extends State<DetalleServicio>
             stream: detailServicioBloc.detailServiciostream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
-                return
-                    //Center(child: Text(negocio[0].companyName));
-                    _custonScroll(responsive, snapshot.data[0]);
+                return Stack(
+                  children: [
+                    _custonScroll(responsive, snapshot.data[0]),
+                    _buttomContacto(responsive)
+                  ],
+                );
+                //Center(child: Text(negocio[0].companyName));
+
                 //_crearAppbar(responsive, negocio[0]);
               } else if (snapshot.hasError) {
                 return snapshot.error;
@@ -142,8 +147,51 @@ class _DetalleServicioState extends State<DetalleServicio>
                         ),
                         Text(
                           ('${service.subsidiaryServiceStatus}') == '1'
-                              ? 'SI'
-                              : 'NO',
+                              ? 'Si'
+                              : 'No',
+                          style: TextStyle(
+                            fontSize: responsive.ip(2),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(2.5),
+                    ),
+                    Row(
+                      children: [
+                        Text("Contacto:"),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          '${service.listSubsidiary[0].subsidiaryCellphone}  ',
+                          style: TextStyle(
+                            fontSize: responsive.ip(2),
+                          ),
+                        ),
+                        Text(
+                          ('${service.listSubsidiary[0].subsidiaryCellphone2}') !=
+                                  ''
+                              ? '-  ${service.listSubsidiary[0].subsidiaryCellphone2}'
+                              : '',
+                          style: TextStyle(
+                            fontSize: responsive.ip(2),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(2.5),
+                    ),
+                    Row(
+                      children: [
+                        Text("Dirección:"),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          '${service.listSubsidiary[0].subsidiaryAddress}',
                           style: TextStyle(
                             fontSize: responsive.ip(2),
                           ),
@@ -159,6 +207,51 @@ class _DetalleServicioState extends State<DetalleServicio>
         ),
       ],
     );
+  }
+
+  Widget _buttomContacto(Responsive responsive) {
+    return Positioned(
+        bottom: 0,
+        right: 0,
+        left: 150,
+        child: GestureDetector(
+          onTap: () {
+            print('Contactar');
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                  opaque: false,
+                  transitionDuration: const Duration(milliseconds: 300),
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return Contactar();
+                    //return DetalleProductitos(productosData: productosData);
+                  },
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                ));
+          },
+          child: Container(
+            height: responsive.hp(8),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(30)),
+                color: Colors.blueAccent),
+            child: Center(
+              child: Text(
+                'Contactar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: responsive.ip(3),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 
   Widget _crearAppbar(
@@ -233,6 +326,24 @@ class _DetalleServicioState extends State<DetalleServicio>
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class Contactar extends StatefulWidget {
+  @override
+  _ContactarState createState() => _ContactarState();
+}
+
+class _ContactarState extends State<Contactar> {
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.black12,
+      child: Container(
+        height: 100,
+        color: Colors.red,
       ),
     );
   }

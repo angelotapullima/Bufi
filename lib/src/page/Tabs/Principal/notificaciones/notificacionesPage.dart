@@ -17,13 +17,13 @@ class NotificacionesPage extends StatefulWidget {
 }
 
 class _NotificacionesPageState extends State<NotificacionesPage> {
-  String idNoti;
+  
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final notificacionesBloc = ProviderBloc.notificaciones(context);
     notificacionesBloc.listarNotificaciones();
-    notificacionesBloc.listarNotificacionesPendientes(idNoti);
+  
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(top: responsive.ip(5.0)),
@@ -130,6 +130,8 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                   notificaciones[index].notificacionDatetime);
                               return GestureDetector(
                                 onTap: () {
+                                   leerNotificacion(
+                                        context, notificaciones[index]);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -138,14 +140,13 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                               noti: notificaciones[index],
                                             )),
                                   );
-                                  setState(() {
-                                    // leerNotificacion(
-                                    //     context, notificaciones[index]);
-                                    notificacionesBloc
-                                        .listarNotificacionesPendientes(
-                                            notificaciones[index]
-                                                .idNotificacion);
-                                  });
+                                  
+                                   
+                                    // notificacionesBloc
+                                    //     .listarNotificacionesPendientes(
+                                    //         notificaciones[index]
+                                    //             .idNotificacion);
+                                  
                                 },
                                 child: Container(
                                   margin: EdgeInsets.symmetric(

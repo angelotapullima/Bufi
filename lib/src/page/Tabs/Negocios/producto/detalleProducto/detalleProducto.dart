@@ -1,5 +1,3 @@
-
-
 import 'package:bufi/src/bloc/provider_bloc.dart';
 
 import 'package:bufi/src/models/productoModel.dart';
@@ -271,9 +269,9 @@ class _CuerpoState extends State<Cuerpo> {
         builder: (_, value, __) {
           return Stack(
             children: <Widget>[
-
-              BackGroundImage(listProd:  widget.listProd,),
-              
+              BackGroundImage(
+                listProd: widget.listProd,
+              ),
 
               // Iconos arriba de la imagen del producto
               SafeArea(
@@ -472,7 +470,10 @@ class _CuerpoState extends State<Cuerpo> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: responsive.wp(3)),
                     child: Text(
-                      '$lorepIpsum',
+                      // '$lorepIpsum',
+                      ('${listProd[value].productoCharacteristics}') == 'null'
+                          ? ""
+                          : "${listProd[value].productoCharacteristics}",
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: responsive.ip(1.6)),
@@ -486,10 +487,7 @@ class _CuerpoState extends State<Cuerpo> {
       ),
     );
   }
-
-
 }
-
 
 class BackGroundImage extends StatefulWidget {
   const BackGroundImage({Key key, @required this.listProd}) : super(key: key);
@@ -501,80 +499,78 @@ class BackGroundImage extends StatefulWidget {
 }
 
 class _BackGroundImageState extends State<BackGroundImage> {
-
   final _pageController = PageController(viewportFraction: 1, initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
- final provider = Provider.of<DetalleProductoBloc>(context, listen: false);
+    final provider = Provider.of<DetalleProductoBloc>(context, listen: false);
 
     final contadorBloc = ProviderBloc.contadorPagina(context);
-
 
     return ValueListenableBuilder<int>(
         valueListenable: provider.show,
         builder: (_, value, __) {
-        return Container(
-          height: size.height * 0.47,
-          width: double.infinity,
-          child: Stack(
-            children: [
-              PageView.builder(
-                  itemCount: widget.listProd[value].listFotos.length,
-                  controller: _pageController,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, 'detalleProductoFoto',
-                              arguments: widget.listProd);
-                        },
-                        child: Hero(
-                          tag:
-                              '$apiBaseURL/${widget.listProd[value].listFotos[index].galeriaFoto}',
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: CachedNetworkImage(
-                              //cacheManager: CustomCacheManager(),
+          return Container(
+            height: size.height * 0.47,
+            width: double.infinity,
+            child: Stack(
+              children: [
+                PageView.builder(
+                    itemCount: widget.listProd[value].listFotos.length,
+                    controller: _pageController,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, 'detalleProductoFoto',
+                                arguments: widget.listProd);
+                          },
+                          child: Hero(
+                            tag:
+                                '$apiBaseURL/${widget.listProd[value].listFotos[index].galeriaFoto}',
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: CachedNetworkImage(
+                                //cacheManager: CustomCacheManager(),
 
-                              placeholder: (context, url) => Image(
-                                  image: AssetImage('assets/jar-loading.gif'),
-                                  fit: BoxFit.cover),
+                                placeholder: (context, url) => Image(
+                                    image: AssetImage('assets/jar-loading.gif'),
+                                    fit: BoxFit.cover),
 
-                              errorWidget: (context, url, error) => Image(
-                                  image: AssetImage('assets/carga_fallida.jpg'),
-                                  fit: BoxFit.cover),
+                                errorWidget: (context, url, error) => Image(
+                                    image:
+                                        AssetImage('assets/carga_fallida.jpg'),
+                                    fit: BoxFit.cover),
 
-                              imageUrl:
-                                  '$apiBaseURL/${widget.listProd[value].listFotos[index].galeriaFoto}',
+                                imageUrl:
+                                    '$apiBaseURL/${widget.listProd[value].listFotos[index].galeriaFoto}',
 
-                              imageBuilder: (context, imageProvider) => Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                  onPageChanged: (int index) {
-                    contadorBloc.changeContador(index);
-                  }),
-            ],
-          ),
-        );
-      }
-    );
-  
+                      );
+                    },
+                    onPageChanged: (int index) {
+                      contadorBloc.changeContador(index);
+                    }),
+              ],
+            ),
+          );
+        });
   }
 }
 

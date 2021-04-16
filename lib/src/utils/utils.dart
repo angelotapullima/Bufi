@@ -1,3 +1,4 @@
+import 'package:bufi/src/api/notificaciones_api.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/database/carrito_db.dart';
 import 'package:bufi/src/database/direccion_database.dart';
@@ -320,9 +321,213 @@ void quitarServicioFavorito(
   serviceBloc.listarServiciosPorSucursal(dataModel.idSubsidiary);
 }
 
+//---------------"De acuerdo a lo que buscaste"-----------------------
+void guardarProductoFavorito2(
+    BuildContext context, BienesServiciosModel dataModel) async {
+  final pointsProdBloc = ProviderBloc.points(context);
+  final bienesBloc = ProviderBloc.bienesServicios(context);
+  final productoBloc = ProviderBloc.productos(context);
+  final sucursalNegocio = ProviderBloc.sucursal(context);
+  final sugerenciaBusquedaBloc = ProviderBloc.sugerenciaXbusqueda(context);
+    
+
+  final productoModel = ProductoModel();
+  final productoDb = ProductoDatabase();
+  final sucursalDataBase = SubsidiaryDatabase();
+
+  productoModel.idProducto = dataModel.idSubsidiarygood;
+  productoModel.idSubsidiary = dataModel.idSubsidiary;
+  productoModel.idGood = dataModel.idGood;
+  productoModel.idItemsubcategory = dataModel.idItemsubcategory;
+  productoModel.productoName = dataModel.subsidiaryGoodName;
+  productoModel.productoPrice = dataModel.subsidiaryGoodPrice;
+  productoModel.productoCurrency = dataModel.subsidiaryGoodCurrency;
+  productoModel.productoImage = dataModel.subsidiaryGoodImage;
+  productoModel.productoCharacteristics = dataModel.subsidiaryGoodCharacteristics;
+  productoModel.productoBrand = dataModel.subsidiaryGoodBrand;
+  productoModel.productoModel = dataModel.subsidiaryGoodModel;
+  productoModel.productoType = dataModel.subsidiaryGoodType;
+  productoModel.productoSize = dataModel.subsidiaryGoodSize;
+  productoModel.productoStock = dataModel.subsidiaryGoodStock;
+  productoModel.productoMeasure = dataModel.subsidiaryGoodMeasure;
+  productoModel.productoRating = dataModel.subsidiaryGoodRating;
+  productoModel.productoUpdated = dataModel.subsidiaryGoodUpdated;
+  productoModel.productoStatus = dataModel.subsidiaryGoodStatus;
+  productoModel.productoFavourite = "1";
+
+//Se actualiza el producto con los datos enviados
+  await productoDb.updateProducto(productoModel);
+
+  //Obtenemos la lista de sucursales por id
+  final sucursal =
+      await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
+  final subModel = SubsidiaryModel();
+  subModel.idSubsidiary = sucursal[0].idSubsidiary;
+  subModel.idCompany = sucursal[0].idCompany;
+  subModel.subsidiaryName = sucursal[0].subsidiaryName;
+  subModel.subsidiaryCellphone = sucursal[0].subsidiaryCellphone;
+  subModel.subsidiaryCellphone2 = sucursal[0].subsidiaryCellphone2;
+  subModel.subsidiaryEmail = sucursal[0].subsidiaryEmail;
+  subModel.subsidiaryCoordX = sucursal[0].subsidiaryCoordX;
+  subModel.subsidiaryCoordY = sucursal[0].subsidiaryCoordY;
+  subModel.subsidiaryOpeningHours = sucursal[0].subsidiaryOpeningHours;
+  subModel.subsidiaryPrincipal = sucursal[0].subsidiaryPrincipal;
+  subModel.subsidiaryStatus = sucursal[0].subsidiaryStatus;
+  subModel.subsidiaryFavourite = '1';
+
+  await sucursalDataBase.updateSubsidiary(subModel);
+
+  //Para dibujar el widget de favorito en la vista de Point
+  pointsProdBloc.obtenerPointsProductosXSucursal();
+  //Para dibujar el widget de favorito en la vista principal
+  bienesBloc.obtenerBienesServiciosResumen();
+  sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
+  //Para dibujar el widget de favorito en la vista de detalle de negocio
+  sucursalNegocio.obtenerSucursalporIdCompany(sucursal[0].idCompany);
+  //Para dibujar el widget de favorito en la vista de productos por sucursal
+  productoBloc.listarProductosPorSucursal(dataModel.idSubsidiary);
+}
+
+void quitarProductoFavorito2(
+    BuildContext context, BienesServiciosModel dataModel) async {
+  final pointsProdBloc = ProviderBloc.points(context);
+  final bienesBloc = ProviderBloc.bienesServicios(context);
+  final productoBloc = ProviderBloc.productos(context);
+  final sugerenciaBusquedaBloc = ProviderBloc.sugerenciaXbusqueda(context);
+    
+
+  final productoDb = ProductoDatabase();
+
+  final productoModel = ProductoModel();
+ productoModel.idProducto = dataModel.idSubsidiarygood;
+  productoModel.idSubsidiary = dataModel.idSubsidiary;
+  productoModel.idGood = dataModel.idGood;
+  productoModel.idItemsubcategory = dataModel.idItemsubcategory;
+  productoModel.productoName = dataModel.subsidiaryGoodName;
+  productoModel.productoPrice = dataModel.subsidiaryGoodPrice;
+  productoModel.productoCurrency = dataModel.subsidiaryGoodCurrency;
+  productoModel.productoImage = dataModel.subsidiaryGoodImage;
+  productoModel.productoCharacteristics = dataModel.subsidiaryGoodCharacteristics;
+  productoModel.productoBrand = dataModel.subsidiaryGoodBrand;
+  productoModel.productoModel = dataModel.subsidiaryGoodModel;
+  productoModel.productoType = dataModel.subsidiaryGoodType;
+  productoModel.productoSize = dataModel.subsidiaryGoodSize;
+  productoModel.productoStock = dataModel.subsidiaryGoodStock;
+  productoModel.productoMeasure = dataModel.subsidiaryGoodMeasure;
+  productoModel.productoRating = dataModel.subsidiaryGoodRating;
+  productoModel.productoUpdated = dataModel.subsidiaryGoodUpdated;
+  productoModel.productoStatus = dataModel.subsidiaryGoodStatus;
+  productoModel.productoFavourite = '0';
+
+  await productoDb.updateProducto(productoModel);
+
+  
+  pointsProdBloc.obtenerPointsProductosXSucursal();
+  bienesBloc.obtenerBienesServiciosResumen();
+  sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
+  //Para dibujar el widget de favorito en la vista de productos por sucursal
+  productoBloc.listarProductosPorSucursal(dataModel.idSubsidiary);
+}
+
+void guardarServicioFavorito2(
+    BuildContext context, BienesServiciosModel dataModel) async {
+  final servicioModel = SubsidiaryServiceModel();
+  final subservicesDb = SubsidiaryServiceDatabase();
+  final sucursalDataBase = SubsidiaryDatabase();
+
+  final pointsProdBloc = ProviderBloc.points(context);
+  final serviciosBloc = ProviderBloc.bienesServicios(context);
+  final sucursalNegocio = ProviderBloc.sucursal(context);
+  final serviceBloc = ProviderBloc.servi(context);
+  final sugerenciaBusquedaBloc = ProviderBloc.sugerenciaXbusqueda(context);
+    
+
+  servicioModel.idSubsidiaryservice = dataModel.idSubsidiaryservice;
+  servicioModel.idSubsidiary = dataModel.idSubsidiary;
+  servicioModel.idService = dataModel.idService;
+  servicioModel.idItemsubcategory = dataModel.idItemsubcategory;
+  servicioModel.subsidiaryServiceName = dataModel.subsidiaryServiceName;
+  servicioModel.subsidiaryServicePrice = dataModel.subsidiaryServicePrice;
+  servicioModel.subsidiaryServiceDescription =
+      dataModel.subsidiaryServiceDescription;
+  servicioModel.subsidiaryServiceCurrency = dataModel.subsidiaryServiceCurrency;
+  servicioModel.subsidiaryServiceImage = dataModel.subsidiaryServiceImage;
+  servicioModel.subsidiaryServiceRating = dataModel.subsidiaryServiceRating;
+  servicioModel.subsidiaryServiceUpdated = dataModel.subsidiaryServiceUpdated;
+  servicioModel.subsidiaryServiceStatus = dataModel.subsidiaryServiceStatus;
+  servicioModel.subsidiaryServiceFavourite = "1";
+
+  await subservicesDb.updateSubsidiaryService(servicioModel);
+
+  //Obtenemos la lista de sucursales por id
+  final sucursal =await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
+  final subModel = SubsidiaryModel();
+  subModel.idSubsidiary = sucursal[0].idSubsidiary;
+  subModel.idCompany = sucursal[0].idCompany;
+  subModel.subsidiaryName = sucursal[0].subsidiaryName;
+  subModel.subsidiaryCellphone = sucursal[0].subsidiaryCellphone;
+  subModel.subsidiaryCellphone2 = sucursal[0].subsidiaryCellphone2;
+  subModel.subsidiaryEmail = sucursal[0].subsidiaryEmail;
+  subModel.subsidiaryCoordX = sucursal[0].subsidiaryCoordX;
+  subModel.subsidiaryCoordY = sucursal[0].subsidiaryCoordY;
+  subModel.subsidiaryOpeningHours = sucursal[0].subsidiaryOpeningHours;
+  subModel.subsidiaryPrincipal = sucursal[0].subsidiaryPrincipal;
+  subModel.subsidiaryStatus = sucursal[0].subsidiaryStatus;
+  subModel.subsidiaryFavourite = '1';
+
+  await sucursalDataBase.updateSubsidiary(subModel);
+  //Para dibujar el widget de favorito en la vista de Point
+  pointsProdBloc.obtenerPointsServiciosXSucursal();
+  //Para dibujar el widget de favorito en la vista principal
+  serviciosBloc.obtenerBienesServiciosResumen();
+  sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
+  //Para dibujar el widget de favorito en la vista de detalle de negocio
+  sucursalNegocio.obtenerSucursalporIdCompany(sucursal[0].idCompany);
+  //Para dibujar el widget de favorito en la vista de servicios por sucursal
+  serviceBloc.listarServiciosPorSucursal(sucursal[0].idSubsidiary);
+  
+}
+
+void quitarServicioFavorito2(
+    BuildContext context, BienesServiciosModel dataModel) async {
+  final servicioModel = SubsidiaryServiceModel();
+  final subservicesDb = SubsidiaryServiceDatabase();
+
+  final pointsProdBloc = ProviderBloc.points(context);
+  final serviciosBloc = ProviderBloc.bienesServicios(context);
+  //final sucursalNegocio = ProviderBloc.sucursal(context);
+  final serviceBloc = ProviderBloc.servi(context);
+
+  servicioModel.idSubsidiaryservice = dataModel.idSubsidiaryservice;
+  servicioModel.idSubsidiary = dataModel.idSubsidiary;
+  servicioModel.idService = dataModel.idService;
+  servicioModel.idItemsubcategory = dataModel.idItemsubcategory;
+  servicioModel.subsidiaryServiceName = dataModel.subsidiaryServiceName;
+  servicioModel.subsidiaryServicePrice = dataModel.subsidiaryServicePrice;
+  servicioModel.subsidiaryServiceDescription =
+      dataModel.subsidiaryServiceDescription;
+  servicioModel.subsidiaryServiceCurrency = dataModel.subsidiaryServiceCurrency;
+  servicioModel.subsidiaryServiceImage = dataModel.subsidiaryServiceImage;
+  servicioModel.subsidiaryServiceRating = dataModel.subsidiaryServiceRating;
+  servicioModel.subsidiaryServiceUpdated = dataModel.subsidiaryServiceUpdated;
+  servicioModel.subsidiaryServiceStatus = dataModel.subsidiaryServiceStatus;
+  servicioModel.subsidiaryServiceFavourite = "0";
+
+  await subservicesDb.updateSubsidiaryService(servicioModel);
+
+  //Para dibujar el widget de favorito en la vista de Point
+  pointsProdBloc.obtenerPointsServiciosXSucursal();
+  //Para dibujar el widget de favorito en la vista principal
+  serviciosBloc.obtenerBienesServiciosResumen();
+  //Para dibujar el widget de favorito en la vista de servicios por sucursal
+  serviceBloc.listarServiciosPorSucursal(dataModel.idSubsidiary);
+}
+
+
 void leerNotificacion(
     BuildContext context, NotificacionesModel notificaciones) async {
   final notiDb = NotificacionesDataBase();
+  final notiApi = NotificacionesApi();
   final notificacionesBloc = ProviderBloc.notificaciones(context);
 
   final notificacionModel = NotificacionesModel();
@@ -335,9 +540,15 @@ void leerNotificacion(
   notificacionModel.notificacionDatetime = notificaciones.notificacionDatetime;
   notificacionModel.notificacionEstado = "1";
 
-  await notiDb.updateNotificaciones(notificacionModel);
-  //notificacionesBloc.listarNotificacionesPendientes();
-  notificacionesBloc.listarNotificaciones();
+ await notiDb.updateNotificaciones(notificacionModel);
+ notificacionesBloc.listarNotificaciones();
+ notificacionesBloc.listarNotificacionesPendientes();
+ 
+
+ notiApi.notificacionesVistas(notificaciones.idNotificacion);
+ 
+  
+  
 }
 
 //----------------------Carrito-------------------------------------

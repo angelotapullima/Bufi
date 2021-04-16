@@ -1,5 +1,3 @@
-
-
 import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/database/sugerenciaBusqueda_db.dart';
@@ -25,13 +23,11 @@ class SugerenciaBusquedaBloc {
   }
 
   Future<List<BienesServiciosModel>> obtenerSugerencias() async {
-    final List<BienesServiciosModel>listGeneral=[];
+    final List<BienesServiciosModel> listGeneral = [];
     final sugerenciaDb = SugerenciaBusquedaDb();
     final listSugerencia = await sugerenciaDb.obtenerSugerencia();
 
     for (var i = 0; i < listSugerencia.length; i++) {
-     
-
       if (listSugerencia[i].tipo == 'bien') {
         final listBien =
             await productoDatabase.obtenerProductoXIdItemSubcategoria(
@@ -39,39 +35,44 @@ class SugerenciaBusquedaBloc {
 
         for (var x = 0; x < listBien.length; x++) {
           BienesServiciosModel bienesServiciosModel = BienesServiciosModel();
-          bienesServiciosModel.subsidiaryGoodImage =
-              listBien[x].productoImage;
+          bienesServiciosModel.subsidiaryGoodImage = listBien[x].productoImage;
+          bienesServiciosModel.idSubsidiary = listBien[x].idSubsidiary;
+
           bienesServiciosModel.idSubsidiarygood = listBien[x].idProducto;
-          bienesServiciosModel.subsidiaryGoodName =
-              listBien[x].productoName;
+          bienesServiciosModel.subsidiaryGoodName = listBien[x].productoName;
           bienesServiciosModel.subsidiaryGoodCurrency =
               listBien[x].productoCurrency;
-          bienesServiciosModel.subsidiaryGoodPrice =
-              listBien[x].productoPrice;
-          bienesServiciosModel.subsidiaryGoodBrand =
-              listBien[x].productoBrand;
+          bienesServiciosModel.subsidiaryGoodPrice = listBien[x].productoPrice;
+          bienesServiciosModel.subsidiaryGoodBrand = listBien[x].productoBrand;
+           bienesServiciosModel.subsidiaryGoodSize = listBien[x].productoSize;
+            bienesServiciosModel.subsidiaryGoodModel = listBien[x].productoModel;
 
-          bienesServiciosModel.tipo ='bien';
+          bienesServiciosModel.tipo = 'bien';
 
           listGeneral.add(bienesServiciosModel);
         }
       } else {
-         final listServicio =
+        final listServicio =
             await subsidiaryServiceDatabase.obtenerServicioXIdItemSubcategoria(
                 listSugerencia[i].idItemSubcategoria);
 
         for (var x = 0; x < listServicio.length; x++) {
           BienesServiciosModel bienesServiciosModel = BienesServiciosModel();
-          bienesServiciosModel.subsidiaryServiceImage =listServicio[x].subsidiaryServiceImage;
-          bienesServiciosModel.idSubsidiaryservice = listServicio[x].idSubsidiaryservice;
-          bienesServiciosModel.subsidiaryServiceName = listServicio[x].subsidiaryServiceName;
+          bienesServiciosModel.subsidiaryServiceImage =
+              listServicio[x].subsidiaryServiceImage;
+          bienesServiciosModel.idSubsidiary = listServicio[x].idSubsidiary;
+          bienesServiciosModel.idService = listServicio[x].idService;
+          bienesServiciosModel.idSubsidiaryservice =
+              listServicio[x].idSubsidiaryservice;
+          bienesServiciosModel.subsidiaryServiceName =
+              listServicio[x].subsidiaryServiceName;
           bienesServiciosModel.subsidiaryServiceCurrency =
               listServicio[x].subsidiaryServiceCurrency;
           bienesServiciosModel.subsidiaryServicePrice =
               listServicio[x].subsidiaryServicePrice;
           bienesServiciosModel.subsidiaryServiceDescription =
               listServicio[x].subsidiaryServiceDescription;
-               bienesServiciosModel.tipo ='servicio';
+          bienesServiciosModel.tipo = 'servicio';
 
           listGeneral.add(bienesServiciosModel);
         }
@@ -82,6 +83,4 @@ class SugerenciaBusquedaBloc {
 
     return listGeneral;
   }
-
-  
 }

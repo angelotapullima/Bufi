@@ -123,7 +123,7 @@ class HeaderWidget extends StatelessWidget {
     final cuentaBloc = ProviderBloc.cuenta(context);
     //notificaciones
     final notificacionesBloc = ProviderBloc.notificaciones(context);
-    notificacionesBloc.listarNotificacionesPendientesAntes();
+    notificacionesBloc.listarNotificacionesPendientes();
 
     if (preferences.personName != null) {
       cuentaBloc.obtenerSaldo();
@@ -712,11 +712,12 @@ class _SugerenciaBusquedaState extends State<SugerenciaBusqueda> {
                       ),
                       itemBuilder: (context, index) {
                         if (snapshot.data[index].tipo == 'bien') {
-                          return bienesWidgetCompelto(
-                              context, snapshot.data[index], responsive);
+                          return BienesCompletoWidget(
+                               producto: snapshot.data[index]);
                         } else {
-                          return serviceWidgetCompleto(
-                              context, snapshot.data[index], responsive);
+                          return ServiciosCompletoWidget(
+                            serviceData: snapshot.data[index],
+                          );
                         }
                       });
                 } else {

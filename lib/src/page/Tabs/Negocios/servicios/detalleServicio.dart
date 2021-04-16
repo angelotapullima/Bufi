@@ -6,7 +6,9 @@ import 'package:bufi/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rating_bar/rating_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetalleServicio extends StatefulWidget {
   //final SubsidiaryServiceModel servicio;
@@ -35,7 +37,7 @@ class _DetalleServicioState extends State<DetalleServicio>
                 return Stack(
                   children: [
                     _custonScroll(responsive, snapshot.data[0]),
-                    _buttomContacto(responsive)
+                    _buttomContacto(responsive, snapshot.data[0])
                   ],
                 );
                 //Center(child: Text(negocio[0].companyName));
@@ -209,7 +211,8 @@ class _DetalleServicioState extends State<DetalleServicio>
     );
   }
 
-  Widget _buttomContacto(Responsive responsive) {
+  Widget _buttomContacto(
+      Responsive responsive, SubsidiaryServiceModel service) {
     return Positioned(
         bottom: 0,
         right: 0,
@@ -221,9 +224,9 @@ class _DetalleServicioState extends State<DetalleServicio>
                 context,
                 PageRouteBuilder(
                   opaque: false,
-                  transitionDuration: const Duration(milliseconds: 300),
+                  transitionDuration: const Duration(milliseconds: 700),
                   pageBuilder: (context, animation, secondaryAnimation) {
-                    return Contactar();
+                    return Contactar(service);
                     //return DetalleProductitos(productosData: productosData);
                   },
                   transitionsBuilder:
@@ -332,18 +335,241 @@ class _DetalleServicioState extends State<DetalleServicio>
 }
 
 class Contactar extends StatefulWidget {
+  final SubsidiaryServiceModel service;
+  Contactar(this.service);
   @override
   _ContactarState createState() => _ContactarState();
 }
 
 class _ContactarState extends State<Contactar> {
+  bool expandFlag = false;
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive.of(context);
     return Material(
-      color: Colors.black12,
+      color: Colors.black45,
+      child: Stack(
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Container(
+                height: double.infinity,
+                width: double.infinity,
+                color: Colors.transparent),
+          ),
+          Center(
+            child: Container(
+                margin: EdgeInsets.only(
+                    left: responsive.ip(1), right: responsive.ip(1)),
+                height: responsive.hp(38),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white),
+                child: ListView(
+                  children: [
+                    _itemContacto(responsive, 'WhatsApp', 'wp',
+                        FontAwesomeIcons.whatsapp, widget.service),
+                    _itemContacto(responsive, 'Enviar correo', 'mail',
+                        Icons.mail, widget.service),
+                    _itemLlamar(responsive, 'Llamar', 'call', Icons.call,
+                        widget.service),
+                  ],
+                )),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _itemLlamar(Responsive responsive, nombre, ruta, IconData icon,
+      SubsidiaryServiceModel service) {
+    return Container(
+        margin: EdgeInsets.symmetric(
+            horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
+        width: double.infinity,
+        height: responsive.ip(24),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: Colors.white),
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  expandFlag = !expandFlag;
+                });
+              },
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: responsive.wp(3),
+                  ),
+                  Icon(icon),
+                  SizedBox(
+                    width: responsive.wp(8),
+                  ),
+                  Text(nombre,
+                      style: TextStyle(
+                          //color: Colors.red,
+                          fontSize: responsive.ip(2),
+                          fontWeight: FontWeight.bold)),
+                  Spacer(),
+                  IconButton(
+                      icon: Icon(
+                        expandFlag
+                            ? Icons.keyboard_arrow_down_outlined
+                            : Icons.arrow_right_outlined,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          expandFlag = !expandFlag;
+                        });
+                      }),
+                ],
+              ),
+            ),
+            ExpandableContainer(
+              expanded: expandFlag,
+              expandedHeight: 1,
+              child: ListView(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      _launchCall(
+                          '${service.listSubsidiary[0].subsidiaryCellphone}');
+                    },
+                    child: Center(
+                      child: Text(
+                          '${service.listSubsidiary[0].subsidiaryCellphone}'),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      if ('${service.listSubsidiary[0].subsidiaryCellphone2}' !=
+                          '')
+                        _launchCall(
+                            '${service.listSubsidiary[0].subsidiaryCellphone2}');
+                    },
+                    child: Center(
+                      child: Text(
+                          '${service.listSubsidiary[0].subsidiaryCellphone2}'),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ));
+  }
+
+  Widget _itemContacto(Responsive responsive, nombre, ruta, IconData icon,
+      SubsidiaryServiceModel service) {
+    return Container(
+        margin: EdgeInsets.symmetric(
+            horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
+        width: double.infinity,
+        height: responsive.ip(8),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: Colors.white),
+        child: GestureDetector(
+          child: Row(
+            children: [
+              SizedBox(
+                width: responsive.wp(3),
+              ),
+              Icon(icon),
+              SizedBox(
+                width: responsive.wp(8),
+              ),
+              Text(nombre,
+                  style: TextStyle(
+                      //color: Colors.red,
+                      fontSize: responsive.ip(2),
+                      fontWeight: FontWeight.bold)),
+              Spacer(),
+              Icon(Icons.arrow_right_outlined),
+              SizedBox(
+                width: responsive.wp(2),
+              ),
+            ],
+          ),
+          onTap: () {
+            if (ruta == 'wp') {
+              _launchWhatsApp(
+                  '${service.listSubsidiary[0].subsidiaryCellphone}',
+                  'Estoy interesado en el servicio: ${service.subsidiaryServiceName}');
+            } else if (ruta == 'mail') {
+              _launchMail('${service.listSubsidiary[0].subsidiaryEmail}',
+                  '${service.subsidiaryServiceName}');
+            }
+          },
+        ));
+  }
+
+  void _launchWhatsApp(
+    String numero,
+    String mensaje,
+  ) async {
+    String url = "whatsapp://send?=+51$numero&text=$mensaje";
+    await canLaunch(url) ? launch(url) : print('No se puede abrir WhatsApp');
+  }
+
+  void _launchCall(
+    String numero,
+  ) async {
+    String url = 'tel:+51$numero';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  void _launchMail(String mail, String mensaje) async {
+    final Uri params = Uri(
+      scheme: 'mailto',
+      path: '$mail',
+      query:
+          'subject=Bufi - $mensaje Feedback&body=Solicito informació acerca del servicio $mensaje',
+    );
+
+    var url = params.toString();
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+}
+
+class ExpandableContainer extends StatelessWidget {
+  final bool expanded;
+  final double collapsedHeight;
+  final int expandedHeight;
+  final Widget child;
+
+  ExpandableContainer({
+    @required this.child,
+    this.collapsedHeight = 0.0,
+    this.expandedHeight = 0,
+    this.expanded = true,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    final responsive = Responsive.of(context);
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 200),
+      curve: Curves.easeInOut,
+      width: screenWidth,
+      height: expanded ? expandedHeight * responsive.hp(8) : collapsedHeight,
       child: Container(
-        height: 100,
-        color: Colors.red,
+        child: child,
+        decoration: BoxDecoration(
+            border: Border.all(width: 1.0, color: Colors.transparent)),
       ),
     );
   }

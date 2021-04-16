@@ -183,8 +183,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                                                             animation,
                                                             secondaryAnimation) {
                                                           return DetalleProductos(
-                                                              producto: snapshot
-                                                                  .data[index]);
+                                                              );
                                                           //return DetalleProductitos(productosData: productosData);
                                                         },
                                                         transitionsBuilder:

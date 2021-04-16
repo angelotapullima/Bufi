@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
+import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -293,7 +294,8 @@ class _BienesWidgetState extends State<BienesWidget> {
                                     //buttonBloc.changePage(1);
                                     guardarProductoFavorito(
                                         context, widget.producto);
-                                        utils.showToast(context, 'el producto se agregó a favoritos');
+                                    utils.showToast(context,
+                                        'el producto se agregó a favoritos');
                                   });
                                 },
                               )),
@@ -349,11 +351,11 @@ class _BienesWidgetState extends State<BienesWidget> {
   }
 }
 
-
 class BienesCompletoWidget extends StatefulWidget {
   final BienesServiciosModel producto;
 
-  const BienesCompletoWidget({Key key, @required this.producto}) : super(key: key);
+  const BienesCompletoWidget({Key key, @required this.producto})
+      : super(key: key);
   @override
   _BienesCompletoWidgetState createState() => _BienesCompletoWidgetState();
 }
@@ -365,162 +367,184 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
   @override
   Widget build(BuildContext context) {
     if (cant == 0) {
-      favorite = (widget.producto.subsidiaryGoodFavourite == '1') ? true : false;
+      favorite =
+          (widget.producto.subsidiaryGoodFavourite == '1') ? true : false;
     }
     final responsive = Responsive.of(context);
-    return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: responsive.wp(1),
-        vertical: responsive.hp(1),
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 1,
-            blurRadius: 1,
-            offset: Offset(0, 2), // changes position of shadow
-          ),
-        ],
-      ),
-      width: responsive.wp(42.5),
-      child: Column(
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            height: responsive.hp(18),
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8)),
-                    child: CachedNetworkImage(
-                      cacheManager: CustomCacheManager(),
-                      placeholder: (context, url) => Image(
-                          image: AssetImage('assets/jar-loading.gif'),
-                          fit: BoxFit.cover),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                      imageUrl: '$apiBaseURL/${widget.producto.subsidiaryGoodImage}',
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
+    return GestureDetector(
+      child: Container(
+        margin: EdgeInsets.symmetric(
+          horizontal: responsive.wp(1),
+          vertical: responsive.hp(1),
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: Offset(0, 2), // changes position of shadow
+            ),
+          ],
+        ),
+        width: responsive.wp(42.5),
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              height: responsive.hp(18),
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          topRight: Radius.circular(8)),
+                      child: CachedNetworkImage(
+                        cacheManager: CustomCacheManager(),
+                        placeholder: (context, url) => Image(
+                            image: AssetImage('assets/jar-loading.gif'),
+                            fit: BoxFit.cover),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        imageUrl:
+                            '$apiBaseURL/${widget.producto.subsidiaryGoodImage}',
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Positioned(
-                  left: 0,
-                  top: 0,
-                  child: Container(
-                    padding: EdgeInsets.all(responsive.ip(.5)),
-                    color: Colors.red,
-                    //double.infinity,
-                    height: responsive.hp(3),
-                    child: Text(
-                      'Productos',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: responsive.ip(1.5),
-                          fontWeight: FontWeight.bold),
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    child: Container(
+                      padding: EdgeInsets.all(responsive.ip(.5)),
+                      color: Colors.red,
+                      //double.infinity,
+                      height: responsive.hp(3),
+                      child: Text(
+                        'Productos',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: responsive.ip(1.5),
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
-                ),
-                //Favorito
-                Positioned(
-                    right: 0,
-                    top: 2,
-                    child:
-                        //(widget.producto.productoFavourite == '1')
-                        favorite
-                            ? GestureDetector(
-                                child: Container(
-                                  height: responsive.hp(3.5),
-                                  width: responsive.wp(12),
-                                  decoration: BoxDecoration(
-                                    color: Colors.red.withOpacity(.2),
-                                    borderRadius: BorderRadius.circular(10),
+                  //Favorito
+                  Positioned(
+                      right: 0,
+                      top: 2,
+                      child:
+                          //(widget.producto.productoFavourite == '1')
+                          favorite
+                              ? GestureDetector(
+                                  child: Container(
+                                    height: responsive.hp(3.5),
+                                    width: responsive.wp(12),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red.withOpacity(.2),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Icon(FontAwesomeIcons.solidHeart,
+                                        color: Colors.white),
                                   ),
-                                  child: Icon(FontAwesomeIcons.solidHeart,
-                                      color: Colors.white),
-                                ),
-                                onTap: () {
-                                  setState(() {
-                                    favorite = false;
-                                    quitarProductoFavorito2(
-                                        context, widget.producto);
-                                    cant++;
-                                  });
-                                },
-                              )
-                            : GestureDetector(
-                                child: Container(
-                                  height: responsive.hp(3.5),
-                                  width: responsive.wp(12),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(.2),
-                                    borderRadius: BorderRadius.circular(10),
+                                  onTap: () {
+                                    setState(() {
+                                      favorite = false;
+                                      quitarProductoFavorito2(
+                                          context, widget.producto);
+                                      cant++;
+                                    });
+                                  },
+                                )
+                              : GestureDetector(
+                                  child: Container(
+                                    height: responsive.hp(3.5),
+                                    width: responsive.wp(12),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(.2),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Icon(FontAwesomeIcons.heart,
+                                        color: Colors.white),
                                   ),
-                                  child: Icon(FontAwesomeIcons.heart,
-                                      color: Colors.white),
-                                ),
-                                onTap: () {
-                                  setState(() {
-                                    favorite = true;
-                                    //final buttonBloc = ProviderBloc.tabs(context);
-                                    //buttonBloc.changePage(1);
-                                    guardarProductoFavorito2(
-                                        context, widget.producto);
-                                        utils.showToast(context, 'el producto se agregó a favoritos');
-                                  });
-                                },
-                              )),
-               
-              ],
+                                  onTap: () {
+                                    setState(() {
+                                      favorite = true;
+                                      //final buttonBloc = ProviderBloc.tabs(context);
+                                      //buttonBloc.changePage(1);
+                                      guardarProductoFavorito2(
+                                          context, widget.producto);
+                                      utils.showToast(context,
+                                          'el producto se agregó a favoritos');
+                                    });
+                                  },
+                                )),
+                ],
+              ),
             ),
-          ),
-          Text(
-            widget.producto.subsidiaryGoodName,
-            style: TextStyle(
-                fontSize: responsive.ip(1.5),
-                color: Colors.grey[800],
-                fontWeight: FontWeight.w700),
-          ),
-          Text(
-              '${widget.producto.subsidiaryGoodCurrency} ${widget.producto.subsidiaryGoodPrice}',
+            Text(
+              widget.producto.subsidiaryGoodName,
               style: TextStyle(
-                  fontSize: responsive.ip(1.9),
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red)),
-          Text(
-            widget.producto.subsidiaryGoodBrand,
-            style: TextStyle(
-              fontSize: responsive.ip(1.5),
+                  fontSize: responsive.ip(1.5),
+                  color: Colors.grey[800],
+                  fontWeight: FontWeight.w700),
             ),
-          ),
-          Text(
-            '${widget.producto.subsidiaryGoodSize}',
-            style: TextStyle(
-                fontSize: responsive.ip(1.5), fontWeight: FontWeight.w700),
-          ),
-          Text(
-            '${widget.producto.subsidiaryGoodModel}',
-            style: TextStyle(
-                fontSize: responsive.ip(1.5), fontWeight: FontWeight.w700),
-          ),
-        ],
+            Text(
+                '${widget.producto.subsidiaryGoodCurrency} ${widget.producto.subsidiaryGoodPrice}',
+                style: TextStyle(
+                    fontSize: responsive.ip(1.9),
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red)),
+            Text(
+              widget.producto.subsidiaryGoodBrand,
+              style: TextStyle(
+                fontSize: responsive.ip(1.5),
+              ),
+            ),
+            Text(
+              '${widget.producto.subsidiaryGoodSize}',
+              style: TextStyle(
+                  fontSize: responsive.ip(1.5), fontWeight: FontWeight.w700),
+            ),
+            Text(
+              '${widget.producto.subsidiaryGoodModel}',
+              style: TextStyle(
+                  fontSize: responsive.ip(1.5), fontWeight: FontWeight.w700),
+            ),
+          ],
+        ),
       ),
+      onTap: () {
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            transitionDuration: const Duration(milliseconds: 100),
+            pageBuilder: (context, animation, secondaryAnimation) {
+              return DetalleProductos();
+              //return DetalleProductitos(productosData: productosData);
+            },
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
-
 
 Widget grillaBienes(Responsive responsive, BienesServiciosModel data) {
   return Container(

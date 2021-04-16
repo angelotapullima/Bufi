@@ -611,7 +611,7 @@ class WidgetBienesFavoritos extends StatelessWidget {
           PageRouteBuilder(
             transitionDuration: const Duration(milliseconds: 100),
             pageBuilder: (context, animation, secondaryAnimation) {
-              return DetalleProductos(producto: goodData);
+              return DetalleProductos();
               //return DetalleProductitos(productosData: productosData);
             },
             transitionsBuilder:

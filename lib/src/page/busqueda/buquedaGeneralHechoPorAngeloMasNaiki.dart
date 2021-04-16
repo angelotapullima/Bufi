@@ -261,8 +261,8 @@ class ListaProductos extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetalleProductos(
-              producto: productoData,
+            builder: (context) => DetalleProductos(idProducto: productoData.idProducto,
+              
             ),
           ),
         );

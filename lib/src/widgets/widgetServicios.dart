@@ -243,6 +243,8 @@ class _ServiciosCompletoWidgetState extends State<ServiciosCompletoWidget> {
         //     context, widget.serviceData.idSubsidiaryservice, 'servicio');
         // Navigator.pushNamed(context, 'detalleServicio',
         //     arguments: widget.serviceData.idSubsidiaryservice);
+        Navigator.pushNamed(context, 'detalleServicio',
+          arguments: widget.serviceData.idSubsidiaryservice);
       },
     );
   }

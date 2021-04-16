@@ -17,8 +17,9 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class DetalleProductos extends StatefulWidget {
-  final ProductoModel producto;
-  const DetalleProductos({Key key, @required this.producto}) : super(key: key);
+  //final ProductoModel producto;
+  final String idProducto;
+  const DetalleProductos({Key key,@required this.idProducto}) : super(key: key);
 
   @override
   _DetalleProductosState createState() => _DetalleProductosState();
@@ -36,7 +37,8 @@ class _DetalleProductosState extends State<DetalleProductos> {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final datosProdBloc = ProviderBloc.datosProductos(context);
-    datosProdBloc.listarDatosProducto(widget.producto.idProducto);
+    //final String id = ModalRoute.of(context).settings.arguments;
+    datosProdBloc.listarDatosProducto(widget.idProducto);
     //contador para el PageView
     final contadorBloc = ProviderBloc.contadorPagina(context);
     contadorBloc.changeContador(0);

@@ -336,7 +336,7 @@ void leerNotificacion(
   notificacionModel.notificacionEstado = "1";
 
   await notiDb.updateNotificaciones(notificacionModel);
-  notificacionesBloc.listarNotificacionesPendientes();
+  //notificacionesBloc.listarNotificacionesPendientes();
   notificacionesBloc.listarNotificaciones();
 }
 

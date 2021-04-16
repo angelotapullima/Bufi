@@ -48,4 +48,30 @@ class NotificacionesApi {
     }
     return 0;
   }
+
+  Future<dynamic> notificacionesVistas(String idNotificacion) async {
+    try {
+      final res = await http
+          .post("$apiBaseURL/api/usuario/notificacion_vista", body: {
+            'id': '$idNotificacion',
+        'app': 'true',
+        'tn': 'qz8Hsr/dx+cJFcG11tbm9xK50aHWqisJws7SvMUcIJ/c09XCHenZ3Mfk4TL0rtrE3sUm+rbB2cjm9xraotfarQkf3MLW4eEz/9Hdt+rdMuTQ2A=='
+        //prefs.token,
+      });
+
+      final decodedData = json.decode(res.body);
+      //print(res);
+      final code = decodedData['result']['code'];
+
+      if (code == 1) {
+        return 1;
+      } else {
+        return code;
+      }
+     
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+    }
+    return 1;
+  }
 }

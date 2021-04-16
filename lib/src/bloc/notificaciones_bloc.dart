@@ -27,24 +27,35 @@ class NotificacionesBloc {
   void listarNotificaciones() async {
     listarNotificacionesController.sink
         .add(await notificacionDb.obtenerNotificaciones());
-    // await notificacionApi.listarNotificaciones();
-    // listarNotificacionesController.sink
-    //    .add(await notificacionDb.obtenerNotificaciones()); 
+     await notificacionApi.listarNotificaciones();
+    listarNotificacionesController.sink
+       .add(await notificacionDb.obtenerNotificaciones()); 
   }
 
 //Llamar a la api para obtener el estado real de las notificaciones: 0:No leídas, 1:leídas
-  void listarNotificacionesPendientes() async {
+  void listarNotificacionesPendientesAntes() async {
     notificacionesPendientesController.sink
         .add(await notificacionesPendientes());
     // await notificacionApi.listarNotificaciones();
     // notificacionesPendientesController.sink
     //     .add(await notificacionesPendientes());
   }
+  void listarNotificacionesPendientes(String idNotificacion) async {
+    // notificacionesPendientesController.sink
+    //     .add(await notificacionDb.obtenerNotificacionesPendientesXIdNotificacion(idNotificacion));
+    
+    await notificacionApi.notificacionesVistas(idNotificacion);
+    notificacionesPendientesController.sink
+        .add(await notificacionDb.obtenerNotificacionesPendientesXIdNotificacion(idNotificacion));
+  }
+
+
+  
 
   //funcion que obtiene la lista de notificaciones pendientes
   Future<List<NotificacionesModel>> notificacionesPendientes() async {
   final notiDb = NotificacionesDataBase();
-  final listNotificacionModel = List<NotificacionesModel>();
+  final List<NotificacionesModel> listNotificacionModel = [];
   final listpendientes = await notiDb.obtenerNotificacionesPendientes();
 
   for (var i = 0; i < listpendientes.length; i++) {

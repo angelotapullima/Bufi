@@ -58,6 +58,23 @@ class NotificacionesDataBase {
     }
   }
 
+  Future<List<NotificacionesModel>> obtenerNotificacionesPendientesXIdNotificacion(String idNotificacion) async {
+    try {
+      final db = await dbprovider.database;
+      final res = await db.rawQuery("SELECT * FROM Notificaciones where id_notificacion= '$idNotificacion' and notificacion_estado='0'");
+
+      List<NotificacionesModel> list = res.isNotEmpty
+          ? res.map((c) => NotificacionesModel.fromJson(c)).toList()
+          : [];
+
+      return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
+  }
+
   Future<List<NotificacionesModel>> obtenerNotificacionesPendientes() async {
     try {
       final db = await dbprovider.database;

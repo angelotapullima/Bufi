@@ -123,7 +123,7 @@ class HeaderWidget extends StatelessWidget {
     final cuentaBloc = ProviderBloc.cuenta(context);
     //notificaciones
     final notificacionesBloc = ProviderBloc.notificaciones(context);
-    notificacionesBloc.listarNotificacionesPendientes();
+    notificacionesBloc.listarNotificacionesPendientesAntes();
 
     if (preferences.personName != null) {
       cuentaBloc.obtenerSaldo();

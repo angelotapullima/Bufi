@@ -263,8 +263,9 @@ class _ServiciosCompletoWidgetState extends State<ServiciosCompletoWidget> {
               child: Icon(FontAwesomeIcons.heart, color: Colors.red))),
       onTap: () {
         print("guardar servicio");
-
-        guardarServicioFavorito2(context, widget.serviceData);
+        setState(() {
+          guardarServicioFavorito2(context, widget.serviceData);
+        });
       },
     );
   }
@@ -286,7 +287,9 @@ class _ServiciosCompletoWidgetState extends State<ServiciosCompletoWidget> {
         ),
       ),
       onTap: () {
-        quitarServicioFavorito2(context, widget.serviceData);
+        setState(() {
+          quitarServicioFavorito2(context, widget.serviceData);
+        });
       },
     );
   }

@@ -46,6 +46,7 @@ class SugerenciaBusquedaBloc {
           bienesServiciosModel.subsidiaryGoodBrand = listBien[x].productoBrand;
            bienesServiciosModel.subsidiaryGoodSize = listBien[x].productoSize;
             bienesServiciosModel.subsidiaryGoodModel = listBien[x].productoModel;
+            bienesServiciosModel.subsidiaryGoodFavourite = listBien[x].productoFavourite;
 
           bienesServiciosModel.tipo = 'bien';
 
@@ -72,6 +73,8 @@ class SugerenciaBusquedaBloc {
               listServicio[x].subsidiaryServicePrice;
           bienesServiciosModel.subsidiaryServiceDescription =
               listServicio[x].subsidiaryServiceDescription;
+          bienesServiciosModel.subsidiaryServiceFavourite =
+              listServicio[x].subsidiaryServiceFavourite;
           bienesServiciosModel.tipo = 'servicio';
 
           listGeneral.add(bienesServiciosModel);

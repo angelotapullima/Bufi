@@ -90,7 +90,7 @@ class _GridviewProductoPorSucursalState
                           }),
                     ),
                   
-                  Container(child: Center(child: CircularProgressIndicator(),),)
+                  //Container(child: Center(child: CircularProgressIndicator(),),)
                   ],
                 ),
               );

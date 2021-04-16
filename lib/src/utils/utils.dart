@@ -437,9 +437,10 @@ void guardarServicioFavorito2(
 
   final pointsProdBloc = ProviderBloc.points(context);
   final serviciosBloc = ProviderBloc.bienesServicios(context);
+  final sugerenciaBusquedaBloc = ProviderBloc.sugerenciaXbusqueda(context);
   final sucursalNegocio = ProviderBloc.sucursal(context);
   final serviceBloc = ProviderBloc.servi(context);
-  final sugerenciaBusquedaBloc = ProviderBloc.sugerenciaXbusqueda(context);
+  
     
 
   servicioModel.idSubsidiaryservice = dataModel.idSubsidiaryservice;
@@ -492,11 +493,12 @@ void quitarServicioFavorito2(
     BuildContext context, BienesServiciosModel dataModel) async {
   final servicioModel = SubsidiaryServiceModel();
   final subservicesDb = SubsidiaryServiceDatabase();
-
+  final sugerenciaBusquedaBloc = ProviderBloc.sugerenciaXbusqueda(context);
   final pointsProdBloc = ProviderBloc.points(context);
   final serviciosBloc = ProviderBloc.bienesServicios(context);
   //final sucursalNegocio = ProviderBloc.sucursal(context);
   final serviceBloc = ProviderBloc.servi(context);
+ 
 
   servicioModel.idSubsidiaryservice = dataModel.idSubsidiaryservice;
   servicioModel.idSubsidiary = dataModel.idSubsidiary;
@@ -519,6 +521,7 @@ void quitarServicioFavorito2(
   pointsProdBloc.obtenerPointsServiciosXSucursal();
   //Para dibujar el widget de favorito en la vista principal
   serviciosBloc.obtenerBienesServiciosResumen();
+  sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
   //Para dibujar el widget de favorito en la vista de servicios por sucursal
   serviceBloc.listarServiciosPorSucursal(dataModel.idSubsidiary);
 }

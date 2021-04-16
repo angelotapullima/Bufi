@@ -89,19 +89,19 @@ class _DetalleServicioState extends State<DetalleServicio>
                               ],
                             ),
                           ),
-                          Container(
-                            width: responsive.wp(30),
-                            child: RatingBar.readOnly(
-                              size: 20,
-                              initialRating: double.parse(
-                                  '${service.subsidiaryServiceStatus}'),
-                              isHalfAllowed: true,
-                              halfFilledIcon: Icons.star_half,
-                              filledIcon: Icons.star,
-                              emptyIcon: Icons.star_border,
-                              filledColor: Colors.yellow,
-                            ),
-                          ),
+                          // Container(
+                          //   width: responsive.wp(30),
+                          //   child: RatingBar.readOnly(
+                          //     size: 20,
+                          //     initialRating: double.parse(
+                          //         '${service.subsidiaryServiceStatus}'),
+                          //     isHalfAllowed: true,
+                          //     halfFilledIcon: Icons.star_half,
+                          //     filledIcon: Icons.star,
+                          //     emptyIcon: Icons.star_border,
+                          //     filledColor: Colors.yellow,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ],

@@ -194,43 +194,6 @@ class HeaderWidget extends StatelessWidget {
                             ),
                           ),
                     Spacer(),
-                    Container(
-                      width: responsive.wp(11),
-                      child: Image(
-                        image: AssetImage('assets/moneda.png'),
-                      ),
-                    ),
-                    StreamBuilder(
-                      stream: cuentaBloc.saldoStream,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<CuentaModel>> snapshot) {
-                        int valorcito = 0;
-
-                        if (snapshot.hasData) {
-                          if (snapshot.data.length > 0) {
-                            if (double.parse(snapshot.data[0].cuentaSaldo)
-                                    .toInt() >
-                                0) {
-                              valorcito =
-                                  double.parse(snapshot.data[0].cuentaSaldo)
-                                      .toInt();
-                            }
-                          }
-                        }
-
-                        return Container(
-                          child: Text(
-                            valorcito.toString(),
-                            style: TextStyle(
-                                fontSize: responsive.ip(1.8),
-                                fontWeight: FontWeight.bold),
-                          ),
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      width: responsive.wp(2),
-                    ),
                     /* InkWell(
                       onTap: () {
                         if (preferences.personName == null) {

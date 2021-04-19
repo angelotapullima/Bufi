@@ -240,6 +240,7 @@ void guardarServicioFavorito(
   final serviciosBloc = ProviderBloc.bienesServicios(context);
   final sucursalNegocio = ProviderBloc.sucursal(context);
   final serviceBloc = ProviderBloc.servi(context);
+  final sugerenciaBusquedaBloc = ProviderBloc.sugerenciaXbusqueda(context);
 
   servicioModel.idSubsidiaryservice = dataModel.idSubsidiaryservice;
   servicioModel.idSubsidiary = dataModel.idSubsidiary;
@@ -280,6 +281,8 @@ void guardarServicioFavorito(
   pointsProdBloc.obtenerPointsServiciosXSucursal();
   //Para dibujar el widget de favorito en la vista principal
   serviciosBloc.obtenerBienesServiciosResumen();
+  //Mostrar en De acuerdo lo que buscaste
+   sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
   //Para dibujar el widget de favorito en la vista de detalle de negocio
   sucursalNegocio.obtenerSucursalporIdCompany(sucursal[0].idCompany);
   //Para dibujar el widget de favorito en la vista de servicios por sucursal
@@ -295,6 +298,7 @@ void quitarServicioFavorito(
   final serviciosBloc = ProviderBloc.bienesServicios(context);
   //final sucursalNegocio = ProviderBloc.sucursal(context);
   final serviceBloc = ProviderBloc.servi(context);
+  final sugerenciaBusquedaBloc = ProviderBloc.sugerenciaXbusqueda(context);
 
   servicioModel.idSubsidiaryservice = dataModel.idSubsidiaryservice;
   servicioModel.idSubsidiary = dataModel.idSubsidiary;
@@ -317,6 +321,8 @@ void quitarServicioFavorito(
   pointsProdBloc.obtenerPointsServiciosXSucursal();
   //Para dibujar el widget de favorito en la vista principal
   serviciosBloc.obtenerBienesServiciosResumen();
+  //Mostrar en De acuerdo lo que buscaste
+   sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
   //Para dibujar el widget de favorito en la vista de servicios por sucursal
   serviceBloc.listarServiciosPorSucursal(dataModel.idSubsidiary);
 }
@@ -329,7 +335,7 @@ void guardarProductoFavorito2(
   final productoBloc = ProviderBloc.productos(context);
   final sucursalNegocio = ProviderBloc.sucursal(context);
   final sugerenciaBusquedaBloc = ProviderBloc.sugerenciaXbusqueda(context);
-    
+  
 
   final productoModel = ProductoModel();
   final productoDb = ProductoDatabase();
@@ -381,7 +387,9 @@ void guardarProductoFavorito2(
   pointsProdBloc.obtenerPointsProductosXSucursal();
   //Para dibujar el widget de favorito en la vista principal
   bienesBloc.obtenerBienesServiciosResumen();
-  sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
+  //bienesBloc.obtenerServiciosAllPorCiudad();
+  //Mostrar en De acuerdo lo que buscaste
+   sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
   //Para dibujar el widget de favorito en la vista de detalle de negocio
   sucursalNegocio.obtenerSucursalporIdCompany(sucursal[0].idCompany);
   //Para dibujar el widget de favorito en la vista de productos por sucursal
@@ -394,12 +402,11 @@ void quitarProductoFavorito2(
   final bienesBloc = ProviderBloc.bienesServicios(context);
   final productoBloc = ProviderBloc.productos(context);
   final sugerenciaBusquedaBloc = ProviderBloc.sugerenciaXbusqueda(context);
-    
 
   final productoDb = ProductoDatabase();
 
   final productoModel = ProductoModel();
- productoModel.idProducto = dataModel.idSubsidiarygood;
+  productoModel.idProducto = dataModel.idSubsidiarygood;
   productoModel.idSubsidiary = dataModel.idSubsidiary;
   productoModel.idGood = dataModel.idGood;
   productoModel.idItemsubcategory = dataModel.idItemsubcategory;
@@ -407,7 +414,8 @@ void quitarProductoFavorito2(
   productoModel.productoPrice = dataModel.subsidiaryGoodPrice;
   productoModel.productoCurrency = dataModel.subsidiaryGoodCurrency;
   productoModel.productoImage = dataModel.subsidiaryGoodImage;
-  productoModel.productoCharacteristics = dataModel.subsidiaryGoodCharacteristics;
+  productoModel.productoCharacteristics =
+      dataModel.subsidiaryGoodCharacteristics;
   productoModel.productoBrand = dataModel.subsidiaryGoodBrand;
   productoModel.productoModel = dataModel.subsidiaryGoodModel;
   productoModel.productoType = dataModel.subsidiaryGoodType;
@@ -421,10 +429,10 @@ void quitarProductoFavorito2(
 
   await productoDb.updateProducto(productoModel);
 
-  
   pointsProdBloc.obtenerPointsProductosXSucursal();
   bienesBloc.obtenerBienesServiciosResumen();
-  sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
+  //Mostrar en De acuerdo lo que buscaste
+   sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
   //Para dibujar el widget de favorito en la vista de productos por sucursal
   productoBloc.listarProductosPorSucursal(dataModel.idSubsidiary);
 }
@@ -440,8 +448,6 @@ void guardarServicioFavorito2(
   final sugerenciaBusquedaBloc = ProviderBloc.sugerenciaXbusqueda(context);
   final sucursalNegocio = ProviderBloc.sucursal(context);
   final serviceBloc = ProviderBloc.servi(context);
-  
-    
 
   servicioModel.idSubsidiaryservice = dataModel.idSubsidiaryservice;
   servicioModel.idSubsidiary = dataModel.idSubsidiary;
@@ -461,7 +467,8 @@ void guardarServicioFavorito2(
   await subservicesDb.updateSubsidiaryService(servicioModel);
 
   //Obtenemos la lista de sucursales por id
-  final sucursal =await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
+  final sucursal =
+      await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
   final subModel = SubsidiaryModel();
   subModel.idSubsidiary = sucursal[0].idSubsidiary;
   subModel.idCompany = sucursal[0].idCompany;
@@ -481,12 +488,12 @@ void guardarServicioFavorito2(
   pointsProdBloc.obtenerPointsServiciosXSucursal();
   //Para dibujar el widget de favorito en la vista principal
   serviciosBloc.obtenerBienesServiciosResumen();
-  sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
+ //Mostrar en De acuerdo lo que buscaste
+   sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
   //Para dibujar el widget de favorito en la vista de detalle de negocio
   sucursalNegocio.obtenerSucursalporIdCompany(sucursal[0].idCompany);
   //Para dibujar el widget de favorito en la vista de servicios por sucursal
   serviceBloc.listarServiciosPorSucursal(sucursal[0].idSubsidiary);
-  
 }
 
 void quitarServicioFavorito2(
@@ -498,7 +505,6 @@ void quitarServicioFavorito2(
   final serviciosBloc = ProviderBloc.bienesServicios(context);
   //final sucursalNegocio = ProviderBloc.sucursal(context);
   final serviceBloc = ProviderBloc.servi(context);
- 
 
   servicioModel.idSubsidiaryservice = dataModel.idSubsidiaryservice;
   servicioModel.idSubsidiary = dataModel.idSubsidiary;
@@ -521,11 +527,11 @@ void quitarServicioFavorito2(
   pointsProdBloc.obtenerPointsServiciosXSucursal();
   //Para dibujar el widget de favorito en la vista principal
   serviciosBloc.obtenerBienesServiciosResumen();
-  sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
+  //Mostrar en De acuerdo lo que buscaste
+   sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
   //Para dibujar el widget de favorito en la vista de servicios por sucursal
   serviceBloc.listarServiciosPorSucursal(dataModel.idSubsidiary);
 }
-
 
 void leerNotificacion(
     BuildContext context, NotificacionesModel notificaciones) async {
@@ -543,15 +549,11 @@ void leerNotificacion(
   notificacionModel.notificacionDatetime = notificaciones.notificacionDatetime;
   notificacionModel.notificacionEstado = "1";
 
- await notiDb.updateNotificaciones(notificacionModel);
- notificacionesBloc.listarNotificaciones();
- notificacionesBloc.listarNotificacionesPendientes();
- 
+  await notiDb.updateNotificaciones(notificacionModel);
+  notificacionesBloc.listarNotificaciones();
+  notificacionesBloc.listarNotificacionesPendientes();
 
- notiApi.notificacionesVistas(notificaciones.idNotificacion);
- 
-  
-  
+  notiApi.notificacionesVistas(notificaciones.idNotificacion);
 }
 
 //----------------------Carrito-------------------------------------
@@ -654,6 +656,7 @@ void agregarPSaSugerencia(
   final subsidiaryServiceDatabase = SubsidiaryServiceDatabase();
 
   final sugerenciaBusquedaBloc = ProviderBloc.sugerenciaXbusqueda(context);
+  //final bienesBloc = ProviderBloc.bienesServicios(context);
 
   if (tipo == 'bien') {
     final bienList =
@@ -682,6 +685,7 @@ void agregarPSaSugerencia(
   }
 
   sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
+  //bienesBloc.obtenerBienesAllPorCiudad();
 }
 
 void irADetalleProducto(BienesServiciosModel model, BuildContext context) {

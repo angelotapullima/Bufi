@@ -119,9 +119,8 @@ class _ServiciosWidgetState extends State<ServiciosWidget> {
               child: Icon(FontAwesomeIcons.heart, color: Colors.red))),
       onTap: () {
         print("guardar servicio");
-        setState(() {
-          guardarServicioFavorito(context, widget.serviceData);
-        });
+
+        guardarServicioFavorito(context, widget.serviceData);
       },
     );
   }
@@ -143,9 +142,7 @@ class _ServiciosWidgetState extends State<ServiciosWidget> {
         ),
       ),
       onTap: () {
-        setState(() {
-          quitarServicioFavorito(context, widget.serviceData);
-        });
+        quitarServicioFavorito(context, widget.serviceData);
       },
     );
   }
@@ -209,6 +206,25 @@ class _ServiciosCompletoWidgetState extends State<ServiciosCompletoWidget> {
                       ),
                     ),
                   ),
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    child: Container(
+                      padding: EdgeInsets.all(
+                        responsive.ip(.5),
+                      ),
+                      color: Colors.blue,
+                      //double.infinity,
+                      height: responsive.hp(3),
+                      child: Text(
+                        'Servicio',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: responsive.ip(1.5),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -241,10 +257,8 @@ class _ServiciosCompletoWidgetState extends State<ServiciosCompletoWidget> {
       onTap: () {
         // utils.agregarPSaSugerencia(
         //     context, widget.serviceData.idSubsidiaryservice, 'servicio');
-        // Navigator.pushNamed(context, 'detalleServicio',
-        //     arguments: widget.serviceData.idSubsidiaryservice);
         Navigator.pushNamed(context, 'detalleServicio',
-          arguments: widget.serviceData.idSubsidiaryservice);
+            arguments: widget.serviceData.idSubsidiaryservice);
       },
     );
   }
@@ -265,9 +279,8 @@ class _ServiciosCompletoWidgetState extends State<ServiciosCompletoWidget> {
               child: Icon(FontAwesomeIcons.heart, color: Colors.red))),
       onTap: () {
         print("guardar servicio");
-        setState(() {
-          guardarServicioFavorito2(context, widget.serviceData);
-        });
+
+        guardarServicioFavorito2(context, widget.serviceData);
       },
     );
   }
@@ -289,9 +302,7 @@ class _ServiciosCompletoWidgetState extends State<ServiciosCompletoWidget> {
         ),
       ),
       onTap: () {
-        setState(() {
-          quitarServicioFavorito2(context, widget.serviceData);
-        });
+        quitarServicioFavorito2(context, widget.serviceData);
       },
     );
   }

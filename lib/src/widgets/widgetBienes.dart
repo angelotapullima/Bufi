@@ -266,14 +266,14 @@ class _BienesWidgetState extends State<BienesWidget> {
                                       color: Colors.white),
                                 ),
                                 onTap: () {
-                                  setState(() {
+                                  
                                     favorite = false;
                                     //final buttonBloc = ProviderBloc.tabs(context);
                                     //buttonBloc.changePage(1);
                                     quitarProductoFavorito(
                                         context, widget.producto);
                                     cant++;
-                                  });
+                                  
                                 },
                               )
                             : GestureDetector(
@@ -288,7 +288,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                                       color: Colors.white),
                                 ),
                                 onTap: () {
-                                  setState(() {
+                                  
                                     favorite = true;
                                     //final buttonBloc = ProviderBloc.tabs(context);
                                     //buttonBloc.changePage(1);
@@ -296,7 +296,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                                         context, widget.producto);
                                     utils.showToast(context,
                                         'el producto se agregó a favoritos');
-                                  });
+                                  
                                 },
                               )),
                 //Cuando el producto no esta disponible
@@ -457,12 +457,12 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
                                         color: Colors.white),
                                   ),
                                   onTap: () {
-                                    setState(() {
+                                    
                                       favorite = false;
                                       quitarProductoFavorito2(
                                           context, widget.producto);
                                       cant++;
-                                    });
+                                    
                                   },
                                 )
                               : GestureDetector(
@@ -477,7 +477,7 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
                                         color: Colors.white),
                                   ),
                                   onTap: () {
-                                    setState(() {
+                                    
                                       favorite = true;
                                       //final buttonBloc = ProviderBloc.tabs(context);
                                       //buttonBloc.changePage(1);
@@ -485,7 +485,7 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
                                           context, widget.producto);
                                       utils.showToast(context,
                                           'el producto se agregó a favoritos');
-                                    });
+                                    
                                   },
                                 )),
                 ],

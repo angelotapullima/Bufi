@@ -698,7 +698,7 @@ class WidgetServiciosFavoritos extends StatelessWidget {
                       padding: EdgeInsets.all(
                         responsive.ip(.5),
                       ),
-                      color: Colors.red,
+                      color: Colors.blue,
                       //double.infinity,
                       height: responsive.hp(3),
                       child: Text(

@@ -118,7 +118,7 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                               )
                                             : Container();
                                       } else {
-                                        return Center(child: Text("nada"));
+                                        return Center(child: CircularProgressIndicator());
                                       }
                                     });
                               }
@@ -213,8 +213,10 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                           ),
                         );
                       } else {
-                        return Container(
-                          child: Text("nada"),
+                        return Center(
+                          child: Container(
+                            child: Text("No tienes notificaciones pendientes"),
+                          ),
                         );
                       }
                     } else {

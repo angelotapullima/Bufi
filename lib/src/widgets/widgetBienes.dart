@@ -529,7 +529,7 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
           PageRouteBuilder(
             transitionDuration: const Duration(milliseconds: 100),
             pageBuilder: (context, animation, secondaryAnimation) {
-              return DetalleProductos();
+              return DetalleProductos(idProducto: widget.producto.idSubsidiarygood,);
               //return DetalleProductitos(productosData: productosData);
             },
             transitionsBuilder:

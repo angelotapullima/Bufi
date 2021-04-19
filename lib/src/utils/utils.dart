@@ -712,7 +712,7 @@ void irADetalleProducto(BienesServiciosModel model, BuildContext context) {
     PageRouteBuilder(
       transitionDuration: const Duration(milliseconds: 100),
       pageBuilder: (context, animation, secondaryAnimation) {
-        return DetalleProductos();
+        return DetalleProductos(idProducto: model.idSubsidiarygood);
         //return DetalleProductitos(productosData: productosData);
       },
       transitionsBuilder: (context, animation, secondaryAnimation, child) {

@@ -182,7 +182,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                                                         pageBuilder: (context,
                                                             animation,
                                                             secondaryAnimation) {
-                                                          return DetalleProductos(
+                                                          return DetalleProductos(idProducto: snapshot.data[index].idProducto,
                                                               );
                                                           //return DetalleProductitos(productosData: productosData);
                                                         },

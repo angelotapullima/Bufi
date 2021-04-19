@@ -17,12 +17,13 @@ class NotificacionesPage extends StatefulWidget {
 }
 
 class _NotificacionesPageState extends State<NotificacionesPage> {
+  
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final notificacionesBloc = ProviderBloc.notificaciones(context);
     notificacionesBloc.listarNotificaciones();
-    notificacionesBloc.listarNotificacionesPendientes();
+  
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(top: responsive.ip(5.0)),
@@ -117,7 +118,7 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                               )
                                             : Container();
                                       } else {
-                                        return Center(child: Text("nada"));
+                                        return Center(child: CircularProgressIndicator());
                                       }
                                     });
                               }
@@ -129,6 +130,8 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                   notificaciones[index].notificacionDatetime);
                               return GestureDetector(
                                 onTap: () {
+                                   leerNotificacion(
+                                        context, notificaciones[index]);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -137,10 +140,13 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                               noti: notificaciones[index],
                                             )),
                                   );
-                                  setState(() {
-                                    leerNotificacion(
-                                        context, notificaciones[index]);
-                                  });
+                                  
+                                   
+                                    // notificacionesBloc
+                                    //     .listarNotificacionesPendientes(
+                                    //         notificaciones[index]
+                                    //             .idNotificacion);
+                                  
                                 },
                                 child: Container(
                                   margin: EdgeInsets.symmetric(
@@ -207,8 +213,10 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                           ),
                         );
                       } else {
-                        return Container(
-                          child: Text("nada"),
+                        return Center(
+                          child: Container(
+                            child: Text("No tienes notificaciones pendientes"),
+                          ),
                         );
                       }
                     } else {

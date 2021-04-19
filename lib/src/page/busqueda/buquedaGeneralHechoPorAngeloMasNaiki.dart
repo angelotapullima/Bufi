@@ -39,11 +39,27 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
   @override
   void dispose() {
     _controllerBusquedaAngelo.dispose();
+    _controllerBusquedaAngelo.text = '';
     super.dispose();
   }
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final busquedaBloc = ProviderBloc.busqueda(context);
+      busquedaBloc.obtenerBusquedaProducto('');
+      busquedaBloc.obtenerBusquedaServicio('');
+      busquedaBloc.obtenerBusquedaNegocio('');
+      busquedaBloc.obtenerBusquedaItemSubcategoria('');
+      busquedaBloc.obtenerBusquedaCategoria('');
+      busquedaBloc.obtenerBusquedaSubcategoria('');
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print('Primera vez');
     final responsive = Responsive.of(context);
     final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
     final busquedaBloc = ProviderBloc.busqueda(context);
@@ -84,16 +100,20 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                 contentPadding: EdgeInsets.all(16),
                               ),
                               onSubmitted: (value) {
-                                print('$value');
-
-                                busquedaBloc.obtenerBusquedaProducto('$value');
-                                busquedaBloc.obtenerBusquedaServicio('$value');
-                                busquedaBloc.obtenerBusquedaNegocio('$value');
-                                busquedaBloc
-                                    .obtenerBusquedaItemSubcategoria('$value');
-                                busquedaBloc.obtenerBusquedaCategoria('$value');
-                                busquedaBloc
-                                    .obtenerBusquedaSubcategoria('$value');
+                                print('value $value');
+                                if (value != null) {
+                                  busquedaBloc
+                                      .obtenerBusquedaProducto('$value');
+                                  busquedaBloc
+                                      .obtenerBusquedaServicio('$value');
+                                  busquedaBloc.obtenerBusquedaNegocio('$value');
+                                  busquedaBloc.obtenerBusquedaItemSubcategoria(
+                                      '$value');
+                                  busquedaBloc
+                                      .obtenerBusquedaCategoria('$value');
+                                  busquedaBloc
+                                      .obtenerBusquedaSubcategoria('$value');
+                                }
                               }),
                         ),
                         IconButton(
@@ -246,7 +266,7 @@ class ListaProductos extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => DetalleProductos(
-              producto: productoData,
+              idProducto: productoData.idProducto,
             ),
           ),
         );

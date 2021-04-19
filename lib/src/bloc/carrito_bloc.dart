@@ -265,8 +265,10 @@ class CarritoBloc {
 
     final subsidiary = SubsidiaryDatabase();
 
-    final listCarrito =  await carritoDb.obtenerProductoXCarritoPorId(idProducto);
-    final sucursal =  await subsidiary.obtenerSubsidiaryPorId(listCarrito[0].idSubsidiary);
+    final listCarrito =
+        await carritoDb.obtenerProductoXCarritoPorId(idProducto);
+    final sucursal =
+        await subsidiary.obtenerSubsidiaryPorId(listCarrito[0].idSubsidiary);
 
     if (listCarrito.length > 0) {
       if (sucursal.length > 0) {
@@ -317,8 +319,8 @@ class CarritoBloc {
 
         await negociosApi.listarSubsidiaryPorId(listCarrito[0].idSubsidiary);
 
-      
-        final sucursal2 = await subsidiary.obtenerSubsidiaryPorId(listCarrito[0].idSubsidiary);
+        final sucursal2 = await subsidiary
+            .obtenerSubsidiaryPorId(listCarrito[0].idSubsidiary);
 
         if (listCarrito.length > 0) {
           if (sucursal2.length > 0) {
@@ -344,14 +346,20 @@ class CarritoBloc {
             carritoGeneralModel.nombreSucursal = sucursal2[0].subsidiaryName;
             carritoGeneralModel.idSubsidiary = sucursal2[0].idSubsidiary;
             carritoGeneralModel.carrito = listCarritoModel;
-            carritoGeneralModel.monto = (double.parse(listCarrito[0].cantidad) * double.parse(listCarrito[0].precio)).toString();
+            carritoGeneralModel.monto = (double.parse(listCarrito[0].cantidad) *
+                    double.parse(listCarrito[0].precio))
+                .toString();
 
             listaGeneral.add(carritoGeneralModel);
 
-            CarritoGeneralSuperior carritoGeneralSuperior = CarritoGeneralSuperior();
+            CarritoGeneralSuperior carritoGeneralSuperior =
+                CarritoGeneralSuperior();
             carritoGeneralSuperior.car = listaGeneral;
             carritoGeneralSuperior.cantidadArticulos = listCarrito[0].cantidad;
-            carritoGeneralSuperior.montoGeneral = (double.parse(listCarrito[0].cantidad) *  double.parse(listCarrito[0].precio)).toString();
+            carritoGeneralSuperior.montoGeneral =
+                (double.parse(listCarrito[0].cantidad) *
+                        double.parse(listCarrito[0].precio))
+                    .toString();
 
             listaGeneralCarrito.add(carritoGeneralSuperior);
           }

@@ -1,38 +1,41 @@
+import 'package:bufi/src/models/companyModel.dart';
+import 'package:bufi/src/models/subsidiaryModel.dart';
 
 class SubsidiaryServiceModel {
-    SubsidiaryServiceModel({
-        this.idSubsidiaryservice,
-        this.idSubsidiary,
-        this.idService,
-        this.idItemsubcategory,
-        this.subsidiaryServiceName,
-        this.subsidiaryServiceDescription,
-        this.subsidiaryServicePrice,
-        this.subsidiaryServiceCurrency,
-        this.subsidiaryServiceImage,
-        this.subsidiaryServiceRating,
-        this.subsidiaryServiceUpdated,
-        this.subsidiaryServiceStatus,
-        this.subsidiaryServiceFavourite,
-    });
+  SubsidiaryServiceModel({
+    this.idSubsidiaryservice,
+    this.idSubsidiary,
+    this.idService,
+    this.idItemsubcategory,
+    this.subsidiaryServiceName,
+    this.subsidiaryServiceDescription,
+    this.subsidiaryServicePrice,
+    this.subsidiaryServiceCurrency,
+    this.subsidiaryServiceImage,
+    this.subsidiaryServiceRating,
+    this.subsidiaryServiceUpdated,
+    this.subsidiaryServiceStatus,
+    this.subsidiaryServiceFavourite,
+    this.listSubsidiary,
+  });
 
-    String idSubsidiaryservice;
-    String idSubsidiary;
-    String idService;
-    String idItemsubcategory;
-    String subsidiaryServiceName;
-    String subsidiaryServiceDescription;
-    String subsidiaryServicePrice;
-    String subsidiaryServiceCurrency;
-    String subsidiaryServiceImage;
-    String subsidiaryServiceRating;
-    String subsidiaryServiceUpdated;
-    String subsidiaryServiceStatus;
-    String subsidiaryServiceFavourite;
+  String idSubsidiaryservice;
+  String idSubsidiary;
+  String idService;
+  String idItemsubcategory;
+  String subsidiaryServiceName;
+  String subsidiaryServiceDescription;
+  String subsidiaryServicePrice;
+  String subsidiaryServiceCurrency;
+  String subsidiaryServiceImage;
+  String subsidiaryServiceRating;
+  String subsidiaryServiceUpdated;
+  String subsidiaryServiceStatus;
+  String subsidiaryServiceFavourite;
+  List<SubsidiaryModel> listSubsidiary;
 
-
-
-    factory SubsidiaryServiceModel.fromJson(Map<String, dynamic> json) => SubsidiaryServiceModel(
+  factory SubsidiaryServiceModel.fromJson(Map<String, dynamic> json) =>
+      SubsidiaryServiceModel(
         idSubsidiaryservice: json["id_subsidiaryservice"],
         idSubsidiary: json["id_subsidiary"],
         idService: json["id_service"],
@@ -46,10 +49,9 @@ class SubsidiaryServiceModel {
         subsidiaryServiceUpdated: json["subsidiary_service_updated"],
         subsidiaryServiceStatus: json["subsidiary_service_status"],
         subsidiaryServiceFavourite: json["subsidiary_service_favourite"],
-       
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id_subsidiaryservice": idSubsidiaryservice,
         "id_subsidiary": idSubsidiary,
         "id_service": idService,
@@ -63,6 +65,5 @@ class SubsidiaryServiceModel {
         "subsidiary_service_updated": subsidiaryServiceUpdated,
         "subsidiary_service_status": subsidiaryServiceStatus,
         "subsidiary_service_favourite": subsidiaryServiceFavourite,
-      
-    };
+      };
 }

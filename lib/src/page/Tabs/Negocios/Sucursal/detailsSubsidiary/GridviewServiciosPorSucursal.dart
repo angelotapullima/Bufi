@@ -58,104 +58,105 @@ class _GridviewProductoPorSucursalState
                       child: ServiciosWidget(serviceData: snapshot.data[index]),
                     );
                   });
-             
             } else {
-              return SliverList(
-                  delegate: SliverChildListDelegate([
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 48.0,
-                        height: 48.0,
-                        color: Colors.white,
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              width: double.infinity,
-                              height: 8.0,
-                              color: Colors.white,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 2.0),
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: 8.0,
-                              color: Colors.white,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 2.0),
-                            ),
-                            Container(
-                              width: 40.0,
-                              height: 8.0,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ]));
+              return Center(child: Text("No cuenta con ningún servicio por el momento"));
+              // SliverList(
+              //     delegate: SliverChildListDelegate([
+              //   Padding(
+              //     padding: const EdgeInsets.only(bottom: 8.0),
+              //     child: Row(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         Container(
+              //           width: 48.0,
+              //           height: 48.0,
+              //           color: Colors.white,
+              //         ),
+              //         const Padding(
+              //           padding: EdgeInsets.symmetric(horizontal: 8.0),
+              //         ),
+              //         Expanded(
+              //           child: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children: <Widget>[
+              //               Container(
+              //                 width: double.infinity,
+              //                 height: 8.0,
+              //                 color: Colors.white,
+              //               ),
+              //               const Padding(
+              //                 padding: EdgeInsets.symmetric(vertical: 2.0),
+              //               ),
+              //               Container(
+              //                 width: double.infinity,
+              //                 height: 8.0,
+              //                 color: Colors.white,
+              //               ),
+              //               const Padding(
+              //                 padding: EdgeInsets.symmetric(vertical: 2.0),
+              //               ),
+              //               Container(
+              //                 width: 40.0,
+              //                 height: 8.0,
+              //                 color: Colors.white,
+              //               ),
+              //             ],
+              //           ),
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ]));
             }
           } else {
-            return SliverList(
-                delegate: SliverChildListDelegate([
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 48.0,
-                      height: 48.0,
-                      color: Colors.white,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            width: double.infinity,
-                            height: 8.0,
-                            color: Colors.white,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 2.0),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            height: 8.0,
-                            color: Colors.white,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 2.0),
-                          ),
-                          Container(
-                            width: 40.0,
-                            height: 8.0,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ]));
+           // return 
+            // SliverList(
+            //     delegate: SliverChildListDelegate([
+            //   Padding(
+            //     padding: const EdgeInsets.only(bottom: 8.0),
+            //     child: Row(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Container(
+            //           width: 48.0,
+            //           height: 48.0,
+            //           color: Colors.white,
+            //         ),
+            //         const Padding(
+            //           padding: EdgeInsets.symmetric(horizontal: 8.0),
+            //         ),
+            //         Expanded(
+            //           child: Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: <Widget>[
+            //               Container(
+            //                 width: double.infinity,
+            //                 height: 8.0,
+            //                 color: Colors.white,
+            //               ),
+            //               const Padding(
+            //                 padding: EdgeInsets.symmetric(vertical: 2.0),
+            //               ),
+            //               Container(
+            //                 width: double.infinity,
+            //                 height: 8.0,
+            //                 color: Colors.white,
+            //               ),
+            //               const Padding(
+            //                 padding: EdgeInsets.symmetric(vertical: 2.0),
+            //               ),
+            //               Container(
+            //                 width: 40.0,
+            //                 height: 8.0,
+            //                 color: Colors.white,
+            //               ),
+            //             ],
+            //           ),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ]));
           }
         });
   }

@@ -71,8 +71,8 @@ class _GridviewProductoPorSucursalState
                                           const Duration(milliseconds: 100),
                                       pageBuilder: (context, animation,
                                           secondaryAnimation) {
-                                        return DetalleProductos(
-                                            producto: snapshot.data[index]);
+                                        return DetalleProductos(idProducto: snapshot.data[index].idProducto,
+                                            );
                                         //return DetalleProductitos(productosData: productosData);
                                       },
                                       transitionsBuilder: (context, animation,
@@ -90,7 +90,7 @@ class _GridviewProductoPorSucursalState
                           }),
                     ),
                   
-                  Container(child: Center(child: CircularProgressIndicator(),),)
+                  //Container(child: Center(child: CircularProgressIndicator(),),)
                   ],
                 ),
               );

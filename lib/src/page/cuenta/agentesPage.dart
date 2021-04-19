@@ -96,6 +96,7 @@ class MapaAgentes extends StatefulWidget {
 
 class _MapaNegociosState extends State<MapaAgentes> {
   Map<String, Marker> markers = Map<String, Marker>();
+  final _pageController = PageController(viewportFraction: 0.8, initialPage: 0);
 
   final ScrollController _scrollController = new ScrollController();
 
@@ -107,11 +108,21 @@ class _MapaNegociosState extends State<MapaAgentes> {
   );
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await markersitos(context);
+      },
+    );
+
+    super.initState();
+  }
+
+  Future<Map<String, Marker>> markersitos(BuildContext context) async {
     final markerMapa = ProviderBloc.markerMapa(context);
-    final responsive = Responsive.of(context);
 
     for (var i = 0; i < widget.agentes.length; i++) {
+      print('i pe csmare $i');
       var punto = LatLng(
         double.parse(widget.agentes[i].agenteCoordX),
         double.parse(widget.agentes[i].agenteCoordY),
@@ -119,7 +130,7 @@ class _MapaNegociosState extends State<MapaAgentes> {
 
       final markerInicio = new Marker(
         onTap: () {
-          print('${widget.agentes[i].idAgente}');
+          print('id agente ${widget.agentes[i].idAgente}');
           markerMapa.changemarkerId(
             int.parse('${widget.agentes[i].idAgente}'),
           );
@@ -136,6 +147,14 @@ class _MapaNegociosState extends State<MapaAgentes> {
       markers['${widget.agentes[i].agenteNombre}'] = markerInicio;
     }
 
+    return markers;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final markerMapa = ProviderBloc.markerMapa(context);
+    final responsive = Responsive.of(context);
+
     return new Scaffold(
       body: Stack(
         children: [
@@ -149,224 +168,28 @@ class _MapaNegociosState extends State<MapaAgentes> {
             },
           ),
           Positioned(
-            bottom: 10,
+            bottom: responsive.hp(5),
             left: 0,
             right: 0,
             child: Container(
               height: responsive.hp(25),
               child: StreamBuilder(
-                  stream: markerMapa.markerIdStream,
-                  builder: (context, AsyncSnapshot<int> snapshot) {
-                    if (snapshot.hasData) {
-                      scroll(responsive, snapshot.data);
-                      return ListView.builder(
-                          controller: _scrollController,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: widget.agentes.length,
-                          itemBuilder: (context, index) {
-                            return (snapshot.data !=
-                                    int.parse(
-                                        '${widget.agentes[index].idAgente}'))
-                                ? GestureDetector(
-                                    onTap: () {
-                                      /* Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
-                                          transitionDuration:
-                                              const Duration(milliseconds: 700),
-                                          pageBuilder: (context, animation,
-                                              secondaryAnimation) {
-                                            return DetalleNegocio(
-                                              negocio: widget.negocios[index],
-                                            );
-                                          },
-                                          transitionsBuilder: (context,
-                                              animation,
-                                              secondaryAnimation,
-                                              child) {
-                                            return FadeTransition(
-                                              opacity: animation,
-                                              child: child,
-                                            );
-                                          },
-                                        ),
-                                      ); */
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                          left: responsive.wp(2),
-                                          right: responsive.wp(2),
-                                          top: responsive.hp(4)),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      width: responsive.wp(45),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            height: responsive.hp(15),
-                                            child: Hero(
-                                              tag:
-                                                  '${widget.agentes[index].idAgente}',
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                child: CachedNetworkImage(
-                                                  cacheManager:
-                                                      CustomCacheManager(),
-                                                  placeholder: (context, url) =>
-                                                      Container(
-                                                    width: double.infinity,
-                                                    height: double.infinity,
-                                                    child: Image(
-                                                        image: AssetImage(
-                                                            'assets/img/loading.gif'),
-                                                        fit: BoxFit.cover),
-                                                  ),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Container(
-                                                    width: double.infinity,
-                                                    height: double.infinity,
-                                                    child: Center(
-                                                      child: Icon(Icons.error),
-                                                    ),
-                                                  ),
-                                                  imageUrl:
-                                                      '$apiBaseURL/${widget.agentes[index].agenteImagen}',
-                                                  imageBuilder: (context,
-                                                          imageProvider) =>
-                                                      Container(
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: imageProvider,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Text(
-                                              '${widget.agentes[index].agenteNombre}')
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                : GestureDetector(
-                                    onTap: () {
-                                      /* Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
-                                          transitionDuration:
-                                              const Duration(milliseconds: 700),
-                                          pageBuilder: (context, animation,
-                                              secondaryAnimation) {
-                                            return DetalleNegocio(
-                                              negocio: widget.negocios[index],
-                                            );
-                                          },
-                                          transitionsBuilder: (context,
-                                              animation,
-                                              secondaryAnimation,
-                                              child) {
-                                            return FadeTransition(
-                                              opacity: animation,
-                                              child: child,
-                                            );
-                                          },
-                                        ),
-                                      ); */
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                        left: responsive.wp(2),
-                                        right: responsive.wp(2),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: Colors.blueGrey[400],
-                                        borderRadius: BorderRadius.circular(15),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.8),
-                                            spreadRadius: 7,
-                                            blurRadius: 7,
-                                            offset: Offset(0,
-                                                4), // changes position of shadow
-                                          ),
-                                        ],
-                                      ),
-                                      width: responsive.wp(45),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            height: responsive.hp(16),
-                                            child: Hero(
-                                              tag:
-                                                  '${widget.agentes[index].idAgente}',
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                child: CachedNetworkImage(
-                                                  cacheManager:
-                                                      CustomCacheManager(),
-                                                  placeholder: (context, url) =>
-                                                      Container(
-                                                    width: double.infinity,
-                                                    height: double.infinity,
-                                                    child: Image(
-                                                        image: AssetImage(
-                                                            'assets/img/loading.gif'),
-                                                        fit: BoxFit.cover),
-                                                  ),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Container(
-                                                    width: double.infinity,
-                                                    height: double.infinity,
-                                                    child: Center(
-                                                      child: Icon(Icons.error),
-                                                    ),
-                                                  ),
-                                                  imageUrl:
-                                                      '$apiBaseURL/${widget.agentes[index].agenteImagen}',
-                                                  imageBuilder: (context,
-                                                          imageProvider) =>
-                                                      Container(
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: imageProvider,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Text(
-                                              '${widget.agentes[index].agenteNombre}'),
-                                          Text(
-                                              '${widget.agentes[index].agenteDireccion}'),
-                                          /* Text(
-                                              '${widget.agentes[index].agenteTelefono}'),
-                                          Text(
-                                              '${widget.agentes[index].agenteTipo}'), */
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                          });
-                    } else {
-                      return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: widget.agentes.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                /*  Navigator.push(
+                stream: markerMapa.markerIdStream,
+                builder: (context, AsyncSnapshot<int> snapshot) {
+                  if (snapshot.hasData) {
+                    _pageController.animateToPage(snapshot.data,
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.easeIn);
+                    //scroll(responsive, snapshot.data);
+                    //
+                    return PageView.builder(
+                      scrollDirection: Axis.horizontal,
+                      controller: _pageController,
+                      itemCount: widget.agentes.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            /*  Navigator.push(
                                   context,
                                   PageRouteBuilder(
                                     transitionDuration:
@@ -386,72 +209,74 @@ class _MapaNegociosState extends State<MapaAgentes> {
                                     },
                                   ),
                                 ); */
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                  left: responsive.wp(2),
-                                  right: responsive.wp(2),
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                width: responsive.wp(45),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height: responsive.hp(15),
-                                      child: Hero(
-                                        tag:
-                                            '${widget.agentes[index].idAgente}',
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          child: CachedNetworkImage(
-                                            cacheManager: CustomCacheManager(),
-                                            placeholder: (context, url) =>
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                              left: responsive.wp(2),
+                              right: responsive.wp(2),
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            width: responsive.wp(45),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: responsive.hp(15),
+                                  child: Hero(
+                                    tag: '${widget.agentes[index].idAgente}',
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: CachedNetworkImage(
+                                        cacheManager: CustomCacheManager(),
+                                        placeholder: (context, url) =>
+                                            Container(
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          child: Image(
+                                              image: AssetImage(
+                                                  'assets/img/loading.gif'),
+                                              fit: BoxFit.cover),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            Container(
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          child: Center(
+                                            child: Icon(Icons.error),
+                                          ),
+                                        ),
+                                        imageUrl:
+                                            '$apiBaseURL/${widget.agentes[index].agenteImagen}',
+                                        imageBuilder:
+                                            (context, imageProvider) =>
                                                 Container(
-                                              width: double.infinity,
-                                              height: double.infinity,
-                                              child: Image(
-                                                  image: AssetImage(
-                                                      'assets/img/loading.gif'),
-                                                  fit: BoxFit.cover),
-                                            ),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    Container(
-                                              width: double.infinity,
-                                              height: double.infinity,
-                                              child: Center(
-                                                child: Icon(Icons.error),
-                                              ),
-                                            ),
-                                            imageUrl:
-                                                '$apiBaseURL/${widget.agentes[index].agenteImagen}',
-                                            imageBuilder:
-                                                (context, imageProvider) =>
-                                                    Container(
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                    Text(
-                                        '${widget.agentes[index].agenteNombre}')
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          });
-                    }
-                  }),
+                                Text('${widget.agentes[index].agenteNombre}')
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return Center(
+                      child: Text('vjnkjebjgb'),
+                    );
+                  }
+                },
+              ),
             ),
           )
         ],
@@ -461,12 +286,306 @@ class _MapaNegociosState extends State<MapaAgentes> {
 
   void scroll(Responsive responsive, int position) {
     print((responsive.wp(40) * position) + 50);
-    Future.delayed(Duration(milliseconds: 1), () {
-      _scrollController.animateTo(
-        (responsive.wp(40) * position) - responsive.wp(45),
-        curve: Curves.ease,
-        duration: const Duration(milliseconds: 100),
-      );
-    });
+    Future.delayed(
+      Duration(milliseconds: 1),
+      () {
+        _scrollController.animateTo(
+          (responsive.wp(40) * position) - responsive.wp(45),
+          curve: Curves.ease,
+          duration: const Duration(milliseconds: 100),
+        );
+      },
+    );
   }
 }
+
+/****** return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: widget.agentes.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            /*  Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    transitionDuration:
+                                        const Duration(milliseconds: 700),
+                                    pageBuilder: (context, animation,
+                                        secondaryAnimation) {
+                                      return DetalleNegocio(
+                                        negocio: widget.negocios[index],
+                                      );
+                                    },
+                                    transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) {
+                                      return FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                ); */
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                              left: responsive.wp(2),
+                              right: responsive.wp(2),
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            width: responsive.wp(45),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: responsive.hp(15),
+                                  child: Hero(
+                                    tag: '${widget.agentes[index].idAgente}',
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: CachedNetworkImage(
+                                        cacheManager: CustomCacheManager(),
+                                        placeholder: (context, url) =>
+                                            Container(
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          child: Image(
+                                              image: AssetImage(
+                                                  'assets/img/loading.gif'),
+                                              fit: BoxFit.cover),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            Container(
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          child: Center(
+                                            child: Icon(Icons.error),
+                                          ),
+                                        ),
+                                        imageUrl:
+                                            '$apiBaseURL/${widget.agentes[index].agenteImagen}',
+                                        imageBuilder:
+                                            (context, imageProvider) =>
+                                                Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Text('${widget.agentes[index].agenteNombre}')
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                   ******/
+
+/* return ListView.builder(
+                      controller: _scrollController,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: widget.agentes.length,
+                      itemBuilder: (context, index) {
+                        return (snapshot.data !=
+                                int.parse('${widget.agentes[index].idAgente}'))
+                            ? GestureDetector(
+                                onTap: () {
+                                  /* Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          transitionDuration:
+                                              const Duration(milliseconds: 700),
+                                          pageBuilder: (context, animation,
+                                              secondaryAnimation) {
+                                            return DetalleNegocio(
+                                              negocio: widget.negocios[index],
+                                            );
+                                          },
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            return FadeTransition(
+                                              opacity: animation,
+                                              child: child,
+                                            );
+                                          },
+                                        ),
+                                      ); */
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                      left: responsive.wp(2),
+                                      right: responsive.wp(2),
+                                      top: responsive.hp(4)),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  width: responsive.wp(45),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: responsive.hp(15),
+                                        child: Hero(
+                                          tag:
+                                              '${widget.agentes[index].idAgente}',
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            child: CachedNetworkImage(
+                                              cacheManager:
+                                                  CustomCacheManager(),
+                                              placeholder: (context, url) =>
+                                                  Container(
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                child: Image(
+                                                    image: AssetImage(
+                                                        'assets/img/loading.gif'),
+                                                    fit: BoxFit.cover),
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Container(
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                child: Center(
+                                                  child: Icon(Icons.error),
+                                                ),
+                                              ),
+                                              imageUrl:
+                                                  '$apiBaseURL/${widget.agentes[index].agenteImagen}',
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                          '${widget.agentes[index].agenteNombre}')
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : GestureDetector(
+                                onTap: () {
+                                  /* Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          transitionDuration:
+                                              const Duration(milliseconds: 700),
+                                          pageBuilder: (context, animation,
+                                              secondaryAnimation) {
+                                            return DetalleNegocio(
+                                              negocio: widget.negocios[index],
+                                            );
+                                          },
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            return FadeTransition(
+                                              opacity: animation,
+                                              child: child,
+                                            );
+                                          },
+                                        ),
+                                      ); */
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                    left: responsive.wp(2),
+                                    right: responsive.wp(2),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.blueGrey[400],
+                                    borderRadius: BorderRadius.circular(15),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.8),
+                                        spreadRadius: 7,
+                                        blurRadius: 7,
+                                        offset: Offset(
+                                            0, 4), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  width: responsive.wp(45),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: responsive.hp(16),
+                                        child: Hero(
+                                          tag:
+                                              '${widget.agentes[index].idAgente}',
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            child: CachedNetworkImage(
+                                              cacheManager:
+                                                  CustomCacheManager(),
+                                              placeholder: (context, url) =>
+                                                  Container(
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                child: Image(
+                                                    image: AssetImage(
+                                                        'assets/img/loading.gif'),
+                                                    fit: BoxFit.cover),
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Container(
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                child: Center(
+                                                  child: Icon(Icons.error),
+                                                ),
+                                              ),
+                                              imageUrl:
+                                                  '$apiBaseURL/${widget.agentes[index].agenteImagen}',
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                          '${widget.agentes[index].agenteNombre}'),
+                                      Text(
+                                          '${widget.agentes[index].agenteDireccion}'),
+                                      /* Text(
+                                              '${widget.agentes[index].agenteTelefono}'),
+                                          Text(
+                                              '${widget.agentes[index].agenteTipo}'), */
+                                    ],
+                                  ),
+                                ),
+                              );
+                      },
+                    );
+                  */

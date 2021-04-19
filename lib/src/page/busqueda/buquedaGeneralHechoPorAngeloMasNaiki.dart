@@ -100,16 +100,20 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                 contentPadding: EdgeInsets.all(16),
                               ),
                               onSubmitted: (value) {
-                                print('$value');
-
-                                busquedaBloc.obtenerBusquedaProducto('$value');
-                                busquedaBloc.obtenerBusquedaServicio('$value');
-                                busquedaBloc.obtenerBusquedaNegocio('$value');
-                                busquedaBloc
-                                    .obtenerBusquedaItemSubcategoria('$value');
-                                busquedaBloc.obtenerBusquedaCategoria('$value');
-                                busquedaBloc
-                                    .obtenerBusquedaSubcategoria('$value');
+                                print('value $value');
+                                if (value != null) {
+                                  busquedaBloc
+                                      .obtenerBusquedaProducto('$value');
+                                  busquedaBloc
+                                      .obtenerBusquedaServicio('$value');
+                                  busquedaBloc.obtenerBusquedaNegocio('$value');
+                                  busquedaBloc.obtenerBusquedaItemSubcategoria(
+                                      '$value');
+                                  busquedaBloc
+                                      .obtenerBusquedaCategoria('$value');
+                                  busquedaBloc
+                                      .obtenerBusquedaSubcategoria('$value');
+                                }
                               }),
                         ),
                         IconButton(
@@ -261,8 +265,8 @@ class ListaProductos extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetalleProductos(idProducto: productoData.idProducto,
-              
+            builder: (context) => DetalleProductos(
+              idProducto: productoData.idProducto,
             ),
           ),
         );

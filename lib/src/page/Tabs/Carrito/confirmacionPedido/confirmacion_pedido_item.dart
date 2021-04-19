@@ -200,105 +200,127 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                           int indd = i - 1;
 
                                           return Container(
-                                            height: responsive.hp(11),
+                                            height: responsive.hp(20),
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 5),
                                             width: double.infinity,
-                                            child: Row(
+                                            child: Column(
                                               children: [
                                                 SizedBox(
-                                                  width: responsive.wp(1.5),
-                                                ),
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  child: Container(
-                                                    width: responsive.wp(25),
-                                                    child: Stack(
-                                                      children: [
-                                                        Container(
-                                                          height:
-                                                              responsive.hp(10),
-                                                          width:
-                                                              responsive.wp(25),
-                                                          child:
-                                                              CachedNetworkImage(
-                                                            cacheManager:
-                                                                CustomCacheManager(),
-                                                            placeholder:
-                                                                (context,
-                                                                        url) =>
-                                                                    Container(
-                                                              width: double
-                                                                  .infinity,
-                                                              height: double
-                                                                  .infinity,
-                                                              child: Image(
-                                                                  image: AssetImage(
-                                                                      'assets/loading.gif'),
-                                                                  fit: BoxFit
-                                                                      .fitWidth),
+                                                      height: responsive.hp(2)
+                                                    ),
+                                                Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width: responsive.wp(1.5),
+                                                    ),
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(10),
+                                                      child: Container(
+                                                        width: responsive.wp(25),
+                                                        child: Stack(
+                                                          children: [
+                                                            Container(
+                                                              height:
+                                                                  responsive.hp(10),
+                                                              width:
+                                                                  responsive.wp(25),
+                                                              child:
+                                                                  CachedNetworkImage(
+                                                                cacheManager:
+                                                                    CustomCacheManager(),
+                                                                placeholder:
+                                                                    (context,
+                                                                            url) =>
+                                                                        Container(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  height: double
+                                                                      .infinity,
+                                                                  child: Image(
+                                                                      image: AssetImage(
+                                                                          'assets/loading.gif'),
+                                                                      fit: BoxFit
+                                                                          .fitWidth),
+                                                                ),
+                                                                imageUrl:
+                                                                    '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
+                                                                fit: BoxFit.cover,
+                                                              ),
                                                             ),
-                                                            imageUrl:
-                                                                '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
-                                                            fit: BoxFit.cover,
-                                                          ),
+                                                          ],
                                                         ),
-                                                      ],
+                                                      ),
                                                     ),
-                                                  ),
+                                                    SizedBox(
+                                                      width: responsive.wp(2),
+                                                    ),
+                                                    Expanded(
+                                                      child: Container(
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text('${listCarritoSuperior[0].car[xxx].carrito[indd].nombre} ' +
+                                                                '${listCarritoSuperior[0].car[xxx].carrito[indd].marca} x ' +
+                                                                '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}'),
+                                                            Text(
+                                                              'S/. ' +
+                                                                  (double.parse(
+                                                                              '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}') *
+                                                                          double.parse(
+                                                                              '${listCarritoSuperior[0].car[xxx].carrito[indd].precio}'))
+                                                                      .toString(),
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      responsive
+                                                                          .ip(1.8),
+                                                                  color: Colors.red,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                            Text(
+                                                                'producto ofrecido por bufeoTec'),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    
+                                                    //  CantidadCarrito(
+                                                    //     carrito:
+                                                    //         listCarritoSuperior[0]
+                                                    //             .car[xxx]
+                                                    //             .carrito[indd],
+                                                    //     llamada: llamada,
+                                                    //     idSudsidiaryGood:
+                                                    //         '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}', marcaProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}', modeloProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}', tallaProducto:'${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
+                                                    //   ),
+                                                    // SizedBox(
+                                                    //   height: responsive.wp(2),
+                                                    // )
+                                                  ],
                                                 ),
                                                 SizedBox(
-                                                  width: responsive.wp(2),
-                                                ),
-                                                Expanded(
-                                                  child: Container(
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text('${listCarritoSuperior[0].car[xxx].carrito[indd].nombre} ' +
-                                                            '${listCarritoSuperior[0].car[xxx].carrito[indd].marca} x ' +
-                                                            '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}'),
-                                                        Text(
-                                                          'S/. ' +
-                                                              (double.parse(
-                                                                          '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}') *
-                                                                      double.parse(
-                                                                          '${listCarritoSuperior[0].car[xxx].carrito[indd].precio}'))
-                                                                  .toString(),
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  responsive
-                                                                      .ip(1.8),
-                                                              color: Colors.red,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        Text(
-                                                            'producto ofrecido por bufeoTec'),
-                                                      ],
+                                                      height: responsive.hp(1)
                                                     ),
-                                                  ),
+                                                Padding(
+                                                  padding:  EdgeInsets.only(left: responsive.ip(20)),
+                                                  child: CantidadCarrito(
+                                                          carrito:
+                                                              listCarritoSuperior[0]
+                                                                  .car[xxx]
+                                                                  .carrito[indd],
+                                                          llamada: llamada,
+                                                          idSudsidiaryGood:
+                                                              '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}', marcaProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}', modeloProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}', tallaProducto:'${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
+                                                        ),
                                                 ),
-                                                
-                                                 CantidadCarrito(
-                                                    carrito:
-                                                        listCarritoSuperior[0]
-                                                            .car[xxx]
-                                                            .carrito[indd],
-                                                    llamada: llamada,
-                                                    idSudsidiaryGood:
-                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}', marcaProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}', modeloProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}', tallaProducto:'${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
-                                                  ),
-                                                SizedBox(
-                                                  width: responsive.wp(2),
-                                                )
                                               ],
                                             ),
                                           );
@@ -458,51 +480,52 @@ class ResumenPedido extends StatelessWidget {
         SizedBox(
           height: responsive.hp(3),
         ),
-        Row(
-          children: [
-            SizedBox(
-              width: responsive.wp(3),
-            ),
-            Text(
-              'Saldo actual',
-              style: TextStyle(
-                  fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
-            ),
-            Spacer(),
-            Container(
-              width: responsive.wp(11),
-              child: Image(
-                image: AssetImage('assets/moneda.png'),
-              ),
-            ),
-            StreamBuilder(
-              stream: cuentaBloc.saldoStream,
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<CuentaModel>> snapshot) {
-                int valorcito = 0;
+        // Row(
+        //   children: [
+        //     SizedBox(
+        //       width: responsive.wp(3),
+        //     ),
+        //     Text(
+        //       'Saldo actual',
+        //       style: TextStyle(
+        //           fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
+        //     ),
+        //     Spacer(),
+        //     Container(
+        //       width: responsive.wp(11),
+        //       child: Image(
+        //         image: AssetImage('assets/moneda.png'),
+        //       ),
+        //     ),
+        //     StreamBuilder(
+        //       stream: cuentaBloc.saldoStream,
+        //       builder: (BuildContext context,
+        //           AsyncSnapshot<List<CuentaModel>> snapshot) {
+        //         int valorcito = 0;
 
-                if (snapshot.hasData) {
-                  if (snapshot.data.length > 0) {
-                    valorcito =
-                        double.parse(snapshot.data[0].cuentaSaldo).toInt();
-                  }
-                }
+        //         if (snapshot.hasData) {
+        //           if (snapshot.data.length > 0) {
+        //             valorcito =
+        //                 double.parse(snapshot.data[0].cuentaSaldo).toInt();
+        //           }
+        //         }
 
-                return Container(
-                  child: Text(
-                    valorcito.toString(),
-                    style: TextStyle(
-                        fontSize: responsive.ip(1.8),
-                        fontWeight: FontWeight.bold),
-                  ),
-                );
-              },
-            ),
-            SizedBox(
-              width: responsive.wp(3),
-            ),
-          ],
-        ),
+        //         return Container(
+        //           child: Text(
+        //             valorcito.toString(),
+        //             style: TextStyle(
+        //                 fontSize: responsive.ip(1.8),
+        //                 fontWeight: FontWeight.bold),
+        //           ),
+        //         );
+        //       },
+        //     ),
+        //     SizedBox(
+        //       width: responsive.wp(3),
+        //     ),
+        //   ],
+        // ),
+        
         SizedBox(
           height: responsive.hp(2),
         ),

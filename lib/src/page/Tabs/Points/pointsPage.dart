@@ -137,8 +137,35 @@ class _PointsPageState extends State<PointsPage> {
                 ]),
               );
             } else {
-              return Center(
-                child: Text('No hay Points'),
+              return SafeArea(
+                child: Column(
+                  children: [
+                    Container(
+                      color: Colors.transparent,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: responsive.wp(5),
+                        vertical: responsive.hp(1),
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Mis Points',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: responsive.ip(3),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: Text('No hay Points'),
+                      ),
+                    ),
+                  ],
+                ),
               );
             }
           } else {

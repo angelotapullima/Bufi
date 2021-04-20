@@ -550,11 +550,15 @@ class PedidoApi {
   Future<int> valoracion(File _image, String idProducto, String idPedido,
       String comentario, String valoracion) async {
     final preferences = Preferences();
-
+    var multipartFile;
     // open a byteStream
-    var stream = new http.ByteStream(Stream.castFrom(_image.openRead()));
-    // get file length
-    var length = await _image.length();
+    if (_image != null) {
+      var stream = new http.ByteStream(Stream.castFrom(_image.openRead()));
+      // get file length
+      var length = await _image.length();
+      multipartFile = new http.MultipartFile('imagen', stream, length,
+          filename: basename(_image.path));
+    }
 
     // string to uri
     var uri = Uri.parse("$apiBaseURL/api/Pedido/valorar_pedido");
@@ -571,11 +575,9 @@ class PedidoApi {
     request.fields["comentario"] = comentario;
 
     // multipart that takes file.. here this "image_file" is a key of the API request
-    var multipartFile = new http.MultipartFile('imagen', stream, length,
-        filename: basename(_image.path));
 
     // add file to multipart
-    request.files.add(multipartFile);
+    if (_image != null) request.files.add(multipartFile);
 
     // send request to upload image
     await request.send().then((response) async {
@@ -585,6 +587,8 @@ class PedidoApi {
 
         final decodedData = json.decode(value);
         final int code = decodedData;
+
+        print('Code $code');
 
         if (code == 1) {
           print('amonos');

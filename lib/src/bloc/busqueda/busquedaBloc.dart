@@ -51,6 +51,7 @@ class BusquedaBloc {
       BehaviorSubject<List<SubcategoryModel>>();
   final busProySerPorIdItemsubController =
       BehaviorSubject<List<BienesServiciosModel>>();
+  final _cargandoItems = BehaviorSubject<bool>();
 
   Stream<List<ProductoModel>> get busquedaProductoStream =>
       busquedaProductoController.stream;
@@ -68,6 +69,7 @@ class BusquedaBloc {
       busProySerPorIdItemsubController.stream;
   Stream<List<SubcategoryModel>> get busPorSubcategoriaStream =>
       busquedaSubcategoryController.stream;
+  Stream<bool> get cargandoItemsStream => _cargandoItems.stream;
 
   void dispose() {
     busquedaProductoController?.close();
@@ -79,6 +81,7 @@ class BusquedaBloc {
     busProySerPorIdItemsubController?.close();
     busquedaProductoPorIdSucursalController?.close();
     busquedaSubcategoryController?.close();
+    _cargandoItems?.close();
   }
 
   //productos por IdSucursal
@@ -104,9 +107,13 @@ class BusquedaBloc {
     /* busquedaProductoController.sink
         .add(await obtnerResultBusquedaProducto(query)); */
     busquedaProductoController.sink.add([]);
-    if (query != '')
+    if (query != '') {
+      _cargandoItems.sink.add(true);
       busquedaProductoController.sink
           .add(await busquedaApi.busquedaProducto(query));
+      _cargandoItems.sink.add(false);
+    }
+    _cargandoItems.sink.add(false);
 
     // busquedaProductoController.sink
     //     .add(await obtnerResultBusquedaProducto(query));
@@ -116,9 +123,14 @@ class BusquedaBloc {
   void obtenerBusquedaServicio(String query) async {
     //busquedaServicioController.sink.add(await obtnerResultBusquedaServicio(query));
     busquedaServicioController.sink.add([]);
-    if (query != '')
+    if (query != '') {
+      _cargandoItems.sink.add(true);
       busquedaServicioController.sink
           .add(await busquedaApi.busquedaServicio(query));
+      _cargandoItems.sink.add(false);
+    }
+    _cargandoItems.sink.add(false);
+
     //busquedaServicioController.sink.add(await busquedaServicio(query));
   }
 

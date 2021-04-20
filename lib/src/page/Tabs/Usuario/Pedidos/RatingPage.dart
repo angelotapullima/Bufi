@@ -219,34 +219,30 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
   Future _submit(PedidosModel pedido,
       TextEditingController comentarioController, BuildContext context) async {
     final pedidoApi = PedidoApi();
-
-    if (foto != null) {
-      if (comentarioController.text != null) {
-        if (valueRating != null) {
-          _cargando.value = true;
-          final int code = await pedidoApi.valoracion(
-              foto,
-              pedido.detallePedido[0].idProducto,
-              pedido.idPedido,
-              comentarioController.text,
-              valueRating.toString());
-          if (code == 1) {
-            print("Producto Calificado");
-            utils.showToast(context, 'Producto Calificado');
-            Navigator.pop(context);
-          } else {
-            utils.showToast(context, 'Faltan ingresar datos');
-          }
-
-          _cargando.value = false;
+    print('Controller text: $valueRating');
+    if (comentarioController.text.length > 0) {
+      if (valueRating > 0.0) {
+        _cargando.value = true;
+        final int code = await pedidoApi.valoracion(
+            foto,
+            pedido.detallePedido[0].idProducto,
+            pedido.idPedido,
+            comentarioController.text,
+            valueRating.toString());
+        if (code == 1) {
+          print("Producto Calificado");
+          utils.showToast(context, 'Producto Calificado');
+          Navigator.pop(context);
         } else {
-          utils.showToast(context, 'Debe ingresar su comentario');
+          utils.showToast(context, 'Faltan ingresar datos');
         }
+
+        _cargando.value = false;
       } else {
-        utils.showToast(context, 'Debe ingresar su comentario');
+        utils.showToast(context, 'Debe calificar el producto');
       }
     } else {
-      utils.showToast(context, 'Debe seleccionar una foto');
+      utils.showToast(context, 'Debe ingresar su comentario');
     }
   }
 
@@ -254,7 +250,8 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
     ImageSource source,
     Future<File> Function(File file) cropImage,
   }) async {
-    final pickedFile = await ImagePicker().getImage(source: source);
+    final pickedFile =
+        await ImagePicker().getImage(source: source, imageQuality: 80);
     if (pickedFile == null) return null;
     if (cropImage == null) {
       return File(pickedFile.path);

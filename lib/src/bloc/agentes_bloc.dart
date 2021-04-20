@@ -54,6 +54,7 @@ class AgentesBloc {
       agenteModel.cuentaeDate = listAgentes[i].cuentaeDate;
       agenteModel.cuentaeEstado = listAgentes[i].cuentaeEstado;
       agenteModel.idCompany = listAgentes[i].idCompany;
+      agenteModel.posicion = listAgentes[i].posicion;
 
       //funcion que llama desde la bd a la lista de companys
       final listCompany = await companyDatabase

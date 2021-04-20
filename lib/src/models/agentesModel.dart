@@ -23,6 +23,7 @@ class AgenteModel {
     this.cuentaeEstado,
     this.idCompany,
     this.listCompany,
+    this.posicion,
     // this.idCategory,
     // this.companyName,
     // this.companyRuc,
@@ -61,6 +62,7 @@ class AgenteModel {
   String cuentaeDate;
   String cuentaeEstado;
   String idCompany;
+  String posicion;
   List<CompanyModel> listCompany;
   // String idCategory;
   // String companyName;
@@ -100,6 +102,7 @@ class AgenteModel {
         cuentaeDate: json["cuentae_date"],
         cuentaeEstado: json["cuentae_estado"],
         idCompany: json["id_company"],
+        posicion: json["posicion"],
         // idCategory: json["id_category"],
         // companyName: json["company_name"],
         // companyRuc: json["company_ruc"],

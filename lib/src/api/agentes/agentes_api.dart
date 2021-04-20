@@ -39,6 +39,7 @@ class AgentesApi {
         agenteModel.cuentaeDate = decodedData["agentes"][i]["cuentae_date"];
         agenteModel.cuentaeEstado = decodedData["agentes"][i]["cuentae_estado"];
         agenteModel.idCompany = decodedData["agentes"][i]["id_company"];
+        agenteModel.posicion = (i+1).toString();
 
         await agentesDb.insertarAgentes(agenteModel);
       }

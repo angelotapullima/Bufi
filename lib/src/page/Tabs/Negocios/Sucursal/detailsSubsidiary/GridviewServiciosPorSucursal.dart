@@ -22,19 +22,19 @@ class _GridviewProductoPorSucursalState
     serviciosBloc.listarServiciosPorSucursal(widget.idSucursal);
 
     return StreamBuilder(
-        stream: serviciosBloc.serviciostream,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<SubsidiaryServiceModel>> snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data.length > 0) {
-              return GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, childAspectRatio: .7),
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        /* Navigator.push(
+      stream: serviciosBloc.serviciostream,
+      builder: (BuildContext context,
+          AsyncSnapshot<List<SubsidiaryServiceModel>> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data.length > 0) {
+            return GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, childAspectRatio: .7),
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      /* Navigator.push(
                           context,
                           PageRouteBuilder(
                             transitionDuration:
@@ -54,110 +54,21 @@ class _GridviewProductoPorSucursalState
                             },
                           ),
                         ); */
-                      },
-                      child: ServiciosWidget(serviceData: snapshot.data[index]),
-                    );
-                  });
-            } else {
-              return Center(child: Text("No cuenta con ningún servicio por el momento"));
-              // SliverList(
-              //     delegate: SliverChildListDelegate([
-              //   Padding(
-              //     padding: const EdgeInsets.only(bottom: 8.0),
-              //     child: Row(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         Container(
-              //           width: 48.0,
-              //           height: 48.0,
-              //           color: Colors.white,
-              //         ),
-              //         const Padding(
-              //           padding: EdgeInsets.symmetric(horizontal: 8.0),
-              //         ),
-              //         Expanded(
-              //           child: Column(
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             children: <Widget>[
-              //               Container(
-              //                 width: double.infinity,
-              //                 height: 8.0,
-              //                 color: Colors.white,
-              //               ),
-              //               const Padding(
-              //                 padding: EdgeInsets.symmetric(vertical: 2.0),
-              //               ),
-              //               Container(
-              //                 width: double.infinity,
-              //                 height: 8.0,
-              //                 color: Colors.white,
-              //               ),
-              //               const Padding(
-              //                 padding: EdgeInsets.symmetric(vertical: 2.0),
-              //               ),
-              //               Container(
-              //                 width: 40.0,
-              //                 height: 8.0,
-              //                 color: Colors.white,
-              //               ),
-              //             ],
-              //           ),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ]));
-            }
+                    },
+                    child: ServiciosWidget(serviceData: snapshot.data[index]),
+                  );
+                });
           } else {
-           // return 
-            // SliverList(
-            //     delegate: SliverChildListDelegate([
-            //   Padding(
-            //     padding: const EdgeInsets.only(bottom: 8.0),
-            //     child: Row(
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: [
-            //         Container(
-            //           width: 48.0,
-            //           height: 48.0,
-            //           color: Colors.white,
-            //         ),
-            //         const Padding(
-            //           padding: EdgeInsets.symmetric(horizontal: 8.0),
-            //         ),
-            //         Expanded(
-            //           child: Column(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             children: <Widget>[
-            //               Container(
-            //                 width: double.infinity,
-            //                 height: 8.0,
-            //                 color: Colors.white,
-            //               ),
-            //               const Padding(
-            //                 padding: EdgeInsets.symmetric(vertical: 2.0),
-            //               ),
-            //               Container(
-            //                 width: double.infinity,
-            //                 height: 8.0,
-            //                 color: Colors.white,
-            //               ),
-            //               const Padding(
-            //                 padding: EdgeInsets.symmetric(vertical: 2.0),
-            //               ),
-            //               Container(
-            //                 width: 40.0,
-            //                 height: 8.0,
-            //                 color: Colors.white,
-            //               ),
-            //             ],
-            //           ),
-            //         )
-            //       ],
-            //     ),
-            //   ),
-            // ]));
+            return Center(
+              child: Text("No cuenta con ningún servicio por el momento"),
+            );
           }
-        });
+        } else {
+          return Center(
+            child: CupertinoActivityIndicator(),
+          );
+        }
+      },
+    );
   }
 }

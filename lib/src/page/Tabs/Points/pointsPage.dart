@@ -3,7 +3,6 @@ import 'package:bufi/src/models/pointModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/detalleSubsidiary.dart';
-import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/detalleSubsidiary2.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
 import 'package:bufi/src/page/Tabs/Points/points_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
@@ -166,11 +165,13 @@ class _PointsPageState extends State<PointsPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Align(
-                alignment: Alignment.centerLeft,
-                child: Icon(Icons.delete, color: Colors.white)),
+              alignment: Alignment.centerLeft,
+              child: Icon(Icons.delete, color: Colors.white),
+            ),
             Align(
-                alignment: Alignment.centerRight,
-                child: Icon(Icons.delete, color: Colors.white)),
+              alignment: Alignment.centerRight,
+              child: Icon(Icons.delete, color: Colors.white),
+            ),
           ],
         ),
       ),
@@ -232,12 +233,13 @@ class _PointsPageState extends State<PointsPage> {
                       ),
                     ),
                     IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () {
-                          print("Cerrar");
-                          quitarSubsidiaryFavoritodePointPage(
-                              context, snapshot.data[xxx]);
-                        })
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        print("Cerrar");
+                        quitarSubsidiaryFavoritodePointPage(
+                            context, snapshot.data[xxx]);
+                      },
+                    )
                   ],
                 )
               ],
@@ -611,7 +613,9 @@ class WidgetBienesFavoritos extends StatelessWidget {
           PageRouteBuilder(
             transitionDuration: const Duration(milliseconds: 100),
             pageBuilder: (context, animation, secondaryAnimation) {
-              return DetalleProductos(idProducto: goodData.idProducto,);
+              return DetalleProductos(
+                idProducto: goodData.idProducto,
+              );
               //return DetalleProductitos(productosData: productosData);
             },
             transitionsBuilder:

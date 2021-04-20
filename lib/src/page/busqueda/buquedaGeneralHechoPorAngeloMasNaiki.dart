@@ -760,47 +760,139 @@ class ListaSucursales extends StatelessWidget {
   }
 } */
 
-class ListaNegocios extends StatelessWidget {
+class ListaNegocios extends StatefulWidget {
   const ListaNegocios({
     Key key,
   }) : super(key: key);
 
   @override
+  _ListaNegociosState createState() => _ListaNegociosState();
+}
+
+class _ListaNegociosState extends State<ListaNegocios> {
+  ValueNotifier<bool> switchFiltro = ValueNotifier(false);
+  @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final busquedaBloc = ProviderBloc.busqueda(context);
     //busquedaBloc.obtenerBusquedaNegocio('$query');
-
     return StreamBuilder(
-        stream: busquedaBloc.busquedaNegocioStream,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<CompanySubsidiaryModel>> snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data.length > 0) {
-              return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int i) {
-                    return _crearItem(context, snapshot.data[i], responsive);
-                  });
-            } else {
-              return Center(
-                child: NutsActivityIndicator(
-                  radius: 12,
-                  activeColor: Colors.white,
-                  inactiveColor: Colors.redAccent,
-                  tickCount: 11,
-                  startRatio: 0.55,
-                  animationDuration: Duration(milliseconds: 2003),
-                ),
-              );
-            }
-          } else {
-            return Center(
-              child: Text('Sin resultados'),
+      stream: busquedaBloc.cargandoItemsStream,
+      builder: (context, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data) {
+            bool _enabled = true;
+            return Container(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300],
+                      highlightColor: Colors.grey[100],
+                      enabled: _enabled,
+                      child: ListView.builder(
+                        itemBuilder: (_, __) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 48.0,
+                                height: 48.0,
+                                color: Colors.white,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 2.0),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 2.0),
+                                    ),
+                                    Container(
+                                      width: 40.0,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        itemCount: 6,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
+          } else {
+            return ValueListenableBuilder(
+                valueListenable: switchFiltro,
+                builder: (BuildContext context, bool data, Widget child) {
+                  return Column(
+                    children: [
+                      StreamBuilder(
+                          stream: busquedaBloc.busquedaNegocioStream,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<CompanySubsidiaryModel>>
+                                  snapshot) {
+                            if (snapshot.hasData) {
+                              if (snapshot.data.length > 0) {
+                              } else {
+                                return Center(child: Text("Sin resultados"));
+                              }
+                            } else {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return Expanded(
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: snapshot.data.length,
+                                  itemBuilder: (BuildContext context, int i) {
+                                    return _crearItem(
+                                        context, snapshot.data[i], responsive);
+                                  }),
+                            );
+                          })
+                    ],
+                  );
+                });
           }
-        });
+        } else {
+          return Center(
+            child: NutsActivityIndicator(
+              radius: 12,
+              activeColor: Colors.white,
+              inactiveColor: Colors.redAccent,
+              tickCount: 11,
+              startRatio: 0.55,
+              animationDuration: Duration(milliseconds: 2003),
+            ),
+          );
+        }
+      },
+    );
   }
 
   Widget _crearItem(BuildContext context, CompanySubsidiaryModel negocioData,
@@ -919,80 +1011,178 @@ class ListaNegocios extends StatelessWidget {
   }
 }
 
-class ListaItemsubcategoria extends StatelessWidget {
+class ListaItemsubcategoria extends StatefulWidget {
   const ListaItemsubcategoria({Key key}) : super(key: key);
 
   @override
+  _ListaItemsubcategoriaState createState() => _ListaItemsubcategoriaState();
+}
+
+class _ListaItemsubcategoriaState extends State<ListaItemsubcategoria> {
+  ValueNotifier<bool> switchFiltro = ValueNotifier(false);
+  @override
   Widget build(BuildContext context) {
     final busquedaBloc = ProviderBloc.busqueda(context);
 
     final responsive = Responsive.of(context);
-
     return StreamBuilder(
-      stream: busquedaBloc.busquedaItemSubcategoriaStream,
-      builder: (BuildContext context,
-          AsyncSnapshot<List<ItemSubCategoriaModel>> snapshot) {
+      stream: busquedaBloc.cargandoItemsStream,
+      builder: (context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data.length > 0) {
-            return ListView.builder(
-                shrinkWrap: true,
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int i) {
-                  return InkWell(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: responsive.wp(3),
-                        vertical: responsive.hp(1),
-                      ),
-                      child: Text(
-                        '${snapshot.data[i].itemsubcategoryName}',
-                        style: TextStyle(
-                            fontSize: responsive.ip(1.8),
-                            fontWeight: FontWeight.bold),
+          if (snapshot.data) {
+            bool _enabled = true;
+            return Container(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300],
+                      highlightColor: Colors.grey[100],
+                      enabled: _enabled,
+                      child: ListView.builder(
+                        itemBuilder: (_, __) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 48.0,
+                                height: 48.0,
+                                color: Colors.white,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 2.0),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 2.0),
+                                    ),
+                                    Container(
+                                      width: 40.0,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        itemCount: 6,
                       ),
                     ),
-                    onTap: () {
-                      Navigator.of(context).push(PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) {
-                          return ProYSerPorItemSubcategoryPage(
-                            nameItem: '${snapshot.data[i].itemsubcategoryName}',
-                            idItem: '${snapshot.data[i].idItemsubcategory}',
-                          );
-                        },
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          var begin = Offset(0.0, 1.0);
-                          var end = Offset.zero;
-                          var curve = Curves.ease;
-
-                          var tween = Tween(begin: begin, end: end).chain(
-                            CurveTween(curve: curve),
-                          );
-
-                          return SlideTransition(
-                            position: animation.drive(tween),
-                            child: child,
-                          );
-                        },
-                      ));
-                    },
-                  );
-                });
-          } else {
-            return Center(
-              child: NutsActivityIndicator(
-                radius: 12,
-                activeColor: Colors.white,
-                inactiveColor: Colors.redAccent,
-                tickCount: 11,
-                startRatio: 0.55,
-                animationDuration: Duration(milliseconds: 2003),
+                  ),
+                ],
               ),
             );
+          } else {
+            return ValueListenableBuilder(
+                valueListenable: switchFiltro,
+                builder: (BuildContext context, bool data, Widget child) {
+                  return Column(
+                    children: [
+                      StreamBuilder(
+                          stream: busquedaBloc.busquedaItemSubcategoriaStream,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<ItemSubCategoriaModel>>
+                                  snapshot) {
+                            if (snapshot.hasData) {
+                              if (snapshot.data.length > 0) {
+                              } else {
+                                return Center(child: Text("Sin resultados"));
+                              }
+                            } else {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return Expanded(
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: snapshot.data.length,
+                                  itemBuilder: (BuildContext context, int i) {
+                                    return InkWell(
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: responsive.wp(3),
+                                          vertical: responsive.hp(1),
+                                        ),
+                                        child: Text(
+                                          '${snapshot.data[i].itemsubcategoryName}',
+                                          style: TextStyle(
+                                              fontSize: responsive.ip(1.8),
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .push(PageRouteBuilder(
+                                          pageBuilder: (context, animation,
+                                              secondaryAnimation) {
+                                            return ProYSerPorItemSubcategoryPage(
+                                              nameItem:
+                                                  '${snapshot.data[i].itemsubcategoryName}',
+                                              idItem:
+                                                  '${snapshot.data[i].idItemsubcategory}',
+                                            );
+                                          },
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            var begin = Offset(0.0, 1.0);
+                                            var end = Offset.zero;
+                                            var curve = Curves.ease;
+
+                                            var tween =
+                                                Tween(begin: begin, end: end)
+                                                    .chain(
+                                              CurveTween(curve: curve),
+                                            );
+
+                                            return SlideTransition(
+                                              position: animation.drive(tween),
+                                              child: child,
+                                            );
+                                          },
+                                        ));
+                                      },
+                                    );
+                                  }),
+                            );
+                          })
+                    ],
+                  );
+                });
           }
         } else {
           return Center(
-            child: Text("Sin resultados"),
+            child: NutsActivityIndicator(
+              radius: 12,
+              activeColor: Colors.white,
+              inactiveColor: Colors.redAccent,
+              tickCount: 11,
+              startRatio: 0.55,
+              animationDuration: Duration(milliseconds: 2003),
+            ),
           );
         }
       },
@@ -1000,90 +1190,15 @@ class ListaItemsubcategoria extends StatelessWidget {
   }
 }
 
-class ListaCategorias extends StatelessWidget {
+class ListaCategorias extends StatefulWidget {
   const ListaCategorias({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final busquedaBloc = ProviderBloc.busqueda(context);
-
-    final responsive = Responsive.of(context);
-
-    return StreamBuilder(
-      stream: busquedaBloc.busquedaCategoriaController,
-      builder:
-          (BuildContext context, AsyncSnapshot<List<CategoriaModel>> snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data.length > 0) {
-            return ListView.builder(
-                shrinkWrap: true,
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int i) {
-                  return InkWell(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: responsive.wp(3),
-                        vertical: responsive.hp(1),
-                      ),
-                      child: Text(
-                        '${snapshot.data[i].categoryName}',
-                        style: TextStyle(
-                            fontSize: responsive.ip(1.8),
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.of(context).push(PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) {
-                          return SubcategoryPorCategoryPage(
-                            nombreCategoria: snapshot.data[i].categoryName,
-                            idCategoria: snapshot.data[i].idCategory,
-                          );
-                        },
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          var begin = Offset(0.0, 1.0);
-                          var end = Offset.zero;
-                          var curve = Curves.ease;
-
-                          var tween = Tween(begin: begin, end: end).chain(
-                            CurveTween(curve: curve),
-                          );
-
-                          return SlideTransition(
-                            position: animation.drive(tween),
-                            child: child,
-                          );
-                        },
-                      ));
-                    },
-                  );
-                });
-          } else {
-            return Center(
-              child: NutsActivityIndicator(
-                radius: 12,
-                activeColor: Colors.white,
-                inactiveColor: Colors.redAccent,
-                tickCount: 11,
-                startRatio: 0.55,
-                animationDuration: Duration(milliseconds: 2003),
-              ),
-            );
-          }
-        } else {
-          return Center(
-            child: Text("Sin resultados"),
-          );
-        }
-      },
-    );
-  }
+  _ListaCategoriasState createState() => _ListaCategoriasState();
 }
 
-class ListaSubCategorias extends StatelessWidget {
-  const ListaSubCategorias({Key key}) : super(key: key);
-
+class _ListaCategoriasState extends State<ListaCategorias> {
+  ValueNotifier<bool> switchFiltro = ValueNotifier(false);
   @override
   Widget build(BuildContext context) {
     final busquedaBloc = ProviderBloc.busqueda(context);
@@ -1091,71 +1206,341 @@ class ListaSubCategorias extends StatelessWidget {
     final responsive = Responsive.of(context);
 
     return StreamBuilder(
-      stream: busquedaBloc.busquedaSubcategoryController,
-      builder: (BuildContext context,
-          AsyncSnapshot<List<SubcategoryModel>> snapshot) {
+      stream: busquedaBloc.cargandoItemsStream,
+      builder: (context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data.length > 0) {
-            return ListView.builder(
-                shrinkWrap: true,
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int i) {
-                  return InkWell(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: responsive.wp(3),
-                        vertical: responsive.hp(1),
-                      ),
-                      child: Text(
-                        '${snapshot.data[i].subcategoryName}',
-                        style: TextStyle(
-                            fontSize: responsive.ip(1.8),
-                            fontWeight: FontWeight.bold),
+          if (snapshot.data) {
+            bool _enabled = true;
+            return Container(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300],
+                      highlightColor: Colors.grey[100],
+                      enabled: _enabled,
+                      child: ListView.builder(
+                        itemBuilder: (_, __) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 48.0,
+                                height: 48.0,
+                                color: Colors.white,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 2.0),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 2.0),
+                                    ),
+                                    Container(
+                                      width: 40.0,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        itemCount: 6,
                       ),
                     ),
-                    onTap: () {
-                      Navigator.of(context).push(PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) {
-                          return ItemSubcategoryPorSubcategoryPage(
-                            nombreSubcategoria:
-                                snapshot.data[i].subcategoryName,
-                            idSubCategoria: snapshot.data[i].idSubcategory,
-                          );
-                        },
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          var begin = Offset(0.0, 1.0);
-                          var end = Offset.zero;
-                          var curve = Curves.ease;
-
-                          var tween = Tween(begin: begin, end: end).chain(
-                            CurveTween(curve: curve),
-                          );
-
-                          return SlideTransition(
-                            position: animation.drive(tween),
-                            child: child,
-                          );
-                        },
-                      ));
-                    },
-                  );
-                });
-          } else {
-            return Center(
-              child: NutsActivityIndicator(
-                radius: 12,
-                activeColor: Colors.white,
-                inactiveColor: Colors.redAccent,
-                tickCount: 11,
-                startRatio: 0.55,
-                animationDuration: Duration(milliseconds: 2003),
+                  ),
+                ],
               ),
             );
+          } else {
+            return ValueListenableBuilder(
+                valueListenable: switchFiltro,
+                builder: (BuildContext context, bool data, Widget child) {
+                  return Column(
+                    children: [
+                      StreamBuilder(
+                          stream: busquedaBloc.busquedaCategoriaController,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<CategoriaModel>> snapshot) {
+                            if (snapshot.hasData) {
+                              if (snapshot.data.length > 0) {
+                              } else {
+                                return Center(child: Text("Sin resultados"));
+                              }
+                            } else {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return Expanded(
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: snapshot.data.length,
+                                  itemBuilder: (BuildContext context, int i) {
+                                    return InkWell(
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: responsive.wp(3),
+                                          vertical: responsive.hp(1),
+                                        ),
+                                        child: Text(
+                                          '${snapshot.data[i].categoryName}',
+                                          style: TextStyle(
+                                              fontSize: responsive.ip(1.8),
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .push(PageRouteBuilder(
+                                          pageBuilder: (context, animation,
+                                              secondaryAnimation) {
+                                            return SubcategoryPorCategoryPage(
+                                              nombreCategoria:
+                                                  snapshot.data[i].categoryName,
+                                              idCategoria:
+                                                  snapshot.data[i].idCategory,
+                                            );
+                                          },
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            var begin = Offset(0.0, 1.0);
+                                            var end = Offset.zero;
+                                            var curve = Curves.ease;
+
+                                            var tween =
+                                                Tween(begin: begin, end: end)
+                                                    .chain(
+                                              CurveTween(curve: curve),
+                                            );
+
+                                            return SlideTransition(
+                                              position: animation.drive(tween),
+                                              child: child,
+                                            );
+                                          },
+                                        ));
+                                      },
+                                    );
+                                  }),
+                            );
+                          })
+                    ],
+                  );
+                });
           }
         } else {
           return Center(
-            child: Text("Sin resultados"),
+            child: NutsActivityIndicator(
+              radius: 12,
+              activeColor: Colors.white,
+              inactiveColor: Colors.redAccent,
+              tickCount: 11,
+              startRatio: 0.55,
+              animationDuration: Duration(milliseconds: 2003),
+            ),
+          );
+        }
+      },
+    );
+  }
+}
+
+class ListaSubCategorias extends StatefulWidget {
+  const ListaSubCategorias({Key key}) : super(key: key);
+
+  @override
+  _ListaSubCategoriasState createState() => _ListaSubCategoriasState();
+}
+
+class _ListaSubCategoriasState extends State<ListaSubCategorias> {
+  ValueNotifier<bool> switchFiltro = ValueNotifier(false);
+  @override
+  Widget build(BuildContext context) {
+    final busquedaBloc = ProviderBloc.busqueda(context);
+
+    final responsive = Responsive.of(context);
+
+    return StreamBuilder(
+      stream: busquedaBloc.cargandoItemsStream,
+      builder: (context, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data) {
+            bool _enabled = true;
+            return Container(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300],
+                      highlightColor: Colors.grey[100],
+                      enabled: _enabled,
+                      child: ListView.builder(
+                        itemBuilder: (_, __) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 48.0,
+                                height: 48.0,
+                                color: Colors.white,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 2.0),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 2.0),
+                                    ),
+                                    Container(
+                                      width: 40.0,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        itemCount: 6,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return ValueListenableBuilder(
+                valueListenable: switchFiltro,
+                builder: (BuildContext context, bool data, Widget child) {
+                  return Column(
+                    children: [
+                      StreamBuilder(
+                          stream: busquedaBloc.busquedaSubcategoryController,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<SubcategoryModel>> snapshot) {
+                            if (snapshot.hasData) {
+                              if (snapshot.data.length > 0) {
+                              } else {
+                                return Center(child: Text("Sin resultados"));
+                              }
+                            } else {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return Expanded(
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: snapshot.data.length,
+                                  itemBuilder: (BuildContext context, int i) {
+                                    return InkWell(
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: responsive.wp(3),
+                                          vertical: responsive.hp(1),
+                                        ),
+                                        child: Text(
+                                          '${snapshot.data[i].subcategoryName}',
+                                          style: TextStyle(
+                                              fontSize: responsive.ip(1.8),
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .push(PageRouteBuilder(
+                                          pageBuilder: (context, animation,
+                                              secondaryAnimation) {
+                                            return ItemSubcategoryPorSubcategoryPage(
+                                              nombreSubcategoria: snapshot
+                                                  .data[i].subcategoryName,
+                                              idSubCategoria: snapshot
+                                                  .data[i].idSubcategory,
+                                            );
+                                          },
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            var begin = Offset(0.0, 1.0);
+                                            var end = Offset.zero;
+                                            var curve = Curves.ease;
+
+                                            var tween =
+                                                Tween(begin: begin, end: end)
+                                                    .chain(
+                                              CurveTween(curve: curve),
+                                            );
+
+                                            return SlideTransition(
+                                              position: animation.drive(tween),
+                                              child: child,
+                                            );
+                                          },
+                                        ));
+                                      },
+                                    );
+                                  }),
+                            );
+                          })
+                    ],
+                  );
+                });
+          }
+        } else {
+          return Center(
+            child: NutsActivityIndicator(
+              radius: 12,
+              activeColor: Colors.white,
+              inactiveColor: Colors.redAccent,
+              tickCount: 11,
+              startRatio: 0.55,
+              animationDuration: Duration(milliseconds: 2003),
+            ),
           );
         }
       },

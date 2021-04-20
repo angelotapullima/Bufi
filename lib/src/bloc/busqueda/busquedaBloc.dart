@@ -138,33 +138,49 @@ class BusquedaBloc {
   void obtenerBusquedaNegocio(String query) async {
     //busquedaNegocioController.sink.add(await obtnerResultBusquedaNegocio(query));
     busquedaNegocioController.sink.add([]);
-    if (query != '')
+    if (query != '') {
+      _cargandoItems.sink.add(true);
       busquedaNegocioController.sink
           .add(await busquedaApi.busquedaNegocio(query));
+      _cargandoItems.sink.add(false);
+    }
+    _cargandoItems.sink.add(false);
   }
 
   //Categoria
   void obtenerBusquedaCategoria(String query) async {
     busquedaCategoriaController.sink.add([]);
-    if (query != '')
+    if (query != '') {
+      _cargandoItems.sink.add(true);
       busquedaCategoriaController.sink
           .add(await obtnerResultBusquedaCategoria(query));
+      _cargandoItems.sink.add(false);
+    }
+    _cargandoItems.sink.add(false);
   }
 
   //SubcategoriaCategoria
   void obtenerBusquedaSubcategoria(String query) async {
     busquedaSubcategoryController.sink.add([]);
-    if (query != '')
+    if (query != '') {
+      _cargandoItems.sink.add(true);
       busquedaSubcategoryController.sink
           .add(await obtnerResultBusquedaSubcategoria(query));
+      _cargandoItems.sink.add(false);
+    }
+    _cargandoItems.sink.add(false);
   }
 
   //ItemSubcategoriaCategoria
   void obtenerBusquedaItemSubcategoria(String query) async {
     busquedaItemSubcategController.sink.add([]);
-    if (query != '')
+    if (query != '') {
+      _cargandoItems.sink.add(true);
       busquedaItemSubcategController.sink
           .add(await obtnerResultBusquedaItemSubcategoria(query));
+      _cargandoItems.sink.add(false);
+    }
+    _cargandoItems.sink.add(false);
     //busquedaItemSubcategController.sink .add(await busquedaApi.busquedaItemsubcategorias(query));
   }
 

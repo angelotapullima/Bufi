@@ -16,7 +16,10 @@ import 'package:photo_view/photo_view_gallery.dart';
 import 'package:screenshot/screenshot.dart';
 
 class DetalleProductoFoto extends StatefulWidget {
-  const DetalleProductoFoto({Key key}) : super(key: key);
+  const DetalleProductoFoto({Key key, @required this.productosData})
+      : super(key: key);
+
+  final ProductoModel productosData;
 
   @override
   _DetalleProductoFotoState createState() => _DetalleProductoFotoState();
@@ -30,9 +33,6 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
 
   @override
   Widget build(BuildContext context) {
-    final ProductoModel productosData =
-        ModalRoute.of(context).settings.arguments;
-
     final responsive = Responsive.of(context);
 
     //contador
@@ -55,125 +55,126 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
                     Icons.share) //Icon(Icons.arrow_back, color: Colors.black),
                 ),
             onTap: () async {
-              await takeScreenshotandShare(productosData.idProducto);
+              await takeScreenshotandShare(widget.productosData.idProducto);
               //_logoScreen.value = false;
             },
           ),
         ],
       ),
       body: ValueListenableBuilder(
-          valueListenable: _toque,
-          builder: (BuildContext context, bool dataToque, Widget child) {
-            print(dataToque);
-            return InkWell(
-              onTap: () {
-                if (dataToque) {
-                  _toque.value = false;
-                } else {
-                  _toque.value = true;
-                }
-              },
-              child: Stack(
-                children: <Widget>[
-                  Screenshot(
-                    controller: screenshotController,
-                    child: Stack(
-                      children: <Widget>[
-                        Center(
-                            child: photoViewGallery(productosData,
-                                _pageController, contadorBloc, responsive)),
+        valueListenable: _toque,
+        builder: (BuildContext context, bool dataToque, Widget child) {
+          print(dataToque);
+          return InkWell(
+            onTap: () {
+              if (dataToque) {
+                _toque.value = false;
+              } else {
+                _toque.value = true;
+              }
+            },
+            child: Stack(
+              children: <Widget>[
+                Screenshot(
+                  controller: screenshotController,
+                  child: Stack(
+                    children: <Widget>[
+                      Center(
+                        child: photoViewGallery(widget.productosData,
+                            _pageController, contadorBloc, responsive),
+                      ),
 
-                        Container(color: Colors.red),
+                      //Container(color: Colors.red),
 
-                        //Datos del producto
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          left: 0,
-                          child: Container(
-                            color: Colors.black.withOpacity(.6),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(5),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Text(
-                                        '${productosData.productoName}',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: responsive.ip(3),
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: responsive.wp(4),
-                                    ),
-                                    Text(
-                                      'S/. ${productosData.productoPrice}',
+                      //Datos del producto
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        left: 0,
+                        child: Container(
+                          color: Colors.black.withOpacity(.6),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: responsive.wp(5),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Text(
+                                      '${widget.productosData.productoName}',
                                       style: TextStyle(
-                                          color: Colors.red,
+                                          color: Colors.white,
                                           fontSize: responsive.ip(3),
                                           fontWeight: FontWeight.bold),
                                     ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: responsive.hp(2),
-                                ),
-                                Text(
-                                  '${productosData.productoCharacteristics} ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: responsive.ip(1.8),
                                   ),
+                                  SizedBox(
+                                    width: responsive.wp(4),
+                                  ),
+                                  Text(
+                                    'S/. ${widget.productosData.productoPrice}',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: responsive.ip(3),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: responsive.hp(2),
+                              ),
+                              Text(
+                                '${widget.productosData.productoCharacteristics} ',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: responsive.ip(1.8),
                                 ),
-                                SizedBox(
-                                  height: responsive.hp(5),
-                                ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                height: responsive.hp(5),
+                              ),
+                            ],
                           ),
                         ),
-                        // Container(
-                        //   height: responsive.hp(12),
-                        //   child: Center(
-                        //     child: Image.asset('assets/producto.jpg'),
-                        //   ),
-                        // )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    color: Colors.black,
-                    height: double.infinity,
-                    width: double.infinity,
-                  ),
-                  Center(
-                    child: GestureDetector(
-                      onVerticalDragUpdate: (drag) {
-                        if (drag.primaryDelta > 7) {
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        child: Hero(
-                            tag: '${productosData.idProducto}',
-                            child: photoViewGallery(productosData,
-                                _pageController, contadorBloc, responsive)),
                       ),
+                      // Container(
+                      //   height: responsive.hp(12),
+                      //   child: Center(
+                      //     child: Image.asset('assets/producto.jpg'),
+                      //   ),
+                      // )
+                    ],
+                  ),
+                ),
+                Container(
+                  color: Colors.black,
+                  height: double.infinity,
+                  width: double.infinity,
+                ),
+                Center(
+                  child: GestureDetector(
+                    onVerticalDragUpdate: (drag) {
+                      if (drag.primaryDelta > 7) {
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      child: Hero(
+                          tag: '${widget.productosData.idProducto}',
+                          child: photoViewGallery(widget.productosData,
+                              _pageController, contadorBloc, responsive)),
                     ),
                   ),
+                ),
 
-                  //Numero de paginas
-                  Positioned(
-                    top: 0,
-                    left: responsive.wp(40),
-                    child: StreamBuilder(
+                //Numero de paginas
+                Positioned(
+                  top: 0,
+                  left: responsive.wp(40),
+                  child: StreamBuilder(
                       stream: contadorBloc.selectContadorFotoStream,
                       builder: (context, snapshot) {
                         return Container(
@@ -191,82 +192,81 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
                             vertical: responsive.hp(1.3),
                           ),
                           child: Text(
-                              (contadorBloc.pageContadorFoto + 1).toString() +
-                                  '/' +
-                                  productosData.listFotos.length.toString(),
-                                  // style: TextStyle(fontWeight: FontWeight.bold
-                                  // ),
-                             ),
+                            (contadorBloc.pageContadorFoto + 1).toString() +
+                                '/' +
+                                widget.productosData.listFotos.length
+                                    .toString(),
+                            // style: TextStyle(fontWeight: FontWeight.bold
+                            // ),
+                          ),
                         );
-                      }
-                    ),
-                  ),
-                  (!dataToque)
-                      ? Positioned(
-                          bottom: 0,
-                          right: 0,
-                          left: 0,
-                          child: Container(
-                            color: Colors.black.withOpacity(.6),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(5),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Text(
-                                        '${productosData.productoName}',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: responsive.ip(3),
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: responsive.wp(4),
-                                    ),
-                                    Text(
-                                      'S/. ${productosData.productoPrice}',
+                      }),
+                ),
+                (!dataToque)
+                    ? Positioned(
+                        bottom: 0,
+                        right: 0,
+                        left: 0,
+                        child: Container(
+                          color: Colors.black.withOpacity(.6),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: responsive.wp(5),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Text(
+                                      '${widget.productosData.productoName}',
                                       style: TextStyle(
-                                          color: Colors.red,
+                                          color: Colors.white,
                                           fontSize: responsive.ip(3),
                                           fontWeight: FontWeight.bold),
                                     ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: responsive.hp(2),
-                                ),
-                               
-                               
-                                SizedBox(
-                                  height: responsive.hp(5),
-                                ),
-                                SizedBox(
-                                  height: responsive.hp(2),
-                                ),
-                                Text(
-                                  '${productosData.productoCharacteristics} ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: responsive.ip(1.8),
                                   ),
+                                  SizedBox(
+                                    width: responsive.wp(4),
+                                  ),
+                                  Text(
+                                    'S/. ${widget.productosData.productoPrice}',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: responsive.ip(3),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: responsive.hp(2),
+                              ),
+                              SizedBox(
+                                height: responsive.hp(5),
+                              ),
+                              SizedBox(
+                                height: responsive.hp(2),
+                              ),
+                              Text(
+                                '${widget.productosData.productoCharacteristics} ',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: responsive.ip(1.8),
                                 ),
-                                SizedBox(
-                                  height: responsive.hp(5),
-                                ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                height: responsive.hp(5),
+                              ),
+                            ],
                           ),
-                        )
-                      : Container(),
-                ],
-              ),
-            );
-          }),
+                        ),
+                      )
+                    : Container(),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -276,40 +276,41 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
       ContadorPaginaProductosBloc contadorBloc,
       Responsive responsive) {
     return Container(
-        child: PhotoViewGallery.builder(
-            scrollPhysics: BouncingScrollPhysics(),
-            builder: (BuildContext context, int index) {
-              return PhotoViewGalleryPageOptions(
-                imageProvider: CachedNetworkImageProvider(
-                  '$apiBaseURL/${productosData.listFotos[index].galeriaFoto}',
-                  cacheManager: CustomCacheManager(),
-                ),
-                //initialScale: PhotoViewComputedScale.contained * 0.8,
-                // heroAttributes:
-                //     PhotoViewHeroAttributes(
-                //         tag:
-                //             '${productosData.idProducto}'),
-              );
-            },
-            itemCount: productosData.listFotos.length,
-            loadingBuilder: (context, event) => Center(
-                  child: Container(
-                    width: responsive.wp(40),
-                    height: responsive.hp(60),
-                    child: CircularProgressIndicator(
-                      value: event == null
-                          ? 0
-                          : event.cumulativeBytesLoaded /
-                              event.expectedTotalBytes,
-                    ),
-                  ),
-                ),
-            // backgroundDecoration:
-            //     widget.backgroundDecoration,
-            pageController: _pageController,
-            onPageChanged: (int index) {
-              contadorBloc.changeContadorfoto(index);
-            }));
+      child: PhotoViewGallery.builder(
+        scrollPhysics: BouncingScrollPhysics(),
+        builder: (BuildContext context, int index) {
+          return PhotoViewGalleryPageOptions(
+            imageProvider: CachedNetworkImageProvider(
+              '$apiBaseURL/${productosData.listFotos[index].galeriaFoto}',
+              cacheManager: CustomCacheManager(),
+            ),
+            //initialScale: PhotoViewComputedScale.contained * 0.8,
+            // heroAttributes:
+            //     PhotoViewHeroAttributes(
+            //         tag:
+            //             '${productosData.idProducto}'),
+          );
+        },
+        itemCount: productosData.listFotos.length,
+        loadingBuilder: (context, event) => Center(
+          child: Container(
+            width: responsive.wp(40),
+            height: responsive.hp(60),
+            child: CircularProgressIndicator(
+              value: event == null
+                  ? 0
+                  : event.cumulativeBytesLoaded / event.expectedTotalBytes,
+            ),
+          ),
+        ),
+        // backgroundDecoration:
+        //     widget.backgroundDecoration,
+        pageController: _pageController,
+        onPageChanged: (int index) {
+          contadorBloc.changeContadorfoto(index);
+        },
+      ),
+    );
   }
 
   takeScreenshotandShare(String nombre) async {

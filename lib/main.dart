@@ -142,8 +142,8 @@ class MyApp extends StatelessWidget {
               //"listarProductoAll": (BuildContext context)=> ListarProductosPorSucursal(),
               //"detalleProducto": (BuildContext context)=> DetalleProductos(),
               "agregarAlCarrito": (BuildContext context) => CarritoPage(),
-              "detalleProductoFoto": (BuildContext context) =>
-                  DetalleProductoFoto(),
+              /* "detalleProductoFoto": (BuildContext context) =>
+                  DetalleProductoFoto(), */
 
               //Servicio
               "detalleServicio": (BuildContext context) => DetalleServicio(),

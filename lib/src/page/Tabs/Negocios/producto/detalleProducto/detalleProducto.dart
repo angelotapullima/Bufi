@@ -4,6 +4,7 @@ import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido_item.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/AgregarAlCarritoAnimacion.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProductoBloc.dart';
+import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProductoFotoPage.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
@@ -19,7 +20,8 @@ import 'package:shimmer/shimmer.dart';
 class DetalleProductos extends StatefulWidget {
   //final ProductoModel producto;
   final String idProducto;
-  const DetalleProductos({Key key,@required this.idProducto}) : super(key: key);
+  const DetalleProductos({Key key, @required this.idProducto})
+      : super(key: key);
 
   @override
   _DetalleProductosState createState() => _DetalleProductosState();
@@ -528,8 +530,27 @@ class _BackGroundImageState extends State<BackGroundImage> {
                         ),
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, 'detalleProductoFoto',
-                                arguments: widget.listProd);
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                transitionDuration:
+                                    const Duration(milliseconds: 700),
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) {
+                                  return DetalleProductoFoto(
+                                    productosData: widget.listProd[value],
+                                  );
+                                },
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
+                            //DetalleProductoFoto
                           },
                           child: Hero(
                             tag:

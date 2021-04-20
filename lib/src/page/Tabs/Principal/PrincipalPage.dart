@@ -1,7 +1,6 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
-import 'package:bufi/src/models/cuentaModel.dart';
 import 'package:bufi/src/models/notificacionModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
@@ -131,8 +130,8 @@ class HeaderWidget extends StatelessWidget {
     return SliverPersistentHeader(
         floating: true,
         delegate: SliverCustomHeaderDelegate(
-          maxHeight: responsive.hp(13),
-          minHeight: responsive.hp(13),
+          maxHeight: responsive.ip(13.5),
+          minHeight: responsive.ip(13.5),
           child: Container(
             color: Theme.of(context).scaffoldBackgroundColor,
             padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),

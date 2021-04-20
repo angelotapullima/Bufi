@@ -370,8 +370,9 @@ class _BienesResuState extends State<BienesResu> {
                                     const Duration(milliseconds: 100),
                                 pageBuilder:
                                     (context, animation, secondaryAnimation) {
-                                  return DetalleProductos(idProducto: snapshot.data[index].idProducto,
-                                      );
+                                  return DetalleProductos(
+                                    idProducto: snapshot.data[index].idProducto,
+                                  );
                                   //return DetalleProductitos(productosData: productosData);
                                 },
                                 transitionsBuilder: (context, animation,
@@ -704,7 +705,7 @@ class _SugerenciaBusquedaState extends State<SugerenciaBusqueda> {
                       padding: EdgeInsets.symmetric(vertical: 8),
                       itemCount: snapshot.data.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 0.7,
+                        childAspectRatio: responsive.ip(.1),
                         crossAxisSpacing: 2,
                         mainAxisSpacing: 2,
                         crossAxisCount: 2,
@@ -712,7 +713,7 @@ class _SugerenciaBusquedaState extends State<SugerenciaBusqueda> {
                       itemBuilder: (context, index) {
                         if (snapshot.data[index].tipo == 'bien') {
                           return BienesCompletoWidget(
-                               producto: snapshot.data[index]);
+                              producto: snapshot.data[index]);
                         } else {
                           return ServiciosCompletoWidget(
                             serviceData: snapshot.data[index],
@@ -720,10 +721,14 @@ class _SugerenciaBusquedaState extends State<SugerenciaBusqueda> {
                         }
                       });
                 } else {
-                  return Center(child: CupertinoActivityIndicator());
+                  return Center(
+                    child: CupertinoActivityIndicator(),
+                  );
                 }
               } else {
-                return Center(child: CupertinoActivityIndicator());
+                return Center(
+                  child: CupertinoActivityIndicator(),
+                );
               }
             },
           ),

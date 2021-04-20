@@ -46,19 +46,21 @@ class _ListarProductosPorSucursalPageState
     isSidebarOpenedStream = isSidebarOpenedStreamController.stream;
     isSidebarOpenedSink = isSidebarOpenedStreamController.sink;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => {
-          _scrollController.addListener(() {
-            if (_scrollController.position.pixels ==
-                _scrollController.position.maxScrollExtent) {
-              print('pixels ${_scrollController.position.pixels}');
-              print('maxScrool ${_scrollController.position.maxScrollExtent}');
-              print('dentro');
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => {
+        _scrollController.addListener(() {
+          if (_scrollController.position.pixels ==
+              _scrollController.position.maxScrollExtent) {
+            print('pixels ${_scrollController.position.pixels}');
+            print('maxScrool ${_scrollController.position.maxScrollExtent}');
+            print('dentro');
 
-              final productoBloc = ProviderBloc.productos(context);
-              productoBloc.listarProductosPorSucursal(widget.idSucursal);
-            }
-          })
-        });
+            final productoBloc = ProviderBloc.productos(context);
+            productoBloc.listarProductosPorSucursal(widget.idSucursal);
+          }
+        })
+      },
+    );
 
     super.initState();
   }
@@ -108,136 +110,135 @@ class _ListarProductosPorSucursalPageState
               if (sucursalList.hasData) {
                 if (sucursalList.data.length > 0) {
                   return ValueListenableBuilder(
-                      valueListenable: _show,
-                      builder:
-                          (BuildContext context, bool dataToque, Widget child) {
-                        return SafeArea(
-                          child: Column(
-                            children: [
-                              Container(
-                                height: responsive.hp(5),
-                                child: Stack(
-                                  children: [
-                                    BackButton(),
-                                    Container(
-                                      padding: EdgeInsets.only(
-                                        left: responsive.wp(10),
-                                      ),
-                                      width: double.infinity,
-                                      child: Center(
-                                        child: Text(
-                                          '${sucursalList.data[0].subsidiaryName}',
-                                          textAlign: TextAlign.center,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: TextStyle(
-                                              fontSize: responsive.ip(2.5),
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Row(
+                    valueListenable: _show,
+                    builder:
+                        (BuildContext context, bool dataToque, Widget child) {
+                      return SafeArea(
+                        child: Column(
+                          children: [
+                            Container(
+                              height: responsive.hp(5),
+                              child: Stack(
                                 children: [
-                                  SizedBox(
-                                    width: responsive.wp(2),
-                                  ),
-                                  Expanded(
-                                    child: BusquedaProductoXsucursalWidget(
-                                      responsive: responsive,
-                                      idSucursal: widget.idSucursal,
-                                      nameSucursal:
-                                          '${sucursalList.data[0].subsidiaryName}',
+                                  BackButton(),
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                      left: responsive.wp(10),
                                     ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      IconButton(
-                                          icon: Icon(Icons.category),
-                                          onPressed: () {
-                                            if (dataToque) {
-                                              _show.value = false;
-                                            } else {
-                                              _show.value = true;
-                                            }
-                                          }),
-                                      IconButton(
-                                        icon: Icon(Icons.filter_list),
-                                        onPressed: () {
-                                          onIconPressed();
-                                        },
+                                    width: double.infinity,
+                                    child: Center(
+                                      child: Text(
+                                        '${sucursalList.data[0].subsidiaryName}',
+                                        textAlign: TextAlign.center,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                            fontSize: responsive.ip(2.5),
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  )
                                 ],
                               ),
-                              SizedBox(
-                                height: responsive.hp(.5),
-                              ),
-                              Expanded(
-                                child: StreamBuilder(
-                                  stream: productoBloc.productoStream,
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot<List<ProductoModel>>
-                                          snapshot) {
-                                    if (snapshot.hasData) {
-                                      if (snapshot.data.length > 0) {
-                                        final bienes = snapshot.data;
-                                        return (!dataToque)
-                                            ? GridView.builder(
-                                                controller: _scrollController,
-                                                padding:
-                                                    EdgeInsets.only(top: 10),
-                                                //controller: ScrollController(keepScrollOffset: false),
-                                                shrinkWrap: true,
-                                                scrollDirection: Axis.vertical,
-                                                gridDelegate:
-                                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                                  childAspectRatio:
-                                                      responsive.ip(.068),
-                                                  crossAxisCount: 2,
-                                                ),
-                                                itemCount: bienes.length,
-                                                itemBuilder: (context, index) {
-                                                  return BienesWidget(
-                                                    producto:
-                                                        snapshot.data[index],
-                                                  );
-                                                })
-                                            : ListView.builder(
-                                                itemBuilder: (context, index) {
-                                                  return bienesWidget(
-                                                      responsive,
-                                                      snapshot.data,
-                                                      index);
-                                                },
-                                                itemCount: snapshot.data.length,
-                                              );
-                                      } else {
-                                        return Center(
-                                          child: Text(
-                                            "No tiene registrado ningún producto",
-                                            style: TextStyle(
-                                              fontSize: responsive.ip(2),
-                                            ),
-                                          ),
-                                        );
-                                      }
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: responsive.wp(2),
+                                ),
+                                Expanded(
+                                  child: BusquedaProductoXsucursalWidget(
+                                    responsive: responsive,
+                                    idSucursal: widget.idSucursal,
+                                    nameSucursal:
+                                        '${sucursalList.data[0].subsidiaryName}',
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    IconButton(
+                                        icon: Icon(Icons.category),
+                                        onPressed: () {
+                                          if (dataToque) {
+                                            _show.value = false;
+                                          } else {
+                                            _show.value = true;
+                                          }
+                                        }),
+                                    IconButton(
+                                      icon: Icon(Icons.filter_list),
+                                      onPressed: () {
+                                        onIconPressed();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: responsive.hp(.5),
+                            ),
+                            Expanded(
+                              child: StreamBuilder(
+                                stream: productoBloc.productoStream,
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<List<ProductoModel>>
+                                        snapshot) {
+                                  if (snapshot.hasData) {
+                                    if (snapshot.data.length > 0) {
+                                      final bienes = snapshot.data;
+                                      return (!dataToque)
+                                          ? GridView.builder(
+                                              controller: _scrollController,
+                                              padding: EdgeInsets.only(top: 10),
+                                              //controller: ScrollController(keepScrollOffset: false),
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.vertical,
+                                              gridDelegate:
+                                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                                childAspectRatio:
+                                                    responsive.ip(.068),
+                                                crossAxisCount: 2,
+                                              ),
+                                              itemCount: bienes.length,
+                                              itemBuilder: (context, index) {
+                                                return BienesWidget(
+                                                  producto:
+                                                      snapshot.data[index],
+                                                );
+                                              },
+                                            )
+                                          : ListView.builder(
+                                              itemBuilder: (context, index) {
+                                                return bienesWidget(responsive,
+                                                    snapshot.data, index);
+                                              },
+                                              itemCount: snapshot.data.length,
+                                            );
                                     } else {
                                       return Center(
-                                        child: CupertinoActivityIndicator(),
+                                        child: Text(
+                                          "No tiene registrado ningún producto",
+                                          style: TextStyle(
+                                            fontSize: responsive.ip(2),
+                                          ),
+                                        ),
                                       );
                                     }
-                                  },
-                                ),
+                                  } else {
+                                    return Center(
+                                      child: CupertinoActivityIndicator(),
+                                    );
+                                  }
+                                },
                               ),
-                            ],
-                          ),
-                        );
-                      });
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
                 } else {
                   return Center(
                     child: CupertinoActivityIndicator(),

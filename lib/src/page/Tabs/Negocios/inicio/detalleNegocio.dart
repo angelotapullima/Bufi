@@ -2,7 +2,7 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
-import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/detalleSubsidiary2.dart';
+import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/detalleSubsidiary.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/detalleSubsidiary.dart';
 import 'package:bufi/src/utils/constants.dart';

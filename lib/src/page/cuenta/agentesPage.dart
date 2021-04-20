@@ -1,8 +1,10 @@
+import 'package:bufi/src/bloc/marker_mapa_negocios_bloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/agentesModel.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -27,61 +29,37 @@ class AgentesPage extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       body: StreamBuilder(
-          stream: agenteBloc.agenteStream,
-          builder: (BuildContext context,
-              AsyncSnapshot<List<AgenteModel>> snapshot) {
-            List<AgenteModel> agente = snapshot.data;
-            if (snapshot.hasData) {
-              if (snapshot.data.length > 0) {
-                return MapaAgentes(
-                  agentes: agente,
-                );
-                /* return ListView.builder(
-                    itemCount: agente.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ExpansionTile(
-                        //initiallyExpanded: true,
-                        title: Text("Agente ${agente[index].agenteNombre}"),
-                        subtitle: Text("${agente[index].agenteCodigo}"),
-                        leading: Icon(FontAwesomeIcons.building),
-                        childrenPadding: EdgeInsets.all(0),
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(left: 60),
-                            child: ListTile(
-                              title: Text(
-                                  "Dirección: ${agente[index].agenteDireccion}"),
-
-                              //leading: Icon(Icons.format_list_bulleted_outlined),
-                              // onTap: () {
-                              //   Navigator.pushReplacementNamed(
-                              //       context, "gridListarPrincipal");
-                              // },
-                            ),
-                          ),
-                        ],
-                      );
-                    }); */
-              } else {
-                return Container(
-                  width: double.infinity,
-                  child: Center(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text('Buscando Agentes'),
-                          CircularProgressIndicator(),
-                        ]),
-                  ),
-                );
-              }
+        stream: agenteBloc.agenteStream,
+        builder:
+            (BuildContext context, AsyncSnapshot<List<AgenteModel>> snapshot) {
+          List<AgenteModel> agente = snapshot.data;
+          if (snapshot.hasData) {
+            if (snapshot.data.length > 0) {
+              return MapaAgentes(
+                agentes: agente,
+              );
             } else {
-              return Center(
-                child: Text('No se encuentra ningún agente'),
+              return Container(
+                width: double.infinity,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('Buscando Agentes'),
+                      CircularProgressIndicator(),
+                    ],
+                  ),
+                ),
               );
             }
-          }),
+          } else {
+            return Center(
+              child: Text('No se encuentra ningún agente'),
+            );
+          }
+        },
+      ),
     );
   }
 }
@@ -107,7 +85,7 @@ class _MapaNegociosState extends State<MapaAgentes> {
     zoom: 15,
   );
 
-  @override
+  /* @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
@@ -116,9 +94,9 @@ class _MapaNegociosState extends State<MapaAgentes> {
     );
 
     super.initState();
-  }
+  } */
 
-  Future<Map<String, Marker>> markersitos(BuildContext context) async {
+  void _onMapCreated(BuildContext context, GoogleMapController controller) {
     final markerMapa = ProviderBloc.markerMapa(context);
 
     for (var i = 0; i < widget.agentes.length; i++) {
@@ -130,10 +108,23 @@ class _MapaNegociosState extends State<MapaAgentes> {
 
       final markerInicio = new Marker(
         onTap: () {
-          print('id agente ${widget.agentes[i].idAgente}');
+          _pageController.animateToPage(
+              int.parse('${widget.agentes[i].posicion}') -1 ,
+              duration: Duration(milliseconds: 500),
+              curve: Curves.decelerate);
+          print('${widget.agentes[i].posicion}');
+
+          AgentesResult ne = AgentesResult();
+
+          ne.posicion = '${widget.agentes[i].posicion}';
+          ne.idAgente = '${widget.agentes[i].idAgente}';
+
+          markerMapa.changemarkerId(ne);
+
+          /*  print('id agente ${widget.agentes[i].idAgente}');
           markerMapa.changemarkerId(
             int.parse('${widget.agentes[i].idAgente}'),
-          );
+          ); */
         },
         anchor: Offset(0.0, 1.0),
         markerId: MarkerId('${widget.agentes[i].idAgente}'),
@@ -146,9 +137,15 @@ class _MapaNegociosState extends State<MapaAgentes> {
 
       markers['${widget.agentes[i].agenteNombre}'] = markerInicio;
     }
+     _controller.complete(controller);
+    setState(() {});
+  }
+  /* Future<Map<String, Marker>> markersitos(BuildContext context) async {
+   
+    
 
     return markers;
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
@@ -163,9 +160,7 @@ class _MapaNegociosState extends State<MapaAgentes> {
             myLocationButtonEnabled: false,
             markers: markers.values.toSet(),
             initialCameraPosition: _kGooglePlex,
-            onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
-            },
+            onMapCreated: (controller) => _onMapCreated(context, controller),
           ),
           Positioned(
             bottom: responsive.hp(5),
@@ -175,21 +170,20 @@ class _MapaNegociosState extends State<MapaAgentes> {
               height: responsive.hp(25),
               child: StreamBuilder(
                 stream: markerMapa.markerIdStream,
-                builder: (context, AsyncSnapshot<int> snapshot) {
-                  if (snapshot.hasData) {
-                    _pageController.animateToPage(snapshot.data,
+                builder: (context, AsyncSnapshot<AgentesResult> snapshot) {
+                  /* _pageController.animateToPage(snapshot.data,
                         duration: Duration(milliseconds: 500),
-                        curve: Curves.easeIn);
-                    //scroll(responsive, snapshot.data);
-                    //
-                    return PageView.builder(
-                      scrollDirection: Axis.horizontal,
-                      controller: _pageController,
-                      itemCount: widget.agentes.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            /*  Navigator.push(
+                        curve: Curves.easeIn); */
+                  //scroll(responsive, snapshot.data);
+                  //
+                  return PageView.builder(
+                    scrollDirection: Axis.horizontal,
+                    controller: _pageController,
+                    itemCount: widget.agentes.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          /*  Navigator.push(
                                   context,
                                   PageRouteBuilder(
                                     transitionDuration:
@@ -209,72 +203,65 @@ class _MapaNegociosState extends State<MapaAgentes> {
                                     },
                                   ),
                                 ); */
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(
-                              left: responsive.wp(2),
-                              right: responsive.wp(2),
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            width: responsive.wp(45),
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: responsive.hp(15),
-                                  child: Hero(
-                                    tag: '${widget.agentes[index].idAgente}',
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      child: CachedNetworkImage(
-                                        cacheManager: CustomCacheManager(),
-                                        placeholder: (context, url) =>
-                                            Container(
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                          child: Image(
-                                              image: AssetImage(
-                                                  'assets/img/loading.gif'),
-                                              fit: BoxFit.cover),
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            left: responsive.wp(2),
+                            right: responsive.wp(2),
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          width: responsive.wp(45),
+                          child: Column(
+                            children: [
+                              Container(
+                                height: responsive.hp(15),
+                                child: Hero(
+                                  tag: '${widget.agentes[index].idAgente}',
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: CachedNetworkImage(
+                                      cacheManager: CustomCacheManager(),
+                                      placeholder: (context, url) => Container(
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        child: Image(
+                                            image: AssetImage(
+                                                'assets/img/loading.gif'),
+                                            fit: BoxFit.cover),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Container(
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        child: Center(
+                                          child: Icon(Icons.error),
                                         ),
-                                        errorWidget: (context, url, error) =>
-                                            Container(
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                          child: Center(
-                                            child: Icon(Icons.error),
-                                          ),
-                                        ),
-                                        imageUrl:
-                                            '$apiBaseURL/${widget.agentes[index].agenteImagen}',
-                                        imageBuilder:
-                                            (context, imageProvider) =>
-                                                Container(
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.cover,
-                                            ),
+                                      ),
+                                      imageUrl:
+                                          '$apiBaseURL/${widget.agentes[index].agenteImagen}',
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                                Text('${widget.agentes[index].agenteNombre}')
-                              ],
-                            ),
+                              ),
+                              Text('${widget.agentes[index].agenteNombre}')
+                            ],
                           ),
-                        );
-                      },
-                    );
-                  } else {
-                    return Center(
-                      child: Text('vjnkjebjgb'),
-                    );
-                  }
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
             ),

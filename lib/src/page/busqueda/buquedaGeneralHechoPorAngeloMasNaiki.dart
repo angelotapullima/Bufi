@@ -15,6 +15,8 @@ import 'package:bufi/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
+import 'package:shimmer/shimmer.dart';
 
 class BusquedaDeLaPtmr extends StatefulWidget {
   const BusquedaDeLaPtmr({Key key}) : super(key: key);
@@ -100,8 +102,7 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                 contentPadding: EdgeInsets.all(16),
                               ),
                               onSubmitted: (value) {
-                                print('value $value');
-                                if (value != null) {
+                                if (value.length >= 0 && value != ' ') {
                                   busquedaBloc
                                       .obtenerBusquedaProducto('$value');
                                   busquedaBloc
@@ -116,6 +117,25 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                 }
                               }),
                         ),
+                        IconButton(
+                            icon: Icon(Icons.search),
+                            onPressed: () {
+                              if (_controllerBusquedaAngelo.text.length >= 0 &&
+                                  _controllerBusquedaAngelo.text != ' ') {
+                                busquedaBloc.obtenerBusquedaProducto(
+                                    '${_controllerBusquedaAngelo.text}');
+                                busquedaBloc.obtenerBusquedaServicio(
+                                    '${_controllerBusquedaAngelo.text}');
+                                busquedaBloc.obtenerBusquedaNegocio(
+                                    '${_controllerBusquedaAngelo.text}');
+                                busquedaBloc.obtenerBusquedaItemSubcategoria(
+                                    '${_controllerBusquedaAngelo.text}');
+                                busquedaBloc.obtenerBusquedaCategoria(
+                                    '${_controllerBusquedaAngelo.text}');
+                                busquedaBloc.obtenerBusquedaSubcategoria(
+                                    '${_controllerBusquedaAngelo.text}');
+                              }
+                            }),
                         IconButton(
                             icon: Icon(Icons.close),
                             onPressed: () {
@@ -224,9 +244,15 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
   }
 }
 
-class ListaProductos extends StatelessWidget {
+class ListaProductos extends StatefulWidget {
   const ListaProductos({Key key}) : super(key: key);
 
+  @override
+  _ListaProductosState createState() => _ListaProductosState();
+}
+
+class _ListaProductosState extends State<ListaProductos> {
+  ValueNotifier<bool> switchFiltro = ValueNotifier(false);
   @override
   Widget build(BuildContext context) {
     final busquedaBloc = ProviderBloc.busqueda(context);
@@ -234,6 +260,123 @@ class ListaProductos extends StatelessWidget {
 
     final responsive = Responsive.of(context);
     return StreamBuilder(
+      stream: busquedaBloc.cargandoItemsStream,
+      builder: (context, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data) {
+            bool _enabled = true;
+            return Container(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300],
+                      highlightColor: Colors.grey[100],
+                      enabled: _enabled,
+                      child: ListView.builder(
+                        itemBuilder: (_, __) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 48.0,
+                                height: 48.0,
+                                color: Colors.white,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 2.0),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 2.0),
+                                    ),
+                                    Container(
+                                      width: 40.0,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        itemCount: 6,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return ValueListenableBuilder(
+                valueListenable: switchFiltro,
+                builder: (BuildContext context, bool data, Widget child) {
+                  return Column(
+                    children: [
+                      StreamBuilder(
+                          stream: busquedaBloc.busquedaProductoStream,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<ProductoModel>> snapshot) {
+                            if (snapshot.hasData) {
+                              if (snapshot.data.length > 0) {
+                              } else {
+                                return Center(child: Text("Sin resultados"));
+                              }
+                            } else {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return Expanded(
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: snapshot.data.length,
+                                  itemBuilder: (BuildContext context, int i) {
+                                    return _crearItem(
+                                        context, snapshot.data[i], responsive);
+                                  }),
+                            );
+                          })
+                    ],
+                  );
+                });
+          }
+        } else {
+          return Center(
+            child: NutsActivityIndicator(
+              radius: 12,
+              activeColor: Colors.white,
+              inactiveColor: Colors.redAccent,
+              tickCount: 11,
+              startRatio: 0.55,
+              animationDuration: Duration(milliseconds: 2003),
+            ),
+          );
+        }
+      },
+    );
+
+    /*StreamBuilder(
         stream: busquedaBloc.busquedaProductoStream,
         builder: (BuildContext context,
             AsyncSnapshot<List<ProductoModel>> snapshot) {
@@ -246,16 +389,12 @@ class ListaProductos extends StatelessWidget {
                     return _crearItem(context, snapshot.data[i], responsive);
                   });
             } else {
-              return Center(
-                child: CupertinoActivityIndicator(),
-              );
+              return Center();
             }
           } else {
-            return Center(
-              child: CupertinoActivityIndicator(),
-            );
+            return Center(child: Text('Sin resultados'));
           }
-        });
+        });*/
   }
 
   Widget _crearItem(
@@ -355,11 +494,17 @@ class ListaProductos extends StatelessWidget {
   }
 }
 
-class ListaServicios extends StatelessWidget {
+class ListaServicios extends StatefulWidget {
   const ListaServicios({
     Key key,
   }) : super(key: key);
 
+  @override
+  _ListaServiciosState createState() => _ListaServiciosState();
+}
+
+class _ListaServiciosState extends State<ListaServicios> {
+  ValueNotifier<bool> switchFiltro = ValueNotifier(false);
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
@@ -367,28 +512,122 @@ class ListaServicios extends StatelessWidget {
     final busquedaBloc = ProviderBloc.busqueda(context);
 
     return StreamBuilder(
-        stream: busquedaBloc.busquedaServicioStream,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<SubsidiaryServiceModel>> snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data.length > 0) {
-              return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int i) {
-                    return _crearItem(context, snapshot.data[i], responsive);
-                  });
-            } else {
-              return Center(
-                child: Text('No hay datos'),
-              );
-            }
-          } else {
-            return Center(
-              child: CupertinoActivityIndicator(),
+      stream: busquedaBloc.cargandoItemsStream,
+      builder: (context, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data) {
+            bool _enabled = true;
+            return Container(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300],
+                      highlightColor: Colors.grey[100],
+                      enabled: _enabled,
+                      child: ListView.builder(
+                        itemBuilder: (_, __) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 48.0,
+                                height: 48.0,
+                                color: Colors.white,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 2.0),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 2.0),
+                                    ),
+                                    Container(
+                                      width: 40.0,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        itemCount: 6,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
+          } else {
+            return ValueListenableBuilder(
+                valueListenable: switchFiltro,
+                builder: (BuildContext context, bool data, Widget child) {
+                  return Column(
+                    children: [
+                      StreamBuilder(
+                          stream: busquedaBloc.busquedaServicioStream,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<SubsidiaryServiceModel>>
+                                  snapshot) {
+                            if (snapshot.hasData) {
+                              if (snapshot.data.length > 0) {
+                              } else {
+                                return Center(child: Text("Sin resultados"));
+                              }
+                            } else {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return Expanded(
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: snapshot.data.length,
+                                  itemBuilder: (BuildContext context, int i) {
+                                    return _crearItem(
+                                        context, snapshot.data[i], responsive);
+                                  }),
+                            );
+                          })
+                    ],
+                  );
+                });
           }
-        });
+        } else {
+          return Center(
+            child: NutsActivityIndicator(
+              radius: 12,
+              activeColor: Colors.white,
+              inactiveColor: Colors.redAccent,
+              tickCount: 11,
+              startRatio: 0.55,
+              animationDuration: Duration(milliseconds: 2003),
+            ),
+          );
+        }
+      },
+    );
   }
 
   Widget _crearItem(BuildContext context, SubsidiaryServiceModel servicioData,
@@ -546,12 +785,19 @@ class ListaNegocios extends StatelessWidget {
                   });
             } else {
               return Center(
-                child: Text('No hay datos'),
+                child: NutsActivityIndicator(
+                  radius: 12,
+                  activeColor: Colors.white,
+                  inactiveColor: Colors.redAccent,
+                  tickCount: 11,
+                  startRatio: 0.55,
+                  animationDuration: Duration(milliseconds: 2003),
+                ),
               );
             }
           } else {
             return Center(
-              child: Text('No hay datos'),
+              child: Text('Sin resultados'),
             );
           }
         });
@@ -733,17 +979,20 @@ class ListaItemsubcategoria extends StatelessWidget {
                   );
                 });
           } else {
-            return Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: responsive.wp(3),
-                vertical: responsive.hp(1),
+            return Center(
+              child: NutsActivityIndicator(
+                radius: 12,
+                activeColor: Colors.white,
+                inactiveColor: Colors.redAccent,
+                tickCount: 11,
+                startRatio: 0.55,
+                animationDuration: Duration(milliseconds: 2003),
               ),
-              child: Text("No hay resultados para la búsqueda"),
             );
           }
         } else {
           return Center(
-            child: Text("No hay datos"),
+            child: Text("Sin resultados"),
           );
         }
       },
@@ -811,17 +1060,20 @@ class ListaCategorias extends StatelessWidget {
                   );
                 });
           } else {
-            return Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: responsive.wp(3),
-                vertical: responsive.hp(1),
+            return Center(
+              child: NutsActivityIndicator(
+                radius: 12,
+                activeColor: Colors.white,
+                inactiveColor: Colors.redAccent,
+                tickCount: 11,
+                startRatio: 0.55,
+                animationDuration: Duration(milliseconds: 2003),
               ),
-              child: Text("No hay resultados para la búsqueda"),
             );
           }
         } else {
           return Center(
-            child: Text("Category"),
+            child: Text("Sin resultados"),
           );
         }
       },
@@ -890,17 +1142,20 @@ class ListaSubCategorias extends StatelessWidget {
                   );
                 });
           } else {
-            return Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: responsive.wp(3),
-                vertical: responsive.hp(1),
+            return Center(
+              child: NutsActivityIndicator(
+                radius: 12,
+                activeColor: Colors.white,
+                inactiveColor: Colors.redAccent,
+                tickCount: 11,
+                startRatio: 0.55,
+                animationDuration: Duration(milliseconds: 2003),
               ),
-              child: Text("No hay resultados para la búsqueda"),
             );
           }
         } else {
           return Center(
-            child: Text("No hay datos"),
+            child: Text("Sin resultados"),
           );
         }
       },
@@ -983,12 +1238,19 @@ class ListaProductosYServiciosItemSubca extends StatelessWidget {
                   });
             } else {
               return Center(
-                child: CupertinoActivityIndicator(),
+                child: NutsActivityIndicator(
+                  radius: 12,
+                  activeColor: Colors.white,
+                  inactiveColor: Colors.redAccent,
+                  tickCount: 11,
+                  startRatio: 0.55,
+                  animationDuration: Duration(milliseconds: 2003),
+                ),
               );
             }
           } else {
             return Center(
-              child: CupertinoActivityIndicator(),
+              child: Text('Sin resultados'),
             );
           }
         });
@@ -1041,12 +1303,19 @@ class ListaProductosYServiciosIdSubisdiary extends StatelessWidget {
                   });
             } else {
               return Center(
-                child: CupertinoActivityIndicator(),
+                child: NutsActivityIndicator(
+                  radius: 12,
+                  activeColor: Colors.white,
+                  inactiveColor: Colors.redAccent,
+                  tickCount: 11,
+                  startRatio: 0.55,
+                  animationDuration: Duration(milliseconds: 2003),
+                ),
               );
             }
           } else {
             return Center(
-              child: CupertinoActivityIndicator(),
+              child: Text('Sin resultados'),
             );
           }
         });

@@ -124,7 +124,7 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                             children: [
                                               BackButton(),
                                               Text(
-                                                'Confirmaciónff de pedido',
+                                                'Confirmación de pedido',
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize:
@@ -261,9 +261,10 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                                         Text('${listCarritoSuperior[0].car[xxx].carrito[indd].nombre} ' +
                                                             '${listCarritoSuperior[0].car[xxx].carrito[indd].marca} x ' +
                                                             '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}'),
-
-                                                        Text('${listCarritoSuperior[0].car[xxx].carrito[indd].modelo} '),
-                                                        Text('${listCarritoSuperior[0].car[xxx].carrito[indd].talla} '),
+                                                        Text(
+                                                            '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo} '),
+                                                        Text(
+                                                            '${listCarritoSuperior[0].car[xxx].carrito[indd].talla} '),
                                                         Text(
                                                           'S/. ' +
                                                               (double.parse(

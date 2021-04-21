@@ -4,6 +4,7 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/carritoGeneralModel..dart';
 import 'package:bufi/src/models/cuentaModel.dart';
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido_bloc.dart';
+import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/detalleCarritoFotoPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/detallePedidoPage.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
@@ -213,32 +214,65 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                                     width: responsive.wp(25),
                                                     child: Stack(
                                                       children: [
-                                                        Container(
-                                                          height:
-                                                              responsive.hp(10),
-                                                          width:
-                                                              responsive.wp(25),
-                                                          child:
-                                                              CachedNetworkImage(
-                                                            cacheManager:
-                                                                CustomCacheManager(),
-                                                            placeholder:
-                                                                (context,
-                                                                        url) =>
-                                                                    Container(
-                                                              width: double
-                                                                  .infinity,
-                                                              height: double
-                                                                  .infinity,
-                                                              child: Image(
-                                                                  image: AssetImage(
-                                                                      'assets/loading.gif'),
-                                                                  fit: BoxFit
-                                                                      .fitWidth),
+                                                        GestureDetector(
+                                                          onTap: (){
+                                                             Navigator.push(
+                                                                  context,
+                                                                  PageRouteBuilder(
+                                                                    transitionDuration:
+                                                                        const Duration(
+                                                                            milliseconds:
+                                                                                700),
+                                                                    pageBuilder:
+                                                                        (context,
+                                                                            animation,
+                                                                            secondaryAnimation) {
+                                                                      return DetalleCarritoFotoPage(
+                                                                          carritoData: listCarritoSuperior[0]
+                                                                              .car[xxx]
+                                                                              .carrito[indd]);
+                                                                    },
+                                                                    transitionsBuilder: (context,
+                                                                        animation,
+                                                                        secondaryAnimation,
+                                                                        child) {
+                                                                      return FadeTransition(
+                                                                        opacity:
+                                                                            animation,
+                                                                        child:
+                                                                            child,
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                );
+                                                          },
+                                                                                                                  child: Container(
+                                                            height:
+                                                                responsive.hp(10),
+                                                            width:
+                                                                responsive.wp(25),
+                                                            child:
+                                                                CachedNetworkImage(
+                                                              cacheManager:
+                                                                  CustomCacheManager(),
+                                                              placeholder:
+                                                                  (context,
+                                                                          url) =>
+                                                                      Container(
+                                                                width: double
+                                                                    .infinity,
+                                                                height: double
+                                                                    .infinity,
+                                                                child: Image(
+                                                                    image: AssetImage(
+                                                                        'assets/loading.gif'),
+                                                                    fit: BoxFit
+                                                                        .fitWidth),
+                                                              ),
+                                                              imageUrl:
+                                                                  '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
+                                                              fit: BoxFit.cover,
                                                             ),
-                                                            imageUrl:
-                                                                '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
-                                                            fit: BoxFit.cover,
                                                           ),
                                                         ),
                                                       ],

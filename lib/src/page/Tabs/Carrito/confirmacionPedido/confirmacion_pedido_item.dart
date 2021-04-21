@@ -4,6 +4,8 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/carritoGeneralModel..dart';
 import 'package:bufi/src/models/cuentaModel.dart';
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido_bloc.dart';
+import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/detalleCarritoFotoPage.dart';
+import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProductoFotoPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/detallePedidoPage.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
@@ -207,8 +209,7 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                             child: Column(
                                               children: [
                                                 SizedBox(
-                                                      height: responsive.hp(2)
-                                                    ),
+                                                    height: responsive.hp(2)),
                                                 Row(
                                                   children: [
                                                     SizedBox(
@@ -216,37 +217,83 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                     ),
                                                     ClipRRect(
                                                       borderRadius:
-                                                          BorderRadius.circular(10),
+                                                          BorderRadius.circular(
+                                                              10),
                                                       child: Container(
-                                                        width: responsive.wp(25),
+                                                        width:
+                                                            responsive.wp(25),
                                                         child: Stack(
                                                           children: [
-                                                            Container(
-                                                              height:
-                                                                  responsive.hp(10),
-                                                              width:
-                                                                  responsive.wp(25),
-                                                              child:
-                                                                  CachedNetworkImage(
-                                                                cacheManager:
-                                                                    CustomCacheManager(),
-                                                                placeholder:
-                                                                    (context,
-                                                                            url) =>
-                                                                        Container(
-                                                                  width: double
-                                                                      .infinity,
-                                                                  height: double
-                                                                      .infinity,
-                                                                  child: Image(
-                                                                      image: AssetImage(
-                                                                          'assets/loading.gif'),
-                                                                      fit: BoxFit
-                                                                          .fitWidth),
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                print(
+                                                                    "presionado");
+
+                                                                Navigator.push(
+                                                                  context,
+                                                                  PageRouteBuilder(
+                                                                    transitionDuration:
+                                                                        const Duration(
+                                                                            milliseconds:
+                                                                                700),
+                                                                    pageBuilder:
+                                                                        (context,
+                                                                            animation,
+                                                                            secondaryAnimation) {
+                                                                      return DetalleCarritoFotoPage(
+                                                                          carritoData: listCarritoSuperior[0]
+                                                                              .car[xxx]
+                                                                              .carrito[indd]);
+                                                                    },
+                                                                    transitionsBuilder: (context,
+                                                                        animation,
+                                                                        secondaryAnimation,
+                                                                        child) {
+                                                                      return FadeTransition(
+                                                                        opacity:
+                                                                            animation,
+                                                                        child:
+                                                                            child,
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                );
+                                                              },
+                                                              child: Hero(
+                                                                tag: 'imagen',
+                                                                //'$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
+                                                                child:
+                                                                    Container(
+                                                                  height:
+                                                                      responsive
+                                                                          .hp(10),
+                                                                  width:
+                                                                      responsive
+                                                                          .wp(25),
+                                                                  child:
+                                                                      CachedNetworkImage(
+                                                                    cacheManager:
+                                                                        CustomCacheManager(),
+                                                                    placeholder:
+                                                                        (context,
+                                                                                url) =>
+                                                                            Container(
+                                                                      width: double
+                                                                          .infinity,
+                                                                      height: double
+                                                                          .infinity,
+                                                                      child: Image(
+                                                                          image: AssetImage(
+                                                                              'assets/loading.gif'),
+                                                                          fit: BoxFit
+                                                                              .fitWidth),
+                                                                    ),
+                                                                    imageUrl:
+                                                                        '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                  ),
                                                                 ),
-                                                                imageUrl:
-                                                                    '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
-                                                                fit: BoxFit.cover,
                                                               ),
                                                             ),
                                                           ],
@@ -279,8 +326,10 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                               style: TextStyle(
                                                                   fontSize:
                                                                       responsive
-                                                                          .ip(1.8),
-                                                                  color: Colors.red,
+                                                                          .ip(
+                                                                              1.8),
+                                                                  color: Colors
+                                                                      .red,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold),
@@ -291,7 +340,7 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                         ),
                                                       ),
                                                     ),
-                                                    
+
                                                     //  CantidadCarrito(
                                                     //     carrito:
                                                     //         listCarritoSuperior[0]
@@ -307,19 +356,25 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                   ],
                                                 ),
                                                 SizedBox(
-                                                      height: responsive.hp(1)
-                                                    ),
+                                                    height: responsive.hp(1)),
                                                 Padding(
-                                                  padding:  EdgeInsets.only(left: responsive.ip(20)),
+                                                  padding: EdgeInsets.only(
+                                                      left: responsive.ip(20)),
                                                   child: CantidadCarrito(
-                                                          carrito:
-                                                              listCarritoSuperior[0]
-                                                                  .car[xxx]
-                                                                  .carrito[indd],
-                                                          llamada: llamada,
-                                                          idSudsidiaryGood:
-                                                              '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}', marcaProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}', modeloProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}', tallaProducto:'${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
-                                                        ),
+                                                    carrito:
+                                                        listCarritoSuperior[0]
+                                                            .car[xxx]
+                                                            .carrito[indd],
+                                                    llamada: llamada,
+                                                    idSudsidiaryGood:
+                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
+                                                    marcaProducto:
+                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
+                                                    modeloProducto:
+                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}',
+                                                    tallaProducto:
+                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -525,7 +580,7 @@ class ResumenPedido extends StatelessWidget {
         //     ),
         //   ],
         // ),
-        
+
         SizedBox(
           height: responsive.hp(2),
         ),

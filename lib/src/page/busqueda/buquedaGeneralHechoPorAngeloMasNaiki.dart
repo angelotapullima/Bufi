@@ -1,6 +1,7 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
+import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/models/itemSubcategoryModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
@@ -29,13 +30,14 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
   TextEditingController _controllerBusquedaAngelo = TextEditingController();
 
   final listOpciones = [
-    ItemsBusqueda(titulo: 'Productos', index: 1),
-    ItemsBusqueda(titulo: 'Servicios', index: 2),
-    ItemsBusqueda(titulo: 'Negocios', index: 3),
-    ItemsBusqueda(titulo: 'Marcas', index: 4),
-    ItemsBusqueda(titulo: 'Categorías', index: 5),
-    ItemsBusqueda(titulo: 'Subcategorías', index: 6),
-    ItemsBusqueda(titulo: 'Familia', index: 7),
+    ItemsBusqueda(titulo: 'Todo', index: 1),
+    ItemsBusqueda(titulo: 'Productos', index: 2),
+    ItemsBusqueda(titulo: 'Servicios', index: 3),
+    ItemsBusqueda(titulo: 'Negocios', index: 4),
+    ItemsBusqueda(titulo: 'Marcas', index: 5),
+    ItemsBusqueda(titulo: 'Categorías', index: 6),
+    ItemsBusqueda(titulo: 'Subcategorías', index: 7),
+    ItemsBusqueda(titulo: 'Familia', index: 8),
   ];
 
   @override
@@ -49,6 +51,7 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final busquedaBloc = ProviderBloc.busqueda(context);
+      busquedaBloc.obtenerBusquedaGeneral('');
       busquedaBloc.obtenerBusquedaProducto('');
       busquedaBloc.obtenerBusquedaServicio('');
       busquedaBloc.obtenerBusquedaNegocio('');
@@ -103,6 +106,7 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                               ),
                               onSubmitted: (value) {
                                 if (value.length >= 0 && value != ' ') {
+                                  busquedaBloc.obtenerBusquedaGeneral('$value');
                                   busquedaBloc
                                       .obtenerBusquedaProducto('$value');
                                   busquedaBloc
@@ -122,6 +126,8 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                             onPressed: () {
                               if (_controllerBusquedaAngelo.text.length >= 0 &&
                                   _controllerBusquedaAngelo.text != ' ') {
+                                busquedaBloc.obtenerBusquedaGeneral(
+                                    '${_controllerBusquedaAngelo.text}');
                                 busquedaBloc.obtenerBusquedaProducto(
                                     '${_controllerBusquedaAngelo.text}');
                                 busquedaBloc.obtenerBusquedaServicio(
@@ -217,21 +223,25 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                         Divider(),
                         Expanded(
                           child: (selectorTabBusqueda.page == 0)
-                              ? ListaProductos()
+                              ? ListaGeneral()
                               : (selectorTabBusqueda.page == 1)
-                                  ? ListaServicios()
+                                  ? ListaProductos()
                                   : (selectorTabBusqueda.page == 2)
-                                      ? ListaNegocios()
+                                      ? ListaServicios()
                                       : (selectorTabBusqueda.page == 3)
-                                          ? Container()
+                                          ? ListaNegocios()
                                           : (selectorTabBusqueda.page == 4)
-                                              ? ListaCategorias()
+                                              ? Container()
                                               : (selectorTabBusqueda.page == 5)
-                                                  ? ListaSubCategorias()
+                                                  ? ListaCategorias()
                                                   : (selectorTabBusqueda.page ==
                                                           6)
-                                                      ? ListaItemsubcategoria()
-                                                      : Container(),
+                                                      ? ListaSubCategorias()
+                                                      : (selectorTabBusqueda
+                                                                  .page ==
+                                                              7)
+                                                          ? ListaItemsubcategoria()
+                                                          : Container(),
                         ),
                       ],
                     ),
@@ -240,6 +250,355 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
               ),
             );
           }),
+    );
+  }
+}
+
+class ListaGeneral extends StatefulWidget {
+  const ListaGeneral({Key key}) : super(key: key);
+
+  @override
+  _ListaGeneralState createState() => _ListaGeneralState();
+}
+
+class _ListaGeneralState extends State<ListaGeneral> {
+  ValueNotifier<bool> switchFiltro = ValueNotifier(false);
+  @override
+  Widget build(BuildContext context) {
+    final busquedaBloc = ProviderBloc.busqueda(context);
+    //busquedaBloc.obtenerBusquedaGeneral('$query');
+
+    final responsive = Responsive.of(context);
+    return StreamBuilder(
+      stream: busquedaBloc.cargandoItemsStream,
+      builder: (context, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data) {
+            bool _enabled = true;
+            return Container(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300],
+                      highlightColor: Colors.grey[100],
+                      enabled: _enabled,
+                      child: ListView.builder(
+                        itemBuilder: (_, __) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 48.0,
+                                height: 48.0,
+                                color: Colors.white,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 2.0),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 2.0),
+                                    ),
+                                    Container(
+                                      width: 40.0,
+                                      height: 8.0,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        itemCount: 6,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return ValueListenableBuilder(
+                valueListenable: switchFiltro,
+                builder: (BuildContext context, bool data, Widget child) {
+                  return Column(
+                    children: [
+                      StreamBuilder(
+                          stream: busquedaBloc.busquedaGeneralStream,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<BusquedaGeneralModel>>
+                                  snapshot) {
+                            if (snapshot.hasData) {
+                              if (snapshot.data.length > 0) {
+                              } else {
+                                return Center(child: Text("Sin resultados"));
+                              }
+                            } else {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return Expanded(
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: snapshot.data.length,
+                                  itemBuilder: (BuildContext context, int i) {
+                                    return 
+                                    (snapshot.data[i].listProducto.length >0)
+                                        ? _crearItemProducto(context,snapshot.data[i], responsive)
+                                        :
+                                         (snapshot.data[i].listServicios.length >0)
+                                            ? 
+                                            _crearItemServicio(context,
+                                                snapshot.data[i], responsive)
+                                            : Container(child: Text("Falta modificar en el back"),);
+                                  }),
+                            );
+                          })
+                    ],
+                  );
+                });
+          }
+        } else {
+          return Center(
+            child: NutsActivityIndicator(
+              radius: 12,
+              activeColor: Colors.white,
+              inactiveColor: Colors.redAccent,
+              tickCount: 11,
+              startRatio: 0.55,
+              animationDuration: Duration(milliseconds: 2003),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _crearItemProducto(BuildContext context,
+      BusquedaGeneralModel busquedaData, Responsive responsive) {
+    return GestureDetector(
+      onTap: () {
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => DetalleProductos(
+        //       idProducto: productoData.idProducto,
+        //     ),
+        //   ),
+        // );
+      },
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: busquedaData.listProducto.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.15),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: Offset(2, 3),
+                ),
+              ],
+            ),
+            margin: EdgeInsets.all(responsive.ip(1)),
+            height: responsive.hp(15),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 1,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    width: responsive.wp(42),
+                    child: CachedNetworkImage(
+                      placeholder: (context, url) => Image(
+                        image: AssetImage('assets/jar-loading.gif'),
+                        fit: BoxFit.cover,
+                      ),
+                      errorWidget: (context, url, error) => Image(
+                          image: AssetImage('assets/carga_fallida.jpg'),
+                          fit: BoxFit.cover),
+                      imageUrl:
+                          '$apiBaseURL/${busquedaData.listProducto[index].productoImage}',
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: responsive.wp(53),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '${busquedaData.listProducto[index].productoName}',
+                        style: TextStyle(
+                            fontSize: responsive.ip(2.3),
+                            fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.center,
+                      ),
+                      // Text(
+                      //     '${busquedaData.listProducto[index].productoCurrency} ${busquedaData.listProducto[index].productoPrice}',
+                      //     style: TextStyle(
+                      //         fontSize: responsive.ip(2.5),
+                      //         fontWeight: FontWeight.bold,
+                      //         color: Colors.red)),
+                      // Text('${busquedaData.listProducto[index].productoBrand}'),
+                      // Text('${busquedaData.listProducto[index].productoSize}'),
+                      // Text('${busquedaData.listProducto[index].productoModel}')
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+      ),
+      
+    );
+  }
+
+  Widget _crearItemServicio(BuildContext context,
+      BusquedaGeneralModel busquedaData, Responsive responsive) {
+    return GestureDetector(
+      onTap: () {
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => DetalleProductos(
+        //       idProducto: productoData.idProducto,
+        //     ),
+        //   ),
+        // );
+      },
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: busquedaData.listServicios.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.15),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: Offset(2, 3),
+                ),
+              ],
+            ),
+            margin: EdgeInsets.all(responsive.ip(1)),
+            height: responsive.hp(11),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 1,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    width: responsive.wp(42),
+                    child: CachedNetworkImage(
+                      placeholder: (context, url) => Image(
+                        image: AssetImage('assets/jar-loading.gif'),
+                        fit: BoxFit.cover,
+                      ),
+                      errorWidget: (context, url, error) => Image(
+                          image: AssetImage('assets/carga_fallida.jpg'),
+                          fit: BoxFit.cover),
+                      imageUrl:
+                          '$apiBaseURL/${busquedaData.listServicios[index].subsidiaryServiceImage}',
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: responsive.wp(53),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '${busquedaData.listServicios[index].subsidiaryServiceName}',
+                        style: TextStyle(
+                            fontSize: responsive.ip(2.3),
+                            fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                          '${busquedaData.listServicios[index].subsidiaryServiceCurrency} ${busquedaData.listServicios[index].subsidiaryServicePrice}',
+                          style: TextStyle(
+                              fontSize: responsive.ip(2.5),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red)),
+                      Text(
+                          '${busquedaData.listServicios[index].subsidiaryServiceDescription}',
+                          style: TextStyle(color: Colors.red)),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

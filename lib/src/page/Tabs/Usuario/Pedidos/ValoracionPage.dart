@@ -13,8 +13,9 @@ class PendientesValoracionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final pedidoBloc = ProviderBloc.pedido(context);
-    String idEstado = '99';
-    pedidoBloc.obtenerPedidosPorIdEstado(idEstado);
+    String idEstado = '5';
+     pedidoBloc.obtenerPedidosEnviados(idEstado);
+    //pedidoBloc.obtenerPedidosPorIdEstado(idEstado);
 
     return Scaffold(
       appBar: AppBar(
@@ -26,7 +27,8 @@ class PendientesValoracionPage extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Colors.white),
       body: StreamBuilder(
-          stream: pedidoBloc.pedidoStream,
+         // stream: pedidoBloc.pedidoStream,
+           stream: pedidoBloc.pedidosEnviadoStream,
           builder: (context, AsyncSnapshot<List<PedidosModel>> snapshot) {
             List<PedidosModel> listPedidos = snapshot.data;
             if (snapshot.hasData) {

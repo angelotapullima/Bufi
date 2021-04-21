@@ -282,7 +282,7 @@ void guardarServicioFavorito(
   //Para dibujar el widget de favorito en la vista principal
   serviciosBloc.obtenerBienesServiciosResumen();
   //Mostrar en De acuerdo lo que buscaste
-   sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
+  sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
   //Para dibujar el widget de favorito en la vista de detalle de negocio
   sucursalNegocio.obtenerSucursalporIdCompany(sucursal[0].idCompany);
   //Para dibujar el widget de favorito en la vista de servicios por sucursal
@@ -322,7 +322,7 @@ void quitarServicioFavorito(
   //Para dibujar el widget de favorito en la vista principal
   serviciosBloc.obtenerBienesServiciosResumen();
   //Mostrar en De acuerdo lo que buscaste
-   sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
+  sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
   //Para dibujar el widget de favorito en la vista de servicios por sucursal
   serviceBloc.listarServiciosPorSucursal(dataModel.idSubsidiary);
 }
@@ -335,7 +335,6 @@ void guardarProductoFavorito2(
   final productoBloc = ProviderBloc.productos(context);
   final sucursalNegocio = ProviderBloc.sucursal(context);
   final sugerenciaBusquedaBloc = ProviderBloc.sugerenciaXbusqueda(context);
-  
 
   final productoModel = ProductoModel();
   final productoDb = ProductoDatabase();
@@ -349,7 +348,8 @@ void guardarProductoFavorito2(
   productoModel.productoPrice = dataModel.subsidiaryGoodPrice;
   productoModel.productoCurrency = dataModel.subsidiaryGoodCurrency;
   productoModel.productoImage = dataModel.subsidiaryGoodImage;
-  productoModel.productoCharacteristics = dataModel.subsidiaryGoodCharacteristics;
+  productoModel.productoCharacteristics =
+      dataModel.subsidiaryGoodCharacteristics;
   productoModel.productoBrand = dataModel.subsidiaryGoodBrand;
   productoModel.productoModel = dataModel.subsidiaryGoodModel;
   productoModel.productoType = dataModel.subsidiaryGoodType;
@@ -389,7 +389,7 @@ void guardarProductoFavorito2(
   bienesBloc.obtenerBienesServiciosResumen();
   //bienesBloc.obtenerServiciosAllPorCiudad();
   //Mostrar en De acuerdo lo que buscaste
-   sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
+  sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
   //Para dibujar el widget de favorito en la vista de detalle de negocio
   sucursalNegocio.obtenerSucursalporIdCompany(sucursal[0].idCompany);
   //Para dibujar el widget de favorito en la vista de productos por sucursal
@@ -432,7 +432,7 @@ void quitarProductoFavorito2(
   pointsProdBloc.obtenerPointsProductosXSucursal();
   bienesBloc.obtenerBienesServiciosResumen();
   //Mostrar en De acuerdo lo que buscaste
-   sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
+  sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
   //Para dibujar el widget de favorito en la vista de productos por sucursal
   productoBloc.listarProductosPorSucursal(dataModel.idSubsidiary);
 }
@@ -488,8 +488,8 @@ void guardarServicioFavorito2(
   pointsProdBloc.obtenerPointsServiciosXSucursal();
   //Para dibujar el widget de favorito en la vista principal
   serviciosBloc.obtenerBienesServiciosResumen();
- //Mostrar en De acuerdo lo que buscaste
-   sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
+  //Mostrar en De acuerdo lo que buscaste
+  sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
   //Para dibujar el widget de favorito en la vista de detalle de negocio
   sucursalNegocio.obtenerSucursalporIdCompany(sucursal[0].idCompany);
   //Para dibujar el widget de favorito en la vista de servicios por sucursal
@@ -528,7 +528,7 @@ void quitarServicioFavorito2(
   //Para dibujar el widget de favorito en la vista principal
   serviciosBloc.obtenerBienesServiciosResumen();
   //Mostrar en De acuerdo lo que buscaste
-   sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
+  sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
   //Para dibujar el widget de favorito en la vista de servicios por sucursal
   serviceBloc.listarServiciosPorSucursal(dataModel.idSubsidiary);
 }
@@ -639,6 +639,16 @@ void agregarAlCarritoContador(BuildContext context, String idSubsidiarygood,
     await carritoDb.updateCarritoPorIdSudsidiaryGoodTalla(c);
   }
 
+  final carritoBloc = ProviderBloc.productosCarrito(context);
+  carritoBloc.obtenerCarritoPorSucursal();
+  carritoBloc.carritoPorSucursalSeleccionado();
+}
+
+void deleteProductoCarrito(BuildContext context, String idSubsidiarygood,
+    String talla, String modelo, String marca) async {
+  CarritoDb carritoDb = CarritoDb();
+  await carritoDb.deleteCarritoPorIdProductoTalla(
+      idSubsidiarygood, talla, modelo, marca);
   final carritoBloc = ProviderBloc.productosCarrito(context);
   carritoBloc.obtenerCarritoPorSucursal();
   carritoBloc.carritoPorSucursalSeleccionado();

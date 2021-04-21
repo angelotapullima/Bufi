@@ -12,6 +12,7 @@ import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class ConfirmacionPedido extends StatefulWidget {
@@ -198,25 +199,29 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                           int indd = i - 1;
 
                                           return Container(
-                                            height: responsive.hp(15),
+                                            height: responsive.hp(30),
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 5),
                                             width: double.infinity,
-                                            child: Row(
+                                            child: Column(
                                               children: [
-                                                SizedBox(
-                                                  width: responsive.wp(1.5),
-                                                ),
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  child: Container(
-                                                    width: responsive.wp(25),
-                                                    child: Stack(
-                                                      children: [
-                                                        GestureDetector(
-                                                          onTap: (){
-                                                             Navigator.push(
+                                                Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width: responsive.wp(1.5),
+                                                    ),
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      child: Container(
+                                                        width:
+                                                            responsive.wp(25),
+                                                        child: Stack(
+                                                          children: [
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                Navigator.push(
                                                                   context,
                                                                   PageRouteBuilder(
                                                                     transitionDuration:
@@ -245,85 +250,189 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                                                     },
                                                                   ),
                                                                 );
-                                                          },
-                                                                                                                  child: Container(
-                                                            height:
-                                                                responsive.hp(10),
-                                                            width:
-                                                                responsive.wp(25),
-                                                            child:
-                                                                CachedNetworkImage(
-                                                              cacheManager:
-                                                                  CustomCacheManager(),
-                                                              placeholder:
-                                                                  (context,
+                                                              },
+                                                              child: Container(
+                                                                height:
+                                                                    responsive
+                                                                        .hp(10),
+                                                                width:
+                                                                    responsive
+                                                                        .wp(25),
+                                                                child:
+                                                                    CachedNetworkImage(
+                                                                  cacheManager:
+                                                                      CustomCacheManager(),
+                                                                  placeholder: (context,
                                                                           url) =>
                                                                       Container(
-                                                                width: double
-                                                                    .infinity,
-                                                                height: double
-                                                                    .infinity,
-                                                                child: Image(
-                                                                    image: AssetImage(
-                                                                        'assets/loading.gif'),
-                                                                    fit: BoxFit
-                                                                        .fitWidth),
+                                                                    width: double
+                                                                        .infinity,
+                                                                    height: double
+                                                                        .infinity,
+                                                                    child: Image(
+                                                                        image: AssetImage(
+                                                                            'assets/loading.gif'),
+                                                                        fit: BoxFit
+                                                                            .fitWidth),
+                                                                  ),
+                                                                  imageUrl:
+                                                                      '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                ),
                                                               ),
-                                                              imageUrl:
-                                                                  '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
-                                                              fit: BoxFit.cover,
                                                             ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: responsive.wp(2),
+                                                    ),
+                                                    Expanded(
+                                                      child: Container(
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text('${listCarritoSuperior[0].car[xxx].carrito[indd].nombre} ' +
+                                                                '${listCarritoSuperior[0].car[xxx].carrito[indd].marca} x ' +
+                                                                '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}'),
+                                                            Text(
+                                                                '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo} '),
+                                                            Text(
+                                                                '${listCarritoSuperior[0].car[xxx].carrito[indd].talla} '),
+                                                            Text(
+                                                              'S/. ' +
+                                                                  (double.parse(
+                                                                              '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}') *
+                                                                          double.parse(
+                                                                              '${listCarritoSuperior[0].car[xxx].carrito[indd].precio}'))
+                                                                      .toString(),
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      responsive
+                                                                          .ip(
+                                                                              1.8),
+                                                                  color: Colors
+                                                                      .red,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                            Text(
+                                                                'producto ofrecido por bufeoTec'),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: responsive.wp(2),
+                                                    )
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: responsive.hp(1),
+                                                ),
+                                                Container(
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        'Tipo de Entrega',
+                                                        style: TextStyle(
+                                                            fontSize: responsive
+                                                                .ip(2),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      SizedBox(
+                                                        height:
+                                                            responsive.hp(1),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Container(
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors
+                                                                      .white10,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              5)),
+                                                              width: responsive
+                                                                  .wp(15),
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Icon(Icons
+                                                                      .delivery_dining),
+                                                                  Text(
+                                                                    'Delivery propio',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  )
+                                                                ],
+                                                              )),
+                                                          SizedBox(
+                                                            width: responsive
+                                                                .wp(5),
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                          Container(
+                                                              width: responsive
+                                                                  .wp(15),
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Icon(Icons
+                                                                      .store),
+                                                                  Text(
+                                                                    'Recoger en tienda',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  )
+                                                                ],
+                                                              )),
+                                                          SizedBox(
+                                                            width: responsive
+                                                                .wp(5),
+                                                          ),
+                                                          Container(
+                                                              width: responsive
+                                                                  .wp(15),
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Icon(Icons
+                                                                      .departure_board_outlined),
+                                                                  Text(
+                                                                    'Delivery terceros',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  )
+                                                                ],
+                                                              )),
+                                                        ],
+                                                      )
+                                                    ],
                                                   ),
                                                 ),
-                                                SizedBox(
-                                                  width: responsive.wp(2),
-                                                ),
-                                                Expanded(
-                                                  child: Container(
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text('${listCarritoSuperior[0].car[xxx].carrito[indd].nombre} ' +
-                                                            '${listCarritoSuperior[0].car[xxx].carrito[indd].marca} x ' +
-                                                            '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}'),
-                                                        Text(
-                                                            '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo} '),
-                                                        Text(
-                                                            '${listCarritoSuperior[0].car[xxx].carrito[indd].talla} '),
-                                                        Text(
-                                                          'S/. ' +
-                                                              (double.parse(
-                                                                          '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}') *
-                                                                      double.parse(
-                                                                          '${listCarritoSuperior[0].car[xxx].carrito[indd].precio}'))
-                                                                  .toString(),
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  responsive
-                                                                      .ip(1.8),
-                                                              color: Colors.red,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        Text(
-                                                            'producto ofrecido por bufeoTec'),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: responsive.wp(2),
-                                                )
                                               ],
                                             ),
                                           );
@@ -561,6 +670,7 @@ class ResumenPedido extends StatelessWidget {
 
                 if (res[0].respuestaApi == '1') {
                   showToast(context, 'venta confirmada');
+                  //deleteProductoCarrito();
 
                   Navigator.of(context).push(PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) {

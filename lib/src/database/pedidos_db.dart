@@ -29,7 +29,7 @@ class PedidosDatabase {
     try {
       final db = await dbProvider.database;
       final res = await db.rawQuery(
-          "SELECT * FROM Pedidos WHERE (delivery_status>='0' AND delivery_status<'5')");
+          "SELECT * FROM Pedidos WHERE (delivery_status>='0' AND delivery_status<'5') ORDER BY id_pedido DESC");
 
       List<PedidosModel> list = res.isNotEmpty
           ? res.map((c) => PedidosModel.fromJson(c)).toList()

@@ -44,7 +44,8 @@ class NotificacionesDataBase {
   Future<List<NotificacionesModel>> obtenerNotificaciones() async {
     try {
       final db = await dbprovider.database;
-      final res = await db.rawQuery("SELECT * FROM Notificaciones ");
+      final res = await db.rawQuery(
+          "SELECT * FROM Notificaciones ORDER BY notificacion_datetime DESC ");
 
       List<NotificacionesModel> list = res.isNotEmpty
           ? res.map((c) => NotificacionesModel.fromJson(c)).toList()
@@ -58,10 +59,13 @@ class NotificacionesDataBase {
     }
   }
 
-  Future<List<NotificacionesModel>> obtenerNotificacionesPendientesXIdNotificacion(String idNotificacion) async {
+  Future<List<NotificacionesModel>>
+      obtenerNotificacionesPendientesXIdNotificacion(
+          String idNotificacion) async {
     try {
       final db = await dbprovider.database;
-      final res = await db.rawQuery("SELECT * FROM Notificaciones where id_notificacion= '$idNotificacion' and notificacion_estado='0'");
+      final res = await db.rawQuery(
+          "SELECT * FROM Notificaciones where id_notificacion= '$idNotificacion' and notificacion_estado='0'");
 
       List<NotificacionesModel> list = res.isNotEmpty
           ? res.map((c) => NotificacionesModel.fromJson(c)).toList()

@@ -3009,7 +3009,8 @@ class BusquedaApi {
   }
 
   //---------------------Categoria-------------------------------
-  Future<dynamic> busquedaCategorias(String query) async {
+  Future<List<CategoriaModel>> busquedaCategorias(String query) async {
+      final List<CategoriaModel>listGeneral=[];
     try {
       final res = await http
           .post("$apiBaseURL/api/Negocio/buscar_categorias_ws", body: {
@@ -3123,7 +3124,8 @@ class BusquedaApi {
                   categ.categoryName =
                       decodedData["result"][j]["category_name"];
 
-                  await categoryDatabase.insertarCategory(categ);
+                  listGeneral.add(categ);
+                    await categoryDatabase.insertarCategory(categ);
                 }
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
@@ -3172,6 +3174,7 @@ class BusquedaApi {
                     //listSucursal.add(subsidiaryModel);
                     await subsidiaryDatabase
                         .insertarSubsidiary(subsidiaryModel);
+                    
 
                     CompanyModel companyModel = CompanyModel();
                     companyModel.idCompany =
@@ -3225,7 +3228,8 @@ class BusquedaApi {
                         decodedData["result"][h][i]["id_category"];
                     categ.categoryName =
                         decodedData["result"][h][i]["category_name"];
-
+                    
+                    listGeneral.add(categ);
                     await categoryDatabase.insertarCategory(categ);
                   }
                 }
@@ -3239,7 +3243,7 @@ class BusquedaApi {
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
     }
-    return 0;
+    return listGeneral;
   }
 
   Future<dynamic> busquedaItemsubcategorias(String query) async {

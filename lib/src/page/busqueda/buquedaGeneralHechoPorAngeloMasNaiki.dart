@@ -30,14 +30,14 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
   TextEditingController _controllerBusquedaAngelo = TextEditingController();
 
   final listOpciones = [
-    ItemsBusqueda(titulo: 'Todo', index: 1),
-    ItemsBusqueda(titulo: 'Productos', index: 2),
-    ItemsBusqueda(titulo: 'Servicios', index: 3),
-    ItemsBusqueda(titulo: 'Negocios', index: 4),
-    ItemsBusqueda(titulo: 'Marcas', index: 5),
-    ItemsBusqueda(titulo: 'Categorías', index: 6),
-    ItemsBusqueda(titulo: 'Subcategorías', index: 7),
-    ItemsBusqueda(titulo: 'Familia', index: 8),
+    //ItemsBusqueda(titulo: 'Todo', index: 1),
+    ItemsBusqueda(titulo: 'Productos', index: 1),
+    ItemsBusqueda(titulo: 'Servicios', index: 2),
+    ItemsBusqueda(titulo: 'Negocios', index: 3),
+    ItemsBusqueda(titulo: 'Marcas', index: 4),
+    ItemsBusqueda(titulo: 'Categorías', index: 5),
+    ItemsBusqueda(titulo: 'Subcategorías', index: 6),
+    ItemsBusqueda(titulo: 'Familia', index: 7),
   ];
 
   @override
@@ -51,7 +51,7 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final busquedaBloc = ProviderBloc.busqueda(context);
-      busquedaBloc.obtenerBusquedaGeneral('');
+      //busquedaBloc.obtenerBusquedaGeneral('');
       busquedaBloc.obtenerBusquedaProducto('');
       busquedaBloc.obtenerBusquedaServicio('');
       busquedaBloc.obtenerBusquedaNegocio('');
@@ -106,7 +106,7 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                               ),
                               onSubmitted: (value) {
                                 if (value.length >= 0 && value != ' ') {
-                                  busquedaBloc.obtenerBusquedaGeneral('$value');
+                                  //busquedaBloc.obtenerBusquedaGeneral('$value');
                                   busquedaBloc
                                       .obtenerBusquedaProducto('$value');
                                   busquedaBloc
@@ -126,8 +126,8 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                             onPressed: () {
                               if (_controllerBusquedaAngelo.text.length >= 0 &&
                                   _controllerBusquedaAngelo.text != ' ') {
-                                busquedaBloc.obtenerBusquedaGeneral(
-                                    '${_controllerBusquedaAngelo.text}');
+                                // busquedaBloc.obtenerBusquedaGeneral(
+                                //     '${_controllerBusquedaAngelo.text}');
                                 busquedaBloc.obtenerBusquedaProducto(
                                     '${_controllerBusquedaAngelo.text}');
                                 busquedaBloc.obtenerBusquedaServicio(
@@ -222,24 +222,26 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                             )),
                         Divider(),
                         Expanded(
-                          child: (selectorTabBusqueda.page == 0)
-                              ? ListaGeneral()
-                              : (selectorTabBusqueda.page == 1)
+                          child: 
+                          // (selectorTabBusqueda.page == 0)
+                          //     ? ListaGeneral()
+                          //     : 
+                              (selectorTabBusqueda.page == 0)
                                   ? ListaProductos()
-                                  : (selectorTabBusqueda.page == 2)
+                                  : (selectorTabBusqueda.page == 1)
                                       ? ListaServicios()
-                                      : (selectorTabBusqueda.page == 3)
+                                      : (selectorTabBusqueda.page == 2)
                                           ? ListaNegocios()
-                                          : (selectorTabBusqueda.page == 4)
+                                          : (selectorTabBusqueda.page == 3)
                                               ? Container()
-                                              : (selectorTabBusqueda.page == 5)
+                                              : (selectorTabBusqueda.page == 4)
                                                   ? ListaCategorias()
                                                   : (selectorTabBusqueda.page ==
-                                                          6)
+                                                          5)
                                                       ? ListaSubCategorias()
                                                       : (selectorTabBusqueda
                                                                   .page ==
-                                                              7)
+                                                              6)
                                                           ? ListaItemsubcategoria()
                                                           : Container(),
                         ),
@@ -1641,7 +1643,7 @@ class _ListaCategoriasState extends State<ListaCategorias> {
                   return Column(
                     children: [
                       StreamBuilder(
-                          stream: busquedaBloc.busquedaCategoriaController,
+                          stream: busquedaBloc.busquedaCategoriaStream,
                           builder: (BuildContext context,
                               AsyncSnapshot<List<CategoriaModel>> snapshot) {
                             if (snapshot.hasData) {

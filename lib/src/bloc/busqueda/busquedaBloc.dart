@@ -175,7 +175,7 @@ Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream =>
     if (query != '') {
       _cargandoItems.sink.add(true);
       busquedaCategoriaController.sink
-          .add(await obtnerResultBusquedaCategoria(query));
+          .add(await busquedaApi.busquedaCategorias(query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);

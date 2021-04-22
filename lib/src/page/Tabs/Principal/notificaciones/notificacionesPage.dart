@@ -120,7 +120,23 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                                     ],
                                                   ),
                                                 )
-                                              : Container();
+                                              : Container(
+                                                  // color: Colors.transparent,
+                                                  // padding: EdgeInsets.symmetric(
+                                                  //   horizontal:
+                                                  //       responsive.wp(5),
+                                                  //   vertical: responsive.hp(2),
+                                                  // ),
+                                                  // child: Text(
+                                                  //   'pendientes',
+                                                  //   style: TextStyle(
+                                                  //       color: Colors.black,
+                                                  //       fontSize:
+                                                  //           responsive.ip(2),
+                                                  //       fontWeight:
+                                                  //           FontWeight.bold),
+                                                  // ),
+                                                );
                                         } else {
                                           return Center(
                                               child:
@@ -134,6 +150,7 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                         "0";
                                 var fecha = obtenerFechaHora(
                                     notificaciones[index].notificacionDatetime);
+
                                 return GestureDetector(
                                   onTap: () {
                                     leerNotificacion(
@@ -179,6 +196,11 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                                       'assets/loading.gif'),
                                                   fit: BoxFit.fitWidth),
                                             ),
+                                            errorWidget:
+                                                (context, url, error) => Image(
+                                                    image: AssetImage(
+                                                        'assets/no-image.png'),
+                                                    fit: BoxFit.cover),
                                             imageUrl:
                                                 '$apiBaseURL/${notificaciones[index].notificacionImagen}',
                                             fit: BoxFit.cover,

@@ -211,19 +211,10 @@ class HeaderWidget extends StatelessWidget {
                       ),
                     ),
                      */
-                    InkWell(
+                     (preferences.personName != null)?
+                      InkWell(
                         onTap: () {
-                          // if (preferences.personName == null) {
-                          //    showBarModalBottomSheet(
-                          //     expand: true,
-                          //     context: context,
-                          //     backgroundColor: Colors.transparent,
-                          //     builder: (context) => ModalLogin(),
-                          //   );
-                          // } else {
-
-                          // }
-
+                          
                           Navigator.pushNamed(context, "notificaciones");
                         },
                         child: Container(
@@ -239,8 +230,7 @@ class HeaderWidget extends StatelessWidget {
                                 top: 0,
                                 right: 0,
                                 child: StreamBuilder(
-                                    stream: notificacionesBloc
-                                        .notificacionesPendientesStream,
+                                    stream: notificacionesBloc.notificacionesPendientesStream,
                                     builder: (context,
                                         AsyncSnapshot<List<NotificacionesModel>>
                                             snapshot) {
@@ -273,7 +263,10 @@ class HeaderWidget extends StatelessWidget {
                               )
                             ],
                           ),
-                        )),
+                        )): Container(),
+                    
+                    
+                    
                     SizedBox(width: responsive.wp(2)),
                   ],
                 ),

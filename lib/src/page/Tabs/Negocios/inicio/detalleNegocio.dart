@@ -118,68 +118,170 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                           fontWeight: FontWeight.bold),
                     ),
                     Divider(color: Colors.grey),
+                    SizedBox(height: responsive.hp(2.5)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Delivery:",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: responsive.wp(1),
+                            ),
+                            ('${company.companyDelivery}') == "1"
+                                ? ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(22)),
+                                    child: Container(
+                                      
+                                        color: Colors.red,
+                                        child: Icon(Icons.check,
+                                            color: Colors.white, size: 22)),
+                                  )
+                                : Icon(Icons.error,
+                                    color: Colors.black, size: 26),
+                            // Text(
+                            //   ('${company.companyDelivery}') == "0"
+                            //       ? "No"
+                            //       : "Si",
+                            //   style: TextStyle(
+                            //     fontSize: responsive.ip(2),
+                            //   ),
+                            // )
+                          ],
+                        ),
+                        SizedBox(width: responsive.wp(4)),
+                        Row(
+                          children: [
+                            Text("Entrega:",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                            // Icon(
+                            //   FontAwesomeIcons.clock,
+                            //   color: Colors.red,
+                            //   size: 22,
+                            // ),
+                            SizedBox(width: responsive.wp(1)),
+                            ('${company.companyEntrega}') == "1"
+                                ? ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(22)),
+                                    child: Container(
+                                        color: Colors.red,
+                                        child: Icon(Icons.check,
+                                            color: Colors.white, size: 22)),
+                                  )
+                                : Icon(Icons.error,
+                                    color: Colors.black, size: 26),
+                            // Text(
+                            //   ('${company.companyEntrega}') == "0"
+                            //       ? "No"
+                            //       : "Si",
+                            //   style: TextStyle(
+                            //     fontSize: responsive.ip(2),
+                            //   ),
+                            // )
+                          ],
+                        ),
+                        SizedBox(width: responsive.wp(4)),
+                        Row(
+                          children: [
+                            Text("Tarjeta:",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                            // Icon(FontAwesomeIcons.phoneAlt,
+                            //     color: Colors.red[700], size: 22),
+                            SizedBox(
+                              width: responsive.wp(1),
+                            ),
+                            ('${company.companyTarjeta}') == "1"
+                                ? ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(22)),
+                                    child: Container(
+                                        color: Colors.red,
+                                        child: Icon(Icons.check,
+                                            color: Colors.white, size: 22)),
+                                  )
+                                : Icon(Icons.error,
+                                    color: Colors.black, size: 26),
+                            // Text(
+                            //   ('${company.companyTarjeta}') == "0"
+                            //       ? "No"
+                            //       : "Si",
+                            //   style: TextStyle(
+                            //     fontSize: responsive.ip(2),
+                            //   ),
+                            // )
+                          ],
+                        ),
+                      ],
+                    ),
+                    // Row(
+                    //   children: [
+                    //     Text("Delivery:"),
+                    //     SizedBox(
+                    //       width: responsive.wp(2),
+                    //     ),
+                    //     Text(
+                    //       ('${company.companyDelivery}') == "0" ? "No" : "Si",
+                    //       style: TextStyle(
+                    //         fontSize: responsive.ip(2),
+                    //       ),
+                    //     )
+                    //   ],
+                    // ),
+                    // SizedBox(
+                    //   height: responsive.hp(2.5),
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     Text("Entrega:"),
+                    //     // Icon(
+                    //     //   FontAwesomeIcons.clock,
+                    //     //   color: Colors.red,
+                    //     //   size: 22,
+                    //     // ),
+                    //     SizedBox(
+                    //       width: responsive.wp(2),
+                    //     ),
+                    //     Text(
+                    //       ('${company.companyEntrega}') == "0" ? "No" : "Si",
+                    //       style: TextStyle(
+                    //         fontSize: responsive.ip(2),
+                    //       ),
+                    //     )
+                    //   ],
+                    // ),
+                    // SizedBox(
+                    //   height: responsive.hp(2.5),
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     Text("Tarjeta:"),
+                    //     // Icon(FontAwesomeIcons.phoneAlt,
+                    //     //     color: Colors.red[700], size: 22),
+                    //     SizedBox(
+                    //       width: responsive.wp(2),
+                    //     ),
+                    //     Text(
+                    //       ('${company.companyTarjeta}') == "0" ? "No" : "Si",
+                    //       style: TextStyle(
+                    //         fontSize: responsive.ip(2),
+                    //       ),
+                    //     )
+                    //   ],
+                    // ),
 
+                    SizedBox(height: responsive.hp(5)),
                     Row(
                       children: [
-                        Text("Delivery:"),
-                        SizedBox(
-                          width: responsive.wp(2),
-                        ),
-                        Text(
-                          ('${company.companyDelivery}') == "0" ? "No" : "Si",
-                          style: TextStyle(
-                            fontSize: responsive.ip(2),
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: responsive.hp(2.5),
-                    ),
-                    Row(
-                      children: [
-                        Text("Entrega:"),
-                        // Icon(
-                        //   FontAwesomeIcons.clock,
-                        //   color: Colors.red,
-                        //   size: 22,
-                        // ),
-                        SizedBox(
-                          width: responsive.wp(2),
-                        ),
-                        Text(
-                          ('${company.companyEntrega}') == "0" ? "No" : "Si",
-                          style: TextStyle(
-                            fontSize: responsive.ip(2),
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: responsive.hp(2.5),
-                    ),
-                    Row(
-                      children: [
-                        Text("Tarjeta:"),
-                        // Icon(FontAwesomeIcons.phoneAlt,
-                        //     color: Colors.red[700], size: 22),
-                        SizedBox(
-                          width: responsive.wp(2),
-                        ),
-                        Text(
-                          ('${company.companyTarjeta}') == "0" ? "No" : "Si",
-                          style: TextStyle(
-                            fontSize: responsive.ip(2),
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: responsive.hp(2.5),
-                    ),
-                    Row(
-                      children: [
-                        Text("Codigo Corto:"),
+                        Text("Codigo Corto:",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
                         SizedBox(
                           width: responsive.wp(2),
                         ),
@@ -196,7 +298,8 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                     ),
                     Row(
                       children: [
-                        Text("Creado:"),
+                        Text("Fecha de fundación:",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
                         SizedBox(
                           width: responsive.wp(2),
                         ),
@@ -218,60 +321,60 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                     //         style: TextStyle(fontSize: responsive.ip(2))),
                     //   ],
                     // ),
-                    SizedBox(
-                      height: responsive.hp(2.5),
-                    ),
-                    Row(
-                      children: [
-                        Text("Se unió:"),
-                        SizedBox(
-                          width: responsive.wp(2),
-                        ),
-                        Text(
-                          '$dateUnion',
-                          style: TextStyle(
-                            fontSize: responsive.ip(2),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: responsive.hp(2.5),
-                    ),
-                    Row(
-                      children: [
-                        Text("Estado:"),
-                        SizedBox(
-                          width: responsive.wp(2),
-                        ),
-                        Text(
-                          ('${company.companyStatus}') == "1"
-                              ? "Activo"
-                              : "Desactivado",
-                          style: TextStyle(
-                            fontSize: responsive.ip(2),
-                          ),
-                        )
-                      ],
-                    ),
+                    // SizedBox(
+                    //   height: responsive.hp(2.5),
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     Text("Se unió:"),
+                    //     SizedBox(
+                    //       width: responsive.wp(2),
+                    //     ),
+                    //     Text(
+                    //       '$dateUnion',
+                    //       style: TextStyle(
+                    //         fontSize: responsive.ip(2),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // SizedBox(
+                    //   height: responsive.hp(2.5),
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     Text("Estado:"),
+                    //     SizedBox(
+                    //       width: responsive.wp(2),
+                    //     ),
+                    //     Text(
+                    //       ('${company.companyStatus}') == "1"
+                    //           ? "Activo"
+                    //           : "Desactivado",
+                    //       style: TextStyle(
+                    //         fontSize: responsive.ip(2),
+                    //       ),
+                    //     )
+                    //   ],
+                    // ),
 
-                    SizedBox(
-                      height: responsive.hp(2.5),
-                    ),
-                    Row(
-                      children: [
-                        Text("id Negocio:"),
-                        SizedBox(
-                          width: responsive.wp(2),
-                        ),
-                        Text(
-                          ('${company.idCompany}'),
-                          style: TextStyle(
-                            fontSize: responsive.ip(2),
-                          ),
-                        )
-                      ],
-                    ),
+                    // SizedBox(
+                    //   height: responsive.hp(2.5),
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     Text("id Negocio:"),
+                    //     SizedBox(
+                    //       width: responsive.wp(2),
+                    //     ),
+                    //     Text(
+                    //       ('${company.idCompany}'),
+                    //       style: TextStyle(
+                    //         fontSize: responsive.ip(2),
+                    //       ),
+                    //     )
+                    //   ],
+                    // ),
                   ],
                 )),
             SizedBox(

@@ -262,7 +262,7 @@ class ServiceApi {
       });
 
       final decodedData = json.decode(response.body);
-      print(decodedData);
+      //print(decodedData);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
 

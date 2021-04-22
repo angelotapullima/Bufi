@@ -284,7 +284,7 @@ class InformacionWidget extends StatelessWidget {
     final responsive = Responsive.of(context);
     return Container(
       color: Colors.white,
-      height: responsive.hp(80),
+      height: double.infinity,
       child: StreamBuilder(
         stream: sucursalBloc.subsidiaryIdStream,
         builder: (context, AsyncSnapshot<List<SubsidiaryModel>> snapshot) {
@@ -336,7 +336,7 @@ class InformacionWidget extends StatelessWidget {
                       Row(
                         children: [
                           Icon(Icons.location_on,
-                              size: responsive.ip(4), color: Colors.red[700]),
+                              size: responsive.ip(3.5), color: Colors.red[700]),
                           SizedBox(
                             width: responsive.wp(2),
                           ),
@@ -356,7 +356,7 @@ class InformacionWidget extends StatelessWidget {
                           Icon(
                             FontAwesomeIcons.clock,
                             color: Colors.red,
-                            size: responsive.ip(4),
+                            size: responsive.ip(3.5),
                           ),
                           SizedBox(
                             width: responsive.wp(2),
@@ -375,7 +375,7 @@ class InformacionWidget extends StatelessWidget {
                       Row(
                         children: [
                           Icon(FontAwesomeIcons.phoneAlt,
-                              color: Colors.red[700], size: responsive.ip(3.5)),
+                              color: Colors.red[700], size: responsive.ip(3)),
                           SizedBox(
                             width: responsive.wp(2),
                           ),
@@ -393,49 +393,28 @@ class InformacionWidget extends StatelessWidget {
                       Row(
                         children: [
                           Icon(Icons.mail,
-                              size: responsive.ip(4), color: Colors.red[700]),
+                              size: responsive.ip(3.5), color: Colors.red[700]),
                           SizedBox(
                             width: responsive.wp(2),
                           ),
-                          Text(
-                            '${snapshot.data[0].subsidiaryEmail}',
-                            style: TextStyle(
-                              fontSize: responsive.ip(2),
-                            ),
-                          ),
+                          Text(('${snapshot.data[0].subsidiaryEmail}') == 'null' ? 'correo' : '${snapshot.data[0].subsidiaryEmail}')
+                          // Text(
+                          //   '${snapshot.data[0].subsidiaryEmail}',
+                          //   style: TextStyle(
+                          //     fontSize: responsive.ip(2),
+                          //   ),
+                          // ),
                         ],
                       ),
+                      
                       SizedBox(
-                        height: responsive.hp(2.5),
+                        height: responsive.hp(2.5)
                       ),
+                       
                       Row(
                         children: [
-                          Icon(
-                            FontAwesomeIcons.home,
-                            color: Colors.red,
-                            size: responsive.ip(3.5),
-                          ),
-                          SizedBox(
-                            width: responsive.wp(2),
-                          ),
-                          Text(
-                            '${snapshot.data[0].subsidiaryPrincipal}',
-                            style: TextStyle(
-                              fontSize: responsive.ip(2),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: responsive.hp(2.5),
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            FontAwesomeIcons.home,
-                            color: Colors.red[800],
-                            size: responsive.ip(3.5),
-                          ),
+                          Text("Coordenada X:",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
                           SizedBox(
                             width: responsive.wp(2),
                           ),
@@ -446,7 +425,58 @@ class InformacionWidget extends StatelessWidget {
                             ),
                           ),
                         ],
-                      )
+                      ),
+                      SizedBox(
+                        height: responsive.hp(2.5),
+                      ),
+                      Row(
+                        children: [
+                          Text("Coordenada Y:",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            width: responsive.wp(2),
+                          ),
+                          Text(
+                            '${snapshot.data[0].subsidiaryCoordY}',
+                            style: TextStyle(
+                              fontSize: responsive.ip(2),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: responsive.hp(2.5),
+                      ),
+                      ('${snapshot.data[0].subsidiaryPrincipal}')=='1' ?
+                      Row(
+                        children: [
+                          Text("Oficina Principal de",
+                            style: TextStyle(fontSize: responsive.ip(2),
+                              fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            width: responsive.wp(2),
+                          ),
+                         
+                          Text(
+                            '${snapshot.data[0].subsidiaryName}',
+                            style: TextStyle(
+                              fontSize: responsive.ip(2),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red
+                            ),
+                          ),
+                        ],
+                      ): Container(),
+                      SizedBox(
+                        height: responsive.hp(2.5)
+                      ),
+                      Column(
+                        children: [
+                      Text("Descripción:",style: TextStyle(fontSize: responsive.ip(2),fontWeight: FontWeight.bold)),
+                      Text(('${snapshot.data[0].subsidiaryDescription}') == "null" ? '' : '${snapshot.data[0].subsidiaryDescription}')
+                    ],
+                    ),
+                      
                     ],
                   ),
                 ),

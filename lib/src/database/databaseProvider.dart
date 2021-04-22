@@ -126,6 +126,7 @@ class DatabaseProvider {
           'id_subsidiary VARCHAR PRIMARY KEY,'
           'id_company VARCHAR,'
           'subsidiary_name VARCHAR,'
+          'subsidiary_description VARCHAR,'
           'subsidiary_address VARCHAR,'
           'subsidiary_img VARCHAR,'
           'subsidiary_cellphone VARCHAR,'

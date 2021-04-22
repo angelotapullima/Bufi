@@ -1,10 +1,8 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
-import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/detalleSubsidiary.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart';
-import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/detalleSubsidiary.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
@@ -37,8 +35,8 @@ class _DetalleNegocioState extends State<DetalleNegocio>
       body: Container(
         child: StreamBuilder(
           stream: detallenegocio.detalleNegStream,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            List<CompanyModel> negocio = snapshot.data;
+          builder: (BuildContext context, AsyncSnapshot<List<CompanySubsidiaryModel>> snapshot) {
+            List<CompanySubsidiaryModel> negocio = snapshot.data;
             if (snapshot.hasData) {
               return
                   //Center(child: Text(negocio[0].companyName));
@@ -61,7 +59,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
     );
   }
 
-  Widget _custonScroll(Responsive responsive, CompanyModel company) {
+  Widget _custonScroll(Responsive responsive, CompanySubsidiaryModel company) {
     var dateCreacion = obtenerFechaHora(company.companyCreatedAt);
     var dateUnion = obtenerFechaHora(company.companyJoin);
     return CustomScrollView(
@@ -278,6 +276,13 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                     // ),
 
                     SizedBox(height: responsive.hp(5)),
+                    Column(
+                      children: [
+                      Text("Descripción:",style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text(('${company.subsidiaryDescription}') == "null" ? '' : '${company.subsidiaryDescription}')
+                    ],
+                    ),
+                    SizedBox(height: responsive.hp(3)),
                     Row(
                       children: [
                         Text("Codigo Corto:",
@@ -405,8 +410,9 @@ class _DetalleNegocioState extends State<DetalleNegocio>
           ),
           Divider(color: Colors.grey),
           Container(
+            //margin: EdgeInsets.all(responsive.ip(2)),
             padding: EdgeInsets.only(
-              left: responsive.wp(2),
+             // left: responsive.wp(2),
               right: responsive.wp(2),
               bottom: responsive.hp(2),
             ),
@@ -458,6 +464,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                               ));
                             },
                             child: Container(
+                             padding: EdgeInsets.only(left: responsive.wp(2),),
                               width: responsive.wp(45),
                               child: Stack(children: [
                                 ClipRRect(
@@ -572,7 +579,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
     );
   }
 
-  Widget _crearAppbar(Responsive responsive, CompanyModel companyModel) {
+  Widget _crearAppbar(Responsive responsive, CompanySubsidiaryModel companyModel) {
     return SliverAppBar(
       elevation: 2.0,
       backgroundColor: Colors.white,

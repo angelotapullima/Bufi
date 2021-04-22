@@ -3,6 +3,7 @@ class CompanySubsidiaryModel {
     this.idSubsidiary,
     this.idCompany,
     this.subsidiaryName,
+    this.subsidiaryDescription,
     this.subsidiaryAddress,
     this.subsidiaryCellphone,
     this.subsidiaryCellphone2,
@@ -44,6 +45,7 @@ class CompanySubsidiaryModel {
   String idSubsidiary;
   String idCompany;
   String subsidiaryName;
+  String subsidiaryDescription;
   String subsidiaryAddress;
   String subsidiaryCellphone;
   String subsidiaryCellphone2;
@@ -88,6 +90,7 @@ class CompanySubsidiaryModel {
         idSubsidiary: json["id_subsidiary"],
         idCompany: json["id_company"],
         subsidiaryName: json["subsidiary_name"],
+        subsidiaryDescription: json["subsidiary_description"],
         subsidiaryAddress: json["subsidiary_address"],
         subsidiaryCellphone: json["subsidiary_cellphone"],
         subsidiaryCellphone2: json["subsidiary_cellphone_2"],

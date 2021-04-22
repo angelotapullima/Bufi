@@ -1,9 +1,9 @@
 class SubsidiaryModel {
-  
   SubsidiaryModel({
     this.idSubsidiary,
     this.idCompany,
     this.subsidiaryName,
+    this.subsidiaryDescription,
     this.subsidiaryImg,
     this.subsidiaryAddress,
     this.subsidiaryCellphone,
@@ -15,13 +15,12 @@ class SubsidiaryModel {
     this.subsidiaryPrincipal,
     this.subsidiaryStatus,
     this.subsidiaryFavourite,
-
-      
   });
 
   String idSubsidiary;
   String idCompany;
   String subsidiaryName;
+  String subsidiaryDescription;
   String subsidiaryImg;
   String subsidiaryAddress;
   String subsidiaryCellphone;
@@ -38,8 +37,9 @@ class SubsidiaryModel {
       SubsidiaryModel(
         idSubsidiary: json["id_subsidiary"],
         idCompany: json["id_company"],
-        subsidiaryName: json["subsidiary_name"], 
-        subsidiaryImg: json["subsidiary_img"], 
+        subsidiaryName: json["subsidiary_name"],
+        subsidiaryDescription: json["subsidiary_description"],
+        subsidiaryImg: json["subsidiary_img"],
         subsidiaryAddress: json["subsidiary_address"],
         subsidiaryCellphone: json["subsidiary_cellphone"],
         subsidiaryCellphone2: json["subsidiary_cellphone_2"],
@@ -56,6 +56,7 @@ class SubsidiaryModel {
         "id_subsidiary": idSubsidiary,
         "id_company": idCompany,
         "subsidiary_name": subsidiaryName,
+        "subsidiary_description":subsidiaryDescription,
         "subsidiary_img": subsidiaryImg,
         "subsidiary_address": subsidiaryAddress,
         "subsidiary_cellphone": subsidiaryCellphone,

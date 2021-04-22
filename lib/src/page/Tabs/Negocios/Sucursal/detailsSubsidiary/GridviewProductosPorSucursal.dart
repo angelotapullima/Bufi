@@ -86,7 +86,7 @@ class _GridviewProductoPorSucursalState
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            childAspectRatio: responsive.ip(.09),
+                            childAspectRatio: responsive.ip(.075),
                           ),
                           itemCount: snapshot.data.length,
                           padding: EdgeInsets.all(0),

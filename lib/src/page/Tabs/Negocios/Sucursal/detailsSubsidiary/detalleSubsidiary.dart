@@ -302,7 +302,7 @@ class InformacionWidget extends StatelessWidget {
                       Row(
                         children: [
                           Container(
-                            width: responsive.wp(35),
+                            width: responsive.wp(40),
                             child: RatingBar.readOnly(
                               size: responsive.ip(3),
                               initialRating: double.parse(

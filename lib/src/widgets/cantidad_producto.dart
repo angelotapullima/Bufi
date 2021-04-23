@@ -2,6 +2,7 @@ import 'package:bufi/src/models/carritoModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart' as utils;
+import 'package:bufi/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class CantidadCarrito extends StatefulWidget {
@@ -77,7 +78,12 @@ class _CantidadCarritoState extends State<CantidadCarrito> {
                 onTap: () {
                   _decrease();
                   utils.agregarAlCarritoContador(
-                      context, widget.idSudsidiaryGood,widget.tallaProducto,widget.modeloProducto,widget.marcaProducto, _counter);
+                      context,
+                      widget.idSudsidiaryGood,
+                      widget.tallaProducto,
+                      widget.modeloProducto,
+                      widget.marcaProducto,
+                      _counter);
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -122,7 +128,182 @@ class _CantidadCarritoState extends State<CantidadCarrito> {
                 onTap: () {
                   _increase();
                   utils.agregarAlCarritoContador(
-                      context, widget.idSudsidiaryGood,widget.tallaProducto,widget.modeloProducto,widget.marcaProducto, _counter);
+                      context,
+                      widget.idSudsidiaryGood,
+                      widget.tallaProducto,
+                      widget.modeloProducto,
+                      widget.marcaProducto,
+                      _counter);
+
+                  //utils.agregarAlCarrito(context, _counter.toString());
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(5),
+                      bottomRight: Radius.circular(5),
+                    ),
+                  ),
+                  height: double.infinity,
+                  child: Center(
+                    child: Text(
+                      "+",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                        fontSize: responsive.ip(2),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//------cuando se llama desde el "Pedir Ahora"
+//
+class CantidadCarritoItem extends StatefulWidget {
+  final CarritoModel carrito;
+  final Function llamada;
+  final String idSudsidiaryGood;
+  final String tallaProducto;
+  final String modeloProducto;
+  final String marcaProducto;
+
+  CantidadCarritoItem(
+      {Key key,
+      @required this.carrito,
+      @required this.llamada,
+      @required this.idSudsidiaryGood,
+      @required this.tallaProducto,
+      @required this.modeloProducto,
+      @required this.marcaProducto})
+      : super(key: key);
+
+  @override
+  _CantidadCarritoItemState createState() => _CantidadCarritoItemState();
+}
+
+class _CantidadCarritoItemState extends State<CantidadCarritoItem> {
+  int _counter = 1;
+
+  void _increase() {
+    setState(() {
+      _counter++;
+      widget.llamada();
+    });
+  }
+
+  void _decrease() {
+    setState(() {
+      _counter--;
+      widget.llamada();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Responsive responsive = new Responsive.of(context);
+    ProductoModel producto = ProductoModel();
+    producto.idProducto = widget.carrito.idSubsidiaryGood;
+    producto.idSubsidiary = widget.carrito.idSubsidiary;
+    producto.productoName = widget.carrito.nombre;
+    producto.productoImage = widget.carrito.image;
+    producto.productoPrice = widget.carrito.precio;
+    _counter = int.parse(widget.carrito.cantidad);
+
+    return _cantidad(responsive, producto);
+  }
+
+  Widget _cantidad(Responsive responsive, ProductoModel producto) {
+    final pad = responsive.hp(1);
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: pad),
+      child: Container(
+        decoration: BoxDecoration(
+          //border: Border.all(color: Colors.red),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        width: responsive.wp(50),
+        height: responsive.hp(3.5),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            // _counter>1?
+            Flexible(
+              flex: 3,
+              child: GestureDetector(
+                onTap: () {
+                  if (_counter > 1) {
+                    _decrease();
+                    utils.agregarAlCarritoContador(
+                        context,
+                        widget.idSudsidiaryGood,
+                        widget.tallaProducto,
+                        widget.modeloProducto,
+                        widget.marcaProducto,
+                        _counter);
+                  } else {
+                    showToast(context,
+                        'Debe existir al menos un producto para continuar');
+                  }
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(5),
+                      bottomLeft: Radius.circular(5),
+                    ),
+                  ),
+                  height: double.infinity,
+                  child: Center(
+                    child: Text(
+                      "-",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                        fontSize: responsive.ip(2),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            //: Container(),
+            Flexible(
+              flex: 6,
+              child: Container(
+                color: Colors.grey[100],
+                height: double.infinity,
+                child: Center(
+                  child: Text('$_counter UN',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                        fontSize: responsive.ip(1.5),
+                      )),
+                ),
+              ),
+            ),
+            Flexible(
+              flex: 3,
+              child: GestureDetector(
+                onTap: () {
+                  _increase();
+                  utils.agregarAlCarritoContador(
+                      context,
+                      widget.idSudsidiaryGood,
+                      widget.tallaProducto,
+                      widget.modeloProducto,
+                      widget.marcaProducto,
+                      _counter);
 
                   //utils.agregarAlCarrito(context, _counter.toString());
                 },

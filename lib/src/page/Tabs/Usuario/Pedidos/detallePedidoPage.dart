@@ -165,16 +165,19 @@ class _TickectPedidoState extends State<TickectPedido> {
                                                 '${snapshot.data[0].listCompanySubsidiary[0].subsidiaryCellphone} - ${snapshot.data[0].listCompanySubsidiary[0].subsidiaryCellphone2}'),
                                           ],
                                         ),
+                                        ('${snapshot.data[0].listCompanySubsidiary[0].subsidiaryEmail}'== 'null')?
                                         Row(
                                           children: [
                                             Icon(Icons.email),
                                             SizedBox(
                                               width: responsive.wp(2),
                                             ),
+                                            
                                             Text(
-                                                '${snapshot.data[0].listCompanySubsidiary[0].subsidiaryEmail} - ${snapshot.data[0].listCompanySubsidiary[0].subsidiaryCellphone2}'),
+                                                '${snapshot.data[0].listCompanySubsidiary[0].subsidiaryEmail}')
+                                               
                                           ],
-                                        ),
+                                        ):Container()
                                       ],
                                     ),
                                   ),
@@ -303,19 +306,16 @@ class _TickectPedidoState extends State<TickectPedido> {
                     Positioned(
                       top: responsive.hp(8),
                       left: responsive.wp(6),
-                      child: GestureDetector(
-                        child: Container(
-                          width: responsive.ip(5),
-                          height: responsive.ip(5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: Colors.grey[200],
-                          ),
-                          child: Center(child: BackButton()),
+                      child: Container(
+                        width: responsive.ip(5),
+                        height: responsive.ip(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: Colors.grey[200],
                         ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
+                        child: Center(child: BackButton(onPressed: (){
+                           Navigator.pushNamed(context, 'home');
+                        },)),
                       ),
                     ),
                     Positioned(
@@ -408,6 +408,7 @@ class _TickectPedidoState extends State<TickectPedido> {
             ),
           ],
         ),
+        
         Row(
           children: [
             Container(
@@ -422,6 +423,7 @@ class _TickectPedidoState extends State<TickectPedido> {
             SizedBox(
               width: responsive.wp(2),
             ),
+         (dato2!='null')?
             Container(
               width: responsive.wp(42),
               child: Text(
@@ -431,7 +433,8 @@ class _TickectPedidoState extends State<TickectPedido> {
                   color: Colors.black,
                 ),
               ),
-            ),
+            )
+            : Container()
           ],
         )
       ],

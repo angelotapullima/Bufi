@@ -50,6 +50,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
             children: [
               Container(
                 color: Colors.white,
+                height: double.infinity,
                 child: Padding(
                   padding: EdgeInsets.only(
                       top: responsive.ip(4),

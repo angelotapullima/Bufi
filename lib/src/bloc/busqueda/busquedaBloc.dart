@@ -20,6 +20,7 @@ import 'package:bufi/src/models/serviceModel.dart';
 import 'package:bufi/src/models/subcategoryModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
 class BusquedaBloc {
@@ -125,14 +126,14 @@ Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream =>
 
 
 //Producto
-  void obtenerBusquedaProducto(String query) async {
+  void obtenerBusquedaProducto(BuildContext context, String query) async {
     /* busquedaProductoController.sink
         .add(await obtnerResultBusquedaProducto(query)); */
     busquedaProductoController.sink.add([]);
     if (query != '') {
       _cargandoItems.sink.add(true);
       busquedaProductoController.sink
-          .add(await busquedaApi.busquedaProducto(query));
+          .add(await busquedaApi.busquedaProducto(context,query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);
@@ -142,13 +143,13 @@ Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream =>
   }
 
 //Servicio
-  void obtenerBusquedaServicio(String query) async {
+  void obtenerBusquedaServicio(BuildContext context, String query) async {
     //busquedaServicioController.sink.add(await obtnerResultBusquedaServicio(query));
     busquedaServicioController.sink.add([]);
     if (query != '') {
       _cargandoItems.sink.add(true);
       busquedaServicioController.sink
-          .add(await busquedaApi.busquedaServicio(query));
+          .add(await busquedaApi.busquedaServicio(context,query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);

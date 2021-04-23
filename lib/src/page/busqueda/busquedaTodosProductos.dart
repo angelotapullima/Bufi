@@ -52,7 +52,7 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                         onSubmitted: (value) {
                           print('$value');
 
-                          busquedaBloc.obtenerBusquedaProducto('$value');
+                          busquedaBloc.obtenerBusquedaProducto(context,'$value');
                         }),
                   ),
                   IconButton(

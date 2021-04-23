@@ -4,6 +4,7 @@ import 'package:bufi/src/page/Tabs/Usuario/Pedidos/detallePedidoPage.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -75,6 +76,7 @@ class PedidosEnviadosPage extends StatelessWidget {
 
   Widget _datosProducto(BuildContext context, Responsive responsive,
       List<PedidosModel> listPedidos, int index, int x) {
+         var fecha = obtenerFecha(listPedidos[index].deliveryDatetime);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(PageRouteBuilder(
@@ -149,7 +151,7 @@ class PedidosEnviadosPage extends StatelessWidget {
                     Text('${listPedidos[index].detallePedido[x].listProducto[0].productoName} ' +
                         '${listPedidos[index].detallePedido[x].listProducto[0].productoBrand} x ' +
                         '${listPedidos[index].detallePedido[x].listProducto[0].productoModel}'),
-                    Text('${listPedidos[index].detallePedido[x].cantidad}'),
+                    Text('${listPedidos[index].detallePedido[x].cantidad}''UN', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                     Text(
                       'S/. ' +
                           (double.parse(
@@ -162,6 +164,7 @@ class PedidosEnviadosPage extends StatelessWidget {
                           color: Colors.red,
                           fontWeight: FontWeight.bold),
                     ),
+                    Text("$fecha")
                   ],
                 ),
               ),

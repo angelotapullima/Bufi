@@ -285,7 +285,7 @@ class PedidoApi {
 
     final pedidosModel = PedidosModel();
 
-    pedidosModel.idPedido = decodedData["result"]['pedido']['id_delivery'];
+    pedidosModel.idPedido = decodedData["result"]['pedido']['id_delivery'].toString();
     pedidosModel.idUser = decodedData["result"]['pedido']['id_user'];
     pedidosModel.idCity = decodedData["result"]['pedido']['id_city'];
     pedidosModel.idSubsidiary =
@@ -519,7 +519,7 @@ class PedidoApi {
           c.talla = listCarrito[y].talla;
           c.image = listCarrito[y].image;
           c.moneda = listCarrito[y].moneda;
-          c.size = listCarrito[y].size;
+          //c.size = listCarrito[y].size;
           c.caracteristicas = listCarrito[y].caracteristicas;
           c.estadoSeleccionado = listCarrito[y].estadoSeleccionado;
           c.cantidad = listCarrito[y].cantidad;

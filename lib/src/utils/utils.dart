@@ -579,7 +579,7 @@ Future<int> agregarAlCarrito(BuildContext context, String idSubsidiarygood,
   c.talla = talla;
   c.image = producto[0].productoImage;
   c.moneda = producto[0].productoCurrency;
-  c.size = producto[0].productoSize;
+  //c.size = producto[0].productoSize;
   c.stock = producto[0].productoStock;
 
   if (productCarrito.length > 0) {
@@ -631,7 +631,7 @@ void agregarAlCarritoContador(BuildContext context, String idSubsidiarygood,
     c.talla = talla;
     c.image = producto[0].productoImage;
     c.moneda = producto[0].productoCurrency;
-    c.size = producto[0].productoSize;
+    //c.size = producto[0].productoSize;
     c.stock = producto[0].productoStock;
     c.estadoSeleccionado = carritoList[0].estadoSeleccionado;
     c.cantidad = cantidad.toString();

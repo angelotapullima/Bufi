@@ -250,7 +250,7 @@ class _LoginPageState extends State<LoginPage> {
       print(code);
 
        Navigator.of(context)
-            .pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+            .pushNamedAndRemoveUntil('home', (Route<dynamic> route) => true);
 
      // Navigator.pushReplacementNamed(context, 'home');
     } else if (code == 2) {

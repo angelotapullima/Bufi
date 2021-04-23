@@ -5,6 +5,8 @@ import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedid
 import 'package:bufi/src/page/Tabs/Negocios/producto/AgregarAlCarritoAnimacion.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProductoBloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProductoFotoPage.dart';
+import 'package:bufi/src/page/Tabs/iniciar_sesion.dart';
+import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
@@ -14,6 +16,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -894,7 +897,16 @@ class BotonAgregar extends StatelessWidget {
                         ).ripple(() async {
                           //Tallas
 
-                          await agregarAlCarrito(
+                          final preferences = Preferences();
+                          if (preferences.personName == null) {
+                            showBarModalBottomSheet(
+                              expand: true,
+                              context: context,
+                              backgroundColor: Colors.transparent,
+                              builder: (context) => ModalLogin(),
+                            );
+                          }else{
+                            await agregarAlCarrito(
                               context,
                               listProd[value].idProducto,
                               listProd[value].productoSize,
@@ -923,6 +935,8 @@ class BotonAgregar extends StatelessWidget {
                               },
                             ),
                           );
+                          }
+                          
                         }),
                         Container(
                           width: responsive.wp(60),

@@ -109,7 +109,7 @@ class CarritoBloc {
           c.talla = listCarrito[y].talla;
           c.image = listCarrito[y].image;
           c.moneda = listCarrito[y].moneda;
-          c.size = listCarrito[y].size;
+          //c.size = listCarrito[y].size;
           c.caracteristicas = listCarrito[y].caracteristicas;
           c.estadoSeleccionado = listCarrito[y].estadoSeleccionado;
           c.cantidad = listCarrito[y].cantidad;
@@ -186,8 +186,7 @@ class CarritoBloc {
     int cantidad = 0;
 
     //funcion que trae los datos del carrito agrupados por iDSubsidiary para que no se repitan los IDSubsidiary
-    final listCarritoAgrupados =
-        await carritoDb.obtenerProductosSeleccionadoAgrupados();
+    final listCarritoAgrupados = await carritoDb.obtenerProductosSeleccionadoAgrupados();
 
     //llenamos la lista de String(listaDeStringDeIds) con los datos agrupados que llegan (listCarritoAgrupados)
     for (var i = 0; i < listCarritoAgrupados.length; i++) {
@@ -230,7 +229,7 @@ class CarritoBloc {
           c.talla = listCarrito[y].talla;
           c.image = listCarrito[y].image;
           c.moneda = listCarrito[y].moneda;
-          c.size = listCarrito[y].size;
+          //c.size = listCarrito[y].size;
           c.caracteristicas = listCarrito[y].caracteristicas;
           c.estadoSeleccionado = listCarrito[y].estadoSeleccionado;
           c.cantidad = listCarrito[y].cantidad;
@@ -283,7 +282,7 @@ class CarritoBloc {
         c.talla = listCarrito[0].talla;
         c.image = listCarrito[0].image;
         c.moneda = listCarrito[0].moneda;
-        c.size = listCarrito[0].size;
+        //c.size = listCarrito[0].size;
         c.caracteristicas = listCarrito[0].caracteristicas;
         c.estadoSeleccionado = listCarrito[0].estadoSeleccionado;
         c.cantidad = listCarrito[0].cantidad;
@@ -335,7 +334,7 @@ class CarritoBloc {
             c.talla = listCarrito[0].talla;
             c.image = listCarrito[0].image;
             c.moneda = listCarrito[0].moneda;
-            c.size = listCarrito[0].size;
+            //c.size = listCarrito[0].size;
             c.caracteristicas = listCarrito[0].caracteristicas;
             c.estadoSeleccionado = listCarrito[0].estadoSeleccionado;
             c.cantidad = listCarrito[0].cantidad;

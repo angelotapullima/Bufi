@@ -12,7 +12,7 @@ class CarritoModel {
   String cantidad;
   String estadoSeleccionado;
   String moneda;
-  String size;
+  //String size;
 
   //String tipo;
 
@@ -30,7 +30,7 @@ class CarritoModel {
     this.cantidad,
     this.estadoSeleccionado,
     this.moneda,
-    this.size,
+    //this.size,
   });
 
   factory CarritoModel.fromJson(Map<String, dynamic> json) => CarritoModel(

@@ -2,10 +2,8 @@ import 'package:bufi/src/api/pedidos/Pedido_api.dart';
 import 'package:bufi/src/bloc/cuenta_bloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/carritoGeneralModel..dart';
-import 'package:bufi/src/models/cuentaModel.dart';
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido_bloc.dart';
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/detalleCarritoFotoPage.dart';
-import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProductoFotoPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/detallePedidoPage.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
@@ -62,6 +60,7 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                               ValueListenableBuilder<bool>(
                                 valueListenable: provider.show,
                                 builder: (_, value, __) {
+                                  //Cuando se hace scroll
                                   return (value)
                                       ? Container(
                                           color: Colors.white,
@@ -74,7 +73,7 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                             children: [
                                               BackButton(),
                                               Text(
-                                                'Confirmaciónhh de pedido',
+                                                'Confirmación de pedido',
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize:
@@ -202,11 +201,12 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                           int indd = i - 1;
 
                                           return Container(
-                                            height: responsive.hp(20),
+                                            height: responsive.hp(48),
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 5),
                                             width: double.infinity,
                                             child: Column(
+                                             crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 SizedBox(
                                                     height: responsive.hp(2)),
@@ -317,6 +317,29 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                                 '${listCarritoSuperior[0].car[xxx].carrito[indd].marca} x ' +
                                                                 '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}'),
                                                             Text(
+                                                              '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                          .grey[
+                                                                      600]),
+                                                            ),
+                                                            Text(
+                                                              '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                          .grey[
+                                                                      600]),
+                                                            ),
+                                                            Text(
+                                                              '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                          .grey[
+                                                                      600]),
+                                                            ),
+                                                            SizedBox(
+                                                    height: responsive.hp(1)),
+                                                            Text(
                                                               'S/. ' +
                                                                   (double.parse(
                                                                               '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}') *
@@ -333,9 +356,14 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold),
+                                                              
                                                             ),
+                                                            SizedBox(
+                                                        height:
+                                                            responsive.hp(1),
+                                                      ),
                                                             Text(
-                                                                'producto ofrecido por bufeoTec'),
+                                                      'producto ofrecido por bufeoTec'),
                                                           ],
                                                         ),
                                                       ),
@@ -356,11 +384,12 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                   ],
                                                 ),
                                                 SizedBox(
-                                                    height: responsive.hp(1)),
+                                                    height: responsive.hp(3)),
                                                 Padding(
                                                   padding: EdgeInsets.only(
-                                                      left: responsive.ip(20)),
-                                                  child: CantidadCarrito(
+                                                      left: responsive.ip(24)),
+                                                  child: 
+                                                  CantidadCarritoItem(
                                                     carrito:
                                                         listCarritoSuperior[0]
                                                             .car[xxx]
@@ -376,6 +405,105 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                         '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
                                                   ),
                                                 ),
+                                                SizedBox(
+                                                    height: responsive.hp(3)),
+
+                                                Container(
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        'Tipo de Entrega',
+                                                        style: TextStyle(
+                                                            fontSize: responsive
+                                                                .ip(2),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      SizedBox(
+                                                        height:
+                                                            responsive.hp(1),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Container(
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors
+                                                                      .white10,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              5)),
+                                                              width: responsive
+                                                                  .wp(15),
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Icon(Icons
+                                                                      .delivery_dining),
+                                                                  Text(
+                                                                    'Delivery propio',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  )
+                                                                ],
+                                                              )),
+                                                          SizedBox(
+                                                            width: responsive
+                                                                .wp(5),
+                                                          ),
+                                                          Container(
+                                                              width: responsive
+                                                                  .wp(15),
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Icon(Icons
+                                                                      .store),
+                                                                  Text(
+                                                                    'Recoger en tienda',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  )
+                                                                ],
+                                                              )),
+                                                          SizedBox(
+                                                            width: responsive
+                                                                .wp(5),
+                                                          ),
+                                                          Container(
+                                                              width: responsive
+                                                                  .wp(15),
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Icon(Icons
+                                                                      .departure_board_outlined),
+                                                                  Text(
+                                                                    'Delivery terceros',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  )
+                                                                ],
+                                                              )),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                
                                               ],
                                             ),
                                           );

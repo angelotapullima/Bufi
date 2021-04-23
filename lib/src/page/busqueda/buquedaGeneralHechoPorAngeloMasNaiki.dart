@@ -52,8 +52,8 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final busquedaBloc = ProviderBloc.busqueda(context);
       //busquedaBloc.obtenerBusquedaGeneral('');
-      busquedaBloc.obtenerBusquedaProducto('');
-      busquedaBloc.obtenerBusquedaServicio('');
+      busquedaBloc.obtenerBusquedaProducto( context,'');
+      busquedaBloc.obtenerBusquedaServicio(context,'');
       busquedaBloc.obtenerBusquedaNegocio('');
       busquedaBloc.obtenerBusquedaItemSubcategoria('');
       busquedaBloc.obtenerBusquedaCategoria('');
@@ -108,9 +108,9 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                 if (value.length >= 0 && value != ' ') {
                                   //busquedaBloc.obtenerBusquedaGeneral('$value');
                                   busquedaBloc
-                                      .obtenerBusquedaProducto('$value');
+                                      .obtenerBusquedaProducto( context,'$value');
                                   busquedaBloc
-                                      .obtenerBusquedaServicio('$value');
+                                      .obtenerBusquedaServicio(context,'$value');
                                   busquedaBloc.obtenerBusquedaNegocio('$value');
                                   busquedaBloc.obtenerBusquedaItemSubcategoria(
                                       '$value');
@@ -128,9 +128,9 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                   _controllerBusquedaAngelo.text != ' ') {
                                 // busquedaBloc.obtenerBusquedaGeneral(
                                 //     '${_controllerBusquedaAngelo.text}');
-                                busquedaBloc.obtenerBusquedaProducto(
+                                busquedaBloc.obtenerBusquedaProducto(context,
                                     '${_controllerBusquedaAngelo.text}');
-                                busquedaBloc.obtenerBusquedaServicio(
+                                busquedaBloc.obtenerBusquedaServicio(context,
                                     '${_controllerBusquedaAngelo.text}');
                                 busquedaBloc.obtenerBusquedaNegocio(
                                     '${_controllerBusquedaAngelo.text}');
@@ -157,75 +157,76 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                     child: Column(
                       children: [
                         Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            height: responsive.hp(5),
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: listOpciones.length,
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: () {
-                                    selectorTabBusqueda.changePage(index);
-                                  },
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: responsive.hp(.8),
-                                      ),
-                                      Stack(
-                                        children: [
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: responsive.wp(2.2),
-                                            ),
-                                            child: Container(
-                                              height: responsive.hp(2.5),
-                                              child: Center(
-                                                child: Text(
-                                                  ('${listOpciones[index].titulo} '),
-                                                  style: TextStyle(
-                                                      color: Colors.blue[900],
-                                                      fontSize:
-                                                          responsive.ip(1.4),
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          height: responsive.hp(5),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: listOpciones.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  selectorTabBusqueda.changePage(index);
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: responsive.hp(.8),
+                                    ),
+                                    Stack(
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: responsive.wp(2.2),
+                                          ),
+                                          child: Container(
+                                            height: responsive.hp(2.5),
+                                            child: Center(
+                                              child: Text(
+                                                ('${listOpciones[index].titulo} '),
+                                                style: TextStyle(
+                                                    color: Colors.blue[900],
+                                                    fontSize:
+                                                        responsive.ip(1.4),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: responsive.hp(.5),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          CircleAvatar(
-                                            radius: responsive.ip(.4),
-                                            backgroundColor:
-                                                (selectorTabBusqueda.page ==
-                                                        index)
-                                                    ? Colors.blue[900]
-                                                    : Colors.white,
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                );
-                              },
-                            )),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: responsive.hp(.5),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CircleAvatar(
+                                          radius: responsive.ip(.4),
+                                          backgroundColor:
+                                              (selectorTabBusqueda.page ==
+                                                      index)
+                                                  ? Colors.blue[900]
+                                                  : Colors.white,
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                         Divider(),
                         Expanded(
-                          child: 
-                          // (selectorTabBusqueda.page == 0)
-                          //     ? ListaGeneral()
-                          //     : 
+                          child:
+                              // (selectorTabBusqueda.page == 0)
+                              //     ? ListaGeneral()
+                              //     :
                               (selectorTabBusqueda.page == 0)
                                   ? ListaProductos()
                                   : (selectorTabBusqueda.page == 1)
@@ -365,15 +366,20 @@ class _ListaGeneralState extends State<ListaGeneral> {
                                   shrinkWrap: true,
                                   itemCount: snapshot.data.length,
                                   itemBuilder: (BuildContext context, int i) {
-                                    return 
-                                    (snapshot.data[i].listProducto.length >0)
-                                        ? _crearItemProducto(context,snapshot.data[i], responsive)
-                                        :
-                                         (snapshot.data[i].listServicios.length >0)
-                                            ? 
-                                            _crearItemServicio(context,
+                                    return (snapshot
+                                                .data[i].listProducto.length >
+                                            0)
+                                        ? _crearItemProducto(context,
+                                            snapshot.data[i], responsive)
+                                        : (snapshot.data[i].listServicios
+                                                    .length >
+                                                0)
+                                            ? _crearItemServicio(context,
                                                 snapshot.data[i], responsive)
-                                            : Container(child: Text("Falta modificar en el back"),);
+                                            : Container(
+                                                child: Text(
+                                                    "Falta modificar en el back"),
+                                              );
                                   }),
                             );
                           })
@@ -497,7 +503,6 @@ class _ListaGeneralState extends State<ListaGeneral> {
           );
         },
       ),
-      
     );
   }
 
@@ -702,21 +707,31 @@ class _ListaProductosState extends State<ListaProductos> {
                               AsyncSnapshot<List<ProductoModel>> snapshot) {
                             if (snapshot.hasData) {
                               if (snapshot.data.length > 0) {
+                                return Expanded(
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: snapshot.data.length,
+                                      itemBuilder:
+                                          (BuildContext context, int i) {
+                                        return _crearItem(context,
+                                            snapshot.data[i], responsive);
+                                      }),
+                                );
                               } else {
-                                return Center(child: Text("Sin resultados"));
+                                return Center(child: Text("Sin resultddados"));
                               }
                             } else {
                               return Center(child: CircularProgressIndicator());
                             }
-                            return Expanded(
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: snapshot.data.length,
-                                  itemBuilder: (BuildContext context, int i) {
-                                    return _crearItem(
-                                        context, snapshot.data[i], responsive);
-                                  }),
-                            );
+                            // return Expanded(
+                            //   child: ListView.builder(
+                            //       shrinkWrap: true,
+                            //       itemCount: snapshot.data.length,
+                            //       itemBuilder: (BuildContext context, int i) {
+                            //         return _crearItem(
+                            //             context, snapshot.data[i], responsive);
+                            //       }),
+                            // );
                           })
                     ],
                   );

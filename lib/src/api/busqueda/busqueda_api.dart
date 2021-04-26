@@ -21,6 +21,7 @@ import 'package:bufi/src/models/serviceModel.dart';
 import 'package:bufi/src/models/subcategoryModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
+import 'package:bufi/src/page/busqueda/buquedaGeneralHechoPorAngeloMasNaiki.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/utils.dart';
@@ -1737,7 +1738,11 @@ class BusquedaApi {
   Future<List<ProductoModel>> busquedaProducto(
       BuildContext context, String query) async {
     print('api busqueda producto');
-    //final listGeneral = List<BusquedaProductoModel>();
+
+//Bloc que instancia al tab de la busqueda para hacer el cambio de pestaña
+    final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
+    // selectorTabBusqueda.changePage(0);
+
     try {
       final res =
           await http.post("$apiBaseURL/api/Negocio/buscar_productos_ws", body: {
@@ -1749,6 +1754,8 @@ class BusquedaApi {
 
       final List<ProductoModel> listaDeProductos = [];
       final decodedData = json.decode(res.body);
+      //Para mostrar el tab de servicios automaticamente
+      //selectorTabBusqueda.changePage(0);
 
       //contexto de la busqueda, ejm: good, service, company...
       final context = decodedData["context"];
@@ -1816,7 +1823,7 @@ class BusquedaApi {
                   productoModel.productoStatus =
                       decodedData["result"][j]['subsidiary_good_status'];
 
-                  listaDeProductos.add(productoModel);
+                  //listaDeProductos.add(productoModel);
 
                   var productList =
                       await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
@@ -1828,6 +1835,8 @@ class BusquedaApi {
                   } else {
                     productoModel.productoFavourite = '0';
                   }
+
+                  listaDeProductos.add(productoModel);
                   //insertar a la tabla Producto
                   await productoDatabase.insertarProducto(productoModel);
 
@@ -1970,6 +1979,11 @@ class BusquedaApi {
                 // busqProductoModel.listCategory = listCategory;
                 // busqProductoModel.listSubcategory = listSubCategory;
                 // busqProductoModel.listItemSubCateg = listItemSub;
+
+                // ingresa al Tab de productos cuando existe al menos un resultado
+                if (listaDeProductos.length > 0) {
+                  selectorTabBusqueda.changePage(0);
+                }
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
                 for (var h = 0; h < decodedData["result"].length; h++) {
@@ -2016,7 +2030,7 @@ class BusquedaApi {
                     productoModel.productoStatus =
                         decodedData["result"][h][i]['subsidiary_good_status'];
 
-                    listaDeProductos.add(productoModel);
+                    //listaDeProductos.add(productoModel);
 
                     var productList = await productoDatabase
                         .obtenerProductoPorIdSubsidiaryGood(
@@ -2028,6 +2042,8 @@ class BusquedaApi {
                     } else {
                       productoModel.productoFavourite = '0';
                     }
+
+                    listaDeProductos.add(productoModel);
                     //insertar a la tabla Producto
                     await productoDatabase.insertarProducto(productoModel);
 
@@ -2167,6 +2183,11 @@ class BusquedaApi {
                     //listItemSub.add(itemSubCategoriaModel);
                     await itemsubCategoryDatabase.insertarItemSubCategoria(
                         itemSubCategoriaModel, 'Negocio/buscar_productos_ws');
+
+                // ingresa al Tab de productos cuando existe al menos un resultado
+                  if (listaDeProductos.length > 0) {
+                    selectorTabBusqueda.changePage(0);
+                  }
                   }
                   //   busqProductoModel.listBienes = listbienes;
                   //   busqProductoModel.listProducto = listProducto;
@@ -2175,6 +2196,8 @@ class BusquedaApi {
                   //   busqProductoModel.listCategory = listCategory;
                   //   busqProductoModel.listSubcategory = listSubCategory;
                   //   busqProductoModel.listItemSubCateg = listItemSub;
+                  // 
+                  
                 }
               }
               //listGeneral.add(busqProductoModel);
@@ -2197,9 +2220,9 @@ class BusquedaApi {
   //---------------------Servicio-------------------------------
   Future<List<SubsidiaryServiceModel>> busquedaServicio(
       BuildContext context, String query) async {
-    // final busquedaBloc = ProviderBloc.busqueda(context);
-   final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
-   selectorTabBusqueda.changePage(1);
+    final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
+    // //Para mostrar el tab de servicios automaticamente
+    // selectorTabBusqueda.changePage(1);
     final List<SubsidiaryServiceModel> listGeneral = [];
     try {
       final res =
@@ -2210,10 +2233,11 @@ class BusquedaApi {
         // 'app': 'true'
       });
       final decodedData = json.decode(res.body);
-       
+      
+
       //contexto de la busqueda, ejm: good, service, company...
       final contexto = decodedData["context"];
-            //cantidad de resultados
+      //cantidad de resultados
       final int totalResult = decodedData["total_results"];
       //tipo de búsqueda: exacta, similar o match
       final tipoBusqueda = decodedData["find"];
@@ -2412,6 +2436,12 @@ class BusquedaApi {
                   //listItemSub.add(itemSubCategoriaModel);
                   await itemsubCategoryDatabase.insertarItemSubCategoria(
                       itemSubCategoriaModel, 'Negocio/buscar_servicios_ws');
+
+                // ingresa al Tab de Servicios cuando existe al menos un resultado de la busqueda
+                if (listGeneral.length > 0) {
+                  //Para mostrar el tab de servicios automaticamente
+                  selectorTabBusqueda.changePage(1);
+                }
                 }
                 // busqServicioModel.listService = listService;
                 // busqServicioModel.listServicios = listSubServicio;
@@ -2420,6 +2450,8 @@ class BusquedaApi {
                 // busqServicioModel.listCategory = listCategory;
                 // busqServicioModel.listSubcategory = listSubCategory;
                 // busqServicioModel.listItemSubCateg = listItemSub;
+
+
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
                 for (var h = 0; h < decodedData["result"].length; h++) {
@@ -2609,6 +2641,12 @@ class BusquedaApi {
                     //listItemSub.add(itemSubCategoriaModel);
                     await itemsubCategoryDatabase.insertarItemSubCategoria(
                         itemSubCategoriaModel, 'Negocio/buscar_servicios_ws');
+
+                    // ingresa al Tab de Servicios cuando existe al menos un resultado de la busqueda
+                if (listGeneral.length > 0) {
+                  //Para mostrar el tab de servicios automaticamente
+                  selectorTabBusqueda.changePage(1);
+                }
                   }
 
                   //   busqServicioModel.listService = listService;
@@ -2618,6 +2656,8 @@ class BusquedaApi {
                   //   busqServicioModel.listCategory = listCategory;
                   //   busqServicioModel.listSubcategory = listSubCategory;
                   //   busqServicioModel.listItemSubCateg = listItemSub;
+
+                  
                 }
               }
               //listGeneral.add(busqServicioModel);
@@ -2635,7 +2675,10 @@ class BusquedaApi {
   }
 
   //---------------------Negocio-------------------------------
-  Future<List<CompanySubsidiaryModel>> busquedaNegocio(String query) async {
+  Future<List<CompanySubsidiaryModel>> busquedaNegocio(
+      BuildContext context, String query) async {
+    final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
+
     final List<CompanySubsidiaryModel> listGeneral = [];
     try {
       final res =
@@ -2646,6 +2689,8 @@ class BusquedaApi {
         // 'app': 'true'
       });
       final decodedData = json.decode(res.body);
+      //Para mostrar el tab de servicios automaticamente
+      //selectorTabBusqueda.changePage(2);
 
       //contexto de la busqueda, ejm: good, service, company...
       final context = decodedData["context"];
@@ -2838,12 +2883,20 @@ class BusquedaApi {
                       decodedData["result"][j]["category_name"];
 
                   await categoryDatabase.insertarCategory(categ);
+
+                  // ingresa al Tab de Negocios cuando existe al menos un resultado de la busqueda
+                if (listGeneral.length > 0) {
+                  //Para mostrar el tab de negocios automaticamente
+                  selectorTabBusqueda.changePage(2);
+                }
                 }
 
                 // busqCompanyModel.listCompany = listCompany;
                 // busqCompanyModel.listSucursal = listSucursal;
                 // busqCompanyModel.listCompanySubsidiary = listCompanySucursal;
                 // busqCompanyModel.listCategory = listCategory;
+
+                
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
                 for (var h = 0; h < decodedData["result"].length; h++) {
@@ -3025,18 +3078,27 @@ class BusquedaApi {
                         decodedData["result"][h][i]["category_name"];
 
                     await categoryDatabase.insertarCategory(categ);
+
+
+                    if (listGeneral.length > 0) {
+                  //Para mostrar el tab de negocios automaticamente
+                  selectorTabBusqueda.changePage(2);
+                }
                   }
                 }
                 // busqCompanyModel.listSucursal = listSucursal;
                 // busqCompanyModel.listCompany = listCompany;
                 // busqCompanyModel.listCompanySubsidiary = listCompanySucursal;
                 // busqCompanyModel.listCategory = listCategory;
+                //
+                // ingresa al Tab de Negocios cuando existe al menos un resultado de la busqueda
+                
               }
             }
             //listGeneral.add(busqCompanyModel);
           }
         } else {
-          print("No haaaay");
+          print("No haaaay negocio");
         }
       }
     } catch (error, stacktrace) {
@@ -3046,7 +3108,11 @@ class BusquedaApi {
   }
 
   //---------------------Categoria-------------------------------
-  Future<List<CategoriaModel>> busquedaCategorias(String query) async {
+  Future<List<CategoriaModel>> busquedaCategorias(
+      BuildContext context, String query) async {
+    final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
+    //Para mostrar el tab de servicios automaticamente
+    //selectorTabBusqueda.changePage(4);
     final List<CategoriaModel> listGeneral = [];
     try {
       final res = await http
@@ -3165,6 +3231,12 @@ class BusquedaApi {
 
                   listGeneral.add(categ);
                   await categoryDatabase.insertarCategory(categ);
+
+                  // ingresa al Tab de categoria ycuando existe al menos un resultado de la busqueda
+                if (listGeneral.length > 0) {
+                  //Para mostrar el tab de servicios automaticamente
+                  selectorTabBusqueda.changePage(4);
+                }
                 }
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
@@ -3271,13 +3343,19 @@ class BusquedaApi {
 
                     listGeneral.add(categ);
                     await categoryDatabase.insertarCategory(categ);
+
+                    // ingresa al Tab de categoria ycuando existe al menos un resultado de la busqueda
+                if (listGeneral.length > 0) {
+                  //Para mostrar el tab de categoria automaticamente
+                  selectorTabBusqueda.changePage(4);
+                }
                   }
                 }
               }
             }
           }
         } else {
-          print("No haaaay");
+          print("No haaaay categoria");
         }
       }
     } catch (error, stacktrace) {

@@ -178,7 +178,8 @@ class PendientesValoracionPage extends StatelessWidget {
             Text('${listPedidos[index].detallePedido[x].listProducto[0].productoName} ' +
                 '${listPedidos[index].detallePedido[x].listProducto[0].productoBrand} x ' +
                 '${listPedidos[index].detallePedido[x].listProducto[0].productoModel}'),
-            Text('${listPedidos[index].detallePedido[x].cantidad}'),
+            Text('size: ${listPedidos[index].detallePedido[x].listProducto[0].productoSize}'),
+            Text('x ${listPedidos[index].detallePedido[x].cantidad} UN'),
             Text(
               'S/. ' +
                   (double.parse(

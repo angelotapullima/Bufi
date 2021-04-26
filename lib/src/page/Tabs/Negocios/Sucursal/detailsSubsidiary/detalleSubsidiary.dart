@@ -299,29 +299,52 @@ class InformacionWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Row(
+                      //   children: [
+                      //     Container(
+                      //       width: responsive.wp(40),
+                      //       child: RatingBar.readOnly(
+                      //         size: responsive.ip(3),
+                      //         initialRating: double.parse(
+                      //             '${snapshot.data[0].subsidiaryStatus}'),
+                      //         isHalfAllowed: true,
+                      //         halfFilledIcon: Icons.star_half,
+                      //         filledIcon: Icons.star,
+                      //         emptyIcon: Icons.star_border,
+                      //         filledColor: Colors.yellow,
+                      //       ),
+                      //     ),
+                      //     /* Text(
+                      //       '${snapshot.data[0].subsidiaryStatus}',
+                      //       style: TextStyle(
+                      //         fontSize: responsive.ip(2),
+                      //       ),
+                      //     ), */
+                      //   ],
+                      // ),
+                      // 
+                      ('${snapshot.data[0].subsidiaryPrincipal}')=='1' ?
                       Row(
                         children: [
-                          Container(
-                            width: responsive.wp(40),
-                            child: RatingBar.readOnly(
-                              size: responsive.ip(3),
-                              initialRating: double.parse(
-                                  '${snapshot.data[0].subsidiaryStatus}'),
-                              isHalfAllowed: true,
-                              halfFilledIcon: Icons.star_half,
-                              filledIcon: Icons.star,
-                              emptyIcon: Icons.star_border,
-                              filledColor: Colors.yellow,
-                            ),
+                          Text("Oficina Principal de",
+                            style: TextStyle(fontSize: responsive.ip(2),
+                              fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            width: responsive.wp(2),
                           ),
-                          /* Text(
-                            '${snapshot.data[0].subsidiaryStatus}',
+                         
+                          Text(
+                            '${snapshot.data[0].subsidiaryName}',
                             style: TextStyle(
                               fontSize: responsive.ip(2),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red
                             ),
-                          ), */
+                          ),
                         ],
-                      ),
+                      ): Container(child: Text("Sucursal",
+                            style: TextStyle(fontSize: responsive.ip(2),
+                              fontWeight: FontWeight.bold)),),
                       SizedBox(
                         height: responsive.hp(3),
                       ),
@@ -447,26 +470,26 @@ class InformacionWidget extends StatelessWidget {
                       SizedBox(
                         height: responsive.hp(2.5),
                       ),
-                      ('${snapshot.data[0].subsidiaryPrincipal}')=='1' ?
-                      Row(
-                        children: [
-                          Text("Oficina Principal de",
-                            style: TextStyle(fontSize: responsive.ip(2),
-                              fontWeight: FontWeight.bold)),
-                          SizedBox(
-                            width: responsive.wp(2),
-                          ),
+                      // ('${snapshot.data[0].subsidiaryPrincipal}')=='1' ?
+                      // Row(
+                      //   children: [
+                      //     Text("Oficina Principal de",
+                      //       style: TextStyle(fontSize: responsive.ip(2),
+                      //         fontWeight: FontWeight.bold)),
+                      //     SizedBox(
+                      //       width: responsive.wp(2),
+                      //     ),
                          
-                          Text(
-                            '${snapshot.data[0].subsidiaryName}',
-                            style: TextStyle(
-                              fontSize: responsive.ip(2),
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red
-                            ),
-                          ),
-                        ],
-                      ): Container(),
+                      //     Text(
+                      //       '${snapshot.data[0].subsidiaryName}',
+                      //       style: TextStyle(
+                      //         fontSize: responsive.ip(2),
+                      //         fontWeight: FontWeight.bold,
+                      //         color: Colors.red
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ): Container(),
                       SizedBox(
                         height: responsive.hp(2.5)
                       ),

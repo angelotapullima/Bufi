@@ -52,12 +52,12 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final busquedaBloc = ProviderBloc.busqueda(context);
       //busquedaBloc.obtenerBusquedaGeneral('');
-      busquedaBloc.obtenerBusquedaProducto( context,'');
-      busquedaBloc.obtenerBusquedaServicio(context,'');
-      busquedaBloc.obtenerBusquedaNegocio('');
-      busquedaBloc.obtenerBusquedaItemSubcategoria('');
-      busquedaBloc.obtenerBusquedaCategoria('');
-      busquedaBloc.obtenerBusquedaSubcategoria('');
+      busquedaBloc.obtenerBusquedaProducto(context, '');
+      busquedaBloc.obtenerBusquedaServicio(context, '');
+      busquedaBloc.obtenerBusquedaNegocio(context, '');
+      busquedaBloc.obtenerBusquedaItemSubcategoria(context, '');
+      busquedaBloc.obtenerBusquedaCategoria(context, '');
+      busquedaBloc.obtenerBusquedaSubcategoria(context, '');
     });
     super.initState();
   }
@@ -68,7 +68,7 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
     final responsive = Responsive.of(context);
     final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
     final busquedaBloc = ProviderBloc.busqueda(context);
-
+   //selectorTabBusqueda.changePage(selectorTabBusqueda.page);
     return Scaffold(
       backgroundColor: Colors.white,
       body: StreamBuilder(
@@ -107,17 +107,18 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                               onSubmitted: (value) {
                                 if (value.length >= 0 && value != ' ') {
                                   //busquedaBloc.obtenerBusquedaGeneral('$value');
-                                  busquedaBloc
-                                      .obtenerBusquedaProducto( context,'$value');
-                                  busquedaBloc
-                                      .obtenerBusquedaServicio(context,'$value');
-                                  busquedaBloc.obtenerBusquedaNegocio('$value');
+                                  busquedaBloc.obtenerBusquedaProducto(
+                                      context, '$value');
+                                  busquedaBloc.obtenerBusquedaServicio(
+                                      context, '$value');
+                                  busquedaBloc.obtenerBusquedaNegocio(
+                                      context, '$value');
                                   busquedaBloc.obtenerBusquedaItemSubcategoria(
-                                      '$value');
-                                  busquedaBloc
-                                      .obtenerBusquedaCategoria('$value');
-                                  busquedaBloc
-                                      .obtenerBusquedaSubcategoria('$value');
+                                      context, '$value');
+                                  busquedaBloc.obtenerBusquedaCategoria(
+                                      context, '$value');
+                                  busquedaBloc.obtenerBusquedaSubcategoria(
+                                      context, '$value');
                                 }
                               }),
                         ),
@@ -132,13 +133,15 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                     '${_controllerBusquedaAngelo.text}');
                                 busquedaBloc.obtenerBusquedaServicio(context,
                                     '${_controllerBusquedaAngelo.text}');
-                                busquedaBloc.obtenerBusquedaNegocio(
+                                busquedaBloc.obtenerBusquedaNegocio(context,
                                     '${_controllerBusquedaAngelo.text}');
                                 busquedaBloc.obtenerBusquedaItemSubcategoria(
+                                    context,
                                     '${_controllerBusquedaAngelo.text}');
-                                busquedaBloc.obtenerBusquedaCategoria(
+                                busquedaBloc.obtenerBusquedaCategoria(context,
                                     '${_controllerBusquedaAngelo.text}');
                                 busquedaBloc.obtenerBusquedaSubcategoria(
+                                    context,
                                     '${_controllerBusquedaAngelo.text}');
                               }
                             }),

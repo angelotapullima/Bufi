@@ -1,4 +1,5 @@
 import 'package:bufi/src/api/busqueda/busqueda_api.dart';
+import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/database/category_db.dart';
 import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/good_db.dart';
@@ -36,7 +37,8 @@ class BusquedaBloc {
   final categoriaDb = CategoryDatabase();
   final itemSubcategoriaDb = ItemsubCategoryDatabase();
 
-final busquedaGeneralController = BehaviorSubject<List<BusquedaGeneralModel>>();
+  final busquedaGeneralController =
+      BehaviorSubject<List<BusquedaGeneralModel>>();
   final busquedaProductoController = BehaviorSubject<List<ProductoModel>>();
   final busquedaProductoPorIdSucursalController =
       BehaviorSubject<List<ProductoModel>>();
@@ -55,7 +57,7 @@ final busquedaGeneralController = BehaviorSubject<List<BusquedaGeneralModel>>();
       BehaviorSubject<List<BienesServiciosModel>>();
   final _cargandoItems = BehaviorSubject<bool>();
 
-Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream =>
+  Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream =>
       busquedaGeneralController.stream;
   Stream<List<ProductoModel>> get busquedaProductoStream =>
       busquedaProductoController.stream;
@@ -124,7 +126,6 @@ Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream =>
     //     .add(await obtnerResultBusquedaProducto(query));
   }
 
-
 //Producto
   void obtenerBusquedaProducto(BuildContext context, String query) async {
     /* busquedaProductoController.sink
@@ -132,8 +133,8 @@ Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream =>
     busquedaProductoController.sink.add([]);
     if (query != '') {
       _cargandoItems.sink.add(true);
-      busquedaProductoController.sink
-          .add(await busquedaApi.busquedaProducto(context,query));
+       busquedaProductoController.sink
+          .add(await busquedaApi.busquedaProducto(context, query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);
@@ -149,7 +150,7 @@ Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream =>
     if (query != '') {
       _cargandoItems.sink.add(true);
       busquedaServicioController.sink
-          .add(await busquedaApi.busquedaServicio(context,query));
+          .add(await busquedaApi.busquedaServicio(context, query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);
@@ -158,49 +159,50 @@ Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream =>
   }
 
 //Negocio
-  void obtenerBusquedaNegocio(String query) async {
+  void obtenerBusquedaNegocio(BuildContext context, String query) async {
     //busquedaNegocioController.sink.add(await obtnerResultBusquedaNegocio(query));
     busquedaNegocioController.sink.add([]);
     if (query != '') {
       _cargandoItems.sink.add(true);
       busquedaNegocioController.sink
-          .add(await busquedaApi.busquedaNegocio(query));
+          .add(await busquedaApi.busquedaNegocio(context, query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);
   }
 
   //Categoria
-  void obtenerBusquedaCategoria(String query) async {
+  void obtenerBusquedaCategoria(BuildContext context, String query) async {
     busquedaCategoriaController.sink.add([]);
     if (query != '') {
       _cargandoItems.sink.add(true);
       busquedaCategoriaController.sink
-          .add(await busquedaApi.busquedaCategorias(query));
+          .add(await busquedaApi.busquedaCategorias(context, query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);
   }
 
   //SubcategoriaCategoria
-  void obtenerBusquedaSubcategoria(String query) async {
+  void obtenerBusquedaSubcategoria(BuildContext context, String query) async {
     busquedaSubcategoryController.sink.add([]);
     if (query != '') {
       _cargandoItems.sink.add(true);
       busquedaSubcategoryController.sink
-          .add(await obtnerResultBusquedaSubcategoria(query));
+          .add(await obtnerResultBusquedaSubcategoria(context, query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);
   }
 
   //ItemSubcategoriaCategoria
-  void obtenerBusquedaItemSubcategoria(String query) async {
+  void obtenerBusquedaItemSubcategoria(
+      BuildContext context, String query) async {
     busquedaItemSubcategController.sink.add([]);
     if (query != '') {
       _cargandoItems.sink.add(true);
       busquedaItemSubcategController.sink
-          .add(await obtnerResultBusquedaItemSubcategoria(query));
+          .add(await obtnerResultBusquedaItemSubcategoria(context, query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);
@@ -675,7 +677,11 @@ Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream =>
   }
 
   Future<List<ItemSubCategoriaModel>> obtnerResultBusquedaItemSubcategoria(
-      String query) async {
+      BuildContext context, String query) async {
+    final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
+    //Para mostrar el tab de servicios automaticamente
+    //selectorTabBusqueda.changePage(6);
+
     //obtenemos el id del itemSubcategoria por medio del nombreItemSubcateg para asociarlo a la tabla Producto
     final listItemSubcateg =
         await itemSubcategoriaDb.obtenerItemSubCategoriaXQuery(query);
@@ -697,7 +703,10 @@ Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream =>
   }
 
   Future<List<SubcategoryModel>> obtnerResultBusquedaSubcategoria(
-      String query) async {
+      BuildContext context, String query) async {
+    final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
+    //Para mostrar el tab de servicios automaticamente
+    //selectorTabBusqueda.changePage(5);
     //obtenemos el id del itemSubcategoria por medio del nombreItemSubcateg para asociarlo a la tabla Producto
     final listSubcategDb =
         await subCategoriaDb.obtenerSubCategoriaXQuery(query);

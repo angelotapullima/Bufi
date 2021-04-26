@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:rating_bar/rating_bar.dart';
 import 'package:shimmer/shimmer.dart';
 
 class DetalleProductos extends StatefulWidget {
@@ -441,19 +442,35 @@ class _CuerpoState extends State<Cuerpo> {
                                 ),
                               ],
                             ),
-                            Row(
-                              children: <Widget>[
-                                Icon(Icons.star,
-                                    color: LightColor.yellowColor, size: 17),
-                                Icon(Icons.star,
-                                    color: LightColor.yellowColor, size: 17),
-                                Icon(Icons.star,
-                                    color: LightColor.yellowColor, size: 17),
-                                Icon(Icons.star,
-                                    color: LightColor.yellowColor, size: 17),
-                                Icon(Icons.star_border, size: 17),
-                              ],
+                            //Rating del producto
+                            Container(
+                              padding: EdgeInsets.only(left: responsive.wp(5)),
+                              width: responsive.wp(30),
+                              child: RatingBar.readOnly(
+                                size: 20,
+                                initialRating: double.parse(
+                                    '${listProd[value].productoRating}'),
+                                isHalfAllowed: true,
+                                halfFilledIcon: Icons.star_half,
+                                filledIcon: Icons.star,
+                                emptyIcon: Icons.star_border,
+                                filledColor: Colors.yellow,
+                              ),
                             ),
+
+                            // Row(
+                            //   children: <Widget>[
+                            //     Icon(Icons.star,
+                            //         color: LightColor.yellowColor, size: 17),
+                            //     Icon(Icons.star,
+                            //         color: LightColor.yellowColor, size: 17),
+                            //     Icon(Icons.star,
+                            //         color: LightColor.yellowColor, size: 17),
+                            //     Icon(Icons.star,
+                            //         color: LightColor.yellowColor, size: 17),
+                            //     Icon(Icons.star_border, size: 17),
+                            //   ],
+                            // ),
                           ],
                         ),
                       ],
@@ -905,38 +922,37 @@ class BotonAgregar extends StatelessWidget {
                               backgroundColor: Colors.transparent,
                               builder: (context) => ModalLogin(),
                             );
-                          }else{
+                          } else {
                             await agregarAlCarrito(
-                              context,
-                              listProd[value].idProducto,
-                              listProd[value].productoSize,
-                              listProd[value].productoModel,
-                              listProd[value].productoBrand);
+                                context,
+                                listProd[value].idProducto,
+                                listProd[value].productoSize,
+                                listProd[value].productoModel,
+                                listProd[value].productoBrand);
 
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              transitionDuration:
-                                  const Duration(milliseconds: 300),
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) {
-                                return ConfirmacionItemPedido(
-                                    idProducto: listProd[value].idProducto
-                                    //widget.producto.idProducto
-                                    );
-                                //return DetalleProductitos(productosData: productosData);
-                              },
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                return FadeTransition(
-                                  opacity: animation,
-                                  child: child,
-                                );
-                              },
-                            ),
-                          );
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                transitionDuration:
+                                    const Duration(milliseconds: 300),
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) {
+                                  return ConfirmacionItemPedido(
+                                      idProducto: listProd[value].idProducto
+                                      //widget.producto.idProducto
+                                      );
+                                  //return DetalleProductitos(productosData: productosData);
+                                },
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
                           }
-                          
                         }),
                         Container(
                           width: responsive.wp(60),

@@ -52,7 +52,7 @@ class _BusquedaNegocioState extends State<BusquedaNegocio> {
                         onSubmitted: (value) {
                           print('$value');
 
-                          busquedaBloc.obtenerBusquedaNegocio('$value');
+                          busquedaBloc.obtenerBusquedaNegocio(context,'$value');
                         }),
                   ),
                   IconButton(

@@ -15,7 +15,7 @@ class NotificacionesApi {
       final res = await http
           .post("$apiBaseURL/api/usuario/listar_notificaciones", body: {
         'app': 'true',
-        'tn': 'qz8Hsr/dx+cJFcG11tbm9xK50aHWqisJws7SvMUcIJ/c09XCHenZ3Mfk4TL0rtrE3sUm+rbB2cjm9xraotfarQkf3MLW4eEz/9Hdt+rdMuTQ2A=='
+        'tn': prefs.token
         //prefs.token,
       });
 
@@ -55,8 +55,9 @@ class NotificacionesApi {
           .post("$apiBaseURL/api/usuario/notificacion_vista", body: {
             'id': '$idNotificacion',
         'app': 'true',
-        'tn': 'qz8Hsr/dx+cJFcG11tbm9xK50aHWqisJws7SvMUcIJ/c09XCHenZ3Mfk4TL0rtrE3sUm+rbB2cjm9xraotfarQkf3MLW4eEz/9Hdt+rdMuTQ2A=='
-        //prefs.token,
+        'tn': prefs.token,
+        //'qz8Hsr/dx+cJFcG11tbm9xK50aHWqisJws7SvMUcIJ/c09XCHenZ3Mfk4TL0rtrE3sUm+rbB2cjm9xraotfarQkf3MLW4eEz/9Hdt+rdMuTQ2A=='
+        
       });
 
       final decodedData = json.decode(res.body);

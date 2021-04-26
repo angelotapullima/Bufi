@@ -103,7 +103,7 @@ class PedidosEnviadosPage extends StatelessWidget {
       },
       child: Container(
         color: Colors.white,
-        height: responsive.hp(15),
+        height: responsive.hp(18),
         margin: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
         padding: EdgeInsets.symmetric(vertical: 5),
         width: double.infinity,
@@ -151,6 +151,7 @@ class PedidosEnviadosPage extends StatelessWidget {
                     Text('${listPedidos[index].detallePedido[x].listProducto[0].productoName} ' +
                         '${listPedidos[index].detallePedido[x].listProducto[0].productoBrand} x ' +
                         '${listPedidos[index].detallePedido[x].listProducto[0].productoModel}'),
+                    Text('size: ${listPedidos[index].detallePedido[x].listProducto[0].productoSize}'),
                     Text('${listPedidos[index].detallePedido[x].cantidad}''UN', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                     Text(
                       'S/. ' +
@@ -164,7 +165,13 @@ class PedidosEnviadosPage extends StatelessWidget {
                           color: Colors.red,
                           fontWeight: FontWeight.bold),
                     ),
-                    Text("$fecha")
+                    Expanded(
+                                          child: Padding(
+                       padding:  EdgeInsets.only(left: responsive.ip(20)),
+                        child:
+                         Text("$fecha", textAlign: TextAlign.end),
+                      ),
+                    )
                   ],
                 ),
               ),

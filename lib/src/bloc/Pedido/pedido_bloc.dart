@@ -124,10 +124,12 @@ class PedidoBloc {
           productoModel.productoPrice = listProductos[0].productoPrice;
           productoModel.productoCurrency = listProductos[l].productoCurrency;
           productoModel.productoImage = listProductos[0].productoImage;
-          productoModel.productoCharacteristics =
-              listProductos[0].productoCharacteristics;
+          productoModel.productoCharacteristics =listProductos[0].productoCharacteristics;
           productoModel.productoBrand = listProductos[0].productoBrand;
           productoModel.productoModel = listProductos[0].productoModel;
+          productoModel.productoSize = listProductos[0].productoSize;
+           productoModel.productoStock = listProductos[0].productoStock;
+           productoModel.productoStockStatus = listProductos[0].productoStockStatus;
           productoModel.productoMeasure = listProductos[0].productoMeasure;
 
           listProductosModel.add(productoModel);
@@ -267,6 +269,9 @@ class PedidoBloc {
               listProductos[0].productoCharacteristics;
           productoModel.productoBrand = listProductos[0].productoBrand;
           productoModel.productoModel = listProductos[0].productoModel;
+          productoModel.productoSize = listProductos[0].productoSize;
+           productoModel.productoStock = listProductos[0].productoStock;
+           productoModel.productoStockStatus = listProductos[0].productoStockStatus;
           productoModel.productoMeasure = listProductos[0].productoMeasure;
 
           listProductosModel.add(productoModel);
@@ -414,6 +419,9 @@ class PedidoBloc {
               listProductos[0].productoCharacteristics;
           productoModel.productoBrand = listProductos[0].productoBrand;
           productoModel.productoModel = listProductos[0].productoModel;
+          productoModel.productoSize = listProductos[0].productoSize;
+          productoModel.productoStock = listProductos[0].productoStock;
+           productoModel.productoStockStatus = listProductos[0].productoStockStatus;
           productoModel.productoMeasure = listProductos[0].productoMeasure;
 
           listProductosModel.add(productoModel);

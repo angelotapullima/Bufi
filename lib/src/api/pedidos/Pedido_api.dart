@@ -32,7 +32,7 @@ class PedidoApi {
   Future<dynamic> obtenerPedidosEnviados(String idEstado) async {
     final response = await http.post(
         "$apiBaseURL/api/Pedido/buscar_pedidos_enviados_ws",
-        body: {'estado': '99', 'tn': prefs.token, 'app': 'true'});
+        body: {'estado': '$idEstado', 'tn': prefs.token, 'app': 'true'});
 
     final decodedData = json.decode(response.body);
 //recorremos la lista de pedidos
@@ -149,6 +149,7 @@ class PedidoApi {
       //insertar a la tabla de Company
       await companyDb.insertarCompany(companyModel);
 
+
       //recorremos la segunda lista de detalle de pedidos
       for (var j = 0;
           j < decodedData["result"][i]["detalle_pedido"].length;
@@ -162,8 +163,11 @@ class PedidoApi {
             decodedData["result"][i]["detalle_pedido"][j]["id_subsidiarygood"];
         detallePedido.cantidad = decodedData["result"][i]["detalle_pedido"][j]
             ["delivery_detail_qty"];
+        detallePedido.detallePedidoValorado = decodedData["result"][i]
+            ["detalle_pedido"][j]["valorado"].toString();
         detallePedido.detallePedidoSubtotal = decodedData["result"][i]
             ["detalle_pedido"][j]["delivery_detail_subtotal"];
+        
 
         //insertamos en la bd los productos
         ProductoModel subsidiaryGoodModel = ProductoModel();
@@ -202,7 +206,7 @@ class PedidoApi {
             ["detalle_pedido"][j]['subsidiary_good_updated'];
         subsidiaryGoodModel.productoStatus = decodedData["result"][i]
             ["detalle_pedido"][j]['subsidiary_good_status'];
-
+        
         //Obtener la lista de Company
         final listProducto = await productoDb
             .obtenerProductoPorIdSubsidiaryGood(decodedData["result"][i]
@@ -285,7 +289,7 @@ class PedidoApi {
 
     final pedidosModel = PedidosModel();
 
-    pedidosModel.idPedido = decodedData["result"]['pedido']['id_delivery'].toString();
+    pedidosModel.idPedido = decodedData["result"]['pedido']['id_delivery'];
     pedidosModel.idUser = decodedData["result"]['pedido']['id_user'];
     pedidosModel.idCity = decodedData["result"]['pedido']['id_city'];
     pedidosModel.idSubsidiary =
@@ -346,6 +350,8 @@ class PedidoApi {
             ["detalle_pedido"][j]["delivery_detail_model"];
         detallePedido.detallePedidoTalla = decodedData["result"]['pedido']
             ["detalle_pedido"][j]["delivery_detail_size"];
+              detallePedido.detallePedidoValorado = decodedData["result"]['pedido']
+            ["detalle_pedido"][j]["valorado"];
         detallePedido.detallePedidoSubtotal = decodedData["result"]['pedido']
             ["detalle_pedido"][j]["delivery_detail_subtotal"];
 

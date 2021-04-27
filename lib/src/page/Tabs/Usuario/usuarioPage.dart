@@ -169,8 +169,8 @@ class _UserPageState extends State<UserPage> {
                           children: [
                             bottonPedido(responsive, 'Pendientes de Envío'),
                             bottonPedido(responsive, 'Enviados'),
-                            bottonPedido(
-                                responsive, 'Pendientes de valoración'),
+                            // bottonPedido(
+                            //     responsive, 'Pendientes de valoración'),
                           ],
                         ),
                       ],

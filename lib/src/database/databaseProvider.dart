@@ -308,6 +308,7 @@ class DatabaseProvider {
           ' detalle_pedido_marca TEXT,'
           ' detalle_pedido_modelo TEXT,'
           ' detalle_pedido_talla TEXT,'
+          ' detalle_pedido_valorado TEXT,'
           ' delivery_detail_subtotal TEXT'
           ')');
 

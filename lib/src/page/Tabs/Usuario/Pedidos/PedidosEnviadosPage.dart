@@ -76,7 +76,7 @@ class PedidosEnviadosPage extends StatelessWidget {
 
   Widget _datosProducto(BuildContext context, Responsive responsive,
       List<PedidosModel> listPedidos, int index, int x) {
-         var fecha = obtenerFecha(listPedidos[index].deliveryDatetime);
+    var fecha = obtenerFecha(listPedidos[index].deliveryDatetime);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(PageRouteBuilder(
@@ -103,11 +103,12 @@ class PedidosEnviadosPage extends StatelessWidget {
       },
       child: Container(
         color: Colors.white,
-        height: responsive.hp(18),
+        height: responsive.hp(27),
         margin: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
-        padding: EdgeInsets.symmetric(vertical: 5),
+        padding: EdgeInsets.symmetric(vertical: 8),
         width: double.infinity,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               width: responsive.wp(1.5),
@@ -151,8 +152,11 @@ class PedidosEnviadosPage extends StatelessWidget {
                     Text('${listPedidos[index].detallePedido[x].listProducto[0].productoName} ' +
                         '${listPedidos[index].detallePedido[x].listProducto[0].productoBrand} x ' +
                         '${listPedidos[index].detallePedido[x].listProducto[0].productoModel}'),
-                    Text('size: ${listPedidos[index].detallePedido[x].listProducto[0].productoSize}'),
-                    Text('${listPedidos[index].detallePedido[x].cantidad}''UN', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                    Text(
+                        'size: ${listPedidos[index].detallePedido[x].listProducto[0].productoSize}'),
+                    Text('${listPedidos[index].detallePedido[x].cantidad}' 'UN',
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold)),
                     Text(
                       'S/. ' +
                           (double.parse(
@@ -166,12 +170,21 @@ class PedidosEnviadosPage extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                     ),
                     Expanded(
-                                          child: Padding(
-                       padding:  EdgeInsets.only(left: responsive.ip(20)),
-                        child:
-                         Text("$fecha", textAlign: TextAlign.end),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: responsive.ip(20)),
+                        child: Text("$fecha", textAlign: TextAlign.end),
                       ),
-                    )
+                    ),
+                    SizedBox(
+                  height: responsive.hp(2),
+                ),
+                    (listPedidos[index]
+                                .detallePedido[x]
+                                .detallePedidoValorado) ==
+                            '0'
+                        ? _buttonCalificar(
+                            responsive, context, listPedidos, index)
+                        : Container()
                   ],
                 ),
               ),
@@ -221,6 +234,29 @@ class PedidosEnviadosPage extends StatelessWidget {
                 width: responsive.wp(4),
               )
             ]),
+      ),
+      
+    );
+    
+  }
+
+  Widget _buttonCalificar(Responsive responsive, BuildContext context,
+      List<PedidosModel> listPedidos, int index) {
+    return SizedBox(
+      width: responsive.wp(40),
+      child: ElevatedButton(
+        style: ButtonStyle(
+            elevation: MaterialStateProperty.all(3),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0))),
+            backgroundColor: MaterialStateProperty.all(Colors.red)),
+        child: Text("Calificar",
+            style:
+                TextStyle(color: Colors.white, fontSize: responsive.ip(2.2))),
+        onPressed: () {
+          Navigator.pushNamed(context, 'ratingProductos',
+              arguments: listPedidos[index]);
+        },
       ),
     );
   }

@@ -137,7 +137,8 @@ class PendientesValoracionPage extends StatelessWidget {
                 SizedBox(
                   height: responsive.hp(4),
                 ),
-                _buttonCalificar(responsive, context, listPedidos, index),
+                (listPedidos[index].detallePedido[x].detallePedidoValorado)=='0'?
+                _buttonCalificar(responsive, context, listPedidos, index): Container()
               ],
             ),
           ),
@@ -146,6 +147,8 @@ class PendientesValoracionPage extends StatelessWidget {
     );
   }
 
+  
+  
   Widget _buttonCalificar(Responsive responsive, BuildContext context,
       List<PedidosModel> listPedidos, int index) {
     return SizedBox(

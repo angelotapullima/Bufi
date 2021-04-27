@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bufi/src/api/pedidos/Pedido_api.dart';
+import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:bufi/src/utils/responsive.dart';
@@ -234,6 +235,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
           print("Producto Calificado");
           utils.showToast(context, 'Producto Calificado');
           Navigator.pop(context);
+         
         } else {
           utils.showToast(context, 'Faltan ingresar datos');
         }

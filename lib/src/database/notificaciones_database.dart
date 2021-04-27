@@ -31,7 +31,7 @@ class NotificacionesDataBase {
           "notificacion_mensaje='${notificacionModel.notificacionMensaje}',"
           "notificacion_imagen='${notificacionModel.notificacionImagen}',"
           "notificacion_datetime='${notificacionModel.notificacionDatetime}',"
-          "notificacion_estado='${notificacionModel.notificacionEstado}'"
+          "notificacion_estado='${notificacionModel.notificacionEstado}',"
           "WHERE id_notificacion='${notificacionModel.idNotificacion}' ");
 
       print('database $res');

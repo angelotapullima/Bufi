@@ -23,7 +23,7 @@ class NotificacionesBloc {
     notificacionesPendientesController?.close();
   }
 
-//Llamar a la api para obtener el estado real de las notificaciones: 0:No leídas, 1:leídas
+// notificaciones: 0:No leídas, 1:leídas
   void listarNotificaciones() async {
     listarNotificacionesController.sink
         .add(await notificacionDb.obtenerNotificaciones());
@@ -32,7 +32,7 @@ class NotificacionesBloc {
        .add(await notificacionDb.obtenerNotificaciones()); 
   }
 
-//Llamar a la api para obtener el estado real de las notificaciones: 0:No leídas, 1:leídas
+// notificaciones pendientes
   void listarNotificacionesPendientes() async {
     notificacionesPendientesController.sink
         .add(await notificacionesPendientes());

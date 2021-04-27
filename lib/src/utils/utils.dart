@@ -602,6 +602,51 @@ Future<int> agregarAlCarrito(BuildContext context, String idSubsidiarygood,
   return 0;
 }
 
+Future<int> agregarAlCarritoDesdePedirAhora(BuildContext context, String idSubsidiarygood,
+    String talla, String modelo, String marca) async {
+  CarritoDb carritoDb = CarritoDb();
+  final productoDatabase = ProductoDatabase();
+
+  final productCarrito =
+      await carritoDb.obtenerProductoXCarritoPorIdProductoTalla(
+          idSubsidiarygood, talla, modelo, marca);
+
+  final producto = await productoDatabase
+      .obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
+  CarritoModel c = CarritoModel();
+
+  c.idSubsidiaryGood = producto[0].idProducto;
+  c.idSubsidiary = producto[0].idSubsidiary;
+  c.precio = producto[0].productoPrice;
+  c.nombre = producto[0].productoName;
+  c.marca = marca;
+  c.modelo = modelo;
+  c.talla = talla;
+  c.image = producto[0].productoImage;
+  c.moneda = producto[0].productoCurrency;
+  //c.size = producto[0].productoSize;
+  c.stock = producto[0].productoStock;
+
+  if (productCarrito.length > 0) {
+    //await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
+    await carritoDb.deleteCarritoPorIdProductoTalla(
+        idSubsidiarygood, talla, modelo, marca);
+    c.cantidad = (int.parse(productCarrito[0].cantidad) + 1).toString();
+
+    c.estadoSeleccionado = productCarrito[0].estadoSeleccionado;
+  } else {
+    c.cantidad = '1';
+    c.estadoSeleccionado = '1';
+  }
+
+  await carritoDb.insertarProducto(c);
+
+  final carritoBloc = ProviderBloc.productosCarrito(context);
+  carritoBloc.obtenerCarritoPorSucursal();
+
+  return 0;
+}
+
 void agregarAlCarritoContador(BuildContext context, String idSubsidiarygood,
     String talla, String modelo, String marca, int cantidad) async {
   CarritoDb carritoDb = CarritoDb();

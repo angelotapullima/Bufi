@@ -721,7 +721,7 @@ class _ListaProductosState extends State<ListaProductos> {
                                       }),
                                 );
                               } else {
-                                return Center(child: Text("Sin resultddados"));
+                                return Center(child: Text("Sin resultados"));
                               }
                             } else {
                               return Center(child: CircularProgressIndicator());

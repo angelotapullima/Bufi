@@ -1,4 +1,5 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
+import 'package:bufi/src/models/ValoracionModel.dart';
 
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedido_item.dart';
@@ -491,6 +492,14 @@ class _CuerpoState extends State<Cuerpo> {
                   SizedBox(
                     height: responsive.hp(2),
                   ),
+
+                  //Caracteristicas
+                  Text(
+                    "Descripción:",
+                    style: TextStyle(
+                        fontSize: responsive.ip(2),
+                        fontWeight: FontWeight.bold),
+                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: responsive.wp(3)),
                     child: Text(
@@ -502,7 +511,30 @@ class _CuerpoState extends State<Cuerpo> {
                           fontWeight: FontWeight.w400,
                           fontSize: responsive.ip(1.6)),
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    height: responsive.hp(2),
+                  ),
+
+                  Container(
+                    child: Card(
+                      elevation: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Comentarios y Valoraciones:",
+                            style: TextStyle(
+                                fontSize: responsive.ip(2),
+                                fontWeight: FontWeight.bold),
+                          ),
+                          ComentariosProducto(
+                            idProducto: widget.listProd[value].idProducto,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -923,7 +955,7 @@ class BotonAgregar extends StatelessWidget {
                               builder: (context) => ModalLogin(),
                             );
                           } else {
-                            await agregarAlCarrito(
+                            await agregarAlCarritoDesdePedirAhora(
                                 context,
                                 listProd[value].idProducto,
                                 listProd[value].productoSize,
@@ -1020,6 +1052,93 @@ class BotonAgregar extends StatelessWidget {
         });
   }
 }
+
+class ComentariosProducto extends StatefulWidget {
+  ComentariosProducto({@required this.idProducto});
+  final String idProducto;
+
+  @override
+  _ComentariosProductoState createState() => _ComentariosProductoState();
+}
+
+class _ComentariosProductoState extends State<ComentariosProducto> {
+  @override
+  Widget build(BuildContext context) {
+    final responsive = Responsive.of(context);
+    final valoracionProdBloc = ProviderBloc.productos(context);
+    valoracionProdBloc.listarValoracionPorIdProducto(widget.idProducto);
+    return Container(
+      //color: Colors.red,
+      height:responsive.hp(80),
+      width: responsive.wp(90),
+      child: StreamBuilder(
+        stream: valoracionProdBloc.valoracionStream,
+        builder: (BuildContext context,
+            AsyncSnapshot<List<ValoracionModel>> snapshot) {
+          List<ValoracionModel> listValoracion = snapshot.data;
+          if (snapshot.hasData) {
+            if (snapshot.data.length > 0) {
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: listValoracion.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: responsive.ip(2),vertical:responsive.hp(1) ),
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //estrellas del rating
+                          Container(
+                            width: responsive.wp(20),
+                            child: RatingBar.readOnly(
+                              size: 15,
+                              initialRating: double.parse(
+                                  '${listValoracion[index].valoracionRating}'),
+                              isHalfAllowed: true,
+                              halfFilledIcon: Icons.star_half,
+                              filledIcon: Icons.star,
+                              emptyIcon: Icons.star_border,
+                              filledColor: Colors.yellow,
+                            ),
+                          ),
+                          Text(
+                            '${listValoracion[index].comentario}',
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            } else {
+              return Text('hhh');
+            }
+          }
+          return Text('no hay nadaa');
+        },
+      ),
+    );
+  }
+}
+// if (snapshot.hasData) {
+//             List<ValoracionModel> listValoracion = snapshot.data;
+//             if (snapshot.data.length > 0) {
+//               return ListView.builder(
+//                 shrinkWrap: true,
+//                 itemCount: listValoracion.length,
+//                 itemBuilder: (BuildContext context, int index) {
+//                   return Text("${listValoracion[index].idProducto}");
+//                 },
+//               );
+//             } else {
+//               Text("data");
+//             }
+//           } else {
+//             Text("No hay nada");
+//           }
 
 class TitleText extends StatelessWidget {
   final String text;

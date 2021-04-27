@@ -289,7 +289,7 @@ class PedidoApi {
 
     final pedidosModel = PedidosModel();
 
-    pedidosModel.idPedido = decodedData["result"]['pedido']['id_delivery'];
+    pedidosModel.idPedido = decodedData["result"]['pedido']['id_delivery'].toString();
     pedidosModel.idUser = decodedData["result"]['pedido']['id_user'];
     pedidosModel.idCity = decodedData["result"]['pedido']['id_city'];
     pedidosModel.idSubsidiary =
@@ -350,8 +350,8 @@ class PedidoApi {
             ["detalle_pedido"][j]["delivery_detail_model"];
         detallePedido.detallePedidoTalla = decodedData["result"]['pedido']
             ["detalle_pedido"][j]["delivery_detail_size"];
-              detallePedido.detallePedidoValorado = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]["valorado"];
+            //   detallePedido.detallePedidoValorado = decodedData["result"]['pedido']
+            // ["detalle_pedido"][j]["valorado"];
         detallePedido.detallePedidoSubtotal = decodedData["result"]['pedido']
             ["detalle_pedido"][j]["delivery_detail_subtotal"];
 

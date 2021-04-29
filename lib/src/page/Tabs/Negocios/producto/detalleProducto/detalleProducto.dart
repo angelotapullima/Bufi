@@ -232,6 +232,7 @@ class _CuerpoState extends State<Cuerpo> {
   Widget build(BuildContext context) {
     final contadorBloc = ProviderBloc.contadorPagina(context);
     final responsive = Responsive.of(context);
+    final preferences = Preferences();
 
     final provider = Provider.of<DetalleProductoBloc>(context, listen: false);
 
@@ -361,7 +362,8 @@ class _CuerpoState extends State<Cuerpo> {
               ),
               TranslateAnimation(
                 duration: const Duration(milliseconds: 400),
-                child: _contenido(responsive, context, widget.listProd, value),
+                child: _contenido(
+                    responsive, preferences, context, widget.listProd, value),
               ),
 
               BotonAgregar(responsive: responsive, listProd: widget.listProd)
@@ -370,8 +372,8 @@ class _CuerpoState extends State<Cuerpo> {
         });
   }
 
-  Widget _contenido(Responsive responsive, BuildContext context,
-      List<ProductoModel> listProd, int value) {
+  Widget _contenido(Responsive responsive, Preferences preferences,
+      BuildContext context, List<ProductoModel> listProd, int value) {
     return Container(
       margin: EdgeInsets.only(
         top: responsive.hp(21),
@@ -515,26 +517,28 @@ class _CuerpoState extends State<Cuerpo> {
                   SizedBox(
                     height: responsive.hp(2),
                   ),
-
-                  Container(
-                    child: Card(
-                      elevation: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Comentarios y Valoraciones:",
-                            style: TextStyle(
-                                fontSize: responsive.ip(2),
-                                fontWeight: FontWeight.bold),
+                  //Muestra los comentarios cuando está logueado
+                  (preferences.personName != null)
+                      ? Container(
+                          child: Card(
+                            elevation: 2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Comentarios y Valoraciones:",
+                                  style: TextStyle(
+                                      fontSize: responsive.ip(2),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                ComentariosProducto(
+                                  idProducto: widget.listProd[value].idProducto,
+                                ),
+                              ],
+                            ),
                           ),
-                          ComentariosProducto(
-                            idProducto: widget.listProd[value].idProducto,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                        )
+                      : Container()
                 ],
               ),
             ),
@@ -1069,7 +1073,7 @@ class _ComentariosProductoState extends State<ComentariosProducto> {
     valoracionProdBloc.listarValoracionPorIdProducto(widget.idProducto);
     return Container(
       //color: Colors.red,
-      height:responsive.hp(80),
+      height: responsive.hp(80),
       width: responsive.wp(90),
       child: StreamBuilder(
         stream: valoracionProdBloc.valoracionStream,
@@ -1083,7 +1087,9 @@ class _ComentariosProductoState extends State<ComentariosProducto> {
                 itemCount: listValoracion.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: responsive.ip(2),vertical:responsive.hp(1) ),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: responsive.ip(2),
+                        vertical: responsive.hp(1)),
                     child: Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1114,7 +1120,7 @@ class _ComentariosProductoState extends State<ComentariosProducto> {
                 },
               );
             } else {
-              return Text('hhh');
+              return Center(child: CircularProgressIndicator());
             }
           }
           return Text('no hay nadaa');

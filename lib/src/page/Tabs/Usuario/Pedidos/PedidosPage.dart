@@ -61,14 +61,15 @@ class PedidosPage extends StatelessWidget {
                   },
                 );
               } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
+               return Center(
+                child: Text("No hay ningun dato"),
+              );
               }
             } else {
               return Center(
-                child: Text("No hay ningun dato"),
-              );
+                  child: CircularProgressIndicator(),
+                );
+              
             }
           }),
     );

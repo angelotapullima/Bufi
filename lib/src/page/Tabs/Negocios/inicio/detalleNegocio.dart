@@ -366,20 +366,20 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                     // SizedBox(
                     //   height: responsive.hp(2.5),
                     // ),
-                    // Row(
-                    //   children: [
-                    //     Text("id Negocio:"),
-                    //     SizedBox(
-                    //       width: responsive.wp(2),
-                    //     ),
-                    //     Text(
-                    //       ('${company.idCompany}'),
-                    //       style: TextStyle(
-                    //         fontSize: responsive.ip(2),
-                    //       ),
-                    //     )
-                    //   ],
-                    // ),
+                    Row(
+                      children: [
+                        Text("id Negocio:"),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          ('${company.idCompany}'),
+                          style: TextStyle(
+                            fontSize: responsive.ip(2),
+                          ),
+                        )
+                      ],
+                    ),
                   ],
                 )),
             SizedBox(

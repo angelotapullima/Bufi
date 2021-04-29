@@ -29,6 +29,9 @@ class PrincipalPage extends StatelessWidget {
     final preferences = Preferences();
     final responsive = Responsive.of(context);
     //final subsidiary = SubsidiaryModel();
+    //Para mostrar la cantidad de notificaciones
+    final notificacionesBloc = ProviderBloc.notificaciones(context);
+    notificacionesBloc.listarNotificacionesPendientes();
 
     return Scaffold(
       body: SafeArea(

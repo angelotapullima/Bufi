@@ -261,7 +261,8 @@ class NegociosApi {
           body: {
             'id_ciudad': '1',
             'limite_sup': mayor.toString(),
-            'limite_inf': menor.toString()
+            'limite_inf': 0
+            //menor.toString()
           });
 
       final decodedData = json.decode(response.body);

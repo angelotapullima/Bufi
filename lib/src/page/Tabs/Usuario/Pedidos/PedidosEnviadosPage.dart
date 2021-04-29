@@ -67,8 +67,8 @@ class PedidosEnviadosPage extends StatelessWidget {
               }
             } else {
               return Center(
-                child: Text("No hay ningun dato"),
-              );
+                  child: CircularProgressIndicator(),
+                );
             }
           }),
     );

@@ -49,7 +49,8 @@ class NegociosBloc {
     if (listCompany.length > 0) {
       for (var i = 0; i < listCompany.length; i++) {
         final subsi = await subsidiaryDatabase
-            .obtenerSubdiaryPrincipal(listCompany[i].idCompany);
+            .obtenerSubsidiaryPorIdCompany(listCompany[i].idCompany);
+        // .obtenerSubdiaryPrincipal(listCompany[i].idCompany);
 
         if (subsi.length > 0) {
           CompanySubsidiaryModel companySubsidiaryModel =
@@ -80,22 +81,24 @@ class NegociosBloc {
           companySubsidiaryModel.cell = listCompany[i].cell;
           companySubsidiaryModel.direccion = listCompany[i].direccion;
           companySubsidiaryModel.favourite = listCompany[i].favourite;
-          companySubsidiaryModel.idSubsidiary = subsi[0].idSubsidiary;
-          companySubsidiaryModel.subsidiaryName = subsi[0].subsidiaryName;
-          companySubsidiaryModel.subsidiaryDescription = subsi[0].subsidiaryDescription;
-          companySubsidiaryModel.subsidiaryAddress = subsi[0].subsidiaryAddress;
-          companySubsidiaryModel.subsidiaryCellphone =
-              subsi[0].subsidiaryCellphone;
-          companySubsidiaryModel.subsidiaryCellphone2 =
-              subsi[0].subsidiaryCellphone2;
-          companySubsidiaryModel.subsidiaryCoordX = subsi[0].subsidiaryCoordX;
-          companySubsidiaryModel.subsidiaryCoordY = subsi[0].subsidiaryCoordY;
-          companySubsidiaryModel.subsidiaryOpeningHours =
-              subsi[0].subsidiaryOpeningHours;
-          companySubsidiaryModel.subsidiaryPrincipal =
-              subsi[0].subsidiaryPrincipal;
-          companySubsidiaryModel.subsidiaryStatus = subsi[0].subsidiaryStatus;
-          companySubsidiaryModel.favourite = subsi[0].subsidiaryFavourite;
+          // companySubsidiaryModel.idSubsidiary = subsi[0].idSubsidiary;
+          // companySubsidiaryModel.subsidiaryName = subsi[0].subsidiaryName;
+          // companySubsidiaryModel.subsidiaryDescription =
+          //     subsi[0].subsidiaryDescription;
+          // companySubsidiaryModel.subsidiaryAddress =
+          //     subsi[0].subsidiaryAddress;
+          // companySubsidiaryModel.subsidiaryCellphone =
+          //     subsi[0].subsidiaryCellphone;
+          // companySubsidiaryModel.subsidiaryCellphone2 =
+          //     subsi[0].subsidiaryCellphone2;
+          // companySubsidiaryModel.subsidiaryCoordX = subsi[0].subsidiaryCoordX;
+          // companySubsidiaryModel.subsidiaryCoordY = subsi[0].subsidiaryCoordY;
+          // companySubsidiaryModel.subsidiaryOpeningHours =
+          //     subsi[0].subsidiaryOpeningHours;
+          // companySubsidiaryModel.subsidiaryPrincipal =
+          //     subsi[0].subsidiaryPrincipal;
+          // companySubsidiaryModel.subsidiaryStatus = subsi[0].subsidiaryStatus;
+          // companySubsidiaryModel.favourite = subsi[0].subsidiaryFavourite;
 
           listGeneral.add(companySubsidiaryModel);
         }
@@ -106,76 +109,83 @@ class NegociosBloc {
   }
 
   void obtenernegociosporID(String idCompany) async {
-    detalleNegocioController.sink.add(await obtenerCompanyXIdCompany(idCompany));
+    detalleNegocioController.sink
+        .add(await obtenerCompanyXIdCompany(idCompany));
     await negociosApi.obtenerNegocioPorId(idCompany);
-detalleNegocioController.sink.add(await obtenerCompanyXIdCompany(idCompany));
+    detalleNegocioController.sink
+        .add(await obtenerCompanyXIdCompany(idCompany));
     // detalleNegocioController.sink
     //     .add(await negociosDatabase.obtenerCompanyPorIdCompany(id));
   }
 
   Future<List<CompanySubsidiaryModel>> obtenerCompanyXIdCompany(
       String idCompany) async {
-         final List<CompanySubsidiaryModel> listGeneral = [];
+    final List<CompanySubsidiaryModel> listGeneral = [];
     final listCompany =
         await negociosDatabase.obtenerCompanyPorIdCompany(idCompany);
 
     if (listCompany.length > 0) {
       for (var i = 0; i < listCompany.length; i++) {
         final subsi = await subsidiaryDatabase
-            .obtenerSubdiaryPrincipal(listCompany[i].idCompany);
+            .obtenerSubsidiaryPorIdCompany(listCompany[i].idCompany);
 
         if (subsi.length > 0) {
-          CompanySubsidiaryModel companySubsidiaryModel =
-              CompanySubsidiaryModel();
-          companySubsidiaryModel.idCompany = listCompany[i].idCompany;
-          companySubsidiaryModel.companyName = listCompany[i].companyName;
-          companySubsidiaryModel.idUser = listCompany[i].idUser;
-          companySubsidiaryModel.idCity = listCompany[i].idCity;
-          companySubsidiaryModel.idCategory = listCompany[i].idCategory;
-          companySubsidiaryModel.companyImage = listCompany[i].companyImage;
-          companySubsidiaryModel.companyRuc = listCompany[i].companyRuc;
-          companySubsidiaryModel.companyType = listCompany[i].companyType;
-          companySubsidiaryModel.companyShortcode =
-              listCompany[i].companyShortcode;
-          companySubsidiaryModel.companyDelivery =
-              listCompany[i].companyDelivery;
-          companySubsidiaryModel.companyEntrega = listCompany[i].companyEntrega;
-          companySubsidiaryModel.companyTarjeta = listCompany[i].companyTarjeta;
-          companySubsidiaryModel.companyVerified =
-              listCompany[i].companyVerified;
-          companySubsidiaryModel.companyRating = listCompany[i].companyRating;
-          companySubsidiaryModel.companyCreatedAt =
-              listCompany[i].companyCreatedAt;
-          companySubsidiaryModel.companyJoin = listCompany[i].companyJoin;
-          companySubsidiaryModel.companyStatus = listCompany[i].companyStatus;
-          companySubsidiaryModel.companyMt = listCompany[i].companyMt;
-          companySubsidiaryModel.miNegocio = listCompany[i].miNegocio;
-          companySubsidiaryModel.cell = listCompany[i].cell;
-          companySubsidiaryModel.direccion = listCompany[i].direccion;
-          companySubsidiaryModel.favourite = listCompany[i].favourite;
-          companySubsidiaryModel.idSubsidiary = subsi[0].idSubsidiary;
-          companySubsidiaryModel.subsidiaryName = subsi[0].subsidiaryName;
-           companySubsidiaryModel.subsidiaryDescription = subsi[0].subsidiaryDescription;
-          companySubsidiaryModel.subsidiaryAddress = subsi[0].subsidiaryAddress;
-          companySubsidiaryModel.subsidiaryCellphone =
-              subsi[0].subsidiaryCellphone;
-          companySubsidiaryModel.subsidiaryCellphone2 =
-              subsi[0].subsidiaryCellphone2;
-          companySubsidiaryModel.subsidiaryCoordX = subsi[0].subsidiaryCoordX;
-          companySubsidiaryModel.subsidiaryCoordY = subsi[0].subsidiaryCoordY;
-          companySubsidiaryModel.subsidiaryOpeningHours =
-              subsi[0].subsidiaryOpeningHours;
-          companySubsidiaryModel.subsidiaryPrincipal =
-              subsi[0].subsidiaryPrincipal;
-          companySubsidiaryModel.subsidiaryStatus = subsi[0].subsidiaryStatus;
-          companySubsidiaryModel.favourite = subsi[0].subsidiaryFavourite;
+          for (var j = 0; j < subsi.length; j++) {
+            CompanySubsidiaryModel companySubsidiaryModel =
+                CompanySubsidiaryModel();
+            companySubsidiaryModel.idCompany = listCompany[i].idCompany;
+            companySubsidiaryModel.companyName = listCompany[i].companyName;
+            companySubsidiaryModel.idUser = listCompany[i].idUser;
+            companySubsidiaryModel.idCity = listCompany[i].idCity;
+            companySubsidiaryModel.idCategory = listCompany[i].idCategory;
+            companySubsidiaryModel.companyImage = listCompany[i].companyImage;
+            companySubsidiaryModel.companyRuc = listCompany[i].companyRuc;
+            companySubsidiaryModel.companyType = listCompany[i].companyType;
+            companySubsidiaryModel.companyShortcode =
+                listCompany[i].companyShortcode;
+            companySubsidiaryModel.companyDelivery =
+                listCompany[i].companyDelivery;
+            companySubsidiaryModel.companyEntrega =
+                listCompany[i].companyEntrega;
+            companySubsidiaryModel.companyTarjeta =
+                listCompany[i].companyTarjeta;
+            companySubsidiaryModel.companyVerified =
+                listCompany[i].companyVerified;
+            companySubsidiaryModel.companyRating = listCompany[i].companyRating;
+            companySubsidiaryModel.companyCreatedAt =
+                listCompany[i].companyCreatedAt;
+            companySubsidiaryModel.companyJoin = listCompany[i].companyJoin;
+            companySubsidiaryModel.companyStatus = listCompany[i].companyStatus;
+            companySubsidiaryModel.companyMt = listCompany[i].companyMt;
+            companySubsidiaryModel.miNegocio = listCompany[i].miNegocio;
+            companySubsidiaryModel.cell = listCompany[i].cell;
+            companySubsidiaryModel.direccion = listCompany[i].direccion;
+            companySubsidiaryModel.favourite = listCompany[i].favourite;
+            companySubsidiaryModel.idSubsidiary = subsi[j].idSubsidiary;
+            companySubsidiaryModel.subsidiaryName = subsi[j].subsidiaryName;
+            companySubsidiaryModel.subsidiaryDescription =
+                subsi[j].subsidiaryDescription;
+            companySubsidiaryModel.subsidiaryAddress =
+                subsi[j].subsidiaryAddress;
+            companySubsidiaryModel.subsidiaryCellphone =
+                subsi[j].subsidiaryCellphone;
+            companySubsidiaryModel.subsidiaryCellphone2 =
+                subsi[j].subsidiaryCellphone2;
+            companySubsidiaryModel.subsidiaryCoordX = subsi[j].subsidiaryCoordX;
+            companySubsidiaryModel.subsidiaryCoordY = subsi[j].subsidiaryCoordY;
+            companySubsidiaryModel.subsidiaryOpeningHours =
+                subsi[j].subsidiaryOpeningHours;
+            companySubsidiaryModel.subsidiaryPrincipal =
+                subsi[j].subsidiaryPrincipal;
+            companySubsidiaryModel.subsidiaryStatus = subsi[j].subsidiaryStatus;
+            companySubsidiaryModel.favourite = subsi[j].subsidiaryFavourite;
 
-          listGeneral.add(companySubsidiaryModel);
+            listGeneral.add(companySubsidiaryModel);
+          }
         }
       }
     }
 
     return listGeneral;
   }
-  }
-
+}

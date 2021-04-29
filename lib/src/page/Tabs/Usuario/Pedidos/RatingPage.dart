@@ -234,6 +234,12 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
         if (code == 1) {
           print("Producto Calificado");
           utils.showToast(context, 'Producto Calificado');
+
+           //Para redibujar el widget en la pagina de pedidos enviados
+          final pedidoBloc = ProviderBloc.pedido(context);
+          String idEstado = '5';
+          pedidoBloc.obtenerPedidosEnviados(idEstado);
+          
           Navigator.pop(context);
          
         } else {

@@ -1,42 +1,57 @@
-
 import 'dart:async';
 
 import 'package:bufi/src/api/login_api.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LoginBloc with Validators {
-
   final loginProviders = LoginApi();
 
-final _emailController = BehaviorSubject<String>();
+  final _emailController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
   final _cargandoLoginController = new BehaviorSubject<bool>();
+  final _passwordConfirmController = BehaviorSubject<String>();
 
-  //Recuperaer los datos del Stream
-  Stream<String> get emailStream =>_emailController.stream.transform(validarname);
-  Stream<String> get passwordStream =>_passwordController.stream.transform(validarPassword);
+  //Recuperar los datos del Stream
+  Stream<String> get emailStream =>
+      _emailController.stream.transform(validarname);
+  Stream<String> get passwordStream =>
+      _passwordController.stream.transform(validarPassword);
   Stream<bool> get cargando => _cargandoLoginController.stream;
 
-  Stream<bool> get formValidStream =>Rx.combineLatest2(emailStream, passwordStream, (e, p) => true);
+//Cambiar contraseña
+  Stream<String> get passwordConfirmStream => _passwordConfirmController.stream
+          .transform(StreamTransformer<String, String>.fromHandlers(
+              handleData: (password, sink) {
+        if (password == _passwordController.value) {
+          sink.add(password);
+        } else {
+          sink.addError('Las contraseñas no coinciden');
+        }
+      }));
+
+  Stream<bool> get formValidStream =>
+      Rx.combineLatest2(emailStream, passwordStream, (e, p) => true);
+  Stream<bool> get formValidPassStream =>
+      Rx.combineLatest2(passwordStream, passwordConfirmStream, (p, c) => true);
 
   //inserta valores al Stream
   Function(String) get changeEmail => _emailController.sink.add;
   Function(String) get changePassword => _passwordController.sink.add;
   Function(bool) get changeCargando => _cargandoLoginController.sink.add;
+  Function(String) get changePasswordConfirm => _passwordConfirmController.sink.add;
 
   //obtener el ultimo valor ingresado a los stream
   String get email => _emailController.value;
   String get password => _passwordController.value;
-
-
+  String get passwordConfirm => _passwordConfirmController.value;
 
   dispose() {
     _emailController?.close();
     _passwordController?.close();
     _cargandoLoginController?.close();
+    _passwordConfirmController?.close();
   }
 
-  
   Future<int> login(String user, String pass) async {
     _cargandoLoginController.sink.add(true);
     final resp = await loginProviders.login(email, pass);
@@ -45,6 +60,12 @@ final _emailController = BehaviorSubject<String>();
     return resp;
   }
 
+  Future<int> restablecerPassword(String pass) async {
+    _cargandoLoginController.sink.add(true);
+    final resp = await loginProviders.cambiarPass(pass);
+    _cargandoLoginController.sink.add(false);
+    return resp;
+  }
 }
 
 class Validators {

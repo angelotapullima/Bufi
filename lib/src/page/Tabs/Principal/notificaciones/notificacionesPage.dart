@@ -182,29 +182,45 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                             : Colors.white),
                                     child: Row(
                                       children: [
+                                        //no hay imagen y genera error de choque
+                                        
+                                        // Container(
+                                        //   width: responsive.wp(20),
+                                        //   height: responsive.hp(20),
+                                        //   child: CachedNetworkImage(
+                                        //     cacheManager: CustomCacheManager(),
+                                        //     placeholder: (context, url) =>
+                                        //         Container(
+                                        //       width: double.infinity,
+                                        //       height: double.infinity,
+                                        //       child: Image(
+                                        //           image: AssetImage(
+                                        //               'assets/loading.gif'),
+                                        //           fit: BoxFit.fitWidth),
+                                        //     ),
+                                        //     errorWidget:
+                                        //         (context, url, error) => Image(
+                                        //             image: AssetImage(
+                                        //                 'assets/no-image.png'),
+                                        //             fit: BoxFit.cover),
+                                        //     imageUrl:
+                                        //         '$apiBaseURL/${notificaciones[index].notificacionImagen}',
+                                        //     fit: BoxFit.cover,
+                                        //   ),
+                                        // ),
+                                        // 
                                         Container(
+                                          color: Colors.white,
                                           width: responsive.wp(20),
                                           height: responsive.hp(20),
-                                          child: CachedNetworkImage(
-                                            cacheManager: CustomCacheManager(),
-                                            placeholder: (context, url) =>
+                                          child:
                                                 Container(
                                               width: double.infinity,
                                               height: double.infinity,
-                                              child: Image(
-                                                  image: AssetImage(
-                                                      'assets/loading.gif'),
-                                                  fit: BoxFit.fitWidth),
+                                              child: Icon(Icons.notification_important, color: Colors.red),
                                             ),
-                                            errorWidget:
-                                                (context, url, error) => Image(
-                                                    image: AssetImage(
-                                                        'assets/no-image.png'),
-                                                    fit: BoxFit.cover),
-                                            imageUrl:
-                                                '$apiBaseURL/${notificaciones[index].notificacionImagen}',
-                                            fit: BoxFit.cover,
-                                          ),
+                                           
+                                          
                                         ),
                                         Expanded(
                                           child: Column(

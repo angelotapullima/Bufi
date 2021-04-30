@@ -275,101 +275,101 @@ class _CuerpoState extends State<Cuerpo> {
     }
 
     return ValueListenableBuilder<int>(
-        valueListenable: provider.show,
-        builder: (_, value, __) {
-          return Stack(
-            children: <Widget>[
-              BackGroundImage(
-                listProd: widget.listProd,
-              ),
+      valueListenable: provider.show,
+      builder: (_, value, __) {
+        return Stack(
+          children: <Widget>[
+            BackGroundImage(
+              listProd: widget.listProd,
+            ),
 
-              // Iconos arriba de la imagen del producto
-              SafeArea(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                  child: Row(
-                    children: <Widget>[
-                      //BackButton(),
+            // Iconos arriba de la imagen del producto
+            SafeArea(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                child: Row(
+                  children: <Widget>[
+                    //BackButton(),
 
-                      SizedBox(
-                        width: responsive.wp(5),
-                      ),
-                      _icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.black54,
-                        size: responsive.ip(1.7),
-                        padding: responsive.ip(1.25),
-                        isOutLine: true,
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      Spacer(),
-                      //contador de páginas
-                      StreamBuilder(
-                          stream: contadorBloc.selectContadorStream,
-                          builder: (context, snapshot) {
-                            return Container(
-                              height: responsive.hp(3),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: responsive.wp(2),
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: Colors.white,
-                                border: Border.all(color: Colors.grey[300]),
-                              ),
-                              margin: EdgeInsets.symmetric(
-                                horizontal: responsive.wp(5),
-                                vertical: responsive.hp(1.3),
-                              ),
-                              child: Text(
-                                (contadorBloc.pageContador + 1).toString() +
-                                    '/' +
-                                    widget.listProd[0].listFotos.length
-                                        .toString(),
-                              ),
-                            );
-                          }),
+                    SizedBox(
+                      width: responsive.wp(5),
+                    ),
+                    _icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.black54,
+                      size: responsive.ip(1.7),
+                      padding: responsive.ip(1.25),
+                      isOutLine: true,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    Spacer(),
+                    //contador de páginas
+                    StreamBuilder(
+                      stream: contadorBloc.selectContadorStream,
+                      builder: (context, snapshot) {
+                        return Container(
+                          height: responsive.hp(3),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: responsive.wp(2),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white,
+                            border: Border.all(color: Colors.grey[300]),
+                          ),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: responsive.wp(5),
+                            vertical: responsive.hp(1.3),
+                          ),
+                          child: Text(
+                            (contadorBloc.pageContador + 1).toString() +
+                                '/' +
+                                widget.listProd[0].listFotos.length.toString(),
+                          ),
+                        );
+                      },
+                    ),
 
-                      Spacer(),
+                    Spacer(),
 
-                      _icon(
-                        Icons.shopping_cart_outlined,
-                        color: Colors.black54,
-                        size: responsive.ip(2.4),
-                        padding: responsive.ip(1.25),
-                        // isOutLine: false,
-                        onPressed: () {
-                          final buttonBloc = ProviderBloc.tabs(context);
-                          buttonBloc.changePage(2);
-                        },
-                      ),
-                      GestureDetector(
-                        child: Icon(Icons.arrow_right_outlined),
-                        onTap: () {
-                          final buttonBloc = ProviderBloc.tabs(context);
-                          buttonBloc.changePage(2);
-                        },
-                      ),
+                    _icon(
+                      Icons.shopping_cart_outlined,
+                      color: Colors.black54,
+                      size: responsive.ip(2.4),
+                      padding: responsive.ip(1.25),
+                      // isOutLine: false,
+                      onPressed: () {
+                        final buttonBloc = ProviderBloc.tabs(context);
+                        buttonBloc.changePage(2);
+                      },
+                    ),
+                    GestureDetector(
+                      child: Icon(Icons.arrow_right_outlined),
+                      onTap: () {
+                        final buttonBloc = ProviderBloc.tabs(context);
+                        buttonBloc.changePage(2);
+                      },
+                    ),
 
-                      SizedBox(
-                        width: responsive.wp(5),
-                      ),
-                    ],
-                  ),
+                    SizedBox(
+                      width: responsive.wp(5),
+                    ),
+                  ],
                 ),
               ),
-              TranslateAnimation(
-                duration: const Duration(milliseconds: 400),
-                child: _contenido(
-                    responsive, preferences, context, widget.listProd, value),
-              ),
+            ),
+            TranslateAnimation(
+              duration: const Duration(milliseconds: 400),
+              child: _contenido(responsive, preferences,context, widget.listProd, value),
+            ),
 
-              BotonAgregar(responsive: responsive, listProd: widget.listProd)
-            ],
-          );
-        });
+            BotonAgregar(responsive: responsive, listProd: widget.listProd)
+          ],
+        );
+      },
+    );
   }
 
   Widget _contenido(Responsive responsive, Preferences preferences,

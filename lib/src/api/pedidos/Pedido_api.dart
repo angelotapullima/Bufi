@@ -265,25 +265,27 @@ class PedidoApi {
       print(sucursales);
     }
 
-    final response =
-        await http.post("$apiBaseURL/api/Pedido/pedir_orden_ws", body: {
-      'id_usuario': prefs.idUser,
-      'id_ciudad': '1',
-      'name': prefs.personName,
-      'surname': prefs.personName,
-      'email': prefs.userEmail,
-      'cel': '978400573',
-      'address': 'calle girasoles sin numero',
-      'coord_x': '-3.859949494',
-      'coord_y': '-73.859949494',
-      'total': listDePedidos[0].montoGeneral.toString(),
-      'payment': '',
-      'add_info': '',
-      //'entrega': '1',
-      'pedidos': sucursales.toString(),
-      'tn': prefs.token,
-      'app': 'true'
-    });
+    final response = await http.post(
+      "$apiBaseURL/api/Pedido/pedir_orden_ws",
+      body: {
+        'id_usuario': prefs.idUser,
+        'id_ciudad': '1',
+        'name': prefs.personName,
+        'surname': prefs.personName,
+        'email': prefs.userEmail,
+        'cel': '978400573',
+        'address': 'calle girasoles sin numero',
+        'coord_x': '-3.859949494',
+        'coord_y': '-73.859949494',
+        'total': listDePedidos[0].montoGeneral.toString(),
+        'payment': '',
+        'add_info': '',
+        //'entrega': '1',
+        'pedidos': sucursales.toString(),
+        'tn': prefs.token,
+        'app': 'true'
+      },
+    );
 
     final decodedData = json.decode(response.body);
 

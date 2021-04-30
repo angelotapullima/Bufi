@@ -84,7 +84,6 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                                           childAspectRatio: .85,
                                           crossAxisCount: 4),
                                   itemBuilder: (context, i) {
-                                    
                                     return GestureDetector(
                                       onTap: () {
                                         Navigator.of(context)

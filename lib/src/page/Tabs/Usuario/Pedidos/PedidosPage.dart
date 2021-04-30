@@ -77,7 +77,7 @@ class PedidosPage extends StatelessWidget {
 
   Widget _datosProducto(BuildContext context, Responsive responsive,
       List<PedidosModel> listPedidos, int index, int x) {
-        var fecha = obtenerFecha(listPedidos[index].deliveryDatetime);
+        var fecha = obtenerFechaHora(listPedidos[index].deliveryDatetime);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(PageRouteBuilder(

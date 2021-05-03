@@ -68,7 +68,7 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
     final responsive = Responsive.of(context);
     final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
     final busquedaBloc = ProviderBloc.busqueda(context);
-   //selectorTabBusqueda.changePage(selectorTabBusqueda.page);
+    //selectorTabBusqueda.changePage(selectorTabBusqueda.page);
     return Scaffold(
       backgroundColor: Colors.white,
       body: StreamBuilder(
@@ -721,7 +721,11 @@ class _ListaProductosState extends State<ListaProductos> {
                                       }),
                                 );
                               } else {
-                                return Center(child: Text("Sin resultados"));
+                                return Center(
+                                    child: Text(
+                                  "Sin resultados",
+                                  textAlign: TextAlign.center,
+                                ));
                               }
                             } else {
                               return Center(child: CircularProgressIndicator());
@@ -742,13 +746,19 @@ class _ListaProductosState extends State<ListaProductos> {
           }
         } else {
           return Center(
-            child: NutsActivityIndicator(
-              radius: 12,
-              activeColor: Colors.white,
-              inactiveColor: Colors.redAccent,
-              tickCount: 11,
-              startRatio: 0.55,
-              animationDuration: Duration(milliseconds: 2003),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                NutsActivityIndicator(
+                  radius: 12,
+                  activeColor: Colors.white,
+                  inactiveColor: Colors.redAccent,
+                  tickCount: 11,
+                  startRatio: 0.55,
+                  animationDuration: Duration(milliseconds: 2003),
+                ),
+                Text('Cargando...')
+              ],
             ),
           );
         }
@@ -995,13 +1005,19 @@ class _ListaServiciosState extends State<ListaServicios> {
           }
         } else {
           return Center(
-            child: NutsActivityIndicator(
-              radius: 12,
-              activeColor: Colors.white,
-              inactiveColor: Colors.redAccent,
-              tickCount: 11,
-              startRatio: 0.55,
-              animationDuration: Duration(milliseconds: 2003),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                NutsActivityIndicator(
+                  radius: 12,
+                  activeColor: Colors.white,
+                  inactiveColor: Colors.redAccent,
+                  tickCount: 11,
+                  startRatio: 0.55,
+                  animationDuration: Duration(milliseconds: 2003),
+                ),
+                Text('Cargando...')
+              ],
             ),
           );
         }
@@ -1260,13 +1276,19 @@ class _ListaNegociosState extends State<ListaNegocios> {
           }
         } else {
           return Center(
-            child: NutsActivityIndicator(
-              radius: 12,
-              activeColor: Colors.white,
-              inactiveColor: Colors.redAccent,
-              tickCount: 11,
-              startRatio: 0.55,
-              animationDuration: Duration(milliseconds: 2003),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                NutsActivityIndicator(
+                  radius: 12,
+                  activeColor: Colors.white,
+                  inactiveColor: Colors.redAccent,
+                  tickCount: 11,
+                  startRatio: 0.55,
+                  animationDuration: Duration(milliseconds: 2003),
+                ),
+                Text('Cargando...')
+              ],
             ),
           );
         }
@@ -1554,13 +1576,19 @@ class _ListaItemsubcategoriaState extends State<ListaItemsubcategoria> {
           }
         } else {
           return Center(
-            child: NutsActivityIndicator(
-              radius: 12,
-              activeColor: Colors.white,
-              inactiveColor: Colors.redAccent,
-              tickCount: 11,
-              startRatio: 0.55,
-              animationDuration: Duration(milliseconds: 2003),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                NutsActivityIndicator(
+                  radius: 12,
+                  activeColor: Colors.white,
+                  inactiveColor: Colors.redAccent,
+                  tickCount: 11,
+                  startRatio: 0.55,
+                  animationDuration: Duration(milliseconds: 2003),
+                ),
+                Text('Cargando...')
+              ],
             ),
           );
         }
@@ -1733,13 +1761,19 @@ class _ListaCategoriasState extends State<ListaCategorias> {
           }
         } else {
           return Center(
-            child: NutsActivityIndicator(
-              radius: 12,
-              activeColor: Colors.white,
-              inactiveColor: Colors.redAccent,
-              tickCount: 11,
-              startRatio: 0.55,
-              animationDuration: Duration(milliseconds: 2003),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                NutsActivityIndicator(
+                  radius: 12,
+                  activeColor: Colors.white,
+                  inactiveColor: Colors.redAccent,
+                  tickCount: 11,
+                  startRatio: 0.55,
+                  animationDuration: Duration(milliseconds: 2003),
+                ),
+                Text('Cargando...')
+              ],
             ),
           );
         }
@@ -1912,13 +1946,19 @@ class _ListaSubCategoriasState extends State<ListaSubCategorias> {
           }
         } else {
           return Center(
-            child: NutsActivityIndicator(
-              radius: 12,
-              activeColor: Colors.white,
-              inactiveColor: Colors.redAccent,
-              tickCount: 11,
-              startRatio: 0.55,
-              animationDuration: Duration(milliseconds: 2003),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                NutsActivityIndicator(
+                  radius: 12,
+                  activeColor: Colors.white,
+                  inactiveColor: Colors.redAccent,
+                  tickCount: 11,
+                  startRatio: 0.55,
+                  animationDuration: Duration(milliseconds: 2003),
+                ),
+                Text('Cargando...')
+              ],
             ),
           );
         }

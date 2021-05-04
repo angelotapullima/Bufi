@@ -289,6 +289,7 @@ class PedidoApi {
     final decodedData = json.decode(response.body);
 
     final pedidosModel = PedidosModel();
+    print(decodedData["result"]);
 
     pedidosModel.idPedido =
         decodedData["result"]['pedido']['id_delivery'].toString();

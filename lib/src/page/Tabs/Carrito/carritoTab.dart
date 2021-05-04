@@ -387,6 +387,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                                   onTap: () {
                                                     if ('${listCarritoSuperior[0].car[xxx].carrito[indd].estadoSeleccionado}' ==
                                                         '0') {
+                                                      //Selecciona (Agrega) los productos (Pedido) que se desea pagar
                                                       cambiarEstadoCarrito(
                                                           context,
                                                           '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
@@ -395,6 +396,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                                           '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
                                                           '1');
                                                     } else {
+                                                      //Quita los productos (Pedido) que no se desea pagar
                                                       cambiarEstadoCarrito(
                                                           context,
                                                           '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',

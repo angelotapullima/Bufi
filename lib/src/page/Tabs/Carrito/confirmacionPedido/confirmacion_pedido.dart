@@ -668,6 +668,9 @@ class ResumenPedido extends StatelessWidget {
                 print(res);
 
                 if (res[0].respuestaApi == '1') {
+                  final carritoBloc = ProviderBloc.productosCarrito(context);
+                  carritoBloc.obtenerCarritoPorSucursal();
+                  borrarCarrito(context, '0');
                   showToast(context, 'venta confirmada');
                   //deleteProductoCarrito();
 

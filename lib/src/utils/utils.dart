@@ -602,8 +602,8 @@ Future<int> agregarAlCarrito(BuildContext context, String idSubsidiarygood,
   return 0;
 }
 
-Future<int> agregarAlCarritoDesdePedirAhora(BuildContext context, String idSubsidiarygood,
-    String talla, String modelo, String marca) async {
+Future<int> agregarAlCarritoDesdePedirAhora(BuildContext context,
+    String idSubsidiarygood, String talla, String modelo, String marca) async {
   CarritoDb carritoDb = CarritoDb();
   final productoDatabase = ProductoDatabase();
 
@@ -632,8 +632,11 @@ Future<int> agregarAlCarritoDesdePedirAhora(BuildContext context, String idSubsi
     await carritoDb.deleteCarritoPorIdProductoTalla(
         idSubsidiarygood, talla, modelo, marca);
     c.cantidad = (int.parse(productCarrito[0].cantidad) + 1).toString();
-
-    c.estadoSeleccionado = productCarrito[0].estadoSeleccionado;
+    if (productCarrito[0].estadoSeleccionado == '0') {
+      c.estadoSeleccionado = '1';
+    } else {
+      c.estadoSeleccionado = productCarrito[0].estadoSeleccionado;
+    }
   } else {
     c.cantidad = '1';
     c.estadoSeleccionado = '1';
@@ -645,6 +648,19 @@ Future<int> agregarAlCarritoDesdePedirAhora(BuildContext context, String idSubsi
   carritoBloc.obtenerCarritoPorSucursal();
 
   return 0;
+}
+
+void borrarCarrito(BuildContext context, String idSubsidiarygood) async {
+  CarritoDb carritoDb = CarritoDb();
+  if (idSubsidiarygood == '0') {
+    await carritoDb.deleteCarritoPorEstadoSeleccion();
+  } else {
+    await carritoDb.deleteCarritoPorIdProductoEstadoSeleccion(idSubsidiarygood);
+  }
+
+  final carritoBloc = ProviderBloc.productosCarrito(context);
+  carritoBloc.obtenerCarritoPorSucursal();
+  carritoBloc.carritoPorSucursalSeleccionado();
 }
 
 void agregarAlCarritoContador(BuildContext context, String idSubsidiarygood,

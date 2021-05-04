@@ -145,10 +145,12 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                           listCarritoSuperior[0].car.length +
                                               1) {
                                         return ResumenPedido(
-                                            responsive: responsive,
-                                            listCarritoSuperior:
-                                                listCarritoSuperior,
-                                            cuentaBloc: cuentaBloc);
+                                          responsive: responsive,
+                                          listCarritoSuperior:
+                                              listCarritoSuperior,
+                                          cuentaBloc: cuentaBloc,
+                                          idproducto: widget.idProducto,
+                                        );
                                       }
 
                                       int xxx = index - 1;
@@ -206,7 +208,8 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                 vertical: 5),
                                             width: double.infinity,
                                             child: Column(
-                                             crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 SizedBox(
                                                     height: responsive.hp(2)),
@@ -338,7 +341,9 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                                       600]),
                                                             ),
                                                             SizedBox(
-                                                    height: responsive.hp(1)),
+                                                                height:
+                                                                    responsive
+                                                                        .hp(1)),
                                                             Text(
                                                               'S/. ' +
                                                                   (double.parse(
@@ -356,14 +361,13 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold),
-                                                              
                                                             ),
                                                             SizedBox(
-                                                        height:
-                                                            responsive.hp(1),
-                                                      ),
+                                                              height: responsive
+                                                                  .hp(1),
+                                                            ),
                                                             Text(
-                                                      'producto ofrecido por bufeoTec'),
+                                                                'producto ofrecido por bufeoTec'),
                                                           ],
                                                         ),
                                                       ),
@@ -388,8 +392,7 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                 Padding(
                                                   padding: EdgeInsets.only(
                                                       left: responsive.ip(24)),
-                                                  child: 
-                                                  CantidadCarritoItem(
+                                                  child: CantidadCarritoItem(
                                                     carrito:
                                                         listCarritoSuperior[0]
                                                             .car[xxx]
@@ -407,7 +410,6 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                 ),
                                                 SizedBox(
                                                     height: responsive.hp(3)),
-
                                                 Container(
                                                   child: Column(
                                                     children: [
@@ -503,7 +505,6 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                     ],
                                                   ),
                                                 ),
-                                                
                                               ],
                                             ),
                                           );
@@ -566,11 +567,13 @@ class ResumenPedido extends StatelessWidget {
     @required this.responsive,
     @required this.listCarritoSuperior,
     @required this.cuentaBloc,
+    @required this.idproducto,
   }) : super(key: key);
 
   final Responsive responsive;
   final List<CarritoGeneralSuperior> listCarritoSuperior;
   final CuentaBloc cuentaBloc;
+  final String idproducto;
 
   @override
   Widget build(BuildContext context) {
@@ -741,6 +744,9 @@ class ResumenPedido extends StatelessWidget {
                 print(res);
 
                 if (res[0].respuestaApi == '1') {
+                  final carritoBloc = ProviderBloc.productosCarrito(context);
+                  carritoBloc.obtenerCarritoPorSucursal();
+                  borrarCarrito(context, idproducto);
                   showToast(context, 'venta confirmada');
 
                   Navigator.of(context).push(PageRouteBuilder(

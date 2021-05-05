@@ -1,11 +1,10 @@
 import 'package:bufi/src/bloc/login_bloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
+import 'package:bufi/src/page/recuperarPassword_page.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -28,28 +27,31 @@ class _LoginPageState extends State<LoginPage> {
             return Stack(
               children: [
                 _form(context, responsive, loginBloc),
-                (dataToque)?Center(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: responsive.wp(10)),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: responsive.wp(10)),
-                    width: double.infinity,
-                    height: responsive.hp(13),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Container(
-                      margin: EdgeInsets.symmetric(
-                          horizontal: responsive.wp(10),
-                          vertical: responsive.wp(6)),
-                      height: responsive.ip(4),
-                      width: responsive.ip(4),
-                      child: Image(
-                          image: AssetImage('assets/loading.gif'),
-                          fit: BoxFit.contain),
-                    ),
-                  ),
-                ):Container()
+                (dataToque)
+                    ? Center(
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: responsive.wp(10)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: responsive.wp(10)),
+                          width: double.infinity,
+                          height: responsive.hp(13),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: responsive.wp(10),
+                                vertical: responsive.wp(6)),
+                            height: responsive.ip(4),
+                            width: responsive.ip(4),
+                            child: Image(
+                                image: AssetImage('assets/loading.gif'),
+                                fit: BoxFit.contain),
+                          ),
+                        ),
+                      )
+                    : Container()
               ],
             );
           }),
@@ -89,7 +91,14 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(
                   responsive.ip(4.5),
                 ),
-                child: Text("Olvidé mi Contraseña"),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RecuperarPasswordPage()));
+                    },
+                    child: Text("Olvidé mi Contraseña")),
               ),
               Row(
                 mainAxisSize: MainAxisSize.max,
@@ -249,10 +258,10 @@ class _LoginPageState extends State<LoginPage> {
     if (code == 1) {
       print(code);
 
-       Navigator.of(context)
-            .pushNamedAndRemoveUntil('home', (Route<dynamic> route) => true);
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('home', (Route<dynamic> route) => true);
 
-     // Navigator.pushReplacementNamed(context, 'home');
+      // Navigator.pushReplacementNamed(context, 'home');
     } else if (code == 2) {
       print(code);
       showToast1('Ocurrio un error', 2, ToastGravity.CENTER);

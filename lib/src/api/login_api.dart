@@ -6,15 +6,17 @@ import 'package:bufi/src/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class LoginApi {
-  
   final prefs = new Preferences();
 
   Future<int> login(String user, String pass) async {
     try {
       final url = '$apiBaseURL/api/Login/validar_sesion';
 
-      final resp = await http
-          .post(url, body: {'usuario_nickname': '$user', 'usuario_contrasenha': '$pass', 'app': 'true'});
+      final resp = await http.post(url, body: {
+        'usuario_nickname': '$user',
+        'usuario_contrasenha': '$pass',
+        'app': 'true'
+      });
 
       final decodedData = json.decode(resp.body);
 
@@ -34,7 +36,7 @@ class LoginApi {
         prefs.personSurname = prodTemp.personSurname;
         prefs.idRoleUser = prodTemp.idRoleUser;
         prefs.roleName = prodTemp.roleName;
-        prefs.token =  decodedData['data']['tn'];
+        prefs.token = decodedData['data']['tn'];
 
         return code;
       } else {
@@ -45,7 +47,6 @@ class LoginApi {
       return 0;
     }
   }
-
 
   Future<int> cambiarPass(String pass) async {
     try {
@@ -80,7 +81,66 @@ class LoginApi {
       return 0;
     }
   }
+
+  Future<int> restablecerPass(String email) async {
+    try {
+      final url = '$apiBaseURL/api/Login/restaurar_clave';
+      final resp = await http.post(url, body: {'email': '$email'});
+      final decodedData = json.decode(resp.body);
+
+      final int code = decodedData['result']['code'];
+
+      if (code == 1) {
+        prefs.idUser = decodedData['result']['data']['id_usuario'];
+        return code;
+      } else {
+        return code;
+      }
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return 0;
+    }
+  }
+
+  Future<int> restablecerPass1(String param) async {
+    try {
+      final url = '$apiBaseURL/api/Login/restaurar_clave';
+      final resp = await http
+          .post(url, body: {'id': '${prefs.idUser}', 'param': '$param'});
+      final decodedData = json.decode(resp.body);
+
+      final int code = decodedData['result']['code'];
+
+      if (code == 1) {
+        prefs.idUser = decodedData['result']['data']['id_usuario'];
+        return code;
+      } else {
+        return code;
+      }
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return 0;
+    }
+  }
+
+  Future<int> restablecerPassOk(String pass) async {
+    try {
+      final url = '$apiBaseURL/api/Login/restaurar_clave';
+      final resp = await http
+          .post(url, body: {'id': '${prefs.idUser}', 'pass': '$pass'});
+      final decodedData = json.decode(resp.body);
+
+      final int code = decodedData['result']['code'];
+
+      if (code == 1) {
+        //prefs.idUser = decodedData['result']['data']['id_usuario'];
+        return code;
+      } else {
+        return code;
+      }
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return 0;
+    }
+  }
 }
-
-
-

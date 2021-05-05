@@ -7,6 +7,8 @@ class LoginBloc with Validators {
   final loginProviders = LoginApi();
 
   final _emailController = BehaviorSubject<String>();
+  final _codigoController = BehaviorSubject<String>();
+  final _correoController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
   final _cargandoLoginController = new BehaviorSubject<bool>();
   final _passwordConfirmController = BehaviorSubject<String>();
@@ -14,6 +16,10 @@ class LoginBloc with Validators {
   //Recuperar los datos del Stream
   Stream<String> get emailStream =>
       _emailController.stream.transform(validarname);
+  Stream<String> get codigoStream =>
+      _codigoController.stream.transform(validarcode);
+  Stream<String> get correoStream =>
+      _correoController.stream.transform(validarEmail);
   Stream<String> get passwordStream =>
       _passwordController.stream.transform(validarPassword);
   Stream<bool> get cargando => _cargandoLoginController.stream;
@@ -34,22 +40,35 @@ class LoginBloc with Validators {
   Stream<bool> get formValidPassStream =>
       Rx.combineLatest2(passwordStream, passwordConfirmStream, (p, c) => true);
 
+  Stream<bool> get buttomValidCorreoStream =>
+      Rx.combineLatest2(correoStream, correoStream, (p, c) => true);
+
+  Stream<bool> get buttomValidCodigoStream =>
+      Rx.combineLatest2(codigoStream, codigoStream, (p, c) => true);
+
   //inserta valores al Stream
   Function(String) get changeEmail => _emailController.sink.add;
   Function(String) get changePassword => _passwordController.sink.add;
   Function(bool) get changeCargando => _cargandoLoginController.sink.add;
-  Function(String) get changePasswordConfirm => _passwordConfirmController.sink.add;
+  Function(String) get changePasswordConfirm =>
+      _passwordConfirmController.sink.add;
+  Function(String) get changeCorreo => _correoController.sink.add;
+  Function(String) get changeCodigo => _codigoController.sink.add;
 
   //obtener el ultimo valor ingresado a los stream
   String get email => _emailController.value;
   String get password => _passwordController.value;
   String get passwordConfirm => _passwordConfirmController.value;
+  String get correo => _correoController.value;
+  String get codigo => _codigoController.value;
 
   dispose() {
     _emailController?.close();
     _passwordController?.close();
+    _correoController?.close();
     _cargandoLoginController?.close();
     _passwordConfirmController?.close();
+    _codigoController?.close();
   }
 
   Future<int> login(String user, String pass) async {
@@ -60,9 +79,32 @@ class LoginBloc with Validators {
     return resp;
   }
 
+  //Cambiar Contraseña
   Future<int> restablecerPassword(String pass) async {
     _cargandoLoginController.sink.add(true);
     final resp = await loginProviders.cambiarPass(pass);
+    _cargandoLoginController.sink.add(false);
+    return resp;
+  }
+
+  //Resrtablecer Contraseña
+  Future<int> restablecerPass(String email) async {
+    _cargandoLoginController.sink.add(true);
+    final resp = await loginProviders.restablecerPass(email);
+    _cargandoLoginController.sink.add(false);
+    return resp;
+  }
+
+  Future<int> restablecerPass1(String param) async {
+    _cargandoLoginController.sink.add(true);
+    final resp = await loginProviders.restablecerPass1(param);
+    _cargandoLoginController.sink.add(false);
+    return resp;
+  }
+
+  Future<int> restablecerPassOk(String pass) async {
+    _cargandoLoginController.sink.add(true);
+    final resp = await loginProviders.restablecerPassOk(pass);
     _cargandoLoginController.sink.add(false);
     return resp;
   }
@@ -78,7 +120,7 @@ class Validators {
     if (regExp.hasMatch(email)) {
       sink.add(email);
     } else {
-      sink.addError('Email no es correcto');
+      sink.addError('');
     }
   });
 
@@ -106,6 +148,15 @@ class Validators {
       sink.add(surname);
     } else {
       sink.addError('Este campo no debe estar vacio');
+    }
+  });
+
+  final validarcode =
+      StreamTransformer<String, String>.fromHandlers(handleData: (code, sink) {
+    if (code.length >= 6) {
+      sink.add(code);
+    } else {
+      sink.addError('');
     }
   });
 

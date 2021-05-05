@@ -82,6 +82,9 @@ class LoginApi {
     }
   }
 
+  // ------------ Restablecer Contraseña ----------------
+
+  //Envio de email para verificar si existe usuario
   Future<int> restablecerPass(String email) async {
     try {
       final url = '$apiBaseURL/api/Login/restaurar_clave';
@@ -102,6 +105,7 @@ class LoginApi {
     }
   }
 
+  //Envío del codigo de verificación
   Future<int> restablecerPass1(String param) async {
     try {
       final url = '$apiBaseURL/api/Login/restaurar_clave';
@@ -123,6 +127,7 @@ class LoginApi {
     }
   }
 
+  //Envío de la nueva contraseña
   Future<int> restablecerPassOk(String pass) async {
     try {
       final url = '$apiBaseURL/api/Login/restaurar_clave';

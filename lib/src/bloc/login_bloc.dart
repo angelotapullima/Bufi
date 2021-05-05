@@ -87,7 +87,9 @@ class LoginBloc with Validators {
     return resp;
   }
 
-  //Resrtablecer Contraseña
+  // ------------ Restablecer Contraseña ----------------
+
+  //Envio de email para verificar si existe usuario
   Future<int> restablecerPass(String email) async {
     _cargandoLoginController.sink.add(true);
     final resp = await loginProviders.restablecerPass(email);
@@ -95,6 +97,7 @@ class LoginBloc with Validators {
     return resp;
   }
 
+  //Envio del codigo de verificación
   Future<int> restablecerPass1(String param) async {
     _cargandoLoginController.sink.add(true);
     final resp = await loginProviders.restablecerPass1(param);
@@ -102,6 +105,7 @@ class LoginBloc with Validators {
     return resp;
   }
 
+  //Envío del la nueva contraseña
   Future<int> restablecerPassOk(String pass) async {
     _cargandoLoginController.sink.add(true);
     final resp = await loginProviders.restablecerPassOk(pass);

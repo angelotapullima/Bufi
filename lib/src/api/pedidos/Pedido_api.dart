@@ -248,14 +248,13 @@ class PedidoApi {
     for (var i = 0; i < listDePedidos.length; i++) {
       for (var i = 0; i < listDePedidos[0].car.length; i++) {
         String producto = '';
-        sucursales = sucursales +
-            '${listDePedidos[0].car[i].idSubsidiary},,,${listDePedidos[0].car[i].monto},,,1,,,descripcion,,,';
 
-        //producto =  listDePedidos[0].car[i].carrito[0].idSubsidiaryGood;
+        //sucursales son los datos por sucursal (Id de la sucursal , monto de pedidos por sucursal , tipo de entrega, y la descripcion)
+        sucursales = sucursales + '${listDePedidos[0].car[i].idSubsidiary},,,${listDePedidos[0].car[i].monto},,,1,,,descripcion,,,';
 
+        //producto sonlos daros de los productos por sucursal
         for (var x = 0; x < listDePedidos[0].car[i].carrito.length; x++) {
-          producto = producto +
-              '${listDePedidos[0].car[i].carrito[x].idSubsidiaryGood}++++${listDePedidos[0].car[i].carrito[x].cantidad}++++${listDePedidos[0].car[i].carrito[x].marca}++++${listDePedidos[0].car[i].carrito[x].modelo}++++${listDePedidos[0].car[i].carrito[x].talla}';
+          producto = producto + '${listDePedidos[0].car[i].carrito[x].idSubsidiaryGood}++++${listDePedidos[0].car[i].carrito[x].cantidad}++++${listDePedidos[0].car[i].carrito[x].marca}++++${listDePedidos[0].car[i].carrito[x].modelo}++++${listDePedidos[0].car[i].carrito[x].talla}';
           producto = producto + '.--.';
         }
 

@@ -52,8 +52,8 @@ class _TickectPedidoState extends State<TickectPedido> {
                             width: double.infinity,
                             height: double.infinity,
                             isCornerRounded: true,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                            child: ListView(
+                                //crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Padding(
                                     padding: EdgeInsets.only(
@@ -128,7 +128,8 @@ class _TickectPedidoState extends State<TickectPedido> {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
-                                        horizontal: responsive.wp(5)),
+                                      horizontal: responsive.wp(5),
+                                    ),
                                     child: Column(
                                       children: [
                                         Row(
@@ -199,6 +200,7 @@ class _TickectPedidoState extends State<TickectPedido> {
                                           left: responsive.wp(10),
                                           right: responsive.wp(10)),
                                       shrinkWrap: true,
+                                      physics: ClampingScrollPhysics(),
                                       itemCount: snapshot
                                               .data[0].detallePedido.length +
                                           1,
@@ -218,13 +220,14 @@ class _TickectPedidoState extends State<TickectPedido> {
                                                   Text("Subtotal"),
                                                   Spacer(),
                                                   Text(
-                                                      'S/ ${snapshot.data[0].deliveryTotalOrden}',
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: responsive
-                                                              .ip(1.8),
-                                                          fontWeight:
-                                                              FontWeight.bold)),
+                                                    'S/ ${snapshot.data[0].deliveryTotalOrden}',
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize:
+                                                            responsive.ip(1.8),
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
                                                 ],
                                               ),
                                               SizedBox(
@@ -235,13 +238,14 @@ class _TickectPedidoState extends State<TickectPedido> {
                                                   Text("Envío"),
                                                   Spacer(),
                                                   Text(
-                                                      'S/ ${snapshot.data[0].deliveryPrice}',
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: responsive
-                                                              .ip(1.8),
-                                                          fontWeight:
-                                                              FontWeight.bold)),
+                                                    'S/ ${snapshot.data[0].deliveryPrice}',
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize:
+                                                            responsive.ip(1.8),
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
                                                 ],
                                               ),
                                               Divider(),
@@ -250,61 +254,69 @@ class _TickectPedidoState extends State<TickectPedido> {
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
-                                                  Text('Total',
-                                                      style: TextStyle(
-                                                          color: Colors.red,
-                                                          fontSize:
-                                                              responsive.ip(2),
-                                                          fontWeight:
-                                                              FontWeight.bold)),
+                                                  Text(
+                                                    'Total',
+                                                    style: TextStyle(
+                                                        color: Colors.red,
+                                                        fontSize:
+                                                            responsive.ip(2),
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
                                                   Spacer(),
                                                   Text(
-                                                      'S/ ${snapshot.data[0].deliveryTotalOrden}',
-                                                      style: TextStyle(
-                                                          color: Colors.red,
-                                                          fontSize: responsive
-                                                              .ip(2.5),
-                                                          fontWeight:
-                                                              FontWeight.bold)),
+                                                    'S/ ${snapshot.data[0].deliveryTotalOrden}',
+                                                    style: TextStyle(
+                                                        color: Colors.red,
+                                                        fontSize:
+                                                            responsive.ip(2.5),
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
                                                 ],
                                               ),
                                             ],
                                           );
                                         }
-                                        return Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                    "${snapshot.data[0].detallePedido[index].listProducto[0].productoName} ${snapshot.data[0].detallePedido[index].listProducto[0].productoBrand} x ${snapshot.data[0].detallePedido[index].cantidad}"),
-                                                Text(
-                                                    "Modelo: ${snapshot.data[0].detallePedido[index].listProducto[0].productoModel} "),
-                                                Text(
-                                                    "Tamaño: ${snapshot.data[0].detallePedido[index].listProducto[0].productoSize}"),
-                                                Text(
-                                                    "Tipo: ${snapshot.data[0].detallePedido[index].listProducto[0].productoType}"),
-                                                SizedBox(
-                                                  height: responsive.hp(.5),
-                                                )
-                                              ],
-                                            ),
-                                            Spacer(),
-                                            Text(
-                                              'S/. ' +
-                                                  (double.parse(
-                                                              '${snapshot.data[0].detallePedido[index].cantidad}') *
-                                                          double.parse(
-                                                              '${snapshot.data[0].detallePedido[index].listProducto[0].productoPrice}'))
-                                                      .toString(),
-                                              style: TextStyle(
-                                                  fontSize: responsive.ip(1.8),
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
+                                        return Padding(
+                                          padding:  EdgeInsets.symmetric(vertical: responsive.hp(.5)),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                        "${snapshot.data[0].detallePedido[index].listProducto[0].productoName} ${snapshot.data[0].detallePedido[index].listProducto[0].productoBrand} x ${snapshot.data[0].detallePedido[index].cantidad}"),
+                                                    Text(
+                                                        "Modelo: ${snapshot.data[0].detallePedido[index].listProducto[0].productoModel} "),
+                                                    Text(
+                                                        "Tamaño: ${snapshot.data[0].detallePedido[index].listProducto[0].productoSize}"),
+                                                    Text(
+                                                        "Tipo: ${snapshot.data[0].detallePedido[index].listProducto[0].productoType}"),
+                                                    SizedBox(
+                                                      height: responsive.hp(.5),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(width: responsive.wp(3),),
+                                              Text(
+                                                'S/. ' +
+                                                    (double.parse(
+                                                                '${snapshot.data[0].detallePedido[index].cantidad}') *
+                                                            double.parse(
+                                                                '${snapshot.data[0].detallePedido[index].listProducto[0].productoPrice}'))
+                                                        .toString(),
+                                                style: TextStyle(
+                                                    fontSize: responsive.ip(1.8),
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
                                         );
                                       },
                                     ),

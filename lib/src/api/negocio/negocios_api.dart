@@ -270,26 +270,24 @@ class NegociosApi {
       for (int i = 0; i < decodedData['results'].length; i++) {
         CompanyModel cmodel = CompanyModel();
 
-        cmodel.idCompany = decodedData['results'][i]['id_company'];
-        cmodel.idUser = decodedData['results'][i]['id_user'];
-        cmodel.idCity = decodedData['results'][i]['id_city'];
-        cmodel.idCategory = decodedData['results'][i]['id_category'];
-        cmodel.companyName = decodedData['results'][i]['company_name'];
-        cmodel.companyRuc = decodedData['results'][i]['company_ruc'];
-        cmodel.companyImage = decodedData['results'][i]['company_image'];
-        cmodel.companyType = decodedData['results'][i]['company_type'];
-        cmodel.companyShortcode =
-            decodedData['results'][i]['company_shortcode'];
-        cmodel.companyDelivery = decodedData['results'][i]['company_delivery'];
-        cmodel.companyEntrega = decodedData['results'][i]['company_entrega'];
-        cmodel.companyTarjeta = decodedData['results'][i]['company_tarjeta'];
-        cmodel.companyVerified = decodedData['results'][i]['company_verified'];
-        cmodel.companyRating = decodedData['results'][i]['company_rating'];
-        cmodel.companyCreatedAt =
-            decodedData['results'][i]['company_created_at'];
-        cmodel.companyJoin = decodedData['results'][i]['company_join'];
-        cmodel.companyStatus = decodedData['results'][i]['company_status'];
-        cmodel.companyMt = decodedData['results'][i]['company_mt'];
+        cmodel.idCompany = decodedData['results'][i]['id_company'].toString();
+        cmodel.idUser = decodedData['results'][i]['id_user'].toString();
+        cmodel.idCity = decodedData['results'][i]['id_city'].toString();
+        cmodel.idCategory = decodedData['results'][i]['id_category'].toString();
+        cmodel.companyName = decodedData['results'][i]['company_name'].toString();
+        cmodel.companyRuc = decodedData['results'][i]['company_ruc'].toString();
+        cmodel.companyImage = decodedData['results'][i]['company_image'].toString();
+        cmodel.companyType = decodedData['results'][i]['company_type'].toString();
+        cmodel.companyShortcode = decodedData['results'][i]['company_shortcode'].toString();
+        cmodel.companyDelivery = decodedData['results'][i]['company_delivery'].toString();
+        cmodel.companyEntrega = decodedData['results'][i]['company_entrega'].toString();
+        cmodel.companyTarjeta = decodedData['results'][i]['company_tarjeta'].toString();
+        cmodel.companyVerified = decodedData['results'][i]['company_verified'].toString();
+        cmodel.companyRating = decodedData['results'][i]['company_rating'].toString();
+        cmodel.companyCreatedAt = decodedData['results'][i]['company_created_at'].toString();
+        cmodel.companyJoin = decodedData['results'][i]['company_join'].toString();
+        cmodel.companyStatus = decodedData['results'][i]['company_status'].toString();
+        cmodel.companyMt = decodedData['results'][i]['company_mt'].toString();
         cmodel.miNegocio = decodedData['results'][i]['mi_negocio'].toString();
 
         await companyDatabase.insertarCompany(cmodel);

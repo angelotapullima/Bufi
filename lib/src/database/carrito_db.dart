@@ -1,5 +1,3 @@
-
-
 import 'package:bufi/src/database/databaseProvider.dart';
 import 'package:bufi/src/models/carritoModel.dart';
 
@@ -9,7 +7,7 @@ class CarritoDb {
   insertarProducto(CarritoModel carritoModel) async {
     try {
       final db = await dbProvider.database;
-      
+
       final res = await db.rawInsert(
           "INSERT OR REPLACE INTO Carrito (id_subsidiarygood,id_subsidiary,nombre,"
           "precio,marca,modelo,talla,image,moneda,caracteristicas,stock,cantidad,estado_seleccionado) "
@@ -21,98 +19,97 @@ class CarritoDb {
       return res;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
+      print(e);
     }
   }
 
   Future<List<CarritoModel>> obtenerCarrito() async {
-    try{
-    final db = await dbProvider.database;
-    //try {
+    try {
+      final db = await dbProvider.database;
+      //try {
       final res = await db.rawQuery("SELECT * FROM Carrito");
 
-    List<CarritoModel> list= res.isNotEmpty
-        ? res.map((c) => CarritoModel.fromJson(c)).toList()
-        : [];
+      List<CarritoModel> list = res.isNotEmpty
+          ? res.map((c) => CarritoModel.fromJson(c)).toList()
+          : [];
 
-    return list;
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
+      print(e);
       return [];
     }
-
   }
 
   Future<List<CarritoModel>> obtenerProductoXCarritoListHorizontal() async {
-    try{
-    final db = await dbProvider.database;
-    //try {
-      final res = await db.rawQuery("SELECT * FROM Carrito ORDER BY idCarrito DESC");
+    try {
+      final db = await dbProvider.database;
+      //try {
+      final res =
+          await db.rawQuery("SELECT * FROM Carrito ORDER BY idCarrito DESC");
 
-    List<CarritoModel> list= res.isNotEmpty
-        ? res.map((c) => CarritoModel.fromJson(c)).toList()
-        : [];
+      List<CarritoModel> list = res.isNotEmpty
+          ? res.map((c) => CarritoModel.fromJson(c)).toList()
+          : [];
 
-    return list;
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
+      print(e);
       return [];
     }
-
   }
-
 
   Future<List<CarritoModel>> obtenerProductoXCarritoSeleccionado() async {
     final db = await dbProvider.database;
     try {
-      final res = await db.rawQuery("SELECT * FROM Carrito where estado_seleccionado ='1'");
+      final res = await db
+          .rawQuery("SELECT * FROM Carrito where estado_seleccionado ='1'");
 
-    List<CarritoModel> list= res.isNotEmpty
-        ? res.map((c) => CarritoModel.fromJson(c)).toList()
-        : [];
+      List<CarritoModel> list = res.isNotEmpty
+          ? res.map((c) => CarritoModel.fromJson(c)).toList()
+          : [];
 
-    return list;
-
-     } catch (e) {
-       print("Error $e");
-       return [];
-     }
+      return list;
+    } catch (e) {
+      print("Error $e");
+      return [];
+    }
   }
 
-  Future<List<CarritoModel>> obtenerCarritoPorSucursalSeleccionado(String idSubsi) async {
+  Future<List<CarritoModel>> obtenerCarritoPorSucursalSeleccionado(
+      String idSubsi) async {
     final db = await dbProvider.database;
     try {
-      final res = await db.rawQuery("SELECT * FROM Carrito where id_subsidiary = '$idSubsi' and estado_seleccionado ='1'");
+      final res = await db.rawQuery(
+          "SELECT * FROM Carrito where id_subsidiary = '$idSubsi' and estado_seleccionado ='1'");
 
-    List<CarritoModel> list= res.isNotEmpty
-        ? res.map((c) => CarritoModel.fromJson(c)).toList()
-        : [];
+      List<CarritoModel> list = res.isNotEmpty
+          ? res.map((c) => CarritoModel.fromJson(c)).toList()
+          : [];
 
-    return list;
-
-     } catch (e) {
-       print("Error $e");
-       return [];
-     }
+      return list;
+    } catch (e) {
+      print("Error $e");
+      return [];
+    }
   }
 
   Future<List<CarritoModel>> obtenerProductoXCarritoPorId(String id) async {
-    try{
-    final db = await dbProvider.database;
-    //try {
-      final res = await db.rawQuery("SELECT * FROM Carrito where id_subsidiarygood = '$id'");
+    try {
+      final db = await dbProvider.database;
+      //try {
+      final res = await db
+          .rawQuery("SELECT * FROM Carrito where id_subsidiarygood = '$id'");
 
-    List<CarritoModel> list= res.isNotEmpty
-        ? res.map((c) => CarritoModel.fromJson(c)).toList()
-        : [];
+      List<CarritoModel> list = res.isNotEmpty
+          ? res.map((c) => CarritoModel.fromJson(c)).toList()
+          : [];
 
-    return list;
-
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
+      print(e);
       return [];
     }
 
@@ -121,40 +118,41 @@ class CarritoDb {
     // }
   }
 
-  Future<List<CarritoModel>> obtenerProductoXCarritoPorIdProductoTalla(String idProducto, String talla, String modelo, String marca) async {
-    try{
-    final db = await dbProvider.database;
-    //try {
-      final res = await db.rawQuery("SELECT * FROM Carrito where id_subsidiarygood = '$idProducto' and talla= '$talla' and modelo='$modelo' and marca= '$marca'");
+  Future<List<CarritoModel>> obtenerProductoXCarritoPorIdProductoTalla(
+      String idProducto, String talla, String modelo, String marca) async {
+    try {
+      final db = await dbProvider.database;
+      //try {
+      final res = await db.rawQuery(
+          "SELECT * FROM Carrito WHERE id_subsidiarygood = '$idProducto' AND talla= '$talla' AND modelo='$modelo' AND marca= '$marca'");
 
-    List<CarritoModel> list= res.isNotEmpty
-        ? res.map((c) => CarritoModel.fromJson(c)).toList()
-        : [];
+      List<CarritoModel> list = res.isNotEmpty
+          ? res.map((c) => CarritoModel.fromJson(c)).toList()
+          : [];
 
-    return list;
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
+      print(e);
       return [];
     }
-
   }
 
   Future<List<CarritoModel>> obtenerProductosAgrupados() async {
-    try{
-    final db = await dbProvider.database;
-    //try {
-      final res = await db.rawQuery("SELECT * FROM Carrito group by id_subsidiary");
+    try {
+      final db = await dbProvider.database;
+      //try {
+      final res =
+          await db.rawQuery("SELECT * FROM Carrito group by id_subsidiary");
 
-    List<CarritoModel> list= res.isNotEmpty
-        ? res.map((c) => CarritoModel.fromJson(c)).toList()
-        : [];
+      List<CarritoModel> list = res.isNotEmpty
+          ? res.map((c) => CarritoModel.fromJson(c)).toList()
+          : [];
 
-    return list;
-
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
+      print(e);
       return [];
     }
 
@@ -164,19 +162,20 @@ class CarritoDb {
   }
 
   Future<List<CarritoModel>> obtenerProductosSeleccionadoAgrupados() async {
-    try{
-    final db = await dbProvider.database;
-    //try {
-      final res = await db.rawQuery("SELECT * FROM Carrito where estado_seleccionado = '1' group by id_subsidiary");
+    try {
+      final db = await dbProvider.database;
+      //try {
+      final res = await db.rawQuery(
+          "SELECT * FROM Carrito where estado_seleccionado = '1' group by id_subsidiary");
 
-    List<CarritoModel> list= res.isNotEmpty
-        ? res.map((c) => CarritoModel.fromJson(c)).toList()
-        : [];
+      List<CarritoModel> list = res.isNotEmpty
+          ? res.map((c) => CarritoModel.fromJson(c)).toList()
+          : [];
 
-    return list;
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
+      print(e);
       return [];
     }
 
@@ -186,30 +185,62 @@ class CarritoDb {
   }
 
   deleteCarritoPorIdSudsidiaryGood(String idSubsidiaryGood) async {
-    try{
-    final db = await dbProvider.database;
+    try {
+      final db = await dbProvider.database;
 
-    final res = await db.rawDelete("DELETE FROM Carrito where id_subsidiarygood = '$idSubsidiaryGood'");
+      final res = await db.rawDelete(
+          "DELETE FROM Carrito where id_subsidiarygood = '$idSubsidiaryGood'");
 
-    return res;
+      return res;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
+      print(e);
       return [];
     }
   }
 
-  deleteCarritoPorIdProductoTalla(String idSubsidiaryGood,String talla,String modelo,String marca ) async {
-    try{
-    final db = await dbProvider.database;
+  deleteCarritoPorIdProductoTalla(String idSubsidiaryGood, String talla,
+      String modelo, String marca) async {
+    try {
+      final db = await dbProvider.database;
 
-    final res = await db.rawDelete("DELETE FROM Carrito where id_subsidiarygood = '$idSubsidiaryGood' and talla='$talla' and modelo='$modelo' and marca='$marca'");
+      final res = await db.rawDelete(
+          "DELETE FROM Carrito where id_subsidiarygood = '$idSubsidiaryGood' and talla='$talla' and modelo='$modelo' and marca='$marca'");
 
-    return res;
-
+      return res;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
+      print(e);
+      return [];
+    }
+  }
+
+  deleteCarritoPorIdProductoEstadoSeleccion(String idSubsidiaryGood) async {
+    try {
+      final db = await dbProvider.database;
+
+      final res = await db.rawDelete(
+          "DELETE FROM Carrito WHERE id_subsidiarygood = '$idSubsidiaryGood' AND estado_seleccionado = '1' ");
+
+      return res;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
+  }
+
+  deleteCarritoPorEstadoSeleccion() async {
+    try {
+      final db = await dbProvider.database;
+
+      final res = await db
+          .rawDelete("DELETE FROM Carrito WHERE estado_seleccionado = '1' ");
+
+      return res;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
       return [];
     }
   }
@@ -263,16 +294,13 @@ class CarritoDb {
       print(exception);
     }
   }
-  
 
-
-
-  updateSeleccionado(String idProducto,String seleccion ,String talla,String modelo,String marca ) async {
+  updateSeleccionado(String idProducto, String seleccion, String talla,
+      String modelo, String marca) async {
     try {
       final db = await dbProvider.database;
 
-      final res = await db.rawUpdate(
-          "UPDATE Carrito SET "
+      final res = await db.rawUpdate("UPDATE Carrito SET "
           "estado_seleccionado='$seleccion' "
           "WHERE id_subsidiarygood = '$idProducto' and talla = '$talla' and modelo ='$modelo' and marca='$marca' ");
       print(res);
@@ -281,7 +309,6 @@ class CarritoDb {
       print(exception);
     }
   }
-  
 
   // Future<List<CarritoModel>> obtProductoPorSubsidiary() async {
   //   final db = await dbProvider.database;
@@ -298,6 +325,5 @@ class CarritoDb {
   //     print("Error");
   //   }
   // }
-
 
 }

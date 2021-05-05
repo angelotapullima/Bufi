@@ -1,7 +1,6 @@
 import 'package:bufi/introPage.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProductoBloc.dart';
-import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProductoFotoPage.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
 import 'package:bufi/src/page/Tabs/Principal/notificaciones/notificacionesPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Direccion/AgregarDireccionPAge.dart';

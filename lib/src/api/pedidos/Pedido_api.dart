@@ -149,7 +149,6 @@ class PedidoApi {
       //insertar a la tabla de Company
       await companyDb.insertarCompany(companyModel);
 
-
       //recorremos la segunda lista de detalle de pedidos
       for (var j = 0;
           j < decodedData["result"][i]["detalle_pedido"].length;
@@ -164,10 +163,10 @@ class PedidoApi {
         detallePedido.cantidad = decodedData["result"][i]["detalle_pedido"][j]
             ["delivery_detail_qty"];
         detallePedido.detallePedidoValorado = decodedData["result"][i]
-            ["detalle_pedido"][j]["valorado"].toString();
+                ["detalle_pedido"][j]["valorado"]
+            .toString();
         detallePedido.detallePedidoSubtotal = decodedData["result"][i]
             ["detalle_pedido"][j]["delivery_detail_subtotal"];
-        
 
         //insertamos en la bd los productos
         ProductoModel subsidiaryGoodModel = ProductoModel();
@@ -206,7 +205,7 @@ class PedidoApi {
             ["detalle_pedido"][j]['subsidiary_good_updated'];
         subsidiaryGoodModel.productoStatus = decodedData["result"][i]
             ["detalle_pedido"][j]['subsidiary_good_status'];
-        
+
         //Obtener la lista de Company
         final listProducto = await productoDb
             .obtenerProductoPorIdSubsidiaryGood(decodedData["result"][i]
@@ -289,8 +288,10 @@ class PedidoApi {
     final decodedData = json.decode(response.body);
 
     final pedidosModel = PedidosModel();
+    print(decodedData["result"]);
 
-    pedidosModel.idPedido = decodedData["result"]['pedido']['id_delivery'].toString();
+    pedidosModel.idPedido =
+        decodedData["result"]['pedido']['id_delivery'].toString();
     pedidosModel.idUser = decodedData["result"]['pedido']['id_user'];
     pedidosModel.idCity = decodedData["result"]['pedido']['id_city'];
     pedidosModel.idSubsidiary =
@@ -351,8 +352,8 @@ class PedidoApi {
             ["detalle_pedido"][j]["delivery_detail_model"];
         detallePedido.detallePedidoTalla = decodedData["result"]['pedido']
             ["detalle_pedido"][j]["delivery_detail_size"];
-            //   detallePedido.detallePedidoValorado = decodedData["result"]['pedido']
-            // ["detalle_pedido"][j]["valorado"];
+        //   detallePedido.detallePedidoValorado = decodedData["result"]['pedido']
+        // ["detalle_pedido"][j]["valorado"];
         detallePedido.detallePedidoSubtotal = decodedData["result"]['pedido']
             ["detalle_pedido"][j]["delivery_detail_subtotal"];
 

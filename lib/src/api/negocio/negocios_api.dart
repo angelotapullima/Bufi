@@ -58,8 +58,8 @@ class NegociosApi {
             smodel.idCompany = decodedData[i]['id_company'];
             smodel.subsidiaryName = decodedData[i]['subsidiary_name'];
             smodel.subsidiaryCellphone = decodedData[i]['subsidiary_cellphone'];
-            smodel.subsidiaryCellphone =
-                decodedData[i]['id_subsidiary_cellphone_2'];
+            smodel.subsidiaryCellphone2 =
+                decodedData[i]['subsidiary_cellphone_2'];
             smodel.subsidiaryEmail = decodedData[i]['subsidiary_email'];
             smodel.subsidiaryCoordX = decodedData[i]['subsidiary_coord_x'];
             smodel.subsidiaryCoordY = decodedData[i]['subsidiary_coord_y'];
@@ -101,8 +101,8 @@ class NegociosApi {
           smodel.idCompany = decodedData[i]['id_company'];
           smodel.subsidiaryName = decodedData[i]['subsidiary_name'];
           smodel.subsidiaryCellphone = decodedData[i]['subsidiary_cellphone'];
-          smodel.subsidiaryCellphone =
-              decodedData[i]['id_subsidiary_cellphone_2'];
+          smodel.subsidiaryCellphone2 =
+              decodedData[i]['subsidiary_cellphone_2'];
           smodel.subsidiaryEmail = decodedData[i]['subsidiary_email'];
           smodel.subsidiaryCoordX = decodedData[i]['subsidiary_coord_x'];
           smodel.subsidiaryCoordY = decodedData[i]['subsidiary_coord_y'];
@@ -165,7 +165,7 @@ class NegociosApi {
         smodel.idSubsidiary = decodedData['id_subsidiary'];
         smodel.subsidiaryName = decodedData['subsidiary_name'];
         smodel.subsidiaryCellphone = decodedData['subsidiary_cellphone'];
-        smodel.subsidiaryCellphone = decodedData['id_subsidiary_cellphone_2'];
+        smodel.subsidiaryCellphone2 = decodedData['subsidiary_cellphone_2'];
         smodel.subsidiaryEmail = decodedData['subsidiary_email'];
         smodel.subsidiaryCoordX = decodedData['subsidiary_coord_x'];
         smodel.subsidiaryCoordY = decodedData['subsidiary_coord_y'];
@@ -206,7 +206,7 @@ class NegociosApi {
         smodel.idCompany = decodedData['id_company'];
         smodel.subsidiaryName = decodedData['subsidiary_name'];
         smodel.subsidiaryCellphone = decodedData['subsidiary_cellphone'];
-        smodel.subsidiaryCellphone = decodedData['id_subsidiary_cellphone_2'];
+        smodel.subsidiaryCellphone2 = decodedData['subsidiary_cellphone_2'];
         smodel.subsidiaryEmail = decodedData['subsidiary_email'];
         smodel.subsidiaryCoordX = decodedData['subsidiary_coord_x'];
         smodel.subsidiaryCoordY = decodedData['subsidiary_coord_y'];
@@ -257,13 +257,13 @@ class NegociosApi {
         }
       }
 
-      var response = await http.post("$apiBaseURL/api/Negocio/listar_negocios",
-          body: {
-            'id_ciudad': '1',
-            'limite_sup': mayor.toString(),
-            'limite_inf': 0
-            //menor.toString()
-          });
+      var response =
+          await http.post("$apiBaseURL/api/Negocio/listar_negocios", body: {
+        'id_ciudad': '1',
+        'limite_sup': mayor.toString(),
+        'limite_inf': 0
+        //menor.toString()
+      });
 
       final decodedData = json.decode(response.body);
 
@@ -300,8 +300,8 @@ class NegociosApi {
         smodel.subsidiaryName = decodedData['results'][i]['subsidiary_name'];
         smodel.subsidiaryCellphone =
             decodedData['results'][i]['subsidiary_cellphone'];
-        smodel.subsidiaryCellphone =
-            decodedData['results'][i]['id_subsidiary_cellphone_2'];
+        smodel.subsidiaryCellphone2 =
+            decodedData['results'][i]['subsidiary_cellphone_2'];
         smodel.subsidiaryEmail = decodedData['results'][i]['subsidiary_email'];
         smodel.subsidiaryCoordX =
             decodedData['results'][i]['subsidiary_coord_x'];

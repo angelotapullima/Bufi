@@ -362,7 +362,8 @@ class _CuerpoState extends State<Cuerpo> {
             ),
             TranslateAnimation(
               duration: const Duration(milliseconds: 400),
-              child: _contenido(responsive, preferences,context, widget.listProd, value),
+              child: _contenido(
+                  responsive, preferences, context, widget.listProd, value),
             ),
 
             BotonAgregar(responsive: responsive, listProd: widget.listProd)

@@ -274,19 +274,31 @@ class NegociosApi {
         cmodel.idUser = decodedData['results'][i]['id_user'].toString();
         cmodel.idCity = decodedData['results'][i]['id_city'].toString();
         cmodel.idCategory = decodedData['results'][i]['id_category'].toString();
-        cmodel.companyName = decodedData['results'][i]['company_name'].toString();
+        cmodel.companyName =
+            decodedData['results'][i]['company_name'].toString();
         cmodel.companyRuc = decodedData['results'][i]['company_ruc'].toString();
-        cmodel.companyImage = decodedData['results'][i]['company_image'].toString();
-        cmodel.companyType = decodedData['results'][i]['company_type'].toString();
-        cmodel.companyShortcode = decodedData['results'][i]['company_shortcode'].toString();
-        cmodel.companyDelivery = decodedData['results'][i]['company_delivery'].toString();
-        cmodel.companyEntrega = decodedData['results'][i]['company_entrega'].toString();
-        cmodel.companyTarjeta = decodedData['results'][i]['company_tarjeta'].toString();
-        cmodel.companyVerified = decodedData['results'][i]['company_verified'].toString();
-        cmodel.companyRating = decodedData['results'][i]['company_rating'].toString();
-        cmodel.companyCreatedAt = decodedData['results'][i]['company_created_at'].toString();
-        cmodel.companyJoin = decodedData['results'][i]['company_join'].toString();
-        cmodel.companyStatus = decodedData['results'][i]['company_status'].toString();
+        cmodel.companyImage =
+            decodedData['results'][i]['company_image'].toString();
+        cmodel.companyType =
+            decodedData['results'][i]['company_type'].toString();
+        cmodel.companyShortcode =
+            decodedData['results'][i]['company_shortcode'].toString();
+        cmodel.companyDelivery =
+            decodedData['results'][i]['company_delivery'].toString();
+        cmodel.companyEntrega =
+            decodedData['results'][i]['company_entrega'].toString();
+        cmodel.companyTarjeta =
+            decodedData['results'][i]['company_tarjeta'].toString();
+        cmodel.companyVerified =
+            decodedData['results'][i]['company_verified'].toString();
+        cmodel.companyRating =
+            decodedData['results'][i]['company_rating'].toString();
+        cmodel.companyCreatedAt =
+            decodedData['results'][i]['company_created_at'].toString();
+        cmodel.companyJoin =
+            decodedData['results'][i]['company_join'].toString();
+        cmodel.companyStatus =
+            decodedData['results'][i]['company_status'].toString();
         cmodel.companyMt = decodedData['results'][i]['company_mt'].toString();
         cmodel.miNegocio = decodedData['results'][i]['mi_negocio'].toString();
 
@@ -411,11 +423,8 @@ class NegociosApi {
         "app": 'true',
         "tn": prefs.token,
       });
-
       final code = json.decode(res.body);
-
       //final int code = decodesData;
-
       if (code == 1) {
         return 1;
       } else if (code == 2) {
@@ -423,15 +432,12 @@ class NegociosApi {
       } else {
         return code;
       }
-
       // return code;
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
-
       return 0;
     }
   }
-
    */
   Future<dynamic> listarSubsidiaryPorId(String id) async {
     try {

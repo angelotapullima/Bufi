@@ -261,7 +261,7 @@ class NegociosApi {
           await http.post("$apiBaseURL/api/Negocio/listar_negocios", body: {
         'id_ciudad': '1',
         'limite_sup': mayor.toString(),
-        'limite_inf': 0
+        'limite_inf': menor.toString()
         //menor.toString()
       });
 

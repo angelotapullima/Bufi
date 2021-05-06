@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bufi/src/bloc/provider_bloc.dart';
-import 'package:bufi/src/models/DetallePedidoModel.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
@@ -89,7 +88,7 @@ class _TickectPedidoState extends State<TickectPedido> {
                       ),
                       child: Center(child: BackButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, 'home');
+                          Navigator.pop(context);
                         },
                       )),
                     ),

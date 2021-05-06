@@ -1,6 +1,7 @@
 import 'package:bufi/src/api/notificaciones_api.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/database/carrito_db.dart';
+import 'package:bufi/src/database/detallePedido_database.dart';
 import 'package:bufi/src/database/direccion_database.dart';
 import 'package:bufi/src/database/notificaciones_database.dart';
 import 'package:bufi/src/database/producto_bd.dart';
@@ -1017,6 +1018,11 @@ obtenerFecha(String date) {
   final DateFormat fech = new DateFormat('dd MMMM yyyy', 'es');
 
   return fech.format(fecha);
+}
+
+actualizarEstadoValoracion(String idPedido) async {
+  final detallePedidoDb = DetallePedidoDatabase();
+  detallePedidoDb.updateStadoValoracion(idPedido);
 }
 
 // void quitarSubsidiaryFavorito(

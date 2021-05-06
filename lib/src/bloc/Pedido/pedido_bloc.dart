@@ -36,9 +36,12 @@ class PedidoBloc {
   }
 
   void obtenerPedidosEnviados(String idEstado) async {
+    print('Primera llamada a la db');
     _pedidosEnviadoController.sink
         .add(await obtnerDetallePedidosEnviados(idEstado));
+    print('Llamada al API');
     pedidoApi.obtenerPedidosEnviados(idEstado);
+    print('Segunda llamada a la db');
     _pedidosEnviadoController.sink
         .add(await obtnerDetallePedidosEnviados(idEstado));
   }
@@ -396,7 +399,7 @@ class PedidoBloc {
         final detallePedido = DetallePedidoModel();
 
         detallePedido.idDetallePedido = listdetallePedido[j].idDetallePedido;
-        detallePedido.idPedido = listdetallePedido[j].idPedido;
+        detallePedido.detallePedidoValorado = listdetallePedido[j].idPedido;
         detallePedido.idProducto = listdetallePedido[j].idProducto;
         detallePedido.cantidad = listdetallePedido[j].cantidad;
         detallePedido.detallePedidoMarca =

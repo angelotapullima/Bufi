@@ -1,9 +1,8 @@
 import 'package:bufi/src/database/databaseProvider.dart';
 import 'package:bufi/src/models/DetallePedidoModel.dart';
 
-class DetallePedidoDatabase{
-
-final dbprovider = DatabaseProvider.db;
+class DetallePedidoDatabase {
+  final dbprovider = DatabaseProvider.db;
 
   insertarDetallePedido(DetallePedidoModel detallePedidoModel) async {
     try {
@@ -12,9 +11,9 @@ final dbprovider = DatabaseProvider.db;
       final res = await db.rawInsert(
           "INSERT OR REPLACE INTO DetallePedido (id_detalle_pedido,id_pedido,id_producto,"
           "cantidad,detalle_pedido_marca,detalle_pedido_modelo,detalle_pedido_talla,detalle_pedido_valorado,delivery_detail_subtotal) "
-              "VALUES ('${detallePedidoModel.idDetallePedido}','${detallePedidoModel.idPedido}','${detallePedidoModel.idProducto}',"
-              "'${detallePedidoModel.cantidad}','${detallePedidoModel.detallePedidoMarca}','${detallePedidoModel.detallePedidoModelo}','${detallePedidoModel.detallePedidoTalla}',"
-              "'${detallePedidoModel.detallePedidoValorado}','${detallePedidoModel.detallePedidoSubtotal}')");
+          "VALUES ('${detallePedidoModel.idDetallePedido}','${detallePedidoModel.idPedido}','${detallePedidoModel.idProducto}',"
+          "'${detallePedidoModel.cantidad}','${detallePedidoModel.detallePedidoMarca}','${detallePedidoModel.detallePedidoModelo}','${detallePedidoModel.detallePedidoTalla}',"
+          "'${detallePedidoModel.detallePedidoValorado}','${detallePedidoModel.detallePedidoSubtotal}')");
 
       return res;
     } catch (exception) {
@@ -22,23 +21,35 @@ final dbprovider = DatabaseProvider.db;
     }
   }
 
-  Future<List<DetallePedidoModel>> obtenerDetallePedidoxIdPedido(String idPedido) async {
-    try{
-    final db = await dbprovider.database;
-    final res = await db.rawQuery("SELECT * FROM DetallePedido where id_pedido='$idPedido'");
+  Future<List<DetallePedidoModel>> obtenerDetallePedidoxIdPedido(
+      String idPedido) async {
+    try {
+      final db = await dbprovider.database;
+      final res = await db
+          .rawQuery("SELECT * FROM DetallePedido where id_pedido='$idPedido'");
 
-    List<DetallePedidoModel> list = res.isNotEmpty
-        ? res.map((c) => DetallePedidoModel.fromJson(c)).toList()
-        : [];
+      List<DetallePedidoModel> list = res.isNotEmpty
+          ? res.map((c) => DetallePedidoModel.fromJson(c)).toList()
+          : [];
 
-    return list;
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
+      print(e);
       return [];
     }
-  } 
+  }
 
- 
-
+  updateStadoValoracion(String idPedido) async {
+    try {
+      final db = await dbprovider.database;
+      final res = await db.rawUpdate("UPDATE DetallePedido SET "
+          "detalle_pedido_valorado= '1' "
+          "WHERE id_pedido='$idPedido'");
+      print('Actualización db $res');
+      return res;
+    } catch (exception) {
+      print(exception);
+    }
+  }
 }

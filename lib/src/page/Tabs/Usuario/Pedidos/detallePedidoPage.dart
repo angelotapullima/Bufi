@@ -279,7 +279,8 @@ class _TickectPedidoState extends State<TickectPedido> {
                                           );
                                         }
                                         return Padding(
-                                          padding:  EdgeInsets.symmetric(vertical: responsive.hp(.5)),
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: responsive.hp(.5)),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -303,7 +304,9 @@ class _TickectPedidoState extends State<TickectPedido> {
                                                   ],
                                                 ),
                                               ),
-                                              SizedBox(width: responsive.wp(3),),
+                                              SizedBox(
+                                                width: responsive.wp(3),
+                                              ),
                                               Text(
                                                 'S/. ' +
                                                     (double.parse(
@@ -312,8 +315,10 @@ class _TickectPedidoState extends State<TickectPedido> {
                                                                 '${snapshot.data[0].detallePedido[index].listProducto[0].productoPrice}'))
                                                         .toString(),
                                                 style: TextStyle(
-                                                    fontSize: responsive.ip(1.8),
-                                                    fontWeight: FontWeight.bold),
+                                                    fontSize:
+                                                        responsive.ip(1.8),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                             ],
                                           ),
@@ -338,7 +343,7 @@ class _TickectPedidoState extends State<TickectPedido> {
                         ),
                         child: Center(child: BackButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, 'home');
+                            Navigator.pop(context);
                           },
                         )),
                       ),

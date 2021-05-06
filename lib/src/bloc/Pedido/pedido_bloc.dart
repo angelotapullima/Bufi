@@ -105,7 +105,7 @@ class PedidoBloc {
             listdetallePedido[j].detallePedidoModelo;
         detallePedido.detallePedidoTalla =
             listdetallePedido[j].detallePedidoTalla;
-         detallePedido.detallePedidoValorado =
+        detallePedido.detallePedidoValorado =
             listdetallePedido[j].detallePedidoValorado;
         detallePedido.detallePedidoSubtotal =
             listdetallePedido[j].detallePedidoSubtotal;
@@ -126,12 +126,14 @@ class PedidoBloc {
           productoModel.productoPrice = listProductos[0].productoPrice;
           productoModel.productoCurrency = listProductos[l].productoCurrency;
           productoModel.productoImage = listProductos[0].productoImage;
-          productoModel.productoCharacteristics =listProductos[0].productoCharacteristics;
+          productoModel.productoCharacteristics =
+              listProductos[0].productoCharacteristics;
           productoModel.productoBrand = listProductos[0].productoBrand;
           productoModel.productoModel = listProductos[0].productoModel;
           productoModel.productoSize = listProductos[0].productoSize;
-           productoModel.productoStock = listProductos[0].productoStock;
-           productoModel.productoStockStatus = listProductos[0].productoStockStatus;
+          productoModel.productoStock = listProductos[0].productoStock;
+          productoModel.productoStockStatus =
+              listProductos[0].productoStockStatus;
           productoModel.productoMeasure = listProductos[0].productoMeasure;
 
           listProductosModel.add(productoModel);
@@ -250,7 +252,7 @@ class PedidoBloc {
             listdetallePedido[j].detallePedidoModelo;
         detallePedido.detallePedidoTalla =
             listdetallePedido[j].detallePedidoTalla;
-            detallePedido.detallePedidoValorado =
+        detallePedido.detallePedidoValorado =
             listdetallePedido[j].detallePedidoValorado;
         detallePedido.detallePedidoSubtotal =
             listdetallePedido[j].detallePedidoSubtotal;
@@ -274,8 +276,9 @@ class PedidoBloc {
           productoModel.productoBrand = listProductos[0].productoBrand;
           productoModel.productoModel = listProductos[0].productoModel;
           productoModel.productoSize = listProductos[0].productoSize;
-           productoModel.productoStock = listProductos[0].productoStock;
-           productoModel.productoStockStatus = listProductos[0].productoStockStatus;
+          productoModel.productoStock = listProductos[0].productoStock;
+          productoModel.productoStockStatus =
+              listProductos[0].productoStockStatus;
           productoModel.productoMeasure = listProductos[0].productoMeasure;
 
           listProductosModel.add(productoModel);
@@ -400,8 +403,10 @@ class PedidoBloc {
             listdetallePedido[j].detallePedidoMarca;
         detallePedido.detallePedidoModelo =
             listdetallePedido[j].detallePedidoModelo;
-        detallePedido.detallePedidoTalla =listdetallePedido[j].detallePedidoTalla;
-        detallePedido.detallePedidoValorado =listdetallePedido[j].detallePedidoValorado;
+        detallePedido.detallePedidoTalla =
+            listdetallePedido[j].detallePedidoTalla;
+        detallePedido.detallePedidoValorado =
+            listdetallePedido[j].detallePedidoValorado;
         detallePedido.detallePedidoSubtotal =
             listdetallePedido[j].detallePedidoSubtotal;
 
@@ -425,7 +430,8 @@ class PedidoBloc {
           productoModel.productoModel = listProductos[0].productoModel;
           productoModel.productoSize = listProductos[0].productoSize;
           productoModel.productoStock = listProductos[0].productoStock;
-           productoModel.productoStockStatus = listProductos[0].productoStockStatus;
+          productoModel.productoStockStatus =
+              listProductos[0].productoStockStatus;
           productoModel.productoMeasure = listProductos[0].productoMeasure;
 
           listProductosModel.add(productoModel);

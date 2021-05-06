@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bufi/src/bloc/provider_bloc.dart';
+import 'package:bufi/src/models/DetallePedidoModel.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
@@ -33,348 +34,99 @@ class _TickectPedidoState extends State<TickectPedido> {
     return Scaffold(
       backgroundColor: Color(0xff303c59),
       body: StreamBuilder(
-          stream: pedidoBloc.pedidoPorIdStream,
-          builder: (context, AsyncSnapshot<List<PedidosModel>> snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data.length > 0) {
-                var fecha = obtenerFechaHora(snapshot.data[0].deliveryDatetime);
-                return Stack(
-                  children: [
-                    Screenshot(
-                      controller: screenshotController,
-                      child: SafeArea(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: responsive.hp(1),
-                            horizontal: responsive.wp(2),
-                          ),
-                          child: FlutterTicketWidget(
-                            width: double.infinity,
-                            height: double.infinity,
-                            isCornerRounded: true,
-                            child: ListView(
-                                //crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: responsive.hp(1),
-                                    ),
-                                    child: Center(
-                                      child: Image(
-                                        width: responsive.ip(8),
-                                        height: responsive.ip(8),
-                                        image: AssetImage(
-                                            'assets/logo_bufeotec.png'),
-                                        fit: BoxFit.contain,
-                                      ), /* Text(
-                          'Comprobante de Pago',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: responsive.ip(2.5),
-                              fontWeight: FontWeight.bold),
-                        ), */
-                                    ),
-                                  ),
-                                  Center(
-                                    child: Text(
-                                      'Comprobante de Pago',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: responsive.ip(2.5),
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: responsive.hp(2.5),
-                                      left: responsive.wp(5),
-                                      right: responsive.wp(5),
-                                    ),
-                                    child: Column(
-                                      children: <Widget>[
-                                        ticketDetailsWidget(
-                                            'Fecha',
-                                            '$fecha',
-                                            'Cliente',
-                                            '${snapshot.data[0].deliveryName} ',
-                                            responsive),
-                                        SizedBox(
-                                          height: responsive.hp(1.5),
-                                        ),
-                                        ticketDetailsWidget(
-                                            'Dirección',
-                                            '${snapshot.data[0].deliveryAddress}',
-                                            'Tipo de entrega',
-                                            '${snapshot.data[0].listCompanySubsidiary[0].companyDeliveryPropio}',
-                                            responsive),
-                                        SizedBox(
-                                          height: responsive.hp(1.15),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: responsive.hp(1.5),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: responsive.wp(5)),
-                                    child: Text(
-                                        'Datos de la empresa que realiza la venta'),
-                                  ),
-                                  SizedBox(
-                                    height: responsive.hp(1),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: responsive.wp(5),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Icon(Icons.store),
-                                            SizedBox(
-                                              width: responsive.wp(2),
-                                            ),
-                                            Text(
-                                              '${snapshot.data[0].listCompanySubsidiary[0].subsidiaryName}',
-                                              style: TextStyle(
-                                                  fontSize: responsive.ip(2),
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(Icons.pin_drop),
-                                            SizedBox(
-                                              width: responsive.wp(2),
-                                            ),
-                                            Text(
-                                                '${snapshot.data[0].listCompanySubsidiary[0].subsidiaryAddress}'),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(Icons.phone),
-                                            SizedBox(
-                                              width: responsive.wp(2),
-                                            ),
-                                            Text(
-                                                '${snapshot.data[0].listCompanySubsidiary[0].subsidiaryCellphone} - ${snapshot.data[0].listCompanySubsidiary[0].subsidiaryCellphone2}'),
-                                          ],
-                                        ),
-                                        ('${snapshot.data[0].listCompanySubsidiary[0].subsidiaryEmail}' ==
-                                                'null')
-                                            ? Row(
-                                                children: [
-                                                  Icon(Icons.email),
-                                                  SizedBox(
-                                                    width: responsive.wp(2),
-                                                  ),
-                                                  Text(
-                                                      '${snapshot.data[0].listCompanySubsidiary[0].subsidiaryEmail}')
-                                                ],
-                                              )
-                                            : Container()
-                                      ],
-                                    ),
-                                  ),
-                                  Divider(),
-                                  Center(
-                                    child: Text(
-                                      'Productos',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: responsive.ip(2.5),
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Divider(),
-                                  Expanded(
-                                    child: ListView.builder(
-                                      padding: EdgeInsets.only(
-                                          top: responsive.hp(2),
-                                          left: responsive.wp(10),
-                                          right: responsive.wp(10)),
-                                      shrinkWrap: true,
-                                      physics: ClampingScrollPhysics(),
-                                      itemCount: snapshot
-                                              .data[0].detallePedido.length +
-                                          1,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        if (index ==
-                                            snapshot
-                                                .data[0].detallePedido.length) {
-                                          return Column(
-                                            children: [
-                                              SizedBox(
-                                                height: responsive.hp(5),
-                                              ),
-                                              Divider(),
-                                              Row(
-                                                children: [
-                                                  Text("Subtotal"),
-                                                  Spacer(),
-                                                  Text(
-                                                    'S/ ${snapshot.data[0].deliveryTotalOrden}',
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize:
-                                                            responsive.ip(1.8),
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: responsive.hp(1),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text("Envío"),
-                                                  Spacer(),
-                                                  Text(
-                                                    'S/ ${snapshot.data[0].deliveryPrice}',
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize:
-                                                            responsive.ip(1.8),
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                              Divider(),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    'Total',
-                                                    style: TextStyle(
-                                                        color: Colors.red,
-                                                        fontSize:
-                                                            responsive.ip(2),
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  Spacer(),
-                                                  Text(
-                                                    'S/ ${snapshot.data[0].deliveryTotalOrden}',
-                                                    style: TextStyle(
-                                                        color: Colors.red,
-                                                        fontSize:
-                                                            responsive.ip(2.5),
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          );
-                                        }
-                                        return Padding(
-                                          padding:  EdgeInsets.symmetric(vertical: responsive.hp(.5)),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                        "${snapshot.data[0].detallePedido[index].listProducto[0].productoName} ${snapshot.data[0].detallePedido[index].listProducto[0].productoBrand} x ${snapshot.data[0].detallePedido[index].cantidad}"),
-                                                    Text(
-                                                        "Modelo: ${snapshot.data[0].detallePedido[index].listProducto[0].productoModel} "),
-                                                    Text(
-                                                        "Tamaño: ${snapshot.data[0].detallePedido[index].listProducto[0].productoSize}"),
-                                                    Text(
-                                                        "Tipo: ${snapshot.data[0].detallePedido[index].listProducto[0].productoType}"),
-                                                    SizedBox(
-                                                      height: responsive.hp(.5),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(width: responsive.wp(3),),
-                                              Text(
-                                                'S/. ' +
-                                                    (double.parse(
-                                                                '${snapshot.data[0].detallePedido[index].cantidad}') *
-                                                            double.parse(
-                                                                '${snapshot.data[0].detallePedido[index].listProducto[0].productoPrice}'))
-                                                        .toString(),
-                                                style: TextStyle(
-                                                    fontSize: responsive.ip(1.8),
-                                                    fontWeight: FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: responsive.hp(8),
-                      left: responsive.wp(6),
-                      child: Container(
-                        width: responsive.ip(5),
-                        height: responsive.ip(5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: Colors.grey[200],
-                        ),
-                        child: Center(child: BackButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, 'home');
-                          },
-                        )),
-                      ),
-                    ),
-                    Positioned(
-                      top: responsive.hp(8.5),
-                      right: responsive.wp(4),
-                      child: GestureDetector(
-                        child: Container(
-                            width: responsive.ip(5),
-                            height: responsive.ip(5),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color: Colors.grey[200],
+        stream: pedidoBloc.pedidoPorIdStream,
+        builder: (context, AsyncSnapshot<List<PedidosModel>> snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.length > 0) {
+              var fecha = obtenerFechaHora(snapshot.data[0].deliveryDatetime);
+              return Stack(
+                children: [
+                  SafeArea(
+                    child: SingleChildScrollView(
+                        child: Screenshot(
+                          controller: screenshotController,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: responsive.hp(1),
+                              horizontal: responsive.wp(2),
                             ),
-                            child: Icon(Icons.share)),
-                        onTap: () async {
-                          takeScreenshotandShare();
-                        },
+                            child: VistaDatosPedido(
+                              fecha: fecha,
+                              pedidos: snapshot.data,
+                              activarScrool: false,
+                            ),
+                          ),
+                        ),
+                      ),
+                  ),
+                  SafeArea(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: responsive.hp(1),
+                        horizontal: responsive.wp(2),
+                      ),
+                      child: FlutterTicketWidget(
+                        width: double.infinity,
+                        height: double.infinity,
+                        isCornerRounded: true,
+                        child: VistaDatosPedido(
+                          fecha: fecha,
+                          pedidos: snapshot.data,
+                          activarScrool: true,
+                        ),
                       ),
                     ),
-                  ],
-                );
-              } else {
-                return Center(
-                  child: CupertinoActivityIndicator(),
-                );
-              }
+                  ),
+                  Positioned(
+                    top: responsive.hp(8),
+                    left: responsive.wp(6),
+                    child: Container(
+                      width: responsive.ip(5),
+                      height: responsive.ip(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: Colors.grey[200],
+                      ),
+                      child: Center(child: BackButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, 'home');
+                        },
+                      )),
+                    ),
+                  ),
+                  Positioned(
+                    top: responsive.hp(8.5),
+                    right: responsive.wp(4),
+                    child: GestureDetector(
+                      child: Container(
+                          width: responsive.ip(5),
+                          height: responsive.ip(5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: Colors.grey[200],
+                          ),
+                          child: Icon(Icons.share)),
+                      onTap: () async {
+                        takeScreenshotandShare();
+                      },
+                    ),
+                  ),
+                ],
+              );
             } else {
               return Center(
-                child: Center(
-                  child: Text("No se encuentra información"),
-                ),
+                child: CupertinoActivityIndicator(),
               );
             }
-          }),
+          } else {
+            return Center(
+              child: Center(
+                child: Text("No se encuentra información"),
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 
@@ -400,6 +152,277 @@ class _TickectPedidoState extends State<TickectPedido> {
     }).catchError((onError) {
       print(onError);
     });
+  }
+}
+
+class VistaDatosPedido extends StatefulWidget {
+  const VistaDatosPedido(
+      {Key key, @required this.pedidos, @required this.fecha,@required  this.activarScrool})
+      : super(key: key);
+
+  final List<PedidosModel> pedidos;
+  final String fecha;
+  final bool activarScrool;
+
+  @override
+  _VistaDatosPedidoState createState() => _VistaDatosPedidoState();
+}
+
+class _VistaDatosPedidoState extends State<VistaDatosPedido> {
+  @override
+  Widget build(BuildContext context) {
+    final responsive = Responsive.of(context);
+    return ListView.builder(
+      padding: EdgeInsets.only(
+        top: responsive.hp(2),
+        bottom: responsive.hp(10),
+      ),
+      shrinkWrap: true,
+      physics: (!widget.activarScrool)?NeverScrollableScrollPhysics():BouncingScrollPhysics(),
+      itemCount: widget.pedidos[0].detallePedido.length + 2,
+      itemBuilder: (context, index2) {
+        if (index2 == 0) {
+          return Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: responsive.hp(1),
+                ),
+                child: Center(
+                  child: Image(
+                    width: responsive.ip(8),
+                    height: responsive.ip(8),
+                    image: AssetImage('assets/logo_bufeotec.png'),
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              Center(
+                child: Text(
+                  'Comprobante de Pago',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: responsive.ip(2.5),
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: responsive.hp(2.5),
+                  left: responsive.wp(5),
+                  right: responsive.wp(5),
+                ),
+                child: Column(
+                  children: <Widget>[
+                    ticketDetailsWidget('Fecha', '${widget.fecha}', 'Cliente',
+                        '${widget.pedidos[0].deliveryName} ', responsive),
+                    SizedBox(
+                      height: responsive.hp(1.5),
+                    ),
+                    ticketDetailsWidget(
+                        'Dirección',
+                        '${widget.pedidos[0].deliveryAddress}',
+                        'Tipo de entrega',
+                        '${widget.pedidos[0].listCompanySubsidiary[0].companyDeliveryPropio}',
+                        responsive),
+                    SizedBox(
+                      height: responsive.hp(1.15),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: responsive.hp(1.5),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: responsive.wp(5)),
+                child: Text('Datos de la empresa que realiza la venta'),
+              ),
+              SizedBox(
+                height: responsive.hp(1),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: responsive.wp(5),
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.store),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          '${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryName}',
+                          style: TextStyle(
+                              fontSize: responsive.ip(2),
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.pin_drop),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                            '${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryAddress}'),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.phone),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                            '${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryCellphone} - ${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryCellphone2}'),
+                      ],
+                    ),
+                    ('${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryEmail}' ==
+                            'null')
+                        ? Row(
+                            children: [
+                              Icon(Icons.email),
+                              SizedBox(
+                                width: responsive.wp(2),
+                              ),
+                              Text(
+                                  '${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryEmail}')
+                            ],
+                          )
+                        : Container()
+                  ],
+                ),
+              ),
+              Divider(),
+              Center(
+                child: Text(
+                  'Productos',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: responsive.ip(2.5),
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Divider(),
+            ],
+          );
+        }
+
+        int index = index2 - 1;
+        if (index == widget.pedidos[0].detallePedido.length) {
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: responsive.wp(4),
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: responsive.hp(5),
+                ),
+                Divider(),
+                Row(
+                  children: [
+                    Text("Subtotal"),
+                    Spacer(),
+                    Text(
+                      'S/ ${widget.pedidos[0].deliveryTotalOrden}',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: responsive.ip(1.8),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: responsive.hp(1),
+                ),
+                Row(
+                  children: [
+                    Text("Envío"),
+                    Spacer(),
+                    Text(
+                      'S/ ${widget.pedidos[0].deliveryPrice}',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: responsive.ip(1.8),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total',
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: responsive.ip(2),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Spacer(),
+                    Text(
+                      'S/ ${widget.pedidos[0].deliveryTotalOrden}',
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: responsive.ip(2.5),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        }
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: responsive.hp(.5),
+            horizontal: responsive.wp(4),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                        "${widget.pedidos[0].detallePedido[index].listProducto[0].productoName} ${widget.pedidos[0].detallePedido[index].listProducto[0].productoBrand} x ${widget.pedidos[0].detallePedido[index].cantidad}"),
+                    Text(
+                        "Modelo: ${widget.pedidos[0].detallePedido[index].listProducto[0].productoModel} "),
+                    Text(
+                        "Tamaño: ${widget.pedidos[0].detallePedido[index].listProducto[0].productoSize}"),
+                    Text(
+                        "Tipo: ${widget.pedidos[0].detallePedido[index].listProducto[0].productoType}"),
+                    SizedBox(
+                      height: responsive.hp(.5),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: responsive.wp(3),
+              ),
+              Text(
+                'S/. ' +
+                    (double.parse(
+                                '${widget.pedidos[0].detallePedido[index].cantidad}') *
+                            double.parse(
+                                '${widget.pedidos[0].detallePedido[index].listProducto[0].productoPrice}'))
+                        .toString(),
+                style: TextStyle(
+                    fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   Widget ticketDetailsWidget(String cabecera1, String dato1, String cabecera2,

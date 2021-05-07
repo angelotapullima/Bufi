@@ -672,6 +672,7 @@ class ResumenPedido extends StatelessWidget {
                   carritoBloc.obtenerCarritoPorSucursal();
                   borrarCarrito(context, '0');
                   showToast(context, 'venta confirmada');
+                  Navigator.pop(context);
                   //deleteProductoCarrito();
 
                   Navigator.of(context).push(PageRouteBuilder(

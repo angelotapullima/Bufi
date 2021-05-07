@@ -71,7 +71,13 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                           ),
                                           child: Row(
                                             children: [
-                                              BackButton(),
+                                              BackButton(
+                                                onPressed: () {
+                                                  borrarCarrito(context,
+                                                      widget.idProducto);
+                                                  Navigator.maybePop(context);
+                                                },
+                                              ),
                                               Text(
                                                 'Confirmación de pedido',
                                                 style: TextStyle(
@@ -748,7 +754,7 @@ class ResumenPedido extends StatelessWidget {
                   carritoBloc.obtenerCarritoPorSucursal();
                   borrarCarrito(context, idproducto);
                   showToast(context, 'venta confirmada');
-
+                  Navigator.pop(context);
                   Navigator.of(context).push(PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) {
                       return TickectPedido(

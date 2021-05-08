@@ -1,5 +1,4 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
-import 'package:bufi/src/models/cuentaModel.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';

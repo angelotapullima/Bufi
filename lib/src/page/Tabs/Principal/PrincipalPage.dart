@@ -143,26 +143,32 @@ class HeaderWidget extends StatelessWidget {
                 Row(
                   children: [
                     (preferences.personName != null)
-                        ? Container(
-                            width: responsive.ip(5),
-                            height: responsive.ip(5),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: CachedNetworkImage(
-                                imageUrl: '${preferences.userImage}',
-                                //cacheManager: CustomCacheManager(),
-                                placeholder: (context, url) => Container(
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  child: Image(
-                                      image: AssetImage('assets/loading.gif'),
-                                      fit: BoxFit.cover),
-                                ),
-                                errorWidget: (context, url, error) => Container(
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  child: Center(
-                                    child: Icon(Icons.error),
+                        ? GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, 'perfil');
+                            },
+                            child: Container(
+                              width: responsive.ip(5),
+                              height: responsive.ip(5),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: CachedNetworkImage(
+                                  imageUrl: '${preferences.userImage}',
+                                  //cacheManager: CustomCacheManager(),
+                                  placeholder: (context, url) => Container(
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    child: Image(
+                                        image: AssetImage('assets/loading.gif'),
+                                        fit: BoxFit.cover),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      Container(
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    child: Center(
+                                      child: Icon(Icons.error),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -173,19 +179,24 @@ class HeaderWidget extends StatelessWidget {
                       width: responsive.wp(3),
                     ),
                     (preferences.personName != null)
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('${preferences.saludo}'),
-                              Text(
-                                '${preferences.personName}',
-                                style: GoogleFonts.pacifico(
-                                  textStyle: TextStyle(
-                                      fontSize: responsive.ip(2),
-                                      fontWeight: FontWeight.bold),
+                        ? GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, 'perfil');
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('${preferences.saludo}'),
+                                Text(
+                                  '${preferences.personName}',
+                                  style: GoogleFonts.pacifico(
+                                    textStyle: TextStyle(
+                                        fontSize: responsive.ip(2),
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           )
                         : Text(
                             'Bienvenido',
@@ -214,62 +225,62 @@ class HeaderWidget extends StatelessWidget {
                       ),
                     ),
                      */
-                     (preferences.personName != null)?
-                      InkWell(
-                        onTap: () {
-                          
-                          Navigator.pushNamed(context, "notificaciones");
-                        },
-                        child: Container(
-                          //color: Colors.blue,
-                          width: responsive.wp(8),
-                          child: Stack(
-                            children: <Widget>[
-                              Icon(
-                                FontAwesomeIcons.bell,
-                                size: responsive.ip(3.5),
+                    (preferences.personName != null)
+                        ? InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, "notificaciones");
+                            },
+                            child: Container(
+                              //color: Colors.blue,
+                              width: responsive.wp(8),
+                              child: Stack(
+                                children: <Widget>[
+                                  Icon(
+                                    FontAwesomeIcons.bell,
+                                    size: responsive.ip(3.5),
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: StreamBuilder(
+                                        stream: notificacionesBloc
+                                            .notificacionesPendientesStream,
+                                        builder: (context,
+                                            AsyncSnapshot<
+                                                    List<NotificacionesModel>>
+                                                snapshot) {
+                                          List<NotificacionesModel>
+                                              notificaciones = snapshot.data;
+                                          if (snapshot.hasData) {
+                                            if (snapshot.data.length > 0) {
+                                              return Container(
+                                                child: Text(
+                                                  '${notificaciones.length}',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize:
+                                                          responsive.ip(1.5)),
+                                                ),
+                                                alignment: Alignment.center,
+                                                width: responsive.ip(2),
+                                                height: responsive.ip(2),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.red,
+                                                    shape: BoxShape.circle),
+                                              );
+                                            } else {
+                                              return Container();
+                                            }
+                                          } else {
+                                            return Center(child: Text("0"));
+                                          }
+                                        }),
+                                    //child: Icon(Icons.brightness_1, size: 8,color: Colors.redAccent,  )
+                                  )
+                                ],
                               ),
-                              Positioned(
-                                top: 0,
-                                right: 0,
-                                child: StreamBuilder(
-                                    stream: notificacionesBloc.notificacionesPendientesStream,
-                                    builder: (context,
-                                        AsyncSnapshot<List<NotificacionesModel>>
-                                            snapshot) {
-                                      List<NotificacionesModel> notificaciones =
-                                          snapshot.data;
-                                      if (snapshot.hasData) {
-                                        if (snapshot.data.length > 0) {
-                                          return Container(
-                                            child: Text(
-                                              '${notificaciones.length}',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: responsive.ip(1.5)),
-                                            ),
-                                            alignment: Alignment.center,
-                                            width: responsive.ip(2),
-                                            height: responsive.ip(2),
-                                            decoration: BoxDecoration(
-                                                color: Colors.red,
-                                                shape: BoxShape.circle),
-                                          );
-                                        } else {
-                                          return Container();
-                                        }
-                                      } else {
-                                        return Center(child: Text("0"));
-                                      }
-                                    }),
-                                //child: Icon(Icons.brightness_1, size: 8,color: Colors.redAccent,  )
-                              )
-                            ],
-                          ),
-                        )): Container(),
-                    
-                    
-                    
+                            ))
+                        : Container(),
                     SizedBox(width: responsive.wp(2)),
                   ],
                 ),

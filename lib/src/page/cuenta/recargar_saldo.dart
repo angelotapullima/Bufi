@@ -4,7 +4,6 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/database/tipo_pago_database.dart';
 import 'package:bufi/src/models/tipos_pago_model.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/clipper_ticket.dart';
@@ -368,7 +367,6 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
                       child: CachedNetworkImage(
-                        cacheManager: CustomCacheManager(),
                         placeholder: (context, url) => Image(
                             image: AssetImage('assets/jar-loading.gif'),
                             fit: BoxFit.cover),
@@ -586,10 +584,10 @@ class TieneRecargas extends StatelessWidget {
                               ),
                             )
                           : GestureDetector(
-                            onTap: (){
-                              Navigator.pushNamed(context, 'subirVaucher');
-                            },
-                                                      child: Container(
+                              onTap: () {
+                                Navigator.pushNamed(context, 'subirVaucher');
+                              },
+                              child: Container(
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   color: Colors.red,
@@ -600,7 +598,7 @@ class TieneRecargas extends StatelessWidget {
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
-                          ),
+                            ),
                       SizedBox(
                         height: responsive.hp(4),
                       ),

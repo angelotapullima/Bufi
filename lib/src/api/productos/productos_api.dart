@@ -57,13 +57,14 @@ class ProductosApi {
       }
     }
 
-    final response = await http
-        .post('$apiBaseURL/api/Negocio/listar_productos_por_sucursal', body: {
-      'id_sucursal': '$id',
-      'limite_sup': mayor.toString(),
-      'limite_inf': menor.toString(),
-      'id_ciudad': '1',
-    });
+    final response = await http.post(
+        Uri.parse('$apiBaseURL/api/Negocio/listar_productos_por_sucursal'),
+        body: {
+          'id_sucursal': '$id',
+          'limite_sup': mayor.toString(),
+          'limite_inf': menor.toString(),
+          'id_ciudad': '1',
+        });
 
     final decodedData = json.decode(response.body);
 
@@ -262,10 +263,11 @@ class ProductosApi {
    */
   Future<int> listarDetalleProductoPorIdProducto(String idProducto) async {
     try {
-      final response = await http
-          .post('$apiBaseURL/api/Negocio/listar_detalle_producto', body: {
-        'id': idProducto,
-      });
+      final response = await http.post(
+          Uri.parse('$apiBaseURL/api/Negocio/listar_detalle_producto'),
+          body: {
+            'id': idProducto,
+          });
 
       final decodedData = json.decode(response.body);
 
@@ -409,8 +411,8 @@ class ProductosApi {
 
   Future<int> listarValoracionPorIdProducto(String idProducto) async {
     try {
-      final response =
-          await http.post('$apiBaseURL/api/pedido/listar_valoraciones', body: {
+      final response = await http
+          .post(Uri.parse('$apiBaseURL/api/pedido/listar_valoraciones'), body: {
         'id_subsidiary_good': idProducto,
         'app': 'true',
         'tn': prefs.token,

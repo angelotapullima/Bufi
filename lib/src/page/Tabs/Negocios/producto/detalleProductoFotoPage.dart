@@ -5,15 +5,14 @@ import 'package:bufi/src/bloc/producto/paginaActualBloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:share/share.dart';
 
 class DetalleProductoFoto extends StatefulWidget {
   const DetalleProductoFoto({Key key, @required this.productosData})
@@ -27,8 +26,9 @@ class DetalleProductoFoto extends StatefulWidget {
 
 class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
   final _toque = ValueNotifier<bool>(false);
-  File _imageFile;
+  Uint8List _imageFile;
   ScreenshotController screenshotController = ScreenshotController();
+  List<String> imagePaths = [];
   //final _pageController = PageController(viewportFraction: 1, initialPage: 0);
 
   @override
@@ -282,7 +282,6 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
           return PhotoViewGalleryPageOptions(
             imageProvider: CachedNetworkImageProvider(
               '$apiBaseURL/${productosData.listFotos[index].galeriaFoto}',
-              cacheManager: CustomCacheManager(),
             ),
             //initialScale: PhotoViewComputedScale.contained * 0.8,
             // heroAttributes:
@@ -319,24 +318,28 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
     _imageFile = null;
     screenshotController
         .capture(delay: Duration(milliseconds: 10), pixelRatio: 2.0)
-        .then((File image) async {
+        .then((Uint8List image) async {
       setState(() {
         _imageFile = image;
       });
 
-      await ImageGallerySaver.saveImage(image.readAsBytesSync());
+      await ImageGallerySaver.saveImage(image);
 
       // Save image to gallery,  Needs plugin  https://pub.dev/packages/image_gallery_saver
       print("File Saved to Gallery");
 
       final directory = (await getApplicationDocumentsDirectory()).path;
-      Uint8List pngBytes = _imageFile.readAsBytesSync();
+      Uint8List pngBytes = _imageFile;
       File imgFile = new File('$directory/Screenshot$nombre.png');
       imgFile.writeAsBytes(pngBytes);
       print("File Saved to Gallery");
 
-      await Share.file(
-          'Anupam', 'Screenshot$nombre.png', pngBytes, 'image/png');
+      imagePaths.add(imgFile.path);
+      final RenderBox box = context.findRenderObject() as RenderBox;
+      await Share.shareFiles(imagePaths,
+          text: '',
+          subject: '',
+          sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
     }).catchError((onError) {
       print(onError);
     });

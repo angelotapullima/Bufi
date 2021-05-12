@@ -2,7 +2,6 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/bloc/subsidiary/negocio_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/widgets/busquedas/widgetBusquNegocio.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -38,7 +37,7 @@ class _NegociosPageState extends State<NegociosPage> {
                       builder: (BuildContext context, bool data, Widget child) {
                         return Column(
                           children: [
-                            ValueListenableBuilder<bool>( 
+                            ValueListenableBuilder<bool>(
                               valueListenable: provider.showNegocios,
                               builder: (_, value, __) {
                                 return (value)
@@ -59,7 +58,7 @@ class _NegociosPageState extends State<NegociosPage> {
                                               fontSize: responsive.ip(2.5),
                                               fontWeight: FontWeight.w700),
                                         ),
-                                      ); 
+                                      );
                               },
                             ),
                             Expanded(
@@ -102,8 +101,6 @@ class _NegociosPageState extends State<NegociosPage> {
                                                                         10),
                                                             child:
                                                                 CachedNetworkImage(
-                                                              cacheManager:
-                                                                  CustomCacheManager(),
                                                               placeholder: (context,
                                                                       url) =>
                                                                   Image(
@@ -198,12 +195,10 @@ class _NegociosPageState extends State<NegociosPage> {
                                           physics: ClampingScrollPhysics(),
                                           itemBuilder: (context, index) {
                                             return GestureDetector(
-
-                                              onTap: (){
+                                              onTap: () {
                                                 Navigator.pushNamed(
-                                                      context, 'detalleNegocio',
-                                                      arguments:
-                                                          negocio[index]);
+                                                    context, 'detalleNegocio',
+                                                    arguments: negocio[index]);
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
@@ -438,7 +433,6 @@ class HeaderWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               Spacer(),
-              
               IconButton(
                   icon: Icon(Icons.category, color: Colors.red),
                   onPressed: () {
@@ -447,7 +441,9 @@ class HeaderWidget extends StatelessWidget {
             ],
           ),
         ),
-      BusquedaNegocioWidget(responsive: responsive,)
+        BusquedaNegocioWidget(
+          responsive: responsive,
+        )
       ],
     );
   }

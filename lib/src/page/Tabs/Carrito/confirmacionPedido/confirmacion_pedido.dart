@@ -7,7 +7,6 @@ import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedid
 import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/detalleCarritoFotoPage.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/detallePedidoPage.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -259,8 +258,6 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                                                         .wp(25),
                                                                 child:
                                                                     CachedNetworkImage(
-                                                                  cacheManager:
-                                                                      CustomCacheManager(),
                                                                   placeholder: (context,
                                                                           url) =>
                                                                       Container(

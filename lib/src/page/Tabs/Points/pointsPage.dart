@@ -6,7 +6,6 @@ import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/detalleSu
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
 import 'package:bufi/src/page/Tabs/Points/points_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -501,7 +500,6 @@ class WidgetBienesFavoritos extends StatelessWidget {
                         topRight: Radius.circular(8),
                       ),
                       child: CachedNetworkImage(
-                        cacheManager: CustomCacheManager(),
                         placeholder: (context, url) => Image(
                             image: AssetImage('assets/jar-loading.gif'),
                             fit: BoxFit.cover),
@@ -704,7 +702,6 @@ class WidgetServiciosFavoritos extends StatelessWidget {
                         topRight: Radius.circular(8),
                       ),
                       child: CachedNetworkImage(
-                        cacheManager: CustomCacheManager(),
                         placeholder: (context, url) => Image(
                             image: AssetImage('assets/jar-loading.gif'),
                             fit: BoxFit.cover),

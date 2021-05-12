@@ -2,7 +2,6 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/detallePedidoPage.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -67,8 +66,8 @@ class PedidosEnviadosPage extends StatelessWidget {
               }
             } else {
               return Center(
-                  child: CircularProgressIndicator(),
-                );
+                child: CircularProgressIndicator(),
+              );
             }
           }),
     );
@@ -123,7 +122,6 @@ class PedidosEnviadosPage extends StatelessWidget {
                       height: responsive.hp(10),
                       width: responsive.wp(25),
                       child: CachedNetworkImage(
-                        cacheManager: CustomCacheManager(),
                         placeholder: (context, url) => Container(
                           width: double.infinity,
                           height: double.infinity,
@@ -176,8 +174,8 @@ class PedidosEnviadosPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                  height: responsive.hp(2),
-                ),
+                      height: responsive.hp(2),
+                    ),
                     (listPedidos[index]
                                 .detallePedido[x]
                                 .detallePedidoValorado) ==
@@ -235,9 +233,7 @@ class PedidosEnviadosPage extends StatelessWidget {
               )
             ]),
       ),
-      
     );
-    
   }
 
   Widget _buttonCalificar(Responsive responsive, BuildContext context,

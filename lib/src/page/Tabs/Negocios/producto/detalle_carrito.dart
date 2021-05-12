@@ -6,7 +6,6 @@ import 'package:bufi/src/page/Tabs/Negocios/producto/ListarProductosPorSucursalC
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalle_carrito_bloc.dart';
 import 'package:bufi/src/theme/theme.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/cantidad_producto.dart';
@@ -240,7 +239,6 @@ class ProductsHorizontal extends StatelessWidget {
                                     Radius.circular(100),
                                   ),
                                   child: CachedNetworkImage(
-                                    cacheManager: CustomCacheManager(),
                                     placeholder: (context, url) => Image(
                                         image: const AssetImage(
                                             'assets/jar-loading.gif'),
@@ -278,7 +276,6 @@ class ProductsHorizontal extends StatelessWidget {
                                     Radius.circular(100),
                                   ),
                                   child: CachedNetworkImage(
-                                    cacheManager: CustomCacheManager(),
                                     placeholder: (context, url) => Image(
                                         image: const AssetImage(
                                             'assets/jar-loading.gif'),
@@ -315,7 +312,6 @@ class ProductsHorizontal extends StatelessWidget {
                               Radius.circular(100),
                             ),
                             child: CachedNetworkImage(
-                              cacheManager: CustomCacheManager(),
                               placeholder: (context, url) => Image(
                                   image: const AssetImage(
                                       'assets/jar-loading.gif'),
@@ -452,12 +448,12 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                                     '${widget.carrito[0].car[index].carrito[indd].talla}',
                                     '${widget.carrito[0].car[index].carrito[indd].modelo}',
                                     '${widget.carrito[0].car[index].carrito[indd].marca}',
-
                                     '1');
                               } else {
                                 cambiarEstadoCarrito(
                                     context,
-                                    '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}', '${widget.carrito[0].car[index].carrito[indd].talla}',
+                                    '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}',
+                                    '${widget.carrito[0].car[index].carrito[indd].talla}',
                                     '${widget.carrito[0].car[index].carrito[indd].modelo}',
                                     '${widget.carrito[0].car[index].carrito[indd].marca}',
                                     '0');
@@ -501,7 +497,6 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                                     height: responsive.hp(15),
                                     width: responsive.wp(40),
                                     child: CachedNetworkImage(
-                                      cacheManager: CustomCacheManager(),
                                       placeholder: (context, url) => Container(
                                         width: double.infinity,
                                         height: double.infinity,
@@ -569,7 +564,13 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                                         .carrito[0].car[index].carrito[indd],
                                     llamada: llamada,
                                     idSudsidiaryGood:
-                                        '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}', marcaProducto: '${widget.carrito[0].car[index].carrito[indd].marca}', modeloProducto: '${widget.carrito[0].car[index].carrito[indd].modelo}', tallaProducto: '${widget.carrito[0].car[index].carrito[indd].talla}',
+                                        '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}',
+                                    marcaProducto:
+                                        '${widget.carrito[0].car[index].carrito[indd].marca}',
+                                    modeloProducto:
+                                        '${widget.carrito[0].car[index].carrito[indd].modelo}',
+                                    tallaProducto:
+                                        '${widget.carrito[0].car[index].carrito[indd].talla}',
                                   ),
                                 ],
                               ),
@@ -582,7 +583,10 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                               onTap: () {
                                 agregarAlCarritoContador(
                                     context,
-                                    '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}','${widget.carrito[0].car[index].carrito[indd].talla}','${widget.carrito[0].car[index].carrito[indd].modelo}','${widget.carrito[0].car[index].carrito[indd].marca}',
+                                    '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}',
+                                    '${widget.carrito[0].car[index].carrito[indd].talla}',
+                                    '${widget.carrito[0].car[index].carrito[indd].modelo}',
+                                    '${widget.carrito[0].car[index].carrito[indd].marca}',
                                     0);
                               },
                               child: CircleAvatar(

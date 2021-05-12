@@ -1,6 +1,5 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +68,6 @@ class _UserPageState extends State<UserPage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: CachedNetworkImage(
-                            cacheManager: CustomCacheManager(),
                             placeholder: (context, url) => Container(
                               width: double.infinity,
                               height: double.infinity,

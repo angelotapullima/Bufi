@@ -1,7 +1,6 @@
 import 'package:bufi/src/bloc/login_bloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -46,7 +45,6 @@ class PerfilPage extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(100),
                             child: CachedNetworkImage(
-                              cacheManager: CustomCacheManager(),
                               placeholder: (context, url) => Container(
                                 width: double.infinity,
                                 height: double.infinity,
@@ -548,7 +546,7 @@ class _RestablecerContrasenhaPageState
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-               Text('¿Está seguro de cambiar la contraseña?'),
+                Text('¿Está seguro de cambiar la contraseña?'),
               ],
             ),
           ),

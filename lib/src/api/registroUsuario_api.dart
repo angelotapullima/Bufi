@@ -2,16 +2,13 @@ import 'dart:convert';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
-class RegisterUser{
-  
-
-  Future<int> registro(String name, String surname, String nickName, String cel, String email,
-      String pass) async {
-    
+class RegisterUser {
+  Future<int> registro(String name, String surname, String nickName, String cel,
+      String email, String pass) async {
     try {
       final url = '$apiBaseURL/api/Inicio/new';
 
-      final resp = await http.post(url, body: {
+      final resp = await http.post(Uri.parse(url), body: {
         'name': '$name',
         'surname': '$surname',
         'user_nickname': '$nickName',
@@ -19,7 +16,6 @@ class RegisterUser{
         'cel': '$cel',
         'ciudad': '1',
         'pass': '$pass'
-        
       });
 
       //print(json.decode(resp.body));
@@ -38,5 +34,4 @@ class RegisterUser{
       return 0;
     }
   }
-
 }

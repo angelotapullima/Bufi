@@ -1,5 +1,4 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +59,7 @@ class _AgregarcarritoState extends State<Agregarcarrito>
 
   @override
   void dispose() {
-    _controller.dispose(); 
+    _controller.dispose();
     super.dispose();
   }
 
@@ -242,7 +241,6 @@ class _AgregarcarritoState extends State<Agregarcarrito>
                     children: [
                       Container(
                         child: CachedNetworkImage(
-                          cacheManager: CustomCacheManager(),
                           placeholder: (context, url) => Image(
                               image: AssetImage('assets/jar-loading.gif'),
                               fit: BoxFit.cover),

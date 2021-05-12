@@ -48,7 +48,8 @@ class BusquedaApi {
     final List<CompanyModel> listaDeNegocios = [];
     final List<SubsidiaryModel> listaDeSucursales = [];
     try {
-      final res = await http.post("$apiBaseURL/api/Negocio/buscar_ws", body: {
+      final res = await http
+          .post(Uri.parse("$apiBaseURL/api/Negocio/buscar_ws"), body: {
         'buscar': '$query',
         // 'tn': prefs.token,
         // 'id_user': prefs.idUser,
@@ -1744,13 +1745,14 @@ class BusquedaApi {
     // selectorTabBusqueda.changePage(0);
 
     try {
-      final res =
-          await http.post("$apiBaseURL/api/Negocio/buscar_productos_ws", body: {
-        'buscar': '$query',
-        // 'tn': prefs.token,
-        // 'id_user': prefs.idUser,
-        // 'app': 'true'
-      });
+      final res = await http.post(
+          Uri.parse("$apiBaseURL/api/Negocio/buscar_productos_ws"),
+          body: {
+            'buscar': '$query',
+            // 'tn': prefs.token,
+            // 'id_user': prefs.idUser,
+            // 'app': 'true'
+          });
 
       final List<ProductoModel> listaDeProductos = [];
       final decodedData = json.decode(res.body);
@@ -2184,10 +2186,10 @@ class BusquedaApi {
                     await itemsubCategoryDatabase.insertarItemSubCategoria(
                         itemSubCategoriaModel, 'Negocio/buscar_productos_ws');
 
-                // ingresa al Tab de productos cuando existe al menos un resultado
-                  if (listaDeProductos.length > 0) {
-                    selectorTabBusqueda.changePage(0);
-                  }
+                    // ingresa al Tab de productos cuando existe al menos un resultado
+                    if (listaDeProductos.length > 0) {
+                      selectorTabBusqueda.changePage(0);
+                    }
                   }
                   //   busqProductoModel.listBienes = listbienes;
                   //   busqProductoModel.listProducto = listProducto;
@@ -2196,8 +2198,8 @@ class BusquedaApi {
                   //   busqProductoModel.listCategory = listCategory;
                   //   busqProductoModel.listSubcategory = listSubCategory;
                   //   busqProductoModel.listItemSubCateg = listItemSub;
-                  // 
-                  
+                  //
+
                 }
               }
               //listGeneral.add(busqProductoModel);
@@ -2225,15 +2227,15 @@ class BusquedaApi {
     // selectorTabBusqueda.changePage(1);
     final List<SubsidiaryServiceModel> listGeneral = [];
     try {
-      final res =
-          await http.post("$apiBaseURL/api/Negocio/buscar_servicios_ws", body: {
-        'buscar': '$query',
-        // 'tn': prefs.token,
-        // 'id_user': prefs.idUser,
-        // 'app': 'true'
-      });
+      final res = await http.post(
+          Uri.parse("$apiBaseURL/api/Negocio/buscar_servicios_ws"),
+          body: {
+            'buscar': '$query',
+            // 'tn': prefs.token,
+            // 'id_user': prefs.idUser,
+            // 'app': 'true'
+          });
       final decodedData = json.decode(res.body);
-      
 
       //contexto de la busqueda, ejm: good, service, company...
       final contexto = decodedData["context"];
@@ -2437,11 +2439,11 @@ class BusquedaApi {
                   await itemsubCategoryDatabase.insertarItemSubCategoria(
                       itemSubCategoriaModel, 'Negocio/buscar_servicios_ws');
 
-                // ingresa al Tab de Servicios cuando existe al menos un resultado de la busqueda
-                if (listGeneral.length > 0) {
-                  //Para mostrar el tab de servicios automaticamente
-                  selectorTabBusqueda.changePage(1);
-                }
+                  // ingresa al Tab de Servicios cuando existe al menos un resultado de la busqueda
+                  if (listGeneral.length > 0) {
+                    //Para mostrar el tab de servicios automaticamente
+                    selectorTabBusqueda.changePage(1);
+                  }
                 }
                 // busqServicioModel.listService = listService;
                 // busqServicioModel.listServicios = listSubServicio;
@@ -2450,7 +2452,6 @@ class BusquedaApi {
                 // busqServicioModel.listCategory = listCategory;
                 // busqServicioModel.listSubcategory = listSubCategory;
                 // busqServicioModel.listItemSubCateg = listItemSub;
-
 
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
@@ -2643,10 +2644,10 @@ class BusquedaApi {
                         itemSubCategoriaModel, 'Negocio/buscar_servicios_ws');
 
                     // ingresa al Tab de Servicios cuando existe al menos un resultado de la busqueda
-                if (listGeneral.length > 0) {
-                  //Para mostrar el tab de servicios automaticamente
-                  selectorTabBusqueda.changePage(1);
-                }
+                    if (listGeneral.length > 0) {
+                      //Para mostrar el tab de servicios automaticamente
+                      selectorTabBusqueda.changePage(1);
+                    }
                   }
 
                   //   busqServicioModel.listService = listService;
@@ -2657,7 +2658,6 @@ class BusquedaApi {
                   //   busqServicioModel.listSubcategory = listSubCategory;
                   //   busqServicioModel.listItemSubCateg = listItemSub;
 
-                  
                 }
               }
               //listGeneral.add(busqServicioModel);
@@ -2681,8 +2681,8 @@ class BusquedaApi {
 
     final List<CompanySubsidiaryModel> listGeneral = [];
     try {
-      final res =
-          await http.post("$apiBaseURL/api/Negocio/buscar_empresas_ws", body: {
+      final res = await http
+          .post(Uri.parse("$apiBaseURL/api/Negocio/buscar_empresas_ws"), body: {
         'buscar': '$query',
         // 'tn': prefs.token,
         // 'id_user': prefs.idUser,
@@ -2885,10 +2885,10 @@ class BusquedaApi {
                   await categoryDatabase.insertarCategory(categ);
 
                   // ingresa al Tab de Negocios cuando existe al menos un resultado de la busqueda
-                if (listGeneral.length > 0) {
-                  //Para mostrar el tab de negocios automaticamente
-                  selectorTabBusqueda.changePage(2);
-                }
+                  if (listGeneral.length > 0) {
+                    //Para mostrar el tab de negocios automaticamente
+                    selectorTabBusqueda.changePage(2);
+                  }
                 }
 
                 // busqCompanyModel.listCompany = listCompany;
@@ -2896,7 +2896,6 @@ class BusquedaApi {
                 // busqCompanyModel.listCompanySubsidiary = listCompanySucursal;
                 // busqCompanyModel.listCategory = listCategory;
 
-                
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
                 for (var h = 0; h < decodedData["result"].length; h++) {
@@ -3079,11 +3078,10 @@ class BusquedaApi {
 
                     await categoryDatabase.insertarCategory(categ);
 
-
                     if (listGeneral.length > 0) {
-                  //Para mostrar el tab de negocios automaticamente
-                  selectorTabBusqueda.changePage(2);
-                }
+                      //Para mostrar el tab de negocios automaticamente
+                      selectorTabBusqueda.changePage(2);
+                    }
                   }
                 }
                 // busqCompanyModel.listSucursal = listSucursal;
@@ -3092,7 +3090,7 @@ class BusquedaApi {
                 // busqCompanyModel.listCategory = listCategory;
                 //
                 // ingresa al Tab de Negocios cuando existe al menos un resultado de la busqueda
-                
+
               }
             }
             //listGeneral.add(busqCompanyModel);
@@ -3115,13 +3113,14 @@ class BusquedaApi {
     //selectorTabBusqueda.changePage(4);
     final List<CategoriaModel> listGeneral = [];
     try {
-      final res = await http
-          .post("$apiBaseURL/api/Negocio/buscar_categorias_ws", body: {
-        'buscar': '$query',
-        // 'tn': prefs.token,
-        // 'id_user': prefs.idUser,
-        // 'app': 'true'
-      });
+      final res = await http.post(
+          Uri.parse("$apiBaseURL/api/Negocio/buscar_categorias_ws"),
+          body: {
+            'buscar': '$query',
+            // 'tn': prefs.token,
+            // 'id_user': prefs.idUser,
+            // 'app': 'true'
+          });
       final decodedData = json.decode(res.body);
 
       //contexto de la busqueda, ejm: good, service, company...
@@ -3233,10 +3232,10 @@ class BusquedaApi {
                   await categoryDatabase.insertarCategory(categ);
 
                   // ingresa al Tab de categoria ycuando existe al menos un resultado de la busqueda
-                if (listGeneral.length > 0) {
-                  //Para mostrar el tab de servicios automaticamente
-                  selectorTabBusqueda.changePage(4);
-                }
+                  if (listGeneral.length > 0) {
+                    //Para mostrar el tab de servicios automaticamente
+                    selectorTabBusqueda.changePage(4);
+                  }
                 }
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
@@ -3345,10 +3344,10 @@ class BusquedaApi {
                     await categoryDatabase.insertarCategory(categ);
 
                     // ingresa al Tab de categoria ycuando existe al menos un resultado de la busqueda
-                if (listGeneral.length > 0) {
-                  //Para mostrar el tab de categoria automaticamente
-                  selectorTabBusqueda.changePage(4);
-                }
+                    if (listGeneral.length > 0) {
+                      //Para mostrar el tab de categoria automaticamente
+                      selectorTabBusqueda.changePage(4);
+                    }
                   }
                 }
               }
@@ -3367,13 +3366,14 @@ class BusquedaApi {
   Future<dynamic> busquedaItemsubcategorias(String query) async {
     //final listGeneral = List<BusquedaProductoModel>();
     try {
-      final res = await http
-          .post("$apiBaseURL/api/Negocio/buscar_itemsubcategory_ws", body: {
-        'buscar': '$query',
-        // 'tn': prefs.token,
-        // 'id_user': prefs.idUser,
-        // 'app': 'true'
-      });
+      final res = await http.post(
+          Uri.parse("$apiBaseURL/api/Negocio/buscar_itemsubcategory_ws"),
+          body: {
+            'buscar': '$query',
+            // 'tn': prefs.token,
+            // 'id_user': prefs.idUser,
+            // 'app': 'true'
+          });
       final decodedData = json.decode(res.body);
 
       //contexto de la busqueda, ejm: good, service, company...
@@ -3796,14 +3796,15 @@ class BusquedaApi {
   Future<List<ProductoModel>> busquedaXSucursal(
       String idSucursal, String query) async {
     try {
-      final res = await http
-          .post("$apiBaseURL/api/Negocio/buscar_bs_por_sucursal", body: {
-        'id': '$idSucursal',
-        'buscar': '$query',
-        // 'tn': prefs.token,
-        // 'id_user': prefs.idUser,
-        // 'app': 'true'
-      });
+      final res = await http.post(
+          Uri.parse("$apiBaseURL/api/Negocio/buscar_bs_por_sucursal"),
+          body: {
+            'id': '$idSucursal',
+            'buscar': '$query',
+            // 'tn': prefs.token,
+            // 'id_user': prefs.idUser,
+            // 'app': 'true'
+          });
 
       final List<ProductoModel> listGeneral = [];
       final decodedData = json.decode(res.body);
@@ -4149,19 +4150,20 @@ class BusquedaApi {
       busquedaDeProductosYServiciosPorIdItemsubcat(
           String idItemsubcategory, String query) async {
     try {
-      final res = await http
-          .post("$apiBaseURL/api/Negocio/buscar_bs_por_itemsubcategory", body: {
-        'id': '$idItemsubcategory',
-        'buscar': '$query',
-        'id_ciudad': '1',
-        'limite_sup_bienes': '0',
-        'limite_inf_bienes': '0',
-        'limite_sup_servicios': '0',
-        'limite_inf_servicios': '0',
-        // 'tn': prefs.token,
-        // 'id_user': prefs.idUser,
-        // 'app': 'true'
-      });
+      final res = await http.post(
+          Uri.parse("$apiBaseURL/api/Negocio/buscar_bs_por_itemsubcategory"),
+          body: {
+            'id': '$idItemsubcategory',
+            'buscar': '$query',
+            'id_ciudad': '1',
+            'limite_sup_bienes': '0',
+            'limite_inf_bienes': '0',
+            'limite_sup_servicios': '0',
+            'limite_inf_servicios': '0',
+            // 'tn': prefs.token,
+            // 'id_user': prefs.idUser,
+            // 'app': 'true'
+          });
       final decodedData = json.decode(res.body);
 
       final List<BienesServiciosModel> listGeneral = [];

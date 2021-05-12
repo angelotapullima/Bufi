@@ -16,7 +16,7 @@ class NegociosApi {
   Future<dynamic> obtenerCompany() async {
     try {
       var response = await http.post(
-          "$apiBaseURL/api/Negocio/listar_negocios_resumen",
+          Uri.parse("$apiBaseURL/api/Negocio/listar_negocios_resumen"),
           body: {'id_ciudad': '1'});
 
       final decodedData = json.decode(response.body);
@@ -127,7 +127,7 @@ class NegociosApi {
   Future<dynamic> obtenerNegocioPorId(String id) async {
     try {
       var response = await http.post(
-          "$apiBaseURL/api/Negocio/listar_negocio_por_id",
+          Uri.parse("$apiBaseURL/api/Negocio/listar_negocio_por_id"),
           body: {'id_company': id});
 
       final decodedData = json.decode(response.body);
@@ -257,8 +257,8 @@ class NegociosApi {
         }
       }
 
-      var response =
-          await http.post("$apiBaseURL/api/Negocio/listar_negocios", body: {
+      var response = await http
+          .post(Uri.parse("$apiBaseURL/api/Negocio/listar_negocios"), body: {
         'id_ciudad': '1',
         'limite_sup': mayor.toString(),
         'limite_inf': menor.toString()
@@ -351,10 +351,11 @@ class NegociosApi {
 
   Future<dynamic> listarSedesPorNegocio(String id) async {
     try {
-      final response = await http
-          .post("$apiBaseURL/api/Negocio/listar_sedes_por_negocio", body: {
-        'id_negocio': '$id',
-      });
+      final response = await http.post(
+          Uri.parse("$apiBaseURL/api/Negocio/listar_sedes_por_negocio"),
+          body: {
+            'id_negocio': '$id',
+          });
       //final List<SubsidiaryModel> list = [];
       final decodedData = json.decode(response.body);
 
@@ -441,10 +442,11 @@ class NegociosApi {
    */
   Future<dynamic> listarSubsidiaryPorId(String id) async {
     try {
-      final response = await http
-          .post("$apiBaseURL/api/Negocio/listar_sucursal_por_id", body: {
-        'id_sucursal': '$id',
-      });
+      final response = await http.post(
+          Uri.parse("$apiBaseURL/api/Negocio/listar_sucursal_por_id"),
+          body: {
+            'id_sucursal': '$id',
+          });
 
       final decodedData = json.decode(response.body);
 

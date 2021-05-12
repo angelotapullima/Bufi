@@ -16,7 +16,7 @@ class CuentaApi {
   Future<int> obtenerSaldo() async {
     try {
       var response = await http.post(
-          "$apiBaseURL/api/Cuenta/obtener_saldo_actual",
+          Uri.parse("$apiBaseURL/api/Cuenta/obtener_saldo_actual"),
           body: {'tn': prefs.token, 'app': 'true', 'id_usuario': prefs.idUser});
 
       final decodedData = json.decode(response.body);
@@ -42,10 +42,10 @@ class CuentaApi {
   }
 
   Future<List<RecargaModel>> obtenerRecargaPendiente() async {
-    final List<RecargaModel>listGeneral=[];
+    final List<RecargaModel> listGeneral = [];
 
     var response = await http.post(
-        "$apiBaseURL/api/Cuenta/listar_recarga_pendiente",
+        Uri.parse("$apiBaseURL/api/Cuenta/listar_recarga_pendiente"),
         body: {'tn': prefs.token, 'app': 'true'});
 
     final decodedData = json.decode(response.body);
@@ -59,23 +59,20 @@ class CuentaApi {
     recargaModel.tipo = decodedData['tipo'].toString();
 
     listGeneral.add(recargaModel);
- 
+
     return listGeneral;
   }
 
-
-
-  Future<List<RecargaModel>> recargarCuenta(String monto,String tipo)async{
-
- final  List<RecargaModel>listGeneral=[];
+  Future<List<RecargaModel>> recargarCuenta(String monto, String tipo) async {
+    final List<RecargaModel> listGeneral = [];
 
     var response = await http.post(
-        "$apiBaseURL/api/Cuenta/save_recargar_mi_cuenta",
+        Uri.parse("$apiBaseURL/api/Cuenta/save_recargar_mi_cuenta"),
         body: {
-          'tn': prefs.token, 
-          'app': 'true' , 
-          'monto': monto , 
-          'tipo': tipo , 
+          'tn': prefs.token,
+          'app': 'true',
+          'monto': monto,
+          'tipo': tipo,
         });
 
     final decodedData = json.decode(response.body);
@@ -89,17 +86,12 @@ class CuentaApi {
     recargaModel.tipo = decodedData['result']['tipo'].toString();
 
     listGeneral.add(recargaModel);
- 
+
     return listGeneral;
-
-
   }
 
-
-
   Future<int> subirVoucher(File _image) async {
-  
-    int devuelto  = 0;
+    int devuelto = 0;
     final preferences = Preferences();
 
     // open a byteStream
@@ -135,27 +127,18 @@ class CuentaApi {
 
         if (decodedData['result']['code'] == 1) {
           print('amonos');
-          devuelto =  1;
+          devuelto = 1;
         } else if (code == 2) {
           devuelto = 2;
         } else {
-          devuelto  =  code;
+          devuelto = code;
         }
-      }
-      
-      );
-      
-    }
-
-    
-     
-    ).catchError((e) {
+      });
+    }).catchError((e) {
       print(e);
       return 0;
     });
 
     return devuelto;
   }
-
-
 }

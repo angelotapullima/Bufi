@@ -2,7 +2,6 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
 import 'package:bufi/src/page/Tabs/Usuario/Pedidos/detallePedidoPage.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -61,15 +60,14 @@ class PedidosPage extends StatelessWidget {
                   },
                 );
               } else {
-               return Center(
-                child: Text("No hay ningun dato"),
-              );
+                return Center(
+                  child: Text("No hay ningun dato"),
+                );
               }
             } else {
               return Center(
-                  child: CircularProgressIndicator(),
-                );
-              
+                child: CircularProgressIndicator(),
+              );
             }
           }),
     );
@@ -77,7 +75,7 @@ class PedidosPage extends StatelessWidget {
 
   Widget _datosProducto(BuildContext context, Responsive responsive,
       List<PedidosModel> listPedidos, int index, int x) {
-        var fecha = obtenerFechaHora(listPedidos[index].deliveryDatetime);
+    var fecha = obtenerFechaHora(listPedidos[index].deliveryDatetime);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(PageRouteBuilder(
@@ -123,7 +121,6 @@ class PedidosPage extends StatelessWidget {
                       height: responsive.hp(10),
                       width: responsive.wp(25),
                       child: CachedNetworkImage(
-                        cacheManager: CustomCacheManager(),
                         placeholder: (context, url) => Container(
                           width: double.infinity,
                           height: double.infinity,
@@ -152,7 +149,11 @@ class PedidosPage extends StatelessWidget {
                     Text('${listPedidos[index].detallePedido[x].listProducto[0].productoName} ' +
                         '${listPedidos[index].detallePedido[x].listProducto[0].productoBrand} x ' +
                         '${listPedidos[index].detallePedido[x].listProducto[0].productoModel}'),
-                    Text('${listPedidos[index].detallePedido[x].cantidad}' 'UN', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                    Text(
+                      '${listPedidos[index].detallePedido[x].cantidad}' 'UN',
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
                     Text(
                       'S/. ' +
                           (double.parse(

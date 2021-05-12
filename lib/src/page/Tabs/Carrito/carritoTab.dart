@@ -5,7 +5,6 @@ import 'package:bufi/src/page/Tabs/Carrito/confirmacionPedido/confirmacion_pedid
 import 'package:bufi/src/page/Tabs/iniciar_sesion.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/cantidad_producto.dart';
@@ -449,8 +448,6 @@ class _CarritoPageState extends State<CarritoPage> {
                                                     height: responsive.hp(10),
                                                     width: responsive.wp(17),
                                                     child: CachedNetworkImage(
-                                                      cacheManager:
-                                                          CustomCacheManager(),
                                                       placeholder:
                                                           (context, url) =>
                                                               Container(

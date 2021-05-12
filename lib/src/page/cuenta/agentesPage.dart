@@ -2,7 +2,6 @@ import 'package:bufi/src/bloc/marker_mapa_negocios_bloc.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/agentesModel.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -109,7 +108,7 @@ class _MapaNegociosState extends State<MapaAgentes> {
       final markerInicio = new Marker(
         onTap: () {
           _pageController.animateToPage(
-              int.parse('${widget.agentes[i].posicion}') -1 ,
+              int.parse('${widget.agentes[i].posicion}') - 1,
               duration: Duration(milliseconds: 500),
               curve: Curves.decelerate);
           print('${widget.agentes[i].posicion}');
@@ -137,7 +136,7 @@ class _MapaNegociosState extends State<MapaAgentes> {
 
       markers['${widget.agentes[i].agenteNombre}'] = markerInicio;
     }
-     _controller.complete(controller);
+    _controller.complete(controller);
     setState(() {});
   }
   /* Future<Map<String, Marker>> markersitos(BuildContext context) async {
@@ -223,7 +222,6 @@ class _MapaNegociosState extends State<MapaAgentes> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
                                     child: CachedNetworkImage(
-                                      cacheManager: CustomCacheManager(),
                                       placeholder: (context, url) => Container(
                                         width: double.infinity,
                                         height: double.infinity,

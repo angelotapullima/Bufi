@@ -38,8 +38,9 @@ class CategoriasApi {
   Future<int> obtenerCategorias(BuildContext context) async {
     //List<CategoriaModel> categoriaList = [];
     try {
-      var response =
-          await http.post("$apiBaseURL/api/Inicio/listar_categorias", body: {});
+      var response = await http.post(
+          Uri.parse("$apiBaseURL/api/Inicio/listar_categorias"),
+          body: {});
       var res = jsonDecode(response.body);
 
       var cantidadTotal = res.length;
@@ -74,10 +75,12 @@ class CategoriasApi {
         ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
         itemSubCategoriaModel.idItemsubcategory = res[i]['id_itemsubcategory'];
         itemSubCategoriaModel.idSubcategory = res[i]['id_subcategory'];
-        itemSubCategoriaModel.itemsubcategoryName = res[i]['itemsubcategory_name'];
-        itemSubCategoriaModel.itemsubcategoryImage = res[i]['itemsubcategory_img'];
-        await itemsubCategoryDatabase
-            .insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_categorias');
+        itemSubCategoriaModel.itemsubcategoryName =
+            res[i]['itemsubcategory_name'];
+        itemSubCategoriaModel.itemsubcategoryImage =
+            res[i]['itemsubcategory_img'];
+        await itemsubCategoryDatabase.insertarItemSubCategoria(
+            itemSubCategoriaModel, 'Inicio/listar_categorias');
       }
       return 0;
       //return categoriaList;
@@ -93,7 +96,7 @@ class CategoriasApi {
   Future<int> obtenerbsResumen() async {
     try {
       var response = await http.post(
-          "$apiBaseURL/api/Inicio/listar_bs_por_id_ciudad_resume",
+          Uri.parse("$apiBaseURL/api/Inicio/listar_bs_por_id_ciudad_resume"),
           body: {'id_ciudad': '1'});
 
       final decodedData = json.decode(response.body);
@@ -128,10 +131,12 @@ class CategoriasApi {
         itemSubCategoriaModel.idItemsubcategory =
             bienesList['id_itemsubcategory'];
         itemSubCategoriaModel.idSubcategory = bienesList['id_subcategory'];
-        itemSubCategoriaModel.itemsubcategoryName = bienesList['itemsubcategory_name'];
-        itemSubCategoriaModel.itemsubcategoryImage = bienesList['itemsubcategory_img'];
-        await itemsubCategoryDatabase
-            .insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_bs_por_id_ciudad_resume');
+        itemSubCategoriaModel.itemsubcategoryName =
+            bienesList['itemsubcategory_name'];
+        itemSubCategoriaModel.itemsubcategoryImage =
+            bienesList['itemsubcategory_img'];
+        await itemsubCategoryDatabase.insertarItemSubCategoria(
+            itemSubCategoriaModel, 'Inicio/listar_bs_por_id_ciudad_resume');
 
         //completo
         CompanyModel companyModel = CompanyModel();
@@ -259,10 +264,12 @@ class CategoriasApi {
             decodedData['servicios'][i]['id_itemsubcategory'];
         itemSubCategoriaModel.idSubcategory =
             decodedData['servicios'][i]['id_subcategory'];
-        itemSubCategoriaModel.itemsubcategoryName = decodedData['servicios'][i]['itemsubcategory_name'];
-        itemSubCategoriaModel.itemsubcategoryImage = decodedData['servicios'][i]['itemsubcategory_img'];
-        await itemsubCategoryDatabase
-            .insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_bs_por_id_ciudad_resume');
+        itemSubCategoriaModel.itemsubcategoryName =
+            decodedData['servicios'][i]['itemsubcategory_name'];
+        itemSubCategoriaModel.itemsubcategoryImage =
+            decodedData['servicios'][i]['itemsubcategory_img'];
+        await itemsubCategoryDatabase.insertarItemSubCategoria(
+            itemSubCategoriaModel, 'Inicio/listar_bs_por_id_ciudad_resume');
 
         //completo
         CompanyModel companyModel = CompanyModel();
@@ -320,8 +327,10 @@ class CategoriasApi {
             decodedData['servicios'][i]['subsidiary_opening_hours'];
         subsidiaryModel.subsidiaryPrincipal =
             decodedData['servicios'][i]['subsidiary_principal'];
-        subsidiaryModel.subsidiaryStatus = decodedData['servicios'][i]['subsidiary_status'];
-        subsidiaryModel.subsidiaryImg = decodedData['servicios'][i]['subsidiary_img'];
+        subsidiaryModel.subsidiaryStatus =
+            decodedData['servicios'][i]['subsidiary_status'];
+        subsidiaryModel.subsidiaryImg =
+            decodedData['servicios'][i]['subsidiary_img'];
 
         if (listservices.length > 0) {
           //completo
@@ -361,15 +370,19 @@ class CategoriasApi {
         subsidiaryServiceModel.subsidiaryServiceStatus =
             decodedData['servicios'][i]['subsidiary_service_status'];
 
-        final list = await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursalService(decodedData['servicios'][i]['id_subsidiaryservice']);
+        final list = await subisdiaryServiceDatabase
+            .obtenerServiciosPorIdSucursalService(
+                decodedData['servicios'][i]['id_subsidiaryservice']);
 
-          if (list.length > 0) {
-            subsidiaryServiceModel.subsidiaryServiceFavourite = list[0].subsidiaryServiceFavourite;
-            //Subsidiary
-          } else {
-            subsidiaryServiceModel.subsidiaryServiceFavourite = "0";
-          }
-        await subisdiaryServiceDatabase.insertarSubsidiaryService(subsidiaryServiceModel);
+        if (list.length > 0) {
+          subsidiaryServiceModel.subsidiaryServiceFavourite =
+              list[0].subsidiaryServiceFavourite;
+          //Subsidiary
+        } else {
+          subsidiaryServiceModel.subsidiaryServiceFavourite = "0";
+        }
+        await subisdiaryServiceDatabase
+            .insertarSubsidiaryService(subsidiaryServiceModel);
       }
 
       return 0;
@@ -385,7 +398,7 @@ class CategoriasApi {
       final listSubgood =
           await productoDatabase.obtenerProductoXIdItemSubcategoria(idItemsub);
 
-      double mayorPro = 0; 
+      double mayorPro = 0;
       double mayor2Pro = 0;
       double menorPro = 0;
       if (listSubgood.length > 0) {
@@ -437,15 +450,16 @@ class CategoriasApi {
         }
       }
 
-      var response = await http
-          .post("$apiBaseURL/api/Inicio/listar_bs_por_id_itemsubcat", body: {
-        'id_ciudad': '1',
-        'id_itemsubcategoria': idItemsub,
-        'limite_sup_bienes': mayorPro.toString(),
-        'limite_inf_bienes': menorPro.toString(),
-        'limite_sup_servicios': mayorSer.toString(),
-        'limite_inf_servicios': menorSer.toString()
-      });
+      var response = await http.post(
+          Uri.parse("$apiBaseURL/api/Inicio/listar_bs_por_id_itemsubcat"),
+          body: {
+            'id_ciudad': '1',
+            'id_itemsubcategoria': idItemsub,
+            'limite_sup_bienes': mayorPro.toString(),
+            'limite_inf_bienes': menorPro.toString(),
+            'limite_sup_servicios': mayorSer.toString(),
+            'limite_inf_servicios': menorSer.toString()
+          });
       var res = jsonDecode(response.body);
 
       var bienesList = res['productos'];
@@ -474,10 +488,12 @@ class CategoriasApi {
           itemSubCategoriaModel.idItemsubcategory =
               bienesList[i]['id_itemsubcategory'];
           itemSubCategoriaModel.idSubcategory = bienesList[i]['id_subcategory'];
-          itemSubCategoriaModel.itemsubcategoryName = bienesList[i]['itemsubcategory_name'];
-          itemSubCategoriaModel.itemsubcategoryImage = bienesList[i]['itemsubcategory_img'];
-          await itemsubCategoryDatabase
-              .insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_bs_por_id_itemsubcat');
+          itemSubCategoriaModel.itemsubcategoryName =
+              bienesList[i]['itemsubcategory_name'];
+          itemSubCategoriaModel.itemsubcategoryImage =
+              bienesList[i]['itemsubcategory_img'];
+          await itemsubCategoryDatabase.insertarItemSubCategoria(
+              itemSubCategoriaModel, 'Inicio/listar_bs_por_id_itemsubcat');
 
           BienesModel goodmodel = BienesModel();
           goodmodel.idGood = bienesList[i]['id_good'];
@@ -608,10 +624,12 @@ class CategoriasApi {
               serviciosList[i]['id_itemsubcategory'];
           itemSubCategoriaModel.idSubcategory =
               serviciosList[i]['id_subcategory'];
-          itemSubCategoriaModel.itemsubcategoryName = serviciosList[i]['itemsubcategory_name'];
-          itemSubCategoriaModel.itemsubcategoryImage = serviciosList[i]['itemsubcategory_img'];
-          await itemsubCategoryDatabase
-              .insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_bs_por_id_itemsubcat');
+          itemSubCategoriaModel.itemsubcategoryName =
+              serviciosList[i]['itemsubcategory_name'];
+          itemSubCategoriaModel.itemsubcategoryImage =
+              serviciosList[i]['itemsubcategory_img'];
+          await itemsubCategoryDatabase.insertarItemSubCategoria(
+              itemSubCategoriaModel, 'Inicio/listar_bs_por_id_itemsubcat');
 
           SubsidiaryModel subsidiaryModel = SubsidiaryModel();
           subsidiaryModel.idSubsidiary = serviciosList[i]['id_subsidiary'];
@@ -633,10 +651,12 @@ class CategoriasApi {
               serviciosList[i]['subsidiary_opening_hours'];
           subsidiaryModel.subsidiaryPrincipal =
               serviciosList[i]['subsidiary_principal'];
-          subsidiaryModel.subsidiaryStatus = serviciosList[i]['subsidiary_status'];
+          subsidiaryModel.subsidiaryStatus =
+              serviciosList[i]['subsidiary_status'];
           subsidiaryModel.subsidiaryImg = serviciosList[i]['subsidiary_img'];
 
-          final list = await subsidiaryDatabase.obtenerSubsidiaryPorId(serviciosList[i]["id_subsidiary"]);
+          final list = await subsidiaryDatabase
+              .obtenerSubsidiaryPorId(serviciosList[i]["id_subsidiary"]);
 
           if (list.length > 0) {
             subsidiaryModel.subsidiaryFavourite = list[0].subsidiaryFavourite;

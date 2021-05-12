@@ -191,7 +191,7 @@ class _SubirVaucherState extends State<SubirVaucher> {
                               if (foto == null) {
                                 print('Por favor seleccione una imágen');
                               } else {
-                                 _cargando.value = true;
+                                _cargando.value = true;
                                 final cuentaApi = CuentaApi();
 
                                 final res = await cuentaApi.subirVoucher(foto);
@@ -201,7 +201,7 @@ class _SubirVaucherState extends State<SubirVaucher> {
                                 } else {
                                   print('Fallo la operación');
                                 }
-                                 _cargando.value = false;
+                                _cargando.value = false;
                               }
                             },
                             child: Container(
@@ -256,10 +256,12 @@ class _SubirVaucherState extends State<SubirVaucher> {
   }
 
   getImage(ImageSource source) async {
-    File image = await ImagePicker.pickImage(source: source);
-    if (image != null) {
+    final pickedFile = await ImagePicker().getImage(source: source);
+    //File image = await ImagePicker.pickImage(source: source);
+    if (pickedFile != null) {
+      //File image = File(pickedFile.path);
       File cropped = await ImageCropper.cropImage(
-        sourcePath: image.path,
+        sourcePath: pickedFile.path,
         aspectRatioPresets: Platform.isAndroid
             ? [
                 // CropAspectRatioPreset.square,

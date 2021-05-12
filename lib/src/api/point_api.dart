@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import 'package:bufi/src/models/pointModel.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
@@ -12,8 +11,8 @@ class PointApi {
   //Guardar favorito
   Future<dynamic> savePoint(String id) async {
     try {
-      final res = await http.post("$apiBaseURL/api/Negocio/save_point", body: {
-       
+      final res = await http
+          .post(Uri.parse("$apiBaseURL/api/Negocio/save_point"), body: {
         'id_subsidiary': id,
         'app': 'true',
         'tn': prefs.token,
@@ -32,12 +31,9 @@ class PointApi {
   //eliminar favorito
   Future<dynamic> deletePoint(String id) async {
     try {
-      final res =
-          await http.post("$apiBaseURL/api/Negocio/delete_point", body: {
-        'id_subsidiary': id,
-        'app': 'true',
-        'tn':prefs.token
-      });
+      final res = await http.post(
+          Uri.parse("$apiBaseURL/api/Negocio/delete_point"),
+          body: {'id_subsidiary': id, 'app': 'true', 'tn': prefs.token});
       print("user : '${prefs.idUser}' subsidiary: '$id'");
 
       final response = json.decode(res.body);
@@ -52,9 +48,9 @@ class PointApi {
 //Listar favorito
   Future<dynamic> listarPoints() async {
     try {
-      final res = await http.post("$apiBaseURL/api/Negocio/listar_mis_points",
-          body: {'app': 'true',
-        'tn':prefs.token});
+      final res = await http.post(
+          Uri.parse("$apiBaseURL/api/Negocio/listar_mis_points"),
+          body: {'app': 'true', 'tn': prefs.token});
 
       List response = json.decode(res.body);
 

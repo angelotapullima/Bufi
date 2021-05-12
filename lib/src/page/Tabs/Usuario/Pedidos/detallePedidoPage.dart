@@ -11,7 +11,7 @@ import 'package:flutter_ticket_widget/flutter_ticket_widget.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:share/share.dart';
 
 class TickectPedido extends StatefulWidget {
   final String idPedido;
@@ -22,7 +22,8 @@ class TickectPedido extends StatefulWidget {
 }
 
 class _TickectPedidoState extends State<TickectPedido> {
-  File _imageFile;
+  Uint8List _imageFile;
+  List<String> imagePaths = [];
   ScreenshotController screenshotController = ScreenshotController();
   @override
   Widget build(BuildContext context) {
@@ -133,21 +134,27 @@ class _TickectPedidoState extends State<TickectPedido> {
     _imageFile = null;
     screenshotController
         .capture(delay: Duration(milliseconds: 10), pixelRatio: 2.0)
-        .then((File image) async {
+        .then((Uint8List image) async {
       setState(() {
         _imageFile = image;
       });
 
-      await ImageGallerySaver.saveImage(image.readAsBytesSync());
+      await ImageGallerySaver.saveImage(image);
       // Save image to gallery,  Needs plugin  https://pub.dev/packages/image_gallery_saver
       print("File Saved to Gallery");
 
       final directory = (await getApplicationDocumentsDirectory()).path;
-      Uint8List pngBytes = _imageFile.readAsBytesSync();
+      Uint8List pngBytes = _imageFile;
       File imgFile = new File('$directory/screenshot.png');
       imgFile.writeAsBytes(pngBytes);
       print("File Saved to Gallery");
-      await Share.file('Anupam', 'screenshot.png', pngBytes, 'image/png');
+      imagePaths.add(imgFile.path);
+      final RenderBox box = context.findRenderObject() as RenderBox;
+      await Share.shareFiles(imagePaths,
+          text: '',
+          subject: '',
+          sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+      //await Share.shareFiles('Anupam', 'screenshot.png', pngBytes, 'image/png');
     }).catchError((onError) {
       print(onError);
     });

@@ -30,6 +30,7 @@ import 'package:bufi/src/page/cuenta/mis_movimientos_page.dart';
 import 'package:bufi/src/page/registro_usuarioTab.dart';
 import 'package:bufi/src/page/splash.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
+import 'package:bufi/src/services/push_notification_service.dart';
 import 'package:bufi/src/theme/theme.dart';
 import 'package:catcher/core/catcher.dart';
 import 'package:catcher/handlers/email_manual_handler.dart';
@@ -43,6 +44,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = new Preferences();
   await prefs.initPrefs();
+
+  await PushNotificationService.initializeApp();
 
   /// STEP 1. Create catcher configuration.
   /// Debug configuration with dialog report mode and console handler. It will show dialog and once user accepts it, error will be shown   /// in console.

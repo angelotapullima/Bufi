@@ -31,7 +31,7 @@ class PedidoApi {
 
   Future<dynamic> obtenerPedidosEnviados(String idEstado) async {
     final response = await http.post(
-        "$apiBaseURL/api/Pedido/buscar_pedidos_enviados_ws",
+        Uri.parse("$apiBaseURL/api/Pedido/buscar_pedidos_enviados_ws"),
         body: {'estado': '$idEstado', 'tn': prefs.token, 'app': 'true'});
 
     final decodedData = json.decode(response.body);
@@ -266,7 +266,7 @@ class PedidoApi {
     }
 
     final response = await http.post(
-      "$apiBaseURL/api/Pedido/pedir_orden_ws",
+      Uri.parse("$apiBaseURL/api/Pedido/pedir_orden_ws"),
       body: {
         'id_usuario': prefs.idUser,
         'id_ciudad': '1',

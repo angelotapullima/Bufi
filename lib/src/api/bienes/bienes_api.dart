@@ -56,7 +56,7 @@ class GoodApi {
   //Lista de todos los bienes en la pagina Principal
   Future<int> listarBienesAllPorCiudad() async {
     final response = await http.post(
-        "$apiBaseURL/api/Inicio/listar_bienes_por_id_ciudad",
+        Uri.parse("$apiBaseURL/api/Inicio/listar_bienes_por_id_ciudad"),
         body: {'id_ciudad': '1'});
 
     final decodedData = json.decode(response.body);
@@ -83,11 +83,16 @@ class GoodApi {
       ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
       final itemsubCategoryDatabase = ItemsubCategoryDatabase();
 
-      itemSubCategoriaModel.idItemsubcategory = productosListModel['id_itemsubcategory'];
-      itemSubCategoriaModel.idSubcategory = productosListModel['id_subcategory'];
-      itemSubCategoriaModel.itemsubcategoryName = productosListModel['itemsubcategory_name'];
-      itemSubCategoriaModel.itemsubcategoryImage = productosListModel['itemsubcategory_img'];
-      await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel,'Inicio/listar_bienes_por_id_ciudad');
+      itemSubCategoriaModel.idItemsubcategory =
+          productosListModel['id_itemsubcategory'];
+      itemSubCategoriaModel.idSubcategory =
+          productosListModel['id_subcategory'];
+      itemSubCategoriaModel.itemsubcategoryName =
+          productosListModel['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryImage =
+          productosListModel['itemsubcategory_img'];
+      await itemsubCategoryDatabase.insertarItemSubCategoria(
+          itemSubCategoriaModel, 'Inicio/listar_bienes_por_id_ciudad');
 
       //----ingresamos Company:
       CompanyModel companyModel = CompanyModel();
@@ -159,17 +164,28 @@ class GoodApi {
       SubsidiaryModel subsidiaryModel = SubsidiaryModel();
       subsidiaryModel.idSubsidiary = decodedData['bienes'][i]['id_subsidiary'];
       subsidiaryModel.idCompany = decodedData['bienes'][i]['id_company'];
-      subsidiaryModel.subsidiaryName =decodedData['bienes'][i]['subsidiary_name'];
-      subsidiaryModel.subsidiaryAddress =decodedData['bienes'][i]['subsidiary_address'];
-      subsidiaryModel.subsidiaryCellphone =decodedData['bienes'][i]['subsidiary_cellphone'];
-      subsidiaryModel.subsidiaryCellphone2 =decodedData['bienes'][i]['subsidiary_cellphone_2'];
-      subsidiaryModel.subsidiaryEmail =decodedData['bienes'][i]['subsidiary_email'];
-      subsidiaryModel.subsidiaryCoordX =decodedData['bienes'][i]['subsidiary_coord_x'];
-      subsidiaryModel.subsidiaryCoordY =decodedData['bienes'][i]['subsidiary_coord_y'];
-      subsidiaryModel.subsidiaryOpeningHours =decodedData['bienes'][i]['subsidiary_opening_hours'];
-      subsidiaryModel.subsidiaryPrincipal = decodedData['bienes'][i]['subsidiary_principal'];
-      subsidiaryModel.subsidiaryStatus =decodedData['bienes'][i]['subsidiary_status'];
-      subsidiaryModel.subsidiaryImg =decodedData['bienes'][i]['subsidiary_img'];
+      subsidiaryModel.subsidiaryName =
+          decodedData['bienes'][i]['subsidiary_name'];
+      subsidiaryModel.subsidiaryAddress =
+          decodedData['bienes'][i]['subsidiary_address'];
+      subsidiaryModel.subsidiaryCellphone =
+          decodedData['bienes'][i]['subsidiary_cellphone'];
+      subsidiaryModel.subsidiaryCellphone2 =
+          decodedData['bienes'][i]['subsidiary_cellphone_2'];
+      subsidiaryModel.subsidiaryEmail =
+          decodedData['bienes'][i]['subsidiary_email'];
+      subsidiaryModel.subsidiaryCoordX =
+          decodedData['bienes'][i]['subsidiary_coord_x'];
+      subsidiaryModel.subsidiaryCoordY =
+          decodedData['bienes'][i]['subsidiary_coord_y'];
+      subsidiaryModel.subsidiaryOpeningHours =
+          decodedData['bienes'][i]['subsidiary_opening_hours'];
+      subsidiaryModel.subsidiaryPrincipal =
+          decodedData['bienes'][i]['subsidiary_principal'];
+      subsidiaryModel.subsidiaryStatus =
+          decodedData['bienes'][i]['subsidiary_status'];
+      subsidiaryModel.subsidiaryImg =
+          decodedData['bienes'][i]['subsidiary_img'];
 
       if (list.length > 0) {
         subsidiaryModel.subsidiaryFavourite = list[0].subsidiaryFavourite;

@@ -3,7 +3,6 @@ import 'package:bufi/src/models/categoriaGeneralModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
 import 'package:bufi/src/page/Categorias/ProductosPotItemsubcategory/pro_y_ser_por_itemSubcategory_page.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/widgets/busquedas/widgetBusquedaGeneral.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -260,7 +259,6 @@ class _SubcategoriaPorIdCategoriaState
                               child: Container(
                                 transform: Matrix4.translationValues(0, 0, 0),
                                 child: CachedNetworkImage(
-                                  cacheManager: CustomCacheManager(),
                                   placeholder: (context, url) => Image(
                                       image: const AssetImage(
                                           'assets/jar-loading.gif'),

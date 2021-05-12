@@ -5,7 +5,6 @@ import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
 import 'package:bufi/src/page/Tabs/Principal/TodosLosProductos/Filtro_todos_los_productos_bloc.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/widgets/widgetBienes.dart';
 import 'package:bufi/src/widgets/busquedas/widgetBusqProduct.dart';
@@ -182,8 +181,11 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                                                         pageBuilder: (context,
                                                             animation,
                                                             secondaryAnimation) {
-                                                          return DetalleProductos(idProducto: snapshot.data[index].idProducto,
-                                                              );
+                                                          return DetalleProductos(
+                                                            idProducto: snapshot
+                                                                .data[index]
+                                                                .idProducto,
+                                                          );
                                                           //return DetalleProductitos(productosData: productosData);
                                                         },
                                                         transitionsBuilder:
@@ -372,7 +374,6 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                     tag: data[index].idProducto,
                     child: Container(
                       child: CachedNetworkImage(
-                        cacheManager: CustomCacheManager(),
                         placeholder: (context, url) => Container(
                           width: double.infinity,
                           height: double.infinity,
@@ -634,8 +635,6 @@ class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
                     );
                   },
                 ),
-
-                
                 ListView.builder(
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),

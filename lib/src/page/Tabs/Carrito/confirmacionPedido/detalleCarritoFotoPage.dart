@@ -1,6 +1,5 @@
 import 'package:bufi/src/models/carritoModel.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +27,6 @@ class DetalleCarritoFotoPage extends StatelessWidget {
                   height: responsive.hp(70),
                   width: responsive.wp(90),
                   child: CachedNetworkImage(
-                    cacheManager: CustomCacheManager(),
                     placeholder: (context, url) => Container(
                       width: double.infinity,
                       height: double.infinity,

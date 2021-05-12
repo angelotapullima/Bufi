@@ -6,7 +6,6 @@ import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/page_filtro_details_subsidiary.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/widgets/busquedas/PorSucursal/widgetBusqProductXSucursal.dart';
 import 'package:bufi/src/widgets/widgetBienes.dart';
@@ -329,7 +328,6 @@ class _ListarProductosPorSucursalPageState
                     tag: data[index].idProducto,
                     child: Container(
                       child: CachedNetworkImage(
-                        cacheManager: CustomCacheManager(),
                         placeholder: (context, url) => Container(
                           width: double.infinity,
                           height: double.infinity,

@@ -12,7 +12,7 @@ class LoginApi {
     try {
       final url = '$apiBaseURL/api/Login/validar_sesion';
 
-      final resp = await http.post(url, body: {
+      final resp = await http.post(Uri.parse(url), body: {
         'usuario_nickname': '$user',
         'usuario_contrasenha': '$pass',
         'app': 'true'
@@ -24,10 +24,8 @@ class LoginApi {
 
       if (code == 1) {
         final prodTemp = Data.fromJson(decodedData['data']);
-
         //agrego los datos de usuario al sharePreferences
         prefs.idUser = decodedData['data']['c_u'];
-        prefs.idCity = prodTemp.idCity;
         prefs.idPerson = prodTemp.idPerson;
         prefs.userNickname = prodTemp.userNickname;
         prefs.userEmail = prodTemp.userEmail;
@@ -51,7 +49,7 @@ class LoginApi {
   Future<int> cambiarPass(String pass) async {
     try {
       final url = '$apiBaseURL/api/datos/guardar_contrasenha_app';
-      final resp = await http.post(url,
+      final resp = await http.post(Uri.parse(url),
           body: {'tn': prefs.token, 'contrasenha': '$pass', 'app': 'true'});
       final decodedData = json.decode(resp.body);
 
@@ -88,7 +86,7 @@ class LoginApi {
   Future<int> restablecerPass(String email) async {
     try {
       final url = '$apiBaseURL/api/Login/restaurar_clave';
-      final resp = await http.post(url, body: {'email': '$email'});
+      final resp = await http.post(Uri.parse(url), body: {'email': '$email'});
       final decodedData = json.decode(resp.body);
 
       final int code = decodedData['result']['code'];
@@ -109,8 +107,8 @@ class LoginApi {
   Future<int> restablecerPass1(String param) async {
     try {
       final url = '$apiBaseURL/api/Login/restaurar_clave';
-      final resp = await http
-          .post(url, body: {'id': '${prefs.idUser}', 'param': '$param'});
+      final resp = await http.post(Uri.parse(url),
+          body: {'id': '${prefs.idUser}', 'param': '$param'});
       final decodedData = json.decode(resp.body);
 
       final int code = decodedData['result']['code'];
@@ -131,8 +129,8 @@ class LoginApi {
   Future<int> restablecerPassOk(String pass) async {
     try {
       final url = '$apiBaseURL/api/Login/restaurar_clave';
-      final resp = await http
-          .post(url, body: {'id': '${prefs.idUser}', 'pass': '$pass'});
+      final resp = await http.post(Uri.parse(url),
+          body: {'id': '${prefs.idUser}', 'pass': '$pass'});
       final decodedData = json.decode(resp.body);
 
       final int code = decodedData['result']['code'];

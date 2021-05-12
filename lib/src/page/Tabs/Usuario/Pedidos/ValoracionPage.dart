@@ -1,7 +1,6 @@
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,7 @@ class PendientesValoracionPage extends StatelessWidget {
     final responsive = Responsive.of(context);
     final pedidoBloc = ProviderBloc.pedido(context);
     String idEstado = '5';
-     pedidoBloc.obtenerPedidosEnviados(idEstado);
+    pedidoBloc.obtenerPedidosEnviados(idEstado);
     //pedidoBloc.obtenerPedidosPorIdEstado(idEstado);
 
     return Scaffold(
@@ -27,8 +26,8 @@ class PendientesValoracionPage extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Colors.white),
       body: StreamBuilder(
-         // stream: pedidoBloc.pedidoStream,
-           stream: pedidoBloc.pedidosEnviadoStream,
+          // stream: pedidoBloc.pedidoStream,
+          stream: pedidoBloc.pedidosEnviadoStream,
           builder: (context, AsyncSnapshot<List<PedidosModel>> snapshot) {
             List<PedidosModel> listPedidos = snapshot.data;
             if (snapshot.hasData) {
@@ -108,7 +107,6 @@ class PendientesValoracionPage extends StatelessWidget {
                               height: responsive.hp(10),
                               width: responsive.wp(25),
                               child: CachedNetworkImage(
-                                cacheManager: CustomCacheManager(),
                                 placeholder: (context, url) => Container(
                                   width: double.infinity,
                                   height: double.infinity,
@@ -137,8 +135,10 @@ class PendientesValoracionPage extends StatelessWidget {
                 SizedBox(
                   height: responsive.hp(4),
                 ),
-                (listPedidos[index].detallePedido[x].detallePedidoValorado)=='0'?
-                _buttonCalificar(responsive, context, listPedidos, index): Container()
+                (listPedidos[index].detallePedido[x].detallePedidoValorado) ==
+                        '0'
+                    ? _buttonCalificar(responsive, context, listPedidos, index)
+                    : Container()
               ],
             ),
           ),
@@ -147,8 +147,6 @@ class PendientesValoracionPage extends StatelessWidget {
     );
   }
 
-  
-  
   Widget _buttonCalificar(Responsive responsive, BuildContext context,
       List<PedidosModel> listPedidos, int index) {
     return SizedBox(
@@ -181,7 +179,8 @@ class PendientesValoracionPage extends StatelessWidget {
             Text('${listPedidos[index].detallePedido[x].listProducto[0].productoName} ' +
                 '${listPedidos[index].detallePedido[x].listProducto[0].productoBrand} x ' +
                 '${listPedidos[index].detallePedido[x].listProducto[0].productoModel}'),
-            Text('size: ${listPedidos[index].detallePedido[x].listProducto[0].productoSize}'),
+            Text(
+                'size: ${listPedidos[index].detallePedido[x].listProducto[0].productoSize}'),
             Text('x ${listPedidos[index].detallePedido[x].cantidad} UN'),
             Text(
               'S/. ' +

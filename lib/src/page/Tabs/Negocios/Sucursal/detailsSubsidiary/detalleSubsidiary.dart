@@ -4,7 +4,6 @@ import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/GridviewProductosPorSucursal.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detailsSubsidiary/GridviewServiciosPorSucursal.dart';
 import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/widgets/busquedas/PorSucursal/widgetBusqProductXSucursal.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -37,7 +36,8 @@ class HomePageState extends State<DetalleSubsidiary>
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        final provider = Provider.of<DetailSubsidiaryBloc>(context, listen: false);
+        final provider =
+            Provider.of<DetailSubsidiaryBloc>(context, listen: false);
 
         _scrollController.addListener(
           () {
@@ -185,7 +185,6 @@ class CebeceraItem extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: CachedNetworkImage(
-                    cacheManager: CustomCacheManager(),
                     placeholder: (context, url) => Container(
                       width: double.infinity,
                       height: double.infinity,
@@ -322,29 +321,32 @@ class InformacionWidget extends StatelessWidget {
                       //     ), */
                       //   ],
                       // ),
-                      // 
-                      ('${snapshot.data[0].subsidiaryPrincipal}')=='1' ?
-                      Row(
-                        children: [
-                          Text("Oficina Principal de",
-                            style: TextStyle(fontSize: responsive.ip(2),
-                              fontWeight: FontWeight.bold)),
-                          SizedBox(
-                            width: responsive.wp(2),
-                          ),
-                         
-                          Text(
-                            '${snapshot.data[0].subsidiaryName}',
-                            style: TextStyle(
-                              fontSize: responsive.ip(2),
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red
+                      //
+                      ('${snapshot.data[0].subsidiaryPrincipal}') == '1'
+                          ? Row(
+                              children: [
+                                Text("Oficina Principal de",
+                                    style: TextStyle(
+                                        fontSize: responsive.ip(2),
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(
+                                  width: responsive.wp(2),
+                                ),
+                                Text(
+                                  '${snapshot.data[0].subsidiaryName}',
+                                  style: TextStyle(
+                                      fontSize: responsive.ip(2),
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red),
+                                ),
+                              ],
+                            )
+                          : Container(
+                              child: Text("Sucursal",
+                                  style: TextStyle(
+                                      fontSize: responsive.ip(2),
+                                      fontWeight: FontWeight.bold)),
                             ),
-                          ),
-                        ],
-                      ): Container(child: Text("Sucursal",
-                            style: TextStyle(fontSize: responsive.ip(2),
-                              fontWeight: FontWeight.bold)),),
                       SizedBox(
                         height: responsive.hp(3),
                       ),
@@ -420,7 +422,9 @@ class InformacionWidget extends StatelessWidget {
                           SizedBox(
                             width: responsive.wp(2),
                           ),
-                          Text(('${snapshot.data[0].subsidiaryEmail}') == 'null' ? 'correo' : '${snapshot.data[0].subsidiaryEmail}')
+                          Text(('${snapshot.data[0].subsidiaryEmail}') == 'null'
+                              ? 'correo'
+                              : '${snapshot.data[0].subsidiaryEmail}')
                           // Text(
                           //   '${snapshot.data[0].subsidiaryEmail}',
                           //   style: TextStyle(
@@ -429,15 +433,13 @@ class InformacionWidget extends StatelessWidget {
                           // ),
                         ],
                       ),
-                      
-                      SizedBox(
-                        height: responsive.hp(2.5)
-                      ),
-                       
+
+                      SizedBox(height: responsive.hp(2.5)),
+
                       Row(
                         children: [
                           Text("Coordenada X:",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                              style: TextStyle(fontWeight: FontWeight.bold)),
                           SizedBox(
                             width: responsive.wp(2),
                           ),
@@ -455,7 +457,7 @@ class InformacionWidget extends StatelessWidget {
                       Row(
                         children: [
                           Text("Coordenada Y:",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                              style: TextStyle(fontWeight: FontWeight.bold)),
                           SizedBox(
                             width: responsive.wp(2),
                           ),
@@ -479,7 +481,7 @@ class InformacionWidget extends StatelessWidget {
                       //     SizedBox(
                       //       width: responsive.wp(2),
                       //     ),
-                         
+
                       //     Text(
                       //       '${snapshot.data[0].subsidiaryName}',
                       //       style: TextStyle(
@@ -490,16 +492,19 @@ class InformacionWidget extends StatelessWidget {
                       //     ),
                       //   ],
                       // ): Container(),
-                      SizedBox(
-                        height: responsive.hp(2.5)
-                      ),
+                      SizedBox(height: responsive.hp(2.5)),
                       Column(
                         children: [
-                      Text("Descripción:",style: TextStyle(fontSize: responsive.ip(2),fontWeight: FontWeight.bold)),
-                      Text(('${snapshot.data[0].subsidiaryDescription}') == "null" ? '' : '${snapshot.data[0].subsidiaryDescription}')
-                    ],
-                    ),
-                      
+                          Text("Descripción:",
+                              style: TextStyle(
+                                  fontSize: responsive.ip(2),
+                                  fontWeight: FontWeight.bold)),
+                          Text(('${snapshot.data[0].subsidiaryDescription}') ==
+                                  "null"
+                              ? ''
+                              : '${snapshot.data[0].subsidiaryDescription}')
+                        ],
+                      ),
                     ],
                   ),
                 ),

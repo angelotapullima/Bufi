@@ -2,10 +2,7 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 
 import 'package:bufi/src/models/notificacionModel.dart';
 import 'package:bufi/src/page/Tabs/Principal/notificaciones/detalleNotificacionesPage.dart';
-import 'package:bufi/src/utils/constants.dart';
-import 'package:bufi/src/utils/customCacheManager.dart';
 import 'package:bufi/src/utils/responsive.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:bufi/src/utils/utils.dart';
 
@@ -136,7 +133,7 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                                   //       fontWeight:
                                                   //           FontWeight.bold),
                                                   // ),
-                                                );
+                                                  );
                                         } else {
                                           return Center(
                                               child:
@@ -183,7 +180,7 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                     child: Row(
                                       children: [
                                         //no hay imagen y genera error de choque
-                                        
+
                                         // Container(
                                         //   width: responsive.wp(20),
                                         //   height: responsive.hp(20),
@@ -208,19 +205,18 @@ class _NotificacionesPageState extends State<NotificacionesPage> {
                                         //     fit: BoxFit.cover,
                                         //   ),
                                         // ),
-                                        // 
+                                        //
                                         Container(
                                           color: Colors.white,
                                           width: responsive.wp(20),
                                           height: responsive.hp(20),
-                                          child:
-                                                Container(
-                                              width: double.infinity,
-                                              height: double.infinity,
-                                              child: Icon(Icons.notification_important, color: Colors.red),
-                                            ),
-                                           
-                                          
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                            child: Icon(
+                                                Icons.notification_important,
+                                                color: Colors.red),
+                                          ),
                                         ),
                                         Expanded(
                                           child: Column(

@@ -65,8 +65,24 @@ void main() async {
   //runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+
+    //Context
+    // PushNotificationService.messagesStream.listen((message) {
+    //   //print('MyApp: $message ');
+    //   Catcher.navigatorKey.currentState.pushNamed('notificaciones');
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ProviderBloc(

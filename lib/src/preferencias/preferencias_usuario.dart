@@ -124,4 +124,12 @@ class Preferences {
   set saludo(String value) {
     _prefs.setString('saludo', value);
   }
+
+  get tokenFirebase {
+    return _prefs.getString('tokenFirebase');
+  }
+
+  set tokenFirebase(String value) {
+    _prefs.setString('tokenFirebase', value);
+  }
 }

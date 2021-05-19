@@ -452,8 +452,12 @@ class _CuerpoState extends State<Cuerpo> {
                               width: responsive.wp(30),
                               child: RatingBar.readOnly(
                                 size: 20,
-                                initialRating: double.parse(
-                                    '${listProd[value].productoRating}'),
+                                initialRating:
+                                    ('${listProd[value].productoRating}' ==
+                                            null)
+                                        ? double.parse(
+                                            '${listProd[value].productoRating}')
+                                        : 0,
                                 isHalfAllowed: true,
                                 halfFilledIcon: Icons.star_half,
                                 filledIcon: Icons.star,

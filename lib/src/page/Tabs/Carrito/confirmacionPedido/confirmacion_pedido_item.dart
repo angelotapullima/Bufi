@@ -27,6 +27,14 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
     setState(() {});
   }
 
+  List array;
+  String dp;
+  String rt;
+  String dt;
+  bool dpEstatus = false;
+  bool rtEstatus = false;
+  bool dtEstatus = false;
+
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
@@ -167,7 +175,7 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                 .car[xxx]
                                                 .carrito
                                                 .length +
-                                            1,
+                                            2,
                                         itemBuilder:
                                             (BuildContext context, int i) {
                                           if (i == 0) {
@@ -204,11 +212,104 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                   ]),
                                             );
                                           }
+                                          if (i ==
+                                              listCarritoSuperior[0]
+                                                      .car[xxx]
+                                                      .carrito
+                                                      .length +
+                                                  1) {
+                                            return Container(
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    'Tipo de Entrega',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            responsive.ip(2),
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  SizedBox(
+                                                    height: responsive.hp(1),
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            dp = '1';
+                                                            rt = '0';
+                                                            dt = '0';
+                                                            dpEstatus = true;
+                                                            rtEstatus = false;
+                                                            dtEstatus = false;
+                                                          });
+                                                        },
+                                                        child: _tipoEntrega(
+                                                            'Delivery propio',
+                                                            Icons
+                                                                .delivery_dining,
+                                                            responsive,
+                                                            dpEstatus),
+                                                      ),
+                                                      SizedBox(
+                                                        width: responsive.wp(5),
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            dp = '0';
+                                                            rt = '1';
+                                                            dt = '0';
+                                                            dpEstatus = false;
+                                                            rtEstatus = true;
+                                                            dtEstatus = false;
+                                                          });
+                                                        },
+                                                        child: _tipoEntrega(
+                                                            'Recoger en tienda',
+                                                            Icons.store,
+                                                            responsive,
+                                                            rtEstatus),
+                                                      ),
+                                                      SizedBox(
+                                                        width: responsive.wp(5),
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            dp = '0';
+                                                            rt = '0';
+                                                            dt = '1';
+                                                            dpEstatus = false;
+                                                            rtEstatus = false;
+                                                            dtEstatus = true;
+                                                          });
+                                                        },
+                                                        child: _tipoEntrega(
+                                                            'Delivery terceros',
+                                                            Icons
+                                                                .departure_board_outlined,
+                                                            responsive,
+                                                            dtEstatus),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: responsive.hp(1.5),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          }
 
                                           int indd = i - 1;
 
                                           return Container(
-                                            height: responsive.hp(48),
+                                            height: responsive.hp(34),
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 5),
                                             width: double.infinity,
@@ -413,101 +514,6 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                 ),
                                                 SizedBox(
                                                     height: responsive.hp(3)),
-                                                Container(
-                                                  child: Column(
-                                                    children: [
-                                                      Text(
-                                                        'Tipo de Entrega',
-                                                        style: TextStyle(
-                                                            fontSize: responsive
-                                                                .ip(2),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      SizedBox(
-                                                        height:
-                                                            responsive.hp(1),
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Container(
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors
-                                                                      .white10,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              5)),
-                                                              width: responsive
-                                                                  .wp(15),
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Icon(Icons
-                                                                      .delivery_dining),
-                                                                  Text(
-                                                                    'Delivery propio',
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                  )
-                                                                ],
-                                                              )),
-                                                          SizedBox(
-                                                            width: responsive
-                                                                .wp(5),
-                                                          ),
-                                                          Container(
-                                                              width: responsive
-                                                                  .wp(15),
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Icon(Icons
-                                                                      .store),
-                                                                  Text(
-                                                                    'Recoger en tienda',
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                  )
-                                                                ],
-                                                              )),
-                                                          SizedBox(
-                                                            width: responsive
-                                                                .wp(5),
-                                                          ),
-                                                          Container(
-                                                              width: responsive
-                                                                  .wp(15),
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Icon(Icons
-                                                                      .departure_board_outlined),
-                                                                  Text(
-                                                                    'Delivery terceros',
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                  )
-                                                                ],
-                                                              )),
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
                                               ],
                                             ),
                                           );
@@ -561,6 +567,36 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
         },
       ),
     );
+  }
+
+  Widget _tipoEntrega(
+      String titulo, IconData icon, Responsive responsive, bool status) {
+    return Container(
+        margin: EdgeInsets.all(1),
+        decoration: BoxDecoration(
+            color: (status) ? Colors.red : Colors.white10,
+            borderRadius: BorderRadius.circular(5)),
+        width: responsive.wp(20),
+        child: Container(
+          margin: EdgeInsets.all(1),
+          width: responsive.wp(15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                color: (status) ? Colors.white : Colors.black,
+              ),
+              Text(
+                titulo,
+                style: TextStyle(
+                  color: (status) ? Colors.white : Colors.black,
+                ),
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+        ));
   }
 }
 

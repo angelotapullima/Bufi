@@ -11,11 +11,14 @@ import 'package:bufi/src/page/Categorias/ProductosPotItemsubcategory/pro_y_ser_p
 import 'package:bufi/src/page/Categorias/itemSubcategory_por_idSubcategory_page.dart';
 import 'package:bufi/src/page/Categorias/subcategory_por_idCategory_page.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
+import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:bufi/src/utils/responsive.dart';
+import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:bufi/src/models/searchHistoryModel.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -28,6 +31,7 @@ class BusquedaDeLaPtmr extends StatefulWidget {
 
 class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
   TextEditingController _controllerBusquedaAngelo = TextEditingController();
+  bool expandFlag = true;
 
   final listOpciones = [
     //ItemsBusqueda(titulo: 'Todo', index: 1),
@@ -64,7 +68,6 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
 
   @override
   Widget build(BuildContext context) {
-    print('Primera vez');
     final responsive = Responsive.of(context);
     final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
     final busquedaBloc = ProviderBloc.busqueda(context);
@@ -75,183 +78,212 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
           stream: selectorTabBusqueda.selectPageStream,
           builder: (context, _) {
             return SafeArea(
-              child: Column(
+              child: Stack(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        BackButton(),
-                        Expanded(
-                          child: TextField(
-                              controller: _controllerBusquedaAngelo,
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                hintText: 'Buscar en Bufi',
-                                hintStyle: TextStyle(
-                                  fontSize: responsive.ip(1.6),
-                                ),
-                                /* border: OutlineInputBorder(
-                              //borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8),
-                                
-                              ),
-                            ), */
-                                filled: true,
-                                contentPadding: EdgeInsets.all(16),
-                              ),
-                              onSubmitted: (value) {
-                                if (value.length >= 0 && value != ' ') {
-                                  //busquedaBloc.obtenerBusquedaGeneral('$value');
-                                  busquedaBloc.obtenerBusquedaProducto(
-                                      context, '$value');
-                                  busquedaBloc.obtenerBusquedaServicio(
-                                      context, '$value');
-                                  busquedaBloc.obtenerBusquedaNegocio(
-                                      context, '$value');
-                                  busquedaBloc.obtenerBusquedaItemSubcategoria(
-                                      context, '$value');
-                                  busquedaBloc.obtenerBusquedaCategoria(
-                                      context, '$value');
-                                  busquedaBloc.obtenerBusquedaSubcategoria(
-                                      context, '$value');
-                                }
-                              }),
+                  Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
                         ),
-                        IconButton(
-                            icon: Icon(Icons.search),
-                            onPressed: () {
-                              if (_controllerBusquedaAngelo.text.length >= 0 &&
-                                  _controllerBusquedaAngelo.text != ' ') {
-                                // busquedaBloc.obtenerBusquedaGeneral(
-                                //     '${_controllerBusquedaAngelo.text}');
-                                busquedaBloc.obtenerBusquedaProducto(context,
-                                    '${_controllerBusquedaAngelo.text}');
-                                busquedaBloc.obtenerBusquedaServicio(context,
-                                    '${_controllerBusquedaAngelo.text}');
-                                busquedaBloc.obtenerBusquedaNegocio(context,
-                                    '${_controllerBusquedaAngelo.text}');
-                                busquedaBloc.obtenerBusquedaItemSubcategoria(
-                                    context,
-                                    '${_controllerBusquedaAngelo.text}');
-                                busquedaBloc.obtenerBusquedaCategoria(context,
-                                    '${_controllerBusquedaAngelo.text}');
-                                busquedaBloc.obtenerBusquedaSubcategoria(
-                                    context,
-                                    '${_controllerBusquedaAngelo.text}');
-                              }
-                            }),
-                        IconButton(
-                            icon: Icon(Icons.close),
-                            onPressed: () {
-                              _controllerBusquedaAngelo.text = '';
-                            }),
-                        SizedBox(
-                          width: responsive.wp(3),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            BackButton(),
+                            Expanded(
+                              child: TextField(
+                                  controller: _controllerBusquedaAngelo,
+                                  keyboardType: TextInputType.text,
+                                  decoration: InputDecoration(
+                                    hintText: 'Buscar en Bufi',
+                                    hintStyle: TextStyle(
+                                      fontSize: responsive.ip(1.6),
+                                    ),
+                                    /* border: OutlineInputBorder(
+                                  //borderSide: BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8),
+                                    
+                                  ),
+                                ), */
+                                    filled: true,
+                                    contentPadding: EdgeInsets.all(16),
+                                  ),
+                                  onSubmitted: (value) {
+                                    if (value.length >= 0 && value != ' ') {
+                                      //busquedaBloc.obtenerBusquedaGeneral('$value');
+                                      busquedaBloc.obtenerBusquedaProducto(
+                                          context, '$value');
+                                      busquedaBloc.obtenerBusquedaServicio(
+                                          context, '$value');
+                                      busquedaBloc.obtenerBusquedaNegocio(
+                                          context, '$value');
+                                      busquedaBloc
+                                          .obtenerBusquedaItemSubcategoria(
+                                              context, '$value');
+                                      busquedaBloc.obtenerBusquedaCategoria(
+                                          context, '$value');
+                                      busquedaBloc.obtenerBusquedaSubcategoria(
+                                          context, '$value');
+                                      agregarHistorial(context, value);
+                                    }
+                                  }),
+                            ),
+                            IconButton(
+                                icon: Icon(Icons.search),
+                                onPressed: () {
+                                  if (_controllerBusquedaAngelo.text.length >=
+                                          0 &&
+                                      _controllerBusquedaAngelo.text != ' ') {
+                                    // busquedaBloc.obtenerBusquedaGeneral(
+                                    //     '${_controllerBusquedaAngelo.text}');
+                                    busquedaBloc.obtenerBusquedaProducto(
+                                        context,
+                                        '${_controllerBusquedaAngelo.text}');
+                                    busquedaBloc.obtenerBusquedaServicio(
+                                        context,
+                                        '${_controllerBusquedaAngelo.text}');
+                                    busquedaBloc.obtenerBusquedaNegocio(context,
+                                        '${_controllerBusquedaAngelo.text}');
+                                    busquedaBloc.obtenerBusquedaItemSubcategoria(
+                                        context,
+                                        '${_controllerBusquedaAngelo.text}');
+                                    busquedaBloc.obtenerBusquedaCategoria(
+                                        context,
+                                        '${_controllerBusquedaAngelo.text}');
+                                    busquedaBloc.obtenerBusquedaSubcategoria(
+                                        context,
+                                        '${_controllerBusquedaAngelo.text}');
+                                    agregarHistorial(context,
+                                        _controllerBusquedaAngelo.text);
+                                  }
+                                }),
+                            IconButton(
+                                icon: Icon(Icons.close),
+                                onPressed: () {
+                                  _controllerBusquedaAngelo.text = '';
+                                }),
+                            SizedBox(
+                              width: responsive.wp(3),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                              ),
+                              height: responsive.hp(5),
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: listOpciones.length,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      selectorTabBusqueda.changePage(index);
+                                    },
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: responsive.hp(.8),
+                                        ),
+                                        Stack(
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: responsive.wp(2.2),
+                                              ),
+                                              child: Container(
+                                                height: responsive.hp(2.5),
+                                                child: Center(
+                                                  child: Text(
+                                                    ('${listOpciones[index].titulo} '),
+                                                    style: TextStyle(
+                                                        color: Colors.blue[900],
+                                                        fontSize:
+                                                            responsive.ip(1.4),
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: responsive.hp(.5),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            CircleAvatar(
+                                              radius: responsive.ip(.4),
+                                              backgroundColor:
+                                                  (selectorTabBusqueda.page ==
+                                                          index)
+                                                      ? Colors.blue[900]
+                                                      : Colors.white,
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Divider(),
+                            Expanded(
+                              child:
+                                  // (selectorTabBusqueda.page == 0)
+                                  //     ? ListaGeneral()
+                                  //     :
+                                  (selectorTabBusqueda.page == 0)
+                                      ? ListaProductos()
+                                      : (selectorTabBusqueda.page == 1)
+                                          ? ListaServicios()
+                                          : (selectorTabBusqueda.page == 2)
+                                              ? ListaNegocios()
+                                              : (selectorTabBusqueda.page == 3)
+                                                  ? Container()
+                                                  : (selectorTabBusqueda.page ==
+                                                          4)
+                                                      ? ListaCategorias()
+                                                      : (selectorTabBusqueda
+                                                                  .page ==
+                                                              5)
+                                                          ? ListaSubCategorias()
+                                                          : (selectorTabBusqueda
+                                                                      .page ==
+                                                                  6)
+                                                              ? ListaItemsubcategoria()
+                                                              : Container(),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  ExpandableContainer(
+                    expanded: expandFlag,
+                    expandedHeight: 1,
+                    child: ListView(
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: Center(
+                            child: Text('1'),
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                          ),
-                          height: responsive.hp(5),
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: listOpciones.length,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  selectorTabBusqueda.changePage(index);
-                                },
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: responsive.hp(.8),
-                                    ),
-                                    Stack(
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: responsive.wp(2.2),
-                                          ),
-                                          child: Container(
-                                            height: responsive.hp(2.5),
-                                            child: Center(
-                                              child: Text(
-                                                ('${listOpciones[index].titulo} '),
-                                                style: TextStyle(
-                                                    color: Colors.blue[900],
-                                                    fontSize:
-                                                        responsive.ip(1.4),
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: responsive.hp(.5),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        CircleAvatar(
-                                          radius: responsive.ip(.4),
-                                          backgroundColor:
-                                              (selectorTabBusqueda.page ==
-                                                      index)
-                                                  ? Colors.blue[900]
-                                                  : Colors.white,
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        Divider(),
-                        Expanded(
-                          child:
-                              // (selectorTabBusqueda.page == 0)
-                              //     ? ListaGeneral()
-                              //     :
-                              (selectorTabBusqueda.page == 0)
-                                  ? ListaProductos()
-                                  : (selectorTabBusqueda.page == 1)
-                                      ? ListaServicios()
-                                      : (selectorTabBusqueda.page == 2)
-                                          ? ListaNegocios()
-                                          : (selectorTabBusqueda.page == 3)
-                                              ? Container()
-                                              : (selectorTabBusqueda.page == 4)
-                                                  ? ListaCategorias()
-                                                  : (selectorTabBusqueda.page ==
-                                                          5)
-                                                      ? ListaSubCategorias()
-                                                      : (selectorTabBusqueda
-                                                                  .page ==
-                                                              6)
-                                                          ? ListaItemsubcategoria()
-                                                          : Container(),
-                        ),
-                      ],
-                    ),
-                  )
                 ],
               ),
             );
@@ -359,7 +391,8 @@ class _ListaGeneralState extends State<ListaGeneral> {
                             if (snapshot.hasData) {
                               if (snapshot.data.length > 0) {
                               } else {
-                                return Center(child: Text("Sin resultados"));
+                                return Center(
+                                    child: Text("Sin resultadosssssss"));
                               }
                             } else {
                               return Center(child: CircularProgressIndicator());
@@ -625,6 +658,8 @@ class _ListaProductosState extends State<ListaProductos> {
   @override
   Widget build(BuildContext context) {
     final busquedaBloc = ProviderBloc.busqueda(context);
+    final searchBloc = ProviderBloc.searHistory(context);
+    searchBloc.listarSearchHistory();
     //busquedaBloc.obtenerBusquedaProducto('$query');
 
     final responsive = Responsive.of(context);
@@ -721,11 +756,164 @@ class _ListaProductosState extends State<ListaProductos> {
                                       }),
                                 );
                               } else {
-                                return Center(
-                                    child: Text(
-                                  "Sin resultados",
-                                  textAlign: TextAlign.center,
-                                ));
+                                return StreamBuilder(
+                                  stream: searchBloc.searchHistoryStream,
+                                  builder: (context,
+                                      AsyncSnapshot<List<SearchHistoryModel>>
+                                          snapshot) {
+                                    if (snapshot.hasData) {
+                                      if (snapshot.data.length > 0) {
+                                        return Expanded(
+                                            child: ListView.builder(
+                                                shrinkWrap: true,
+                                                itemCount:
+                                                    snapshot.data.length + 1,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int i) {
+                                                  if (i == 0) {
+                                                    return Container(
+                                                      child: Text(
+                                                          'Lo último que buscaste',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  responsive
+                                                                      .ip(2.3),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                      margin: EdgeInsets.all(
+                                                          responsive.ip(1)),
+                                                    );
+                                                  }
+                                                  i = i - 1;
+                                                  return GestureDetector(
+                                                    onTap: () {
+                                                      if (snapshot.data[i]
+                                                              .tipoBusqueda ==
+                                                          'Producto') {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                DetalleProductos(
+                                                              idProducto: snapshot
+                                                                  .data[i]
+                                                                  .idBusqueda,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      } else {
+                                                        Navigator.pushNamed(
+                                                            context,
+                                                            'detalleServicio',
+                                                            arguments: snapshot
+                                                                .data[i]
+                                                                .idBusqueda);
+                                                      }
+                                                    },
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                        color: Colors.white,
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                    0.15),
+                                                            spreadRadius: 1,
+                                                            blurRadius: 2,
+                                                            offset:
+                                                                Offset(2, 3),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      margin: EdgeInsets.all(
+                                                          responsive.ip(1)),
+                                                      height: responsive.hp(8),
+                                                      child: Row(
+                                                        children: [
+                                                          Spacer(),
+                                                          Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                    image:
+                                                                        DecorationImage(
+                                                                      image: NetworkImage(
+                                                                          '$apiBaseURL/${snapshot.data[i].img}'),
+                                                                    )),
+                                                            width: responsive
+                                                                .wp(10),
+                                                            height: responsive
+                                                                .hp(10),
+                                                          ),
+                                                          Spacer(),
+                                                          Container(
+                                                            width: responsive
+                                                                .wp(53),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  '${snapshot.data[i].nombreBusqueda}',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          responsive.ip(
+                                                                              2.2),
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                                Text(
+                                                                    'Tipo: ${snapshot.data[i].tipoBusqueda}',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            responsive.ip(
+                                                                                2),
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                        color: Colors
+                                                                            .red)),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Spacer()
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                }));
+                                      } else {
+                                        return Center(
+                                            child: Text(
+                                          "Sin resultados",
+                                          textAlign: TextAlign.center,
+                                        ));
+                                      }
+                                    } else {
+                                      return Center(
+                                          child: Text(
+                                        "Sin resultados",
+                                        textAlign: TextAlign.center,
+                                      ));
+                                    }
+                                  },
+                                );
+                                // return Center(
+                                //     child: Text(
+                                //   "Sin resultados",
+                                //   textAlign: TextAlign.center,
+                                // ));
                               }
                             } else {
                               return Center(child: CircularProgressIndicator());
@@ -790,6 +978,8 @@ class _ListaProductosState extends State<ListaProductos> {
       BuildContext context, ProductoModel productoData, Responsive responsive) {
     return GestureDetector(
       onTap: () {
+        agregarHistorialBusqueda(context, productoData.idProducto, 'Producto',
+            productoData.productoName, productoData.productoImage);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -1029,6 +1219,12 @@ class _ListaServiciosState extends State<ListaServicios> {
       Responsive responsive) {
     return GestureDetector(
       onTap: () {
+        agregarHistorialBusqueda(
+            context,
+            servicioData.idSubsidiaryservice,
+            'Servicio',
+            servicioData.subsidiaryServiceName,
+            servicioData.subsidiaryServiceImage);
         Navigator.pushNamed(context, 'detalleServicio',
             arguments: servicioData.idSubsidiaryservice);
       },

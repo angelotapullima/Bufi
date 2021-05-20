@@ -384,6 +384,18 @@ class DatabaseProvider {
           ' valoracion_imagen TEXT,'
           ' valoracion_datetime TEXT'
           ')');
+
+      await db.execute('CREATE TABLE SearchHistory ('
+          'id_busqueda VARCHAR  PRIMARY KEY,'
+          'nombre_busqueda VARCHAR,'
+          'tipo_busqueda VARCHAR,'
+          'img VARCHAR,'
+          'fecha VARCHAR'
+          ')');
+      await db.execute('CREATE TABLE Historial ('
+          'text VARCHAR PRIMARY KEY,'
+          'fecha VARCHAR'
+          ')');
     });
   }
 }

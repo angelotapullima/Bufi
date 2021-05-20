@@ -3,8 +3,10 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/database/carrito_db.dart';
 import 'package:bufi/src/database/detallePedido_database.dart';
 import 'package:bufi/src/database/direccion_database.dart';
+import 'package:bufi/src/database/historial_db.dart';
 import 'package:bufi/src/database/notificaciones_database.dart';
 import 'package:bufi/src/database/producto_bd.dart';
+import 'package:bufi/src/database/searchHistory_db.dart';
 import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/database/sugerenciaBusqueda_db.dart';
@@ -16,6 +18,7 @@ import 'package:bufi/src/models/direccionModel.dart';
 import 'package:bufi/src/models/notificacionModel.dart';
 import 'package:bufi/src/models/pointModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
+import 'package:bufi/src/models/searchHistoryModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/models/sugerenciaBusquedaModel.dart';
@@ -758,6 +761,42 @@ void agregarPSaSugerencia(
 
   sugerenciaBusquedaBloc.listarSugerenciasXbusqueda();
   //bienesBloc.obtenerBienesAllPorCiudad();
+}
+
+void agregarHistorialBusqueda(BuildContext context, String idBusqueda,
+    String tipoBusqueda, String nombreBusqueda, String img) async {
+  print('Insertar busqueda');
+  final searchBusquedaDB = SearchHistoryDb();
+  final searchBloc = ProviderBloc.searHistory(context);
+  var now = new DateTime.now();
+  var formatter = new DateFormat('yyyy-MM-dd H:m');
+  String formattedDate = formatter.format(now);
+  SearchHistoryModel searchHistoryModel = SearchHistoryModel();
+  searchHistoryModel.idBusqueda = idBusqueda;
+  searchHistoryModel.nombreBusqueda = nombreBusqueda;
+  searchHistoryModel.tipoBusqueda = tipoBusqueda;
+  searchHistoryModel.fecha = formattedDate;
+  searchHistoryModel.img = img;
+
+  searchBusquedaDB.insertarBusqueda(searchHistoryModel);
+  searchBloc.listarSearchHistory();
+}
+
+void agregarHistorial(BuildContext context, String text) async {
+  print('Insertar busqueda Historial');
+  final historialDB = HistorialDb();
+  //final searchBloc = ProviderBloc.searHistory(context);
+  var now = new DateTime.now();
+  var formatter = new DateFormat('yyyy-MM-dd H:m');
+  String formattedDate = formatter.format(now);
+  historialDB.insertarBusqueda(text, formattedDate);
+
+  final list = await historialDB.obtenerBusqueda();
+
+  for (var i = 0; i < list.length; i++) {
+    print(list[i].historial);
+  }
+  //searchBloc.listarSearchHistory();
 }
 
 void irADetalleProducto(BienesServiciosModel model, BuildContext context) {

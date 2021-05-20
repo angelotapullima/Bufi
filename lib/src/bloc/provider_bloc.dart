@@ -6,6 +6,7 @@ import 'package:bufi/src/bloc/busqueda/BusqXSucursalBloc.dart';
 import 'package:bufi/src/bloc/busqueda/blocDeLaBusQuedaMasnaikiJamasHechaPorAngelo.dart';
 import 'package:bufi/src/bloc/busqueda/busquedaBloc.dart';
 import 'package:bufi/src/bloc/busqueda/busquedaGeneral_bloc.dart';
+import 'package:bufi/src/bloc/busqueda/searchHistory_bloc.dart';
 import 'package:bufi/src/bloc/carrito_bloc.dart';
 import 'package:bufi/src/bloc/categoriaPrincipal/categoria_bloc.dart';
 import 'package:bufi/src/bloc/categoriaPrincipal/itemCategBloc.dart';
@@ -67,11 +68,10 @@ class ProviderBloc extends InheritedWidget {
   final busquedaBloc = BusquedaBloc();
   final busquedaGeneralBloc = BusquedaGeneralBloc();
   final busquedaXSucursalBloc = BusquedaXSucursalBloc();
-  final markerMapaNegociosBloc =MarkerMapaNegociosBloc();
-  final busquedaGeneralTab =BusquedaGeneralTab();
-  final notificacionBloc =NotificacionesBloc();
-  
-
+  final markerMapaNegociosBloc = MarkerMapaNegociosBloc();
+  final busquedaGeneralTab = BusquedaGeneralTab();
+  final notificacionBloc = NotificacionesBloc();
+  final searchHistoryBloc = SearchHistoryBloc();
 
   factory ProviderBloc({Key key, Widget child}) {
     if (_instancia == null) {
@@ -260,7 +260,6 @@ class ProviderBloc extends InheritedWidget {
         .busquedaXSucursalBloc;
   }
 
-
   static MarkerMapaNegociosBloc markerMapa(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .markerMapaNegociosBloc;
@@ -270,10 +269,14 @@ class ProviderBloc extends InheritedWidget {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .busquedaGeneralTab;
   }
+
   static NotificacionesBloc notificaciones(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .notificacionBloc;
-  } 
+  }
 
-  
+  static SearchHistoryBloc searHistory(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .searchHistoryBloc;
+  }
 }

@@ -46,9 +46,6 @@ class _ProYSerPorItemSubcategoryPageState
 
   @override
   void initState() {
-    print(widget.nameItem);
-    print(widget.idItem);
-
     _animationController =
         AnimationController(vsync: this, duration: _animationDuration);
     isSidebarOpenedStreamController = PublishSubject<bool>();
@@ -59,11 +56,6 @@ class _ProYSerPorItemSubcategoryPageState
           _scrollControllerListview.addListener(() {
             if (_scrollControllerListview.position.pixels + 100 >
                 _scrollControllerListview.position.maxScrollExtent) {
-              print('pixels ${_scrollControllerListview.position.pixels}');
-              print(
-                  'maxScrool ${_scrollControllerListview.position.maxScrollExtent}');
-              print('dentro');
-
               final itemSubcatBloc = ProviderBloc.itemSubcategoria(context);
               itemSubcatBloc
                   .listarBienesServiciosXIdItemSubcategoria(widget.idItem);
@@ -72,11 +64,6 @@ class _ProYSerPorItemSubcategoryPageState
           _scrollControllerGridview.addListener(() {
             if (_scrollControllerGridview.position.pixels + 100 >
                 _scrollControllerGridview.position.maxScrollExtent) {
-              print('pixels ${_scrollControllerGridview.position.pixels}');
-              print(
-                  'maxScrool ${_scrollControllerGridview.position.maxScrollExtent}');
-              print('dentro');
-
               final itemSubcatBloc = ProviderBloc.itemSubcategoria(context);
               itemSubcatBloc
                   .listarBienesServiciosXIdItemSubcategoria(widget.idItem);
@@ -908,7 +895,6 @@ class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
                         }
                       }
 
-                      
                       if (pase) {
                         itemSubcatBloc
                             .listarBienesServiciosXIdItemSubcategoriaFiltrado(

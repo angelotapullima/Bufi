@@ -29,28 +29,27 @@ class CompanyDatabase {
     try {
       final db = await dbProvider.database;
 
-      final res = await db.rawUpdate(
-          "UPDATE Company SET id_user='${companyModel.idUser}', "
-          "id_city='${companyModel.idCity}',"
-          "id_category='${companyModel.idCategory}',"
-          "company_name='${companyModel.companyName}',"
-          "company_ruc='${companyModel.companyRuc}',"
-          "company_image='${companyModel.companyImage}',"
-          "company_type='${companyModel.companyType}',"
-          "company_shortcode='${companyModel.companyShortcode}',"
-          "company_delivery_propio='${companyModel.companyDeliveryPropio}',"
-          "company_delivery='${companyModel.companyDelivery}',"
-          "company_entrega='${companyModel.companyEntrega}', "
-          "company_tarjeta='${companyModel.companyTarjeta}',"
-          "company_verified='${companyModel.companyVerified}',"
-          "company_rating='${companyModel.companyRating}', "
-          "company_created_at='${companyModel.companyCreatedAt}', "
-          "company_join='${companyModel.companyJoin}',"
-          "company_status='${companyModel.companyStatus}',"
-          "company_mt='${companyModel.companyMt}', "
-          "mi_negocio='${companyModel.miNegocio}'"
-          "WHERE id_company = '${companyModel.idCompany}'");
-      print(res);
+      final res = await db
+          .rawUpdate("UPDATE Company SET id_user='${companyModel.idUser}', "
+              "id_city='${companyModel.idCity}',"
+              "id_category='${companyModel.idCategory}',"
+              "company_name='${companyModel.companyName}',"
+              "company_ruc='${companyModel.companyRuc}',"
+              "company_image='${companyModel.companyImage}',"
+              "company_type='${companyModel.companyType}',"
+              "company_shortcode='${companyModel.companyShortcode}',"
+              "company_delivery_propio='${companyModel.companyDeliveryPropio}',"
+              "company_delivery='${companyModel.companyDelivery}',"
+              "company_entrega='${companyModel.companyEntrega}', "
+              "company_tarjeta='${companyModel.companyTarjeta}',"
+              "company_verified='${companyModel.companyVerified}',"
+              "company_rating='${companyModel.companyRating}', "
+              "company_created_at='${companyModel.companyCreatedAt}', "
+              "company_join='${companyModel.companyJoin}',"
+              "company_status='${companyModel.companyStatus}',"
+              "company_mt='${companyModel.companyMt}', "
+              "mi_negocio='${companyModel.miNegocio}'"
+              "WHERE id_company = '${companyModel.idCompany}'");
       return res;
     } catch (exception) {
       print(exception);
@@ -58,16 +57,17 @@ class CompanyDatabase {
   }
 
   Future<List<CompanyModel>> obtenerCompany() async {
-    try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery("SELECT * FROM Company order by id_company ");
+    try {
+      final db = await dbProvider.database;
+      final res =
+          await db.rawQuery("SELECT * FROM Company order by id_company ");
 
-    List<CompanyModel> list =
-        res.isNotEmpty ? res.map((c) => CompanyModel.fromJson(c)).toList() : [];
-    return list;
+      List<CompanyModel> list = res.isNotEmpty
+          ? res.map((c) => CompanyModel.fromJson(c)).toList()
+          : [];
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
       return [];
     }
   }
@@ -85,54 +85,56 @@ class CompanyDatabase {
     return list;
   } */
 
-  Future<List<CompanyModel>> obtenerCompanyPorIdCompany(String idCompany) async {
-    try{
-    final db = await dbProvider.database;
-    final res = await db
-        .rawQuery("SELECT * FROM Company WHERE id_company= '$idCompany'");
+  Future<List<CompanyModel>> obtenerCompanyPorIdCompany(
+      String idCompany) async {
+    try {
+      final db = await dbProvider.database;
+      final res = await db
+          .rawQuery("SELECT * FROM Company WHERE id_company= '$idCompany'");
 
-    List<CompanyModel> list =
-        res.isNotEmpty ? res.map((c) => CompanyModel.fromJson(c)).toList() : [];
-    return list;
+      List<CompanyModel> list = res.isNotEmpty
+          ? res.map((c) => CompanyModel.fromJson(c)).toList()
+          : [];
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
       return [];
     }
   }
 
   //Se utiliza para la busqueda de Negocio
   Future<List<CompanyModel>> consultarCompanyPorQuery(String query) async {
-    try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery(
-        "SELECT * FROM Company WHERE company_name LIKE '%$query%'");
+    try {
+      final db = await dbProvider.database;
+      final res = await db
+          .rawQuery("SELECT * FROM Company WHERE company_name LIKE '%$query%'");
 
-    List<CompanyModel> list = res.isNotEmpty
-        ? res.map((c) => CompanyModel.fromJson(c)).toList()
-        : [];
+      List<CompanyModel> list = res.isNotEmpty
+          ? res.map((c) => CompanyModel.fromJson(c)).toList()
+          : [];
 
-    return list;} catch (e) {
+      return list;
+    } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
 
   // para la busqueda por categorias
-  Future<List<CompanyModel>> consultarCompanyPorIdCategoria(String idCategoria) async {
-    try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery(
-        "SELECT * FROM Company WHERE id_category= '$idCategoria'");
+  Future<List<CompanyModel>> consultarCompanyPorIdCategoria(
+      String idCategoria) async {
+    try {
+      final db = await dbProvider.database;
+      final res = await db
+          .rawQuery("SELECT * FROM Company WHERE id_category= '$idCategoria'");
 
-    List<CompanyModel> list = res.isNotEmpty
-        ? res.map((c) => CompanyModel.fromJson(c)).toList()
-        : [];
+      List<CompanyModel> list = res.isNotEmpty
+          ? res.map((c) => CompanyModel.fromJson(c)).toList()
+          : [];
 
-    return list;} catch (e) {
+      return list;
+    } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }

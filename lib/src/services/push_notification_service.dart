@@ -14,20 +14,14 @@ class PushNotificationService {
   static Stream<String> get messagesStream => _messageStreamController.stream;
 
   static Future _backgroundHandler(RemoteMessage message) async {
-    //print('onbackground Handler ${message.messageId}');
-    print(message.data);
     _messageStreamController.add(message.notification.title);
   }
 
   static Future _onMessageHandler(RemoteMessage message) async {
-    //print('onMessage Handler ${message.messageId}');
-    print(message.data);
     _messageStreamController.add(message.notification.title);
   }
 
   static Future _onMessageOpenApp(RemoteMessage message) async {
-    //print('on Message OpenApp ${message.messageId}');
-    print(message.data);
     _messageStreamController.add(message.notification.title);
   }
 

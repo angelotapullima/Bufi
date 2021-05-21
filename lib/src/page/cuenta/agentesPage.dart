@@ -99,7 +99,6 @@ class _MapaNegociosState extends State<MapaAgentes> {
     final markerMapa = ProviderBloc.markerMapa(context);
 
     for (var i = 0; i < widget.agentes.length; i++) {
-      print('i pe csmare $i');
       var punto = LatLng(
         double.parse(widget.agentes[i].agenteCoordX),
         double.parse(widget.agentes[i].agenteCoordY),
@@ -111,7 +110,6 @@ class _MapaNegociosState extends State<MapaAgentes> {
               int.parse('${widget.agentes[i].posicion}') - 1,
               duration: Duration(milliseconds: 500),
               curve: Curves.decelerate);
-          print('${widget.agentes[i].posicion}');
 
           AgentesResult ne = AgentesResult();
 
@@ -119,11 +117,6 @@ class _MapaNegociosState extends State<MapaAgentes> {
           ne.idAgente = '${widget.agentes[i].idAgente}';
 
           markerMapa.changemarkerId(ne);
-
-          /*  print('id agente ${widget.agentes[i].idAgente}');
-          markerMapa.changemarkerId(
-            int.parse('${widget.agentes[i].idAgente}'),
-          ); */
         },
         anchor: Offset(0.0, 1.0),
         markerId: MarkerId('${widget.agentes[i].idAgente}'),
@@ -270,7 +263,6 @@ class _MapaNegociosState extends State<MapaAgentes> {
   }
 
   void scroll(Responsive responsive, int position) {
-    print((responsive.wp(40) * position) + 50);
     Future.delayed(
       Duration(milliseconds: 1),
       () {

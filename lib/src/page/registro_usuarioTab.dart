@@ -104,7 +104,6 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
                               _controllerCel.text.isEmpty &&
                               _controllerEmail.text.isEmpty) {
                             //mostrar mensaje de text name vacio
-                            print("Debe rellenar todos los campos");
                             showToast1("Debe rellenar todos los campos", 2,
                                 ToastGravity.CENTER);
                             setState(() {
@@ -129,9 +128,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
                                   _controllerPassword.text);
                               if (resL == 1) {
                                 Navigator.pushNamed(context, 'home');
-                              } else {
-                                print("Usuario no registrado");
-                              }
+                              } else {}
                             } else if (res == 2) {
                               //registro failed
                             } else {

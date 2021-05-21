@@ -186,7 +186,8 @@ class CarritoBloc {
     int cantidad = 0;
 
     //funcion que trae los datos del carrito agrupados por iDSubsidiary para que no se repitan los IDSubsidiary
-    final listCarritoAgrupados = await carritoDb.obtenerProductosSeleccionadoAgrupados();
+    final listCarritoAgrupados =
+        await carritoDb.obtenerProductosSeleccionadoAgrupados();
 
     //llenamos la lista de String(listaDeStringDeIds) con los datos agrupados que llegan (listCarritoAgrupados)
     for (var i = 0; i < listCarritoAgrupados.length; i++) {
@@ -310,8 +311,6 @@ class CarritoBloc {
 
         listaGeneralCarrito.add(carritoGeneralSuperior);
       } else {
-        print('obteniendo sucursal');
-
         listaGeneralCarrito.clear();
         listaGeneral.clear();
         listCarritoModel.clear();

@@ -172,15 +172,12 @@ class _RecuperarPasswordPageState extends State<RecuperarPasswordPage> {
     _cargando.value = true;
     final int code = await bloc.restablecerPass('${bloc.correo}');
     if (code == 1) {
-      print(code);
       Navigator.of(context).pop();
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => ConfirmCodePage()));
     } else if (code == 2) {
-      print(code);
       showToast1('Ocurrio un error', 2, ToastGravity.CENTER);
     } else if (code == 3) {
-      print(code);
       showToast1(
           'El correo ingresdo no está registrado', 2, ToastGravity.CENTER);
     }
@@ -362,15 +359,12 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
     final int code = await bloc.restablecerPass1('${bloc.codigo}');
 
     if (code == 1) {
-      print(code);
       Navigator.of(context).pop();
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => RestablecerPasswordPage()));
     } else if (code == 2) {
-      print(code);
       showToast1('Código Incorrecto', 2, ToastGravity.CENTER);
     } else if (code == 3) {
-      print(code);
       showToast1('Ocurrió un error', 2, ToastGravity.CENTER);
     }
 
@@ -606,14 +600,11 @@ class _RestablecerPasswordPageState extends State<RestablecerPasswordPage> {
                 final int code =
                     await bloc.restablecerPassOk('${bloc.password}');
                 if (code == 1) {
-                  print(code);
                   showToast1('Contraseña restablecida', 2, ToastGravity.CENTER);
                   Navigator.of(context).pop();
                 } else if (code == 2) {
-                  print(code);
                   showToast1('Ocurrio un error', 2, ToastGravity.CENTER);
                 } else if (code == 3) {
-                  print(code);
                   showToast1('Datos incorrectos', 2, ToastGravity.CENTER);
                 }
 

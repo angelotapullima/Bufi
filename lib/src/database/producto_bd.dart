@@ -53,8 +53,6 @@ class ProductoDatabase {
           "producto_status='${productoModel.productoStatus}',"
           "producto_favourite= '${productoModel.productoFavourite}' "
           "WHERE id_producto='${productoModel.idProducto}' ");
-
-      print('database $res');
       return res;
     } catch (exception) {
       print(exception);
@@ -64,7 +62,8 @@ class ProductoDatabase {
   Future<List<ProductoModel>> obtenerSubsidiaryGood() async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawQuery("SELECT * FROM Producto order by id_producto");
+      final res =
+          await db.rawQuery("SELECT * FROM Producto order by id_producto");
 
       List<ProductoModel> list = res.isNotEmpty
           ? res.map((c) => ProductoModel.fromJson(c)).toList()
@@ -72,7 +71,6 @@ class ProductoDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -90,7 +88,6 @@ class ProductoDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -107,7 +104,6 @@ class ProductoDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -125,7 +121,6 @@ class ProductoDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -141,7 +136,6 @@ class ProductoDatabase {
       return res;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -157,7 +151,6 @@ class ProductoDatabase {
       return res;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -176,7 +169,6 @@ class ProductoDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -196,7 +188,6 @@ class ProductoDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -215,7 +206,6 @@ class ProductoDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -224,8 +214,8 @@ class ProductoDatabase {
       String id) async {
     try {
       final db = await dbProvider.database;
-      final res = await db
-          .rawQuery("SELECT * FROM Producto WHERE id_itemsubcategory='$id' order by id_producto");
+      final res = await db.rawQuery(
+          "SELECT * FROM Producto WHERE id_itemsubcategory='$id' order by id_producto");
 
       List<ProductoModel> list = res.isNotEmpty
           ? res.map((c) => ProductoModel.fromJson(c)).toList()
@@ -234,7 +224,6 @@ class ProductoDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -252,7 +241,6 @@ class ProductoDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -270,7 +258,6 @@ class ProductoDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -287,25 +274,11 @@ class ProductoDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-  Future<List<ProductoModel>> obtenerProductosPorIdGood(
-      String id) async {
+  Future<List<ProductoModel>> obtenerProductosPorIdGood(String id) async {
     try {
       final db = await dbProvider.database;
       final res =
@@ -317,10 +290,7 @@ class ProductoDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
-
-
 }

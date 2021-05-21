@@ -21,7 +21,6 @@ class PedidosDatabase {
       return res;
     } catch (e) {
       print("$e Error en la base de datos de Pedidos");
-      print(e);
     }
   }
 
@@ -37,7 +36,6 @@ class PedidosDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -51,11 +49,9 @@ class PedidosDatabase {
       List<PedidosModel> list = res.isNotEmpty
           ? res.map((c) => PedidosModel.fromJson(c)).toList()
           : [];
-      print(list);
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -63,8 +59,8 @@ class PedidosDatabase {
   Future<List<PedidosModel>> obtenerPedidosXidEstado(String idEstado) async {
     try {
       final db = await dbProvider.database;
-      final res = await db
-          .rawQuery("SELECT * FROM Pedidos WHERE delivery_status= '$idEstado' order by delivery_datetime desc");
+      final res = await db.rawQuery(
+          "SELECT * FROM Pedidos WHERE delivery_status= '$idEstado' order by delivery_datetime desc");
 
       List<PedidosModel> list = res.isNotEmpty
           ? res.map((c) => PedidosModel.fromJson(c)).toList()
@@ -72,7 +68,6 @@ class PedidosDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }

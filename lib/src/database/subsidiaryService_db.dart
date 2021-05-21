@@ -1,6 +1,3 @@
-
-
-
 import 'package:bufi/src/database/databaseProvider.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 
@@ -25,7 +22,7 @@ class SubsidiaryServiceDatabase {
     return res;
   }
 
-updateSubsidiaryService(SubsidiaryServiceModel subServicesModel) async {
+  updateSubsidiaryService(SubsidiaryServiceModel subServicesModel) async {
     try {
       final db = await dbProvider.database;
 
@@ -44,182 +41,183 @@ updateSubsidiaryService(SubsidiaryServiceModel subServicesModel) async {
           "subsidiary_service_favourite= '${subServicesModel.subsidiaryServiceFavourite}'"
           "WHERE id_subsidiaryservice='${subServicesModel.idSubsidiaryservice}' ");
 
-      print('database $res');
       return res;
     } catch (exception) {
       print(exception);
     }
   }
+
   Future<List<SubsidiaryServiceModel>> obtenerSubsidiaryService() async {
-    try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery("SELECT * FROM Subsidiaryservice ");
-    //Para ver solo los activos 
-    //where subsidiary_service_status='1'
+    try {
+      final db = await dbProvider.database;
+      final res = await db.rawQuery("SELECT * FROM Subsidiaryservice ");
+      //Para ver solo los activos
+      //where subsidiary_service_status='1'
 
-    List<SubsidiaryServiceModel> list = res.isNotEmpty
-        ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList()
-        : [];
-    return list;
-
+      List<SubsidiaryServiceModel> list = res.isNotEmpty
+          ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList()
+          : [];
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
 
-  Future<List<SubsidiaryServiceModel>> obtenerServiciosPorIdSucursal(String id) async {
-    try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery("SELECT * FROM Subsidiaryservice WHERE id_subsidiary= '$id' order by id_subsidiaryservice");
+  Future<List<SubsidiaryServiceModel>> obtenerServiciosPorIdSucursal(
+      String id) async {
+    try {
+      final db = await dbProvider.database;
+      final res = await db.rawQuery(
+          "SELECT * FROM Subsidiaryservice WHERE id_subsidiary= '$id' order by id_subsidiaryservice");
 
-    List<SubsidiaryServiceModel> list = res.isNotEmpty
-        ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList()
-        : [];
-    return list;
+      List<SubsidiaryServiceModel> list = res.isNotEmpty
+          ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList()
+          : [];
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
 
-  Future<List<SubsidiaryServiceModel>> obtenerServiciosPorIdSucursalService(String id) async {
-    try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery("SELECT * FROM Subsidiaryservice WHERE id_subsidiaryservice= '$id'");
-  //"SELECT * FROM Subsidiaryservice WHERE id_subsidiaryservice= '$id' and subsidiary_service_status = '1'"
-    List<SubsidiaryServiceModel> list = res.isNotEmpty
-        ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList()
-        : [];
-    return list;
-  } catch (e) {
-      print(" $e Error en la base de datossss");
-      print(e);
-      return [];
-    }
-  }
-
-  deshabilitarSubsidiaryServiceDb(SubsidiaryServiceModel serviceModel)async{
-    try{
-    final db = await dbProvider.database;
-
-    final res = await db.rawUpdate("UPDATE Subsidiaryservice SET " 
-     
-    "subsidiary_service_status='0' "
-    "WHERE id_subsidiaryservice = '${serviceModel.idSubsidiaryservice}' " 
-    );
-
-    return res;
+  Future<List<SubsidiaryServiceModel>> obtenerServiciosPorIdSucursalService(
+      String id) async {
+    try {
+      final db = await dbProvider.database;
+      final res = await db.rawQuery(
+          "SELECT * FROM Subsidiaryservice WHERE id_subsidiaryservice= '$id'");
+      //"SELECT * FROM Subsidiaryservice WHERE id_subsidiaryservice= '$id' and subsidiary_service_status = '1'"
+      List<SubsidiaryServiceModel> list = res.isNotEmpty
+          ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList()
+          : [];
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
 
-  habilitarSubsidiaryServiceDb(SubsidiaryServiceModel serviceModel)async{
-    try{
-    
-    
-    final db = await dbProvider.database;
+  deshabilitarSubsidiaryServiceDb(SubsidiaryServiceModel serviceModel) async {
+    try {
+      final db = await dbProvider.database;
 
-    final res = await db.rawUpdate("UPDATE Subsidiaryservice SET " 
-     
-    "subsidiary_service_status='1' "
-    "WHERE id_subsidiaryservice = '${serviceModel.idSubsidiaryservice}' " 
-    );
+      final res = await db.rawUpdate("UPDATE Subsidiaryservice SET "
+          "subsidiary_service_status='0' "
+          "WHERE id_subsidiaryservice = '${serviceModel.idSubsidiaryservice}' ");
 
-    return res;
+      return res;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
 
-  Future<List<SubsidiaryServiceModel>> obtenerServicioXIdItemSubcategoria(String id) async {
-    try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery("SELECT * FROM Subsidiaryservice WHERE id_itemsubcategory='$id'");
+  habilitarSubsidiaryServiceDb(SubsidiaryServiceModel serviceModel) async {
+    try {
+      final db = await dbProvider.database;
 
-    List<SubsidiaryServiceModel> list = res.isNotEmpty
-        ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList()
-        : [];
-    return list;
+      final res = await db.rawUpdate("UPDATE Subsidiaryservice SET "
+          "subsidiary_service_status='1' "
+          "WHERE id_subsidiaryservice = '${serviceModel.idSubsidiaryservice}' ");
+
+      return res;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
 
-  Future<List<SubsidiaryServiceModel>> obtenerSubsidiarysServicesFavoritos() async {
-    try{
-    final db = await dbProvider.database;
-    final res =await db.rawQuery("SELECT * FROM Subsidiaryservice WHERE subsidiary_service_favourite = 1 "); //1 cuando es favorito
+  Future<List<SubsidiaryServiceModel>> obtenerServicioXIdItemSubcategoria(
+      String id) async {
+    try {
+      final db = await dbProvider.database;
+      final res = await db.rawQuery(
+          "SELECT * FROM Subsidiaryservice WHERE id_itemsubcategory='$id'");
 
-    List<SubsidiaryServiceModel> list = res.isNotEmpty ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList() : [];
-
-    return list;
+      List<SubsidiaryServiceModel> list = res.isNotEmpty
+          ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList()
+          : [];
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
 
-  Future<List<SubsidiaryServiceModel>> obtenerSubsidiarysServicesFavoritosPorIdSubsidiary(String idSubsidiary) async {
-    try{
-    final db = await dbProvider.database;
-    final res =await db.rawQuery("SELECT * FROM Subsidiaryservice WHERE id_subsidiary= '$idSubsidiary' and subsidiary_service_favourite ='1'"); //1 cuando es favorito
+  Future<List<SubsidiaryServiceModel>>
+      obtenerSubsidiarysServicesFavoritos() async {
+    try {
+      final db = await dbProvider.database;
+      final res = await db.rawQuery(
+          "SELECT * FROM Subsidiaryservice WHERE subsidiary_service_favourite = 1 "); //1 cuando es favorito
 
-    List<SubsidiaryServiceModel> list = res.isNotEmpty ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList() : [];
+      List<SubsidiaryServiceModel> list = res.isNotEmpty
+          ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList()
+          : [];
 
-    return list;
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
 
+  Future<List<SubsidiaryServiceModel>>
+      obtenerSubsidiarysServicesFavoritosPorIdSubsidiary(
+          String idSubsidiary) async {
+    try {
+      final db = await dbProvider.database;
+      final res = await db.rawQuery(
+          "SELECT * FROM Subsidiaryservice WHERE id_subsidiary= '$idSubsidiary' and subsidiary_service_favourite ='1'"); //1 cuando es favorito
+
+      List<SubsidiaryServiceModel> list = res.isNotEmpty
+          ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList()
+          : [];
+
+      return list;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      return [];
+    }
+  }
 
   //Se utiliza para la busqueda
-  Future<List<SubsidiaryServiceModel>> consultarServicioPorQuery(String query) async {
-    try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery(
-        "SELECT * FROM Subsidiaryservice WHERE subsidiary_service_name LIKE '%$query%'");
+  Future<List<SubsidiaryServiceModel>> consultarServicioPorQuery(
+      String query) async {
+    try {
+      final db = await dbProvider.database;
+      final res = await db.rawQuery(
+          "SELECT * FROM Subsidiaryservice WHERE subsidiary_service_name LIKE '%$query%'");
 
-    List<SubsidiaryServiceModel> list = res.isNotEmpty
-        ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList()
-        : [];
+      List<SubsidiaryServiceModel> list = res.isNotEmpty
+          ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList()
+          : [];
 
-    return list;} catch (e) {
+      return list;
+    } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
 
-   //Para la busqueda del producto x sucursal
-  Future<List<SubsidiaryServiceModel>> obtenerServiciosPorIdSubsidiaryPorQuery(String idSucursal,String query) async {
+  //Para la busqueda del producto x sucursal
+  Future<List<SubsidiaryServiceModel>> obtenerServiciosPorIdSubsidiaryPorQuery(
+      String idSucursal, String query) async {
+    try {
+      final db = await dbProvider.database;
+      final res = await db.rawQuery(
+          "SELECT * FROM Subsidiaryservice WHERE id_subsidiary= '$idSucursal' and subsidiary_service_name LIKE '%$query%'");
 
-   try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery("SELECT * FROM Subsidiaryservice WHERE id_subsidiary= '$idSucursal' and subsidiary_service_name LIKE '%$query%'");
-
-    List<SubsidiaryServiceModel> list =
-        res.isNotEmpty ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList() : [];
-    return list;
+      List<SubsidiaryServiceModel> list = res.isNotEmpty
+          ? res.map((c) => SubsidiaryServiceModel.fromJson(c)).toList()
+          : [];
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
-  } 
+  }
 
   // Future<List<SubsidiaryServiceModel>> quitarSubsidiarysServicesFavoritos() async {
   //   final db = await dbProvider.database;

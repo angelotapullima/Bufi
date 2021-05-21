@@ -189,7 +189,6 @@ class _SubirVaucherState extends State<SubirVaucher> {
                           GestureDetector(
                             onTap: () async {
                               if (foto == null) {
-                                print('Por favor seleccione una imágen');
                               } else {
                                 _cargando.value = true;
                                 final cuentaApi = CuentaApi();
@@ -197,10 +196,7 @@ class _SubirVaucherState extends State<SubirVaucher> {
                                 final res = await cuentaApi.subirVoucher(foto);
 
                                 if (res == 1) {
-                                  print('subida correcta');
-                                } else {
-                                  print('Fallo la operación');
-                                }
+                                } else {}
                                 _cargando.value = false;
                               }
                             },

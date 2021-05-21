@@ -6,10 +6,6 @@ class ItemsubCategoryDatabase {
 
   insertarItemSubCategoria(
       ItemSubCategoriaModel itemSubCategoriaModel, String funcion) async {
-    /*  print('******************************************');
-    print(itemSubCategoriaModel.itemsubcategoryImage);
-    print(funcion);
-    print('******************************************'); */
     try {
       final db = await dbProvider.database;
       final res = await db.rawInsert(
@@ -33,7 +29,6 @@ class ItemsubCategoryDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -51,7 +46,6 @@ class ItemsubCategoryDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -69,7 +63,6 @@ class ItemsubCategoryDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -87,7 +80,6 @@ class ItemsubCategoryDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datos");
-      print(e);
       return [];
     }
   }

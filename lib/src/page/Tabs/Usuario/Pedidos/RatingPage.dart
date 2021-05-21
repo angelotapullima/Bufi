@@ -79,8 +79,6 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                           ),
                           onRatingUpdate: (rating) {
                             valueRating = rating;
-
-                            print(rating);
                           },
                         ),
                         SizedBox(height: responsive.hp(2)),
@@ -222,7 +220,6 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
   Future _submit(PedidosModel pedido,
       TextEditingController comentarioController, BuildContext context) async {
     final pedidoApi = PedidoApi();
-    print('Controller text: $valueRating');
     if (comentarioController.text.length > 0) {
       if (valueRating > 0.0) {
         _cargando.value = true;
@@ -233,7 +230,6 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
             comentarioController.text,
             valueRating.toString());
         if (code == 1) {
-          print("Producto Calificado");
           //Para redibujar el widget en la pagina de pedidos enviados
           actualizarEstadoValoracion(pedido.idPedido);
           final pedidoBloc = ProviderBloc.pedido(context);
@@ -276,7 +272,6 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
     if (file == null) return;
     setState(() {
       foto = file;
-      print('FOTO: ${foto.path}');
     });
   }
 

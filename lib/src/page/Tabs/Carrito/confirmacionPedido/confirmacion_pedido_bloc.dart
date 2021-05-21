@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 
-
 enum ConfirMPedidoState { normal, scrool }
 
 class ConfirmPedidoBloc with ChangeNotifier {
-  ConfirMPedidoState screenState = ConfirMPedidoState.normal; 
+  ConfirMPedidoState screenState = ConfirMPedidoState.normal;
   ScrollController _controller = ScrollController();
   ScrollController get controller => this._controller;
-  
+
   ValueNotifier<bool> _show = ValueNotifier(false);
   ValueNotifier<bool> get show => this._show;
 
-
-
   ValueNotifier<bool> _cargando = ValueNotifier(false);
   ValueNotifier<bool> get showCargando => this._cargando;
-
-
 
   ConfirmPedidoBloc() {
     _init();
@@ -26,17 +21,13 @@ class ConfirmPedidoBloc with ChangeNotifier {
   }
 
   void _listener() {
-    print(controller.offset);
-
     if (controller.offset > 50) {
       changeToScrool();
       _show.value = true;
-      print('pasamos 80');
     } else if (controller.offset < 40) {
       changeToNormal();
 
       _show.value = false;
-
     }
     /* if (_controller.position.userScrollDirection == ScrollDirection.reverse) {
       print(controller.offset);
@@ -45,17 +36,12 @@ class ConfirmPedidoBloc with ChangeNotifier {
     } */
   }
 
-
-
-
   void changeCargando() {
-
-     if (_cargando.value) {
-        _cargando.value = false;
-      } else {
-        _cargando.value = true;
-      }
-
+    if (_cargando.value) {
+      _cargando.value = false;
+    } else {
+      _cargando.value = true;
+    }
 
     /* if (_show.value) {
 
@@ -75,7 +61,7 @@ class ConfirmPedidoBloc with ChangeNotifier {
       }
 
     } */
-  } 
+  }
 
   @override
   void dispose() {

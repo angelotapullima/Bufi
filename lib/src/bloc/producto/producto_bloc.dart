@@ -49,7 +49,6 @@ class ProductoBloc {
 
   //funcion que se llama cuando muestras los productos por sucursal
   void listarProductosPorSucursal(String id) async {
-    print('ihbrgiubergr $id');
     _productoController.sink
         .add(await productoDatabase.obtenerProductosPorIdSubsidiary(id));
     await productosApi.listarProductosPorSucursal(id);
@@ -331,9 +330,11 @@ class ProductoBloc {
 //
 
 //Para listar las valoraciones por idProducto
-void listarValoracionPorIdProducto(String idProducto) async {
-      _valoracionController.sink.add(await valoracionProductoDb.obtenerValoracionXIdProducto(idProducto));
+  void listarValoracionPorIdProducto(String idProducto) async {
+    _valoracionController.sink.add(
+        await valoracionProductoDb.obtenerValoracionXIdProducto(idProducto));
     await productosApi.listarValoracionPorIdProducto(idProducto);
-    _valoracionController.sink.add(await valoracionProductoDb.obtenerValoracionXIdProducto(idProducto));
+    _valoracionController.sink.add(
+        await valoracionProductoDb.obtenerValoracionXIdProducto(idProducto));
   }
 }

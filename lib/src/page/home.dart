@@ -41,7 +41,6 @@ class _HomePageState extends State<HomePage> {
       body: StreamBuilder(
         stream: buttonBloc.selectPageStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          print(buttonBloc.page);
           return IndexedStack(
             index: buttonBloc.page,
             children: listPages,
@@ -57,7 +56,6 @@ class _HomePageState extends State<HomePage> {
             if (snapshot.data.length > 0) {
               for (int i = 0; i < snapshot.data.length; i++) {
                 for (int x = 0; x < snapshot.data[i].car.length; x++) {
-                  print('Cantidad carrito $cantidadCarrito');
                   cantidadCarrito =
                       cantidadCarrito + snapshot.data[i].car[x].carrito.length;
                 }

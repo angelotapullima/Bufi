@@ -21,28 +21,17 @@ class NegociosBlocListener with ChangeNotifier {
   }
   void _init() {
     _controller.addListener(_listener);
-
   }
 
   void _listener() {
-    print(controller.offset);
-
-
     if (_controller.position.pixels == _controller.position.maxScrollExtent) {
-      print('pixels ${_controller.position.pixels}');
-      print('maxScrool ${_controller.position.maxScrollExtent}');
-      print('dentro');
- 
       final negociosBloc = ProviderBloc.negocios(context);
       negociosBloc.listarnegocios();
     }
 
-    
-
     if (controller.offset > 50) {
       changeToScrool();
       _show.value = true;
-      print('pasamos 80');
     } else if (controller.offset < 40) {
       changeToNormal();
 
@@ -52,8 +41,6 @@ class NegociosBlocListener with ChangeNotifier {
 
   void lptmr() {
     if (_show.value) {
-      print('true');
-
       if (_vistaFiltro.value) {
         _vistaFiltro.value = false;
       } else {

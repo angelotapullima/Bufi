@@ -26,31 +26,32 @@ class AgentesDatabase {
   }
 
   Future<List<AgenteModel>> obtenerAgentes() async {
-    try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery("SELECT * FROM Agentes");
+    try {
+      final db = await dbProvider.database;
+      final res = await db.rawQuery("SELECT * FROM Agentes");
 
-    List<AgenteModel> list =
-        res.isNotEmpty ? res.map((c) => AgenteModel.fromJson(c)).toList() : [];
-    return list;
+      List<AgenteModel> list = res.isNotEmpty
+          ? res.map((c) => AgenteModel.fromJson(c)).toList()
+          : [];
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
       return [];
     }
   }
 
   Future<List<AgenteModel>> obtenerAgentesXidcompany(String idCompany) async {
-    try{
-    final db = await dbProvider.database;
-    final res = await db.rawQuery("SELECT * FROM Agentes where id_company= $idCompany");
+    try {
+      final db = await dbProvider.database;
+      final res = await db
+          .rawQuery("SELECT * FROM Agentes where id_company= $idCompany");
 
-    List<AgenteModel> list =
-        res.isNotEmpty ? res.map((c) => AgenteModel.fromJson(c)).toList() : [];
-    return list;
+      List<AgenteModel> list = res.isNotEmpty
+          ? res.map((c) => AgenteModel.fromJson(c)).toList()
+          : [];
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e); 
       return [];
     }
   }

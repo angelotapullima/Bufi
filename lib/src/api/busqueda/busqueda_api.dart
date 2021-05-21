@@ -40,7 +40,6 @@ class BusquedaApi {
   final itemsubCategoryDatabase = ItemsubCategoryDatabase();
 
   Future<List<BusquedaGeneralModel>> busquedaGeneral(String query) async {
-    print(query);
     final List<BusquedaGeneralModel> listBusquedaGeneral = [];
     final List<ProductoModel> listaDeProductos = [];
     final List<SubsidiaryServiceModel> listaDeServicios = [];
@@ -1737,8 +1736,6 @@ class BusquedaApi {
   //---------------------Producto-------------------------------
   Future<List<ProductoModel>> busquedaProducto(
       BuildContext context, String query) async {
-    print('api busqueda producto');
-
 //Bloc que instancia al tab de la busqueda para hacer el cambio de pestaña
     final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
     // selectorTabBusqueda.changePage(0);

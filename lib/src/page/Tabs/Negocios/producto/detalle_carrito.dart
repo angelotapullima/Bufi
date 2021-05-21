@@ -34,8 +34,6 @@ class _DetalleCarritoState extends State<DetalleCarrito> {
   }
 
   void _onVerticalGesture(DragUpdateDetails details) {
-    print(details.primaryDelta);
-
     if (details.primaryDelta < -7) {
       bloc.changeToCart();
     } else if (details.primaryDelta > 12) {

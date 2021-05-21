@@ -17,7 +17,6 @@ class PointApi {
         'app': 'true',
         'tn': prefs.token,
       });
-      print("user : '${prefs.idUser}' subsidiary: '$id'");
 
       final response = json.decode(res.body);
       print(response);
@@ -34,7 +33,6 @@ class PointApi {
       final res = await http.post(
           Uri.parse("$apiBaseURL/api/Negocio/delete_point"),
           body: {'id_subsidiary': id, 'app': 'true', 'tn': prefs.token});
-      print("user : '${prefs.idUser}' subsidiary: '$id'");
 
       final response = json.decode(res.body);
       print(response);

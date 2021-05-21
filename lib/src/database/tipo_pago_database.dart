@@ -16,78 +16,62 @@ class TiposPagoDatabase {
       return res;
     } catch (e) {
       print("$e Error en la base de datos de Sugerencia");
-      print(e);
     }
   }
 
   Future<List<TiposPagoModel>> obtenerTiposPago() async {
+    try {
+      final db = await dbProvider.database;
+      final res = await db
+          .rawQuery("SELECT * FROM TiposPago where tipo_pago_estado = '1'");
 
-    try{
-    final db = await dbProvider.database;
-    final res = await db
-        .rawQuery("SELECT * FROM TiposPago where tipo_pago_estado = '1'");
-
-    List<TiposPagoModel> list = res.isNotEmpty
-        ? res.map((c) => TiposPagoModel.fromJson(c)).toList()
-        : [];
-    return list;
-
+      List<TiposPagoModel> list = res.isNotEmpty
+          ? res.map((c) => TiposPagoModel.fromJson(c)).toList()
+          : [];
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
-
 
   Future<List<TiposPagoModel>> obtenerTiposPagoSeleccionado() async {
-    try{
-    final db = await dbProvider.database;
-    final res = await db
-        .rawQuery("SELECT * FROM TiposPago where seleccionado = '1'");
+    try {
+      final db = await dbProvider.database;
+      final res =
+          await db.rawQuery("SELECT * FROM TiposPago where seleccionado = '1'");
 
-    List<TiposPagoModel> list = res.isNotEmpty
-        ? res.map((c) => TiposPagoModel.fromJson(c)).toList()
-        : [];
-    return list;
+      List<TiposPagoModel> list = res.isNotEmpty
+          ? res.map((c) => TiposPagoModel.fromJson(c)).toList()
+          : [];
+      return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
 
-
-
-
-  deseleccionarTiposPago(  ) async {
+  deseleccionarTiposPago() async {
     try {
       final db = await dbProvider.database;
 
-      final res = await db.rawUpdate(
-          "UPDATE TiposPago SET seleccionado='0'");
-      print(res);
+      final res = await db.rawUpdate("UPDATE TiposPago SET seleccionado='0'");
       return res;
     } catch (exception) {
       print(exception);
     }
   }
-
-
 
   updateSeleccionarTiposPago(String idTiposPago) async {
     try {
       final db = await dbProvider.database;
 
-      final res = await db.rawUpdate(
-          "UPDATE TiposPago SET "
+      final res = await db.rawUpdate("UPDATE TiposPago SET "
           "seleccionado='1' "
           "WHERE id_tipo_pago = '$idTiposPago'");
-      print(res);
       return res;
     } catch (exception) {
       print(exception);
     }
   }
-  
 }

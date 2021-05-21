@@ -54,7 +54,6 @@ class DireccionDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -68,29 +67,25 @@ class DireccionDatabase {
       return res;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
-
 
   deleteDireccionPorID(String id) async {
     try {
       final db = await dbprovider.database;
 
-      final res = await db.rawDelete("DELETE FROM Direccion where id_direccion =$id");
+      final res =
+          await db.rawDelete("DELETE FROM Direccion where id_direccion =$id");
 
       return res;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
-  
 
-  Future<List<DireccionModel>> obtenerdireccionEstado1(
-     ) async {
+  Future<List<DireccionModel>> obtenerdireccionEstado1() async {
     try {
       final db = await dbprovider.database;
       final res =
@@ -103,7 +98,6 @@ class DireccionDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -121,7 +115,6 @@ class DireccionDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }

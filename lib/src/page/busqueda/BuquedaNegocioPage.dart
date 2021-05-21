@@ -50,9 +50,8 @@ class _BusquedaNegocioState extends State<BusquedaNegocio> {
                           contentPadding: EdgeInsets.all(16),
                         ),
                         onSubmitted: (value) {
-                          print('$value');
-
-                          busquedaBloc.obtenerBusquedaNegocio(context,'$value');
+                          busquedaBloc.obtenerBusquedaNegocio(
+                              context, '$value');
                         }),
                   ),
                   IconButton(

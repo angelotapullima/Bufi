@@ -126,7 +126,6 @@ class CuentaApi {
         final int code = decodedData['result']['code'];
 
         if (decodedData['result']['code'] == 1) {
-          print('amonos');
           devuelto = 1;
         } else if (code == 2) {
           devuelto = 2;

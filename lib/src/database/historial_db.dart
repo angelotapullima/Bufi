@@ -15,7 +15,6 @@ class HistorialDb {
       return res;
     } catch (e) {
       print("$e Error en la base de datos de Sugerencia");
-      print(e);
     }
   }
 
@@ -31,7 +30,6 @@ class HistorialDb {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -46,7 +44,6 @@ class HistorialDb {
       return res;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }

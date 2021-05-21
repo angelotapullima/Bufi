@@ -239,7 +239,6 @@ class NegociosApi {
         for (var i = 0; i < companys.length; i++) {
           if (double.parse(companys[i].idCompany) > mayor) {
             mayor = double.parse(companys[i].idCompany);
-            print('mayor $mayor');
           }
         }
       }
@@ -250,7 +249,6 @@ class NegociosApi {
           if (double.parse(companys[x].idCompany) < mayor2) {
             menor = double.parse(companys[x].idCompany);
             mayor2 = menor;
-            print('menor $menor');
           } else {
             menor = mayor2;
           }

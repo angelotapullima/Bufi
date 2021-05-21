@@ -246,7 +246,7 @@ class _ContenidoFilterState
 
                       if (pase) {
                         productoBloc.listarProductosPorSucursalFiltrado(
-                            tashas, modeshos, marcash,widget.idSubsidiary);
+                            tashas, modeshos, marcash, widget.idSubsidiary);
                       } else {
                         productoBloc
                             .listarProductosPorSucursal(widget.idSubsidiary);
@@ -280,9 +280,9 @@ class FiltroProductosPorIdSubsidiaryBloc with ChangeNotifier {
     final productos = await productoDatabase
         .obtenerProductosPorIdSubsidiary(idItemsubcategory);
 
-    final List<String>listTallitas=[];
-    final List<String>listMarquitas=[];
-    final List<String>listModelitos=[];
+    final List<String> listTallitas = [];
+    final List<String> listMarquitas = [];
+    final List<String> listModelitos = [];
 
     for (var i = 0; i < productos.length; i++) {
       listTallitas.add(productos[i].productoSize);
@@ -316,8 +316,6 @@ class FiltroProductosPorIdSubsidiaryBloc with ChangeNotifier {
   void onCategorySelectedMarcas(int value) {
     marcasFiltradas.clear();
     final selected = tabsMarcas[value];
-
-    print(tabsMarcas[value].itemNombre);
     for (var i = 0; i < tabsMarcas.length; i++) {
       bool ctv;
       bool algo;
@@ -351,8 +349,6 @@ class FiltroProductosPorIdSubsidiaryBloc with ChangeNotifier {
     modelosFiltradas.clear();
     final selected = tabsModelos[value];
 
-    print(tabsModelos[value].itemNombre);
-
     for (var i = 0; i < tabsModelos.length; i++) {
       bool ctv;
       bool algo;
@@ -385,8 +381,6 @@ class FiltroProductosPorIdSubsidiaryBloc with ChangeNotifier {
   void onCategorySelectedTallas(int value) {
     tallasFiltradas.clear();
     final selected = tabsTallas[value];
-
-    print(tabsTallas[value].itemNombre);
 
     for (var i = 0; i < tabsTallas.length; i++) {
       bool ctv;

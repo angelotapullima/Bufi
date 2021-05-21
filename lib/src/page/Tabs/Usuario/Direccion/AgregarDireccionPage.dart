@@ -129,7 +129,6 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
                         setState(() {
                           idQuenecesitas = newValue;
                         });
-                        print(idQuenecesitas);
                       },
                       items: provinciaList.map((Provincia map) {
                         return new DropdownMenuItem<String>(
@@ -164,7 +163,6 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
                                   _direccionController.text,
                                   _referenciaController.text,
                                   idQuenecesitas);
-                              print(idQuenecesitas);
                             } else {
                               showToast(
                                   context, 'Por favor agregue un distrito');

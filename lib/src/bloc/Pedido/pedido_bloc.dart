@@ -36,12 +36,9 @@ class PedidoBloc {
   }
 
   void obtenerPedidosEnviados(String idEstado) async {
-    print('Primera llamada a la db');
     _pedidosEnviadoController.sink
         .add(await obtnerDetallePedidosEnviados(idEstado));
-    print('Llamada al API');
     pedidoApi.obtenerPedidosEnviados(idEstado);
-    print('Segunda llamada a la db');
     _pedidosEnviadoController.sink
         .add(await obtnerDetallePedidosEnviados(idEstado));
   }

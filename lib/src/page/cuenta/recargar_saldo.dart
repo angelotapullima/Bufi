@@ -262,15 +262,12 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
                                                 listaTipos[0].idTipoPago);
 
                                         if (result[0].result == '1') {
-                                          print('todo ok');
-
                                           final cuentaBloc =
                                               ProviderBloc.cuenta(context);
                                           cuentaBloc.obtenerRecargaPendiente();
 
                                           _cargando.value = false;
                                         } else {
-                                          print('fffff');
                                           _cargando.value = false;
                                         }
                                       }

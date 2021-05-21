@@ -1,14 +1,10 @@
-
-
 import 'package:bufi/src/database/producto_bd.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 class FiltroTodosLosProductosBloc with ChangeNotifier {
+  final productoDatabase = ProductoDatabase();
 
-
-  final productoDatabase=  ProductoDatabase();
-  
   List<CategoriaTab> tabsMarcas = [];
   List<CategoriaTab> tabsModelos = [];
   List<CategoriaTab> tabsTallas = [];
@@ -18,24 +14,18 @@ class FiltroTodosLosProductosBloc with ChangeNotifier {
   List<String> marcasFiltradas = [];
 
   void init() async {
-
-
     final productos = await productoDatabase.obtenerSubsidiaryGood();
 
-    final List<String>listTallitas=[];
-    final List<String>listMarquitas=[];
-    final List<String>listModelitos=[];
+    final List<String> listTallitas = [];
+    final List<String> listMarquitas = [];
+    final List<String> listModelitos = [];
 
-    
     for (var i = 0; i < productos.length; i++) {
-
       listTallitas.add(productos[i].productoSize);
       listMarquitas.add(productos[i].productoBrand);
       listModelitos.add(productos[i].productoModel);
-      
     }
-    
-    
+
     final listTallitas2 = listTallitas.toSet().toList();
     final listMarquitas2 = listMarquitas.toSet().toList();
     final listModelitos2 = listModelitos.toSet().toList();
@@ -48,8 +38,7 @@ class FiltroTodosLosProductosBloc with ChangeNotifier {
 
     for (var i = 0; i < listModelitos2.length; i++) {
       tabsModelos.add(
-        CategoriaTab(
-            itemNombre: listModelitos2[i], selected: false),
+        CategoriaTab(itemNombre: listModelitos2[i], selected: false),
       );
     }
 
@@ -58,15 +47,11 @@ class FiltroTodosLosProductosBloc with ChangeNotifier {
         CategoriaTab(itemNombre: listTallitas2[i], selected: false),
       );
     }
-
-    print(tabsMarcas.length);
   }
 
   void onCategorySelectedMarcas(int value) {
     marcasFiltradas.clear();
     final selected = tabsMarcas[value];
-
-    print(tabsMarcas[value].itemNombre);
     for (var i = 0; i < tabsMarcas.length; i++) {
       bool ctv;
       bool algo;
@@ -91,7 +76,7 @@ class FiltroTodosLosProductosBloc with ChangeNotifier {
       if (tabsMarcas[i].selected) {
         marcasFiltradas.add(tabsMarcas[i].itemNombre);
       }
-    } 
+    }
 
     notifyListeners();
   }
@@ -99,9 +84,6 @@ class FiltroTodosLosProductosBloc with ChangeNotifier {
   void onCategorySelectedModelos(int value) {
     modelosFiltradas.clear();
     final selected = tabsModelos[value];
-
-    print(tabsModelos[value].itemNombre);
-
     for (var i = 0; i < tabsModelos.length; i++) {
       bool ctv;
       bool algo;
@@ -134,8 +116,6 @@ class FiltroTodosLosProductosBloc with ChangeNotifier {
   void onCategorySelectedTallas(int value) {
     tallasFiltradas.clear();
     final selected = tabsTallas[value];
-
-    print(tabsTallas[value].itemNombre);
 
     for (var i = 0; i < tabsTallas.length; i++) {
       bool ctv;

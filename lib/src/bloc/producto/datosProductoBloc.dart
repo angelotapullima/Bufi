@@ -14,34 +14,34 @@ class DatosProductoBloc {
   final productoApi = ProductosApi();
 
   final _datosProductoController = BehaviorSubject<List<ProductoModel>>();
-  
 
-  Stream<List<ProductoModel>> get datosProdStream => _datosProductoController.stream;
-  
+  Stream<List<ProductoModel>> get datosProdStream =>
+      _datosProductoController.stream;
 
   void dispose() {
     _datosProductoController?.close();
-    
   }
 
   void listarDatosProducto(String idProducto) async {
-    _datosProductoController.sink.add(await obtenerDatosProductosRelacionados(idProducto));
+    _datosProductoController.sink
+        .add(await obtenerDatosProductosRelacionados(idProducto));
     await productoApi.listarDetalleProductoPorIdProducto(idProducto);
-    _datosProductoController.sink.add(await obtenerDatosProductosRelacionados(idProducto));
+    _datosProductoController.sink
+        .add(await obtenerDatosProductosRelacionados(idProducto));
   }
-
 
   Future<List<ProductoModel>> obtenerDatosProductosRelacionados(
       String idProducto) async {
-
-        //await tallaProductoDb.updateEstadoa0();
+    //await tallaProductoDb.updateEstadoa0();
     List<ProductoModel> listaGeneral = [];
 
     //obtener todos los productos de la bd
-    final listProductos = await productoDb.obtenerSubsidiaryGood();
+    //final listProductos = await productoDb.obtenerSubsidiaryGood();
+    final listProductos =
+        await productoDb.obtenerProductoPorIdSubsidiaryGood(idProducto);
 
     //Recorremos la lista de todos los pedidos
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < listProductos.length; i++) {
       final productoModel = ProductoModel();
       productoModel.idProducto = listProductos[i].idProducto;
       productoModel.idSubsidiary = listProductos[i].idSubsidiary;
@@ -51,7 +51,8 @@ class DatosProductoBloc {
       productoModel.productoPrice = listProductos[i].productoPrice;
       productoModel.productoCurrency = listProductos[i].productoCurrency;
       productoModel.productoImage = listProductos[i].productoImage;
-      productoModel.productoCharacteristics = listProductos[i].productoCharacteristics;
+      productoModel.productoCharacteristics =
+          listProductos[i].productoCharacteristics;
       productoModel.productoBrand = listProductos[i].productoBrand;
       productoModel.productoModel = listProductos[i].productoModel;
       productoModel.productoType = listProductos[i].productoType;
@@ -63,33 +64,37 @@ class DatosProductoBloc {
       productoModel.productoStatus = listProductos[i].productoStatus;
 
       //funcion que llama desde la bd a la lista de fotos del producto pasando el idPedido como argumento
-      final listGaleria = await galeriaProductoDb.obtenerGaleriaProductoPorIdProducto(listProductos[i].idProducto);
+      final listGaleria = await galeriaProductoDb
+          .obtenerGaleriaProductoPorIdProducto(listProductos[i].idProducto);
       //crear lista vacia para llenar las fotos del producto
-      final List<GaleriaProductoModel>listGaleriaModel=[];
+      final List<GaleriaProductoModel> listGaleriaModel = [];
 
       // recorrer la tabla galeria
-      for (var j = 0; j < listGaleria.length; j++) {
+
+      if (listGaleria.length > 0) {
+        for (var j = 0; j < listGaleria.length; j++) {
+          final galeriaProductos = GaleriaProductoModel();
+          galeriaProductos.idGaleriaProducto = listGaleria[j].idGaleriaProducto;
+          galeriaProductos.idProducto = listGaleria[j].idProducto;
+          galeriaProductos.galeriaFoto = listGaleria[j].galeriaFoto;
+          galeriaProductos.estado = listGaleria[j].estado;
+
+          listGaleriaModel.add(galeriaProductos);
+        }
+      } else {
         final galeriaProductos = GaleriaProductoModel();
-        galeriaProductos.idGaleriaProducto = listGaleria[j].idGaleriaProducto;
-        galeriaProductos.idProducto = listGaleria[j].idProducto;
-        galeriaProductos.galeriaFoto = listGaleria[j].galeriaFoto;
-        galeriaProductos.estado = listGaleria[j].estado;
+        galeriaProductos.idGaleriaProducto = '0';
+        galeriaProductos.idProducto = listProductos[i].idProducto;
+        galeriaProductos.galeriaFoto = listProductos[i].productoImage;
+        galeriaProductos.estado = '0';
 
         listGaleriaModel.add(galeriaProductos);
       }
 
-     
-     
-     
-
       productoModel.listFotos = listGaleriaModel;
-      
 
       listaGeneral.add(productoModel);
     }
     return listaGeneral;
   }
-
-
-
 }

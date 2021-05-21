@@ -256,17 +256,13 @@ class _LoginPageState extends State<LoginPage> {
     final int code = await bloc.login('${bloc.email}', '${bloc.password}');
 
     if (code == 1) {
-      print(code);
-
       Navigator.of(context)
           .pushNamedAndRemoveUntil('home', (Route<dynamic> route) => true);
 
       // Navigator.pushReplacementNamed(context, 'home');
     } else if (code == 2) {
-      print(code);
       showToast1('Ocurrio un error', 2, ToastGravity.CENTER);
     } else if (code == 3) {
-      print(code);
       showToast1('Datos incorrectos', 2, ToastGravity.CENTER);
     }
 

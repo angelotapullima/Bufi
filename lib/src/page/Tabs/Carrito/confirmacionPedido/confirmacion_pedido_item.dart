@@ -335,9 +335,6 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                           children: [
                                                             GestureDetector(
                                                               onTap: () {
-                                                                print(
-                                                                    "presionado");
-
                                                                 Navigator.push(
                                                                   context,
                                                                   PageRouteBuilder(
@@ -779,8 +776,6 @@ class ResumenPedido extends StatelessWidget {
                 final pedidoApi = PedidoApi();
 
                 final res = await pedidoApi.enviarPedido();
-
-                print(res);
 
                 if (res[0].respuestaApi == '1') {
                   final carritoBloc = ProviderBloc.productosCarrito(context);

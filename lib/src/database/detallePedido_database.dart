@@ -35,7 +35,6 @@ class DetallePedidoDatabase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -46,7 +45,6 @@ class DetallePedidoDatabase {
       final res = await db.rawUpdate("UPDATE DetallePedido SET "
           "detalle_pedido_valorado= '1' "
           "WHERE id_pedido='$idPedido'");
-      print('Actualización db $res');
       return res;
     } catch (exception) {
       print(exception);

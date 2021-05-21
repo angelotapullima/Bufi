@@ -57,9 +57,6 @@ class _BusquedaProductosPorSucursalState
                           contentPadding: EdgeInsets.all(16),
                         ),
                         onSubmitted: (value) {
-                          print('$value');
-                          print('${widget.idSubsidiary}');
-
                           busquedaBloc.obtenerBusquedaProductosIdSubsidiary(
                               widget.idSubsidiary, '$value');
                         }),

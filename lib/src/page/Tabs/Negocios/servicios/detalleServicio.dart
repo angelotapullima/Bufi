@@ -219,7 +219,6 @@ class _DetalleServicioState extends State<DetalleServicio>
         left: 150,
         child: GestureDetector(
           onTap: () {
-            print('Contactar');
             Navigator.push(
                 context,
                 PageRouteBuilder(

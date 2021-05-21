@@ -1,7 +1,4 @@
-
-
 import 'package:flutter/material.dart';
-
 
 enum PointState { normal, scrool }
 
@@ -13,9 +10,6 @@ class PointsBlocListener with ChangeNotifier {
   ValueNotifier<bool> _show = ValueNotifier(false);
   ValueNotifier<bool> get show => this._show;
 
-
-
-
   PointsBlocListener() {
     _init();
   }
@@ -24,19 +18,15 @@ class PointsBlocListener with ChangeNotifier {
   }
 
   void _listener() {
-    print(controller.offset);
-
     if (controller.offset > 50) {
       changeToScrool();
       _show.value = true;
-      print('pasamos 80');
     } else if (controller.offset < 40) {
       changeToNormal();
 
       _show.value = false;
     }
   }
-
 
   @override
   void dispose() {

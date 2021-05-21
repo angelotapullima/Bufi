@@ -261,8 +261,6 @@ class PedidoApi {
 
         sucursales = sucursales + producto + './*';
       }
-
-      print(sucursales);
     }
 
     final response = await http.post(
@@ -290,7 +288,6 @@ class PedidoApi {
     final decodedData = json.decode(response.body);
 
     final pedidosModel = PedidosModel();
-    print(decodedData["result"]);
 
     pedidosModel.idPedido =
         decodedData["result"]['pedido']['id_delivery'].toString();
@@ -598,10 +595,7 @@ class PedidoApi {
         final decodedData = json.decode(value);
         final int code = decodedData;
 
-        print('Code $code');
-
         if (code == 1) {
-          print('amonos');
           return 1;
         } else if (code == 2) {
           return 2;

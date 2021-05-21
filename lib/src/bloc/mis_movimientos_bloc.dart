@@ -1,4 +1,3 @@
-
 import 'package:bufi/src/api/Cuenta/mis_movimientos_api.dart';
 import 'package:bufi/src/database/mis_movimientos_database.dart';
 import 'package:bufi/src/models/mis_movimientos_model.dart';
@@ -8,15 +7,17 @@ class MisMovimientosBloc {
   final misMovimientosDatabase = MisMovimientosDatabase();
   final misMovimientosApi = MisMovimientosApi();
 
-
-
   final misMovimientosController = BehaviorSubject<List<MovimientosPorFecha>>();
-  final movimientosPorPorNoperacionController = BehaviorSubject<List<MisMovimientosModel>>();
+  final movimientosPorPorNoperacionController =
+      BehaviorSubject<List<MisMovimientosModel>>();
   final cargandoApiMovimientosController = BehaviorSubject<bool>();
 
-  Stream<List<MovimientosPorFecha>> get misMovimientosBlocstream => misMovimientosController.stream;
-  Stream<List<MisMovimientosModel>> get movimientosPorPorNoperacionBlocstream => movimientosPorPorNoperacionController.stream;
-  Stream<bool> get cargadoApiMovimientos => cargandoApiMovimientosController.stream;
+  Stream<List<MovimientosPorFecha>> get misMovimientosBlocstream =>
+      misMovimientosController.stream;
+  Stream<List<MisMovimientosModel>> get movimientosPorPorNoperacionBlocstream =>
+      movimientosPorPorNoperacionController.stream;
+  Stream<bool> get cargadoApiMovimientos =>
+      cargandoApiMovimientosController.stream;
 
   dispose() {
     misMovimientosController?.close();
@@ -36,30 +37,28 @@ class MisMovimientosBloc {
     misMovimientosController.sink.add(await movimientosPorFecha());
   }
 
-  void movimientosPorNoperacion(String id)async{
-    movimientosPorPorNoperacionController.sink.add(await misMovimientosDatabase.obtenerMisMovimientosPorNoperacion(id));
-
+  void movimientosPorNoperacion(String id) async {
+    movimientosPorPorNoperacionController.sink.add(
+        await misMovimientosDatabase.obtenerMisMovimientosPorNoperacion(id));
   }
 
   Future<List<MovimientosPorFecha>> movimientosPorFecha() async {
-    final List<String>listFechas=[];
+    final List<String> listFechas = [];
     final listMovement = await misMovimientosDatabase.obtenerMisMovimientos();
     final listFechasModel =
         await misMovimientosDatabase.obtenerMisMovimientosSoloFecha();
 
-    final List<MovimientosPorFecha>listAlgo=[];
+    final List<MovimientosPorFecha> listAlgo = [];
     if (listFechasModel.length > 0) {
       for (var i = 0; i < listFechasModel.length; i++) {
         listFechas.add(listFechasModel[i].soloFecha);
       }
       List<String> reversedAnimals = listFechas.reversed.toList();
 
-       for (var x = 0; x < reversedAnimals.length; x++) {
-         print('${listFechas[x]}');
+      for (var x = 0; x < reversedAnimals.length; x++) {
         MovimientosPorFecha movimientosPorFecha = MovimientosPorFecha();
-        final List<MisMovimientosModel>listPrevio=[];
+        final List<MisMovimientosModel> listPrevio = [];
         for (var y = 0; y < listMovement.length; y++) {
-          
           if (reversedAnimals[x] == listMovement[y].soloFecha) {
             MisMovimientosModel misMovimientosModel = MisMovimientosModel();
             misMovimientosModel.nroOperacion = listMovement[y].nroOperacion;
@@ -73,10 +72,9 @@ class MisMovimientosBloc {
 
             listPrevio.add(misMovimientosModel);
           }
-         
         }
-         movimientosPorFecha.listMovimientos = listPrevio;
-          movimientosPorFecha.fecha = reversedAnimals[x];
+        movimientosPorFecha.listMovimientos = listPrevio;
+        movimientosPorFecha.fecha = reversedAnimals[x];
         listAlgo.add(movimientosPorFecha);
       }
     }

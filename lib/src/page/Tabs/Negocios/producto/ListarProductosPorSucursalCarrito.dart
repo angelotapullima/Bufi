@@ -28,10 +28,6 @@ class _ListarProductosPorSucursalCarritoState
           _scrollController.addListener(() {
             if (_scrollController.position.pixels ==
                 _scrollController.position.maxScrollExtent) {
-              print('pixels ${_scrollController.position.pixels}');
-              print('maxScrool ${_scrollController.position.maxScrollExtent}');
-              print('dentro');
-
               final productoBloc = ProviderBloc.productos(context);
               productoBloc.listarProductosPorSucursal(widget.idSucursal);
             }

@@ -34,7 +34,6 @@ class NotificacionesDataBase {
           "notificacion_estado='${notificacionModel.notificacionEstado}',"
           "WHERE id_notificacion='${notificacionModel.idNotificacion}' ");
 
-      print('database $res');
       return res;
     } catch (exception) {
       print(exception);
@@ -54,7 +53,6 @@ class NotificacionesDataBase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -74,7 +72,6 @@ class NotificacionesDataBase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -92,7 +89,6 @@ class NotificacionesDataBase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }
@@ -110,7 +106,6 @@ class NotificacionesDataBase {
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
-      print(e);
       return [];
     }
   }

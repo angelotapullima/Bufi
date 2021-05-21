@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
-
 enum CartState { normal, scrool }
 
 class CarritoBlocListener with ChangeNotifier {
   CartState screenState = CartState.normal;
   ScrollController _controller = ScrollController();
   ScrollController get controller => this._controller;
-  
+
   ValueNotifier<bool> _show = ValueNotifier(false);
-  ValueNotifier<bool> get show => this._show; 
+  ValueNotifier<bool> get show => this._show;
 
 /* 
   ValueNotifier<bool> _vistaFiltro = ValueNotifier(false);
@@ -17,24 +16,22 @@ class CarritoBlocListener with ChangeNotifier {
 
   CarritoBlocListener() {
     _init();
-  } 
+  }
   void _init() {
     _controller.addListener(_listener);
   }
 
   void _listener() {
-    print(controller.offset);
-
     if (controller.offset > 50) {
       changeToScrool();
       _show.value = true;
-      print('pasamos 80');
     } else if (controller.offset < 40) {
       changeToNormal();
 
       _show.value = false;
     }
   }
+
 /* 
   void lptmr() {
     if (_show.value) {

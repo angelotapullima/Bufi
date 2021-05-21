@@ -57,8 +57,6 @@ class _BusquedaTodosProductosState
                         contentPadding: EdgeInsets.all(16),
                       ),
                       onSubmitted: (value) {
-                        print('$value');
-
                         busquedaBloc
                             .obtenerBusquedaProductosYserviciosPorIdItemSubcategory(
                                 widget.idItemsubcategory, '$value');

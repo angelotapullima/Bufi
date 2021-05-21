@@ -26,8 +26,6 @@ class ProductosApi {
   final prefs = Preferences();
 
   Future<dynamic> listarProductosPorSucursal(String id) async {
-    print('listar_productos_por_sucursal');
-
     //funcion para obtener el producto con el id mas alto de la lista
     final productosPorSucursal =
         await productoDatabase.obtenerProductosPorIdSubsidiary(id);
@@ -39,7 +37,6 @@ class ProductosApi {
       for (var i = 0; i < productosPorSucursal.length; i++) {
         if (double.parse(productosPorSucursal[i].idProducto) > mayor) {
           mayor = double.parse(productosPorSucursal[i].idProducto);
-          print('mayor $mayor');
         }
       }
     }
@@ -50,7 +47,6 @@ class ProductosApi {
         if (double.parse(productosPorSucursal[x].idProducto) < mayor2) {
           menor = double.parse(productosPorSucursal[x].idProducto);
           mayor2 = menor;
-          print('menor $menor');
         } else {
           menor = mayor2;
         }

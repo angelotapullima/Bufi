@@ -696,8 +696,6 @@ class ResumenPedido extends StatelessWidget {
 
                 final res = await pedidoApi.enviarPedido();
 
-                print(res);
-
                 if (res[0].respuestaApi == '1') {
                   final carritoBloc = ProviderBloc.productosCarrito(context);
                   carritoBloc.obtenerCarritoPorSucursal();

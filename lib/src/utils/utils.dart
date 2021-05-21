@@ -765,7 +765,6 @@ void agregarPSaSugerencia(
 
 void agregarHistorialBusqueda(BuildContext context, String idBusqueda,
     String tipoBusqueda, String nombreBusqueda, String img) async {
-  print('Insertar busqueda');
   final searchBusquedaDB = SearchHistoryDb();
   final searchBloc = ProviderBloc.searHistory(context);
   var now = new DateTime.now();
@@ -958,7 +957,6 @@ Future<List<ProductoModel>> filtrarListaProductos(
         }
 
         if (valor) {
-          print('Contenido');
         } else {
           ProductoModel productoModel = ProductoModel();
           productoModel.idProducto = lista[i].idProducto;
@@ -984,9 +982,7 @@ Future<List<ProductoModel>> filtrarListaProductos(
 
           listAlgo.add(productoModel);
         }
-      } else {
-        print('entra arriba abajo $x');
-      }
+      } else {}
     }
   }
 

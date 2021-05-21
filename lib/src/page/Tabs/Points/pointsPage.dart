@@ -261,7 +261,6 @@ class _PointsPageState extends State<PointsPage> {
                     IconButton(
                       icon: Icon(Icons.delete),
                       onPressed: () {
-                        print("Cerrar");
                         quitarSubsidiaryFavoritodePointPage(
                             context, snapshot.data[xxx]);
                       },
@@ -599,7 +598,6 @@ class WidgetBienesFavoritos extends StatelessWidget {
                               color: Colors.red),
                     ),
                     onTap: () {
-                      print("desfavorito");
                       quitarProductoFavorito(context, goodData);
                       utils.showToast(
                           context, 'el producto se quitó de favoritos');
@@ -766,7 +764,6 @@ class WidgetServiciosFavoritos extends StatelessWidget {
                               color: Colors.red),
                     ),
                     onTap: () {
-                      print("desfavorito");
                       quitarServicioFavorito(context, serviceData);
                       utils.showToast(
                           context, 'el servicio se eliminó de favoritos');

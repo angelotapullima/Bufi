@@ -405,7 +405,6 @@ class CategoriasApi {
         for (var i = 0; i < listSubgood.length; i++) {
           if (double.parse(listSubgood[i].idProducto) > mayorPro) {
             mayorPro = double.parse(listSubgood[i].idProducto);
-            print('mayor $mayorPro');
           }
         }
       }
@@ -416,7 +415,6 @@ class CategoriasApi {
           if (double.parse(listSubgood[x].idProducto) < mayor2Pro) {
             menorPro = double.parse(listSubgood[x].idProducto);
             mayor2Pro = menorPro;
-            print('menor $menorPro');
           } else {
             menorPro = mayor2Pro;
           }
@@ -432,7 +430,6 @@ class CategoriasApi {
         for (var i = 0; i < listSubservice.length; i++) {
           if (double.parse(listSubservice[i].idSubsidiaryservice) > mayorSer) {
             mayorSer = double.parse(listSubservice[i].idSubsidiaryservice);
-            print('mayor $mayorSer');
           }
         }
       }
@@ -443,7 +440,6 @@ class CategoriasApi {
           if (double.parse(listSubservice[x].idSubsidiaryservice) < mayor2Ser) {
             menorSer = double.parse(listSubservice[x].idSubsidiaryservice);
             mayor2Ser = menorSer;
-            print('menor $menorSer');
           } else {
             menorSer = mayor2Ser;
           }

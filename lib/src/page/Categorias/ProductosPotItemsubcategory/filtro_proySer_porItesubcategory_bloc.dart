@@ -16,12 +16,12 @@ class FiltroProAndSerPorItemBloc with ChangeNotifier {
   List<String> tiposFiltradas = [];
 
   void init(String idItemsubcategory) async {
-    final productos = await productoDatabase.consultarProductoPorIdItemsub(idItemsubcategory);
+    final productos =
+        await productoDatabase.consultarProductoPorIdItemsub(idItemsubcategory);
 
-    final List<String>listTallitas=[];
-    final List<String>listMarquitas=[];
-    final List<String>listModelitos=[];
-    
+    final List<String> listTallitas = [];
+    final List<String> listMarquitas = [];
+    final List<String> listModelitos = [];
 
     for (var i = 0; i < productos.length; i++) {
       listTallitas.add(productos[i].productoSize);
@@ -51,18 +51,13 @@ class FiltroProAndSerPorItemBloc with ChangeNotifier {
       );
     }
 
-    tabsTipos.add( CategoriaTab(itemNombre: 'Productos', selected: false));
-    tabsTipos.add( CategoriaTab(itemNombre: 'Servicios', selected: false));
-
-
-
+    tabsTipos.add(CategoriaTab(itemNombre: 'Productos', selected: false));
+    tabsTipos.add(CategoriaTab(itemNombre: 'Servicios', selected: false));
   }
 
   void onCategorySelectedMarcas(int value) {
     marcasFiltradas.clear();
     final selected = tabsMarcas[value];
-
-    print(tabsMarcas[value].itemNombre);
     for (var i = 0; i < tabsMarcas.length; i++) {
       bool ctv;
       bool algo;
@@ -95,8 +90,6 @@ class FiltroProAndSerPorItemBloc with ChangeNotifier {
   void onCategorySelectedModelos(int value) {
     modelosFiltradas.clear();
     final selected = tabsModelos[value];
-
-    print(tabsModelos[value].itemNombre);
 
     for (var i = 0; i < tabsModelos.length; i++) {
       bool ctv;
@@ -131,8 +124,6 @@ class FiltroProAndSerPorItemBloc with ChangeNotifier {
     tallasFiltradas.clear();
     final selected = tabsTallas[value];
 
-    print(tabsTallas[value].itemNombre);
-
     for (var i = 0; i < tabsTallas.length; i++) {
       bool ctv;
       bool algo;
@@ -160,11 +151,9 @@ class FiltroProAndSerPorItemBloc with ChangeNotifier {
     notifyListeners();
   }
 
-void onCategorySelectedTipo(int value) {
+  void onCategorySelectedTipo(int value) {
     tiposFiltradas.clear();
     final selected = tabsTipos[value];
-
-
 
     for (var i = 0; i < tabsTipos.length; i++) {
       bool ctv;

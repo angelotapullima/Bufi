@@ -71,7 +71,6 @@ class ServiceApi {
       for (var i = 0; i < serviciosSucursal.length; i++) {
         if (double.parse(serviciosSucursal[i].idSubsidiaryservice) > mayor) {
           mayor = double.parse(serviciosSucursal[i].idSubsidiaryservice);
-          print('mayor $mayor');
         }
       }
     }
@@ -82,7 +81,6 @@ class ServiceApi {
         if (double.parse(serviciosSucursal[x].idSubsidiaryservice) < mayor2) {
           menor = double.parse(serviciosSucursal[x].idSubsidiaryservice);
           mayor2 = menor;
-          print('menor $menor');
         } else {
           menor = mayor2;
         }
@@ -262,7 +260,7 @@ class ServiceApi {
           });
 
       final decodedData = json.decode(response.body);
-      //print(decodedData);
+      print(decodedData);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
 

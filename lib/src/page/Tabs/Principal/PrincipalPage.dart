@@ -712,7 +712,7 @@ class _SugerenciaBusquedaState extends State<SugerenciaBusqueda> {
                       padding: EdgeInsets.symmetric(vertical: 8),
                       itemCount: snapshot.data.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: responsive.ip(.075),
+                        childAspectRatio: responsive.ip(.06),
                         crossAxisSpacing: 2,
                         mainAxisSpacing: 2,
                         crossAxisCount: 2,

@@ -783,20 +783,28 @@ void agregarHistorialBusqueda(BuildContext context, String idBusqueda,
 }
 
 void agregarHistorial(BuildContext context, String text) async {
-  print('Insertar busqueda Historial');
   final historialDB = HistorialDb();
-  //final searchBloc = ProviderBloc.searHistory(context);
-  var now = new DateTime.now();
-  var formatter = new DateFormat('yyyy-MM-dd H:m');
-  String formattedDate = formatter.format(now);
-  historialDB.insertarBusqueda(text, formattedDate);
+  final searchBloc = ProviderBloc.searHistory(context);
 
-  final list = await historialDB.obtenerBusqueda();
-
-  for (var i = 0; i < list.length; i++) {
-    print(list[i].historial);
+  if (text != '') {
+    var now = new DateTime.now();
+    var formatter = new DateFormat('yyyy-MM-dd H:m');
+    String formattedDate = formatter.format(now);
+    historialDB.insertarBusqueda(text, formattedDate);
   }
-  //searchBloc.listarSearchHistory();
+
+  await historialDB.obtenerBusqueda();
+
+  searchBloc.obtenerAllHistorial();
+}
+
+void eliminarHistorial(BuildContext context, String text) async {
+  final historialDB = HistorialDb();
+  final searchBloc = ProviderBloc.searHistory(context);
+
+  await historialDB.deleteHistorial(text);
+
+  searchBloc.obtenerAllHistorial();
 }
 
 void irADetalleProducto(BienesServiciosModel model, BuildContext context) {

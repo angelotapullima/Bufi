@@ -203,7 +203,7 @@ class _BienesWidgetState extends State<BienesWidget> {
               children: <Widget>[
                 Container(
                   width: double.infinity,
-                  height: responsive.hp(18),
+                  height: responsive.hp(15),
                   child: Stack(
                     children: <Widget>[
                       Container(
@@ -395,7 +395,7 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
           children: <Widget>[
             Container(
               width: double.infinity,
-              height: responsive.hp(18),
+              height: responsive.hp(15),
               child: Stack(
                 children: <Widget>[
                   Container(

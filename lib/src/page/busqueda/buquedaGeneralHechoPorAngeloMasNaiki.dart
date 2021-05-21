@@ -3,6 +3,7 @@ import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/busquedaModel.dart';
 import 'package:bufi/src/models/categoriaModel.dart';
+import 'package:bufi/src/models/historialModel.dart';
 import 'package:bufi/src/models/itemSubcategoryModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subcategoryModel.dart';
@@ -31,7 +32,7 @@ class BusquedaDeLaPtmr extends StatefulWidget {
 
 class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
   TextEditingController _controllerBusquedaAngelo = TextEditingController();
-  bool expandFlag = true;
+  bool expandFlag = false;
 
   final listOpciones = [
     //ItemsBusqueda(titulo: 'Todo', index: 1),
@@ -71,6 +72,8 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
     final responsive = Responsive.of(context);
     final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
     final busquedaBloc = ProviderBloc.busqueda(context);
+    final searchBloc = ProviderBloc.searHistory(context);
+    searchBloc.obtenerAllHistorial();
     //selectorTabBusqueda.changePage(selectorTabBusqueda.page);
     return Scaffold(
       backgroundColor: Colors.white,
@@ -92,42 +95,51 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                             BackButton(),
                             Expanded(
                               child: TextField(
-                                  controller: _controllerBusquedaAngelo,
-                                  keyboardType: TextInputType.text,
-                                  decoration: InputDecoration(
-                                    hintText: 'Buscar en Bufi',
-                                    hintStyle: TextStyle(
-                                      fontSize: responsive.ip(1.6),
-                                    ),
-                                    /* border: OutlineInputBorder(
+                                controller: _controllerBusquedaAngelo,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  hintText: 'Buscar en Bufi',
+                                  hintStyle: TextStyle(
+                                    fontSize: responsive.ip(1.6),
+                                  ),
+                                  /* border: OutlineInputBorder(
                                   //borderSide: BorderSide(color: Colors.white),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(8),
                                     
                                   ),
                                 ), */
-                                    filled: true,
-                                    contentPadding: EdgeInsets.all(16),
-                                  ),
-                                  onSubmitted: (value) {
-                                    if (value.length >= 0 && value != ' ') {
-                                      //busquedaBloc.obtenerBusquedaGeneral('$value');
-                                      busquedaBloc.obtenerBusquedaProducto(
-                                          context, '$value');
-                                      busquedaBloc.obtenerBusquedaServicio(
-                                          context, '$value');
-                                      busquedaBloc.obtenerBusquedaNegocio(
-                                          context, '$value');
-                                      busquedaBloc
-                                          .obtenerBusquedaItemSubcategoria(
-                                              context, '$value');
-                                      busquedaBloc.obtenerBusquedaCategoria(
-                                          context, '$value');
-                                      busquedaBloc.obtenerBusquedaSubcategoria(
-                                          context, '$value');
-                                      agregarHistorial(context, value);
-                                    }
-                                  }),
+                                  filled: true,
+                                  contentPadding: EdgeInsets.all(16),
+                                ),
+                                onSubmitted: (value) {
+                                  setState(() {
+                                    expandFlag = false;
+                                  });
+                                  if (value.length >= 0 && value != ' ') {
+                                    //busquedaBloc.obtenerBusquedaGeneral('$value');
+                                    busquedaBloc.obtenerBusquedaProducto(
+                                        context, '$value');
+                                    busquedaBloc.obtenerBusquedaServicio(
+                                        context, '$value');
+                                    busquedaBloc.obtenerBusquedaNegocio(
+                                        context, '$value');
+                                    busquedaBloc
+                                        .obtenerBusquedaItemSubcategoria(
+                                            context, '$value');
+                                    busquedaBloc.obtenerBusquedaCategoria(
+                                        context, '$value');
+                                    busquedaBloc.obtenerBusquedaSubcategoria(
+                                        context, '$value');
+                                    agregarHistorial(context, value);
+                                  }
+                                },
+                                onTap: () {
+                                  setState(() {
+                                    expandFlag = true;
+                                  });
+                                },
+                              ),
                             ),
                             IconButton(
                                 icon: Icon(Icons.search),
@@ -135,6 +147,9 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                   if (_controllerBusquedaAngelo.text.length >=
                                           0 &&
                                       _controllerBusquedaAngelo.text != ' ') {
+                                    setState(() {
+                                      expandFlag = false;
+                                    });
                                     // busquedaBloc.obtenerBusquedaGeneral(
                                     //     '${_controllerBusquedaAngelo.text}');
                                     busquedaBloc.obtenerBusquedaProducto(
@@ -156,12 +171,19 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                         '${_controllerBusquedaAngelo.text}');
                                     agregarHistorial(context,
                                         _controllerBusquedaAngelo.text);
+                                  } else {
+                                    setState(() {
+                                      expandFlag = true;
+                                    });
                                   }
                                 }),
                             IconButton(
                                 icon: Icon(Icons.close),
                                 onPressed: () {
                                   _controllerBusquedaAngelo.text = '';
+                                  setState(() {
+                                    expandFlag = true;
+                                  });
                                 }),
                             SizedBox(
                               width: responsive.wp(3),
@@ -270,18 +292,102 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                       )
                     ],
                   ),
-                  ExpandableContainer(
-                    expanded: expandFlag,
-                    expandedHeight: 1,
-                    child: ListView(
-                      children: [
-                        GestureDetector(
-                          onTap: () {},
-                          child: Center(
-                            child: Text('1'),
-                          ),
-                        ),
-                      ],
+                  Positioned(
+                    top: responsive.hp(5),
+                    child: ExpandableContainer(
+                      expanded: expandFlag,
+                      expandedHeight: 10,
+                      child: StreamBuilder(
+                          stream: searchBloc.historyStream,
+                          builder: (context,
+                              AsyncSnapshot<List<HistorialModel>> snapshot) {
+                            if (snapshot.hasData) {
+                              if (snapshot.data.length > 0) {
+                                return Container(
+                                  height: double.infinity,
+                                  color: Colors.white,
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: snapshot.data.length,
+                                      itemBuilder:
+                                          (BuildContext context, int i) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            _controllerBusquedaAngelo.text =
+                                                snapshot.data[i].historial;
+                                            if (_controllerBusquedaAngelo
+                                                        .text.length >=
+                                                    0 &&
+                                                _controllerBusquedaAngelo
+                                                        .text !=
+                                                    ' ') {
+                                              setState(() {
+                                                expandFlag = false;
+                                              });
+                                              // busquedaBloc.obtenerBusquedaGeneral(
+                                              //     '${_controllerBusquedaAngelo.text}');
+                                              busquedaBloc.obtenerBusquedaProducto(
+                                                  context,
+                                                  '${_controllerBusquedaAngelo.text}');
+                                              busquedaBloc.obtenerBusquedaServicio(
+                                                  context,
+                                                  '${_controllerBusquedaAngelo.text}');
+                                              busquedaBloc.obtenerBusquedaNegocio(
+                                                  context,
+                                                  '${_controllerBusquedaAngelo.text}');
+                                              busquedaBloc
+                                                  .obtenerBusquedaItemSubcategoria(
+                                                      context,
+                                                      '${_controllerBusquedaAngelo.text}');
+                                              busquedaBloc.obtenerBusquedaCategoria(
+                                                  context,
+                                                  '${_controllerBusquedaAngelo.text}');
+                                              busquedaBloc
+                                                  .obtenerBusquedaSubcategoria(
+                                                      context,
+                                                      '${_controllerBusquedaAngelo.text}');
+                                              agregarHistorial(
+                                                  context,
+                                                  _controllerBusquedaAngelo
+                                                      .text);
+                                            } else {
+                                              setState(() {
+                                                expandFlag = true;
+                                              });
+                                            }
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.all(
+                                                responsive.ip(1)),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                    '${snapshot.data[i].historial}',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            responsive.ip(2))),
+                                                Spacer(),
+                                                IconButton(
+                                                    icon: Icon(Icons.close),
+                                                    onPressed: () {
+                                                      eliminarHistorial(
+                                                          context,
+                                                          snapshot.data[i]
+                                                              .historial);
+                                                    }),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                );
+                              } else {
+                                return Container();
+                              }
+                            } else {
+                              return Container();
+                            }
+                          }),
                     ),
                   ),
                 ],
@@ -774,7 +880,7 @@ class _ListaProductosState extends State<ListaProductos> {
                                                   if (i == 0) {
                                                     return Container(
                                                       child: Text(
-                                                          'Lo último que buscaste',
+                                                          'Lo último que viste',
                                                           style: TextStyle(
                                                               fontSize:
                                                                   responsive

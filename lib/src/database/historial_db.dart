@@ -35,4 +35,19 @@ class HistorialDb {
       return [];
     }
   }
+
+  deleteHistorial(String historial) async {
+    try {
+      final db = await dbProvider.database;
+
+      final res =
+          await db.rawDelete("DELETE FROM Historial WHERE text = '$historial'");
+
+      return res;
+    } catch (e) {
+      print(" $e Error en la base de datossss");
+      print(e);
+      return [];
+    }
+  }
 }

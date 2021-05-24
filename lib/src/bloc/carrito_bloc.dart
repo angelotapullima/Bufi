@@ -1,7 +1,10 @@
 import 'package:bufi/src/api/negocio/negocios_api.dart';
+import 'package:bufi/src/database/carritoDelivery_db.dart';
 import 'package:bufi/src/database/carrito_db.dart';
+import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
+import 'package:bufi/src/models/carritoDeliveryModel.dart';
 import 'package:bufi/src/models/carritoGeneralModel..dart';
 import 'package:bufi/src/models/carritoModel.dart';
 import 'package:bufi/src/models/productoModel.dart';
@@ -46,14 +49,14 @@ class CarritoBloc {
         .add(await carritoProductListHorizontal());
   }
 
-  void obtenerCarritoConfirmacion() async {
+  void obtenerCarritoConfirmacion(String update) async {
     _carritoSeleccionaController.sink
-        .add(await carritoPorSucursalSeleccionado());
+        .add(await carritoPorSucursalSeleccionado(update));
   }
 
-  void confirmacionPedidoProducto(String idProducto) async {
+  void confirmacionPedidoProducto(String idProducto, String update) async {
     _carritoProductoController.sink
-        .add(await carritoProductoSeleccionado(idProducto));
+        .add(await carritoProductoSeleccionado(idProducto, update));
   }
 
   Future<List<CarritoGeneralSuperior>> carritoPorSucursal() async {
@@ -175,12 +178,15 @@ class CarritoBloc {
     return listaGeneral;
   }
 
-  Future<List<CarritoGeneralSuperior>> carritoPorSucursalSeleccionado() async {
+  Future<List<CarritoGeneralSuperior>> carritoPorSucursalSeleccionado(
+      String update) async {
     final listaGeneralCarrito = List<CarritoGeneralSuperior>();
     final listaGeneral = List<CarritoGeneralModel>();
     final carritoDb = CarritoDb();
     final listaDeStringDeIds = List<String>();
     final subsidiary = SubsidiaryDatabase();
+    final companyDB = CompanyDatabase();
+    final carritoDeliveryDB = CarritoDeliveryDB();
 
     double cantidadTotal = 0;
     int cantidad = 0;
@@ -201,6 +207,15 @@ class CarritoBloc {
       //función para obtener los datos de la sucursal para despues usar el nombre
       final sucursal =
           await subsidiary.obtenerSubsidiaryPorId(listaDeStringDeIds[x]);
+      final companyDelivery =
+          await companyDB.obtenerCompanyPorIdCompany(sucursal[0].idCompany);
+      if (update != '1') {
+        CarritoDeliveryModel deliveryTipe = CarritoDeliveryModel();
+        deliveryTipe.idSubsidiary = sucursal[0].idSubsidiary;
+        deliveryTipe.tipoDeliverySeleccionado = '0';
+
+        await carritoDeliveryDB.insertarTipoDelivery(deliveryTipe);
+      }
 
       final listCarritoModel = List<CarritoModel>();
 
@@ -209,6 +224,22 @@ class CarritoBloc {
       //agregamos el nombre de la sucursal con los datos antes obtenidos (sucursal)
       carritoGeneralModel.nombreSucursal = sucursal[0].subsidiaryName;
       carritoGeneralModel.idSubsidiary = sucursal[0].idSubsidiary;
+      if (companyDelivery[0].companyDeliveryPropio == '1' &&
+          companyDelivery[0].companyDelivery == '1') {
+        carritoGeneralModel.tipoDeliverySeleccionado = '3';
+      } else if (companyDelivery[0].companyDeliveryPropio == '1') {
+        carritoGeneralModel.tipoDeliverySeleccionado = '1';
+      } else if (companyDelivery[0].companyDelivery == '1') {
+        carritoGeneralModel.tipoDeliverySeleccionado = '2';
+      } else {
+        carritoGeneralModel.tipoDeliverySeleccionado = '0';
+      }
+
+      final seleccionDelivery = await carritoDeliveryDB
+          .obtenerTipoDeliveryPorSucursal(sucursal[0].idSubsidiary);
+      carritoGeneralModel.seleccion =
+          seleccionDelivery[0].tipoDeliverySeleccionado;
+
       for (var y = 0; y < listCarrito.length; y++) {
         //cuando hay coincidencia de id's procede a agregar los datos a la lista
         if (listaDeStringDeIds[x] == listCarrito[y].idSubsidiary) {
@@ -257,11 +288,13 @@ class CarritoBloc {
   }
 
   Future<List<CarritoGeneralSuperior>> carritoProductoSeleccionado(
-      String idProducto) async {
+      String idProducto, String update) async {
     final listaGeneralCarrito = List<CarritoGeneralSuperior>();
     final listaGeneral = List<CarritoGeneralModel>();
     final listCarritoModel = List<CarritoModel>();
     final negociosApi = NegociosApi();
+    final companyDB = CompanyDatabase();
+    final carritoDeliveryDB = CarritoDeliveryDB();
 
     final subsidiary = SubsidiaryDatabase();
 
@@ -272,6 +305,15 @@ class CarritoBloc {
 
     if (listCarrito.length > 0) {
       if (sucursal.length > 0) {
+        final companyDelivery =
+            await companyDB.obtenerCompanyPorIdCompany(sucursal[0].idCompany);
+        if (update != '1') {
+          CarritoDeliveryModel deliveryTipe = CarritoDeliveryModel();
+          deliveryTipe.idSubsidiary = sucursal[0].idSubsidiary;
+          deliveryTipe.tipoDeliverySeleccionado = '0';
+
+          await carritoDeliveryDB.insertarTipoDelivery(deliveryTipe);
+        }
         CarritoModel c = CarritoModel();
 
         c.precio = listCarrito[0].precio;
@@ -298,6 +340,21 @@ class CarritoBloc {
                 double.parse(listCarrito[0].precio))
             .toString();
 
+        if (companyDelivery[0].companyDeliveryPropio == '1' &&
+            companyDelivery[0].companyDelivery == '1') {
+          carritoGeneralModel.tipoDeliverySeleccionado = '3';
+        } else if (companyDelivery[0].companyDeliveryPropio == '1') {
+          carritoGeneralModel.tipoDeliverySeleccionado = '1';
+        } else if (companyDelivery[0].companyDelivery == '1') {
+          carritoGeneralModel.tipoDeliverySeleccionado = '2';
+        } else {
+          carritoGeneralModel.tipoDeliverySeleccionado = '0';
+        }
+        final seleccionDelivery = await carritoDeliveryDB
+            .obtenerTipoDeliveryPorSucursal(sucursal[0].idSubsidiary);
+        carritoGeneralModel.seleccion =
+            seleccionDelivery[0].tipoDeliverySeleccionado;
+
         listaGeneral.add(carritoGeneralModel);
 
         CarritoGeneralSuperior carritoGeneralSuperior =
@@ -322,6 +379,15 @@ class CarritoBloc {
 
         if (listCarrito.length > 0) {
           if (sucursal2.length > 0) {
+            final companyDelivery = await companyDB
+                .obtenerCompanyPorIdCompany(sucursal2[0].idCompany);
+            if (update != '1') {
+              CarritoDeliveryModel deliveryTipe = CarritoDeliveryModel();
+              deliveryTipe.idSubsidiary = sucursal2[0].idSubsidiary;
+              deliveryTipe.tipoDeliverySeleccionado = '0';
+
+              await carritoDeliveryDB.insertarTipoDelivery(deliveryTipe);
+            }
             CarritoModel c = CarritoModel();
 
             c.precio = listCarrito[0].precio;
@@ -347,6 +413,21 @@ class CarritoBloc {
             carritoGeneralModel.monto = (double.parse(listCarrito[0].cantidad) *
                     double.parse(listCarrito[0].precio))
                 .toString();
+            if (companyDelivery[0].companyDeliveryPropio == '1' &&
+                companyDelivery[0].companyDelivery == '1') {
+              carritoGeneralModel.tipoDeliverySeleccionado = '3';
+            } else if (companyDelivery[0].companyDeliveryPropio == '1') {
+              carritoGeneralModel.tipoDeliverySeleccionado = '1';
+            } else if (companyDelivery[0].companyDelivery == '1') {
+              carritoGeneralModel.tipoDeliverySeleccionado = '2';
+            } else {
+              carritoGeneralModel.tipoDeliverySeleccionado = '0';
+            }
+
+            final seleccionDelivery = await carritoDeliveryDB
+                .obtenerTipoDeliveryPorSucursal(sucursal2[0].idSubsidiary);
+            carritoGeneralModel.seleccion =
+                seleccionDelivery[0].tipoDeliverySeleccionado;
 
             listaGeneral.add(carritoGeneralModel);
 

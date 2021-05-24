@@ -1,5 +1,6 @@
 import 'package:bufi/src/api/notificaciones_api.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
+import 'package:bufi/src/database/carritoDelivery_db.dart';
 import 'package:bufi/src/database/carrito_db.dart';
 import 'package:bufi/src/database/detallePedido_database.dart';
 import 'package:bufi/src/database/direccion_database.dart';
@@ -664,7 +665,7 @@ void borrarCarrito(BuildContext context, String idSubsidiarygood) async {
 
   final carritoBloc = ProviderBloc.productosCarrito(context);
   carritoBloc.obtenerCarritoPorSucursal();
-  carritoBloc.carritoPorSucursalSeleccionado();
+  carritoBloc.carritoPorSucursalSeleccionado('0');
 }
 
 void agregarAlCarritoContador(BuildContext context, String idSubsidiarygood,
@@ -706,7 +707,7 @@ void agregarAlCarritoContador(BuildContext context, String idSubsidiarygood,
 
   final carritoBloc = ProviderBloc.productosCarrito(context);
   carritoBloc.obtenerCarritoPorSucursal();
-  carritoBloc.carritoPorSucursalSeleccionado();
+  carritoBloc.carritoPorSucursalSeleccionado('0');
 }
 
 void deleteProductoCarrito(BuildContext context, String idSubsidiarygood,
@@ -716,7 +717,7 @@ void deleteProductoCarrito(BuildContext context, String idSubsidiarygood,
       idSubsidiarygood, talla, modelo, marca);
   final carritoBloc = ProviderBloc.productosCarrito(context);
   carritoBloc.obtenerCarritoPorSucursal();
-  carritoBloc.carritoPorSucursalSeleccionado();
+  carritoBloc.carritoPorSucursalSeleccionado('0');
 }
 
 void porcentaje(BuildContext context, double porcen) async {
@@ -870,6 +871,26 @@ void seleccionarTiposPago(BuildContext context, String idTiposPago) async {
 
   tiposPagoBloc.obtenerTipoPagoSeleccionado();
   tiposPagoBloc.obtenerTiposPago();
+}
+
+void updateStatusDelivery(
+    BuildContext context, String idSubsidiary, String seleccion) async {
+  final carritoBloc = ProviderBloc.productosCarrito(context);
+  final carritoDeliveryDB = CarritoDeliveryDB();
+
+  await carritoDeliveryDB.updateSeleccionado(idSubsidiary, seleccion);
+
+  carritoBloc.obtenerCarritoConfirmacion('1');
+}
+
+void updateStatusDeliveryPedirAhora(BuildContext context, String idSubsidiary,
+    String seleccion, String idProducto) async {
+  final carritoBloc = ProviderBloc.productosCarrito(context);
+  final carritoDeliveryDB = CarritoDeliveryDB();
+
+  await carritoDeliveryDB.updateSeleccionado(idSubsidiary, seleccion);
+
+  carritoBloc.confirmacionPedidoProducto(idProducto, '1');
 }
 
 // void agregarDireccion(BuildContext context, String direccion, String referencia,

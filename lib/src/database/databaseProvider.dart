@@ -157,6 +157,11 @@ class DatabaseProvider {
           'estado_seleccionado VARCHAR'
           ')');
 
+      await db.execute('CREATE TABLE CarritoDelivery ('
+          'id_subsidiary VARCHAR PRIMARY KEY,'
+          'tipo_delivery_seleccionado VARCHAR'
+          ')');
+
       await db.execute('CREATE TABLE Cuenta ('
           'id_cuenta VARCHAR PRIMARY KEY,'
           'id_user VARCHAR,'

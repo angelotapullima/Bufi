@@ -132,4 +132,12 @@ class Preferences {
   set tokenFirebase(String value) {
     _prefs.setString('tokenFirebase', value);
   }
+
+  get tipoDelivery {
+    return _prefs.getString('tipoDelivery');
+  }
+
+  set tipoDelivery(String value) {
+    _prefs.setString('tipoDelivery', value);
+  }
 }

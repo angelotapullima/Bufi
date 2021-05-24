@@ -25,18 +25,11 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
     setState(() {});
   }
 
-  String dp;
-  String rt;
-  String dt;
-  bool dpEstatus = false;
-  bool rtEstatus = false;
-  bool dtEstatus = false;
-
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final carritoBloc = ProviderBloc.productosCarrito(context);
-    carritoBloc.obtenerCarritoConfirmacion();
+    carritoBloc.obtenerCarritoConfirmacion('0');
     final cuentaBloc = ProviderBloc.cuenta(context);
     cuentaBloc.obtenerSaldo();
 
@@ -227,63 +220,128 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                                                     children: [
                                                       GestureDetector(
                                                         onTap: () {
-                                                          setState(() {
-                                                            dp = '1';
-                                                            rt = '0';
-                                                            dt = '0';
-                                                            dpEstatus = true;
-                                                            rtEstatus = false;
-                                                            dtEstatus = false;
-                                                          });
+                                                          updateStatusDelivery(
+                                                              context,
+                                                              listCarritoSuperior[
+                                                                      0]
+                                                                  .car[xxx]
+                                                                  .idSubsidiary,
+                                                              '1');
                                                         },
                                                         child: _tipoEntrega(
-                                                            'Delivery propio',
-                                                            Icons
-                                                                .delivery_dining,
-                                                            responsive,
-                                                            dpEstatus),
+                                                          'Recoger en tienda',
+                                                          Icons.store,
+                                                          responsive,
+                                                          listCarritoSuperior[0]
+                                                              .car[xxx]
+                                                              .seleccion,
+                                                        ),
                                                       ),
                                                       SizedBox(
                                                         width: responsive.wp(5),
                                                       ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            dp = '0';
-                                                            rt = '1';
-                                                            dt = '0';
-                                                            dpEstatus = false;
-                                                            rtEstatus = true;
-                                                            dtEstatus = false;
-                                                          });
-                                                        },
-                                                        child: _tipoEntrega(
-                                                            'Recoger en tienda',
-                                                            Icons.store,
-                                                            responsive,
-                                                            rtEstatus),
-                                                      ),
-                                                      SizedBox(
-                                                        width: responsive.wp(5),
-                                                      ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            dp = '0';
-                                                            rt = '0';
-                                                            dt = '1';
-                                                            dpEstatus = false;
-                                                            rtEstatus = false;
-                                                            dtEstatus = true;
-                                                          });
-                                                        },
-                                                        child: _tipoEntrega(
-                                                            'Delivery terceros',
-                                                            Icons
-                                                                .departure_board_outlined,
-                                                            responsive,
-                                                            dtEstatus),
-                                                      ),
+                                                      (listCarritoSuperior[0]
+                                                                  .car[xxx]
+                                                                  .tipoDeliverySeleccionado ==
+                                                              '3')
+                                                          ? Row(
+                                                              children: [
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    updateStatusDelivery(
+                                                                        context,
+                                                                        listCarritoSuperior[0]
+                                                                            .car[xxx]
+                                                                            .idSubsidiary,
+                                                                        '2');
+                                                                  },
+                                                                  child: _tipoEntrega2(
+                                                                      'Delivery propio',
+                                                                      Icons
+                                                                          .delivery_dining,
+                                                                      responsive,
+                                                                      listCarritoSuperior[
+                                                                              0]
+                                                                          .car[
+                                                                              xxx]
+                                                                          .seleccion),
+                                                                ),
+                                                                SizedBox(
+                                                                  width:
+                                                                      responsive
+                                                                          .wp(5),
+                                                                ),
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    updateStatusDelivery(
+                                                                        context,
+                                                                        listCarritoSuperior[0]
+                                                                            .car[xxx]
+                                                                            .idSubsidiary,
+                                                                        '3');
+                                                                  },
+                                                                  child: _tipoEntrega3(
+                                                                      'Delivery terceros',
+                                                                      Icons
+                                                                          .departure_board_outlined,
+                                                                      responsive,
+                                                                      listCarritoSuperior[
+                                                                              0]
+                                                                          .car[
+                                                                              xxx]
+                                                                          .seleccion),
+                                                                ),
+                                                              ],
+                                                            )
+                                                          : (listCarritoSuperior[
+                                                                          0]
+                                                                      .car[xxx]
+                                                                      .tipoDeliverySeleccionado ==
+                                                                  '1')
+                                                              ? GestureDetector(
+                                                                  onTap: () {
+                                                                    updateStatusDelivery(
+                                                                        context,
+                                                                        listCarritoSuperior[0]
+                                                                            .car[xxx]
+                                                                            .idSubsidiary,
+                                                                        '2');
+                                                                  },
+                                                                  child: _tipoEntrega2(
+                                                                      'Delivery propio',
+                                                                      Icons
+                                                                          .delivery_dining,
+                                                                      responsive,
+                                                                      listCarritoSuperior[
+                                                                              0]
+                                                                          .car[
+                                                                              xxx]
+                                                                          .seleccion),
+                                                                )
+                                                              : (listCarritoSuperior[
+                                                                              0]
+                                                                          .car[
+                                                                              xxx]
+                                                                          .tipoDeliverySeleccionado ==
+                                                                      '2')
+                                                                  ? GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        updateStatusDelivery(
+                                                                            context,
+                                                                            listCarritoSuperior[0].car[xxx].idSubsidiary,
+                                                                            '3');
+                                                                      },
+                                                                      child: _tipoEntrega3(
+                                                                          'Delivery terceros',
+                                                                          Icons
+                                                                              .departure_board_outlined,
+                                                                          responsive,
+                                                                          listCarritoSuperior[0]
+                                                                              .car[xxx]
+                                                                              .seleccion),
+                                                                    )
+                                                                  : Container(),
                                                     ],
                                                   ),
                                                   SizedBox(
@@ -445,7 +503,7 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
                         );
                       } else {
                         return Center(
-                          child: Text('No haz añadido nada'),
+                          child: Text('No se añadieron productos'),
                         );
                       }
                     } else {
@@ -489,11 +547,11 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
   }
 
   Widget _tipoEntrega(
-      String titulo, IconData icon, Responsive responsive, bool status) {
+      String titulo, IconData icon, Responsive responsive, String status) {
     return Container(
         margin: EdgeInsets.all(1),
         decoration: BoxDecoration(
-            color: (status) ? Colors.red : Colors.white10,
+            color: (status == '1') ? Colors.red : Colors.white10,
             borderRadius: BorderRadius.circular(5)),
         width: responsive.wp(20),
         child: Container(
@@ -504,12 +562,72 @@ class _ConfirmacionPedidoState extends State<ConfirmacionPedido> {
             children: [
               Icon(
                 icon,
-                color: (status) ? Colors.white : Colors.black,
+                color: (status == '1') ? Colors.white : Colors.black,
               ),
               Text(
                 titulo,
                 style: TextStyle(
-                  color: (status) ? Colors.white : Colors.black,
+                  color: (status == '1') ? Colors.white : Colors.black,
+                ),
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+        ));
+  }
+
+  Widget _tipoEntrega2(
+      String titulo, IconData icon, Responsive responsive, String status) {
+    return Container(
+        margin: EdgeInsets.all(1),
+        decoration: BoxDecoration(
+            color: (status == '2') ? Colors.red : Colors.white10,
+            borderRadius: BorderRadius.circular(5)),
+        width: responsive.wp(20),
+        child: Container(
+          margin: EdgeInsets.all(1),
+          width: responsive.wp(15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                color: (status == '2') ? Colors.white : Colors.black,
+              ),
+              Text(
+                titulo,
+                style: TextStyle(
+                  color: (status == '2') ? Colors.white : Colors.black,
+                ),
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+        ));
+  }
+
+  Widget _tipoEntrega3(
+      String titulo, IconData icon, Responsive responsive, String status) {
+    return Container(
+        margin: EdgeInsets.all(1),
+        decoration: BoxDecoration(
+            color: (status == '3') ? Colors.red : Colors.white10,
+            borderRadius: BorderRadius.circular(5)),
+        width: responsive.wp(20),
+        child: Container(
+          margin: EdgeInsets.all(1),
+          width: responsive.wp(15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                color: (status == '3') ? Colors.white : Colors.black,
+              ),
+              Text(
+                titulo,
+                style: TextStyle(
+                  color: (status == '3') ? Colors.white : Colors.black,
                 ),
                 textAlign: TextAlign.center,
               )
@@ -690,48 +808,70 @@ class ResumenPedido extends StatelessWidget {
             Spacer(),
             GestureDetector(
               onTap: () async {
-                provider.changeCargando();
+                bool ok = true;
+                String sucursal;
+                int cont = 0;
 
-                final pedidoApi = PedidoApi();
-
-                final res = await pedidoApi.enviarPedido();
-
-                if (res[0].respuestaApi == '1') {
-                  final carritoBloc = ProviderBloc.productosCarrito(context);
-                  carritoBloc.obtenerCarritoPorSucursal();
-                  borrarCarrito(context, '0');
-                  showToast(context, 'venta confirmada');
-                  Navigator.pop(context);
-                  //deleteProductoCarrito();
-
-                  Navigator.of(context).push(PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) {
-                      return TickectPedido(
-                        idPedido: res[0].idPedido,
-                      );
-                    },
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      var begin = Offset(0.0, 1.0);
-                      var end = Offset.zero;
-                      var curve = Curves.ease;
-
-                      var tween = Tween(begin: begin, end: end).chain(
-                        CurveTween(curve: curve),
-                      );
-
-                      return SlideTransition(
-                        position: animation.drive(tween),
-                        child: child,
-                      );
-                    },
-                  ));
-                } else {
-                  showToast(
-                      context, 'Hubo un error por favor intente más tarde');
+                for (var i = 0; i < listCarritoSuperior[0].car.length; i++) {
+                  if (listCarritoSuperior[0].car[i].seleccion == '0') {
+                    ok = false;
+                    sucursal = listCarritoSuperior[0].car[i].nombreSucursal;
+                    cont++;
+                  }
                 }
 
-                provider.changeCargando();
+                if (ok) {
+                  provider.changeCargando();
+
+                  final pedidoApi = PedidoApi();
+
+                  final res = await pedidoApi.enviarPedido();
+
+                  if (res[0].respuestaApi == '1') {
+                    final carritoBloc = ProviderBloc.productosCarrito(context);
+                    carritoBloc.obtenerCarritoPorSucursal();
+                    borrarCarrito(context, '0');
+                    showToast(context, 'venta confirmada');
+                    Navigator.pop(context);
+                    //deleteProductoCarrito();
+
+                    Navigator.of(context).push(PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                        return TickectPedido(
+                          idPedido: res[0].idPedido,
+                        );
+                      },
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        var begin = Offset(0.0, 1.0);
+                        var end = Offset.zero;
+                        var curve = Curves.ease;
+
+                        var tween = Tween(begin: begin, end: end).chain(
+                          CurveTween(curve: curve),
+                        );
+
+                        return SlideTransition(
+                          position: animation.drive(tween),
+                          child: child,
+                        );
+                      },
+                    ));
+                  } else {
+                    showToast(
+                        context, 'Hubo un error por favor intente más tarde');
+                  }
+
+                  provider.changeCargando();
+                } else {
+                  if (cont == 1) {
+                    showToast(context,
+                        'Por favor seleccione el Tipo de Entrega para $sucursal');
+                  } else {
+                    showToast(context,
+                        'Por favor seleccione el Tipo de Entrega para cada sucursal');
+                  }
+                }
               },
               child: Container(
                 decoration: BoxDecoration(

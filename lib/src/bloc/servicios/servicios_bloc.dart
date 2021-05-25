@@ -2,7 +2,6 @@ import 'package:bufi/src/api/servicios/services_api.dart';
 import 'package:bufi/src/database/company_db.dart';
 import 'package:bufi/src/database/subsidiaryService_db.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
-import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:rxdart/subjects.dart';

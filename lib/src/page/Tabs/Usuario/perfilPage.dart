@@ -292,15 +292,17 @@ class PerfilPage extends StatelessWidget {
             Center(
               child: SizedBox(
                 width: responsive.wp(80),
-                child: RaisedButton(
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  color: Colors.red,
+                child: ElevatedButton(
                   onPressed: () {},
                   child: Text("Cambiar",
                       style: TextStyle(
                           color: Colors.white, fontSize: responsive.ip(2.2))),
+                  style: ElevatedButton.styleFrom(
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      primary: Colors.red,
+                      onPrimary: Colors.white),
                 ),
               ),
             ),
@@ -519,18 +521,34 @@ class _RestablecerContrasenhaPageState
             ),
             child: SizedBox(
                 width: double.infinity,
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  padding: EdgeInsets.all(0.0),
+                child: ElevatedButton(
                   child: Text('Confirmar'),
-                  color: Color(0xFFF93963),
-                  textColor: Colors.white,
                   onPressed: (snapshot.hasData)
                       ? () => _submit(context, passwordBloc)
                       : null,
-                )),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    padding: EdgeInsets.all(0.0),
+                    primary: Color(0xFFF93963),
+                    onPrimary: Colors.white,
+                  ),
+                )
+
+                // RaisedButton(
+                //   shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(30.0),
+                //   ),
+                //   padding: EdgeInsets.all(0.0),
+                //   child: Text('Confirmar'),
+                //   color: Color(0xFFF93963),
+                //   textColor: Colors.white,
+                //   onPressed: (snapshot.hasData)
+                //       ? () => _submit(context, passwordBloc)
+                //       : null,
+                // )
+                ),
           );
         });
   }

@@ -147,43 +147,81 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
                 ),
                 Center(
                   child: SizedBox(
-                    width: responsive.wp(80),
-                    child: RaisedButton(
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      color: Colors.red,
-                      onPressed: () {
-                        if (_direccionController.text.length > 0) {
-                          if (_referenciaController.text.length > 0) {
-                            if (idQuenecesitas != null) {
-                              agregarDireccion(
-                                  context,
-                                  _direccionController.text,
-                                  _referenciaController.text,
-                                  idQuenecesitas);
+                      width: responsive.wp(80),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_direccionController.text.length > 0) {
+                            if (_referenciaController.text.length > 0) {
+                              if (idQuenecesitas != null) {
+                                agregarDireccion(
+                                    context,
+                                    _direccionController.text,
+                                    _referenciaController.text,
+                                    idQuenecesitas);
+                              } else {
+                                showToast(
+                                    context, 'Por favor agregue un distrito');
+                              }
                             } else {
                               showToast(
-                                  context, 'Por favor agregue un distrito');
+                                  context, 'Por favor agregue una referencia');
                             }
                           } else {
                             showToast(
-                                context, 'Por favor agregue una referencia');
+                                context, 'Por favor agregue una dirección');
                           }
-                        } else {
-                          showToast(context, 'Por favor agregue una dirección');
-                        }
-                      },
-                      child: Text(
-                        "Añadir",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: responsive.ip(2.2),
+                        },
+                        child: Text(
+                          "Añadir",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: responsive.ip(2.2),
+                          ),
                         ),
+                        style: ElevatedButton.styleFrom(
+                            elevation: 3,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            primary: Colors.red,
+                            onPrimary: Colors.white),
+                      )
+                      // RaisedButton(
+                      //   elevation: 3,
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(30.0),
+                      //   ),
+                      //   color: Colors.red,
+                      //   onPressed: () {
+                      //     if (_direccionController.text.length > 0) {
+                      //       if (_referenciaController.text.length > 0) {
+                      //         if (idQuenecesitas != null) {
+                      //           agregarDireccion(
+                      //               context,
+                      //               _direccionController.text,
+                      //               _referenciaController.text,
+                      //               idQuenecesitas);
+                      //         } else {
+                      //           showToast(
+                      //               context, 'Por favor agregue un distrito');
+                      //         }
+                      //       } else {
+                      //         showToast(
+                      //             context, 'Por favor agregue una referencia');
+                      //       }
+                      //     } else {
+                      //       showToast(context, 'Por favor agregue una dirección');
+                      //     }
+                      //   },
+                      //   child: Text(
+                      //     "Añadir",
+                      //     style: TextStyle(
+                      //       color: Colors.white,
+                      //       fontSize: responsive.ip(2.2),
+                      //     ),
+                      //   ),
+                      // ),
                       ),
-                    ),
-                  ),
                 ),
               ],
             ),

@@ -60,10 +60,10 @@ class CarritoBloc {
   }
 
   Future<List<CarritoGeneralSuperior>> carritoPorSucursal() async {
-    final listaGeneralCarrito = List<CarritoGeneralSuperior>();
-    final listaGeneral = List<CarritoGeneralModel>();
+    final List<CarritoGeneralSuperior> listaGeneralCarrito = [];
+    final List<CarritoGeneralModel> listaGeneral = [];
     final carritoDb = CarritoDb();
-    final listaDeStringDeIds = List<String>();
+    final List<String> listaDeStringDeIds = [];
     final subsidiary = SubsidiaryDatabase();
 
     double cantidadTotal = 0;
@@ -84,7 +84,7 @@ class CarritoBloc {
       final sucursal =
           await subsidiary.obtenerSubsidiaryPorId(listaDeStringDeIds[x]);
 
-      final listCarritoModel = List<CarritoModel>();
+      final List<CarritoModel> listCarritoModel = [];
 
       CarritoGeneralModel carritoGeneralModel = CarritoGeneralModel();
 
@@ -137,7 +137,7 @@ class CarritoBloc {
   }
 
   Future<List<ProductoModel>> carritoProductListHorizontal() async {
-    final listaGeneral = List<ProductoModel>();
+    final List<ProductoModel> listaGeneral = [];
     final carritoDb = CarritoDb();
     final productoDatabase = ProductoDatabase();
 
@@ -180,10 +180,10 @@ class CarritoBloc {
 
   Future<List<CarritoGeneralSuperior>> carritoPorSucursalSeleccionado(
       String update) async {
-    final listaGeneralCarrito = List<CarritoGeneralSuperior>();
-    final listaGeneral = List<CarritoGeneralModel>();
+    final List<CarritoGeneralSuperior> listaGeneralCarrito = [];
+    final List<CarritoGeneralModel> listaGeneral = [];
     final carritoDb = CarritoDb();
-    final listaDeStringDeIds = List<String>();
+    final List<String> listaDeStringDeIds = [];
     final subsidiary = SubsidiaryDatabase();
     final companyDB = CompanyDatabase();
     final carritoDeliveryDB = CarritoDeliveryDB();
@@ -217,7 +217,7 @@ class CarritoBloc {
         await carritoDeliveryDB.insertarTipoDelivery(deliveryTipe);
       }
 
-      final listCarritoModel = List<CarritoModel>();
+      final List<CarritoModel> listCarritoModel = [];
 
       CarritoGeneralModel carritoGeneralModel = CarritoGeneralModel();
 
@@ -289,9 +289,9 @@ class CarritoBloc {
 
   Future<List<CarritoGeneralSuperior>> carritoProductoSeleccionado(
       String idProducto, String update) async {
-    final listaGeneralCarrito = List<CarritoGeneralSuperior>();
-    final listaGeneral = List<CarritoGeneralModel>();
-    final listCarritoModel = List<CarritoModel>();
+    final List<CarritoGeneralSuperior> listaGeneralCarrito = [];
+    final List<CarritoGeneralModel> listaGeneral = [];
+    final List<CarritoModel> listCarritoModel = [];
     final negociosApi = NegociosApi();
     final companyDB = CompanyDatabase();
     final carritoDeliveryDB = CarritoDeliveryDB();

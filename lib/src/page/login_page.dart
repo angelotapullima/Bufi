@@ -234,19 +234,33 @@ class _LoginPageState extends State<LoginPage> {
               right: responsive.wp(6),
             ),
             child: SizedBox(
-              width: double.infinity,
-              child: RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed:
+                      (snapshot.hasData) ? () => _submit(context, bloc) : null,
+                  child: Text('Iniciar Sesión'),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    padding: EdgeInsets.all(0.0),
+                    primary: Color(0xFFF93963),
+                    onPrimary: Colors.white,
+                  ),
+                )
+
+                // RaisedButton(
+                //   shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(30.0),
+                //   ),
+                //   padding: EdgeInsets.all(0.0),
+                //   child: Text('Iniciar Sesión'),
+                //   color: Color(0xFFF93963),
+                //   textColor: Colors.white,
+                //   onPressed:
+                //       (snapshot.hasData) ? () => _submit(context, bloc) : null,
+                // ),
                 ),
-                padding: EdgeInsets.all(0.0),
-                child: Text('Iniciar Sesión'),
-                color: Color(0xFFF93963),
-                textColor: Colors.white,
-                onPressed:
-                    (snapshot.hasData) ? () => _submit(context, bloc) : null,
-              ),
-            ),
           );
         });
   }

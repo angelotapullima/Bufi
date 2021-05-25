@@ -28,7 +28,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
 
   File foto;
   //Usar en cropper
-  bool _inProcess = false;
+  //bool _inProcess = false;
 
   @override
   Widget build(BuildContext context) {
@@ -111,14 +111,22 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                               Icons.camera_alt_rounded,
                             ),
                             SizedBox(width: responsive.wp(2)),
-                            RaisedButton(
+                            ElevatedButton(
                               onPressed: () {
                                 _cargando.value = false;
                                 _subirFoto(context);
                                 //_cargando.value = true;
                               },
                               child: Text("Subir Fotos"),
-                            )
+                            ),
+                            // RaisedButton(
+                            //   onPressed: () {
+                            //     _cargando.value = false;
+                            //     _subirFoto(context);
+                            //     //_cargando.value = true;
+                            //   },
+                            //   child: Text("Subir Fotos"),
+                            // )
                           ],
                         ),
                         SizedBox(height: responsive.hp(2)),
@@ -126,22 +134,24 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                         SizedBox(height: responsive.hp(2)),
                         Center(
                           child: SizedBox(
-                            width: responsive.wp(80),
-                            child: RaisedButton(
-                              elevation: 3,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0)),
-                              color: Colors.red,
-                              child: Text("Calificar",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: responsive.ip(2.2))),
-                              onPressed: () async {
-                                await _submit(
-                                    pedido, comentarioController, context);
-                              },
-                            ),
-                          ),
+                              width: responsive.wp(80),
+                              child: ElevatedButton(
+                                child: Text("Calificar",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: responsive.ip(2.2))),
+                                onPressed: () async {
+                                  await _submit(
+                                      pedido, comentarioController, context);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    elevation: 3,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0)),
+                                    primary: Colors.red,
+                                    onPrimary: Colors.white),
+                              )),
                         )
                       ],
                     ),

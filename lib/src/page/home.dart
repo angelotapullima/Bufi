@@ -129,7 +129,8 @@ class _HomePageState extends State<HomePage> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return BottomNavigationBar(
           elevation: 0.0,
-          selectedItemColor: Theme.of(context).textSelectionColor,
+          selectedItemColor:
+              Theme.of(context).textSelectionTheme.selectionColor,
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(

@@ -38,7 +38,7 @@ class _UserPageState extends State<UserPage> {
   }
 
   Widget _datos(BuildContext context, Responsive responsive) {
-    final cuentaBloc = ProviderBloc.cuenta(context);
+    //final cuentaBloc = ProviderBloc.cuenta(context);
     final prefs = new Preferences();
 
     return SingleChildScrollView(

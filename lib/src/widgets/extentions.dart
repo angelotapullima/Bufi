@@ -15,15 +15,26 @@ extension OnPressed on Widget {
             right: 0,
             top: 0,
             bottom: 0,
-            child: FlatButton(
-              shape: RoundedRectangleBorder(borderRadius: borderRadius),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                shape: RoundedRectangleBorder(borderRadius: borderRadius),
+              ),
               onPressed: () {
                 if (onPressed != null) {
                   onPressed();
                 }
               },
-              child:Container(),
+              child: Container(),
             ),
+            // FlatButton(
+            //   shape: RoundedRectangleBorder(borderRadius: borderRadius),
+            //   onPressed: () {
+            //     if (onPressed != null) {
+            //       onPressed();
+            //     }
+            //   },
+            //   child:Container(),
+            // ),
           )
         ],
       );

@@ -13,7 +13,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text('Shimmer'),
       ),
-      body: Column( 
+      body: Column(
         children: [
           ListTile(
               title: const Text('Loading List'),
@@ -22,12 +22,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     MaterialPageRoute(builder: (context) => LoadingListPage()),
                   )),
           ListTile(
-            title: const Text('Slide To Unlock'),
-            onTap: () => Navigator.push(
+              title: const Text('Slide To Unlock'),
+              onTap: () => Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SlideToUnlockPage()),
-                  )
-          )
+                    MaterialPageRoute(
+                        builder: (context) => SlideToUnlockPage()),
+                  ))
         ],
       ),
     );
@@ -110,7 +110,7 @@ class _LoadingListPageState extends State<LoadingListPage> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: FlatButton(
+              child: TextButton(
                   onPressed: () {
                     setState(() {
                       _enabled = !_enabled;
@@ -122,6 +122,20 @@ class _LoadingListPageState extends State<LoadingListPage> {
                         fontSize: 18.0,
                         color: _enabled ? Colors.redAccent : Colors.green),
                   )),
+
+              // FlatButton(
+              //     onPressed: () {
+              //       setState(() {
+              //         _enabled = !_enabled;
+              //       });
+              //     },
+              //     child: Text(
+              //       _enabled ? 'Stop' : 'Play',
+              //       style: Theme.of(context).textTheme.button.copyWith(
+              //           fontSize: 18.0,
+              //           color: _enabled ? Colors.redAccent : Colors.green),
+              //     )
+              //     ),
             )
           ],
         ),

@@ -233,12 +233,7 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
                                 SizedBox(
                                   width: responsive.wp(5),
                                 ),
-                                FlatButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    side: BorderSide(color: Colors.green),
-                                  ),
-                                  color: Colors.green,
+                                TextButton(
                                   onPressed: () async {
                                     _cargando.value = true;
                                     final tiposPagoDatabase =
@@ -282,7 +277,64 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
                                     'Solicitar',
                                     style: TextStyle(color: Colors.white),
                                   ),
-                                )
+                                  style: TextButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      side: BorderSide(color: Colors.green),
+                                    ),
+                                    primary: Colors.green,
+                                  ),
+                                ),
+                                // FlatButton(
+                                //   shape: RoundedRectangleBorder(
+                                //     borderRadius: BorderRadius.circular(10),
+                                //     side: BorderSide(color: Colors.green),
+                                //   ),
+                                //   color: Colors.green,
+                                //   onPressed: () async {
+                                //     _cargando.value = true;
+                                //     final tiposPagoDatabase =
+                                //         TiposPagoDatabase();
+
+                                //     final listaTipos = await tiposPagoDatabase
+                                //         .obtenerTiposPagoSeleccionado();
+
+                                //     if (listaTipos.length > 0) {
+                                //       if (controlMonto.text.isEmpty) {
+                                //         showToast(context,
+                                //             'Por favor indique un monto de recarga');
+                                //       } else {
+                                //         //llamada api
+
+                                //         final cuentaApi = CuentaApi();
+
+                                //         final result =
+                                //             await cuentaApi.recargarCuenta(
+                                //                 controlMonto.text,
+                                //                 listaTipos[0].idTipoPago);
+
+                                //         if (result[0].result == '1') {
+                                //           final cuentaBloc =
+                                //               ProviderBloc.cuenta(context);
+                                //           cuentaBloc.obtenerRecargaPendiente();
+
+                                //           _cargando.value = false;
+                                //         } else {
+                                //           _cargando.value = false;
+                                //         }
+                                //       }
+                                //     } else {
+                                //       showToast(context,
+                                //           'Por favor seleccione un método de recarga');
+
+                                //       _cargando.value = false;
+                                //     }
+                                //   },
+                                //   child: Text(
+                                //     'Solicitar',
+                                //     style: TextStyle(color: Colors.white),
+                                //   ),
+                                // )
                               ],
                             ),
                           ],

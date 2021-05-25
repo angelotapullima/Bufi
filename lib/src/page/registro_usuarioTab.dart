@@ -90,64 +90,123 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
                     ),
 
                     SizedBox(
-                      width: double.infinity,
-                      child: RaisedButton(
-                        onPressed: () async {
-                          setState(() {
-                            mostrarCarga = true;
-                          });
-
-                          if (_controllerName.text.isEmpty &&
-                              _controllerLastName.text.isEmpty &&
-                              _controllerNickName.text.isEmpty &&
-                              _controllerPassword.text.isEmpty &&
-                              _controllerCel.text.isEmpty &&
-                              _controllerEmail.text.isEmpty) {
-                            //mostrar mensaje de text name vacio
-                            showToast1("Debe rellenar todos los campos", 2,
-                                ToastGravity.CENTER);
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () async {
                             setState(() {
-                              mostrarCarga = false;
+                              mostrarCarga = true;
                             });
-                          } else {
-                            final registroUser = RegisterUser();
 
-                            final res = await registroUser.registro(
-                                _controllerName.text,
-                                _controllerLastName.text,
-                                _controllerNickName.text,
-                                _controllerCel.text,
-                                _controllerEmail.text,
-                                _controllerPassword.text);
-
-                            if (res == 1) {
-                              //registro exitoso
-                              final log = LoginApi();
-                              final resL = await log.login(
-                                  _controllerEmail.text,
-                                  _controllerPassword.text);
-                              if (resL == 1) {
-                                Navigator.pushNamed(context, 'home');
-                              } else {}
-                            } else if (res == 2) {
-                              //registro failed
-                            } else {
-                              //registro failed
-
+                            if (_controllerName.text.isEmpty &&
+                                _controllerLastName.text.isEmpty &&
+                                _controllerNickName.text.isEmpty &&
+                                _controllerPassword.text.isEmpty &&
+                                _controllerCel.text.isEmpty &&
+                                _controllerEmail.text.isEmpty) {
+                              //mostrar mensaje de text name vacio
+                              showToast1("Debe rellenar todos los campos", 2,
+                                  ToastGravity.CENTER);
                               setState(() {
                                 mostrarCarga = false;
                               });
+                            } else {
+                              final registroUser = RegisterUser();
+
+                              final res = await registroUser.registro(
+                                  _controllerName.text,
+                                  _controllerLastName.text,
+                                  _controllerNickName.text,
+                                  _controllerCel.text,
+                                  _controllerEmail.text,
+                                  _controllerPassword.text);
+
+                              if (res == 1) {
+                                //registro exitoso
+                                final log = LoginApi();
+                                final resL = await log.login(
+                                    _controllerEmail.text,
+                                    _controllerPassword.text);
+                                if (resL == 1) {
+                                  Navigator.pushNamed(context, 'home');
+                                } else {}
+                              } else if (res == 2) {
+                                //registro failed
+                              } else {
+                                //registro failed
+
+                                setState(() {
+                                  mostrarCarga = false;
+                                });
+                              }
                             }
-                          }
-                        },
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)),
-                        padding: EdgeInsets.all(0.0),
-                        child: Text("Registrar"),
-                        //color: Theme.of(context),
-                        textColor: Colors.grey.shade800,
-                      ),
-                    ),
+                          },
+                          child: Text("Registrar"),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0)),
+                            padding: EdgeInsets.all(0.0),
+                            primary: Color(0xFFF93963),
+                            onPrimary: Colors.grey.shade800,
+                          ),
+                        )
+
+                        // RaisedButton(
+                        //   onPressed: () async {
+                        //     setState(() {
+                        //       mostrarCarga = true;
+                        //     });
+
+                        //     if (_controllerName.text.isEmpty &&
+                        //         _controllerLastName.text.isEmpty &&
+                        //         _controllerNickName.text.isEmpty &&
+                        //         _controllerPassword.text.isEmpty &&
+                        //         _controllerCel.text.isEmpty &&
+                        //         _controllerEmail.text.isEmpty) {
+                        //       //mostrar mensaje de text name vacio
+                        //       showToast1("Debe rellenar todos los campos", 2,
+                        //           ToastGravity.CENTER);
+                        //       setState(() {
+                        //         mostrarCarga = false;
+                        //       });
+                        //     } else {
+                        //       final registroUser = RegisterUser();
+
+                        //       final res = await registroUser.registro(
+                        //           _controllerName.text,
+                        //           _controllerLastName.text,
+                        //           _controllerNickName.text,
+                        //           _controllerCel.text,
+                        //           _controllerEmail.text,
+                        //           _controllerPassword.text);
+
+                        //       if (res == 1) {
+                        //         //registro exitoso
+                        //         final log = LoginApi();
+                        //         final resL = await log.login(
+                        //             _controllerEmail.text,
+                        //             _controllerPassword.text);
+                        //         if (resL == 1) {
+                        //           Navigator.pushNamed(context, 'home');
+                        //         } else {}
+                        //       } else if (res == 2) {
+                        //         //registro failed
+                        //       } else {
+                        //         //registro failed
+
+                        //         setState(() {
+                        //           mostrarCarga = false;
+                        //         });
+                        //       }
+                        //     }
+                        //   },
+                        //   shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(30.0)),
+                        //   padding: EdgeInsets.all(0.0),
+                        //   child: Text("Registrar"),
+                        //   //color: Theme.of(context),
+                        //   textColor: Colors.grey.shade800,
+                        // ),
+                        ),
                     SizedBox(
                       height: responsive.hp(4),
                     ),

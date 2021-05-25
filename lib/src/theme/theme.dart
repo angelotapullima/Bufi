@@ -6,7 +6,9 @@ final darkTheme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor: InstagramColors.scaffoldDark,
   accentColor: InstagramColors.cardLight,
   cardColor: InstagramColors.cardDark,
-  textSelectionColor: InstagramColors.pink,
+  //textSelectionColor: InstagramColors.pink,
+  textSelectionTheme:
+      TextSelectionThemeData(selectionColor: InstagramColors.pink),
 
   //canvasColor: InstagramColors.cardLight,
   dividerColor: InstagramColors.categoryDark,
@@ -19,14 +21,14 @@ final lightTheme = ThemeData.light().copyWith(
   scaffoldBackgroundColor: InstagramColors.scaffoldLigth,
   accentColor: InstagramColors.grey,
   cardColor: InstagramColors.cardLight,
-  textSelectionColor: InstagramColors.pink,
+  //textSelectionColor: InstagramColors.pink,
+  textSelectionTheme:
+      TextSelectionThemeData(selectionColor: InstagramColors.pink),
   //canvasColor: InstagramColors.pink,
   dividerColor: InstagramColors.categoryLight,
   hintColor: InstagramColors.colorHistoryLight,
   brightness: Brightness.dark,
 );
-
-
 
 class InstagramColors {
   static final Color blue = Color(0xFF1B29C6);
@@ -44,12 +46,4 @@ class InstagramColors {
   static final Color colorHistoryLight = Color(0xFF909090);
 }
 
-
-
-
-
-
-
-    //bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-
-    
+//bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;

@@ -1,4 +1,3 @@
-import 'package:bufi/src/models/companyModel.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
 
 class SubsidiaryServiceModel {

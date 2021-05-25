@@ -20,6 +20,15 @@ class _BusquedaNegocioState extends State<BusquedaNegocio> {
   }
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final busquedaBloc = ProviderBloc.busqueda(context);
+      busquedaBloc.obtenerBusquedaNegocio(context, '');
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final busquedaBloc = ProviderBloc.busqueda(context);

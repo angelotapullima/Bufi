@@ -4,13 +4,13 @@ import 'package:bufi/src/models/historialModel.dart';
 class HistorialDb {
   final dbProvider = DatabaseProvider.db;
 
-  insertarBusqueda(String historial, String fecha) async {
+  insertarBusqueda(String historial, String fecha, String page) async {
     try {
       final db = await dbProvider.database;
 
-      final res =
-          await db.rawInsert("INSERT OR REPLACE INTO Historial (text, fecha) "
-              "VALUES('$historial', '$fecha')");
+      final res = await db.rawInsert(
+          "INSERT OR REPLACE INTO Historial (text, fecha, page_busqueda) "
+          "VALUES('$historial', '$fecha', '$page')");
 
       return res;
     } catch (e) {
@@ -18,11 +18,11 @@ class HistorialDb {
     }
   }
 
-  Future<List<HistorialModel>> obtenerBusqueda() async {
+  Future<List<HistorialModel>> obtenerBusqueda(String page) async {
     try {
       final db = await dbProvider.database;
-      final res =
-          await db.rawQuery("SELECT * FROM Historial ORDER BY fecha DESC");
+      final res = await db.rawQuery(
+          "SELECT * FROM Historial WHERE page_busqueda='$page' ORDER BY fecha DESC");
 
       List<HistorialModel> list = res.isNotEmpty
           ? res.map((c) => HistorialModel.fromJson(c)).toList()

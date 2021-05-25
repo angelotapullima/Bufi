@@ -115,9 +115,9 @@ class DireccionDeliveryPage extends StatelessWidget {
                                 if (index == 0) {
                                   return Padding(
                                     padding: EdgeInsets.only(
-                                        left: responsive.wp(70)),
+                                        left: responsive.wp(55)),
                                     child: Container(
-                                      width: responsive.wp(30),
+                                      width: responsive.wp(40),
                                       padding: EdgeInsets.symmetric(
                                           vertical: responsive.hp(.5),
                                           horizontal: responsive.wp(2)),

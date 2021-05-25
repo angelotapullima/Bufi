@@ -73,7 +73,7 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
     final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
     final busquedaBloc = ProviderBloc.busqueda(context);
     final searchBloc = ProviderBloc.searHistory(context);
-    searchBloc.obtenerAllHistorial();
+    searchBloc.obtenerAllHistorial('general');
     //selectorTabBusqueda.changePage(selectorTabBusqueda.page);
     return Scaffold(
       backgroundColor: Colors.white,
@@ -131,7 +131,7 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                         context, '$value');
                                     busquedaBloc.obtenerBusquedaSubcategoria(
                                         context, '$value');
-                                    agregarHistorial(context, value);
+                                    agregarHistorial(context, value, 'general');
                                   }
                                 },
                                 onTap: () {
@@ -169,8 +169,10 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                     busquedaBloc.obtenerBusquedaSubcategoria(
                                         context,
                                         '${_controllerBusquedaAngelo.text}');
-                                    agregarHistorial(context,
-                                        _controllerBusquedaAngelo.text);
+                                    agregarHistorial(
+                                        context,
+                                        _controllerBusquedaAngelo.text,
+                                        'general');
                                   } else {
                                     setState(() {
                                       expandFlag = true;
@@ -349,7 +351,8 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                               agregarHistorial(
                                                   context,
                                                   _controllerBusquedaAngelo
-                                                      .text);
+                                                      .text,
+                                                  'general');
                                             } else {
                                               setState(() {
                                                 expandFlag = true;
@@ -373,7 +376,8 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                                       eliminarHistorial(
                                                           context,
                                                           snapshot.data[i]
-                                                              .historial);
+                                                              .historial,
+                                                          'general');
                                                     }),
                                               ],
                                             ),

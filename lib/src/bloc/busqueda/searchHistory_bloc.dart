@@ -35,8 +35,8 @@ class SearchHistoryBloc {
     _searchHistoryController.sink.add(await obtenerHistorial());
   }
 
-  void obtenerAllHistorial() async {
-    _historyController.sink.add(await historyDB.obtenerBusqueda());
+  void obtenerAllHistorial(String page) async {
+    _historyController.sink.add(await historyDB.obtenerBusqueda(page));
   }
 
   Future<List<SearchHistoryModel>> obtenerHistorial() async {

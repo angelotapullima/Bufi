@@ -399,7 +399,8 @@ class DatabaseProvider {
           ')');
       await db.execute('CREATE TABLE Historial ('
           'text VARCHAR PRIMARY KEY,'
-          'fecha VARCHAR'
+          'fecha VARCHAR,'
+          'page_busqueda VARCHAR'
           ')');
     });
   }

@@ -782,7 +782,7 @@ void agregarHistorialBusqueda(BuildContext context, String idBusqueda,
   searchBloc.listarSearchHistory();
 }
 
-void agregarHistorial(BuildContext context, String text) async {
+void agregarHistorial(BuildContext context, String text, String page) async {
   final historialDB = HistorialDb();
   final searchBloc = ProviderBloc.searHistory(context);
 
@@ -790,21 +790,21 @@ void agregarHistorial(BuildContext context, String text) async {
     var now = new DateTime.now();
     var formatter = new DateFormat('yyyy-MM-dd H:m');
     String formattedDate = formatter.format(now);
-    historialDB.insertarBusqueda(text, formattedDate);
+    historialDB.insertarBusqueda(text, formattedDate, page);
   }
 
-  await historialDB.obtenerBusqueda();
+  await historialDB.obtenerBusqueda(page);
 
-  searchBloc.obtenerAllHistorial();
+  searchBloc.obtenerAllHistorial(page);
 }
 
-void eliminarHistorial(BuildContext context, String text) async {
+void eliminarHistorial(BuildContext context, String text, String page) async {
   final historialDB = HistorialDb();
   final searchBloc = ProviderBloc.searHistory(context);
 
   await historialDB.deleteHistorial(text);
 
-  searchBloc.obtenerAllHistorial();
+  searchBloc.obtenerAllHistorial(page);
 }
 
 void irADetalleProducto(BienesServiciosModel model, BuildContext context) {

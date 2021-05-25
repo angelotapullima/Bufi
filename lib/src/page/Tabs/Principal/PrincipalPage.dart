@@ -670,7 +670,8 @@ class _SugerenciaBusquedaState extends State<SugerenciaBusqueda> {
           children: [
             Expanded(
               child: Text(
-                'De acuerdo a lo que buscaste',
+                //'De acuerdo a lo que buscaste',
+                'De acuerdo a lo que viste',
                 style: TextStyle(
                     fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
               ),

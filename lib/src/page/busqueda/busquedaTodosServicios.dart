@@ -6,20 +6,20 @@ import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 
-class BusquedaTodosProductos extends StatefulWidget {
-  const BusquedaTodosProductos({Key key}) : super(key: key);
+class BusquedaTodosServicios extends StatefulWidget {
+  const BusquedaTodosServicios({Key key}) : super(key: key);
 
   @override
-  _BusquedaTodosProductosState createState() => _BusquedaTodosProductosState();
+  _BusquedaTodosServiciosState createState() => _BusquedaTodosServiciosState();
 }
 
-class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
-  TextEditingController _controllerBusquedaProducto = TextEditingController();
+class _BusquedaTodosServiciosState extends State<BusquedaTodosServicios> {
+  TextEditingController _controllerBuscarServicios = TextEditingController();
   bool expandFlag = false;
 
   @override
   void dispose() {
-    _controllerBusquedaProducto.dispose();
+    _controllerBuscarServicios.dispose();
     super.dispose();
   }
 
@@ -27,7 +27,7 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final busquedaBloc = ProviderBloc.busqueda(context);
-      busquedaBloc.obtenerBusquedaProducto(context, '');
+      busquedaBloc.obtenerBusquedaServicio(context, '');
     });
     super.initState();
   }
@@ -37,7 +37,7 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
     final responsive = Responsive.of(context);
     final busquedaBloc = ProviderBloc.busqueda(context);
     final searchBloc = ProviderBloc.searHistory(context);
-    searchBloc.obtenerAllHistorial('pro');
+    searchBloc.obtenerAllHistorial('ser');
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -56,10 +56,10 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                       BackButton(),
                       Expanded(
                         child: TextField(
-                          controller: _controllerBusquedaProducto,
+                          controller: _controllerBuscarServicios,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
-                            hintText: 'Buscar Productos',
+                            hintText: 'Buscar Servicios',
                             hintStyle: TextStyle(
                               fontSize: responsive.ip(1.6),
                             ),
@@ -71,9 +71,9 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                               expandFlag = false;
                             });
                             if (value.length >= 0 && value != ' ') {
-                              busquedaBloc.obtenerBusquedaProducto(
+                              busquedaBloc.obtenerBusquedaServicio(
                                   context, '$value');
-                              agregarHistorial(context, value, 'pro');
+                              agregarHistorial(context, value, 'ser');
                             }
                           },
                           onTap: () {
@@ -86,15 +86,15 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                       IconButton(
                           icon: Icon(Icons.search),
                           onPressed: () {
-                            if (_controllerBusquedaProducto.text.length >= 0 &&
-                                _controllerBusquedaProducto.text != ' ') {
+                            if (_controllerBuscarServicios.text.length >= 0 &&
+                                _controllerBuscarServicios.text != ' ') {
                               setState(() {
                                 expandFlag = false;
                               });
-                              busquedaBloc.obtenerBusquedaNegocio(context,
-                                  '${_controllerBusquedaProducto.text}');
+                              busquedaBloc.obtenerBusquedaServicio(context,
+                                  '${_controllerBuscarServicios.text}');
                               agregarHistorial(context,
-                                  _controllerBusquedaProducto.text, 'pro');
+                                  _controllerBuscarServicios.text, 'ser');
                             } else {
                               setState(() {
                                 expandFlag = true;
@@ -104,7 +104,7 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                       IconButton(
                           icon: Icon(Icons.close),
                           onPressed: () {
-                            _controllerBusquedaProducto.text = '';
+                            _controllerBuscarServicios.text = '';
                             setState(() {
                               expandFlag = true;
                             });
@@ -116,7 +116,7 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                   ),
                 ),
                 Expanded(
-                  child: ListaProductos(),
+                  child: ListaServicios(),
                 )
               ],
             ),
@@ -140,23 +140,23 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                                 itemBuilder: (BuildContext context, int i) {
                                   return GestureDetector(
                                     onTap: () {
-                                      _controllerBusquedaProducto.text =
+                                      _controllerBuscarServicios.text =
                                           snapshot.data[i].historial;
-                                      if (_controllerBusquedaProducto
+                                      if (_controllerBuscarServicios
                                                   .text.length >=
                                               0 &&
-                                          _controllerBusquedaProducto.text !=
+                                          _controllerBuscarServicios.text !=
                                               ' ') {
                                         setState(() {
                                           expandFlag = false;
                                         });
-                                        busquedaBloc.obtenerBusquedaNegocio(
+                                        busquedaBloc.obtenerBusquedaServicio(
                                             context,
-                                            '${_controllerBusquedaProducto.text}');
+                                            '${_controllerBuscarServicios.text}');
                                         agregarHistorial(
                                             context,
-                                            _controllerBusquedaProducto.text,
-                                            'pro');
+                                            _controllerBuscarServicios.text,
+                                            'ser');
                                       } else {
                                         setState(() {
                                           expandFlag = true;
@@ -177,7 +177,7 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                                                 eliminarHistorial(
                                                     context,
                                                     snapshot.data[i].historial,
-                                                    'pro');
+                                                    'ser');
                                               }),
                                         ],
                                       ),

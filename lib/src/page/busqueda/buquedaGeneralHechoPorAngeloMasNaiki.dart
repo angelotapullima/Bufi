@@ -2386,30 +2386,7 @@ class ListaProductosYServiciosIdSubisdiary extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int i) {
-                    return ListTile(
-                      leading: FadeInImage(
-                        placeholder: AssetImage('assets/no-image.png'),
-                        image: NetworkImage(
-                          '$apiBaseURL/${snapshot.data[i].productoImage}',
-                        ),
-                        width: responsive.wp(5),
-                        fit: BoxFit.contain,
-                      ),
-                      title: Text('${snapshot.data[i].productoName}'),
-                      subtitle: Text('${snapshot.data[i].productoCurrency}'),
-                      onTap: () {
-                        //close(context, null);
-
-                        /* Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DetalleProductos(
-                              producto: snapshot.data[i],
-                            ),
-                          ),
-                        ); */
-                      },
-                    );
+                    return _crearItem(context, snapshot.data[i], responsive);
                   });
             } else {
               return Center(
@@ -2429,6 +2406,104 @@ class ListaProductosYServiciosIdSubisdiary extends StatelessWidget {
             );
           }
         });
+  }
+
+  Widget _crearItem(
+      BuildContext context, ProductoModel productoData, Responsive responsive) {
+    return GestureDetector(
+      onTap: () {
+        agregarHistorialBusqueda(context, productoData.idProducto, 'Producto',
+            productoData.productoName, productoData.productoImage);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetalleProductos(
+              idProducto: productoData.idProducto,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.15),
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: Offset(2, 3),
+            ),
+          ],
+        ),
+        margin: EdgeInsets.all(responsive.ip(1)),
+        height: responsive.hp(15),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                width: responsive.wp(42),
+                child: CachedNetworkImage(
+                  placeholder: (context, url) => Image(
+                    image: AssetImage('assets/jar-loading.gif'),
+                    fit: BoxFit.cover,
+                  ),
+                  errorWidget: (context, url, error) => Image(
+                      image: AssetImage('assets/carga_fallida.jpg'),
+                      fit: BoxFit.cover),
+                  imageUrl: '$apiBaseURL/${productoData.productoImage}',
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: responsive.wp(53),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    '${productoData.productoName}',
+                    style: TextStyle(
+                        fontSize: responsive.ip(2.3),
+                        fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                      '${productoData.productoCurrency} ${productoData.productoPrice}',
+                      style: TextStyle(
+                          fontSize: responsive.ip(2.5),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red)),
+                  Text('${productoData.productoBrand}'),
+                  Text('${productoData.productoSize}'),
+                  Text('${productoData.productoModel}')
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 

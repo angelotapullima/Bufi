@@ -77,10 +77,10 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     //Context
-    // PushNotificationService.messagesStream.listen((message) {
-    //   //print('MyApp: $message ');
-    //   Catcher.navigatorKey.currentState.pushNamed('notificaciones');
-    // });
+    PushNotificationService.messagesStream.listen((message) {
+      //print('MyApp: $message ');
+      Catcher.navigatorKey.currentState.pushNamed('notificaciones');
+    });
   }
 
   @override

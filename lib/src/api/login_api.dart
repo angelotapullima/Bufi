@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bufi/src/api/token_api.dart';
 import 'package:bufi/src/models/usuario_model.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
@@ -35,6 +36,9 @@ class LoginApi {
         prefs.idRoleUser = prodTemp.idRoleUser;
         prefs.roleName = prodTemp.roleName;
         prefs.token = decodedData['data']['tn'];
+
+        final tokenApi = TokenApi();
+        tokenApi.enviarToken();
 
         return code;
       } else {

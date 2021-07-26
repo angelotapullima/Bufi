@@ -264,7 +264,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
     Future<File> Function(File file) cropImage,
   }) async {
     final pickedFile =
-        await ImagePicker().getImage(source: source, imageQuality: 80);
+        await ImagePicker().pickImage(source: source, imageQuality: 80);
     if (pickedFile == null) return null;
     if (cropImage == null) {
       return File(pickedFile.path);

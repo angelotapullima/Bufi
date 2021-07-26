@@ -252,7 +252,7 @@ class _SubirVaucherState extends State<SubirVaucher> {
   }
 
   getImage(ImageSource source) async {
-    final pickedFile = await ImagePicker().getImage(source: source);
+    final pickedFile = await ImagePicker().pickImage(source: source);
     //File image = await ImagePicker.pickImage(source: source);
     if (pickedFile != null) {
       //File image = File(pickedFile.path);

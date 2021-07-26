@@ -129,6 +129,7 @@ class _HomePageState extends State<HomePage> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return BottomNavigationBar(
           elevation: 0.0,
+          unselectedItemColor: Colors.black,
           selectedItemColor:
               Theme.of(context).textSelectionTheme.selectionColor,
           type: BottomNavigationBarType.fixed,
@@ -169,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                             width: responsive.ip(1.6),
                             height: responsive.ip(1.6),
                             decoration: BoxDecoration(
-                                color: Colors.green, shape: BoxShape.circle),
+                                color: Colors.red, shape: BoxShape.circle),
                           ),
                           //child: Icon(Icons.brightness_1, size: 8,color: Colors.redAccent,  )
                         )

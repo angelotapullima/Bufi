@@ -31,9 +31,9 @@ final lightTheme = ThemeData.light().copyWith(
 );
 
 class InstagramColors {
-  static final Color blue = Color(0xFF1B29C6);
+  static final Color pink = Color(0xFF1B51C6);
   static final Color purple = Color(0xFF8134AF);
-  static final Color pink = Color(0xFFDD2A7B);
+  static final Color blue = Color(0xFFDD2A7B);
   static final Color yellow = Color(0xFFFDEA77);
   static final Color orange = Color(0xFFF58529);
   static final Color grey = Color(0xFFBABABA);

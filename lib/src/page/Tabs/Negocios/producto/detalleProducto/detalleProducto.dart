@@ -449,7 +449,7 @@ class _CuerpoState extends State<Cuerpo> {
                             //Rating del producto
                             Container(
                               padding: EdgeInsets.only(left: responsive.wp(5)),
-                              width: responsive.wp(30),
+                              width: responsive.wp(35),
                               child: RatingBar.readOnly(
                                 size: 20,
                                 initialRating:

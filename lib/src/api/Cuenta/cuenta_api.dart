@@ -12,7 +12,7 @@ import 'package:http/http.dart' as http;
 class CuentaApi {
   final cuentaDatabase = CuentaDatabase();
   final prefs = Preferences();
-
+ 
   Future<int> obtenerSaldo() async {
     try {
       var response = await http.post(

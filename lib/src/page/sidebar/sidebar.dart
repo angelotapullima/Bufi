@@ -8,8 +8,7 @@ class SideBar extends StatefulWidget {
   _SideBarState createState() => _SideBarState();
 }
 
-class _SideBarState extends State<SideBar>
-    with SingleTickerProviderStateMixin<SideBar> {
+class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<SideBar> {
   int currentSelectedIndex = 0;
 
   // var subtitulo = TextStyle(fontSize: 16, color: Colors.black);
@@ -54,7 +53,7 @@ class _SideBarState extends State<SideBar>
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final responsive = Responsive.of(context);
-    
+
     return StreamBuilder<bool>(
       initialData: false,
       stream: isSidebarOpenedStream,

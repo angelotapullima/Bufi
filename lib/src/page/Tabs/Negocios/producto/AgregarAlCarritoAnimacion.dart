@@ -11,8 +11,7 @@ class Agregarcarrito extends StatefulWidget {
   _AgregarcarritoState createState() => _AgregarcarritoState();
 }
 
-class _AgregarcarritoState extends State<Agregarcarrito>
-    with SingleTickerProviderStateMixin {
+class _AgregarcarritoState extends State<Agregarcarrito> with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation _animationButton1;
   Animation _animationMovementIn;
@@ -50,8 +49,7 @@ class _AgregarcarritoState extends State<Agregarcarrito>
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+        Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
       }
     });
     super.initState();
@@ -75,8 +73,7 @@ class _AgregarcarritoState extends State<Agregarcarrito>
       child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
-            final buttonSize =
-                (responsive.wp(30) * _animationButton1.value).clamp(
+            final buttonSize = (responsive.wp(30) * _animationButton1.value).clamp(
               responsive.ip(6),
               responsive.wp(30),
             );
@@ -101,18 +98,14 @@ class _AgregarcarritoState extends State<Agregarcarrito>
                     children: [
                       if (_animationMovementIn.value != 1)
                         Positioned(
-                          top: responsive.hp(45) +
-                              (_animationMovementIn.value *
-                                  responsive.hp(43.9)),
+                          top: responsive.hp(45) + (_animationMovementIn.value * responsive.hp(43.9)),
                           left: responsive.wp(50) -
-                              (responsive.wp(100) * _animationButton1.value)
-                                      .clamp(
+                              (responsive.wp(100) * _animationButton1.value).clamp(
                                     responsive.ip(6),
                                     responsive.wp(100),
                                   ) /
                                   2,
-                          width: (responsive.wp(100) * _animationButton1.value)
-                              .clamp(
+                          width: (responsive.wp(100) * _animationButton1.value).clamp(
                             responsive.ip(6),
                             responsive.wp(100),
                           ),
@@ -142,9 +135,7 @@ class _AgregarcarritoState extends State<Agregarcarrito>
                             //ancho del circular == responsive.wp(10)
                             child: Container(
                               width: buttonSize,
-                              height:
-                                  (responsive.hp(5) * _animationButton1.value)
-                                      .clamp(
+                              height: (responsive.hp(5) * _animationButton1.value).clamp(
                                 responsive.ip(6),
                                 responsive.wp(30),
                               ),
@@ -153,8 +144,7 @@ class _AgregarcarritoState extends State<Agregarcarrito>
                               ),
                               decoration: BoxDecoration(
                                 color: Colors.black,
-                                borderRadius:
-                                    BorderRadiusDirectional.circular(100),
+                                borderRadius: BorderRadiusDirectional.circular(100),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -209,21 +199,15 @@ class _AgregarcarritoState extends State<Agregarcarrito>
             child: child);
       },
       child: Container(
-        height: (responsive.hp(55) * _animationButton1.value)
-            .clamp(responsive.ip(6), responsive.hp(55)),
-        width: (responsive.wp(100) * _animationButton1.value)
-            .clamp(responsive.ip(6), responsive.wp(100)),
+        height: (responsive.hp(55) * _animationButton1.value).clamp(responsive.ip(6), responsive.hp(55)),
+        width: (responsive.wp(100) * _animationButton1.value).clamp(responsive.ip(6), responsive.wp(100)),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
-            bottomLeft: (_animationButton1.value == 1)
-                ? Radius.circular(0)
-                : Radius.circular(30),
-            bottomRight: (_animationButton1.value == 1)
-                ? Radius.circular(0)
-                : Radius.circular(30),
+            bottomLeft: (_animationButton1.value == 1) ? Radius.circular(0) : Radius.circular(30),
+            bottomRight: (_animationButton1.value == 1) ? Radius.circular(0) : Radius.circular(30),
           ),
         ),
         child: Column(
@@ -233,20 +217,14 @@ class _AgregarcarritoState extends State<Agregarcarrito>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: (responsive.hp(25) * _animationButton1.value)
-                      .clamp(responsive.ip(4.5), responsive.hp(25)),
-                  width: (responsive.wp(35) * _animationButton1.value)
-                      .clamp(responsive.ip(4.5), responsive.wp(35)),
+                  height: (responsive.hp(25) * _animationButton1.value).clamp(responsive.ip(4.5), responsive.hp(25)),
+                  width: (responsive.wp(35) * _animationButton1.value).clamp(responsive.ip(4.5), responsive.wp(35)),
                   child: Stack(
                     children: [
                       Container(
                         child: CachedNetworkImage(
-                          placeholder: (context, url) => Image(
-                              image: AssetImage('assets/jar-loading.gif'),
-                              fit: BoxFit.cover),
-                          errorWidget: (context, url, error) => Image(
-                              image: AssetImage('assets/carga_fallida.jpg'),
-                              fit: BoxFit.cover),
+                          placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
+                          errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
                           imageUrl: widget.urlImage,
                           imageBuilder: (context, imageProvider) => Container(
                             decoration: BoxDecoration(

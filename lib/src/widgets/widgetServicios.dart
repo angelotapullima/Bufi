@@ -23,8 +23,7 @@ class _ServiciosWidgetState extends State<ServiciosWidget> {
     final responsive = Responsive.of(context);
     return GestureDetector(
       child: Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: responsive.wp(1), vertical: responsive.hp(.5)),
+        margin: EdgeInsets.symmetric(horizontal: responsive.wp(1), vertical: responsive.hp(.5)),
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -43,17 +42,12 @@ class _ServiciosWidgetState extends State<ServiciosWidget> {
                 children: <Widget>[
                   Container(
                     child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8)),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                       child: CachedNetworkImage(
                         //cacheManager: CustomCacheManager(),
-                        placeholder: (context, url) => Image(
-                            image: AssetImage('assets/jar-loading.gif'),
-                            fit: BoxFit.cover),
+                        placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                         errorWidget: (context, url, error) => Icon(Icons.error),
-                        imageUrl:
-                            '$apiBaseURL/${widget.serviceData.subsidiaryServiceImage}',
+                        imageUrl: '$apiBaseURL/${widget.serviceData.subsidiaryServiceImage}',
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
@@ -68,37 +62,25 @@ class _ServiciosWidgetState extends State<ServiciosWidget> {
                 ],
               ),
             ),
-            (widget.serviceData.subsidiaryServiceFavourite == '1')
-                ? _favorito(responsive, context)
-                : _desfavorito(responsive, context),
+            (widget.serviceData.subsidiaryServiceFavourite == '1') ? _favorito(responsive, context) : _desfavorito(responsive, context),
             Text(
               widget.serviceData.subsidiaryServiceName,
-              style: TextStyle(
-                  fontSize: responsive.ip(1.5), color: Color(0XFFb1bdef)),
+              style: TextStyle(fontSize: responsive.ip(1.5), color: Color(0XFFb1bdef)),
             ),
-            Text(
-                '${widget.serviceData.subsidiaryServiceCurrency} ${widget.serviceData.subsidiaryServicePrice}',
-                style: TextStyle(
-                    fontSize: responsive.ip(1.9),
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red)),
+            Text('${widget.serviceData.subsidiaryServiceCurrency} ${widget.serviceData.subsidiaryServicePrice}',
+                style: TextStyle(fontSize: responsive.ip(1.9), fontWeight: FontWeight.bold, color: Colors.red)),
             Text(
               widget.serviceData.subsidiaryServiceDescription,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: responsive.ip(1.5),
-                  color: Colors.red),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: responsive.ip(1.5), color: Colors.red),
             ),
           ],
         ),
       ),
       onTap: () {
-        utils.agregarPSaSugerencia(
-            context, widget.serviceData.idSubsidiaryservice, 'servicio');
-        Navigator.pushNamed(context, 'detalleServicio',
-            arguments: widget.serviceData.idSubsidiaryservice);
+        utils.agregarPSaSugerencia(context, widget.serviceData.idSubsidiaryservice, 'servicio');
+        Navigator.pushNamed(context, 'detalleServicio', arguments: widget.serviceData.idSubsidiaryservice);
       },
     );
   }
@@ -148,12 +130,10 @@ class _ServiciosWidgetState extends State<ServiciosWidget> {
 
 class ServiciosCompletoWidget extends StatefulWidget {
   final BienesServiciosModel serviceData;
-  ServiciosCompletoWidget({Key key, @required this.serviceData})
-      : super(key: key);
+  ServiciosCompletoWidget({Key key, @required this.serviceData}) : super(key: key);
 
   @override
-  _ServiciosCompletoWidgetState createState() =>
-      _ServiciosCompletoWidgetState();
+  _ServiciosCompletoWidgetState createState() => _ServiciosCompletoWidgetState();
 }
 
 class _ServiciosCompletoWidgetState extends State<ServiciosCompletoWidget> {
@@ -162,8 +142,7 @@ class _ServiciosCompletoWidgetState extends State<ServiciosCompletoWidget> {
     final responsive = Responsive.of(context);
     return GestureDetector(
       child: Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: responsive.wp(1), vertical: responsive.hp(.5)),
+        margin: EdgeInsets.symmetric(horizontal: responsive.wp(1), vertical: responsive.hp(.5)),
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -182,17 +161,12 @@ class _ServiciosCompletoWidgetState extends State<ServiciosCompletoWidget> {
                 children: <Widget>[
                   Container(
                     child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8)),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                       child: CachedNetworkImage(
                         //cacheManager: CustomCacheManager(),
-                        placeholder: (context, url) => Image(
-                            image: AssetImage('assets/jar-loading.gif'),
-                            fit: BoxFit.cover),
+                        placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                         errorWidget: (context, url, error) => Icon(Icons.error),
-                        imageUrl:
-                            '$apiBaseURL/${widget.serviceData.subsidiaryServiceImage}',
+                        imageUrl: '$apiBaseURL/${widget.serviceData.subsidiaryServiceImage}',
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
@@ -216,38 +190,25 @@ class _ServiciosCompletoWidgetState extends State<ServiciosCompletoWidget> {
                       height: responsive.hp(3),
                       child: Text(
                         'Servicio',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: responsive.ip(1.5),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
                 ],
               ),
             ),
-            (widget.serviceData.subsidiaryServiceFavourite == '1')
-                ? _favorito(responsive, context)
-                : _desfavorito(responsive, context),
+            (widget.serviceData.subsidiaryServiceFavourite == '1') ? _favorito(responsive, context) : _desfavorito(responsive, context),
             Text(
               widget.serviceData.subsidiaryServiceName,
-              style: TextStyle(
-                  fontSize: responsive.ip(1.5), color: Color(0XFFb1bdef)),
+              style: TextStyle(fontSize: responsive.ip(1.5), color: Color(0XFFb1bdef)),
             ),
-            Text(
-                '${widget.serviceData.subsidiaryServiceCurrency} ${widget.serviceData.subsidiaryServicePrice}',
-                style: TextStyle(
-                    fontSize: responsive.ip(1.9),
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red)),
+            Text('${widget.serviceData.subsidiaryServiceCurrency} ${widget.serviceData.subsidiaryServicePrice}',
+                style: TextStyle(fontSize: responsive.ip(1.9), fontWeight: FontWeight.bold, color: Colors.red)),
             Text(
               widget.serviceData.subsidiaryServiceDescription,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: responsive.ip(1.5),
-                  color: Colors.red),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: responsive.ip(1.5), color: Colors.red),
             ),
           ],
         ),
@@ -255,8 +216,7 @@ class _ServiciosCompletoWidgetState extends State<ServiciosCompletoWidget> {
       onTap: () {
         // utils.agregarPSaSugerencia(
         //     context, widget.serviceData.idSubsidiaryservice, 'servicio');
-        Navigator.pushNamed(context, 'detalleServicio',
-            arguments: widget.serviceData.idSubsidiaryservice);
+        Navigator.pushNamed(context, 'detalleServicio', arguments: widget.serviceData.idSubsidiaryservice);
       },
     );
   }
@@ -304,12 +264,10 @@ class _ServiciosCompletoWidgetState extends State<ServiciosCompletoWidget> {
   }
 }
 
-Widget serviceWidgetCompleto(BuildContext context,
-    BienesServiciosModel serviceData, Responsive responsive) {
+Widget serviceWidgetCompleto(BuildContext context, BienesServiciosModel serviceData, Responsive responsive) {
   return GestureDetector(
     child: Container(
-      margin: EdgeInsets.symmetric(
-          horizontal: responsive.wp(1), vertical: responsive.hp(1)),
+      margin: EdgeInsets.symmetric(horizontal: responsive.wp(1), vertical: responsive.hp(1)),
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
           color: Colors.grey.withOpacity(0.5),
@@ -328,17 +286,12 @@ Widget serviceWidgetCompleto(BuildContext context,
               children: <Widget>[
                 Container(
                   child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8)),
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                     child: CachedNetworkImage(
                       //cacheManager: CustomCacheManager(),
-                      placeholder: (context, url) => Image(
-                          image: AssetImage('assets/jar-loading.gif'),
-                          fit: BoxFit.cover),
+                      placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                       errorWidget: (context, url, error) => Icon(Icons.error),
-                      imageUrl:
-                          '$apiBaseURL/${serviceData.subsidiaryServiceImage}',
+                      imageUrl: '$apiBaseURL/${serviceData.subsidiaryServiceImage}',
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
@@ -362,10 +315,7 @@ Widget serviceWidgetCompleto(BuildContext context,
                     height: responsive.hp(3),
                     child: Text(
                       'Servicio',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: responsive.ip(1.5),
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                     ),
                   ),
                 )
@@ -403,8 +353,7 @@ Widget serviceWidgetCompleto(BuildContext context,
                         color: Colors.red.withOpacity(.2),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child:
-                          Icon(FontAwesomeIcons.solidHeart, color: Colors.red),
+                      child: Icon(FontAwesomeIcons.solidHeart, color: Colors.red),
                     ),
                   ),
                   onTap: () {
@@ -423,40 +372,29 @@ Widget serviceWidgetCompleto(BuildContext context,
                             color: Colors.red.withOpacity(.2),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child:
-                              Icon(FontAwesomeIcons.heart, color: Colors.red))),
+                          child: Icon(FontAwesomeIcons.heart, color: Colors.red))),
                   onTap: () {
                     guardarServicioFavorito2(context, serviceData);
                   },
                 ),
           Text(
             serviceData.subsidiaryServiceName,
-            style: TextStyle(
-                fontSize: responsive.ip(1.5), color: Color(0XFFb1bdef)),
+            style: TextStyle(fontSize: responsive.ip(1.5), color: Color(0XFFb1bdef)),
           ),
-          Text(
-              '${serviceData.subsidiaryServiceCurrency} ${serviceData.subsidiaryServicePrice}',
-              style: TextStyle(
-                  fontSize: responsive.ip(1.9),
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red)),
+          Text('${serviceData.subsidiaryServiceCurrency} ${serviceData.subsidiaryServicePrice}',
+              style: TextStyle(fontSize: responsive.ip(1.9), fontWeight: FontWeight.bold, color: Colors.red)),
           Text(
             serviceData.subsidiaryServiceDescription,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: responsive.ip(1.5),
-                color: Colors.red),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: responsive.ip(1.5), color: Colors.red),
           ),
         ],
       ),
     ),
     onTap: () {
-      utils.agregarPSaSugerencia(
-          context, serviceData.idSubsidiaryservice, 'servicio');
-      Navigator.pushNamed(context, 'detalleServicio',
-          arguments: serviceData.idSubsidiaryservice);
+      utils.agregarPSaSugerencia(context, serviceData.idSubsidiaryservice, 'servicio');
+      Navigator.pushNamed(context, 'detalleServicio', arguments: serviceData.idSubsidiaryservice);
     },
   );
 }
@@ -489,14 +427,10 @@ Widget grillaServicios(Responsive responsive, BienesServiciosModel data) {
             children: <Widget>[
               Container(
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8)),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                   child: CachedNetworkImage(
                     //cacheManager: CustomCacheManager(),
-                    placeholder: (context, url) => Image(
-                        image: AssetImage('assets/jar-loading.gif'),
-                        fit: BoxFit.cover),
+                    placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                     imageUrl: '$apiBaseURL/${data.subsidiaryServiceImage}',
                     imageBuilder: (context, imageProvider) => Container(
@@ -520,10 +454,7 @@ Widget grillaServicios(Responsive responsive, BienesServiciosModel data) {
                   height: responsive.hp(3),
                   child: Text(
                     'Servicio',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: responsive.ip(1.5),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                   ),
                 ),
               )
@@ -572,24 +503,14 @@ Widget grillaServicios(Responsive responsive, BienesServiciosModel data) {
         ),
         Text(
           '${data.subsidiaryServiceName}',
-          style: TextStyle(
-              fontSize: responsive.ip(1.5),
-              color: Colors.grey[800],
-              fontWeight: FontWeight.w700),
+          style: TextStyle(fontSize: responsive.ip(1.5), color: Colors.grey[800], fontWeight: FontWeight.w700),
         ),
-        Text('${data.subsidiaryServiceCurrency} ${data.subsidiaryServicePrice}',
-            style: TextStyle(
-                fontSize: responsive.ip(1.9),
-                fontWeight: FontWeight.bold,
-                color: Colors.red)),
+        Text('${data.subsidiaryServiceCurrency} ${data.subsidiaryServicePrice}', style: TextStyle(fontSize: responsive.ip(1.9), fontWeight: FontWeight.bold, color: Colors.red)),
         Text(
           '${data.subsidiaryServiceDescription}',
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: responsive.ip(1.5),
-              color: Colors.red),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: responsive.ip(1.5), color: Colors.red),
         ),
       ],
     ),

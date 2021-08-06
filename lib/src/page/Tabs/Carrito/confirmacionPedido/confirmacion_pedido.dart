@@ -819,7 +819,7 @@ class ResumenPedido extends StatelessWidget {
                     cont++;
                   }
                 }
-
+ 
                 if (ok) {
                   provider.changeCargando();
 

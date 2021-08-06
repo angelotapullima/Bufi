@@ -23,18 +23,13 @@ import 'package:bufi/src/widgets/extentions.dart';
 class ProYSerPorItemSubcategoryPage extends StatefulWidget {
   final String idItem;
   final String nameItem;
-  ProYSerPorItemSubcategoryPage(
-      {Key key, @required this.idItem, @required this.nameItem})
-      : super(key: key);
+  ProYSerPorItemSubcategoryPage({Key key, @required this.idItem, @required this.nameItem}) : super(key: key);
 
   @override
-  _ProYSerPorItemSubcategoryPageState createState() =>
-      _ProYSerPorItemSubcategoryPageState();
+  _ProYSerPorItemSubcategoryPageState createState() => _ProYSerPorItemSubcategoryPageState();
 }
 
-class _ProYSerPorItemSubcategoryPageState
-    extends State<ProYSerPorItemSubcategoryPage>
-    with SingleTickerProviderStateMixin<ProYSerPorItemSubcategoryPage> {
+class _ProYSerPorItemSubcategoryPageState extends State<ProYSerPorItemSubcategoryPage> with SingleTickerProviderStateMixin<ProYSerPorItemSubcategoryPage> {
   ScrollController _scrollControllerListview = ScrollController();
   ScrollController _scrollControllerGridview = ScrollController();
 
@@ -46,27 +41,22 @@ class _ProYSerPorItemSubcategoryPageState
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: _animationDuration);
+    _animationController = AnimationController(vsync: this, duration: _animationDuration);
     isSidebarOpenedStreamController = PublishSubject<bool>();
     isSidebarOpenedStream = isSidebarOpenedStreamController.stream;
     isSidebarOpenedSink = isSidebarOpenedStreamController.sink;
 
     WidgetsBinding.instance.addPostFrameCallback((_) => {
           _scrollControllerListview.addListener(() {
-            if (_scrollControllerListview.position.pixels + 100 >
-                _scrollControllerListview.position.maxScrollExtent) {
+            if (_scrollControllerListview.position.pixels + 100 > _scrollControllerListview.position.maxScrollExtent) {
               final itemSubcatBloc = ProviderBloc.itemSubcategoria(context);
-              itemSubcatBloc
-                  .listarBienesServiciosXIdItemSubcategoria(widget.idItem);
+              itemSubcatBloc.listarBienesServiciosXIdItemSubcategoria(widget.idItem);
             }
           }),
           _scrollControllerGridview.addListener(() {
-            if (_scrollControllerGridview.position.pixels + 100 >
-                _scrollControllerGridview.position.maxScrollExtent) {
+            if (_scrollControllerGridview.position.pixels + 100 > _scrollControllerGridview.position.maxScrollExtent) {
               final itemSubcatBloc = ProviderBloc.itemSubcategoria(context);
-              itemSubcatBloc
-                  .listarBienesServiciosXIdItemSubcategoria(widget.idItem);
+              itemSubcatBloc.listarBienesServiciosXIdItemSubcategoria(widget.idItem);
             }
           })
         });
@@ -130,9 +120,7 @@ class _ProYSerPorItemSubcategoryPageState
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
-                                style: TextStyle(
-                                    fontSize: responsive.ip(2.5),
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                               ),
                             ),
                           )
@@ -145,9 +133,7 @@ class _ProYSerPorItemSubcategoryPageState
                           width: responsive.wp(2),
                         ),
                         Expanded(
-                          child: BusquedaProAndSerItemSubcategoriaWidget(
-                              responsive: responsive,
-                              idItemsubcategory: widget.idItem),
+                          child: BusquedaProAndSerItemSubcategoriaWidget(responsive: responsive, idItemsubcategory: widget.idItem),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -172,20 +158,14 @@ class _ProYSerPorItemSubcategoryPageState
                     ),
                     StreamBuilder(
                       stream: itemSubcatBloc.itemSubStream,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<BienesServiciosModel>>
-                              snapshotdd) {
+                      builder: (BuildContext context, AsyncSnapshot<List<BienesServiciosModel>> snapshotdd) {
                         if (snapshotdd.hasData) {
                           if (snapshotdd.data.length > 0) {
-                            return (!data)
-                                ? _listaBienesServicios(
-                                    snapshotdd.data, responsive)
-                                : _grilla(snapshotdd.data, responsive);
+                            return (!data) ? _listaBienesServicios(snapshotdd.data, responsive) : _grilla(snapshotdd.data, responsive);
                           } else {
                             return StreamBuilder(
                                 stream: itemSubcatBloc.cargandoItemsStream,
-                                builder:
-                                    (context, AsyncSnapshot<bool> snapshot) {
+                                builder: (context, AsyncSnapshot<bool> snapshot) {
                                   bool _enabled = true;
 
                                   if (snapshot.hasData) {
@@ -197,11 +177,9 @@ class _ProYSerPorItemSubcategoryPageState
                                           enabled: _enabled,
                                           child: ListView.builder(
                                             itemBuilder: (_, __) => Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 8.0),
+                                              padding: const EdgeInsets.only(bottom: 8.0),
                                               child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Container(
                                                     width: 48.0,
@@ -209,39 +187,27 @@ class _ProYSerPorItemSubcategoryPageState
                                                     color: Colors.white,
                                                   ),
                                                   const Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 8.0),
+                                                    padding: EdgeInsets.symmetric(horizontal: 8.0),
                                                   ),
                                                   Expanded(
                                                     child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: <Widget>[
                                                         Container(
-                                                          width:
-                                                              double.infinity,
+                                                          width: double.infinity,
                                                           height: 8.0,
                                                           color: Colors.white,
                                                         ),
                                                         const Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  vertical:
-                                                                      2.0),
+                                                          padding: EdgeInsets.symmetric(vertical: 2.0),
                                                         ),
                                                         Container(
-                                                          width:
-                                                              double.infinity,
+                                                          width: double.infinity,
                                                           height: 8.0,
                                                           color: Colors.white,
                                                         ),
                                                         const Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  vertical:
-                                                                      2.0),
+                                                          padding: EdgeInsets.symmetric(vertical: 2.0),
                                                         ),
                                                         Container(
                                                           width: 40.0,
@@ -260,8 +226,7 @@ class _ProYSerPorItemSubcategoryPageState
                                       );
                                     } else {
                                       return Center(
-                                        child: Text(
-                                            "No existen productos para mostrar"),
+                                        child: Text("No existen productos para mostrar"),
                                       );
                                     }
                                   } else {
@@ -305,8 +270,7 @@ class _ProYSerPorItemSubcategoryPageState
                         ),
                         child: ClipRRect(
                           child: new BackdropFilter(
-                            filter:
-                                new ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                            filter: new ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                             child: new Container(
                               decoration: new BoxDecoration(
                                 color: Colors.white.withOpacity(0.0),
@@ -339,19 +303,15 @@ class _ProYSerPorItemSubcategoryPageState
     return Expanded(
       child: GridView.builder(
           controller: _scrollControllerGridview,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, childAspectRatio: .7),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: .7),
           itemCount: data.length,
           itemBuilder: (context, index) {
-            return ('${data[index].tipo}' == 'bienes')
-                ? grillaBienes(responsive, data[index])
-                : grillaServicios(responsive, data[index]);
+            return ('${data[index].tipo}' == 'bienes') ? grillaBienes(responsive, data[index]) : grillaServicios(responsive, data[index]);
           }),
     );
   }
 
-  Widget _listaBienesServicios(
-      List<BienesServiciosModel> data, Responsive responsive) {
+  Widget _listaBienesServicios(List<BienesServiciosModel> data, Responsive responsive) {
     return Expanded(
         child: ListView.builder(
       controller: _scrollControllerListview,
@@ -367,8 +327,7 @@ class _ProYSerPorItemSubcategoryPageState
     ));
   }
 
-  Widget _serviciosWidget(
-      Responsive responsive, List<BienesServiciosModel> data, int index) {
+  Widget _serviciosWidget(Responsive responsive, List<BienesServiciosModel> data, int index) {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, "detalleServicio");
@@ -392,12 +351,9 @@ class _ProYSerPorItemSubcategoryPageState
                       placeholder: (context, url) => Container(
                         width: double.infinity,
                         height: double.infinity,
-                        child: Image(
-                            image: AssetImage('assets/loading.gif'),
-                            fit: BoxFit.fitWidth),
+                        child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.fitWidth),
                       ),
-                      imageUrl:
-                          '$apiBaseURL/${data[index].subsidiaryServiceImage}',
+                      imageUrl: '$apiBaseURL/${data[index].subsidiaryServiceImage}',
                       fit: BoxFit.cover,
                       //'assets/producto.jpg'
                       //'$apiBaseURL/${data[index].subsidiaryGoodImage}'
@@ -414,10 +370,7 @@ class _ProYSerPorItemSubcategoryPageState
                       child: Text(
                         '${data[index].subsidiaryServiceName}',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: responsive.ip(2),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -431,10 +384,7 @@ class _ProYSerPorItemSubcategoryPageState
                       height: responsive.hp(3),
                       child: Text(
                         'Servicio',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: responsive.ip(1.5),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
@@ -450,22 +400,15 @@ class _ProYSerPorItemSubcategoryPageState
                 children: [
                   Text(
                     '${data[index].subsidiaryServiceName}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                   ),
                   Text(
                     '${data[index].subsidiaryServiceCurrency + data[index].subsidiaryServicePrice}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2.5),
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(2.5), color: Colors.red, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     '${data[index].subsidiaryServiceDescription}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(1.8),
-                        fontWeight: FontWeight.w700),
+                    style: TextStyle(fontSize: responsive.ip(1.8), fontWeight: FontWeight.w700),
                   ),
                   SizedBox(height: 8),
                   Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -486,8 +429,7 @@ class _ProYSerPorItemSubcategoryPageState
     );
   }
 
-  Widget bienesWidget(
-      Responsive responsive, List<BienesServiciosModel> data, int index) {
+  Widget bienesWidget(Responsive responsive, List<BienesServiciosModel> data, int index) {
     return GestureDetector(
       onTap: () {
         irADetalleProducto(data[index], context);
@@ -512,12 +454,9 @@ class _ProYSerPorItemSubcategoryPageState
                         placeholder: (context, url) => Container(
                           width: double.infinity,
                           height: double.infinity,
-                          child: Image(
-                              image: AssetImage('assets/loading.gif'),
-                              fit: BoxFit.cover),
+                          child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.cover),
                         ),
-                        imageUrl:
-                            '$apiBaseURL/${data[index].subsidiaryGoodImage}',
+                        imageUrl: '$apiBaseURL/${data[index].subsidiaryGoodImage}',
                         fit: BoxFit.fitWidth,
                       ),
                     ),
@@ -533,10 +472,7 @@ class _ProYSerPorItemSubcategoryPageState
                       child: Text(
                         '${data[index].subsidiaryGoodName}',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: responsive.ip(2),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -552,10 +488,7 @@ class _ProYSerPorItemSubcategoryPageState
                       height: responsive.hp(3),
                       child: Text(
                         'Producto',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: responsive.ip(1.5),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
@@ -569,23 +502,15 @@ class _ProYSerPorItemSubcategoryPageState
                 children: [
                   Text(
                     '${data[index].subsidiaryGoodName}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2.5),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                   ),
                   //Text('${data[index].subsidiaryGoodMeasure}'),
 
                   Text(
                     '${data[index].subsidiaryGoodCurrency + data[index].subsidiaryGoodPrice}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2.5),
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(2.5), color: Colors.red, fontWeight: FontWeight.bold),
                   ),
-                  Text('${data[index].subsidiaryGoodBrand}',
-                      style: TextStyle(
-                          fontSize: responsive.ip(2.5),
-                          fontWeight: FontWeight.bold)),
+                  Text('${data[index].subsidiaryGoodBrand}', style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold)),
                   SizedBox(height: 8),
                   Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                     Icon(
@@ -646,9 +571,7 @@ class _FiltroPageState extends State<FiltroPageTodosLosProductos> {
               padding: EdgeInsets.symmetric(
                 horizontal: responsive.wp(3),
               ),
-              child: ContenidoFilterTodosLosProductos(
-                  iconPressed: widget.iconPressed,
-                  idItemsubcategory: widget.idItemsubcategory),
+              child: ContenidoFilterTodosLosProductos(iconPressed: widget.iconPressed, idItemsubcategory: widget.idItemsubcategory),
             ),
           ),
         ],
@@ -705,9 +628,7 @@ class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
                           ),
                           child: Text(
                             'Tipos',
-                            style: TextStyle(
-                                fontSize: responsive.ip(2),
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                           ),
                         );
                       }
@@ -739,9 +660,7 @@ class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
                           ),
                           child: Text(
                             'Marcas',
-                            style: TextStyle(
-                                fontSize: responsive.ip(2),
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                           ),
                         );
                       }
@@ -774,9 +693,7 @@ class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
                           ),
                           child: Text(
                             'Modelos',
-                            style: TextStyle(
-                                fontSize: responsive.ip(2),
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                           ),
                         );
                       }
@@ -807,9 +724,7 @@ class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
                           ),
                           child: Text(
                             'Tallas',
-                            style: TextStyle(
-                                fontSize: responsive.ip(2),
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                           ),
                         );
                       }
@@ -851,10 +766,7 @@ class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
                   ),
                   child: Text(
                     'Filtrar',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: responsive.ip(2),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.white, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                   ).ripple(
                     () {
                       bool pase = true;
@@ -896,17 +808,9 @@ class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
                       }
 
                       if (pase) {
-                        itemSubcatBloc
-                            .listarBienesServiciosXIdItemSubcategoriaFiltrado(
-                                widget.idItemsubcategory,
-                                productos,
-                                services,
-                                tashas,
-                                modeshos,
-                                marcash);
+                        itemSubcatBloc.listarBienesServiciosXIdItemSubcategoriaFiltrado(widget.idItemsubcategory, productos, services, tashas, modeshos, marcash);
                       } else {
-                        itemSubcatBloc.listarBienesServiciosXIdItemSubcategoria(
-                            widget.idItemsubcategory);
+                        itemSubcatBloc.listarBienesServiciosXIdItemSubcategoria(widget.idItemsubcategory);
                       }
                       widget.iconPressed();
                     },

@@ -17,8 +17,7 @@ class ListCategoriasPrincipal extends StatelessWidget {
 
     return StreamBuilder(
         stream: categoriaBloc.categoriaStream,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<CategoriaModel>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<CategoriaModel>> snapshot) {
           List<CategoriaModel> listCategoria = snapshot.data;
 
           if (snapshot.hasData) {
@@ -43,23 +42,18 @@ class ListCategoriasPrincipal extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(PageRouteBuilder(
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) {
+                                pageBuilder: (context, animation, secondaryAnimation) {
                                   return SubcategoryPorCategoryPage(
-                                    nombreCategoria:
-                                        snapshot.data[index].categoryName,
-                                    idCategoria:
-                                        snapshot.data[index].idCategory,
+                                    nombreCategoria: snapshot.data[index].categoryName,
+                                    idCategoria: snapshot.data[index].idCategory,
                                   );
                                 },
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                   var begin = Offset(0.0, 1.0);
                                   var end = Offset.zero;
                                   var curve = Curves.ease;
 
-                                  var tween =
-                                      Tween(begin: begin, end: end).chain(
+                                  var tween = Tween(begin: begin, end: end).chain(
                                     CurveTween(curve: curve),
                                   );
 
@@ -74,10 +68,8 @@ class ListCategoriasPrincipal extends StatelessWidget {
                             },
                             child: CircleAvatar(
                               radius: responsive.hp(3.2),
-                              backgroundColor: Colors.primaries[
-                                  Random().nextInt(Colors.primaries.length)],
-                              child: Icon(Icons.access_alarm_sharp,
-                                  color: Colors.white),
+                              backgroundColor: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+                              child: Icon(Icons.access_alarm_sharp, color: Colors.white),
                             ),
                           ),
                           Text(

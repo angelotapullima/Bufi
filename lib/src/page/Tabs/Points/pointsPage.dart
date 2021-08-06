@@ -34,8 +34,7 @@ class _PointsPageState extends State<PointsPage> {
     return Scaffold(
       body: StreamBuilder(
         stream: pointsProdBloc.favProductoStrem,
-        builder:
-            (BuildContext context, AsyncSnapshot<List<PointModel>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<PointModel>> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.length > 0) {
               return SafeArea(
@@ -55,10 +54,7 @@ class _PointsPageState extends State<PointsPage> {
                                 children: [
                                   Text(
                                     'Mis Points',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: responsive.ip(3),
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(color: Colors.black, fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -66,15 +62,10 @@ class _PointsPageState extends State<PointsPage> {
                           : Container(
                               color: Colors.transparent,
                               width: double.infinity,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: responsive.wp(5),
-                                  vertical: responsive.hp(1)),
+                              padding: EdgeInsets.symmetric(horizontal: responsive.wp(5), vertical: responsive.hp(1)),
                               child: Text(
                                 'Mis Points',
-                                style: TextStyle(
-                                    color: Colors.transparent,
-                                    fontSize: responsive.ip(2.5),
-                                    fontWeight: FontWeight.w700),
+                                style: TextStyle(color: Colors.transparent, fontSize: responsive.ip(2.5), fontWeight: FontWeight.w700),
                               ),
                             );
                     },
@@ -100,10 +91,7 @@ class _PointsPageState extends State<PointsPage> {
                                 children: [
                                   Text(
                                     'Mis Points',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: responsive.ip(3),
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(color: Colors.black, fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
                                   ),
                                   Spacer(),
                                 ],
@@ -124,13 +112,10 @@ class _PointsPageState extends State<PointsPage> {
                                   ambos: snapshot.data,
                                 )
                               : (productosList && !servicesList)
-                                  ? ProductosVerdaderos(
-                                      xxx: xxx, producto: snapshot.data)
+                                  ? ProductosVerdaderos(xxx: xxx, producto: snapshot.data)
                                   : (!productosList && servicesList)
-                                      ? ServiciosVerdaderos(
-                                          xxx: xxx, servicios: snapshot.data)
-                                      : _soloSucursal(
-                                          responsive, context, snapshot, xxx);
+                                      ? ServiciosVerdaderos(xxx: xxx, servicios: snapshot.data)
+                                      : _soloSucursal(responsive, context, snapshot, xxx);
                         }),
                   )
                 ]),
@@ -150,10 +135,7 @@ class _PointsPageState extends State<PointsPage> {
                         children: [
                           Text(
                             'Mis Points',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: responsive.ip(3),
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(color: Colors.black, fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -177,8 +159,7 @@ class _PointsPageState extends State<PointsPage> {
     );
   }
 
-  Widget _soloSucursal(Responsive responsive, BuildContext context,
-      AsyncSnapshot<List<PointModel>> snapshot, int xxx) {
+  Widget _soloSucursal(Responsive responsive, BuildContext context, AsyncSnapshot<List<PointModel>> snapshot, int xxx) {
     return Dismissible(
       key: UniqueKey(),
       direction: DismissDirection.horizontal,
@@ -224,9 +205,7 @@ class _PointsPageState extends State<PointsPage> {
               children: [
                 Text(
                   '${snapshot.data[xxx].subsidiaryName}',
-                  style: TextStyle(
-                      fontSize: responsive.ip(2.5),
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                 ),
                 Spacer(),
                 Row(
@@ -253,16 +232,13 @@ class _PointsPageState extends State<PointsPage> {
                           'Ver más',
                           style: TextStyle(color: Colors.white),
                         ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.red),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.red),
                       ),
                     ),
                     IconButton(
                       icon: Icon(Icons.delete),
                       onPressed: () {
-                        quitarSubsidiaryFavoritodePointPage(
-                            context, snapshot.data[xxx]);
+                        quitarSubsidiaryFavoritodePointPage(context, snapshot.data[xxx]);
                       },
                     )
                   ],
@@ -333,8 +309,7 @@ class ProductosVerdaderos extends StatelessWidget {
               itemBuilder: (BuildContext context, int i) {
                 final goodData = producto[xxx].listProducto[i];
 
-                return WidgetBienesFavoritos(
-                    responsive: responsive, goodData: goodData);
+                return WidgetBienesFavoritos(responsive: responsive, goodData: goodData);
               }),
         ),
       ],
@@ -379,8 +354,7 @@ class ServiciosVerdaderos extends StatelessWidget {
                 itemBuilder: (BuildContext context, int i) {
                   final goodData = servicios[xxx].listServicio[i];
 
-                  return WidgetServiciosFavoritos(
-                      responsive: responsive, serviceData: goodData);
+                  return WidgetServiciosFavoritos(responsive: responsive, serviceData: goodData);
                 }),
           ),
         ],
@@ -429,8 +403,7 @@ class AmbosVerdaderos extends StatelessWidget {
                     itemBuilder: (BuildContext context, int i) {
                       final goodData = ambos[xxx].listProducto[i];
 
-                      return WidgetBienesFavoritos(
-                          responsive: responsive, goodData: goodData);
+                      return WidgetBienesFavoritos(responsive: responsive, goodData: goodData);
                     }),
               ),
               Container(
@@ -442,8 +415,7 @@ class AmbosVerdaderos extends StatelessWidget {
                     itemBuilder: (BuildContext context, int i) {
                       final goodData = ambos[xxx].listServicio[i];
 
-                      return WidgetServiciosFavoritos(
-                          responsive: responsive, serviceData: goodData);
+                      return WidgetServiciosFavoritos(responsive: responsive, serviceData: goodData);
                     }),
               ),
             ],
@@ -499,9 +471,7 @@ class WidgetBienesFavoritos extends StatelessWidget {
                         topRight: Radius.circular(8),
                       ),
                       child: CachedNetworkImage(
-                        placeholder: (context, url) => Image(
-                            image: AssetImage('assets/jar-loading.gif'),
-                            fit: BoxFit.cover),
+                        placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                         errorWidget: (context, url, error) => Icon(Icons.error),
                         imageUrl: '$apiBaseURL/${goodData.productoImage}',
                         imageBuilder: (context, imageProvider) => Container(
@@ -527,10 +497,7 @@ class WidgetBienesFavoritos extends StatelessWidget {
                       height: responsive.hp(3),
                       child: Text(
                         'Producto',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: responsive.ip(1.5),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
@@ -592,15 +559,11 @@ class WidgetBienesFavoritos extends StatelessWidget {
                         color: Colors.green.withOpacity(.2),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: (goodData.productoFavourite == '0')
-                          ? Icon(FontAwesomeIcons.heart, color: Colors.red)
-                          : Icon(FontAwesomeIcons.solidHeart,
-                              color: Colors.red),
+                      child: (goodData.productoFavourite == '0') ? Icon(FontAwesomeIcons.heart, color: Colors.red) : Icon(FontAwesomeIcons.solidHeart, color: Colors.red),
                     ),
                     onTap: () {
                       quitarProductoFavorito(context, goodData);
-                      utils.showToast(
-                          context, 'el producto se quitó de favoritos');
+                      utils.showToast(context, 'el producto se quitó de favoritos');
                     },
                   )
                 ],
@@ -608,16 +571,9 @@ class WidgetBienesFavoritos extends StatelessWidget {
             ),
             Text(
               goodData.productoName,
-              style: TextStyle(
-                  fontSize: responsive.ip(1.5),
-                  color: Colors.grey[800],
-                  fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: responsive.ip(1.5), color: Colors.grey[800], fontWeight: FontWeight.w700),
             ),
-            Text('${goodData.productoCurrency} ${goodData.productoPrice}',
-                style: TextStyle(
-                    fontSize: responsive.ip(1.9),
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red)),
+            Text('${goodData.productoCurrency} ${goodData.productoPrice}', style: TextStyle(fontSize: responsive.ip(1.9), fontWeight: FontWeight.bold, color: Colors.red)),
             Text(
               goodData.productoBrand,
               style: TextStyle(
@@ -641,8 +597,7 @@ class WidgetBienesFavoritos extends StatelessWidget {
               );
               //return DetalleProductitos(productosData: productosData);
             },
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
               return FadeTransition(
                 opacity: animation,
                 child: child,
@@ -700,12 +655,9 @@ class WidgetServiciosFavoritos extends StatelessWidget {
                         topRight: Radius.circular(8),
                       ),
                       child: CachedNetworkImage(
-                        placeholder: (context, url) => Image(
-                            image: AssetImage('assets/jar-loading.gif'),
-                            fit: BoxFit.cover),
+                        placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                         errorWidget: (context, url, error) => Icon(Icons.error),
-                        imageUrl:
-                            '$apiBaseURL/${serviceData.subsidiaryServiceImage}',
+                        imageUrl: '$apiBaseURL/${serviceData.subsidiaryServiceImage}',
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
@@ -729,10 +681,7 @@ class WidgetServiciosFavoritos extends StatelessWidget {
                       height: responsive.hp(3),
                       child: Text(
                         'Servicio',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: responsive.ip(1.5),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
@@ -758,15 +707,12 @@ class WidgetServiciosFavoritos extends StatelessWidget {
                         color: Colors.green.withOpacity(.2),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: (serviceData.subsidiaryServiceFavourite == '0')
-                          ? Icon(FontAwesomeIcons.heart, color: Colors.red)
-                          : Icon(FontAwesomeIcons.solidHeart,
-                              color: Colors.red),
+                      child:
+                          (serviceData.subsidiaryServiceFavourite == '0') ? Icon(FontAwesomeIcons.heart, color: Colors.red) : Icon(FontAwesomeIcons.solidHeart, color: Colors.red),
                     ),
                     onTap: () {
                       quitarServicioFavorito(context, serviceData);
-                      utils.showToast(
-                          context, 'el servicio se eliminó de favoritos');
+                      utils.showToast(context, 'el servicio se eliminó de favoritos');
                     },
                   )
                 ],
@@ -774,17 +720,10 @@ class WidgetServiciosFavoritos extends StatelessWidget {
             ),
             Text(
               serviceData.subsidiaryServiceName,
-              style: TextStyle(
-                  fontSize: responsive.ip(1.5),
-                  color: Colors.grey[800],
-                  fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: responsive.ip(1.5), color: Colors.grey[800], fontWeight: FontWeight.w700),
             ),
-            Text(
-                '${serviceData.subsidiaryServiceCurrency} ${serviceData.subsidiaryServicePrice}',
-                style: TextStyle(
-                    fontSize: responsive.ip(1.9),
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red)),
+            Text('${serviceData.subsidiaryServiceCurrency} ${serviceData.subsidiaryServicePrice}',
+                style: TextStyle(fontSize: responsive.ip(1.9), fontWeight: FontWeight.bold, color: Colors.red)),
             // Text(
             //   serviceData.br,
             //   style: TextStyle(
@@ -796,8 +735,7 @@ class WidgetServiciosFavoritos extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Navigator.pushNamed(context, 'detalleServicio',
-            arguments: serviceData.idSubsidiaryservice);
+        Navigator.pushNamed(context, 'detalleServicio', arguments: serviceData.idSubsidiaryservice);
       },
     );
   }

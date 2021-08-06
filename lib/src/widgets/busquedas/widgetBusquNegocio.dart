@@ -14,9 +14,6 @@ class BusquedaNegocioWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-
-
-
         Navigator.of(context).push(PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) {
             return BusquedaNegocio();
@@ -42,8 +39,7 @@ class BusquedaNegocioWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
         height: responsive.hp(5),
-        decoration: BoxDecoration(
-            color: Colors.grey[300], borderRadius: BorderRadius.circular(25)),
+        decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(25)),
         child: Row(
           children: [
             IconButton(

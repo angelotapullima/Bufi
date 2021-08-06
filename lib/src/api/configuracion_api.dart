@@ -19,16 +19,11 @@ class ConfiguracionApi {
       if (decodedData['tipos_pago'].length > 0) {
         for (var i = 0; i < decodedData['tipos_pago'].length; i++) {
           TiposPagoModel tiposPagoModel = TiposPagoModel();
-          tiposPagoModel.idTipoPago =
-              decodedData['tipos_pago'][i]['id_tipo_pago'];
-          tiposPagoModel.tipoPagoNombre =
-              decodedData['tipos_pago'][i]['tipo_pago_nombre'];
-          tiposPagoModel.tipoPagoEstado =
-              decodedData['tipos_pago'][i]['tipo_pago_estado'];
-          tiposPagoModel.tipoPagoImg =
-              decodedData['tipos_pago'][i]['tipo_pago_img'];
-          tiposPagoModel.tipoPagoMsj =
-              decodedData['tipos_pago'][i]['tipo_pago_msj'];
+          tiposPagoModel.idTipoPago = decodedData['tipos_pago'][i]['id_tipo_pago'];
+          tiposPagoModel.tipoPagoNombre = decodedData['tipos_pago'][i]['tipo_pago_nombre'];
+          tiposPagoModel.tipoPagoEstado = decodedData['tipos_pago'][i]['tipo_pago_estado'];
+          tiposPagoModel.tipoPagoImg = decodedData['tipos_pago'][i]['tipo_pago_img'];
+          tiposPagoModel.tipoPagoMsj = decodedData['tipos_pago'][i]['tipo_pago_msj'];
 
           await tiposPagoDatabase.insertarTiposPago(tiposPagoModel);
         }

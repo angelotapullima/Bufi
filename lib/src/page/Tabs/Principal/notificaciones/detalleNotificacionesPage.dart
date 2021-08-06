@@ -9,8 +9,7 @@ class DetalleNotificacionesPage extends StatefulWidget {
   final NotificacionesModel noti;
 
   @override
-  _DetalleNotificacionesPageState createState() =>
-      _DetalleNotificacionesPageState();
+  _DetalleNotificacionesPageState createState() => _DetalleNotificacionesPageState();
 }
 
 class _DetalleNotificacionesPageState extends State<DetalleNotificacionesPage> {
@@ -28,16 +27,8 @@ class _DetalleNotificacionesPageState extends State<DetalleNotificacionesPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('${widget.noti.notificacionMensaje}',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: responsive.ip(2),
-                      fontWeight: FontWeight.bold)),
-              Text('$fecha',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: responsive.ip(2),
-                      fontWeight: FontWeight.bold)),
+              Text('${widget.noti.notificacionMensaje}', style: TextStyle(color: Colors.black, fontSize: responsive.ip(2), fontWeight: FontWeight.bold)),
+              Text('$fecha', style: TextStyle(color: Colors.black, fontSize: responsive.ip(2), fontWeight: FontWeight.bold)),
             ],
           ),
         ),

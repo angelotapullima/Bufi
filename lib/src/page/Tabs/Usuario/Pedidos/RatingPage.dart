@@ -54,10 +54,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                 color: Colors.white,
                 height: double.infinity,
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      top: responsive.ip(4),
-                      left: responsive.ip(2),
-                      right: responsive.ip(2)),
+                  padding: EdgeInsets.only(top: responsive.ip(4), left: responsive.ip(2), right: responsive.ip(2)),
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,8 +79,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                           },
                         ),
                         SizedBox(height: responsive.hp(2)),
-                        Text("Puedes dejarnos un comentario (100 caracteres)",
-                            style: TextStyle(fontSize: responsive.ip(2))),
+                        Text("Puedes dejarnos un comentario (100 caracteres)", style: TextStyle(fontSize: responsive.ip(2))),
                         SizedBox(height: responsive.hp(1)),
                         Container(
                           decoration: BoxDecoration(border: Border.all()),
@@ -136,21 +132,12 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                           child: SizedBox(
                               width: responsive.wp(80),
                               child: ElevatedButton(
-                                child: Text("Calificar",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: responsive.ip(2.2))),
+                                child: Text("Calificar", style: TextStyle(color: Colors.white, fontSize: responsive.ip(2.2))),
                                 onPressed: () async {
-                                  await _submit(
-                                      pedido, comentarioController, context);
+                                  await _submit(pedido, comentarioController, context);
                                 },
                                 style: ElevatedButton.styleFrom(
-                                    elevation: 3,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0)),
-                                    primary: Colors.red,
-                                    onPrimary: Colors.white),
+                                    elevation: 3, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)), primary: Colors.red, onPrimary: Colors.white),
                               )),
                         )
                       ],
@@ -164,24 +151,16 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                       color: Colors.white54,
                       child: Center(
                         child: Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(10)),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(10)),
+                          margin: EdgeInsets.symmetric(horizontal: responsive.wp(10)),
+                          padding: EdgeInsets.symmetric(horizontal: responsive.wp(10)),
                           width: double.infinity,
                           height: responsive.hp(13),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
+                          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
                           child: Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: responsive.wp(10),
-                                vertical: responsive.wp(6)),
+                            margin: EdgeInsets.symmetric(horizontal: responsive.wp(10), vertical: responsive.wp(6)),
                             height: responsive.ip(4),
                             width: responsive.ip(4),
-                            child: Image(
-                                image: AssetImage('assets/cargando.gif'),
-                                fit: BoxFit.contain),
+                            child: Image(image: AssetImage('assets/cargando.gif'), fit: BoxFit.contain),
                           ),
                         ),
                       ),
@@ -227,18 +206,12 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
         });
   }
 
-  Future _submit(PedidosModel pedido,
-      TextEditingController comentarioController, BuildContext context) async {
+  Future _submit(PedidosModel pedido, TextEditingController comentarioController, BuildContext context) async {
     final pedidoApi = PedidoApi();
     if (comentarioController.text.length > 0) {
       if (valueRating > 0.0) {
         _cargando.value = true;
-        final int code = await pedidoApi.valoracion(
-            foto,
-            pedido.detallePedido[0].idProducto,
-            pedido.idPedido,
-            comentarioController.text,
-            valueRating.toString());
+        final int code = await pedidoApi.valoracion(foto, pedido.detallePedido[0].idProducto, pedido.idPedido, comentarioController.text, valueRating.toString());
         if (code == 1) {
           //Para redibujar el widget en la pagina de pedidos enviados
           actualizarEstadoValoracion(pedido.idPedido);
@@ -263,8 +236,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
     ImageSource source,
     Future<File> Function(File file) cropImage,
   }) async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: source, imageQuality: 80);
+    final pickedFile = await ImagePicker().pickImage(source: source, imageQuality: 80);
     if (pickedFile == null) return null;
     if (cropImage == null) {
       return File(pickedFile.path);
@@ -285,8 +257,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
     });
   }
 
-  Future<File> cropRectangleImage(File imageFile) async =>
-      await ImageCropper.cropImage(
+  Future<File> cropRectangleImage(File imageFile) async => await ImageCropper.cropImage(
         sourcePath: imageFile.path,
         aspectRatioPresets: Platform.isAndroid
             ? [
@@ -296,11 +267,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
                 CropAspectRatioPreset.ratio3x2,
               ],
         androidUiSettings: AndroidUiSettings(
-            toolbarTitle: 'Recortar',
-            toolbarColor: Colors.deepOrange,
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.square,
-            lockAspectRatio: true),
+            toolbarTitle: 'Recortar', toolbarColor: Colors.deepOrange, toolbarWidgetColor: Colors.white, initAspectRatio: CropAspectRatioPreset.square, lockAspectRatio: true),
         iosUiSettings: IOSUiSettings(
           title: 'Imagen',
         ),
@@ -313,8 +280,7 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
         width: responsive.wp(20),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
-          child: Image.file(
-              foto) /*Image(
+          child: Image.file(foto) /*Image(
             image: AssetImage(foto.path),
             height: responsive.hp(38),
             fit: BoxFit.cover,

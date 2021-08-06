@@ -1,6 +1,3 @@
-
-
-
 import 'package:rxdart/subjects.dart';
 
 class PorcentajesBloc {
@@ -16,5 +13,4 @@ class PorcentajesBloc {
   dispose() {
     _porcentajesController?.close();
   }
-
 }

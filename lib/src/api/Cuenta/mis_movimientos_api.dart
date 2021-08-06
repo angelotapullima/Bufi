@@ -14,28 +14,23 @@ class MisMovimientosApi {
     try {
       final url = '$apiBaseURL/api/Cuenta/listar_pagos_por_id_usuario';
 
-      final resp = await http.post(Uri.parse(url),
-          body: {'id_user': prefs.idUser, 'app': 'true', 'tn': prefs.token});
+      final resp = await http.post(Uri.parse(url), body: {'id_user': prefs.idUser, 'app': 'true', 'tn': prefs.token});
 
       final decodedData = json.decode(resp.body);
 
       if (decodedData['results'].length > 0) {
         for (int i = 0; i < decodedData['results'].length; i++) {
           MisMovimientosModel misMovimientosModel = MisMovimientosModel();
-          misMovimientosModel.nroOperacion =
-              decodedData['results'][i]['nro_operacion'];
+          misMovimientosModel.nroOperacion = decodedData['results'][i]['nro_operacion'];
           misMovimientosModel.concepto = decodedData['results'][i]['concepto'];
           misMovimientosModel.tipoPago = decodedData['results'][i]['tipo_pago'];
           misMovimientosModel.monto = decodedData['results'][i]['monto'];
-          misMovimientosModel.comision =
-              decodedData['results'][i]['comision'].toString();
+          misMovimientosModel.comision = decodedData['results'][i]['comision'].toString();
           misMovimientosModel.fecha = decodedData['results'][i]['fecha'];
-          misMovimientosModel.soloFecha =
-              decodedData['results'][i]['solo_fecha'];
+          misMovimientosModel.soloFecha = decodedData['results'][i]['solo_fecha'];
           misMovimientosModel.ind = decodedData['results'][i]['ind'].toString();
 
-          await misMovimientosDatabase
-              .insertarMisMovimientos(misMovimientosModel);
+          await misMovimientosDatabase.insertarMisMovimientos(misMovimientosModel);
         }
 
         return true;

@@ -57,10 +57,7 @@ void main() async {
   ]);
 
   /// STEP 2. Pass your root widget (MyApp) along with Catcher configuration:
-  Catcher(
-      rootWidget: MyApp(),
-      debugConfig: debugOptions,
-      releaseConfig: releaseOptions);
+  Catcher(rootWidget: MyApp(), debugConfig: debugOptions, releaseConfig: releaseOptions);
 
   //runApp(MyApp());
 }
@@ -111,11 +108,7 @@ class _MyAppState extends State<MyApp> {
         child: MaterialApp(
             navigatorKey: Catcher.navigatorKey,
             builder: (BuildContext context, Widget widget) {
-              Catcher.addDefaultErrorWidget(
-                  showStacktrace: true,
-                  title: "Custom error title",
-                  description: "Custom error description",
-                  maxWidthForSmallMode: 150);
+              Catcher.addDefaultErrorWidget(showStacktrace: true, title: "Custom error title", description: "Custom error description", maxWidthForSmallMode: 150);
               return Container(
                   //appBar: AppBar(title: Text('Error'),),
                   color: Colors.white,
@@ -149,8 +142,7 @@ class _MyAppState extends State<MyApp> {
               //Bienes
               "listarBienesAll": (BuildContext context) => ListarBienesAll(),
               //Servicios
-              "listarServiciosAll": (BuildContext context) =>
-                  ListarServiciosAll(),
+              "listarServiciosAll": (BuildContext context) => ListarServiciosAll(),
 
               //Negocio
               //"registroNegocio": (BuildContext context) => RegistroNegocio(),
@@ -174,16 +166,12 @@ class _MyAppState extends State<MyApp> {
 
               //Direccion
               'direccion': (BuildContext context) => DireccionDeliveryPage(),
-              'agregarDireccion': (BuildContext context) =>
-                  AgregarDireccionPage(),
+              'agregarDireccion': (BuildContext context) => AgregarDireccionPage(),
               //Pedidos
               'pedidos': (BuildContext context) => PedidosPage(),
-              'pedidosEnviados': (BuildContext context) =>
-                  PedidosEnviadosPage(),
-              'valoracion': (BuildContext context) =>
-                  PendientesValoracionPage(),
-              'ratingProductos': (BuildContext context) =>
-                  RatingProductosPage(),
+              'pedidosEnviados': (BuildContext context) => PedidosEnviadosPage(),
+              'valoracion': (BuildContext context) => PendientesValoracionPage(),
+              'ratingProductos': (BuildContext context) => RatingProductosPage(),
               //Bufis
               'misMovimientos': (BuildContext context) => MisMovimientosPage(),
               'recargarSaldo': (BuildContext context) => RecargarSaldo(),

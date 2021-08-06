@@ -27,8 +27,7 @@ class ProductosApi {
 
   Future<dynamic> listarProductosPorSucursal(String id) async {
     //funcion para obtener el producto con el id mas alto de la lista
-    final productosPorSucursal =
-        await productoDatabase.obtenerProductosPorIdSubsidiary(id);
+    final productosPorSucursal = await productoDatabase.obtenerProductosPorIdSubsidiary(id);
 
     double mayor = 0;
     double mayor2 = 0;
@@ -53,14 +52,12 @@ class ProductosApi {
       }
     }
 
-    final response = await http.post(
-        Uri.parse('$apiBaseURL/api/Negocio/listar_productos_por_sucursal'),
-        body: {
-          'id_sucursal': '$id',
-          'limite_sup': mayor.toString(),
-          'limite_inf': menor.toString(),
-          'id_ciudad': '1',
-        });
+    final response = await http.post(Uri.parse('$apiBaseURL/api/Negocio/listar_productos_por_sucursal'), body: {
+      'id_sucursal': '$id',
+      'limite_sup': mayor.toString(),
+      'limite_inf': menor.toString(),
+      'id_ciudad': '1',
+    });
 
     final decodedData = json.decode(response.body);
 
@@ -68,44 +65,26 @@ class ProductosApi {
       for (var i = 0; i < decodedData['results'].length; i++) {
         //SubsidiaryGoodModel
         ProductoModel productoModel = ProductoModel();
-        productoModel.idProducto =
-            decodedData['results'][i]["id_subsidiarygood"];
+        productoModel.idProducto = decodedData['results'][i]["id_subsidiarygood"];
         productoModel.idSubsidiary = decodedData['results'][i]["id_subsidiary"];
         productoModel.idGood = decodedData['results'][i]["id_good"];
-        productoModel.idItemsubcategory =
-            decodedData['results'][i]['id_itemsubcategory'];
-        productoModel.productoName =
-            decodedData['results'][i]['subsidiary_good_name'];
-        productoModel.productoPrice =
-            decodedData['results'][i]['subsidiary_good_price'];
-        productoModel.productoCurrency =
-            decodedData['results'][i]['subsidiary_good_currency'];
-        productoModel.productoImage =
-            decodedData['results'][i]['subsidiary_good_image'];
-        productoModel.productoCharacteristics =
-            decodedData['results'][i]['subsidiary_good_characteristics'];
-        productoModel.productoBrand =
-            decodedData['results'][i]['subsidiary_good_brand'];
-        productoModel.productoModel =
-            decodedData['results'][i]['subsidiary_good_model'];
-        productoModel.productoType =
-            decodedData['results'][i]['subsidiary_good_type'];
-        productoModel.productoSize =
-            decodedData['results'][i]['subsidiary_good_size'];
-        productoModel.productoStock =
-            decodedData['results'][i]['subsidiary_good_stock'];
-        productoModel.productoMeasure =
-            decodedData['results'][i]['subsidiary_good_stock_measure'];
-        productoModel.productoRating =
-            decodedData['results'][i]['subsidiary_good_rating'];
-        productoModel.productoUpdated =
-            decodedData['results'][i]['subsidiary_good_updated'];
-        productoModel.productoStatus =
-            decodedData['results'][i]['subsidiary_good_status'];
+        productoModel.idItemsubcategory = decodedData['results'][i]['id_itemsubcategory'];
+        productoModel.productoName = decodedData['results'][i]['subsidiary_good_name'];
+        productoModel.productoPrice = decodedData['results'][i]['subsidiary_good_price'];
+        productoModel.productoCurrency = decodedData['results'][i]['subsidiary_good_currency'];
+        productoModel.productoImage = decodedData['results'][i]['subsidiary_good_image'];
+        productoModel.productoCharacteristics = decodedData['results'][i]['subsidiary_good_characteristics'];
+        productoModel.productoBrand = decodedData['results'][i]['subsidiary_good_brand'];
+        productoModel.productoModel = decodedData['results'][i]['subsidiary_good_model'];
+        productoModel.productoType = decodedData['results'][i]['subsidiary_good_type'];
+        productoModel.productoSize = decodedData['results'][i]['subsidiary_good_size'];
+        productoModel.productoStock = decodedData['results'][i]['subsidiary_good_stock'];
+        productoModel.productoMeasure = decodedData['results'][i]['subsidiary_good_stock_measure'];
+        productoModel.productoRating = decodedData['results'][i]['subsidiary_good_rating'];
+        productoModel.productoUpdated = decodedData['results'][i]['subsidiary_good_updated'];
+        productoModel.productoStatus = decodedData['results'][i]['subsidiary_good_status'];
 
-        var productList =
-            await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
-                decodedData['results'][i]['id_subsidiarygood']);
+        var productList = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(decodedData['results'][i]['id_subsidiarygood']);
 
         if (productList.length > 0) {
           productoModel.productoFavourite = productList[0].productoFavourite;
@@ -118,28 +97,18 @@ class ProductosApi {
         submodel.idCompany = decodedData['results'][i]["id_company"];
         submodel.idSubsidiary = decodedData['results'][i]["id_subsidiary"];
         submodel.subsidiaryName = decodedData['results'][i]['subsidiary_name'];
-        submodel.subsidiaryAddress =
-            decodedData['results'][i]['subsidiary_address'];
-        submodel.subsidiaryCellphone =
-            decodedData['results'][i]['subsidiary_cellphone'];
-        submodel.subsidiaryCellphone2 =
-            decodedData['results'][i]['subsidiary_cellphone_2'];
-        submodel.subsidiaryEmail =
-            decodedData['results'][i]['subsidiary_email'];
-        submodel.subsidiaryCoordX =
-            decodedData['results'][i]['subsidiary_coord_x'];
-        submodel.subsidiaryCoordY =
-            decodedData['results'][i]['subsidiary_coord_y'];
-        submodel.subsidiaryOpeningHours =
-            decodedData['results'][i]['subsidiary_opening_hours'];
-        submodel.subsidiaryPrincipal =
-            decodedData['results'][i]['subsidiary_principal'];
-        submodel.subsidiaryStatus =
-            decodedData['results'][i]['subsidiary_status'];
+        submodel.subsidiaryAddress = decodedData['results'][i]['subsidiary_address'];
+        submodel.subsidiaryCellphone = decodedData['results'][i]['subsidiary_cellphone'];
+        submodel.subsidiaryCellphone2 = decodedData['results'][i]['subsidiary_cellphone_2'];
+        submodel.subsidiaryEmail = decodedData['results'][i]['subsidiary_email'];
+        submodel.subsidiaryCoordX = decodedData['results'][i]['subsidiary_coord_x'];
+        submodel.subsidiaryCoordY = decodedData['results'][i]['subsidiary_coord_y'];
+        submodel.subsidiaryOpeningHours = decodedData['results'][i]['subsidiary_opening_hours'];
+        submodel.subsidiaryPrincipal = decodedData['results'][i]['subsidiary_principal'];
+        submodel.subsidiaryStatus = decodedData['results'][i]['subsidiary_status'];
         submodel.subsidiaryImg = decodedData['results'][i]['subsidiary_img'];
 
-        final list = await subsidiaryDatabase
-            .obtenerSubsidiaryPorId(decodedData['results'][i]["id_subsidiary"]);
+        final list = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData['results'][i]["id_subsidiary"]);
 
         if (list.length > 0) {
           submodel.subsidiaryFavourite = list[0].subsidiaryFavourite;
@@ -159,16 +128,11 @@ class ProductosApi {
 
         //ItemSubCategoriaModel
         ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
-        itemSubCategoriaModel.idSubcategory =
-            decodedData['results'][i]['id_subcategory'];
-        itemSubCategoriaModel.idItemsubcategory =
-            decodedData['results'][i]['itemsubcategory_name'];
-        itemSubCategoriaModel.itemsubcategoryName =
-            decodedData['results'][i]['itemsubcategory_name'];
-        itemSubCategoriaModel.itemsubcategoryImage =
-            decodedData['results'][i]['itemsubcategory_img'];
-        await itemsubCategoryDatabase.insertarItemSubCategoria(
-            itemSubCategoriaModel, 'Negocio/listar_productos_por_sucursal');
+        itemSubCategoriaModel.idSubcategory = decodedData['results'][i]['id_subcategory'];
+        itemSubCategoriaModel.idItemsubcategory = decodedData['results'][i]['itemsubcategory_name'];
+        itemSubCategoriaModel.itemsubcategoryName = decodedData['results'][i]['itemsubcategory_name'];
+        itemSubCategoriaModel.itemsubcategoryImage = decodedData['results'][i]['itemsubcategory_img'];
+        await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel, 'Negocio/listar_productos_por_sucursal');
       }
     }
 
@@ -259,11 +223,9 @@ class ProductosApi {
    */
   Future<int> listarDetalleProductoPorIdProducto(String idProducto) async {
     try {
-      final response = await http.post(
-          Uri.parse('$apiBaseURL/api/Negocio/listar_detalle_producto'),
-          body: {
-            'id': idProducto,
-          });
+      final response = await http.post(Uri.parse('$apiBaseURL/api/Negocio/listar_detalle_producto'), body: {
+        'id': idProducto,
+      });
 
       final decodedData = json.decode(response.body);
 
@@ -277,22 +239,19 @@ class ProductosApi {
       productoModel.productoPrice = decodedData['subsidiary_good_price'];
       productoModel.productoCurrency = decodedData['subsidiary_good_currency'];
       productoModel.productoImage = decodedData['subsidiary_good_image'];
-      productoModel.productoCharacteristics =
-          decodedData['subsidiary_good_characteristics'];
+      productoModel.productoCharacteristics = decodedData['subsidiary_good_characteristics'];
       productoModel.productoBrand = decodedData['subsidiary_good_brand'];
       productoModel.productoModel = decodedData['subsidiary_good_model'];
       productoModel.productoType = decodedData['subsidiary_good_type'];
       productoModel.productoSize = decodedData['subsidiary_good_size'];
       //productoModel.productoStock = decodedData['subsidiary_good_stock'];
-      productoModel.productoMeasure =
-          decodedData['subsidiary_good_stock_measure'];
+      productoModel.productoMeasure = decodedData['subsidiary_good_stock_measure'];
       productoModel.productoStock = decodedData['subsidiary_good_stock_status'];
       productoModel.productoRating = decodedData['subsidiary_good_rating'];
       productoModel.productoUpdated = decodedData['subsidiary_good_updated'];
       productoModel.productoStatus = decodedData['subsidiary_good_status'];
 
-      var productList = await productoDatabase
-          .obtenerProductoPorIdSubsidiaryGood(decodedData['id_subsidiarygood']);
+      var productList = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(decodedData['id_subsidiarygood']);
 
       if (productList.length > 0) {
         productoModel.productoFavourite = productList[0].productoFavourite;
@@ -317,8 +276,7 @@ class ProductosApi {
       submodel.subsidiaryStatus = decodedData['subsidiary_status'];
       submodel.subsidiaryImg = decodedData['subsidiary_img'];
 
-      final list = await subsidiaryDatabase
-          .obtenerSubsidiaryPorId(decodedData["id_subsidiary"]);
+      final list = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData["id_subsidiary"]);
 
       if (list.length > 0) {
         submodel.subsidiaryFavourite = list[0].subsidiaryFavourite;
@@ -340,8 +298,7 @@ class ProductosApi {
       companyModel.companyImage = decodedData['company_image'];
       companyModel.companyType = decodedData['company_type'];
       companyModel.companyShortcode = decodedData['company_shortcode'];
-      companyModel.companyDeliveryPropio =
-          decodedData['company_delivery_propio'];
+      companyModel.companyDeliveryPropio = decodedData['company_delivery_propio'];
       companyModel.companyDelivery = decodedData['company_delivery'];
       companyModel.companyEntrega = decodedData['company_entrega'];
       companyModel.companyTarjeta = decodedData['company_tarjeta'];
@@ -364,29 +321,20 @@ class ProductosApi {
       //ItemSubCategoriaModel
       ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
       itemSubCategoriaModel.idSubcategory = decodedData['id_subcategory'];
-      itemSubCategoriaModel.idItemsubcategory =
-          decodedData['itemsubcategory_name'];
-      itemSubCategoriaModel.itemsubcategoryName =
-          decodedData['itemsubcategory_name'];
-      itemSubCategoriaModel.itemsubcategoryImage =
-          decodedData['itemsubcategory_img'];
-      await itemsubCategoryDatabase.insertarItemSubCategoria(
-          itemSubCategoriaModel, 'Negocio/listar_detalle_producto');
+      itemSubCategoriaModel.idItemsubcategory = decodedData['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryName = decodedData['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryImage = decodedData['itemsubcategory_img'];
+      await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel, 'Negocio/listar_detalle_producto');
 
       //Galeria
       for (var i = 0; i < decodedData["galeria"].length; i++) {
         GaleriaProductoModel galeriaProductoModel = GaleriaProductoModel();
         final galeriaProductoDb = GaleriaProductoDatabase();
-        galeriaProductoModel.idGaleriaProducto =
-            decodedData["galeria"][i]["id_subsidiary_good_galeria"];
-        galeriaProductoModel.idProducto =
-            decodedData["galeria"][i]['id_subsidiarygood'];
-        galeriaProductoModel.galeriaFoto =
-            decodedData["galeria"][i]["galeria_foto"];
+        galeriaProductoModel.idGaleriaProducto = decodedData["galeria"][i]["id_subsidiary_good_galeria"];
+        galeriaProductoModel.idProducto = decodedData["galeria"][i]['id_subsidiarygood'];
+        galeriaProductoModel.galeriaFoto = decodedData["galeria"][i]["galeria_foto"];
 
-        final list =
-            await galeriaProductoDb.obtenerGaleriaProductoPorIdProducto(
-                decodedData["galeria"][i]['id_subsidiarygood']);
+        final list = await galeriaProductoDb.obtenerGaleriaProductoPorIdProducto(decodedData["galeria"][i]['id_subsidiarygood']);
 
         if (list.length > 0) {
           galeriaProductoModel.estado = list[0].estado;
@@ -407,8 +355,7 @@ class ProductosApi {
 
   Future<int> listarValoracionPorIdProducto(String idProducto) async {
     try {
-      final response = await http
-          .post(Uri.parse('$apiBaseURL/api/pedido/listar_valoraciones'), body: {
+      final response = await http.post(Uri.parse('$apiBaseURL/api/pedido/listar_valoraciones'), body: {
         'id_subsidiary_good': idProducto,
         'app': 'true',
         'tn': prefs.token,

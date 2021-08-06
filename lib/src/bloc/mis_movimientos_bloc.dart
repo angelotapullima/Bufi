@@ -8,16 +8,12 @@ class MisMovimientosBloc {
   final misMovimientosApi = MisMovimientosApi();
 
   final misMovimientosController = BehaviorSubject<List<MovimientosPorFecha>>();
-  final movimientosPorPorNoperacionController =
-      BehaviorSubject<List<MisMovimientosModel>>();
+  final movimientosPorPorNoperacionController = BehaviorSubject<List<MisMovimientosModel>>();
   final cargandoApiMovimientosController = BehaviorSubject<bool>();
 
-  Stream<List<MovimientosPorFecha>> get misMovimientosBlocstream =>
-      misMovimientosController.stream;
-  Stream<List<MisMovimientosModel>> get movimientosPorPorNoperacionBlocstream =>
-      movimientosPorPorNoperacionController.stream;
-  Stream<bool> get cargadoApiMovimientos =>
-      cargandoApiMovimientosController.stream;
+  Stream<List<MovimientosPorFecha>> get misMovimientosBlocstream => misMovimientosController.stream;
+  Stream<List<MisMovimientosModel>> get movimientosPorPorNoperacionBlocstream => movimientosPorPorNoperacionController.stream;
+  Stream<bool> get cargadoApiMovimientos => cargandoApiMovimientosController.stream;
 
   dispose() {
     misMovimientosController?.close();
@@ -38,15 +34,13 @@ class MisMovimientosBloc {
   }
 
   void movimientosPorNoperacion(String id) async {
-    movimientosPorPorNoperacionController.sink.add(
-        await misMovimientosDatabase.obtenerMisMovimientosPorNoperacion(id));
+    movimientosPorPorNoperacionController.sink.add(await misMovimientosDatabase.obtenerMisMovimientosPorNoperacion(id));
   }
 
   Future<List<MovimientosPorFecha>> movimientosPorFecha() async {
     final List<String> listFechas = [];
     final listMovement = await misMovimientosDatabase.obtenerMisMovimientos();
-    final listFechasModel =
-        await misMovimientosDatabase.obtenerMisMovimientosSoloFecha();
+    final listFechasModel = await misMovimientosDatabase.obtenerMisMovimientosSoloFecha();
 
     final List<MovimientosPorFecha> listAlgo = [];
     if (listFechasModel.length > 0) {

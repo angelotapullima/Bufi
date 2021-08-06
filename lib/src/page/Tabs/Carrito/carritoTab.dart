@@ -36,8 +36,7 @@ class _CarritoPageState extends State<CarritoPage> {
       backgroundColor: Colors.white,
       body: StreamBuilder(
           stream: carritoBloc.carritoGeneralStream,
-          builder: (BuildContext context,
-              AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
             if (snapshot.hasData) {
               List<CarritoGeneralSuperior> listCarritoSuperior = snapshot.data;
 
@@ -60,10 +59,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                     children: [
                                       Text(
                                         'Mi cesta',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: responsive.ip(3),
-                                            fontWeight: FontWeight.bold),
+                                        style: TextStyle(color: Colors.black, fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
                                       ),
                                       Spacer(),
                                       GestureDetector(
@@ -73,49 +69,34 @@ class _CarritoPageState extends State<CarritoPage> {
                                             showBarModalBottomSheet(
                                               expand: true,
                                               context: context,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              builder: (context) =>
-                                                  ModalLogin(),
+                                              backgroundColor: Colors.transparent,
+                                              builder: (context) => ModalLogin(),
                                             );
                                           } else {
-                                            double monto = double.parse(
-                                                listCarritoSuperior[0]
-                                                    .montoGeneral);
+                                            double monto = double.parse(listCarritoSuperior[0].montoGeneral);
 
                                             if (monto > 0) {
-                                              Navigator.of(context)
-                                                  .push(PageRouteBuilder(
-                                                pageBuilder: (context,
-                                                    animation,
-                                                    secondaryAnimation) {
+                                              Navigator.of(context).push(PageRouteBuilder(
+                                                pageBuilder: (context, animation, secondaryAnimation) {
                                                   return ConfirmacionPedido();
                                                 },
-                                                transitionsBuilder: (context,
-                                                    animation,
-                                                    secondaryAnimation,
-                                                    child) {
+                                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                                   var begin = Offset(0.0, 1.0);
                                                   var end = Offset.zero;
                                                   var curve = Curves.ease;
 
-                                                  var tween = Tween(
-                                                          begin: begin,
-                                                          end: end)
-                                                      .chain(
+                                                  var tween = Tween(begin: begin, end: end).chain(
                                                     CurveTween(curve: curve),
                                                   );
 
                                                   return SlideTransition(
-                                                    position:
-                                                        animation.drive(tween),
+                                                    position: animation.drive(tween),
                                                     child: child,
                                                   );
                                                 },
                                               ));
                                             } else {
-                                              showToast(context,
-                                                  'Por favor seleccione productos para confirmar el pago');
+                                              showToast(context, 'Por favor seleccione productos para confirmar el pago');
                                             }
                                           }
                                         },
@@ -124,16 +105,10 @@ class _CarritoPageState extends State<CarritoPage> {
                                             horizontal: responsive.wp(3),
                                             vertical: responsive.hp(.5),
                                           ),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              color: Colors.red),
+                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.red),
                                           child: Text(
                                             'Pagar S/ ${listCarritoSuperior[0].montoGeneral}',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: responsive.ip(1.5),
-                                                fontWeight: FontWeight.bold),
+                                            style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                       ),
@@ -151,10 +126,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                     children: [
                                       Text(
                                         'Mi cesta',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: responsive.ip(2.5),
-                                            fontWeight: FontWeight.w700),
+                                        style: TextStyle(color: Colors.white, fontSize: responsive.ip(2.5), fontWeight: FontWeight.w700),
                                       ),
                                     ],
                                   ),
@@ -178,10 +150,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                     children: [
                                       Text(
                                         'Mi cesta',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: responsive.ip(3),
-                                            fontWeight: FontWeight.bold),
+                                        style: TextStyle(color: Colors.black, fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
                                       ),
                                       Spacer(),
                                       GestureDetector(
@@ -191,66 +160,43 @@ class _CarritoPageState extends State<CarritoPage> {
                                             showBarModalBottomSheet(
                                               expand: true,
                                               context: context,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              builder: (context) =>
-                                                  ModalLogin(),
+                                              backgroundColor: Colors.transparent,
+                                              builder: (context) => ModalLogin(),
                                             );
                                           } else {
-                                            double monto = double.parse(
-                                                listCarritoSuperior[0]
-                                                    .montoGeneral);
+                                            double monto = double.parse(listCarritoSuperior[0].montoGeneral);
 
                                             if (monto > 0) {
-                                              Navigator.of(context)
-                                                  .push(PageRouteBuilder(
-                                                pageBuilder: (context,
-                                                    animation,
-                                                    secondaryAnimation) {
+                                              Navigator.of(context).push(PageRouteBuilder(
+                                                pageBuilder: (context, animation, secondaryAnimation) {
                                                   return ConfirmacionPedido();
                                                 },
-                                                transitionsBuilder: (context,
-                                                    animation,
-                                                    secondaryAnimation,
-                                                    child) {
+                                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                                   var begin = Offset(0.0, 1.0);
                                                   var end = Offset.zero;
                                                   var curve = Curves.ease;
 
-                                                  var tween = Tween(
-                                                          begin: begin,
-                                                          end: end)
-                                                      .chain(
+                                                  var tween = Tween(begin: begin, end: end).chain(
                                                     CurveTween(curve: curve),
                                                   );
 
                                                   return SlideTransition(
-                                                    position:
-                                                        animation.drive(tween),
+                                                    position: animation.drive(tween),
                                                     child: child,
                                                   );
                                                 },
                                               ));
                                             } else {
-                                              showToast(context,
-                                                  'Por favor seleccione productos para confirmar el pago');
+                                              showToast(context, 'Por favor seleccione productos para confirmar el pago');
                                             }
                                           }
                                         },
                                         child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: responsive.wp(3),
-                                              vertical: responsive.hp(.5)),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              color: Colors.red),
+                                          padding: EdgeInsets.symmetric(horizontal: responsive.wp(3), vertical: responsive.hp(.5)),
+                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.red),
                                           child: Text(
                                             'Pagar S/ ${listCarritoSuperior[0].montoGeneral}',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: responsive.ip(1.5),
-                                                fontWeight: FontWeight.bold),
+                                            style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                       ),
@@ -264,11 +210,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                 padding: EdgeInsets.all(0),
                                 shrinkWrap: true,
                                 physics: ClampingScrollPhysics(),
-                                itemCount: listCarritoSuperior[0]
-                                        .car[xxx]
-                                        .carrito
-                                        .length +
-                                    1,
+                                itemCount: listCarritoSuperior[0].car[xxx].carrito.length + 1,
                                 itemBuilder: (BuildContext context, int i) {
                                   double paaa = responsive.hp(5);
 
@@ -299,10 +241,7 @@ class _CarritoPageState extends State<CarritoPage> {
 
                                             Text(
                                               '${listCarritoSuperior[0].car[xxx].nombreSucursal}',
-                                              style: TextStyle(
-                                                  color: Colors.blueGrey[700],
-                                                  fontSize: responsive.ip(1.8),
-                                                  fontWeight: FontWeight.w700),
+                                              style: TextStyle(color: Colors.blueGrey[700], fontSize: responsive.ip(1.8), fontWeight: FontWeight.w700),
                                             ),
                                             Spacer(),
                                             Text(
@@ -321,15 +260,8 @@ class _CarritoPageState extends State<CarritoPage> {
                                     );
                                   }
                                   int indd = i - 1;
-                                  var precioFinal = double.parse(
-                                          listCarritoSuperior[0]
-                                              .car[xxx]
-                                              .carrito[indd]
-                                              .precio) *
-                                      double.parse(listCarritoSuperior[0]
-                                          .car[xxx]
-                                          .carrito[indd]
-                                          .cantidad);
+                                  var precioFinal =
+                                      double.parse(listCarritoSuperior[0].car[xxx].carrito[indd].precio) * double.parse(listCarritoSuperior[0].car[xxx].carrito[indd].cantidad);
 
                                   //Borrar con swipe
                                   return Dismissible(
@@ -340,25 +272,16 @@ class _CarritoPageState extends State<CarritoPage> {
                                       ),
                                       color: Colors.red[400],
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Icon(Icons.delete,
-                                                  color: Colors.white)),
-                                          Align(
-                                              alignment: Alignment.centerRight,
-                                              child: Icon(Icons.delete,
-                                                  color: Colors.white)),
+                                          Align(alignment: Alignment.centerLeft, child: Icon(Icons.delete, color: Colors.white)),
+                                          Align(alignment: Alignment.centerRight, child: Icon(Icons.delete, color: Colors.white)),
                                         ],
                                       ),
                                     ),
                                     direction: DismissDirection.horizontal,
                                     onDismissed: (direction) {
-                                      final carritoBloc =
-                                          ProviderBloc.productosCarrito(
-                                              context);
+                                      final carritoBloc = ProviderBloc.productosCarrito(context);
                                       carritoBloc.obtenerCarritoPorSucursal();
                                       agregarAlCarritoContador(
                                           context,
@@ -384,8 +307,7 @@ class _CarritoPageState extends State<CarritoPage> {
                                               children: [
                                                 GestureDetector(
                                                   onTap: () {
-                                                    if ('${listCarritoSuperior[0].car[xxx].carrito[indd].estadoSeleccionado}' ==
-                                                        '0') {
+                                                    if ('${listCarritoSuperior[0].car[xxx].carrito[indd].estadoSeleccionado}' == '0') {
                                                       //Selecciona (Agrega) los productos (Pedido) que se desea pagar
                                                       cambiarEstadoCarrito(
                                                           context,
@@ -415,21 +337,16 @@ class _CarritoPageState extends State<CarritoPage> {
                                                           child: Center(
                                                             child: CircleAvatar(
                                                               radius: 10,
-                                                              backgroundColor:
-                                                                  Colors.red,
+                                                              backgroundColor: Colors.red,
                                                             ),
                                                           ),
                                                         ),
-                                                        ('${listCarritoSuperior[0].car[xxx].carrito[indd].estadoSeleccionado}' ==
-                                                                '0')
+                                                        ('${listCarritoSuperior[0].car[xxx].carrito[indd].estadoSeleccionado}' == '0')
                                                             ? Container(
                                                                 child: Center(
-                                                                  child:
-                                                                      CircleAvatar(
+                                                                  child: CircleAvatar(
                                                                     radius: 7,
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .white,
+                                                                    backgroundColor: Colors.white,
                                                                   ),
                                                                 ),
                                                               )
@@ -441,26 +358,18 @@ class _CarritoPageState extends State<CarritoPage> {
 
                                                 //imagen del producto
                                                 ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
+                                                  borderRadius: BorderRadius.circular(10),
                                                   child: Container(
                                                     color: Colors.blue,
                                                     height: responsive.hp(10),
                                                     width: responsive.wp(17),
                                                     child: CachedNetworkImage(
-                                                      placeholder:
-                                                          (context, url) =>
-                                                              Container(
+                                                      placeholder: (context, url) => Container(
                                                         width: double.infinity,
                                                         height: double.infinity,
-                                                        child: Image(
-                                                            image: AssetImage(
-                                                                'assets/loading.gif'),
-                                                            fit: BoxFit
-                                                                .fitWidth),
+                                                        child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.fitWidth),
                                                       ),
-                                                      imageUrl:
-                                                          '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
+                                                      imageUrl: '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
                                                       fit: BoxFit.cover,
                                                     ),
                                                   ),
@@ -474,55 +383,34 @@ class _CarritoPageState extends State<CarritoPage> {
                                                   child: Container(
                                                     //width: responsive.wp(50),
                                                     child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         Text(
                                                           '${listCarritoSuperior[0].car[xxx].carrito[indd].nombre}',
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize:
-                                                                  responsive
-                                                                      .ip(1.5),
-                                                              color: Colors
-                                                                  .grey[800]),
+                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: responsive.ip(1.5), color: Colors.grey[800]),
                                                         ),
                                                         Text(
                                                           '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .grey[600]),
+                                                          style: TextStyle(color: Colors.grey[600]),
                                                         ),
                                                         Text(
                                                           '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .grey[600]),
+                                                          style: TextStyle(color: Colors.grey[600]),
                                                         ),
                                                         Text(
                                                           '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .grey[600]),
+                                                          style: TextStyle(color: Colors.grey[600]),
                                                         ),
                                                         SizedBox(
-                                                          height:
-                                                              responsive.hp(1),
+                                                          height: responsive.hp(1),
                                                         ),
                                                         Text(
                                                           '${listCarritoSuperior[0].car[xxx].carrito[indd].moneda}${listCarritoSuperior[0].car[xxx].carrito[indd].precio}  X  Und',
                                                           style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w500,
+                                                            fontWeight: FontWeight.w500,
                                                             color: Colors.black,
-                                                            fontSize: responsive
-                                                                .ip(1.5),
+                                                            fontSize: responsive.ip(1.5),
                                                           ),
                                                         ),
                                                       ],
@@ -534,21 +422,11 @@ class _CarritoPageState extends State<CarritoPage> {
                                                   width: responsive.ip(2.3),
                                                   height: responsive.ip(2.3),
                                                   decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      border: Border.all(
-                                                          width: 2,
-                                                          color: Colors.grey),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              100)),
+                                                      color: Colors.white, border: Border.all(width: 2, color: Colors.grey), borderRadius: BorderRadius.circular(100)),
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      final carritoBloc =
-                                                          ProviderBloc
-                                                              .productosCarrito(
-                                                                  context);
-                                                      carritoBloc
-                                                          .obtenerCarritoPorSucursal();
+                                                      final carritoBloc = ProviderBloc.productosCarrito(context);
+                                                      carritoBloc.obtenerCarritoPorSucursal();
                                                       agregarAlCarritoContador(
                                                           context,
                                                           '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
@@ -558,15 +436,12 @@ class _CarritoPageState extends State<CarritoPage> {
                                                           0);
                                                     },
                                                     child: CircleAvatar(
-                                                      radius:
-                                                          responsive.ip(1.5),
-                                                      backgroundColor:
-                                                          Colors.white,
+                                                      radius: responsive.ip(1.5),
+                                                      backgroundColor: Colors.white,
                                                       child: Icon(
                                                         Icons.close_rounded,
                                                         color: Colors.grey,
-                                                        size:
-                                                            responsive.ip(1.5),
+                                                        size: responsive.ip(1.5),
                                                       ),
                                                     ),
                                                   ),
@@ -585,19 +460,12 @@ class _CarritoPageState extends State<CarritoPage> {
                                                   width: responsive.wp(3),
                                                 ),
                                                 CantidadCarrito(
-                                                  carrito:
-                                                      listCarritoSuperior[0]
-                                                          .car[xxx]
-                                                          .carrito[indd],
+                                                  carrito: listCarritoSuperior[0].car[xxx].carrito[indd],
                                                   llamada: llamada,
-                                                  idSudsidiaryGood:
-                                                      '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
-                                                  tallaProducto:
-                                                      '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
-                                                  modeloProducto:
-                                                      '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}',
-                                                  marcaProducto:
-                                                      '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
+                                                  idSudsidiaryGood: '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
+                                                  tallaProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
+                                                  modeloProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}',
+                                                  marcaProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
                                                 ),
                                                 Spacer(),
                                                 Text(
@@ -605,16 +473,13 @@ class _CarritoPageState extends State<CarritoPage> {
                                                   style: TextStyle(
                                                     color: Colors.black,
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize:
-                                                        responsive.ip(1.7),
+                                                    fontSize: responsive.ip(1.7),
                                                   ),
                                                 )
                                               ],
                                             ),
                                           ),
-                                          Container(
-                                              height: responsive.hp(1),
-                                              color: Colors.grey[300])
+                                          Container(height: responsive.hp(1), color: Colors.grey[300])
                                         ],
                                       ),
                                     ),

@@ -71,8 +71,7 @@ class _BusquedaNegocioState extends State<BusquedaNegocio> {
                               expandFlag = false;
                             });
                             if (value.length >= 0 && value != ' ') {
-                              busquedaBloc.obtenerBusquedaNegocio(
-                                  context, '$value');
+                              busquedaBloc.obtenerBusquedaNegocio(context, '$value');
                               agregarHistorial(context, value, 'company');
                             }
                           },
@@ -86,15 +85,12 @@ class _BusquedaNegocioState extends State<BusquedaNegocio> {
                       IconButton(
                           icon: Icon(Icons.search),
                           onPressed: () {
-                            if (_controllerBusquedaNegocio.text.length >= 0 &&
-                                _controllerBusquedaNegocio.text != ' ') {
+                            if (_controllerBusquedaNegocio.text.length >= 0 && _controllerBusquedaNegocio.text != ' ') {
                               setState(() {
                                 expandFlag = false;
                               });
-                              busquedaBloc.obtenerBusquedaNegocio(context,
-                                  '${_controllerBusquedaNegocio.text}');
-                              agregarHistorial(context,
-                                  _controllerBusquedaNegocio.text, 'company');
+                              busquedaBloc.obtenerBusquedaNegocio(context, '${_controllerBusquedaNegocio.text}');
+                              agregarHistorial(context, _controllerBusquedaNegocio.text, 'company');
                             } else {
                               setState(() {
                                 expandFlag = true;
@@ -127,8 +123,7 @@ class _BusquedaNegocioState extends State<BusquedaNegocio> {
                 expandedHeight: 10,
                 child: StreamBuilder(
                     stream: searchBloc.historyStream,
-                    builder: (context,
-                        AsyncSnapshot<List<HistorialModel>> snapshot) {
+                    builder: (context, AsyncSnapshot<List<HistorialModel>> snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data.length > 0) {
                           return Container(
@@ -140,23 +135,13 @@ class _BusquedaNegocioState extends State<BusquedaNegocio> {
                                 itemBuilder: (BuildContext context, int i) {
                                   return GestureDetector(
                                     onTap: () {
-                                      _controllerBusquedaNegocio.text =
-                                          snapshot.data[i].historial;
-                                      if (_controllerBusquedaNegocio
-                                                  .text.length >=
-                                              0 &&
-                                          _controllerBusquedaNegocio.text !=
-                                              ' ') {
+                                      _controllerBusquedaNegocio.text = snapshot.data[i].historial;
+                                      if (_controllerBusquedaNegocio.text.length >= 0 && _controllerBusquedaNegocio.text != ' ') {
                                         setState(() {
                                           expandFlag = false;
                                         });
-                                        busquedaBloc.obtenerBusquedaNegocio(
-                                            context,
-                                            '${_controllerBusquedaNegocio.text}');
-                                        agregarHistorial(
-                                            context,
-                                            _controllerBusquedaNegocio.text,
-                                            'company');
+                                        busquedaBloc.obtenerBusquedaNegocio(context, '${_controllerBusquedaNegocio.text}');
+                                        agregarHistorial(context, _controllerBusquedaNegocio.text, 'company');
                                       } else {
                                         setState(() {
                                           expandFlag = true;
@@ -167,17 +152,12 @@ class _BusquedaNegocioState extends State<BusquedaNegocio> {
                                       margin: EdgeInsets.all(responsive.ip(1)),
                                       child: Row(
                                         children: [
-                                          Text('${snapshot.data[i].historial}',
-                                              style: TextStyle(
-                                                  fontSize: responsive.ip(2))),
+                                          Text('${snapshot.data[i].historial}', style: TextStyle(fontSize: responsive.ip(2))),
                                           Spacer(),
                                           IconButton(
                                               icon: Icon(Icons.close),
                                               onPressed: () {
-                                                eliminarHistorial(
-                                                    context,
-                                                    snapshot.data[i].historial,
-                                                    'company');
+                                                eliminarHistorial(context, snapshot.data[i].historial, 'company');
                                               }),
                                         ],
                                       ),

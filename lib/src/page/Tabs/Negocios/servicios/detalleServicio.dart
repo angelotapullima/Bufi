@@ -17,8 +17,7 @@ class DetalleServicio extends StatefulWidget {
   _DetalleServicioState createState() => _DetalleServicioState();
 }
 
-class _DetalleServicioState extends State<DetalleServicio>
-    with SingleTickerProviderStateMixin {
+class _DetalleServicioState extends State<DetalleServicio> with SingleTickerProviderStateMixin {
   ScrollController controller = ScrollController();
   @override
   Widget build(BuildContext context) {
@@ -34,10 +33,7 @@ class _DetalleServicioState extends State<DetalleServicio>
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 return Stack(
-                  children: [
-                    _custonScroll(responsive, snapshot.data[0]),
-                    _buttomContacto(responsive, snapshot.data[0])
-                  ],
+                  children: [_custonScroll(responsive, snapshot.data[0]), _buttomContacto(responsive, snapshot.data[0])],
                 );
                 //Center(child: Text(negocio[0].companyName));
 
@@ -117,10 +113,7 @@ class _DetalleServicioState extends State<DetalleServicio>
                   children: [
                     Text(
                       "Información",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: responsive.ip(2.7),
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.black, fontSize: responsive.ip(2.7), fontWeight: FontWeight.bold),
                     ),
                     Divider(color: Colors.grey),
                     Row(
@@ -147,9 +140,7 @@ class _DetalleServicioState extends State<DetalleServicio>
                           width: responsive.wp(2),
                         ),
                         Text(
-                          ('${service.subsidiaryServiceStatus}') == '1'
-                              ? 'Si'
-                              : 'No',
+                          ('${service.subsidiaryServiceStatus}') == '1' ? 'Si' : 'No',
                           style: TextStyle(
                             fontSize: responsive.ip(2),
                           ),
@@ -172,10 +163,7 @@ class _DetalleServicioState extends State<DetalleServicio>
                           ),
                         ),
                         Text(
-                          ('${service.listSubsidiary[0].subsidiaryCellphone2}') !=
-                                  ''
-                              ? '-  ${service.listSubsidiary[0].subsidiaryCellphone2}'
-                              : '',
+                          ('${service.listSubsidiary[0].subsidiaryCellphone2}') != '' ? '-  ${service.listSubsidiary[0].subsidiaryCellphone2}' : '',
                           style: TextStyle(
                             fontSize: responsive.ip(2),
                           ),
@@ -210,8 +198,7 @@ class _DetalleServicioState extends State<DetalleServicio>
     );
   }
 
-  Widget _buttomContacto(
-      Responsive responsive, SubsidiaryServiceModel service) {
+  Widget _buttomContacto(Responsive responsive, SubsidiaryServiceModel service) {
     return Positioned(
         bottom: 0,
         right: 0,
@@ -227,8 +214,7 @@ class _DetalleServicioState extends State<DetalleServicio>
                     return Contactar(service);
                     //return DetalleProductitos(productosData: productosData);
                   },
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
                     return FadeTransition(
                       opacity: animation,
                       child: child,
@@ -238,9 +224,7 @@ class _DetalleServicioState extends State<DetalleServicio>
           },
           child: Container(
             height: responsive.hp(8),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(30)),
-                color: Colors.blueAccent),
+            decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(30)), color: Colors.blueAccent),
             child: Center(
               child: Text(
                 'Contactar',
@@ -255,8 +239,7 @@ class _DetalleServicioState extends State<DetalleServicio>
         ));
   }
 
-  Widget _crearAppbar(
-      Responsive responsive, SubsidiaryServiceModel serviceModel) {
+  Widget _crearAppbar(Responsive responsive, SubsidiaryServiceModel serviceModel) {
     return SliverAppBar(
       elevation: 2.0,
       backgroundColor: Colors.white,
@@ -271,22 +254,14 @@ class _DetalleServicioState extends State<DetalleServicio>
           height: responsive.hp(4),
           child: Text(
             '${serviceModel.subsidiaryServiceName}',
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: responsive.ip(3),
-                fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black, fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
           ),
         ),
         background: Stack(
           children: [
-            Container(
-                height: double.infinity,
-                width: double.infinity,
-                color: Colors.white),
+            Container(height: double.infinity, width: double.infinity, color: Colors.white),
             ClipRRect(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(25),
-                  bottomRight: Radius.circular(25)),
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25), bottomRight: Radius.circular(25)),
               child: Stack(
                 children: [
                   CachedNetworkImage(
@@ -294,9 +269,7 @@ class _DetalleServicioState extends State<DetalleServicio>
                     placeholder: (context, url) => Container(
                       width: double.infinity,
                       height: double.infinity,
-                      child: Image(
-                          image: AssetImage('assets/jar-loading.gif'),
-                          fit: BoxFit.cover),
+                      child: Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                     ),
                     errorWidget: (context, url, error) => Container(
                       width: double.infinity,
@@ -306,8 +279,7 @@ class _DetalleServicioState extends State<DetalleServicio>
                       ),
                     ),
                     //imageUrl: '$apiBaseURL/${companyModel.companyImage}',
-                    imageUrl:
-                        '$apiBaseURL/${serviceModel.subsidiaryServiceImage}',
+                    imageUrl: '$apiBaseURL/${serviceModel.subsidiaryServiceImage}',
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -352,28 +324,19 @@ class _ContactarState extends State<Contactar> {
             onTap: () {
               Navigator.pop(context);
             },
-            child: Container(
-                height: double.infinity,
-                width: double.infinity,
-                color: Colors.transparent),
+            child: Container(height: double.infinity, width: double.infinity, color: Colors.transparent),
           ),
           Center(
             child: Container(
-                margin: EdgeInsets.only(
-                    left: responsive.ip(1), right: responsive.ip(1)),
+                margin: EdgeInsets.only(left: responsive.ip(1), right: responsive.ip(1)),
                 height: responsive.hp(38),
                 width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
                 child: ListView(
                   children: [
-                    _itemContacto(responsive, 'WhatsApp', 'wp',
-                        FontAwesomeIcons.whatsapp, widget.service),
-                    _itemContacto(responsive, 'Enviar correo', 'mail',
-                        Icons.mail, widget.service),
-                    _itemLlamar(responsive, 'Llamar', 'call', Icons.call,
-                        widget.service),
+                    _itemContacto(responsive, 'WhatsApp', 'wp', FontAwesomeIcons.whatsapp, widget.service),
+                    _itemContacto(responsive, 'Enviar correo', 'mail', Icons.mail, widget.service),
+                    _itemLlamar(responsive, 'Llamar', 'call', Icons.call, widget.service),
                   ],
                 )),
           ),
@@ -382,15 +345,12 @@ class _ContactarState extends State<Contactar> {
     );
   }
 
-  Widget _itemLlamar(Responsive responsive, nombre, ruta, IconData icon,
-      SubsidiaryServiceModel service) {
+  Widget _itemLlamar(Responsive responsive, nombre, ruta, IconData icon, SubsidiaryServiceModel service) {
     return Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
+        margin: EdgeInsets.symmetric(horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
         width: double.infinity,
         height: responsive.ip(24),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: Colors.white),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
         child: Column(
           children: [
             GestureDetector(
@@ -416,9 +376,7 @@ class _ContactarState extends State<Contactar> {
                   Spacer(),
                   IconButton(
                       icon: Icon(
-                        expandFlag
-                            ? Icons.keyboard_arrow_down_outlined
-                            : Icons.arrow_right_outlined,
+                        expandFlag ? Icons.keyboard_arrow_down_outlined : Icons.arrow_right_outlined,
                       ),
                       onPressed: () {
                         setState(() {
@@ -435,24 +393,18 @@ class _ContactarState extends State<Contactar> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      _launchCall(
-                          '${service.listSubsidiary[0].subsidiaryCellphone}');
+                      _launchCall('${service.listSubsidiary[0].subsidiaryCellphone}');
                     },
                     child: Center(
-                      child: Text(
-                          '${service.listSubsidiary[0].subsidiaryCellphone}'),
+                      child: Text('${service.listSubsidiary[0].subsidiaryCellphone}'),
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
-                      if ('${service.listSubsidiary[0].subsidiaryCellphone2}' !=
-                          '')
-                        _launchCall(
-                            '${service.listSubsidiary[0].subsidiaryCellphone2}');
+                      if ('${service.listSubsidiary[0].subsidiaryCellphone2}' != '') _launchCall('${service.listSubsidiary[0].subsidiaryCellphone2}');
                     },
                     child: Center(
-                      child: Text(
-                          '${service.listSubsidiary[0].subsidiaryCellphone2}'),
+                      child: Text('${service.listSubsidiary[0].subsidiaryCellphone2}'),
                     ),
                   )
                 ],
@@ -462,15 +414,12 @@ class _ContactarState extends State<Contactar> {
         ));
   }
 
-  Widget _itemContacto(Responsive responsive, nombre, ruta, IconData icon,
-      SubsidiaryServiceModel service) {
+  Widget _itemContacto(Responsive responsive, nombre, ruta, IconData icon, SubsidiaryServiceModel service) {
     return Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
+        margin: EdgeInsets.symmetric(horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
         width: double.infinity,
         height: responsive.ip(8),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: Colors.white),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
         child: GestureDetector(
           child: Row(
             children: [
@@ -495,12 +444,9 @@ class _ContactarState extends State<Contactar> {
           ),
           onTap: () {
             if (ruta == 'wp') {
-              _launchWhatsApp(
-                  '${service.listSubsidiary[0].subsidiaryCellphone}',
-                  'Estoy interesado en el servicio: ${service.subsidiaryServiceName}');
+              _launchWhatsApp('${service.listSubsidiary[0].subsidiaryCellphone}', 'Estoy interesado en el servicio: ${service.subsidiaryServiceName}');
             } else if (ruta == 'mail') {
-              _launchMail('${service.listSubsidiary[0].subsidiaryEmail}',
-                  '${service.subsidiaryServiceName}');
+              _launchMail('${service.listSubsidiary[0].subsidiaryEmail}', '${service.subsidiaryServiceName}');
             }
           },
         ));
@@ -529,8 +475,7 @@ class _ContactarState extends State<Contactar> {
     final Uri params = Uri(
       scheme: 'mailto',
       path: '$mail',
-      query:
-          'subject=Bufi - $mensaje Feedback&body=Solicito informació acerca del servicio $mensaje',
+      query: 'subject=Bufi - $mensaje Feedback&body=Solicito informació acerca del servicio $mensaje',
     );
 
     var url = params.toString();
@@ -566,8 +511,7 @@ class ExpandableContainer extends StatelessWidget {
       height: expanded ? expandedHeight * responsive.hp(8) : collapsedHeight,
       child: Container(
         child: child,
-        decoration: BoxDecoration(
-            border: Border.all(width: 1.0, color: Colors.transparent)),
+        decoration: BoxDecoration(border: Border.all(width: 1.0, color: Colors.transparent)),
       ),
     );
   }

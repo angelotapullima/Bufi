@@ -75,8 +75,7 @@ class _DetalleCarritoState extends State<DetalleCarrito> {
       backgroundColor: Colors.white,
       body: StreamBuilder(
           stream: carritoBloc.carritoGeneralStream,
-          builder: (BuildContext context,
-              AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data.length > 0) {
                 return SafeArea(
@@ -101,8 +100,7 @@ class _DetalleCarritoState extends State<DetalleCarrito> {
                                     duration: Duration(milliseconds: 600),
                                     left: 0,
                                     right: 0,
-                                    top: getTopForWhitePanel(
-                                        bloc.screenState, size),
+                                    top: getTopForWhitePanel(bloc.screenState, size),
                                     height: size.height - kToolbarHeight,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.only(
@@ -117,10 +115,7 @@ class _DetalleCarritoState extends State<DetalleCarrito> {
                                             bottomRight: Radius.circular(30),
                                           ),
                                         ),
-                                        child:
-                                            ListarProductosPorSucursalCarrito(
-                                                idSucursal: widget
-                                                    .producto.idSubsidiary),
+                                        child: ListarProductosPorSucursalCarrito(idSucursal: widget.producto.idSubsidiary),
                                       ),
                                     ),
                                   ),
@@ -129,31 +124,26 @@ class _DetalleCarritoState extends State<DetalleCarrito> {
                                     duration: Duration(milliseconds: 600),
                                     left: 0,
                                     right: 0,
-                                    top: getTopForBlackPanel(
-                                        bloc.screenState, size),
+                                    top: getTopForBlackPanel(bloc.screenState, size),
                                     height: size.height,
                                     child: GestureDetector(
                                       onVerticalDragUpdate: _onVerticalGesture,
                                       child: Container(
                                           color: Colors.black,
-                                          child: (bloc.screenState ==
-                                                  ScreenState.normal)
+                                          child: (bloc.screenState == ScreenState.normal)
                                               ? Column(
                                                   children: [
                                                     IconButton(
                                                         icon: Icon(
-                                                          Icons
-                                                              .keyboard_arrow_up_sharp,
+                                                          Icons.keyboard_arrow_up_sharp,
                                                           color: Colors.white,
-                                                          size:
-                                                              responsive.ip(3),
+                                                          size: responsive.ip(3),
                                                         ),
                                                         onPressed: () {
                                                           bloc.changeToCart();
                                                         }),
                                                     ProductsHorizontal(
-                                                      monto: snapshot
-                                                          .data[0].montoGeneral,
+                                                      monto: snapshot.data[0].montoGeneral,
                                                     ),
                                                   ],
                                                 )
@@ -161,18 +151,15 @@ class _DetalleCarritoState extends State<DetalleCarrito> {
                                                   children: [
                                                     IconButton(
                                                         icon: Icon(
-                                                          Icons
-                                                              .keyboard_arrow_down,
+                                                          Icons.keyboard_arrow_down,
                                                           color: Colors.white,
-                                                          size:
-                                                              responsive.ip(3),
+                                                          size: responsive.ip(3),
                                                         ),
                                                         onPressed: () {
                                                           bloc.changeToNormal();
                                                         }),
                                                     Expanded(
-                                                      child:
-                                                          ListaCarritoDetails(
+                                                      child: ListaCarritoDetails(
                                                         carrito: snapshot.data,
                                                       ),
                                                     ),
@@ -237,18 +224,10 @@ class ProductsHorizontal extends StatelessWidget {
                                     Radius.circular(100),
                                   ),
                                   child: CachedNetworkImage(
-                                    placeholder: (context, url) => Image(
-                                        image: const AssetImage(
-                                            'assets/jar-loading.gif'),
-                                        fit: BoxFit.cover),
-                                    errorWidget: (context, url, error) => Image(
-                                        image: AssetImage(
-                                            'assets/carga_fallida.jpg'),
-                                        fit: BoxFit.cover),
-                                    imageUrl:
-                                        '$apiBaseURL/${snapshot.data[2].productoImage}',
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
+                                    placeholder: (context, url) => Image(image: const AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
+                                    errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
+                                    imageUrl: '$apiBaseURL/${snapshot.data[2].productoImage}',
+                                    imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                           image: imageProvider,
@@ -274,18 +253,10 @@ class ProductsHorizontal extends StatelessWidget {
                                     Radius.circular(100),
                                   ),
                                   child: CachedNetworkImage(
-                                    placeholder: (context, url) => Image(
-                                        image: const AssetImage(
-                                            'assets/jar-loading.gif'),
-                                        fit: BoxFit.cover),
-                                    errorWidget: (context, url, error) => Image(
-                                        image: AssetImage(
-                                            'assets/carga_fallida.jpg'),
-                                        fit: BoxFit.cover),
-                                    imageUrl:
-                                        '$apiBaseURL/${snapshot.data[1].productoImage}',
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
+                                    placeholder: (context, url) => Image(image: const AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
+                                    errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
+                                    imageUrl: '$apiBaseURL/${snapshot.data[1].productoImage}',
+                                    imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                           image: imageProvider,
@@ -310,17 +281,10 @@ class ProductsHorizontal extends StatelessWidget {
                               Radius.circular(100),
                             ),
                             child: CachedNetworkImage(
-                              placeholder: (context, url) => Image(
-                                  image: const AssetImage(
-                                      'assets/jar-loading.gif'),
-                                  fit: BoxFit.cover),
-                              errorWidget: (context, url, error) => Image(
-                                  image: AssetImage('assets/carga_fallida.jpg'),
-                                  fit: BoxFit.cover),
-                              imageUrl:
-                                  '$apiBaseURL/${snapshot.data[0].productoImage}',
-                              imageBuilder: (context, imageProvider) =>
-                                  Container(
+                              placeholder: (context, url) => Image(image: const AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
+                              errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
+                              imageUrl: '$apiBaseURL/${snapshot.data[0].productoImage}',
+                              imageBuilder: (context, imageProvider) => Container(
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: imageProvider,
@@ -394,39 +358,30 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                     if (i == 0) {
                       return Container(
                         color: Colors.blueGrey,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 1, vertical: responsive.hp(.5)),
+                        padding: EdgeInsets.symmetric(horizontal: 1, vertical: responsive.hp(.5)),
                         width: double.infinity,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: responsive.wp(3),
-                              ),
-                              Icon(
-                                Icons.store,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: responsive.wp(2),
-                              ),
-                              Text(
-                                '${widget.carrito[0].car[index].nombreSucursal}',
-                                style: TextStyle(
-                                    color: InstagramColors.cardLight,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              //Divider(),
-                            ]),
+                        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                          SizedBox(
+                            width: responsive.wp(3),
+                          ),
+                          Icon(
+                            Icons.store,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: responsive.wp(2),
+                          ),
+                          Text(
+                            '${widget.carrito[0].car[index].nombreSucursal}',
+                            style: TextStyle(color: InstagramColors.cardLight, fontSize: 17, fontWeight: FontWeight.bold),
+                          ),
+                          //Divider(),
+                        ]),
                       );
                     }
 
                     int indd = i - 1;
-                    var precioFinal = double.parse(
-                            widget.carrito[0].car[index].carrito[indd].precio) *
-                        double.parse(widget
-                            .carrito[0].car[index].carrito[indd].cantidad);
+                    var precioFinal = double.parse(widget.carrito[0].car[index].carrito[indd].precio) * double.parse(widget.carrito[0].car[index].carrito[indd].cantidad);
 
                     return Container(
                       margin: EdgeInsets.symmetric(
@@ -438,8 +393,7 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              if ('${widget.carrito[0].car[index].carrito[indd].estadoSeleccionado}' ==
-                                  '0') {
+                              if ('${widget.carrito[0].car[index].carrito[indd].estadoSeleccionado}' == '0') {
                                 cambiarEstadoCarrito(
                                     context,
                                     '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}',
@@ -469,8 +423,7 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                                       ),
                                     ),
                                   ),
-                                  ('${widget.carrito[0].car[index].carrito[indd].estadoSeleccionado}' ==
-                                          '0')
+                                  ('${widget.carrito[0].car[index].carrito[indd].estadoSeleccionado}' == '0')
                                       ? Container(
                                           child: Center(
                                             child: CircleAvatar(
@@ -498,13 +451,9 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                                       placeholder: (context, url) => Container(
                                         width: double.infinity,
                                         height: double.infinity,
-                                        child: Image(
-                                            image: AssetImage(
-                                                'assets/loading.gif'),
-                                            fit: BoxFit.fitWidth),
+                                        child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.fitWidth),
                                       ),
-                                      imageUrl:
-                                          '$apiBaseURL/${widget.carrito[0].car[index].carrito[indd].image}',
+                                      imageUrl: '$apiBaseURL/${widget.carrito[0].car[index].carrito[indd].image}',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -513,18 +462,14 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                                     right: 0,
                                     bottom: 0,
                                     child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: responsive.wp(1)),
+                                      padding: EdgeInsets.symmetric(horizontal: responsive.wp(1)),
                                       color: Colors.black.withOpacity(.5),
                                       width: double.infinity,
                                       //double.infinity,
                                       height: responsive.hp(3),
                                       child: Text(
                                         '${widget.carrito[0].car[index].carrito[indd].nombre}',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
+                                        style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   )
@@ -540,35 +485,24 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '${widget.carrito[0].car[index].carrito[indd].nombre}' +
-                                        ' ' +
-                                        '${widget.carrito[0].car[index].carrito[indd].marca}',
+                                    '${widget.carrito[0].car[index].carrito[indd].nombre}' + ' ' + '${widget.carrito[0].car[index].carrito[indd].marca}',
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   Text(
-                                    '${widget.carrito[0].car[index].carrito[indd].moneda}' +
-                                        ' ' +
-                                        '$precioFinal',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: responsive.ip(2)),
+                                    '${widget.carrito[0].car[index].carrito[indd].moneda}' + ' ' + '$precioFinal',
+                                    style: TextStyle(color: Colors.white, fontSize: responsive.ip(2)),
                                   ),
                                   Text(
                                     '${widget.carrito[0].car[index].carrito[indd].nombre}',
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   CantidadCarrito(
-                                    carrito: widget
-                                        .carrito[0].car[index].carrito[indd],
+                                    carrito: widget.carrito[0].car[index].carrito[indd],
                                     llamada: llamada,
-                                    idSudsidiaryGood:
-                                        '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}',
-                                    marcaProducto:
-                                        '${widget.carrito[0].car[index].carrito[indd].marca}',
-                                    modeloProducto:
-                                        '${widget.carrito[0].car[index].carrito[indd].modelo}',
-                                    tallaProducto:
-                                        '${widget.carrito[0].car[index].carrito[indd].talla}',
+                                    idSudsidiaryGood: '${widget.carrito[0].car[index].carrito[indd].idSubsidiaryGood}',
+                                    marcaProducto: '${widget.carrito[0].car[index].carrito[indd].marca}',
+                                    modeloProducto: '${widget.carrito[0].car[index].carrito[indd].modelo}',
+                                    tallaProducto: '${widget.carrito[0].car[index].carrito[indd].talla}',
                                   ),
                                 ],
                               ),
@@ -617,17 +551,14 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                       Spacer(),
                       GestureDetector(
                         onTap: () {
-                          double monto =
-                              double.parse(widget.carrito[0].montoGeneral);
+                          double monto = double.parse(widget.carrito[0].montoGeneral);
 
                           if (monto > 0) {
                             Navigator.of(context).push(PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) {
+                              pageBuilder: (context, animation, secondaryAnimation) {
                                 return ConfirmacionPedido();
                               },
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
+                              transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                 var begin = Offset(0.0, 1.0);
                                 var end = Offset.zero;
                                 var curve = Curves.ease;
@@ -643,9 +574,7 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                               },
                             ));
                           } else {
-                            showToast(context,
-                                'Por favor seleccione productos para confirmar el pago',
-                                duration: 3);
+                            showToast(context, 'Por favor seleccione productos para confirmar el pago', duration: 3);
                           }
                         },
                         child: Container(
@@ -653,15 +582,10 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                             horizontal: responsive.wp(3),
                             vertical: responsive.hp(.5),
                           ),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.red),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.red),
                           child: Text(
                             'Pagar S/ ${widget.carrito[0].montoGeneral}',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: responsive.ip(1.5),
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -702,8 +626,7 @@ class AppBarCustom extends StatelessWidget {
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              style: TextStyle(
-                  fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
             ),
           ),
           IconButton(icon: Icon(Icons.filter_list), onPressed: () {}),

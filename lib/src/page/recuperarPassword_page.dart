@@ -37,24 +37,16 @@ class _RecuperarPasswordPageState extends State<RecuperarPasswordPage> {
                 (dataToque)
                     ? Center(
                         child: Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(10)),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(10)),
+                          margin: EdgeInsets.symmetric(horizontal: responsive.wp(10)),
+                          padding: EdgeInsets.symmetric(horizontal: responsive.wp(10)),
                           width: double.infinity,
                           height: responsive.hp(13),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
+                          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
                           child: Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: responsive.wp(10),
-                                vertical: responsive.wp(6)),
+                            margin: EdgeInsets.symmetric(horizontal: responsive.wp(10), vertical: responsive.wp(6)),
                             height: responsive.ip(4),
                             width: responsive.ip(4),
-                            child: Image(
-                                image: AssetImage('assets/loading.gif'),
-                                fit: BoxFit.contain),
+                            child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.contain),
                           ),
                         ),
                       )
@@ -65,8 +57,7 @@ class _RecuperarPasswordPageState extends State<RecuperarPasswordPage> {
     );
   }
 
-  Widget _form(
-      BuildContext context, Responsive responsive, LoginBloc correoBloc) {
+  Widget _form(BuildContext context, Responsive responsive, LoginBloc correoBloc) {
     return SafeArea(
         child: Container(
       color: Colors.white,
@@ -76,8 +67,7 @@ class _RecuperarPasswordPageState extends State<RecuperarPasswordPage> {
           Spacer(),
           Text(
             "¿Olvidaste la contraseña?",
-            style: TextStyle(
-                fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
           ),
           Text(
             "¡No te preocupes! Introduce tu correo electrónico para establecer una nueva contraseña",
@@ -111,10 +101,7 @@ class _RecuperarPasswordPageState extends State<RecuperarPasswordPage> {
             decoration: InputDecoration(
               //fillColor: Colors.white,
               hintText: titulo,
-              hintStyle: TextStyle(
-                  fontSize: responsive.ip(1.8),
-                  fontFamily: 'Montserrat',
-                  color: Colors.black54),
+              hintStyle: TextStyle(fontSize: responsive.ip(1.8), fontFamily: 'Montserrat', color: Colors.black54),
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.blueGrey),
               ),
@@ -139,8 +126,7 @@ class _RecuperarPasswordPageState extends State<RecuperarPasswordPage> {
     );
   }
 
-  Widget _boton(
-      BuildContext context, LoginBloc correoBloc, Responsive responsive) {
+  Widget _boton(BuildContext context, LoginBloc correoBloc, Responsive responsive) {
     return StreamBuilder(
         stream: correoBloc.buttomValidCorreoStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -153,9 +139,7 @@ class _RecuperarPasswordPageState extends State<RecuperarPasswordPage> {
             child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: (snapshot.hasData)
-                      ? () => _submit(context, correoBloc)
-                      : null,
+                  onPressed: (snapshot.hasData) ? () => _submit(context, correoBloc) : null,
                   child: Text('Enviar'),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -188,13 +172,11 @@ class _RecuperarPasswordPageState extends State<RecuperarPasswordPage> {
     final int code = await bloc.restablecerPass('${bloc.correo}');
     if (code == 1) {
       Navigator.of(context).pop();
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ConfirmCodePage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ConfirmCodePage()));
     } else if (code == 2) {
       showToast1('Ocurrio un error', 2, ToastGravity.CENTER);
     } else if (code == 3) {
-      showToast1(
-          'El correo ingresdo no está registrado', 2, ToastGravity.CENTER);
+      showToast1('El correo ingresdo no está registrado', 2, ToastGravity.CENTER);
     }
 
     _cargando.value = false;
@@ -233,24 +215,16 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
                 (dataToque)
                     ? Center(
                         child: Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(10)),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(10)),
+                          margin: EdgeInsets.symmetric(horizontal: responsive.wp(10)),
+                          padding: EdgeInsets.symmetric(horizontal: responsive.wp(10)),
                           width: double.infinity,
                           height: responsive.hp(13),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
+                          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
                           child: Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: responsive.wp(10),
-                                vertical: responsive.wp(6)),
+                            margin: EdgeInsets.symmetric(horizontal: responsive.wp(10), vertical: responsive.wp(6)),
                             height: responsive.ip(4),
                             width: responsive.ip(4),
-                            child: Image(
-                                image: AssetImage('assets/loading.gif'),
-                                fit: BoxFit.contain),
+                            child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.contain),
                           ),
                         ),
                       )
@@ -261,8 +235,7 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
     );
   }
 
-  Widget _form(
-      BuildContext context, Responsive responsive, LoginBloc codigoBloc) {
+  Widget _form(BuildContext context, Responsive responsive, LoginBloc codigoBloc) {
     return SafeArea(
         child: Container(
       color: Colors.white,
@@ -272,8 +245,7 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
           Spacer(),
           Text(
             "Verifica tu cuenta",
-            style: TextStyle(
-                fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
           ),
           Text(
             "Te enviamos un mensaje a su correo electrónico con un código de verificación.",
@@ -312,10 +284,7 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
             decoration: InputDecoration(
               //fillColor: Colors.white,
               hintText: titulo,
-              hintStyle: TextStyle(
-                  fontSize: responsive.ip(1.8),
-                  fontFamily: 'Montserrat',
-                  color: Colors.black54),
+              hintStyle: TextStyle(fontSize: responsive.ip(1.8), fontFamily: 'Montserrat', color: Colors.black54),
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.blueGrey),
               ),
@@ -340,8 +309,7 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
     );
   }
 
-  Widget _boton(
-      BuildContext context, LoginBloc codigoBloc, Responsive responsive) {
+  Widget _boton(BuildContext context, LoginBloc codigoBloc, Responsive responsive) {
     return StreamBuilder(
         stream: codigoBloc.buttomValidCodigoStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -354,9 +322,7 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
             child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: (snapshot.hasData)
-                      ? () => _submit(context, codigoBloc)
-                      : null,
+                  onPressed: (snapshot.hasData) ? () => _submit(context, codigoBloc) : null,
                   child: Text('Confirmar'),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -377,8 +343,7 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
 
     if (code == 1) {
       Navigator.of(context).pop();
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => RestablecerPasswordPage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => RestablecerPasswordPage()));
     } else if (code == 2) {
       showToast1('Código Incorrecto', 2, ToastGravity.CENTER);
     } else if (code == 3) {
@@ -393,8 +358,7 @@ class RestablecerPasswordPage extends StatefulWidget {
   const RestablecerPasswordPage({Key key}) : super(key: key);
 
   @override
-  _RestablecerPasswordPageState createState() =>
-      _RestablecerPasswordPageState();
+  _RestablecerPasswordPageState createState() => _RestablecerPasswordPageState();
 }
 
 class _RestablecerPasswordPageState extends State<RestablecerPasswordPage> {
@@ -422,24 +386,16 @@ class _RestablecerPasswordPageState extends State<RestablecerPasswordPage> {
                 (dataToque)
                     ? Center(
                         child: Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(10)),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(10)),
+                          margin: EdgeInsets.symmetric(horizontal: responsive.wp(10)),
+                          padding: EdgeInsets.symmetric(horizontal: responsive.wp(10)),
                           width: double.infinity,
                           height: responsive.hp(13),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
+                          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
                           child: Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: responsive.wp(10),
-                                vertical: responsive.wp(6)),
+                            margin: EdgeInsets.symmetric(horizontal: responsive.wp(10), vertical: responsive.wp(6)),
                             height: responsive.ip(4),
                             width: responsive.ip(4),
-                            child: Image(
-                                image: AssetImage('assets/loading.gif'),
-                                fit: BoxFit.contain),
+                            child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.contain),
                           ),
                         ),
                       )
@@ -450,8 +406,7 @@ class _RestablecerPasswordPageState extends State<RestablecerPasswordPage> {
     );
   }
 
-  Widget _form(
-      BuildContext context, Responsive responsive, LoginBloc passwordBloc) {
+  Widget _form(BuildContext context, Responsive responsive, LoginBloc passwordBloc) {
     return SafeArea(
         child: Container(
       color: Colors.white,
@@ -461,8 +416,7 @@ class _RestablecerPasswordPageState extends State<RestablecerPasswordPage> {
           Spacer(),
           Text(
             "Restablecer Contraseña",
-            style: TextStyle(
-                fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
           ),
           SizedBox(
             height: responsive.wp(10),
@@ -493,10 +447,7 @@ class _RestablecerPasswordPageState extends State<RestablecerPasswordPage> {
             decoration: InputDecoration(
               //fillColor: Colors.white,
               hintText: titulo,
-              hintStyle: TextStyle(
-                  fontSize: responsive.ip(1.8),
-                  fontFamily: 'Montserrat',
-                  color: Colors.black54),
+              hintStyle: TextStyle(fontSize: responsive.ip(1.8), fontFamily: 'Montserrat', color: Colors.black54),
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.blueGrey),
               ),
@@ -538,10 +489,7 @@ class _RestablecerPasswordPageState extends State<RestablecerPasswordPage> {
             decoration: InputDecoration(
               //fillColor: Theme.of(context).dividerColor,
               hintText: titulo,
-              hintStyle: TextStyle(
-                  fontSize: responsive.ip(1.8),
-                  fontFamily: 'Montserrat',
-                  color: Colors.black54),
+              hintStyle: TextStyle(fontSize: responsive.ip(1.8), fontFamily: 'Montserrat', color: Colors.black54),
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.blueGrey),
               ),
@@ -565,8 +513,7 @@ class _RestablecerPasswordPageState extends State<RestablecerPasswordPage> {
     );
   }
 
-  Widget _botonLogin(
-      BuildContext context, LoginBloc passwordBloc, Responsive responsive) {
+  Widget _botonLogin(BuildContext context, LoginBloc passwordBloc, Responsive responsive) {
     return StreamBuilder(
         stream: passwordBloc.formValidPassStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -579,9 +526,7 @@ class _RestablecerPasswordPageState extends State<RestablecerPasswordPage> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: (snapshot.hasData)
-                    ? () => _submit(context, passwordBloc)
-                    : null,
+                onPressed: (snapshot.hasData) ? () => _submit(context, passwordBloc) : null,
                 child: Text('Actualizar contraseña'),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -617,8 +562,7 @@ class _RestablecerPasswordPageState extends State<RestablecerPasswordPage> {
               child: Text('Si'),
               onPressed: () async {
                 _cargando.value = true;
-                final int code =
-                    await bloc.restablecerPassOk('${bloc.password}');
+                final int code = await bloc.restablecerPassOk('${bloc.password}');
                 if (code == 1) {
                   showToast1('Contraseña restablecida', 2, ToastGravity.CENTER);
                   Navigator.of(context).pop();

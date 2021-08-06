@@ -35,13 +35,7 @@ void showToast(BuildContext context, String msg, {int duration, int gravity}) {
 
 void showToast1(String msg, int duration, ToastGravity gravity) {
   Fluttertoast.showToast(
-      msg: '$msg',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: gravity,
-      timeInSecForIosWeb: duration,
-      backgroundColor: Colors.black,
-      textColor: Colors.white,
-      fontSize: 16.0);
+      msg: '$msg', toastLength: Toast.LENGTH_SHORT, gravity: gravity, timeInSecForIosWeb: duration, backgroundColor: Colors.black, textColor: Colors.white, fontSize: 16.0);
 }
 
 String format(double n) {
@@ -49,8 +43,7 @@ String format(double n) {
 }
 
 //Guardar solo sucursal
-void guardarSubsidiaryFavorito(
-    BuildContext context, SubsidiaryModel sucursalModel) async {
+void guardarSubsidiaryFavorito(BuildContext context, SubsidiaryModel sucursalModel) async {
   final pointsBloc = ProviderBloc.points(context);
   //final subsidiaryBloc = ProviderBloc.sucursal(context);
   //final savePointApi = PointApi();
@@ -83,8 +76,7 @@ void guardarSubsidiaryFavorito(
 }
 
 //Cuando se elimina la sucursal desde pointPage
-void quitarSubsidiaryFavoritodePointPage(
-    BuildContext context, PointModel pointModel) async {
+void quitarSubsidiaryFavoritodePointPage(BuildContext context, PointModel pointModel) async {
   final sucursalBloc = ProviderBloc.sucursal(context);
   final pointsBloc = ProviderBloc.points(context);
 
@@ -113,8 +105,7 @@ void quitarSubsidiaryFavoritodePointPage(
   //deletePoint.deletePoint(subsidiaryModel.idSubsidiary);
 }
 
-void guardarProductoFavorito(
-    BuildContext context, ProductoModel dataModel) async {
+void guardarProductoFavorito(BuildContext context, ProductoModel dataModel) async {
   final pointsProdBloc = ProviderBloc.points(context);
   final bienesBloc = ProviderBloc.bienesServicios(context);
   final productoBloc = ProviderBloc.productos(context);
@@ -148,8 +139,7 @@ void guardarProductoFavorito(
   await productoDb.updateProducto(productoModel);
 
   //Obtenemos la lista de sucursales por id
-  final sucursal =
-      await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
+  final sucursal = await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
   final subModel = SubsidiaryModel();
   subModel.idSubsidiary = sucursal[0].idSubsidiary;
   subModel.idCompany = sucursal[0].idCompany;
@@ -176,8 +166,7 @@ void guardarProductoFavorito(
   productoBloc.listarProductosPorSucursal(dataModel.idSubsidiary);
 }
 
-void quitarProductoFavorito(
-    BuildContext context, ProductoModel dataModel) async {
+void quitarProductoFavorito(BuildContext context, ProductoModel dataModel) async {
   final pointsProdBloc = ProviderBloc.points(context);
   final bienesBloc = ProviderBloc.bienesServicios(context);
   final productoBloc = ProviderBloc.productos(context);
@@ -235,8 +224,7 @@ void quitarProductoFavorito(
   productoBloc.listarProductosPorSucursal(dataModel.idSubsidiary);
 }
 
-void guardarServicioFavorito(
-    BuildContext context, SubsidiaryServiceModel dataModel) async {
+void guardarServicioFavorito(BuildContext context, SubsidiaryServiceModel dataModel) async {
   final servicioModel = SubsidiaryServiceModel();
   final subservicesDb = SubsidiaryServiceDatabase();
   final sucursalDataBase = SubsidiaryDatabase();
@@ -253,8 +241,7 @@ void guardarServicioFavorito(
   servicioModel.idItemsubcategory = dataModel.idItemsubcategory;
   servicioModel.subsidiaryServiceName = dataModel.subsidiaryServiceName;
   servicioModel.subsidiaryServicePrice = dataModel.subsidiaryServicePrice;
-  servicioModel.subsidiaryServiceDescription =
-      dataModel.subsidiaryServiceDescription;
+  servicioModel.subsidiaryServiceDescription = dataModel.subsidiaryServiceDescription;
   servicioModel.subsidiaryServiceCurrency = dataModel.subsidiaryServiceCurrency;
   servicioModel.subsidiaryServiceImage = dataModel.subsidiaryServiceImage;
   servicioModel.subsidiaryServiceRating = dataModel.subsidiaryServiceRating;
@@ -265,8 +252,7 @@ void guardarServicioFavorito(
   await subservicesDb.updateSubsidiaryService(servicioModel);
 
   //Obtenemos la lista de sucursales por id
-  final sucursal =
-      await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
+  final sucursal = await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
   final subModel = SubsidiaryModel();
   subModel.idSubsidiary = sucursal[0].idSubsidiary;
   subModel.idCompany = sucursal[0].idCompany;
@@ -294,8 +280,7 @@ void guardarServicioFavorito(
   serviceBloc.listarServiciosPorSucursal(sucursal[0].idSubsidiary);
 }
 
-void quitarServicioFavorito(
-    BuildContext context, SubsidiaryServiceModel dataModel) async {
+void quitarServicioFavorito(BuildContext context, SubsidiaryServiceModel dataModel) async {
   final servicioModel = SubsidiaryServiceModel();
   final subservicesDb = SubsidiaryServiceDatabase();
 
@@ -311,8 +296,7 @@ void quitarServicioFavorito(
   servicioModel.idItemsubcategory = dataModel.idItemsubcategory;
   servicioModel.subsidiaryServiceName = dataModel.subsidiaryServiceName;
   servicioModel.subsidiaryServicePrice = dataModel.subsidiaryServicePrice;
-  servicioModel.subsidiaryServiceDescription =
-      dataModel.subsidiaryServiceDescription;
+  servicioModel.subsidiaryServiceDescription = dataModel.subsidiaryServiceDescription;
   servicioModel.subsidiaryServiceCurrency = dataModel.subsidiaryServiceCurrency;
   servicioModel.subsidiaryServiceImage = dataModel.subsidiaryServiceImage;
   servicioModel.subsidiaryServiceRating = dataModel.subsidiaryServiceRating;
@@ -333,8 +317,7 @@ void quitarServicioFavorito(
 }
 
 //---------------"De acuerdo a lo que buscaste"-----------------------
-void guardarProductoFavorito2(
-    BuildContext context, BienesServiciosModel dataModel) async {
+void guardarProductoFavorito2(BuildContext context, BienesServiciosModel dataModel) async {
   final pointsProdBloc = ProviderBloc.points(context);
   final bienesBloc = ProviderBloc.bienesServicios(context);
   final productoBloc = ProviderBloc.productos(context);
@@ -353,8 +336,7 @@ void guardarProductoFavorito2(
   productoModel.productoPrice = dataModel.subsidiaryGoodPrice;
   productoModel.productoCurrency = dataModel.subsidiaryGoodCurrency;
   productoModel.productoImage = dataModel.subsidiaryGoodImage;
-  productoModel.productoCharacteristics =
-      dataModel.subsidiaryGoodCharacteristics;
+  productoModel.productoCharacteristics = dataModel.subsidiaryGoodCharacteristics;
   productoModel.productoBrand = dataModel.subsidiaryGoodBrand;
   productoModel.productoModel = dataModel.subsidiaryGoodModel;
   productoModel.productoType = dataModel.subsidiaryGoodType;
@@ -370,8 +352,7 @@ void guardarProductoFavorito2(
   await productoDb.updateProducto(productoModel);
 
   //Obtenemos la lista de sucursales por id
-  final sucursal =
-      await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
+  final sucursal = await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
   final subModel = SubsidiaryModel();
   subModel.idSubsidiary = sucursal[0].idSubsidiary;
   subModel.idCompany = sucursal[0].idCompany;
@@ -401,8 +382,7 @@ void guardarProductoFavorito2(
   productoBloc.listarProductosPorSucursal(dataModel.idSubsidiary);
 }
 
-void quitarProductoFavorito2(
-    BuildContext context, BienesServiciosModel dataModel) async {
+void quitarProductoFavorito2(BuildContext context, BienesServiciosModel dataModel) async {
   final pointsProdBloc = ProviderBloc.points(context);
   final bienesBloc = ProviderBloc.bienesServicios(context);
   final productoBloc = ProviderBloc.productos(context);
@@ -419,8 +399,7 @@ void quitarProductoFavorito2(
   productoModel.productoPrice = dataModel.subsidiaryGoodPrice;
   productoModel.productoCurrency = dataModel.subsidiaryGoodCurrency;
   productoModel.productoImage = dataModel.subsidiaryGoodImage;
-  productoModel.productoCharacteristics =
-      dataModel.subsidiaryGoodCharacteristics;
+  productoModel.productoCharacteristics = dataModel.subsidiaryGoodCharacteristics;
   productoModel.productoBrand = dataModel.subsidiaryGoodBrand;
   productoModel.productoModel = dataModel.subsidiaryGoodModel;
   productoModel.productoType = dataModel.subsidiaryGoodType;
@@ -442,8 +421,7 @@ void quitarProductoFavorito2(
   productoBloc.listarProductosPorSucursal(dataModel.idSubsidiary);
 }
 
-void guardarServicioFavorito2(
-    BuildContext context, BienesServiciosModel dataModel) async {
+void guardarServicioFavorito2(BuildContext context, BienesServiciosModel dataModel) async {
   final servicioModel = SubsidiaryServiceModel();
   final subservicesDb = SubsidiaryServiceDatabase();
   final sucursalDataBase = SubsidiaryDatabase();
@@ -460,8 +438,7 @@ void guardarServicioFavorito2(
   servicioModel.idItemsubcategory = dataModel.idItemsubcategory;
   servicioModel.subsidiaryServiceName = dataModel.subsidiaryServiceName;
   servicioModel.subsidiaryServicePrice = dataModel.subsidiaryServicePrice;
-  servicioModel.subsidiaryServiceDescription =
-      dataModel.subsidiaryServiceDescription;
+  servicioModel.subsidiaryServiceDescription = dataModel.subsidiaryServiceDescription;
   servicioModel.subsidiaryServiceCurrency = dataModel.subsidiaryServiceCurrency;
   servicioModel.subsidiaryServiceImage = dataModel.subsidiaryServiceImage;
   servicioModel.subsidiaryServiceRating = dataModel.subsidiaryServiceRating;
@@ -472,8 +449,7 @@ void guardarServicioFavorito2(
   await subservicesDb.updateSubsidiaryService(servicioModel);
 
   //Obtenemos la lista de sucursales por id
-  final sucursal =
-      await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
+  final sucursal = await sucursalDataBase.obtenerSubsidiaryPorId(dataModel.idSubsidiary);
   final subModel = SubsidiaryModel();
   subModel.idSubsidiary = sucursal[0].idSubsidiary;
   subModel.idCompany = sucursal[0].idCompany;
@@ -501,8 +477,7 @@ void guardarServicioFavorito2(
   serviceBloc.listarServiciosPorSucursal(sucursal[0].idSubsidiary);
 }
 
-void quitarServicioFavorito2(
-    BuildContext context, BienesServiciosModel dataModel) async {
+void quitarServicioFavorito2(BuildContext context, BienesServiciosModel dataModel) async {
   final servicioModel = SubsidiaryServiceModel();
   final subservicesDb = SubsidiaryServiceDatabase();
   final sugerenciaBusquedaBloc = ProviderBloc.sugerenciaXbusqueda(context);
@@ -517,8 +492,7 @@ void quitarServicioFavorito2(
   servicioModel.idItemsubcategory = dataModel.idItemsubcategory;
   servicioModel.subsidiaryServiceName = dataModel.subsidiaryServiceName;
   servicioModel.subsidiaryServicePrice = dataModel.subsidiaryServicePrice;
-  servicioModel.subsidiaryServiceDescription =
-      dataModel.subsidiaryServiceDescription;
+  servicioModel.subsidiaryServiceDescription = dataModel.subsidiaryServiceDescription;
   servicioModel.subsidiaryServiceCurrency = dataModel.subsidiaryServiceCurrency;
   servicioModel.subsidiaryServiceImage = dataModel.subsidiaryServiceImage;
   servicioModel.subsidiaryServiceRating = dataModel.subsidiaryServiceRating;
@@ -538,8 +512,7 @@ void quitarServicioFavorito2(
   serviceBloc.listarServiciosPorSucursal(dataModel.idSubsidiary);
 }
 
-void leerNotificacion(
-    BuildContext context, NotificacionesModel notificaciones) async {
+void leerNotificacion(BuildContext context, NotificacionesModel notificaciones) async {
   final notiDb = NotificacionesDataBase();
   final notiApi = NotificacionesApi();
   final notificacionesBloc = ProviderBloc.notificaciones(context);
@@ -562,17 +535,13 @@ void leerNotificacion(
 }
 
 //----------------------Carrito-------------------------------------
-Future<int> agregarAlCarrito(BuildContext context, String idSubsidiarygood,
-    String talla, String modelo, String marca) async {
+Future<int> agregarAlCarrito(BuildContext context, String idSubsidiarygood, String talla, String modelo, String marca) async {
   CarritoDb carritoDb = CarritoDb();
   final productoDatabase = ProductoDatabase();
 
-  final productCarrito =
-      await carritoDb.obtenerProductoXCarritoPorIdProductoTalla(
-          idSubsidiarygood, talla, modelo, marca);
+  final productCarrito = await carritoDb.obtenerProductoXCarritoPorIdProductoTalla(idSubsidiarygood, talla, modelo, marca);
 
-  final producto = await productoDatabase
-      .obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
+  final producto = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
   CarritoModel c = CarritoModel();
 
   c.idSubsidiaryGood = producto[0].idProducto;
@@ -589,8 +558,7 @@ Future<int> agregarAlCarrito(BuildContext context, String idSubsidiarygood,
 
   if (productCarrito.length > 0) {
     //await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
-    await carritoDb.deleteCarritoPorIdProductoTalla(
-        idSubsidiarygood, talla, modelo, marca);
+    await carritoDb.deleteCarritoPorIdProductoTalla(idSubsidiarygood, talla, modelo, marca);
     c.cantidad = (int.parse(productCarrito[0].cantidad) + 1).toString();
 
     c.estadoSeleccionado = productCarrito[0].estadoSeleccionado;
@@ -607,17 +575,13 @@ Future<int> agregarAlCarrito(BuildContext context, String idSubsidiarygood,
   return 0;
 }
 
-Future<int> agregarAlCarritoDesdePedirAhora(BuildContext context,
-    String idSubsidiarygood, String talla, String modelo, String marca) async {
+Future<int> agregarAlCarritoDesdePedirAhora(BuildContext context, String idSubsidiarygood, String talla, String modelo, String marca) async {
   CarritoDb carritoDb = CarritoDb();
   final productoDatabase = ProductoDatabase();
 
-  final productCarrito =
-      await carritoDb.obtenerProductoXCarritoPorIdProductoTalla(
-          idSubsidiarygood, talla, modelo, marca);
+  final productCarrito = await carritoDb.obtenerProductoXCarritoPorIdProductoTalla(idSubsidiarygood, talla, modelo, marca);
 
-  final producto = await productoDatabase
-      .obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
+  final producto = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
   CarritoModel c = CarritoModel();
 
   c.idSubsidiaryGood = producto[0].idProducto;
@@ -634,8 +598,7 @@ Future<int> agregarAlCarritoDesdePedirAhora(BuildContext context,
 
   if (productCarrito.length > 0) {
     //await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
-    await carritoDb.deleteCarritoPorIdProductoTalla(
-        idSubsidiarygood, talla, modelo, marca);
+    await carritoDb.deleteCarritoPorIdProductoTalla(idSubsidiarygood, talla, modelo, marca);
     c.cantidad = (int.parse(productCarrito[0].cantidad) + 1).toString();
     if (productCarrito[0].estadoSeleccionado == '0') {
       c.estadoSeleccionado = '1';
@@ -668,23 +631,18 @@ void borrarCarrito(BuildContext context, String idSubsidiarygood) async {
   carritoBloc.carritoPorSucursalSeleccionado('0');
 }
 
-void agregarAlCarritoContador(BuildContext context, String idSubsidiarygood,
-    String talla, String modelo, String marca, int cantidad) async {
+void agregarAlCarritoContador(BuildContext context, String idSubsidiarygood, String talla, String modelo, String marca, int cantidad) async {
   CarritoDb carritoDb = CarritoDb();
   final productoDatabase = ProductoDatabase();
 
   if (cantidad == 0) {
     //eliminar producto del carrito
     //await carritoDb.deleteCarritoPorIdSudsidiaryGood(idSubsidiarygood);
-    await carritoDb.deleteCarritoPorIdProductoTalla(
-        idSubsidiarygood, talla, modelo, marca);
+    await carritoDb.deleteCarritoPorIdProductoTalla(idSubsidiarygood, talla, modelo, marca);
   } else {
-    final producto = await productoDatabase
-        .obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
+    final producto = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(idSubsidiarygood);
 
-    final carritoList =
-        await carritoDb.obtenerProductoXCarritoPorIdProductoTalla(
-            idSubsidiarygood, talla, modelo, marca);
+    final carritoList = await carritoDb.obtenerProductoXCarritoPorIdProductoTalla(idSubsidiarygood, talla, modelo, marca);
 
     CarritoModel c = CarritoModel();
 
@@ -710,11 +668,9 @@ void agregarAlCarritoContador(BuildContext context, String idSubsidiarygood,
   carritoBloc.carritoPorSucursalSeleccionado('0');
 }
 
-void deleteProductoCarrito(BuildContext context, String idSubsidiarygood,
-    String talla, String modelo, String marca) async {
+void deleteProductoCarrito(BuildContext context, String idSubsidiarygood, String talla, String modelo, String marca) async {
   CarritoDb carritoDb = CarritoDb();
-  await carritoDb.deleteCarritoPorIdProductoTalla(
-      idSubsidiarygood, talla, modelo, marca);
+  await carritoDb.deleteCarritoPorIdProductoTalla(idSubsidiarygood, talla, modelo, marca);
   final carritoBloc = ProviderBloc.productosCarrito(context);
   carritoBloc.obtenerCarritoPorSucursal();
   carritoBloc.carritoPorSucursalSeleccionado('0');
@@ -725,8 +681,7 @@ void porcentaje(BuildContext context, double porcen) async {
   porcentajeBloc.changePorcentaje(porcen);
 }
 
-void agregarPSaSugerencia(
-    BuildContext context, String idProduct, String tipo) async {
+void agregarPSaSugerencia(BuildContext context, String idProduct, String tipo) async {
   final sugerenciaBusquedaDb = SugerenciaBusquedaDb();
   final productoDatabase = ProductoDatabase();
   final subsidiaryServiceDatabase = SubsidiaryServiceDatabase();
@@ -735,8 +690,7 @@ void agregarPSaSugerencia(
   //final bienesBloc = ProviderBloc.bienesServicios(context);
 
   if (tipo == 'bien') {
-    final bienList =
-        await productoDatabase.obtenerProductoPorIdSubsidiaryGood(idProduct);
+    final bienList = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(idProduct);
 
     SugerenciaBusquedaModel sugerenciaBusquedaModel = SugerenciaBusquedaModel();
     sugerenciaBusquedaModel.idItemSubcategoria = bienList[0].idItemsubcategory;
@@ -746,14 +700,11 @@ void agregarPSaSugerencia(
 
     await sugerenciaBusquedaDb.insertarProducto(sugerenciaBusquedaModel);
   } else {
-    final serviceList = await subsidiaryServiceDatabase
-        .obtenerServiciosPorIdSucursalService(idProduct);
+    final serviceList = await subsidiaryServiceDatabase.obtenerServiciosPorIdSucursalService(idProduct);
 
     SugerenciaBusquedaModel sugerenciaBusquedaModel = SugerenciaBusquedaModel();
-    sugerenciaBusquedaModel.idItemSubcategoria =
-        serviceList[0].idItemsubcategory;
-    sugerenciaBusquedaModel.nombreProducto =
-        serviceList[0].subsidiaryServiceName;
+    sugerenciaBusquedaModel.idItemSubcategoria = serviceList[0].idItemsubcategory;
+    sugerenciaBusquedaModel.nombreProducto = serviceList[0].subsidiaryServiceName;
     sugerenciaBusquedaModel.idProducto = serviceList[0].idSubsidiaryservice;
     sugerenciaBusquedaModel.tipo = tipo;
 
@@ -764,8 +715,7 @@ void agregarPSaSugerencia(
   //bienesBloc.obtenerBienesAllPorCiudad();
 }
 
-void agregarHistorialBusqueda(BuildContext context, String idBusqueda,
-    String tipoBusqueda, String nombreBusqueda, String img) async {
+void agregarHistorialBusqueda(BuildContext context, String idBusqueda, String tipoBusqueda, String nombreBusqueda, String img) async {
   final searchBusquedaDB = SearchHistoryDb();
   final searchBloc = ProviderBloc.searHistory(context);
   var now = new DateTime.now();
@@ -848,8 +798,7 @@ void irADetalleProducto(BienesServiciosModel model, BuildContext context) {
   );
 }
 
-void cambiarEstadoCarrito(BuildContext context, String idProducto, String talla,
-    String modelo, String marca, String estado) async {
+void cambiarEstadoCarrito(BuildContext context, String idProducto, String talla, String modelo, String marca, String estado) async {
   final carritoBloc = ProviderBloc.productosCarrito(context);
   final carritodb = CarritoDb();
 
@@ -873,8 +822,7 @@ void seleccionarTiposPago(BuildContext context, String idTiposPago) async {
   tiposPagoBloc.obtenerTiposPago();
 }
 
-void updateStatusDelivery(
-    BuildContext context, String idSubsidiary, String seleccion) async {
+void updateStatusDelivery(BuildContext context, String idSubsidiary, String seleccion) async {
   final carritoBloc = ProviderBloc.productosCarrito(context);
   final carritoDeliveryDB = CarritoDeliveryDB();
 
@@ -883,8 +831,7 @@ void updateStatusDelivery(
   carritoBloc.obtenerCarritoConfirmacion('1');
 }
 
-void updateStatusDeliveryPedirAhora(BuildContext context, String idSubsidiary,
-    String seleccion, String idProducto) async {
+void updateStatusDeliveryPedirAhora(BuildContext context, String idSubsidiary, String seleccion, String idProducto) async {
   final carritoBloc = ProviderBloc.productosCarrito(context);
   final carritoDeliveryDB = CarritoDeliveryDB();
 
@@ -909,8 +856,7 @@ void updateStatusDeliveryPedirAhora(BuildContext context, String idSubsidiary,
 //   Navigator.pop(context);
 // }
 
-void agregarDireccion(BuildContext context, String direccion, String referencia,
-    String distrito) async {
+void agregarDireccion(BuildContext context, String direccion, String referencia, String distrito) async {
   final direccionesBloc = ProviderBloc.direc(context);
   final direccionDatabase = DireccionDatabase();
 
@@ -938,8 +884,7 @@ void eliminarDireccion(BuildContext context, DireccionModel direccion) async {
   // direccionModel.distrito = direccion.distrito;
   // direccionModel.estado = '0';
 
-  final res =
-      await direccionDatabase.deleteDireccionPorID(direccion.idDireccion);
+  final res = await direccionDatabase.deleteDireccionPorID(direccion.idDireccion);
   //final res = await direccionDatabase.updateDireccion(direccionModel);
   print('update $res');
 
@@ -956,8 +901,7 @@ void eliminarTodasLasDirecciones(BuildContext context) async {
   direccionesBloc.obtenerDirecciones();
 }
 
-Future<List<ProductoModel>> filtrarListaProductos(
-    List<ProductoModel> lista) async {
+Future<List<ProductoModel>> filtrarListaProductos(List<ProductoModel> lista) async {
   final List<ProductoModel> listAlgo = [];
 
   final List<String> listString = [];
@@ -988,8 +932,7 @@ Future<List<ProductoModel>> filtrarListaProductos(
           productoModel.productoPrice = lista[i].productoPrice;
           productoModel.productoCurrency = lista[i].productoCurrency;
           productoModel.productoImage = lista[i].productoImage;
-          productoModel.productoCharacteristics =
-              lista[i].productoCharacteristics;
+          productoModel.productoCharacteristics = lista[i].productoCharacteristics;
           productoModel.productoBrand = lista[i].productoBrand;
           productoModel.productoModel = lista[i].productoModel;
           productoModel.productoType = lista[i].productoType;
@@ -1010,8 +953,7 @@ Future<List<ProductoModel>> filtrarListaProductos(
   return listAlgo;
 }
 
-Future<List<CompanyModel>> filtrarListaNegocios(
-    List<CompanyModel> lista) async {
+Future<List<CompanyModel>> filtrarListaNegocios(List<CompanyModel> lista) async {
   final List<CompanyModel> listAlgo = [];
 
   final List<String> listString = [];

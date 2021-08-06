@@ -57,8 +57,7 @@ class AgentesBloc {
       agenteModel.posicion = listAgentes[i].posicion;
 
       //funcion que llama desde la bd a la lista de companys
-      final listCompany = await companyDatabase
-          .obtenerCompanyPorIdCompany(listAgentes[i].idCompany);
+      final listCompany = await companyDatabase.obtenerCompanyPorIdCompany(listAgentes[i].idCompany);
       // lista vacia para llenar los datos de la Company
       final List<CompanyModel> listcompanyModel = [];
 

@@ -8,8 +8,7 @@ class TiposPagoDatabase {
     try {
       final db = await dbProvider.database;
 
-      final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO TiposPago (id_tipo_pago,tipo_pago_nombre,tipo_pago_img,tipo_pago_msj,seleccionado,tipo_pago_estado) "
+      final res = await db.rawInsert("INSERT OR REPLACE INTO TiposPago (id_tipo_pago,tipo_pago_nombre,tipo_pago_img,tipo_pago_msj,seleccionado,tipo_pago_estado) "
           "VALUES('${tiposPagoModel.idTipoPago}','${tiposPagoModel.tipoPagoNombre}','${tiposPagoModel.tipoPagoImg}',"
           "'${tiposPagoModel.tipoPagoMsj}','${tiposPagoModel.seleccionado}','${tiposPagoModel.tipoPagoEstado}')");
 
@@ -22,12 +21,9 @@ class TiposPagoDatabase {
   Future<List<TiposPagoModel>> obtenerTiposPago() async {
     try {
       final db = await dbProvider.database;
-      final res = await db
-          .rawQuery("SELECT * FROM TiposPago where tipo_pago_estado = '1'");
+      final res = await db.rawQuery("SELECT * FROM TiposPago where tipo_pago_estado = '1'");
 
-      List<TiposPagoModel> list = res.isNotEmpty
-          ? res.map((c) => TiposPagoModel.fromJson(c)).toList()
-          : [];
+      List<TiposPagoModel> list = res.isNotEmpty ? res.map((c) => TiposPagoModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
@@ -38,12 +34,9 @@ class TiposPagoDatabase {
   Future<List<TiposPagoModel>> obtenerTiposPagoSeleccionado() async {
     try {
       final db = await dbProvider.database;
-      final res =
-          await db.rawQuery("SELECT * FROM TiposPago where seleccionado = '1'");
+      final res = await db.rawQuery("SELECT * FROM TiposPago where seleccionado = '1'");
 
-      List<TiposPagoModel> list = res.isNotEmpty
-          ? res.map((c) => TiposPagoModel.fromJson(c)).toList()
-          : [];
+      List<TiposPagoModel> list = res.isNotEmpty ? res.map((c) => TiposPagoModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");

@@ -25,8 +25,7 @@ import 'package:shimmer/shimmer.dart';
 class DetalleProductos extends StatefulWidget {
   //final ProductoModel producto;
   final String idProducto;
-  const DetalleProductos({Key key, @required this.idProducto})
-      : super(key: key);
+  const DetalleProductos({Key key, @required this.idProducto}) : super(key: key);
 
   @override
   _DetalleProductosState createState() => _DetalleProductosState();
@@ -90,13 +89,11 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                     color: Colors.white,
                                   ),
                                   const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 8.0),
+                                    padding: EdgeInsets.symmetric(horizontal: 8.0),
                                   ),
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
                                           width: double.infinity,
@@ -104,8 +101,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                           color: Colors.white,
                                         ),
                                         const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 2.0),
+                                          padding: EdgeInsets.symmetric(vertical: 2.0),
                                         ),
                                         Container(
                                           width: double.infinity,
@@ -113,8 +109,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                           color: Colors.white,
                                         ),
                                         const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 2.0),
+                                          padding: EdgeInsets.symmetric(vertical: 2.0),
                                         ),
                                         Container(
                                           width: 40.0,
@@ -165,13 +160,11 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                   color: Colors.white,
                                 ),
                                 const Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  padding: EdgeInsets.symmetric(horizontal: 8.0),
                                 ),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Container(
                                         width: double.infinity,
@@ -179,8 +172,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                         color: Colors.white,
                                       ),
                                       const Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 2.0),
+                                        padding: EdgeInsets.symmetric(vertical: 2.0),
                                       ),
                                       Container(
                                         width: double.infinity,
@@ -188,8 +180,7 @@ class _DetalleProductosState extends State<DetalleProductos> {
                                         color: Colors.white,
                                       ),
                                       const Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 2.0),
+                                        padding: EdgeInsets.symmetric(vertical: 2.0),
                                       ),
                                       Container(
                                         width: 40.0,
@@ -324,9 +315,7 @@ class _CuerpoState extends State<Cuerpo> {
                             vertical: responsive.hp(1.3),
                           ),
                           child: Text(
-                            (contadorBloc.pageContador + 1).toString() +
-                                '/' +
-                                widget.listProd[0].listFotos.length.toString(),
+                            (contadorBloc.pageContador + 1).toString() + '/' + widget.listProd[0].listFotos.length.toString(),
                           ),
                         );
                       },
@@ -362,8 +351,7 @@ class _CuerpoState extends State<Cuerpo> {
             ),
             TranslateAnimation(
               duration: const Duration(milliseconds: 400),
-              child: _contenido(
-                  responsive, preferences, context, widget.listProd, value),
+              child: _contenido(responsive, preferences, context, widget.listProd, value),
             ),
 
             BotonAgregar(responsive: responsive, listProd: widget.listProd)
@@ -373,8 +361,7 @@ class _CuerpoState extends State<Cuerpo> {
     );
   }
 
-  Widget _contenido(Responsive responsive, Preferences preferences,
-      BuildContext context, List<ProductoModel> listProd, int value) {
+  Widget _contenido(Responsive responsive, Preferences preferences, BuildContext context, List<ProductoModel> listProd, int value) {
     return Container(
       margin: EdgeInsets.only(
         top: responsive.hp(21),
@@ -426,9 +413,7 @@ class _CuerpoState extends State<Cuerpo> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        TitleText(
-                            text: "${listProd[value].productoName}",
-                            fontSize: responsive.ip(2)),
+                        TitleText(text: "${listProd[value].productoName}", fontSize: responsive.ip(2)),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
@@ -452,12 +437,7 @@ class _CuerpoState extends State<Cuerpo> {
                               width: responsive.wp(35),
                               child: RatingBar.readOnly(
                                 size: 20,
-                                initialRating:
-                                    ('${listProd[value].productoRating}' ==
-                                            null)
-                                        ? double.parse(
-                                            '${listProd[value].productoRating}')
-                                        : 0,
+                                initialRating: ('${listProd[value].productoRating}' == null) ? double.parse('${listProd[value].productoRating}') : 0,
                                 isHalfAllowed: true,
                                 halfFilledIcon: Icons.star_half,
                                 filledIcon: Icons.star,
@@ -503,20 +483,14 @@ class _CuerpoState extends State<Cuerpo> {
                   //Caracteristicas
                   Text(
                     "Descripción:",
-                    style: TextStyle(
-                        fontSize: responsive.ip(2),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: responsive.wp(3)),
                     child: Text(
                       // '$lorepIpsum',
-                      ('${listProd[value].productoCharacteristics}') == 'null'
-                          ? ""
-                          : "${listProd[value].productoCharacteristics}",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: responsive.ip(1.6)),
+                      ('${listProd[value].productoCharacteristics}') == 'null' ? "" : "${listProd[value].productoCharacteristics}",
+                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: responsive.ip(1.6)),
                     ),
                   ),
                   SizedBox(
@@ -532,9 +506,7 @@ class _CuerpoState extends State<Cuerpo> {
                               children: [
                                 Text(
                                   "Comentarios y Valoraciones:",
-                                  style: TextStyle(
-                                      fontSize: responsive.ip(2),
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                                 ),
                                 ComentariosProducto(
                                   idProducto: widget.listProd[value].idProducto,
@@ -594,16 +566,13 @@ class _BackGroundImageState extends State<BackGroundImage> {
                             Navigator.push(
                               context,
                               PageRouteBuilder(
-                                transitionDuration:
-                                    const Duration(milliseconds: 700),
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) {
+                                transitionDuration: const Duration(milliseconds: 700),
+                                pageBuilder: (context, animation, secondaryAnimation) {
                                   return DetalleProductoFoto(
                                     productosData: widget.listProd[value],
                                   );
                                 },
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                   return FadeTransition(
                                     opacity: animation,
                                     child: child,
@@ -614,27 +583,19 @@ class _BackGroundImageState extends State<BackGroundImage> {
                             //DetalleProductoFoto
                           },
                           child: Hero(
-                            tag:
-                                '$apiBaseURL/${widget.listProd[value].listFotos[index].galeriaFoto}',
+                            tag: '$apiBaseURL/${widget.listProd[value].listFotos[index].galeriaFoto}',
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: CachedNetworkImage(
                                 //cacheManager: CustomCacheManager(),
 
-                                placeholder: (context, url) => Image(
-                                    image: AssetImage('assets/jar-loading.gif'),
-                                    fit: BoxFit.cover),
+                                placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
 
-                                errorWidget: (context, url, error) => Image(
-                                    image:
-                                        AssetImage('assets/carga_fallida.jpg'),
-                                    fit: BoxFit.cover),
+                                errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
 
-                                imageUrl:
-                                    '$apiBaseURL/${widget.listProd[value].listFotos[index].galeriaFoto}',
+                                imageUrl: '$apiBaseURL/${widget.listProd[value].listFotos[index].galeriaFoto}',
 
-                                imageBuilder: (context, imageProvider) =>
-                                    Container(
+                                imageBuilder: (context, imageProvider) => Container(
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image: imageProvider,
@@ -684,9 +645,7 @@ class MarcasProductos extends StatelessWidget {
                   ),
                   child: Text(
                     'Marcas',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
@@ -712,8 +671,7 @@ class MarcasProductos extends StatelessWidget {
                               left: responsive.wp(2),
                             ),
                             decoration: BoxDecoration(
-                              color:
-                                  (index == value) ? Colors.blue : Colors.red,
+                              color: (index == value) ? Colors.blue : Colors.red,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Center(
@@ -764,9 +722,7 @@ class ModelosProductos extends StatelessWidget {
                   ),
                   child: Text(
                     'Modelos',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
@@ -792,8 +748,7 @@ class ModelosProductos extends StatelessWidget {
                               left: responsive.wp(2),
                             ),
                             decoration: BoxDecoration(
-                              color:
-                                  (index == value) ? Colors.blue : Colors.red,
+                              color: (index == value) ? Colors.blue : Colors.red,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Center(
@@ -844,9 +799,7 @@ class TallasProductos extends StatelessWidget {
                   ),
                   child: Text(
                     'Tallas',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
@@ -872,8 +825,7 @@ class TallasProductos extends StatelessWidget {
                               left: responsive.wp(2),
                             ),
                             decoration: BoxDecoration(
-                              color:
-                                  (index == value) ? Colors.blue : Colors.red,
+                              color: (index == value) ? Colors.blue : Colors.red,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Center(
@@ -965,27 +917,19 @@ class BotonAgregar extends StatelessWidget {
                             );
                           } else {
                             await agregarAlCarritoDesdePedirAhora(
-                                context,
-                                listProd[value].idProducto,
-                                listProd[value].productoSize,
-                                listProd[value].productoModel,
-                                listProd[value].productoBrand);
+                                context, listProd[value].idProducto, listProd[value].productoSize, listProd[value].productoModel, listProd[value].productoBrand);
 
                             Navigator.push(
                               context,
                               PageRouteBuilder(
-                                transitionDuration:
-                                    const Duration(milliseconds: 300),
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) {
-                                  return ConfirmacionItemPedido(
-                                      idProducto: listProd[value].idProducto
+                                transitionDuration: const Duration(milliseconds: 300),
+                                pageBuilder: (context, animation, secondaryAnimation) {
+                                  return ConfirmacionItemPedido(idProducto: listProd[value].idProducto
                                       //widget.producto.idProducto
                                       );
                                   //return DetalleProductitos(productosData: productosData);
                                 },
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                   return FadeTransition(
                                     opacity: animation,
                                     child: child,
@@ -1022,29 +966,20 @@ class BotonAgregar extends StatelessWidget {
                             ],
                           ),
                         ).ripple(() async {
-                          await agregarAlCarrito(
-                              context,
-                              listProd[value].idProducto,
-                              listProd[value].productoSize,
-                              listProd[value].productoModel,
-                              listProd[value].productoBrand);
+                          await agregarAlCarrito(context, listProd[value].idProducto, listProd[value].productoSize, listProd[value].productoModel, listProd[value].productoBrand);
 
                           Navigator.push(
                             context,
                             PageRouteBuilder(
                               opaque: false,
-                              transitionDuration:
-                                  const Duration(milliseconds: 300),
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) {
+                              transitionDuration: const Duration(milliseconds: 300),
+                              pageBuilder: (context, animation, secondaryAnimation) {
                                 return Agregarcarrito(
-                                  urlImage:
-                                      '$apiBaseURL/${listProd[value].listFotos[contadorBloc.pageContador].galeriaFoto}',
+                                  urlImage: '$apiBaseURL/${listProd[value].listFotos[contadorBloc.pageContador].galeriaFoto}',
                                 );
                                 //return DetalleProductitos(productosData: productosData);
                               },
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
+                              transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                 return FadeTransition(
                                   opacity: animation,
                                   child: child,
@@ -1082,8 +1017,7 @@ class _ComentariosProductoState extends State<ComentariosProducto> {
       width: responsive.wp(90),
       child: StreamBuilder(
         stream: valoracionProdBloc.valoracionStream,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<ValoracionModel>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<ValoracionModel>> snapshot) {
           List<ValoracionModel> listValoracion = snapshot.data;
           if (snapshot.hasData) {
             if (snapshot.data.length > 0) {
@@ -1092,9 +1026,7 @@ class _ComentariosProductoState extends State<ComentariosProducto> {
                 itemCount: listValoracion.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: responsive.ip(2),
-                        vertical: responsive.hp(1)),
+                    padding: EdgeInsets.symmetric(horizontal: responsive.ip(2), vertical: responsive.hp(1)),
                     child: Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1104,8 +1036,7 @@ class _ComentariosProductoState extends State<ComentariosProducto> {
                             width: responsive.wp(20),
                             child: RatingBar.readOnly(
                               size: 15,
-                              initialRating: double.parse(
-                                  '${listValoracion[index].valoracionRating}'),
+                              initialRating: double.parse('${listValoracion[index].valoracionRating}'),
                               isHalfAllowed: true,
                               halfFilledIcon: Icons.star_half,
                               filledIcon: Icons.star,
@@ -1115,8 +1046,7 @@ class _ComentariosProductoState extends State<ComentariosProducto> {
                           ),
                           Text(
                             '${listValoracion[index].comentario}',
-                            style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -1156,18 +1086,10 @@ class TitleText extends StatelessWidget {
   final double fontSize;
   final Color color;
   final FontWeight fontWeight;
-  const TitleText(
-      {Key key,
-      this.text,
-      this.fontSize = 18,
-      this.color = LightColor.titleTextColor,
-      this.fontWeight = FontWeight.w800})
-      : super(key: key);
+  const TitleText({Key key, this.text, this.fontSize = 18, this.color = LightColor.titleTextColor, this.fontWeight = FontWeight.w800}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Text(text,
-        style: GoogleFonts.muli(
-            fontSize: fontSize, fontWeight: fontWeight, color: color));
+    return Text(text, style: GoogleFonts.muli(fontSize: fontSize, fontWeight: fontWeight, color: color));
   }
 }
 

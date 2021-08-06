@@ -55,9 +55,7 @@ class GoodApi {
  */
   //Lista de todos los bienes en la pagina Principal
   Future<int> listarBienesAllPorCiudad() async {
-    final response = await http.post(
-        Uri.parse("$apiBaseURL/api/Inicio/listar_bienes_por_id_ciudad"),
-        body: {'id_ciudad': '1'});
+    final response = await http.post(Uri.parse("$apiBaseURL/api/Inicio/listar_bienes_por_id_ciudad"), body: {'id_ciudad': '1'});
 
     final decodedData = json.decode(response.body);
 
@@ -83,16 +81,11 @@ class GoodApi {
       ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
       final itemsubCategoryDatabase = ItemsubCategoryDatabase();
 
-      itemSubCategoriaModel.idItemsubcategory =
-          productosListModel['id_itemsubcategory'];
-      itemSubCategoriaModel.idSubcategory =
-          productosListModel['id_subcategory'];
-      itemSubCategoriaModel.itemsubcategoryName =
-          productosListModel['itemsubcategory_name'];
-      itemSubCategoriaModel.itemsubcategoryImage =
-          productosListModel['itemsubcategory_img'];
-      await itemsubCategoryDatabase.insertarItemSubCategoria(
-          itemSubCategoriaModel, 'Inicio/listar_bienes_por_id_ciudad');
+      itemSubCategoriaModel.idItemsubcategory = productosListModel['id_itemsubcategory'];
+      itemSubCategoriaModel.idSubcategory = productosListModel['id_subcategory'];
+      itemSubCategoriaModel.itemsubcategoryName = productosListModel['itemsubcategory_name'];
+      itemSubCategoriaModel.itemsubcategoryImage = productosListModel['itemsubcategory_img'];
+      await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel, 'Inicio/listar_bienes_por_id_ciudad');
 
       //----ingresamos Company:
       CompanyModel companyModel = CompanyModel();
@@ -123,32 +116,23 @@ class GoodApi {
       productoModel.idProducto = productosListModel['id_subsidiarygood'];
       productoModel.idSubsidiary = productosListModel['id_subsidiary'];
       productoModel.idGood = productosListModel['id_good'];
-      productoModel.idItemsubcategory =
-          productosListModel['id_itemsubcategory'];
+      productoModel.idItemsubcategory = productosListModel['id_itemsubcategory'];
       productoModel.productoName = productosListModel['subsidiary_good_name'];
       productoModel.productoPrice = productosListModel['subsidiary_good_price'];
-      productoModel.productoCurrency =
-          productosListModel['subsidiary_good_currency'];
+      productoModel.productoCurrency = productosListModel['subsidiary_good_currency'];
       productoModel.productoImage = productosListModel['subsidiary_good_image'];
-      productoModel.productoCharacteristics =
-          productosListModel['subsidiary_good_characteristics'];
+      productoModel.productoCharacteristics = productosListModel['subsidiary_good_characteristics'];
       productoModel.productoBrand = productosListModel['subsidiary_good_brand'];
       productoModel.productoModel = productosListModel['subsidiary_good_model'];
       productoModel.productoType = productosListModel['subsidiary_good_type'];
       productoModel.productoSize = productosListModel['subsidiary_good_size'];
       productoModel.productoStock = productosListModel['subsidiary_good_stock'];
-      productoModel.productoMeasure =
-          productosListModel['subsidiary_good_stock_measure'];
-      productoModel.productoRating =
-          productosListModel['subsidiary_good_rating'];
-      productoModel.productoUpdated =
-          productosListModel['subsidiary_good_updated'];
-      productoModel.productoStatus =
-          productosListModel['subsidiary_good_status'];
+      productoModel.productoMeasure = productosListModel['subsidiary_good_stock_measure'];
+      productoModel.productoRating = productosListModel['subsidiary_good_rating'];
+      productoModel.productoUpdated = productosListModel['subsidiary_good_updated'];
+      productoModel.productoStatus = productosListModel['subsidiary_good_status'];
 
-      var productList =
-          await productoDatabase.obtenerProductoPorIdSubsidiaryGood(
-              productosListModel['id_subsidiarygood']);
+      var productList = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(productosListModel['id_subsidiarygood']);
 
       if (productList.length > 0) {
         productoModel.productoFavourite = productList[0].productoFavourite;
@@ -158,34 +142,22 @@ class GoodApi {
       await productoDatabase.insertarProducto(productoModel);
 
       //Cuando el servicio no entrega los datos completos:
-      final list = await subsidiaryDatabase
-          .obtenerSubsidiaryPorId(decodedData["bienes"][i]["id_subsidiary"]);
+      final list = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData["bienes"][i]["id_subsidiary"]);
 
       SubsidiaryModel subsidiaryModel = SubsidiaryModel();
       subsidiaryModel.idSubsidiary = decodedData['bienes'][i]['id_subsidiary'];
       subsidiaryModel.idCompany = decodedData['bienes'][i]['id_company'];
-      subsidiaryModel.subsidiaryName =
-          decodedData['bienes'][i]['subsidiary_name'];
-      subsidiaryModel.subsidiaryAddress =
-          decodedData['bienes'][i]['subsidiary_address'];
-      subsidiaryModel.subsidiaryCellphone =
-          decodedData['bienes'][i]['subsidiary_cellphone'];
-      subsidiaryModel.subsidiaryCellphone2 =
-          decodedData['bienes'][i]['subsidiary_cellphone_2'];
-      subsidiaryModel.subsidiaryEmail =
-          decodedData['bienes'][i]['subsidiary_email'];
-      subsidiaryModel.subsidiaryCoordX =
-          decodedData['bienes'][i]['subsidiary_coord_x'];
-      subsidiaryModel.subsidiaryCoordY =
-          decodedData['bienes'][i]['subsidiary_coord_y'];
-      subsidiaryModel.subsidiaryOpeningHours =
-          decodedData['bienes'][i]['subsidiary_opening_hours'];
-      subsidiaryModel.subsidiaryPrincipal =
-          decodedData['bienes'][i]['subsidiary_principal'];
-      subsidiaryModel.subsidiaryStatus =
-          decodedData['bienes'][i]['subsidiary_status'];
-      subsidiaryModel.subsidiaryImg =
-          decodedData['bienes'][i]['subsidiary_img'];
+      subsidiaryModel.subsidiaryName = decodedData['bienes'][i]['subsidiary_name'];
+      subsidiaryModel.subsidiaryAddress = decodedData['bienes'][i]['subsidiary_address'];
+      subsidiaryModel.subsidiaryCellphone = decodedData['bienes'][i]['subsidiary_cellphone'];
+      subsidiaryModel.subsidiaryCellphone2 = decodedData['bienes'][i]['subsidiary_cellphone_2'];
+      subsidiaryModel.subsidiaryEmail = decodedData['bienes'][i]['subsidiary_email'];
+      subsidiaryModel.subsidiaryCoordX = decodedData['bienes'][i]['subsidiary_coord_x'];
+      subsidiaryModel.subsidiaryCoordY = decodedData['bienes'][i]['subsidiary_coord_y'];
+      subsidiaryModel.subsidiaryOpeningHours = decodedData['bienes'][i]['subsidiary_opening_hours'];
+      subsidiaryModel.subsidiaryPrincipal = decodedData['bienes'][i]['subsidiary_principal'];
+      subsidiaryModel.subsidiaryStatus = decodedData['bienes'][i]['subsidiary_status'];
+      subsidiaryModel.subsidiaryImg = decodedData['bienes'][i]['subsidiary_img'];
 
       if (list.length > 0) {
         subsidiaryModel.subsidiaryFavourite = list[0].subsidiaryFavourite;

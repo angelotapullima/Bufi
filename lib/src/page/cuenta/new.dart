@@ -5,8 +5,6 @@
 import 'package:flutter/material.dart';
 import 'package:ticket_pass_package/ticket_pass.dart';
 
-
-
 class Prueba extends StatefulWidget {
   const Prueba({Key key}) : super(key: key);
 
@@ -15,8 +13,7 @@ class Prueba extends StatefulWidget {
 }
 
 class _PruebaState extends State<Prueba> {
-
-   List<String> sample = <String>[
+  List<String> sample = <String>[
     'Sample data 1',
     'Sample data 2',
     'Sample data 3',
@@ -24,10 +21,9 @@ class _PruebaState extends State<Prueba> {
     'Sample data 5',
     'Sample data 6',
     'Sample data 7',
-    'Sample data 8'
+    'Sample data 8',
   ];
 
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -87,8 +83,7 @@ class _PruebaState extends State<Prueba> {
               elevation: 8,
               shouldExpand: true,
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30.0, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 5),
                 child: Container(
                   height: 140,
                   child: Padding(
@@ -102,31 +97,24 @@ class _PruebaState extends State<Prueba> {
                               children: <Widget>[
                                 Expanded(
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
                                         'Movie Time',
-                                        style: TextStyle(
-                                            color:
-                                                Colors.black.withOpacity(0.5)),
+                                        style: TextStyle(color: Colors.black.withOpacity(0.5)),
                                       ),
                                       Text(
                                         '12:00 PM',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600),
+                                        style: TextStyle(fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Expanded(
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
                                         'Name',
@@ -154,38 +142,32 @@ class _PruebaState extends State<Prueba> {
                             children: <Widget>[
                               Expanded(
                                 child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
                                       'Date',
-                                      style: TextStyle(
-                                          color: Colors.black.withOpacity(0.5)),
+                                      style: TextStyle(color: Colors.black.withOpacity(0.5)),
                                     ),
                                     Text(
                                       '4th Nov,2019 ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600),
+                                      style: TextStyle(fontWeight: FontWeight.w600),
                                     ),
                                   ],
                                 ),
                               ),
                               Expanded(
                                 child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
                                       'PRICE',
-                                      style: TextStyle(
-                                          color: Colors.black.withOpacity(0.5)),
+                                      style: TextStyle(color: Colors.black.withOpacity(0.5)),
                                     ),
                                     Text(
                                       '\$20 ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600),
+                                      style: TextStyle(fontWeight: FontWeight.w600),
                                     ),
                                   ],
                                 ),

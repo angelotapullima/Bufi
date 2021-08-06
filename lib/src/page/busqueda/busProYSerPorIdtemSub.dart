@@ -4,9 +4,7 @@ import 'package:bufi/src/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
 class BusquedaDeProYSerPorIdItemsubcat extends StatefulWidget {
-  const BusquedaDeProYSerPorIdItemsubcat(
-      {Key key, @required this.idItemsubcategory})
-      : super(key: key);
+  const BusquedaDeProYSerPorIdItemsubcat({Key key, @required this.idItemsubcategory}) : super(key: key);
 
   final String idItemsubcategory;
 
@@ -14,8 +12,7 @@ class BusquedaDeProYSerPorIdItemsubcat extends StatefulWidget {
   _BusquedaTodosProductosState createState() => _BusquedaTodosProductosState();
 }
 
-class _BusquedaTodosProductosState
-    extends State<BusquedaDeProYSerPorIdItemsubcat> {
+class _BusquedaTodosProductosState extends State<BusquedaDeProYSerPorIdItemsubcat> {
   TextEditingController _controllerBusquedaNegocio = TextEditingController();
 
   @override
@@ -28,8 +25,7 @@ class _BusquedaTodosProductosState
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final busquedaBloc = ProviderBloc.busqueda(context);
-    busquedaBloc.obtenerBusquedaProductosYserviciosPorIdItemSubcategory(
-        widget.idItemsubcategory, '');
+    busquedaBloc.obtenerBusquedaProductosYserviciosPorIdItemSubcategory(widget.idItemsubcategory, '');
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -57,9 +53,7 @@ class _BusquedaTodosProductosState
                         contentPadding: EdgeInsets.all(16),
                       ),
                       onSubmitted: (value) {
-                        busquedaBloc
-                            .obtenerBusquedaProductosYserviciosPorIdItemSubcategory(
-                                widget.idItemsubcategory, '$value');
+                        busquedaBloc.obtenerBusquedaProductosYserviciosPorIdItemSubcategory(widget.idItemsubcategory, '$value');
                       },
                       /* onChanged: (value) {
                          

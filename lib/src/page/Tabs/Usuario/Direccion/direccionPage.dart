@@ -30,9 +30,7 @@ class DireccionDeliveryPage extends StatelessWidget {
                         Container(
                           child: Text(
                             "Direcciónes de entrega",
-                            style: TextStyle(
-                                fontSize: responsive.ip(2),
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],
@@ -43,9 +41,7 @@ class DireccionDeliveryPage extends StatelessWidget {
                         Container(
                           width: responsive.wp(60),
                           height: responsive.hp(7),
-                          padding: EdgeInsets.symmetric(
-                              vertical: responsive.hp(.5),
-                              horizontal: responsive.wp(2)),
+                          padding: EdgeInsets.symmetric(vertical: responsive.hp(.5), horizontal: responsive.wp(2)),
                           decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(35),
@@ -60,8 +56,7 @@ class DireccionDeliveryPage extends StatelessWidget {
                                 child: Text(
                                   'Agregar una dirección',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
+                                  style: TextStyle(color: Colors.white, fontSize: 18),
                                 ),
                               ),
                             ],
@@ -114,13 +109,10 @@ class DireccionDeliveryPage extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 if (index == 0) {
                                   return Padding(
-                                    padding: EdgeInsets.only(
-                                        left: responsive.wp(55)),
+                                    padding: EdgeInsets.only(left: responsive.wp(55)),
                                     child: Container(
                                       width: responsive.wp(40),
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: responsive.hp(.5),
-                                          horizontal: responsive.wp(2)),
+                                      padding: EdgeInsets.symmetric(vertical: responsive.hp(.5), horizontal: responsive.wp(2)),
                                       decoration: BoxDecoration(
                                         color: Colors.red,
                                         borderRadius: BorderRadius.circular(35),
@@ -135,8 +127,7 @@ class DireccionDeliveryPage extends StatelessWidget {
                                             child: Text(
                                               'Eliminar todo',
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                              style: TextStyle(color: Colors.white),
                                             ),
                                           ),
                                         ],
@@ -162,14 +153,11 @@ class DireccionDeliveryPage extends StatelessWidget {
                                       ),
                                       Expanded(
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               '${snapshot.data[i].address}',
-                                              style: TextStyle(
-                                                  fontSize: responsive.ip(1.7),
-                                                  fontWeight: FontWeight.bold),
+                                              style: TextStyle(fontSize: responsive.ip(1.7), fontWeight: FontWeight.bold),
                                             ),
                                             Text(
                                               '${snapshot.data[i].referencia}',
@@ -192,8 +180,7 @@ class DireccionDeliveryPage extends StatelessWidget {
                                       IconButton(
                                           icon: Icon(Icons.delete),
                                           onPressed: () {
-                                            eliminarDireccion(
-                                                context, snapshot.data[i]);
+                                            eliminarDireccion(context, snapshot.data[i]);
                                           })
                                     ],
                                   ),

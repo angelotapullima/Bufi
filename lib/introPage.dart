@@ -32,31 +32,28 @@ class _ExampleHorizontalState extends State<ExampleHorizontal> {
           backgroundColor: Colors.transparent,
         ), */
         body: Swiper(
-          itemBuilder: (BuildContext context, int index) {
-            return Stack(
-              children: [
-                contenedor(responsive, index),
-                _mensajeTexto(responsive, mensaje[index])
-              ],
-            );
+      itemBuilder: (BuildContext context, int index) {
+        return Stack(
+          children: [contenedor(responsive, index), _mensajeTexto(responsive, mensaje[index])],
+        );
 
-            // Image.network(
-            //   images[index],
-            //   fit: BoxFit.fill,
-            // );
-          },
+        // Image.network(
+        //   images[index],
+        //   fit: BoxFit.fill,
+        // );
+      },
 
-          //indicatorLayout: PageIndicatorLayout.COLOR,
+      //indicatorLayout: PageIndicatorLayout.COLOR,
 
-          //autoplay: true,
+      //autoplay: true,
 
-          itemCount: mensaje.length,
-          //images.length,
+      itemCount: mensaje.length,
+      //images.length,
 
-          pagination: SwiperPagination(),
+      pagination: SwiperPagination(),
 
-          control: SwiperControl(),
-        ));
+      control: SwiperControl(),
+    ));
   }
 
   Widget _mensajeTexto(Responsive responsive, mensaje) {
@@ -95,8 +92,7 @@ class _ExampleHorizontalState extends State<ExampleHorizontal> {
               ),
               width: double.infinity,
               height: responsive.ip(8),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10), color: Colors.white),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
               child: Text("Inicia sesión")),
           ClipRRect(
               child: Container(

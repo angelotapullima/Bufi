@@ -18,12 +18,7 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
   String idQuenecesitas;
   @override
   Widget build(BuildContext context) {
-    provinciaList = [
-      Provincia('1', "Iquitos"),
-      Provincia('2', "Belen"),
-      Provincia('3', "Punchana"),
-      Provincia('4', "San Juan ")
-    ];
+    provinciaList = [Provincia('1', "Iquitos"), Provincia('2', "Belen"), Provincia('3', "Punchana"), Provincia('4', "San Juan ")];
 
     final responsive = Responsive.of(context);
     return Scaffold(
@@ -44,9 +39,7 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
                     BackButton(),
                     Text(
                       'Agrega una dirección',
-                      style: TextStyle(
-                          fontSize: responsive.ip(2),
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -55,9 +48,7 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
                 ),
                 Text(
                   'Dirección',
-                  style: TextStyle(
-                      fontSize: responsive.ip(1.7),
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: responsive.ip(1.7), fontWeight: FontWeight.bold),
                 ),
                 TextField(
                   controller: _direccionController,
@@ -81,9 +72,7 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
                 ),
                 Text(
                   'Referencia',
-                  style: TextStyle(
-                      fontSize: responsive.ip(1.7),
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: responsive.ip(1.7), fontWeight: FontWeight.bold),
                 ),
                 TextField(
                   controller: _referenciaController,
@@ -104,9 +93,7 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
                 ),
                 Text(
                   'Distrito',
-                  style: TextStyle(
-                      fontSize: responsive.ip(1.7),
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: responsive.ip(1.7), fontWeight: FontWeight.bold),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(
@@ -153,22 +140,15 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
                           if (_direccionController.text.length > 0) {
                             if (_referenciaController.text.length > 0) {
                               if (idQuenecesitas != null) {
-                                agregarDireccion(
-                                    context,
-                                    _direccionController.text,
-                                    _referenciaController.text,
-                                    idQuenecesitas);
+                                agregarDireccion(context, _direccionController.text, _referenciaController.text, idQuenecesitas);
                               } else {
-                                showToast(
-                                    context, 'Por favor agregue un distrito');
+                                showToast(context, 'Por favor agregue un distrito');
                               }
                             } else {
-                              showToast(
-                                  context, 'Por favor agregue una referencia');
+                              showToast(context, 'Por favor agregue una referencia');
                             }
                           } else {
-                            showToast(
-                                context, 'Por favor agregue una dirección');
+                            showToast(context, 'Por favor agregue una dirección');
                           }
                         },
                         child: Text(

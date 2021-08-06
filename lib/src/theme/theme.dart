@@ -7,8 +7,7 @@ final darkTheme = ThemeData.dark().copyWith(
   accentColor: InstagramColors.cardLight,
   cardColor: InstagramColors.cardDark,
   //textSelectionColor: InstagramColors.pink,
-  textSelectionTheme:
-      TextSelectionThemeData(selectionColor: InstagramColors.pink),
+  textSelectionTheme: TextSelectionThemeData(selectionColor: InstagramColors.pink),
 
   //canvasColor: InstagramColors.cardLight,
   dividerColor: InstagramColors.categoryDark,
@@ -22,8 +21,7 @@ final lightTheme = ThemeData.light().copyWith(
   accentColor: InstagramColors.grey,
   cardColor: InstagramColors.cardLight,
   //textSelectionColor: InstagramColors.pink,
-  textSelectionTheme:
-      TextSelectionThemeData(selectionColor: InstagramColors.pink),
+  textSelectionTheme: TextSelectionThemeData(selectionColor: InstagramColors.pink),
   //canvasColor: InstagramColors.pink,
   dividerColor: InstagramColors.categoryLight,
   hintColor: InstagramColors.colorHistoryLight,

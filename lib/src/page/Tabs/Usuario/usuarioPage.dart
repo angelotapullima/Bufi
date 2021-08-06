@@ -56,9 +56,7 @@ class _UserPageState extends State<UserPage> {
                     vertical: responsive.hp(2),
                     horizontal: responsive.wp(2),
                   ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -71,14 +69,9 @@ class _UserPageState extends State<UserPage> {
                             placeholder: (context, url) => Container(
                               width: double.infinity,
                               height: double.infinity,
-                              child: Image(
-                                  image: AssetImage('assets/no-image.png'),
-                                  fit: BoxFit.cover),
+                              child: Image(image: AssetImage('assets/no-image.png'), fit: BoxFit.cover),
                             ),
-                            errorWidget: (context, url, error) => Container(
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: Center(child: Icon(Icons.error))),
+                            errorWidget: (context, url, error) => Container(width: double.infinity, height: double.infinity, child: Center(child: Icon(Icons.error))),
                             imageUrl: '${prefs.userImage}',
                             imageBuilder: (context, imageProvider) => Container(
                               decoration: BoxDecoration(
@@ -147,16 +140,12 @@ class _UserPageState extends State<UserPage> {
                       vertical: responsive.hp(2),
                       horizontal: responsive.wp(2),
                     ),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
                     child: Column(
                       children: [
                         Text(
                           "Mis Pedidos",
-                          style: TextStyle(
-                              fontSize: responsive.ip(2.5),
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: responsive.hp(1),
@@ -182,9 +171,7 @@ class _UserPageState extends State<UserPage> {
                     vertical: responsive.hp(2),
                     horizontal: responsive.wp(2),
                   ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
                   child: Column(
                     children: [
                       SizedBox(height: responsive.hp(1.5)),
@@ -203,8 +190,7 @@ class _UserPageState extends State<UserPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           bottonCircular(responsive, 'puntos de Recargas'),
-                          bottonCircular(
-                              responsive, 'información de mi cuenta'),
+                          bottonCircular(responsive, 'información de mi cuenta'),
                           bottonCircular(responsive, 'Compras'),
                         ],
                       )
@@ -224,28 +210,21 @@ class _UserPageState extends State<UserPage> {
                     onTap: () async {
                       prefs.clearPreferences();
 
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, 'login', (route) => false);
+                      Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
                     },
                     child: new Container(
                       //width: 100.0,
                       height: responsive.hp(6),
                       decoration: new BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(color: Colors.black12, blurRadius: 3)
-                        ],
+                        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 3)],
                         color: Colors.white,
-                        border:
-                            new Border.all(color: Colors.grey[300], width: 1.0),
+                        border: new Border.all(color: Colors.grey[300], width: 1.0),
                         borderRadius: new BorderRadius.circular(8.0),
                       ),
                       child: new Center(
                         child: new Text(
                           'Iniciar sesión',
-                          style: new TextStyle(
-                              fontSize: responsive.ip(2),
-                              fontWeight: FontWeight.w800,
-                              color: Colors.red),
+                          style: new TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.w800, color: Colors.red),
                         ),
                       ),
                     ),
@@ -257,34 +236,23 @@ class _UserPageState extends State<UserPage> {
             ),
 
           //Direccion
-          _item(responsive, "Direcciones de entrega", "direccion",
-              Icons.gps_fixed),
+          _item(responsive, "Direcciones de entrega", "direccion", Icons.gps_fixed),
 
           _itemCarrito(responsive, "Carrito", Icons.shopping_cart),
 
-          _itemUrl(
-              responsive,
-              "Políticas de Privacidad",
-              'https://politicas.lacasadelasenchiladas.pe/politicas-privacidad.html',
-              Icons.privacy_tip_outlined),
+          _itemUrl(responsive, "Políticas de Privacidad", 'https://politicas.lacasadelasenchiladas.pe/politicas-privacidad.html', Icons.privacy_tip_outlined),
 
-          _itemUrl(
-              responsive,
-              "Términos y Condiciones",
-              'https://politicas.lacasadelasenchiladas.pe/politicas-privacidad.html',
-              Icons.save_alt),
+          _itemUrl(responsive, "Términos y Condiciones", 'https://politicas.lacasadelasenchiladas.pe/politicas-privacidad.html', Icons.save_alt),
 
           _item(responsive, "Configuración", "direccion", Icons.settings),
 
           //SizedBox(height: responsive.hp(2)),
 
           Container(
-              margin: EdgeInsets.symmetric(
-                  horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
+              margin: EdgeInsets.symmetric(horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
               width: double.infinity,
               height: responsive.ip(8),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10), color: Colors.white),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
               child: ListTile(
                 title: Text("Versión de la app",
                     style: TextStyle(
@@ -304,16 +272,13 @@ class _UserPageState extends State<UserPage> {
                 onTap: () async {
                   prefs.clearPreferences();
 
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, 'login', (route) => false);
+                  Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
                 },
                 child: new Container(
                   //width: 100.0,
                   height: responsive.hp(6),
                   decoration: new BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(color: Colors.black12, blurRadius: 3)
-                    ],
+                    boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 3)],
                     color: Colors.white,
                     border: new Border.all(color: Colors.grey[300], width: 1.0),
                     borderRadius: new BorderRadius.circular(8.0),
@@ -321,10 +286,7 @@ class _UserPageState extends State<UserPage> {
                   child: new Center(
                     child: new Text(
                       'Cerrar sesión',
-                      style: new TextStyle(
-                          fontSize: responsive.ip(2),
-                          fontWeight: FontWeight.w800,
-                          color: Colors.red),
+                      style: new TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.w800, color: Colors.red),
                     ),
                   ),
                 ),
@@ -337,12 +299,10 @@ class _UserPageState extends State<UserPage> {
 
   Widget _item(Responsive responsive, nombre, ruta, IconData icon) {
     return Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
+        margin: EdgeInsets.symmetric(horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
         width: double.infinity,
         height: responsive.ip(8),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: Colors.white),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
         child: ListTile(
           title: Text(nombre,
               style: TextStyle(
@@ -359,12 +319,10 @@ class _UserPageState extends State<UserPage> {
 
   Widget _itemUrl(Responsive responsive, nombre, url, IconData icon) {
     return Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
+        margin: EdgeInsets.symmetric(horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
         width: double.infinity,
         height: responsive.ip(8),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: Colors.white),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
         child: ListTile(
           title: Text(nombre,
               style: TextStyle(
@@ -381,12 +339,10 @@ class _UserPageState extends State<UserPage> {
 
   Widget _itemCarrito(Responsive responsive, nombre, IconData icon) {
     return Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
+        margin: EdgeInsets.symmetric(horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
         width: double.infinity,
         height: responsive.ip(8),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: Colors.white),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
         child: ListTile(
           title: Text(nombre,
               style: TextStyle(

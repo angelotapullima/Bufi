@@ -11,9 +11,7 @@ class AgentesApi {
 
   Future<int> obtenerAgentes() async {
     try {
-      var response = await http.post(
-          Uri.parse("$apiBaseURL/api/Inicio/agentes"),
-          body: {'id_ciudad': '1'});
+      var response = await http.post(Uri.parse("$apiBaseURL/api/Inicio/agentes"), body: {'id_ciudad': '1'});
 
       final decodedData = json.decode(response.body);
 
@@ -27,16 +25,13 @@ class AgentesApi {
         agenteModel.agenteTipo = decodedData["agentes"][i]["agente_tipo"];
         agenteModel.agenteNombre = decodedData["agentes"][i]["agente_nombre"];
         agenteModel.agenteCodigo = decodedData["agentes"][i]["agente_codigo"];
-        agenteModel.agenteDireccion =
-            decodedData["agentes"][i]["agente_direccion"];
-        agenteModel.agenteTelefono =
-            decodedData["agentes"][i]["agente_telefono"];
+        agenteModel.agenteDireccion = decodedData["agentes"][i]["agente_direccion"];
+        agenteModel.agenteTelefono = decodedData["agentes"][i]["agente_telefono"];
         agenteModel.agenteImagen = decodedData["agentes"][i]["agente_imagen"];
         agenteModel.agenteCoordX = decodedData["agentes"][i]["agente_coord_x"];
         agenteModel.agenteCoordY = decodedData["agentes"][i]["agente_coord_y"];
         agenteModel.agenteEstado = decodedData["agentes"][i]["agente_estado"];
-        agenteModel.idCuentaEmpresa =
-            decodedData["agentes"][i]["id_cuenta_empresa"];
+        agenteModel.idCuentaEmpresa = decodedData["agentes"][i]["id_cuenta_empresa"];
         agenteModel.cuentaeCodigo = decodedData["agentes"][i]["cuentae_codigo"];
         agenteModel.cuentaeSaldo = decodedData["agentes"][i]["cuentae_saldo"];
         agenteModel.cuentaeMoneda = decodedData["agentes"][i]["cuentae_moneda"];

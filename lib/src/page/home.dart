@@ -49,15 +49,13 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: StreamBuilder(
         stream: carritoBloc.carritoGeneralStream,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
           int cantidadCarrito = 0;
           if (snapshot.hasData) {
             if (snapshot.data.length > 0) {
               for (int i = 0; i < snapshot.data.length; i++) {
                 for (int x = 0; x < snapshot.data[i].car.length; x++) {
-                  cantidadCarrito =
-                      cantidadCarrito + snapshot.data[i].car[x].carrito.length;
+                  cantidadCarrito = cantidadCarrito + snapshot.data[i].car[x].carrito.length;
                 }
 
                 // for (int x = 0; i < snapshot.data.length; x++) {
@@ -122,16 +120,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget bottonNaviga(
-      Responsive responsive, int cantidad, TabNavigationBloc bottomBloc) {
+  Widget bottonNaviga(Responsive responsive, int cantidad, TabNavigationBloc bottomBloc) {
     return StreamBuilder(
       stream: bottomBloc.selectPageStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return BottomNavigationBar(
           elevation: 0.0,
           unselectedItemColor: Colors.black,
-          selectedItemColor:
-              Theme.of(context).textSelectionTheme.selectionColor,
+          selectedItemColor: Theme.of(context).textSelectionTheme.selectionColor,
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
@@ -162,15 +158,12 @@ class _HomePageState extends State<HomePage> {
                           child: Container(
                             child: Text(
                               cantidad.toString(),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1)),
+                              style: TextStyle(color: Colors.white, fontSize: responsive.ip(1)),
                             ),
                             alignment: Alignment.center,
                             width: responsive.ip(1.6),
                             height: responsive.ip(1.6),
-                            decoration: BoxDecoration(
-                                color: Colors.red, shape: BoxShape.circle),
+                            decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                           ),
                           //child: Icon(Icons.brightness_1, size: 8,color: Colors.redAccent,  )
                         )

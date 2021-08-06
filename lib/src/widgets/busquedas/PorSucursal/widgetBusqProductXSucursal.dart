@@ -1,5 +1,3 @@
-
-
 import 'package:bufi/src/page/busqueda/busquedaProductosPorSucursal.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +18,9 @@ class BusquedaProductoXsucursalWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-      
-      
-
-      Navigator.of(context).push(PageRouteBuilder(
+        Navigator.of(context).push(PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) {
-            return BusquedaProductosPorSucursal(
-              nameSucursal: nameSucursal,
-                idSubsidiary: idSucursal);
+            return BusquedaProductosPorSucursal(nameSucursal: nameSucursal, idSubsidiary: idSucursal);
           },
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             var begin = Offset(0.0, 1.0);
@@ -44,13 +37,12 @@ class BusquedaProductoXsucursalWidget extends StatelessWidget {
             );
           },
         ));
-
       },
       child: Container(
         // padding: EdgeInsets.symmetric(
         //   horizontal: responsive.wp(10),
         // ),
-        width:responsive.wp(80) ,
+        width: responsive.wp(80),
         height: responsive.hp(5),
         decoration: BoxDecoration(
           color: Colors.grey[300],
@@ -62,7 +54,7 @@ class BusquedaProductoXsucursalWidget extends StatelessWidget {
               icon: Icon(Icons.search),
               color: Colors.black,
               onPressed: () {
-               /*  showSearch(
+                /*  showSearch(
                     context: context,
                     delegate: BusquedaProductosXSucursalPage(
                         idSucursal: idSucursal)); */

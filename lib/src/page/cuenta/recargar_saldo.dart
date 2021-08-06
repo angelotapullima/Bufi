@@ -24,8 +24,7 @@ class RecargarSaldo extends StatelessWidget {
       backgroundColor: Colors.white,
       body: StreamBuilder(
         stream: cuentaBloc.recargaStream,
-        builder:
-            (BuildContext context, AsyncSnapshot<List<RecargaModel>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<RecargaModel>> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.length > 0) {
               return (snapshot.data[0].result == '3')
@@ -37,13 +36,10 @@ class RecargarSaldo extends StatelessWidget {
               return Container(
                 width: double.infinity,
                 child: Center(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text('Consultando recargas'),
-                        CircularProgressIndicator(),
-                      ]),
+                  child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
+                    Text('Consultando recargas'),
+                    CircularProgressIndicator(),
+                  ]),
                 ),
               );
             }
@@ -51,13 +47,10 @@ class RecargarSaldo extends StatelessWidget {
             return Container(
               width: double.infinity,
               child: Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('Consultando recargas'),
-                      CircularProgressIndicator(),
-                    ]),
+                child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
+                  Text('Consultando recargas'),
+                  CircularProgressIndicator(),
+                ]),
               ),
             );
           }
@@ -131,22 +124,17 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
                       ),
                       StreamBuilder(
                         stream: tiposPagoBloc.tiposPagoStream,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<TiposPagoModel>> snapshot) {
+                        builder: (BuildContext context, AsyncSnapshot<List<TiposPagoModel>> snapshot) {
                           if (snapshot.hasData) {
                             if (snapshot.data.length > 0) {
                               return GridView.builder(
                                   padding: EdgeInsets.all(0),
                                   shrinkWrap: true,
                                   physics: ClampingScrollPhysics(),
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 3,
-                                          childAspectRatio: 1),
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1),
                                   itemCount: snapshot.data.length,
                                   itemBuilder: (context, index) {
-                                    return bottonCircular(
-                                        responsive, snapshot.data[index]);
+                                    return bottonCircular(responsive, snapshot.data[index]);
                                   });
                             } else {
                               return Container();
@@ -158,8 +146,7 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
                       ),
                       StreamBuilder(
                         stream: tiposPagoBloc.mensajeTipoPagoSeleccionadoStream,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<TiposPagoModel>> snapshot) {
+                        builder: (BuildContext context, AsyncSnapshot<List<TiposPagoModel>> snapshot) {
                           if (snapshot.hasData) {
                             if (snapshot.data.length > 0) {
                               return Padding(
@@ -173,9 +160,7 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
                                     ),
                                     Text(
                                       snapshot.data[0].tipoPagoMsj,
-                                      style: TextStyle(
-                                          fontSize: responsive.ip(1.5),
-                                          fontWeight: FontWeight.bold),
+                                      style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                                     ),
                                   ],
                                 ),
@@ -218,8 +203,7 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
                                         fontSize: responsive.ip(2),
                                       ),
                                       border: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey[300]),
+                                        borderSide: BorderSide(color: Colors.grey[300]),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(8),
                                         ),
@@ -236,29 +220,22 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
                                 TextButton(
                                   onPressed: () async {
                                     _cargando.value = true;
-                                    final tiposPagoDatabase =
-                                        TiposPagoDatabase();
+                                    final tiposPagoDatabase = TiposPagoDatabase();
 
-                                    final listaTipos = await tiposPagoDatabase
-                                        .obtenerTiposPagoSeleccionado();
+                                    final listaTipos = await tiposPagoDatabase.obtenerTiposPagoSeleccionado();
 
                                     if (listaTipos.length > 0) {
                                       if (controlMonto.text.isEmpty) {
-                                        showToast(context,
-                                            'Por favor indique un monto de recarga');
+                                        showToast(context, 'Por favor indique un monto de recarga');
                                       } else {
                                         //llamada api
 
                                         final cuentaApi = CuentaApi();
 
-                                        final result =
-                                            await cuentaApi.recargarCuenta(
-                                                controlMonto.text,
-                                                listaTipos[0].idTipoPago);
+                                        final result = await cuentaApi.recargarCuenta(controlMonto.text, listaTipos[0].idTipoPago);
 
                                         if (result[0].result == '1') {
-                                          final cuentaBloc =
-                                              ProviderBloc.cuenta(context);
+                                          final cuentaBloc = ProviderBloc.cuenta(context);
                                           cuentaBloc.obtenerRecargaPendiente();
 
                                           _cargando.value = false;
@@ -267,8 +244,7 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
                                         }
                                       }
                                     } else {
-                                      showToast(context,
-                                          'Por favor seleccione un método de recarga');
+                                      showToast(context, 'Por favor seleccione un método de recarga');
 
                                       _cargando.value = false;
                                     }
@@ -369,9 +345,7 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
                               ),
                               height: responsive.ip(4),
                               width: responsive.ip(4),
-                              child: Image(
-                                  image: AssetImage('assets/loading.gif'),
-                                  fit: BoxFit.contain),
+                              child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.contain),
                             ),
                           ),
                         ),
@@ -416,12 +390,8 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
                       child: CachedNetworkImage(
-                        placeholder: (context, url) => Image(
-                            image: AssetImage('assets/jar-loading.gif'),
-                            fit: BoxFit.cover),
-                        errorWidget: (context, url, error) => Image(
-                            image: AssetImage('assets/carga_fallida.jpg'),
-                            fit: BoxFit.cover),
+                        placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
+                        errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
                         imageUrl: '$apiBaseURL/${tiposPagoModel.tipoPagoImg}',
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
@@ -608,9 +578,7 @@ class TieneRecargas extends StatelessWidget {
                         ),
                         child: Text(
                           pagos.mensaje,
-                          style: TextStyle(
-                              fontSize: responsive.ip(1.7),
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: responsive.ip(1.7), fontWeight: FontWeight.bold),
                         ),
                       ),
                       SizedBox(

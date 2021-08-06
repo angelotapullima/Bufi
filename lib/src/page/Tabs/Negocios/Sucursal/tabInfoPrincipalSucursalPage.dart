@@ -10,8 +10,7 @@ class TabProductosSucursalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
-    final SubsidiaryModel subsidiary =
-        ModalRoute.of(context).settings.arguments;
+    final SubsidiaryModel subsidiary = ModalRoute.of(context).settings.arguments;
     return _infoSucursal(responsive, subsidiary);
   }
 
@@ -20,7 +19,7 @@ class TabProductosSucursalPage extends StatelessWidget {
       color: Colors.white,
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(top: responsive.hp(3),  left: responsive.wp(3)),
+          padding: EdgeInsets.only(top: responsive.hp(3), left: responsive.wp(3)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -44,18 +43,14 @@ class TabProductosSucursalPage extends StatelessWidget {
               SizedBox(height: responsive.hp(3)),
               Text(
                 "Información",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: responsive.ip(2.7),
-                    fontWeight: FontWeight.bold),
+                style: TextStyle(color: Colors.black, fontSize: responsive.ip(2.7), fontWeight: FontWeight.bold),
               ),
               Divider(color: Colors.grey),
               Row(
                 children: [
                   Icon(Icons.location_on, size: 28, color: Colors.red[700]),
                   SizedBox(width: responsive.wp(2)),
-                  Text('${subsidiary.subsidiaryAddress}',
-                      style: TextStyle(fontSize: responsive.ip(2))),
+                  Text('${subsidiary.subsidiaryAddress}', style: TextStyle(fontSize: responsive.ip(2))),
                 ],
               ),
               SizedBox(height: responsive.hp(2.5)),
@@ -67,18 +62,15 @@ class TabProductosSucursalPage extends StatelessWidget {
                     size: 22,
                   ),
                   SizedBox(width: responsive.wp(2)),
-                  Text('${subsidiary.subsidiaryOpeningHours}',
-                      style: TextStyle(fontSize: responsive.ip(2))),
+                  Text('${subsidiary.subsidiaryOpeningHours}', style: TextStyle(fontSize: responsive.ip(2))),
                 ],
               ),
               SizedBox(height: responsive.hp(2.5)),
               Row(
                 children: [
-                  Icon(FontAwesomeIcons.phoneAlt,
-                      color: Colors.red[700], size: 22),
+                  Icon(FontAwesomeIcons.phoneAlt, color: Colors.red[700], size: 22),
                   SizedBox(width: responsive.wp(2)),
-                  Text('${subsidiary.subsidiaryCellphone}',
-                      style: TextStyle(fontSize: responsive.ip(2))),
+                  Text('${subsidiary.subsidiaryCellphone}', style: TextStyle(fontSize: responsive.ip(2))),
                 ],
               ),
               SizedBox(height: responsive.hp(2.5)),
@@ -86,9 +78,7 @@ class TabProductosSucursalPage extends StatelessWidget {
                 children: [
                   Icon(Icons.mail, size: 28, color: Colors.red[700]),
                   SizedBox(width: responsive.wp(2)),
-                  
-                  Text('${subsidiary.subsidiaryEmail}',
-                      style: TextStyle(fontSize: responsive.ip(2))),
+                  Text('${subsidiary.subsidiaryEmail}', style: TextStyle(fontSize: responsive.ip(2))),
                 ],
               ),
               SizedBox(height: responsive.hp(2.5)),
@@ -96,8 +86,7 @@ class TabProductosSucursalPage extends StatelessWidget {
                 children: [
                   Icon(FontAwesomeIcons.home, color: Colors.red, size: 22),
                   SizedBox(width: responsive.wp(2)),
-                  Text('${subsidiary.subsidiaryPrincipal}',
-                      style: TextStyle(fontSize: responsive.ip(2))),
+                  Text('${subsidiary.subsidiaryPrincipal}', style: TextStyle(fontSize: responsive.ip(2))),
                 ],
               ),
               SizedBox(height: responsive.hp(2.5)),
@@ -105,8 +94,7 @@ class TabProductosSucursalPage extends StatelessWidget {
                 children: [
                   Icon(FontAwesomeIcons.home, color: Colors.red[800], size: 22),
                   SizedBox(width: responsive.wp(2)),
-                  Text('${subsidiary.subsidiaryCoordX}',
-                      style: TextStyle(fontSize: responsive.ip(2))),
+                  Text('${subsidiary.subsidiaryCoordX}', style: TextStyle(fontSize: responsive.ip(2))),
                 ],
               )
             ],

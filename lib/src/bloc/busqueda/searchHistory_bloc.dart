@@ -19,8 +19,7 @@ class SearchHistoryBloc {
   final _historyController = BehaviorSubject<List<HistorialModel>>();
 
   //Crear el Stream controller SearhHistory
-  Stream<List<SearchHistoryModel>> get searchHistoryStream =>
-      _searchHistoryController.stream;
+  Stream<List<SearchHistoryModel>> get searchHistoryStream => _searchHistoryController.stream;
 
   //Stream controller History
   Stream<List<HistorialModel>> get historyStream => _historyController.stream;
@@ -46,18 +45,15 @@ class SearchHistoryBloc {
       for (var i = 0; i < listHistory.length; i++) {
         SearchHistoryModel searchHistoryModel = SearchHistoryModel();
         if (listHistory[i].tipoBusqueda == 'Producto') {
-          final listBien = await productoDatabase
-              .obtenerProductoPorIdSubsidiaryGood(listHistory[i].idBusqueda);
+          final listBien = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(listHistory[i].idBusqueda);
           searchHistoryModel.idBusqueda = listBien[0].idProducto;
           searchHistoryModel.nombreBusqueda = listBien[0].productoName;
           searchHistoryModel.img = listBien[0].productoImage;
           searchHistoryModel.tipoBusqueda = listHistory[i].tipoBusqueda;
         } else {
-          final listService = await subsidiaryServiceDatabase
-              .obtenerServiciosPorIdSucursalService(listHistory[i].idBusqueda);
+          final listService = await subsidiaryServiceDatabase.obtenerServiciosPorIdSucursalService(listHistory[i].idBusqueda);
           searchHistoryModel.idBusqueda = listService[0].idSubsidiaryservice;
-          searchHistoryModel.nombreBusqueda =
-              listService[0].subsidiaryServiceName;
+          searchHistoryModel.nombreBusqueda = listService[0].subsidiaryServiceName;
           searchHistoryModel.img = listService[0].subsidiaryServiceImage;
           searchHistoryModel.tipoBusqueda = listHistory[i].tipoBusqueda;
         }

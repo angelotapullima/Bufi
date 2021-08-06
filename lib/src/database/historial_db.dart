@@ -8,8 +8,7 @@ class HistorialDb {
     try {
       final db = await dbProvider.database;
 
-      final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO Historial (text, fecha, page_busqueda) "
+      final res = await db.rawInsert("INSERT OR REPLACE INTO Historial (text, fecha, page_busqueda) "
           "VALUES('$historial', '$fecha', '$page')");
 
       return res;
@@ -21,12 +20,9 @@ class HistorialDb {
   Future<List<HistorialModel>> obtenerBusqueda(String page) async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawQuery(
-          "SELECT * FROM Historial WHERE page_busqueda='$page' ORDER BY fecha DESC");
+      final res = await db.rawQuery("SELECT * FROM Historial WHERE page_busqueda='$page' ORDER BY fecha DESC");
 
-      List<HistorialModel> list = res.isNotEmpty
-          ? res.map((c) => HistorialModel.fromJson(c)).toList()
-          : [];
+      List<HistorialModel> list = res.isNotEmpty ? res.map((c) => HistorialModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
@@ -38,8 +34,7 @@ class HistorialDb {
     try {
       final db = await dbProvider.database;
 
-      final res =
-          await db.rawDelete("DELETE FROM Historial WHERE text = '$historial'");
+      final res = await db.rawDelete("DELETE FROM Historial WHERE text = '$historial'");
 
       return res;
     } catch (e) {

@@ -8,8 +8,7 @@ class CarritoDeliveryDB {
     try {
       final db = await dbProvider.database;
 
-      final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO CarritoDelivery (id_subsidiary,"
+      final res = await db.rawInsert("INSERT OR REPLACE INTO CarritoDelivery (id_subsidiary,"
           "tipo_delivery_seleccionado) "
           "VALUES('${carritoDeliveryModel.idSubsidiary}','${carritoDeliveryModel.tipoDeliverySeleccionado}')");
       return res;
@@ -18,16 +17,12 @@ class CarritoDeliveryDB {
     }
   }
 
-  Future<List<CarritoDeliveryModel>> obtenerTipoDeliveryPorSucursal(
-      String idSubsi) async {
+  Future<List<CarritoDeliveryModel>> obtenerTipoDeliveryPorSucursal(String idSubsi) async {
     final db = await dbProvider.database;
     try {
-      final res = await db.rawQuery(
-          "SELECT * FROM CarritoDelivery WHERE id_subsidiary = '$idSubsi'");
+      final res = await db.rawQuery("SELECT * FROM CarritoDelivery WHERE id_subsidiary = '$idSubsi'");
 
-      List<CarritoDeliveryModel> list = res.isNotEmpty
-          ? res.map((c) => CarritoDeliveryModel.fromJson(c)).toList()
-          : [];
+      List<CarritoDeliveryModel> list = res.isNotEmpty ? res.map((c) => CarritoDeliveryModel.fromJson(c)).toList() : [];
 
       return list;
     } catch (e) {

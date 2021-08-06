@@ -37,44 +37,27 @@ class BusquedaBloc {
   final categoriaDb = CategoryDatabase();
   final itemSubcategoriaDb = ItemsubCategoryDatabase();
 
-  final busquedaGeneralController =
-      BehaviorSubject<List<BusquedaGeneralModel>>();
+  final busquedaGeneralController = BehaviorSubject<List<BusquedaGeneralModel>>();
   final busquedaProductoController = BehaviorSubject<List<ProductoModel>>();
-  final busquedaProductoPorIdSucursalController =
-      BehaviorSubject<List<ProductoModel>>();
-  final busquedaServicioController =
-      BehaviorSubject<List<SubsidiaryServiceModel>>();
-  final busquedaNegocioController =
-      BehaviorSubject<List<CompanySubsidiaryModel>>();
+  final busquedaProductoPorIdSucursalController = BehaviorSubject<List<ProductoModel>>();
+  final busquedaServicioController = BehaviorSubject<List<SubsidiaryServiceModel>>();
+  final busquedaNegocioController = BehaviorSubject<List<CompanySubsidiaryModel>>();
   final busquedaCategoriaController = BehaviorSubject<List<CategoriaModel>>();
-  final busquedaSubcategController =
-      BehaviorSubject<List<BusquedaNegocioModel>>();
-  final busquedaItemSubcategController =
-      BehaviorSubject<List<ItemSubCategoriaModel>>();
-  final busquedaSubcategoryController =
-      BehaviorSubject<List<SubcategoryModel>>();
-  final busProySerPorIdItemsubController =
-      BehaviorSubject<List<BienesServiciosModel>>();
+  final busquedaSubcategController = BehaviorSubject<List<BusquedaNegocioModel>>();
+  final busquedaItemSubcategController = BehaviorSubject<List<ItemSubCategoriaModel>>();
+  final busquedaSubcategoryController = BehaviorSubject<List<SubcategoryModel>>();
+  final busProySerPorIdItemsubController = BehaviorSubject<List<BienesServiciosModel>>();
   final _cargandoItems = BehaviorSubject<bool>();
 
-  Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream =>
-      busquedaGeneralController.stream;
-  Stream<List<ProductoModel>> get busquedaProductoStream =>
-      busquedaProductoController.stream;
-  Stream<List<ProductoModel>> get busquedaProductoPorIdSucursalStream =>
-      busquedaProductoPorIdSucursalController.stream;
-  Stream<List<SubsidiaryServiceModel>> get busquedaServicioStream =>
-      busquedaServicioController.stream;
-  Stream<List<CompanySubsidiaryModel>> get busquedaNegocioStream =>
-      busquedaNegocioController.stream;
-  Stream<List<CategoriaModel>> get busquedaCategoriaStream =>
-      busquedaCategoriaController.stream;
-  Stream<List<ItemSubCategoriaModel>> get busquedaItemSubcategoriaStream =>
-      busquedaItemSubcategController.stream;
-  Stream<List<BienesServiciosModel>> get busProySerItemSubcategoriaStream =>
-      busProySerPorIdItemsubController.stream;
-  Stream<List<SubcategoryModel>> get busPorSubcategoriaStream =>
-      busquedaSubcategoryController.stream;
+  Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream => busquedaGeneralController.stream;
+  Stream<List<ProductoModel>> get busquedaProductoStream => busquedaProductoController.stream;
+  Stream<List<ProductoModel>> get busquedaProductoPorIdSucursalStream => busquedaProductoPorIdSucursalController.stream;
+  Stream<List<SubsidiaryServiceModel>> get busquedaServicioStream => busquedaServicioController.stream;
+  Stream<List<CompanySubsidiaryModel>> get busquedaNegocioStream => busquedaNegocioController.stream;
+  Stream<List<CategoriaModel>> get busquedaCategoriaStream => busquedaCategoriaController.stream;
+  Stream<List<ItemSubCategoriaModel>> get busquedaItemSubcategoriaStream => busquedaItemSubcategController.stream;
+  Stream<List<BienesServiciosModel>> get busProySerItemSubcategoriaStream => busProySerPorIdItemsubController.stream;
+  Stream<List<SubcategoryModel>> get busPorSubcategoriaStream => busquedaSubcategoryController.stream;
   Stream<bool> get cargandoItemsStream => _cargandoItems.stream;
 
   void dispose() {
@@ -92,21 +75,16 @@ class BusquedaBloc {
   }
 
   //productos por IdSucursal
-  void obtenerBusquedaProductosIdSubsidiary(
-      String idSucursal, String query) async {
+  void obtenerBusquedaProductosIdSubsidiary(String idSucursal, String query) async {
     busquedaProductoPorIdSucursalController.sink.add([]);
-    busquedaProductoPorIdSucursalController.sink
-        .add(await busquedaApi.busquedaXSucursal(idSucursal, query));
+    busquedaProductoPorIdSucursalController.sink.add(await busquedaApi.busquedaXSucursal(idSucursal, query));
   }
 
   //productos y servicios por IdItemSubcategory
 
-  void obtenerBusquedaProductosYserviciosPorIdItemSubcategory(
-      String idItemsubcategory, String query) async {
+  void obtenerBusquedaProductosYserviciosPorIdItemSubcategory(String idItemsubcategory, String query) async {
     busProySerPorIdItemsubController.sink.add([]);
-    busProySerPorIdItemsubController.sink.add(
-        await busquedaApi.busquedaDeProductosYServiciosPorIdItemsubcat(
-            idItemsubcategory, query));
+    busProySerPorIdItemsubController.sink.add(await busquedaApi.busquedaDeProductosYServiciosPorIdItemsubcat(idItemsubcategory, query));
   }
 
   //Busqueda general
@@ -116,8 +94,7 @@ class BusquedaBloc {
     busquedaGeneralController.sink.add([]);
     if (query != '') {
       _cargandoItems.sink.add(true);
-      busquedaGeneralController.sink
-          .add(await busquedaApi.busquedaGeneral(query));
+      busquedaGeneralController.sink.add(await busquedaApi.busquedaGeneral(query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);
@@ -133,8 +110,7 @@ class BusquedaBloc {
     busquedaProductoController.sink.add([]);
     if (query != '') {
       _cargandoItems.sink.add(true);
-      busquedaProductoController.sink
-          .add(await busquedaApi.busquedaProducto(context, query));
+      busquedaProductoController.sink.add(await busquedaApi.busquedaProducto(context, query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);
@@ -149,8 +125,7 @@ class BusquedaBloc {
     busquedaServicioController.sink.add([]);
     if (query != '') {
       _cargandoItems.sink.add(true);
-      busquedaServicioController.sink
-          .add(await busquedaApi.busquedaServicio(context, query));
+      busquedaServicioController.sink.add(await busquedaApi.busquedaServicio(context, query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);
@@ -164,8 +139,7 @@ class BusquedaBloc {
     busquedaNegocioController.sink.add([]);
     if (query != '') {
       _cargandoItems.sink.add(true);
-      busquedaNegocioController.sink
-          .add(await busquedaApi.busquedaNegocio(context, query));
+      busquedaNegocioController.sink.add(await busquedaApi.busquedaNegocio(context, query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);
@@ -176,8 +150,7 @@ class BusquedaBloc {
     busquedaCategoriaController.sink.add([]);
     if (query != '') {
       _cargandoItems.sink.add(true);
-      busquedaCategoriaController.sink
-          .add(await busquedaApi.busquedaCategorias(context, query));
+      busquedaCategoriaController.sink.add(await busquedaApi.busquedaCategorias(context, query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);
@@ -188,31 +161,26 @@ class BusquedaBloc {
     busquedaSubcategoryController.sink.add([]);
     if (query != '') {
       _cargandoItems.sink.add(true);
-      busquedaSubcategoryController.sink
-          .add(await obtnerResultBusquedaSubcategoria(context, query));
+      busquedaSubcategoryController.sink.add(await obtnerResultBusquedaSubcategoria(context, query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);
   }
 
   //ItemSubcategoriaCategoria
-  void obtenerBusquedaItemSubcategoria(
-      BuildContext context, String query) async {
+  void obtenerBusquedaItemSubcategoria(BuildContext context, String query) async {
     busquedaItemSubcategController.sink.add([]);
     if (query != '') {
       _cargandoItems.sink.add(true);
-      busquedaItemSubcategController.sink
-          .add(await obtnerResultBusquedaItemSubcategoria(context, query));
+      busquedaItemSubcategController.sink.add(await obtnerResultBusquedaItemSubcategoria(context, query));
       _cargandoItems.sink.add(false);
     }
     _cargandoItems.sink.add(false);
     //busquedaItemSubcategController.sink .add(await busquedaApi.busquedaItemsubcategorias(query));
   }
 
-  Future<List<BusquedaProductoModel>> obtnerResultBusquedaProducto(
-      String query) async {
-    List<BusquedaProductoModel> listaGeneral =
-        [] /*List<BusquedaProductoModel>()*/;
+  Future<List<BusquedaProductoModel>> obtnerResultBusquedaProducto(String query) async {
+    List<BusquedaProductoModel> listaGeneral = [] /*List<BusquedaProductoModel>()*/;
     final busquedaProductoModel = BusquedaProductoModel();
     final listProductos = await productoDb.consultarProductoPorQuery(query);
     final listProductoModel = [] /*List<ProductoModel>()*/;
@@ -227,8 +195,7 @@ class BusquedaBloc {
       productoModel.productoPrice = listProductos[i].productoPrice;
       productoModel.productoCurrency = listProductos[i].productoCurrency;
       productoModel.productoImage = listProductos[i].productoImage;
-      productoModel.productoCharacteristics =
-          listProductos[i].productoCharacteristics;
+      productoModel.productoCharacteristics = listProductos[i].productoCharacteristics;
       productoModel.productoBrand = listProductos[i].productoBrand;
       productoModel.productoModel = listProductos[i].productoModel;
       productoModel.productoType = listProductos[i].productoType;
@@ -246,8 +213,7 @@ class BusquedaBloc {
       //------------------Bienes-----------------------
 
       //funcion que llama desde la bd a la lista
-      final listBienes =
-          await goodDb.obtenerGoodPorIdGood(listProductos[0].idGood);
+      final listBienes = await goodDb.obtenerGoodPorIdGood(listProductos[0].idGood);
       //crear lista vacia
       final List<BienesModel> listBienesModel = [];
 
@@ -262,8 +228,7 @@ class BusquedaBloc {
 
 //------------------Sucursales-----------------------
       //funcion que llama desde la bd a la Lista de Sucursales
-      final listsucursal = await subsidiaryDb
-          .obtenerSubsidiaryPorId(listProductos[0].idSubsidiary);
+      final listsucursal = await subsidiaryDb.obtenerSubsidiaryPorId(listProductos[0].idSubsidiary);
 
       //crear lista vacia
       final List<SubsidiaryModel> listSucursalModel = [];
@@ -279,8 +244,7 @@ class BusquedaBloc {
         subModel.subsidiaryEmail = listsucursal[l].subsidiaryEmail;
         subModel.subsidiaryCoordX = listsucursal[l].subsidiaryCoordX;
         subModel.subsidiaryCoordY = listsucursal[l].subsidiaryCoordY;
-        subModel.subsidiaryOpeningHours =
-            listsucursal[l].subsidiaryOpeningHours;
+        subModel.subsidiaryOpeningHours = listsucursal[l].subsidiaryOpeningHours;
         subModel.subsidiaryPrincipal = listsucursal[l].subsidiaryPrincipal;
         subModel.subsidiaryStatus = listsucursal[l].subsidiaryStatus;
         subModel.subsidiaryFavourite = listsucursal[l].subsidiaryFavourite;
@@ -290,8 +254,7 @@ class BusquedaBloc {
 
 //------------------Company-----------------------
       //funcion que llama desde la bd a la lista de companys
-      final listCompany =
-          await companyDb.obtenerCompanyPorIdCompany(listsucursal[0].idCompany);
+      final listCompany = await companyDb.obtenerCompanyPorIdCompany(listsucursal[0].idCompany);
       // lista vacia para llenar los datos de la Company
       final List<CompanyModel> listcompanyModel = [];
 
@@ -324,8 +287,7 @@ class BusquedaBloc {
       }
 
 //------------------Categoria-----------------------
-      final listCategoria =
-          await categoriaDb.obtenerCategoriasporID(listCompany[0].idCategory);
+      final listCategoria = await categoriaDb.obtenerCategoriasporID(listCompany[0].idCategory);
       // lista vacia para llenar los datos de la Company
       final List<CategoriaModel> listcategModel = [];
 
@@ -338,8 +300,7 @@ class BusquedaBloc {
       }
 
 //------------------Subcategoria-----------------------
-      final listSubcategoria = await subCategoriaDb
-          .obtenerSubcategoriasPorIdCategoria(listCompany[0].idCategory);
+      final listSubcategoria = await subCategoriaDb.obtenerSubcategoriasPorIdCategoria(listCompany[0].idCategory);
       // lista vacia para llenar los datos de la Company
       final List<SubcategoryModel> listsubcategModel = [];
 
@@ -353,20 +314,15 @@ class BusquedaBloc {
       }
 
       //------------------ItemSubcategoria-----------------------
-      final listItemsubcategoria =
-          await itemSubcategoriaDb.obtenerItemSubCategoriaXIdItemSubcategoria(
-              listProductos[0].idItemsubcategory);
+      final listItemsubcategoria = await itemSubcategoriaDb.obtenerItemSubCategoriaXIdItemSubcategoria(listProductos[0].idItemsubcategory);
       // lista vacia para llenar los datos de la Company
       final List<ItemSubCategoriaModel> listItemsubcategModel = [];
 
       for (var i = 0; i < listItemsubcategoria.length; i++) {
         final itemSubcategoriaModel = ItemSubCategoriaModel();
-        itemSubcategoriaModel.idItemsubcategory =
-            listItemsubcategoria[i].idItemsubcategory;
-        itemSubcategoriaModel.idSubcategory =
-            listItemsubcategoria[i].idSubcategory;
-        itemSubcategoriaModel.itemsubcategoryName =
-            listItemsubcategoria[i].itemsubcategoryName;
+        itemSubcategoriaModel.idItemsubcategory = listItemsubcategoria[i].idItemsubcategory;
+        itemSubcategoriaModel.idSubcategory = listItemsubcategoria[i].idSubcategory;
+        itemSubcategoriaModel.itemsubcategoryName = listItemsubcategoria[i].itemsubcategoryName;
 
         listItemsubcategModel.add(itemSubcategoriaModel);
       }
@@ -385,13 +341,10 @@ class BusquedaBloc {
     return listaGeneral;
   }
 
-  Future<List<BusquedaServicioModel>> obtnerResultBusquedaServicio(
-      String query) async {
-    List<BusquedaServicioModel> listaGeneral =
-        [] /*List<BusquedaServicioModel>()*/;
+  Future<List<BusquedaServicioModel>> obtnerResultBusquedaServicio(String query) async {
+    List<BusquedaServicioModel> listaGeneral = [] /*List<BusquedaServicioModel>()*/;
     final busquedaServicioModel = BusquedaServicioModel();
-    final listServicios =
-        await subisdiaryServiceDb.consultarServicioPorQuery(query);
+    final listServicios = await subisdiaryServiceDb.consultarServicioPorQuery(query);
     final List<SubsidiaryServiceModel> listServicioModel = [];
 
     //Recorremos la lista general
@@ -400,24 +353,15 @@ class BusquedaBloc {
       servicioModel.idSubsidiaryservice = listServicios[i].idSubsidiaryservice;
       servicioModel.idSubsidiary = listServicios[i].idSubsidiary;
       servicioModel.idService = listServicios[i].idService;
-      servicioModel.subsidiaryServiceName =
-          listServicios[i].subsidiaryServiceName;
-      servicioModel.subsidiaryServiceDescription =
-          listServicios[i].subsidiaryServiceDescription;
-      servicioModel.subsidiaryServicePrice =
-          listServicios[i].subsidiaryServicePrice;
-      servicioModel.subsidiaryServiceCurrency =
-          listServicios[i].subsidiaryServiceCurrency;
-      servicioModel.subsidiaryServiceImage =
-          listServicios[i].subsidiaryServiceImage;
-      servicioModel.subsidiaryServiceRating =
-          listServicios[i].subsidiaryServiceRating;
-      servicioModel.subsidiaryServiceUpdated =
-          listServicios[i].subsidiaryServiceUpdated;
-      servicioModel.subsidiaryServiceStatus =
-          listServicios[i].subsidiaryServiceStatus;
-      servicioModel.subsidiaryServiceFavourite =
-          listServicios[i].subsidiaryServiceFavourite;
+      servicioModel.subsidiaryServiceName = listServicios[i].subsidiaryServiceName;
+      servicioModel.subsidiaryServiceDescription = listServicios[i].subsidiaryServiceDescription;
+      servicioModel.subsidiaryServicePrice = listServicios[i].subsidiaryServicePrice;
+      servicioModel.subsidiaryServiceCurrency = listServicios[i].subsidiaryServiceCurrency;
+      servicioModel.subsidiaryServiceImage = listServicios[i].subsidiaryServiceImage;
+      servicioModel.subsidiaryServiceRating = listServicios[i].subsidiaryServiceRating;
+      servicioModel.subsidiaryServiceUpdated = listServicios[i].subsidiaryServiceUpdated;
+      servicioModel.subsidiaryServiceStatus = listServicios[i].subsidiaryServiceStatus;
+      servicioModel.subsidiaryServiceFavourite = listServicios[i].subsidiaryServiceFavourite;
 
       listServicioModel.add(servicioModel);
     }
@@ -426,8 +370,7 @@ class BusquedaBloc {
       //------------------Servicios-----------------------
 
       //funcion que llama desde la bd a la lista
-      final listService = await serviceDatabase
-          .obtenerServicePorIdService(listServicios[0].idService);
+      final listService = await serviceDatabase.obtenerServicePorIdService(listServicios[0].idService);
       //crear lista vacia
       final List<ServiciosModel> listServiceModel = [];
 
@@ -442,8 +385,7 @@ class BusquedaBloc {
 
 //------------------Sucursales-----------------------
       //funcion que llama desde la bd a la Lista de Sucursales
-      final listsucursal = await subsidiaryDb
-          .obtenerSubsidiaryPorId(listServicios[0].idSubsidiary);
+      final listsucursal = await subsidiaryDb.obtenerSubsidiaryPorId(listServicios[0].idSubsidiary);
 
       //crear lista vacia
       final List<SubsidiaryModel> listSucursalModel = [];
@@ -459,8 +401,7 @@ class BusquedaBloc {
         subModel.subsidiaryEmail = listsucursal[l].subsidiaryEmail;
         subModel.subsidiaryCoordX = listsucursal[l].subsidiaryCoordX;
         subModel.subsidiaryCoordY = listsucursal[l].subsidiaryCoordY;
-        subModel.subsidiaryOpeningHours =
-            listsucursal[l].subsidiaryOpeningHours;
+        subModel.subsidiaryOpeningHours = listsucursal[l].subsidiaryOpeningHours;
         subModel.subsidiaryPrincipal = listsucursal[l].subsidiaryPrincipal;
         subModel.subsidiaryStatus = listsucursal[l].subsidiaryStatus;
         subModel.subsidiaryFavourite = listsucursal[l].subsidiaryFavourite;
@@ -470,8 +411,7 @@ class BusquedaBloc {
 
 //------------------Company-----------------------
       //funcion que llama desde la bd a la lista de companys
-      final listCompany =
-          await companyDb.obtenerCompanyPorIdCompany(listsucursal[0].idCompany);
+      final listCompany = await companyDb.obtenerCompanyPorIdCompany(listsucursal[0].idCompany);
       // lista vacia para llenar los datos de la Company
       final List<CompanyModel> listcompanyModel = [];
 
@@ -504,8 +444,7 @@ class BusquedaBloc {
       }
 
 //------------------Categoria-----------------------
-      final listCategoria =
-          await categoriaDb.obtenerCategoriasporID(listCompany[0].idCategory);
+      final listCategoria = await categoriaDb.obtenerCategoriasporID(listCompany[0].idCategory);
       // lista vacia para llenar los datos de la Company
       final List<CategoriaModel> listcategModel = [];
 
@@ -518,8 +457,7 @@ class BusquedaBloc {
       }
 
 //------------------Subcategoria-----------------------
-      final listSubcategoria = await subCategoriaDb
-          .obtenerSubcategoriasPorIdCategoria(listCompany[0].idCategory);
+      final listSubcategoria = await subCategoriaDb.obtenerSubcategoriasPorIdCategoria(listCompany[0].idCategory);
       // lista vacia para llenar los datos de la Company
       final List<SubcategoryModel> listsubcategModel = [];
 
@@ -533,20 +471,15 @@ class BusquedaBloc {
       }
 
       //------------------ItemSubcategoria-----------------------
-      final listItemsubcategoria =
-          await itemSubcategoriaDb.obtenerItemSubCategoriaXIdItemSubcategoria(
-              listServicios[0].idItemsubcategory);
+      final listItemsubcategoria = await itemSubcategoriaDb.obtenerItemSubCategoriaXIdItemSubcategoria(listServicios[0].idItemsubcategory);
       // lista vacia para llenar los datos de la Company
       final List<ItemSubCategoriaModel> listItemsubcategModel = [];
 
       for (var i = 0; i < listItemsubcategoria.length; i++) {
         final itemSubcategoriaModel = ItemSubCategoriaModel();
-        itemSubcategoriaModel.idItemsubcategory =
-            listItemsubcategoria[i].idItemsubcategory;
-        itemSubcategoriaModel.idSubcategory =
-            listItemsubcategoria[i].idSubcategory;
-        itemSubcategoriaModel.itemsubcategoryName =
-            listItemsubcategoria[i].itemsubcategoryName;
+        itemSubcategoriaModel.idItemsubcategory = listItemsubcategoria[i].idItemsubcategory;
+        itemSubcategoriaModel.idSubcategory = listItemsubcategoria[i].idSubcategory;
+        itemSubcategoriaModel.itemsubcategoryName = listItemsubcategoria[i].itemsubcategoryName;
 
         listItemsubcategModel.add(itemSubcategoriaModel);
       }
@@ -565,8 +498,7 @@ class BusquedaBloc {
     return listaGeneral;
   }
 
-  Future<List<BusquedaNegocioModel>> obtnerResultBusquedaNegocio(
-      String query) async {
+  Future<List<BusquedaNegocioModel>> obtnerResultBusquedaNegocio(String query) async {
     List<BusquedaNegocioModel> listaGeneral = [];
     final busquedaNegocioModel = BusquedaNegocioModel();
     final listCompany = await companyDb.consultarCompanyPorQuery(query);
@@ -605,8 +537,7 @@ class BusquedaBloc {
     if (listCompany.length > 0) {
 //------------------Sucursales-----------------------
       //funcion que llama desde la bd a la Lista de Sucursales
-      final listsucursal = await subsidiaryDb
-          .obtenerSubsidiaryPorIdCompany(listCompany[0].idCompany);
+      final listsucursal = await subsidiaryDb.obtenerSubsidiaryPorIdCompany(listCompany[0].idCompany);
 
       //crear lista vacia
       //final listSucursalModel = List<SubsidiaryModel>();
@@ -617,31 +548,21 @@ class BusquedaBloc {
         companySubsidiaryModel.idSubsidiary = listsucursal[l].idSubsidiary;
         companySubsidiaryModel.idCompany = listsucursal[l].idCompany;
         companySubsidiaryModel.subsidiaryName = listsucursal[l].subsidiaryName;
-        companySubsidiaryModel.subsidiaryCellphone =
-            listsucursal[l].subsidiaryCellphone;
-        companySubsidiaryModel.subsidiaryCellphone2 =
-            listsucursal[l].subsidiaryCellphone2;
-        companySubsidiaryModel.subsidiaryEmail =
-            listsucursal[l].subsidiaryEmail;
-        companySubsidiaryModel.subsidiaryCoordX =
-            listsucursal[l].subsidiaryCoordX;
-        companySubsidiaryModel.subsidiaryCoordY =
-            listsucursal[l].subsidiaryCoordY;
-        companySubsidiaryModel.subsidiaryOpeningHours =
-            listsucursal[l].subsidiaryOpeningHours;
-        companySubsidiaryModel.subsidiaryPrincipal =
-            listsucursal[l].subsidiaryPrincipal;
-        companySubsidiaryModel.subsidiaryStatus =
-            listsucursal[l].subsidiaryStatus;
-        companySubsidiaryModel.subsidiaryFavourite =
-            listsucursal[l].subsidiaryFavourite;
+        companySubsidiaryModel.subsidiaryCellphone = listsucursal[l].subsidiaryCellphone;
+        companySubsidiaryModel.subsidiaryCellphone2 = listsucursal[l].subsidiaryCellphone2;
+        companySubsidiaryModel.subsidiaryEmail = listsucursal[l].subsidiaryEmail;
+        companySubsidiaryModel.subsidiaryCoordX = listsucursal[l].subsidiaryCoordX;
+        companySubsidiaryModel.subsidiaryCoordY = listsucursal[l].subsidiaryCoordY;
+        companySubsidiaryModel.subsidiaryOpeningHours = listsucursal[l].subsidiaryOpeningHours;
+        companySubsidiaryModel.subsidiaryPrincipal = listsucursal[l].subsidiaryPrincipal;
+        companySubsidiaryModel.subsidiaryStatus = listsucursal[l].subsidiaryStatus;
+        companySubsidiaryModel.subsidiaryFavourite = listsucursal[l].subsidiaryFavourite;
 
         listCompanySubModel.add(companySubsidiaryModel);
       }
 
       //------------------Categoria-----------------------
-      final listCategoria =
-          await categoriaDb.obtenerCategoriasporID(listCompany[0].idCategory);
+      final listCategoria = await categoriaDb.obtenerCategoriasporID(listCompany[0].idCategory);
       // lista vacia para llenar los datos de la Company
       final List<CategoriaModel> listcategModel = [];
 
@@ -661,8 +582,7 @@ class BusquedaBloc {
     return listaGeneral;
   }
 
-  Future<List<CategoriaModel>> obtnerResultBusquedaCategoria(
-      String query) async {
+  Future<List<CategoriaModel>> obtnerResultBusquedaCategoria(String query) async {
     List<CategoriaModel> listaGeneral = [] /*List<CategoriaModel>()*/;
 
     //Primero obtenemos el id de la categoria por medio del nombreCateg para asociarlo a la tabla Company
@@ -678,25 +598,21 @@ class BusquedaBloc {
     return listaGeneral;
   }
 
-  Future<List<ItemSubCategoriaModel>> obtnerResultBusquedaItemSubcategoria(
-      BuildContext context, String query) async {
+  Future<List<ItemSubCategoriaModel>> obtnerResultBusquedaItemSubcategoria(BuildContext context, String query) async {
     //final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
     //Para mostrar el tab de servicios automaticamente
     //selectorTabBusqueda.changePage(6);
 
     //obtenemos el id del itemSubcategoria por medio del nombreItemSubcateg para asociarlo a la tabla Producto
-    final listItemSubcateg =
-        await itemSubcategoriaDb.obtenerItemSubCategoriaXQuery(query);
+    final listItemSubcateg = await itemSubcategoriaDb.obtenerItemSubCategoriaXQuery(query);
 
     final List<ItemSubCategoriaModel> listItemSubCateg = [];
 
     for (var y = 0; y < listItemSubcateg.length; y++) {
       ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
-      itemSubCategoriaModel.idItemsubcategory =
-          listItemSubcateg[y].idItemsubcategory;
+      itemSubCategoriaModel.idItemsubcategory = listItemSubcateg[y].idItemsubcategory;
       itemSubCategoriaModel.idSubcategory = listItemSubcateg[y].idSubcategory;
-      itemSubCategoriaModel.itemsubcategoryName =
-          listItemSubcateg[y].itemsubcategoryName;
+      itemSubCategoriaModel.itemsubcategoryName = listItemSubcateg[y].itemsubcategoryName;
 
       listItemSubCateg.add(itemSubCategoriaModel);
     }
@@ -704,14 +620,12 @@ class BusquedaBloc {
     return listItemSubCateg;
   }
 
-  Future<List<SubcategoryModel>> obtnerResultBusquedaSubcategoria(
-      BuildContext context, String query) async {
+  Future<List<SubcategoryModel>> obtnerResultBusquedaSubcategoria(BuildContext context, String query) async {
     //final selectorTabBusqueda = ProviderBloc.busquedaAngelo(context);
     //Para mostrar el tab de servicios automaticamente
     //selectorTabBusqueda.changePage(5);
     //obtenemos el id del itemSubcategoria por medio del nombreItemSubcateg para asociarlo a la tabla Producto
-    final listSubcategDb =
-        await subCategoriaDb.obtenerSubCategoriaXQuery(query);
+    final listSubcategDb = await subCategoriaDb.obtenerSubCategoriaXQuery(query);
 
     final List<SubcategoryModel> listSubCateg = [];
 

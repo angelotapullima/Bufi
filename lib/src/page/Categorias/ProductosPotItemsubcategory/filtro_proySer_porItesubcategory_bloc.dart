@@ -16,8 +16,7 @@ class FiltroProAndSerPorItemBloc with ChangeNotifier {
   List<String> tiposFiltradas = [];
 
   void init(String idItemsubcategory) async {
-    final productos =
-        await productoDatabase.consultarProductoPorIdItemsub(idItemsubcategory);
+    final productos = await productoDatabase.consultarProductoPorIdItemsub(idItemsubcategory);
 
     final List<String> listTallitas = [];
     final List<String> listMarquitas = [];

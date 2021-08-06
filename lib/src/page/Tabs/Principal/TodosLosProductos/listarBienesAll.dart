@@ -20,8 +20,7 @@ class ListarBienesAll extends StatefulWidget {
   _ListarBienesAllState createState() => _ListarBienesAllState();
 }
 
-class _ListarBienesAllState extends State<ListarBienesAll>
-    with SingleTickerProviderStateMixin<ListarBienesAll> {
+class _ListarBienesAllState extends State<ListarBienesAll> with SingleTickerProviderStateMixin<ListarBienesAll> {
   ValueNotifier<bool> switchCambio = ValueNotifier(false);
 
   AnimationController _animationController;
@@ -34,8 +33,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
   @override
   void initState() {
     super.initState();
-    _animationController =
-        AnimationController(vsync: this, duration: _animationDuration);
+    _animationController = AnimationController(vsync: this, duration: _animationDuration);
     isSidebarOpenedStreamController = PublishSubject<bool>();
     isSidebarOpenedStream = isSidebarOpenedStreamController.stream;
     isSidebarOpenedSink = isSidebarOpenedStreamController.sink;
@@ -75,8 +73,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
         children: [
           StreamBuilder(
               stream: bienesBloc.bienesStream,
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<ProductoModel>> snapshot) {
+              builder: (BuildContext context, AsyncSnapshot<List<ProductoModel>> snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data.length > 0) {
                     final listProduct = snapshot.data;
@@ -87,8 +84,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                         //color: Colors.red,
                         child: ValueListenableBuilder(
                             valueListenable: switchCambio,
-                            builder: (BuildContext context, bool data,
-                                Widget child) {
+                            builder: (BuildContext context, bool data, Widget child) {
                               return Column(
                                 children: [
                                   Container(
@@ -107,9 +103,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                                               textAlign: TextAlign.center,
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
-                                              style: TextStyle(
-                                                  fontSize: responsive.ip(2.5),
-                                                  fontWeight: FontWeight.bold),
+                                              style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                         )
@@ -123,12 +117,10 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                                       ),
                                       //Busqueda
                                       Expanded(
-                                        child: BusquedaProductoWidget(
-                                            responsive: responsive),
+                                        child: BusquedaProductoWidget(responsive: responsive),
                                       ),
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
                                           IconButton(
                                               icon: Icon(Icons.category),
@@ -159,14 +151,10 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                                           ? GridView.builder(
                                               // padding: EdgeInsets.only(top:18),
 
-                                              controller: ScrollController(
-                                                  keepScrollOffset: false),
+                                              controller: ScrollController(keepScrollOffset: false),
                                               shrinkWrap: true,
                                               scrollDirection: Axis.vertical,
-                                              gridDelegate:
-                                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                                      crossAxisCount: 2,
-                                                      childAspectRatio: 0.7),
+                                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.7),
                                               itemCount: listProduct.length,
                                               itemBuilder: (context, index) {
                                                 return GestureDetector(
@@ -174,25 +162,14 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                                                     Navigator.push(
                                                       context,
                                                       PageRouteBuilder(
-                                                        transitionDuration:
-                                                            const Duration(
-                                                                milliseconds:
-                                                                    100),
-                                                        pageBuilder: (context,
-                                                            animation,
-                                                            secondaryAnimation) {
+                                                        transitionDuration: const Duration(milliseconds: 100),
+                                                        pageBuilder: (context, animation, secondaryAnimation) {
                                                           return DetalleProductos(
-                                                            idProducto: snapshot
-                                                                .data[index]
-                                                                .idProducto,
+                                                            idProducto: snapshot.data[index].idProducto,
                                                           );
                                                           //return DetalleProductitos(productosData: productosData);
                                                         },
-                                                        transitionsBuilder:
-                                                            (context,
-                                                                animation,
-                                                                secondaryAnimation,
-                                                                child) {
+                                                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                                           return FadeTransition(
                                                             opacity: animation,
                                                             child: child,
@@ -202,15 +179,13 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                                                     );
                                                   },
                                                   child: BienesWidget(
-                                                    producto:
-                                                        snapshot.data[index],
+                                                    producto: snapshot.data[index],
                                                   ),
                                                 );
                                               })
                                           : ListView.builder(
                                               itemBuilder: (context, index) {
-                                                return bienesWidget(responsive,
-                                                    snapshot.data, index);
+                                                return bienesWidget(responsive, snapshot.data, index);
                                               },
                                               itemCount: listProduct.length,
                                             ),
@@ -241,9 +216,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                                       textAlign: TextAlign.center,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
-                                      style: TextStyle(
-                                          fontSize: responsive.ip(2.5),
-                                          fontWeight: FontWeight.bold),
+                                      style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                 )
@@ -257,15 +230,12 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                               ),
                               //Busqueda
                               Expanded(
-                                child: BusquedaProductoWidget(
-                                    responsive: responsive),
+                                child: BusquedaProductoWidget(responsive: responsive),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  IconButton(
-                                      icon: Icon(Icons.category),
-                                      onPressed: () {}),
+                                  IconButton(icon: Icon(Icons.category), onPressed: () {}),
                                   IconButton(
                                     icon: Icon(Icons.filter_list),
                                     onPressed: () {
@@ -322,8 +292,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                           ),
                           child: ClipRRect(
                             child: new BackdropFilter(
-                              filter: new ImageFilter.blur(
-                                  sigmaX: 5.0, sigmaY: 5.0),
+                              filter: new ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                               child: new Container(
                                 decoration: new BoxDecoration(
                                   color: Colors.white.withOpacity(0.0),
@@ -352,8 +321,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
     );
   }
 
-  Widget bienesWidget(
-      Responsive responsive, List<ProductoModel> data, int index) {
+  Widget bienesWidget(Responsive responsive, List<ProductoModel> data, int index) {
     return GestureDetector(
       onTap: () {
         //irADetalleProducto(data[index], context);
@@ -377,9 +345,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                         placeholder: (context, url) => Container(
                           width: double.infinity,
                           height: double.infinity,
-                          child: Image(
-                              image: AssetImage('assets/loading.gif'),
-                              fit: BoxFit.cover),
+                          child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.cover),
                         ),
                         imageUrl: '$apiBaseURL/${data[index].productoImage}',
                         fit: BoxFit.fitWidth,
@@ -397,10 +363,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                       child: Text(
                         '${data[index].productoName}',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: responsive.ip(2),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -416,10 +379,7 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                       height: responsive.hp(3),
                       child: Text(
                         'Producto',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: responsive.ip(1.5),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
@@ -433,36 +393,25 @@ class _ListarBienesAllState extends State<ListarBienesAll>
                 children: [
                   Text(
                     '${data[index].productoName}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2.5),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                   ),
                   //Text('${data[index].subsidiaryGoodMeasure}'),
 
                   Text(
                     '${data[index].productoCurrency + data[index].productoPrice}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2.5),
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(2.5), color: Colors.red, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     '${data[index].productoBrand}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(1.5),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                   ),
                   Text(
                     '${data[index].productoSize}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(1.5),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                   ),
                   Text(
                     '${data[index].productoModel}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(1.5),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 2),
                   Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -579,9 +528,7 @@ class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
                           ),
                           child: Text(
                             'Marcas',
-                            style: TextStyle(
-                                fontSize: responsive.ip(2),
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                           ),
                         );
                       }
@@ -614,9 +561,7 @@ class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
                         ),
                         child: Text(
                           'Modelos',
-                          style: TextStyle(
-                              fontSize: responsive.ip(2),
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                         ),
                       );
                     }
@@ -648,9 +593,7 @@ class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
                           ),
                           child: Text(
                             'Tallas',
-                            style: TextStyle(
-                                fontSize: responsive.ip(2),
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                           ),
                         );
                       }
@@ -692,10 +635,7 @@ class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
                   ),
                   child: Text(
                     'Filtrar',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: responsive.ip(2),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.white, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                   ).ripple(
                     () {
                       bool pase = true;
@@ -718,8 +658,7 @@ class _ContenidoFilterState extends State<ContenidoFilterTodosLosProductos> {
                       }
 
                       if (pase) {
-                        bienesBloc.obtenerBienesAllPorCiudadFiltrado(
-                            tashas, modeshos, marcash);
+                        bienesBloc.obtenerBienesAllPorCiudadFiltrado(tashas, modeshos, marcash);
                       } else {
                         bienesBloc.obtenerBienesAllPorCiudad();
                       }

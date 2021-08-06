@@ -42,18 +42,12 @@ class PedidosPage extends StatelessWidget {
                       itemCount: listPedidos[index].detallePedido.length + 1,
                       itemBuilder: (BuildContext context, int i) {
                         if (i == 0) {
-                          return _cabeceraPedido(
-                              responsive, listPedidos, index);
+                          return _cabeceraPedido(responsive, listPedidos, index);
                         }
 
                         int x = i - 1;
-                        return (listPedidos[index]
-                                    .detallePedido[x]
-                                    .listProducto
-                                    .length >
-                                0)
-                            ? _datosProducto(
-                                context, responsive, listPedidos, index, x)
+                        return (listPedidos[index].detallePedido[x].listProducto.length > 0)
+                            ? _datosProducto(context, responsive, listPedidos, index, x)
                             : Text("No existe ningún producto pedido");
                       },
                     );
@@ -73,8 +67,7 @@ class PedidosPage extends StatelessWidget {
     );
   }
 
-  Widget _datosProducto(BuildContext context, Responsive responsive,
-      List<PedidosModel> listPedidos, int index, int x) {
+  Widget _datosProducto(BuildContext context, Responsive responsive, List<PedidosModel> listPedidos, int index, int x) {
     var fecha = obtenerFechaHora(listPedidos[index].deliveryDatetime);
     return GestureDetector(
       onTap: () {
@@ -124,12 +117,9 @@ class PedidosPage extends StatelessWidget {
                         placeholder: (context, url) => Container(
                           width: double.infinity,
                           height: double.infinity,
-                          child: Image(
-                              image: AssetImage('assets/loading.gif'),
-                              fit: BoxFit.fitWidth),
+                          child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.fitWidth),
                         ),
-                        imageUrl:
-                            '$apiBaseURL/${listPedidos[index].detallePedido[x].listProducto[0].productoImage}',
+                        imageUrl: '$apiBaseURL/${listPedidos[index].detallePedido[x].listProducto[0].productoImage}',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -151,20 +141,13 @@ class PedidosPage extends StatelessWidget {
                         '${listPedidos[index].detallePedido[x].listProducto[0].productoModel}'),
                     Text(
                       '${listPedidos[index].detallePedido[x].cantidad}' 'UN',
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       'S/. ' +
-                          (double.parse(
-                                      '${listPedidos[index].detallePedido[x].cantidad}') *
-                                  double.parse(
-                                      '${listPedidos[index].detallePedido[x].listProducto[0].productoPrice}'))
+                          (double.parse('${listPedidos[index].detallePedido[x].cantidad}') * double.parse('${listPedidos[index].detallePedido[x].listProducto[0].productoPrice}'))
                               .toString(),
-                      style: TextStyle(
-                          fontSize: responsive.ip(1.8),
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: responsive.ip(1.8), color: Colors.red, fontWeight: FontWeight.bold),
                     ),
                     Text('$fecha'),
                   ],
@@ -180,8 +163,7 @@ class PedidosPage extends StatelessWidget {
     );
   }
 
-  Widget _cabeceraPedido(
-      Responsive responsive, List<PedidosModel> listPedidos, int index) {
+  Widget _cabeceraPedido(Responsive responsive, List<PedidosModel> listPedidos, int index) {
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: responsive.hp(1),
@@ -198,10 +180,7 @@ class PedidosPage extends StatelessWidget {
             children: [
               Text(
                 'Pedido N° ${listPedidos[index].idPedido}',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: responsive.ip(2),
-                    fontWeight: FontWeight.bold),
+                style: TextStyle(color: Colors.black, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
               ),
               Spacer(),
               Text(

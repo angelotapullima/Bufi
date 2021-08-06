@@ -1,6 +1,3 @@
-
-
-
 import 'package:bufi/src/api/negocio/negocios_api.dart';
 import 'package:bufi/src/bloc/login_bloc.dart';
 
@@ -20,18 +17,12 @@ class RegistroSucursalBloc with Validators {
   final _emailSucursalController = BehaviorSubject<String>();
   final _cargandoRegistroSucursalController = BehaviorSubject<bool>();
 
-  Stream<String> get nombreSucursalStream =>
-      _nombreSucursalController.stream.transform(validarname);
-  Stream<String> get direccionSucursalStream =>
-      _direccionSucursalController.stream.transform(validarsurname);
-  Stream<String> get celularSucursalStream =>
-      _celularSucursalController.stream.transform(validarcel);
-  Stream<String> get celular2SucursalStream =>
-      _celular2SucursalController.stream.transform(validarcel);
-  Stream<String> get emailSucursalStream =>
-      _emailSucursalController.stream.transform(validarEmail);
-  Stream<bool> get cargandoSucursalStream =>
-      _cargandoRegistroSucursalController.stream;
+  Stream<String> get nombreSucursalStream => _nombreSucursalController.stream.transform(validarname);
+  Stream<String> get direccionSucursalStream => _direccionSucursalController.stream.transform(validarsurname);
+  Stream<String> get celularSucursalStream => _celularSucursalController.stream.transform(validarcel);
+  Stream<String> get celular2SucursalStream => _celular2SucursalController.stream.transform(validarcel);
+  Stream<String> get emailSucursalStream => _emailSucursalController.stream.transform(validarEmail);
+  Stream<bool> get cargandoSucursalStream => _cargandoRegistroSucursalController.stream;
 
   String get nameEmpresa => _nombreSucursalController.value;
   String get direccion => _direccionSucursalController.value;
@@ -48,17 +39,13 @@ class RegistroSucursalBloc with Validators {
     _cargandoRegistroSucursalController?.close();
   }
 
-  Function(String) get changenombreSucursal =>
-      _nombreSucursalController.sink.add;
+  Function(String) get changenombreSucursal => _nombreSucursalController.sink.add;
 
-  Function(String) get changedireccionSucursal =>
-      _direccionSucursalController.sink.add;
+  Function(String) get changedireccionSucursal => _direccionSucursalController.sink.add;
 
-  Function(String) get changecelularSucursal =>
-      _celularSucursalController.sink.add;
+  Function(String) get changecelularSucursal => _celularSucursalController.sink.add;
 
-  Function(String) get changecelular2Sucursal =>
-      _celular2SucursalController.sink.add;
+  Function(String) get changecelular2Sucursal => _celular2SucursalController.sink.add;
 
   Function(String) get changeemailSucursal => _emailSucursalController.sink.add;
 

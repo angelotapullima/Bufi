@@ -12,13 +12,11 @@ class NotificacionesApi {
 
   Future<dynamic> listarNotificaciones() async {
     try {
-      final res = await http.post(
-          Uri.parse("$apiBaseURL/api/usuario/listar_notificaciones"),
-          body: {
-            'app': 'true',
-            'tn': prefs.token
-            //prefs.token,
-          });
+      final res = await http.post(Uri.parse("$apiBaseURL/api/usuario/listar_notificaciones"), body: {
+        'app': 'true',
+        'tn': prefs.token
+        //prefs.token,
+      });
 
       final decodedData = json.decode(res.body);
       //print(res);
@@ -28,18 +26,12 @@ class NotificacionesApi {
 
         notificacionModel.idNotificacion = decodedData[i]["id_notificacion"];
         notificacionModel.idUsuario = decodedData[i]["id_usuario"];
-        notificacionModel.notificacionTipo =
-            decodedData[i]["notificacion_tipo"];
-        notificacionModel.notificacionIdRel =
-            decodedData[i]["notificacion_id_rel"];
-        notificacionModel.notificacionMensaje =
-            decodedData[i]["notificacion_mensaje"];
-        notificacionModel.notificacionImagen =
-            decodedData[i]["notificacion_imagen"];
-        notificacionModel.notificacionDatetime =
-            decodedData[i]["notificacion_datetime"];
-        notificacionModel.notificacionEstado =
-            decodedData[i]["notificacion_estado"];
+        notificacionModel.notificacionTipo = decodedData[i]["notificacion_tipo"];
+        notificacionModel.notificacionIdRel = decodedData[i]["notificacion_id_rel"];
+        notificacionModel.notificacionMensaje = decodedData[i]["notificacion_mensaje"];
+        notificacionModel.notificacionImagen = decodedData[i]["notificacion_imagen"];
+        notificacionModel.notificacionDatetime = decodedData[i]["notificacion_datetime"];
+        notificacionModel.notificacionEstado = decodedData[i]["notificacion_estado"];
 
         await notificacionDb.insertarNotificaciones(notificacionModel);
       }
@@ -52,8 +44,7 @@ class NotificacionesApi {
 
   Future<dynamic> notificacionesVistas(String idNotificacion) async {
     try {
-      final res = await http
-          .post(Uri.parse("$apiBaseURL/api/usuario/notificacion_vista"), body: {
+      final res = await http.post(Uri.parse("$apiBaseURL/api/usuario/notificacion_vista"), body: {
         'id': '$idNotificacion',
         'app': 'true',
         'tn': prefs.token,

@@ -7,8 +7,7 @@ class GoodDatabase {
   insertarGood(BienesModel bienesModel) async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO Good (id_good,good_name,good_synonyms) "
+      final res = await db.rawInsert("INSERT OR REPLACE INTO Good (id_good,good_name,good_synonyms) "
           "VALUES('${bienesModel.idGood}', '${bienesModel.goodName}', '${bienesModel.goodSynonyms}')");
 
       return res;
@@ -22,9 +21,7 @@ class GoodDatabase {
       final db = await dbProvider.database;
       final res = await db.rawQuery("SELECT * FROM Good");
 
-      List<BienesModel> list = res.isNotEmpty
-          ? res.map((c) => BienesModel.fromJson(c)).toList()
-          : [];
+      List<BienesModel> list = res.isNotEmpty ? res.map((c) => BienesModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
@@ -35,12 +32,9 @@ class GoodDatabase {
   Future<List<BienesModel>> obtenerGoodPorIdGood(String idGood) async {
     try {
       final db = await dbProvider.database;
-      final res =
-          await db.rawQuery("SELECT * FROM Good where id_good= '$idGood'");
+      final res = await db.rawQuery("SELECT * FROM Good where id_good= '$idGood'");
 
-      List<BienesModel> list = res.isNotEmpty
-          ? res.map((c) => BienesModel.fromJson(c)).toList()
-          : [];
+      List<BienesModel> list = res.isNotEmpty ? res.map((c) => BienesModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");

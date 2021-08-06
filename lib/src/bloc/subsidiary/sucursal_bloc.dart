@@ -1,5 +1,3 @@
-
-
 import 'package:bufi/src/api/negocio/negocios_api.dart';
 import 'package:bufi/src/database/subsidiary_db.dart';
 import 'package:bufi/src/models/subsidiaryModel.dart';
@@ -17,10 +15,10 @@ class SucursalBloc {
   final _subsidiaryIdController = BehaviorSubject<List<SubsidiaryModel>>();
 
 //Stream de subsidiary por idCompany
-  Stream<List<SubsidiaryModel>> get sucursalStream =>_sucursalController.stream;
+  Stream<List<SubsidiaryModel>> get sucursalStream => _sucursalController.stream;
 
 //Stream de subsidiary por id
-  Stream<List<SubsidiaryModel>> get subsidiaryIdStream =>_subsidiaryIdController.stream;
+  Stream<List<SubsidiaryModel>> get subsidiaryIdStream => _subsidiaryIdController.stream;
 
   void dispose() {
     _sucursalController?.close();
@@ -37,6 +35,6 @@ class SucursalBloc {
   void obtenerSucursalporId(String id) async {
     _subsidiaryIdController.sink.add(await sucursalDatabase.obtenerSubsidiaryPorId(id));
     await sucursalApi.listarSubsidiaryPorId(id);
-   _subsidiaryIdController.sink.add(await sucursalDatabase.obtenerSubsidiaryPorId(id));
+    _subsidiaryIdController.sink.add(await sucursalDatabase.obtenerSubsidiaryPorId(id));
   }
 }

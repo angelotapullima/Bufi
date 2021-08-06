@@ -15,8 +15,7 @@ import 'package:provider/provider.dart';
 
 class ConfirmacionItemPedido extends StatefulWidget {
   final String idProducto;
-  const ConfirmacionItemPedido({Key key, @required this.idProducto})
-      : super(key: key);
+  const ConfirmacionItemPedido({Key key, @required this.idProducto}) : super(key: key);
 
   @override
   _ConfirmacionItemPedidoState createState() => _ConfirmacionItemPedidoState();
@@ -46,12 +45,10 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
             children: [
               StreamBuilder(
                   stream: carritoBloc.carritoProductoStream,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
+                  builder: (BuildContext context, AsyncSnapshot<List<CarritoGeneralSuperior>> snapshot) {
                     if (snapshot.hasData) {
                       if (snapshot.data.length > 0) {
-                        List<CarritoGeneralSuperior> listCarritoSuperior =
-                            snapshot.data;
+                        List<CarritoGeneralSuperior> listCarritoSuperior = snapshot.data;
 
                         return SafeArea(
                           child: Column(
@@ -72,19 +69,13 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                             children: [
                                               BackButton(
                                                 onPressed: () {
-                                                  borrarCarrito(context,
-                                                      widget.idProducto);
+                                                  borrarCarrito(context, widget.idProducto);
                                                   Navigator.maybePop(context);
                                                 },
                                               ),
                                               Text(
                                                 'Confirmación de pedido',
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize:
-                                                        responsive.ip(2.5),
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                style: TextStyle(color: Colors.black, fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                                               ),
                                             ],
                                           ),
@@ -101,12 +92,7 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                               //BackButton(),
                                               Text(
                                                 'Confirmación de pedido',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize:
-                                                        responsive.ip(2.5),
-                                                    fontWeight:
-                                                        FontWeight.w700),
+                                                style: TextStyle(color: Colors.white, fontSize: responsive.ip(2.5), fontWeight: FontWeight.w700),
                                               ),
                                             ],
                                           ),
@@ -118,10 +104,8 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                 child: ListView.builder(
                                     padding: EdgeInsets.all(0),
                                     controller: provider.controller,
-                                    itemCount:
-                                        listCarritoSuperior[0].car.length + 2,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
+                                    itemCount: listCarritoSuperior[0].car.length + 2,
+                                    itemBuilder: (BuildContext context, int index) {
                                       if (index == 0) {
                                         return Container(
                                           color: Colors.white,
@@ -134,25 +118,17 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                               BackButton(),
                                               Text(
                                                 'Confirmación de pedido',
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize:
-                                                        responsive.ip(2.5),
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                style: TextStyle(color: Colors.black, fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                                               ),
                                             ],
                                           ),
                                         );
                                       }
 
-                                      if (index ==
-                                          listCarritoSuperior[0].car.length +
-                                              1) {
+                                      if (index == listCarritoSuperior[0].car.length + 1) {
                                         return ResumenPedido(
                                           responsive: responsive,
-                                          listCarritoSuperior:
-                                              listCarritoSuperior,
+                                          listCarritoSuperior: listCarritoSuperior,
                                           cuentaBloc: cuentaBloc,
                                           idproducto: widget.idProducto,
                                         );
@@ -163,13 +139,8 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                       return ListView.builder(
                                         shrinkWrap: true,
                                         physics: ClampingScrollPhysics(),
-                                        itemCount: listCarritoSuperior[0]
-                                                .car[xxx]
-                                                .carrito
-                                                .length +
-                                            2,
-                                        itemBuilder:
-                                            (BuildContext context, int i) {
+                                        itemCount: listCarritoSuperior[0].car[xxx].carrito.length + 2,
+                                        itemBuilder: (BuildContext context, int i) {
                                           if (i == 0) {
                                             return Container(
                                               padding: EdgeInsets.symmetric(
@@ -179,8 +150,7 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                               color: Colors.blueGrey[50],
                                               child: Row(
                                                   //crossAxisAlignment: CrossAxisAlignment.center,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
+                                                  mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
                                                     SizedBox(
                                                       width: responsive.wp(3),
@@ -192,177 +162,79 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                     ),
                                                     Text(
                                                       '${listCarritoSuperior[0].car[xxx].nombreSucursal}',
-                                                      style: TextStyle(
-                                                          color: Colors
-                                                              .blueGrey[700],
-                                                          fontSize: 17,
-                                                          fontWeight:
-                                                              FontWeight.w700),
+                                                      style: TextStyle(color: Colors.blueGrey[700], fontSize: 17, fontWeight: FontWeight.w700),
                                                     ),
 
                                                     //Divider(),
                                                   ]),
                                             );
                                           }
-                                          if (i ==
-                                              listCarritoSuperior[0]
-                                                      .car[xxx]
-                                                      .carrito
-                                                      .length +
-                                                  1) {
+                                          if (i == listCarritoSuperior[0].car[xxx].carrito.length + 1) {
                                             return Container(
                                               child: Column(
                                                 children: [
                                                   Text(
                                                     'Tipo de Entrega',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            responsive.ip(2),
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                                    style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                                                   ),
                                                   SizedBox(
                                                     height: responsive.hp(1),
                                                   ),
                                                   Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
                                                       GestureDetector(
                                                         onTap: () {
-                                                          updateStatusDeliveryPedirAhora(
-                                                              context,
-                                                              listCarritoSuperior[
-                                                                      0]
-                                                                  .car[xxx]
-                                                                  .idSubsidiary,
-                                                              '1',
-                                                              widget
-                                                                  .idProducto);
+                                                          updateStatusDeliveryPedirAhora(context, listCarritoSuperior[0].car[xxx].idSubsidiary, '1', widget.idProducto);
                                                         },
                                                         child: _tipoEntrega(
                                                           'Recoger en tienda',
                                                           Icons.store,
                                                           responsive,
-                                                          listCarritoSuperior[0]
-                                                              .car[xxx]
-                                                              .seleccion,
+                                                          listCarritoSuperior[0].car[xxx].seleccion,
                                                         ),
                                                       ),
                                                       SizedBox(
                                                         width: responsive.wp(5),
                                                       ),
-                                                      (listCarritoSuperior[0]
-                                                                  .car[xxx]
-                                                                  .tipoDeliverySeleccionado ==
-                                                              '3')
+                                                      (listCarritoSuperior[0].car[xxx].tipoDeliverySeleccionado == '3')
                                                           ? Row(
                                                               children: [
                                                                 GestureDetector(
                                                                   onTap: () {
-                                                                    updateStatusDeliveryPedirAhora(
-                                                                        context,
-                                                                        listCarritoSuperior[0]
-                                                                            .car[
-                                                                                xxx]
-                                                                            .idSubsidiary,
-                                                                        '2',
-                                                                        widget
-                                                                            .idProducto);
+                                                                    updateStatusDeliveryPedirAhora(context, listCarritoSuperior[0].car[xxx].idSubsidiary, '2', widget.idProducto);
                                                                   },
                                                                   child: _tipoEntrega2(
-                                                                      'Delivery propio',
-                                                                      Icons
-                                                                          .delivery_dining,
-                                                                      responsive,
-                                                                      listCarritoSuperior[
-                                                                              0]
-                                                                          .car[
-                                                                              xxx]
-                                                                          .seleccion),
+                                                                      'Delivery propio', Icons.delivery_dining, responsive, listCarritoSuperior[0].car[xxx].seleccion),
                                                                 ),
                                                                 SizedBox(
-                                                                  width:
-                                                                      responsive
-                                                                          .wp(5),
+                                                                  width: responsive.wp(5),
                                                                 ),
                                                                 GestureDetector(
                                                                   onTap: () {
-                                                                    updateStatusDeliveryPedirAhora(
-                                                                        context,
-                                                                        listCarritoSuperior[0]
-                                                                            .car[
-                                                                                xxx]
-                                                                            .idSubsidiary,
-                                                                        '3',
-                                                                        widget
-                                                                            .idProducto);
+                                                                    updateStatusDeliveryPedirAhora(context, listCarritoSuperior[0].car[xxx].idSubsidiary, '3', widget.idProducto);
                                                                   },
                                                                   child: _tipoEntrega3(
-                                                                      'Delivery terceros',
-                                                                      Icons
-                                                                          .departure_board_outlined,
-                                                                      responsive,
-                                                                      listCarritoSuperior[
-                                                                              0]
-                                                                          .car[
-                                                                              xxx]
-                                                                          .seleccion),
+                                                                      'Delivery terceros', Icons.departure_board_outlined, responsive, listCarritoSuperior[0].car[xxx].seleccion),
                                                                 ),
                                                               ],
                                                             )
-                                                          : (listCarritoSuperior[
-                                                                          0]
-                                                                      .car[xxx]
-                                                                      .tipoDeliverySeleccionado ==
-                                                                  '1')
+                                                          : (listCarritoSuperior[0].car[xxx].tipoDeliverySeleccionado == '1')
                                                               ? GestureDetector(
                                                                   onTap: () {
-                                                                    updateStatusDeliveryPedirAhora(
-                                                                        context,
-                                                                        listCarritoSuperior[0]
-                                                                            .car[
-                                                                                xxx]
-                                                                            .idSubsidiary,
-                                                                        '2',
-                                                                        widget
-                                                                            .idProducto);
+                                                                    updateStatusDeliveryPedirAhora(context, listCarritoSuperior[0].car[xxx].idSubsidiary, '2', widget.idProducto);
                                                                   },
                                                                   child: _tipoEntrega2(
-                                                                      'Delivery propio',
-                                                                      Icons
-                                                                          .delivery_dining,
-                                                                      responsive,
-                                                                      listCarritoSuperior[
-                                                                              0]
-                                                                          .car[
-                                                                              xxx]
-                                                                          .seleccion),
+                                                                      'Delivery propio', Icons.delivery_dining, responsive, listCarritoSuperior[0].car[xxx].seleccion),
                                                                 )
-                                                              : (listCarritoSuperior[
-                                                                              0]
-                                                                          .car[
-                                                                              xxx]
-                                                                          .tipoDeliverySeleccionado ==
-                                                                      '2')
+                                                              : (listCarritoSuperior[0].car[xxx].tipoDeliverySeleccionado == '2')
                                                                   ? GestureDetector(
-                                                                      onTap:
-                                                                          () {
+                                                                      onTap: () {
                                                                         updateStatusDeliveryPedirAhora(
-                                                                            context,
-                                                                            listCarritoSuperior[0].car[xxx].idSubsidiary,
-                                                                            '3',
-                                                                            widget.idProducto);
+                                                                            context, listCarritoSuperior[0].car[xxx].idSubsidiary, '3', widget.idProducto);
                                                                       },
-                                                                      child: _tipoEntrega3(
-                                                                          'Delivery terceros',
-                                                                          Icons
-                                                                              .departure_board_outlined,
-                                                                          responsive,
-                                                                          listCarritoSuperior[0]
-                                                                              .car[xxx]
-                                                                              .seleccion),
+                                                                      child: _tipoEntrega3('Delivery terceros', Icons.departure_board_outlined, responsive,
+                                                                          listCarritoSuperior[0].car[xxx].seleccion),
                                                                     )
                                                                   : Container(),
                                                     ],
@@ -379,27 +251,21 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
 
                                           return Container(
                                             height: responsive.hp(34),
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 5),
+                                            padding: EdgeInsets.symmetric(vertical: 5),
                                             width: double.infinity,
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                SizedBox(
-                                                    height: responsive.hp(2)),
+                                                SizedBox(height: responsive.hp(2)),
                                                 Row(
                                                   children: [
                                                     SizedBox(
                                                       width: responsive.wp(1.5),
                                                     ),
                                                     ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
+                                                      borderRadius: BorderRadius.circular(10),
                                                       child: Container(
-                                                        width:
-                                                            responsive.wp(25),
+                                                        width: responsive.wp(25),
                                                         child: Stack(
                                                           children: [
                                                             GestureDetector(
@@ -407,28 +273,14 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                                 Navigator.push(
                                                                   context,
                                                                   PageRouteBuilder(
-                                                                    transitionDuration:
-                                                                        const Duration(
-                                                                            milliseconds:
-                                                                                700),
-                                                                    pageBuilder:
-                                                                        (context,
-                                                                            animation,
-                                                                            secondaryAnimation) {
-                                                                      return DetalleCarritoFotoPage(
-                                                                          carritoData: listCarritoSuperior[0]
-                                                                              .car[xxx]
-                                                                              .carrito[indd]);
+                                                                    transitionDuration: const Duration(milliseconds: 700),
+                                                                    pageBuilder: (context, animation, secondaryAnimation) {
+                                                                      return DetalleCarritoFotoPage(carritoData: listCarritoSuperior[0].car[xxx].carrito[indd]);
                                                                     },
-                                                                    transitionsBuilder: (context,
-                                                                        animation,
-                                                                        secondaryAnimation,
-                                                                        child) {
+                                                                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                                                       return FadeTransition(
-                                                                        opacity:
-                                                                            animation,
-                                                                        child:
-                                                                            child,
+                                                                        opacity: animation,
+                                                                        child: child,
                                                                       );
                                                                     },
                                                                   ),
@@ -437,34 +289,17 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                               child: Hero(
                                                                 tag: 'imagen',
                                                                 //'$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
-                                                                child:
-                                                                    Container(
-                                                                  height:
-                                                                      responsive
-                                                                          .hp(10),
-                                                                  width:
-                                                                      responsive
-                                                                          .wp(25),
-                                                                  child:
-                                                                      CachedNetworkImage(
-                                                                    placeholder:
-                                                                        (context,
-                                                                                url) =>
-                                                                            Container(
-                                                                      width: double
-                                                                          .infinity,
-                                                                      height: double
-                                                                          .infinity,
-                                                                      child: Image(
-                                                                          image: AssetImage(
-                                                                              'assets/loading.gif'),
-                                                                          fit: BoxFit
-                                                                              .fitWidth),
+                                                                child: Container(
+                                                                  height: responsive.hp(10),
+                                                                  width: responsive.wp(25),
+                                                                  child: CachedNetworkImage(
+                                                                    placeholder: (context, url) => Container(
+                                                                      width: double.infinity,
+                                                                      height: double.infinity,
+                                                                      child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.fitWidth),
                                                                     ),
-                                                                    imageUrl:
-                                                                        '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
-                                                                    fit: BoxFit
-                                                                        .cover,
+                                                                    imageUrl: '$apiBaseURL/${listCarritoSuperior[0].car[xxx].carrito[indd].image}',
+                                                                    fit: BoxFit.cover,
                                                                   ),
                                                                 ),
                                                               ),
@@ -479,65 +314,36 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                     Expanded(
                                                       child: Container(
                                                         child: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
                                                             Text('${listCarritoSuperior[0].car[xxx].carrito[indd].nombre} ' +
                                                                 '${listCarritoSuperior[0].car[xxx].carrito[indd].marca} x ' +
                                                                 '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}'),
                                                             Text(
                                                               '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                          .grey[
-                                                                      600]),
+                                                              style: TextStyle(color: Colors.grey[600]),
                                                             ),
                                                             Text(
                                                               '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                          .grey[
-                                                                      600]),
+                                                              style: TextStyle(color: Colors.grey[600]),
                                                             ),
                                                             Text(
                                                               '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                          .grey[
-                                                                      600]),
+                                                              style: TextStyle(color: Colors.grey[600]),
                                                             ),
-                                                            SizedBox(
-                                                                height:
-                                                                    responsive
-                                                                        .hp(1)),
+                                                            SizedBox(height: responsive.hp(1)),
                                                             Text(
                                                               'S/. ' +
-                                                                  (double.parse(
-                                                                              '${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}') *
-                                                                          double.parse(
-                                                                              '${listCarritoSuperior[0].car[xxx].carrito[indd].precio}'))
+                                                                  (double.parse('${listCarritoSuperior[0].car[xxx].carrito[indd].cantidad}') *
+                                                                          double.parse('${listCarritoSuperior[0].car[xxx].carrito[indd].precio}'))
                                                                       .toString(),
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      responsive
-                                                                          .ip(
-                                                                              1.8),
-                                                                  color: Colors
-                                                                      .red,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
+                                                              style: TextStyle(fontSize: responsive.ip(1.8), color: Colors.red, fontWeight: FontWeight.bold),
                                                             ),
                                                             SizedBox(
-                                                              height: responsive
-                                                                  .hp(1),
+                                                              height: responsive.hp(1),
                                                             ),
-                                                            Text(
-                                                                'producto ofrecido por bufeoTec'),
+                                                            Text('producto ofrecido por bufeoTec'),
                                                           ],
                                                         ),
                                                       ),
@@ -557,29 +363,19 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                                                     // )
                                                   ],
                                                 ),
-                                                SizedBox(
-                                                    height: responsive.hp(3)),
+                                                SizedBox(height: responsive.hp(3)),
                                                 Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: responsive.ip(24)),
+                                                  padding: EdgeInsets.only(left: responsive.ip(24)),
                                                   child: CantidadCarritoItem(
-                                                    carrito:
-                                                        listCarritoSuperior[0]
-                                                            .car[xxx]
-                                                            .carrito[indd],
+                                                    carrito: listCarritoSuperior[0].car[xxx].carrito[indd],
                                                     llamada: llamada,
-                                                    idSudsidiaryGood:
-                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
-                                                    marcaProducto:
-                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
-                                                    modeloProducto:
-                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}',
-                                                    tallaProducto:
-                                                        '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
+                                                    idSudsidiaryGood: '${listCarritoSuperior[0].car[xxx].carrito[indd].idSubsidiaryGood}',
+                                                    marcaProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].marca}',
+                                                    modeloProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].modelo}',
+                                                    tallaProducto: '${listCarritoSuperior[0].car[xxx].carrito[indd].talla}',
                                                   ),
                                                 ),
-                                                SizedBox(
-                                                    height: responsive.hp(3)),
+                                                SizedBox(height: responsive.hp(3)),
                                               ],
                                             ),
                                           );
@@ -621,9 +417,7 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
                           ),
                           height: responsive.ip(4),
                           width: responsive.ip(4),
-                          child: Image(
-                              image: AssetImage('assets/loading.gif'),
-                              fit: BoxFit.contain),
+                          child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.contain),
                         ),
                       ),
                     )
@@ -635,13 +429,10 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
     );
   }
 
-  Widget _tipoEntrega(
-      String titulo, IconData icon, Responsive responsive, String status) {
+  Widget _tipoEntrega(String titulo, IconData icon, Responsive responsive, String status) {
     return Container(
         margin: EdgeInsets.all(1),
-        decoration: BoxDecoration(
-            color: (status == '1') ? Colors.red : Colors.white10,
-            borderRadius: BorderRadius.circular(5)),
+        decoration: BoxDecoration(color: (status == '1') ? Colors.red : Colors.white10, borderRadius: BorderRadius.circular(5)),
         width: responsive.wp(20),
         child: Container(
           margin: EdgeInsets.all(1),
@@ -665,13 +456,10 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
         ));
   }
 
-  Widget _tipoEntrega2(
-      String titulo, IconData icon, Responsive responsive, String status) {
+  Widget _tipoEntrega2(String titulo, IconData icon, Responsive responsive, String status) {
     return Container(
         margin: EdgeInsets.all(1),
-        decoration: BoxDecoration(
-            color: (status == '2') ? Colors.red : Colors.white10,
-            borderRadius: BorderRadius.circular(5)),
+        decoration: BoxDecoration(color: (status == '2') ? Colors.red : Colors.white10, borderRadius: BorderRadius.circular(5)),
         width: responsive.wp(20),
         child: Container(
           margin: EdgeInsets.all(1),
@@ -695,13 +483,10 @@ class _ConfirmacionItemPedidoState extends State<ConfirmacionItemPedido> {
         ));
   }
 
-  Widget _tipoEntrega3(
-      String titulo, IconData icon, Responsive responsive, String status) {
+  Widget _tipoEntrega3(String titulo, IconData icon, Responsive responsive, String status) {
     return Container(
         margin: EdgeInsets.all(1),
-        decoration: BoxDecoration(
-            color: (status == '3') ? Colors.red : Colors.white10,
-            borderRadius: BorderRadius.circular(5)),
+        decoration: BoxDecoration(color: (status == '3') ? Colors.red : Colors.white10, borderRadius: BorderRadius.circular(5)),
         width: responsive.wp(20),
         child: Container(
           margin: EdgeInsets.all(1),
@@ -758,8 +543,7 @@ class ResumenPedido extends StatelessWidget {
         ),
         Text(
           'Resumen del pedido ( ${listCarritoSuperior[0].cantidadArticulos} productos)',
-          style: TextStyle(
-              fontSize: responsive.ip(1.7), fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: responsive.ip(1.7), fontWeight: FontWeight.bold),
         ),
         SizedBox(
           height: responsive.hp(2),
@@ -771,14 +555,12 @@ class ResumenPedido extends StatelessWidget {
             ),
             Text(
               'Subtotal',
-              style: TextStyle(
-                  fontSize: responsive.ip(1.7), fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: responsive.ip(1.7), fontWeight: FontWeight.w500),
             ),
             Spacer(),
             Text(
               'S/. ${listCarritoSuperior[0].montoGeneral}',
-              style: TextStyle(
-                  fontSize: responsive.ip(1.7), fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: responsive.ip(1.7), fontWeight: FontWeight.w500),
             ),
             SizedBox(
               width: responsive.wp(3),
@@ -792,14 +574,12 @@ class ResumenPedido extends StatelessWidget {
             ),
             Text(
               'Envío',
-              style: TextStyle(
-                  fontSize: responsive.ip(1.7), fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: responsive.ip(1.7), fontWeight: FontWeight.w500),
             ),
             Spacer(),
             Text(
               'S/. 0.0',
-              style: TextStyle(
-                  fontSize: responsive.ip(1.7), fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: responsive.ip(1.7), fontWeight: FontWeight.w500),
             ),
             SizedBox(
               width: responsive.wp(3),
@@ -814,14 +594,12 @@ class ResumenPedido extends StatelessWidget {
             ),
             Text(
               'Total',
-              style: TextStyle(
-                  fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
             ),
             Spacer(),
             Text(
               'S/. ${listCarritoSuperior[0].montoGeneral}',
-              style: TextStyle(
-                  fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
             ),
             SizedBox(
               width: responsive.wp(3),
@@ -888,8 +666,7 @@ class ResumenPedido extends StatelessWidget {
           ),
           child: Text(
             'Al hacer click en PAGAR AHORA, confirma haber leído y aceptado los terminos y condiciones',
-            style: TextStyle(
-                fontSize: responsive.ip(1.4), fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: responsive.ip(1.4), fontWeight: FontWeight.w500),
           ),
         ),
         SizedBox(
@@ -930,8 +707,7 @@ class ResumenPedido extends StatelessWidget {
                           idPedido: res[0].idPedido,
                         );
                       },
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
                         var begin = Offset(0.0, 1.0);
                         var end = Offset.zero;
                         var curve = Curves.ease;
@@ -947,18 +723,15 @@ class ResumenPedido extends StatelessWidget {
                       },
                     ));
                   } else {
-                    showToast(
-                        context, 'Hubo un error por favor intente más tarde');
+                    showToast(context, 'Hubo un error por favor intente más tarde');
                   }
 
                   provider.changeCargando();
                 } else {
                   if (cont == 1) {
-                    showToast(context,
-                        'Por favor seleccione el Tipo de Entrega para $sucursal');
+                    showToast(context, 'Por favor seleccione el Tipo de Entrega para $sucursal');
                   } else {
-                    showToast(context,
-                        'Por favor seleccione el Tipo de Entrega para cada sucursal');
+                    showToast(context, 'Por favor seleccione el Tipo de Entrega para cada sucursal');
                   }
                 }
               },

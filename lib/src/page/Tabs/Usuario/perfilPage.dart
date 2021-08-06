@@ -22,7 +22,9 @@ class PerfilPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(height: responsive.hp(3.5)),
+            SizedBox(
+              height: responsive.hp(3.5),
+            ),
             Stack(
               children: [
                 Container(
@@ -33,88 +35,78 @@ class PerfilPage extends StatelessWidget {
                     vertical: responsive.hp(2),
                     horizontal: responsive.wp(4),
                   ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          width: responsive.ip(10),
-                          height: responsive.ip(10),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: CachedNetworkImage(
-                              placeholder: (context, url) => Container(
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: Image(
-                                    image: AssetImage('assets/no-image.png'),
-                                    fit: BoxFit.cover),
-                              ),
-                              errorWidget: (context, url, error) => Container(
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  child: Center(child: Icon(Icons.error))),
-                              imageUrl: '${prefs.userImage}',
-                              imageBuilder: (context, imageProvider) =>
-                                  Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+                    Container(
+                      width: responsive.ip(10),
+                      height: responsive.ip(10),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: CachedNetworkImage(
+                          placeholder: (context, url) => Container(
+                            width: double.infinity,
+                            height: double.infinity,
+                            child: Image(image: AssetImage('assets/no-image.png'), fit: BoxFit.cover),
+                          ),
+                          errorWidget: (context, url, error) => Container(width: double.infinity, height: double.infinity, child: Center(child: Icon(Icons.error))),
+                          imageUrl: '${prefs.userImage}',
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
                         ),
-                        // SizedBox(
-                        //   width: responsive.wp(1),
-                        // ),
-                        Expanded(
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                '${prefs.personName} ${prefs.personSurname}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: responsive.ip(1.8),
-                                ),
-                              ),
-
-                              SizedBox(
-                                height: 10,
-                              ),
-
-                              SizedBox(
-                                height: 10,
-                              ),
-
-                              Text(
-                                '${prefs.userNickname}',
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: responsive.ip(1.8)),
-                              ),
-
-                              // Text(
-
-                              //   'Ver Perfil',
-
-                              //   style: TextStyle(
-
-                              //       fontSize: responsive.ip(1.8),
-
-                              //       color: Colors.blueAccent,
-
-                              //       fontWeight: FontWeight.bold),
-
-                              // ),
-                            ],
+                      ),
+                    ),
+                    // SizedBox(
+                    //   width: responsive.wp(1),
+                    // ),
+                    Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            '${prefs.personName} ${prefs.personSurname}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: responsive.ip(1.8),
+                            ),
                           ),
-                        ),
-                      ]),
+
+                          SizedBox(
+                            height: 10,
+                          ),
+
+                          SizedBox(
+                            height: 10,
+                          ),
+
+                          Text(
+                            '${prefs.userNickname}',
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: responsive.ip(1.8)),
+                          ),
+
+                          // Text(
+
+                          //   'Ver Perfil',
+
+                          //   style: TextStyle(
+
+                          //       fontSize: responsive.ip(1.8),
+
+                          //       color: Colors.blueAccent,
+
+                          //       fontWeight: FontWeight.bold),
+
+                          // ),
+                        ],
+                      ),
+                    ),
+                  ]),
                 ),
                 Positioned(
                     top: 10,
@@ -128,18 +120,14 @@ class PerfilPage extends StatelessWidget {
             SizedBox(height: responsive.hp(1.5)),
             GestureDetector(
               child: Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: responsive.ip(1.5),
-                    vertical: responsive.ip(0.5)),
+                margin: EdgeInsets.symmetric(horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
                 padding: EdgeInsets.symmetric(
                   vertical: responsive.hp(2),
                   horizontal: responsive.wp(3),
                 ),
                 width: double.infinity,
                 height: responsive.ip(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -173,26 +161,19 @@ class PerfilPage extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RestablecerContrasenhaPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => RestablecerContrasenhaPage()));
               },
             ),
             GestureDetector(
               child: Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: responsive.ip(1.5),
-                    vertical: responsive.ip(0.5)),
+                margin: EdgeInsets.symmetric(horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
                 padding: EdgeInsets.symmetric(
                   vertical: responsive.hp(2),
                   horizontal: responsive.wp(3),
                 ),
                 width: double.infinity,
                 height: responsive.ip(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -227,26 +208,19 @@ class PerfilPage extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RestablecerContrasenhaPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => RestablecerContrasenhaPage()));
               },
             ),
             GestureDetector(
               child: Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: responsive.ip(1.5),
-                    vertical: responsive.ip(0.5)),
+                margin: EdgeInsets.symmetric(horizontal: responsive.ip(1.5), vertical: responsive.ip(0.5)),
                 padding: EdgeInsets.symmetric(
                   vertical: responsive.hp(2),
                   horizontal: responsive.wp(3),
                 ),
                 width: double.infinity,
                 height: responsive.ip(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -282,10 +256,7 @@ class PerfilPage extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RestablecerContrasenhaPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => RestablecerContrasenhaPage()));
               },
             ),
             SizedBox(height: responsive.hp(6)),
@@ -294,15 +265,9 @@ class PerfilPage extends StatelessWidget {
                 width: responsive.wp(80),
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: Text("Cambiar",
-                      style: TextStyle(
-                          color: Colors.white, fontSize: responsive.ip(2.2))),
+                  child: Text("Cambiar", style: TextStyle(color: Colors.white, fontSize: responsive.ip(2.2))),
                   style: ElevatedButton.styleFrom(
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                      primary: Colors.red,
-                      onPrimary: Colors.white),
+                      elevation: 3, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)), primary: Colors.red, onPrimary: Colors.white),
                 ),
               ),
             ),
@@ -317,12 +282,10 @@ class RestablecerContrasenhaPage extends StatefulWidget {
   const RestablecerContrasenhaPage({Key key}) : super(key: key);
 
   @override
-  _RestablecerContrasenhaPageState createState() =>
-      _RestablecerContrasenhaPageState();
+  _RestablecerContrasenhaPageState createState() => _RestablecerContrasenhaPageState();
 }
 
-class _RestablecerContrasenhaPageState
-    extends State<RestablecerContrasenhaPage> {
+class _RestablecerContrasenhaPageState extends State<RestablecerContrasenhaPage> {
   final _cargando = ValueNotifier<bool>(false);
   @override
   Widget build(BuildContext context) {
@@ -351,24 +314,16 @@ class _RestablecerContrasenhaPageState
                 (dataToque)
                     ? Center(
                         child: Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(10)),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(10)),
+                          margin: EdgeInsets.symmetric(horizontal: responsive.wp(10)),
+                          padding: EdgeInsets.symmetric(horizontal: responsive.wp(10)),
                           width: double.infinity,
                           height: responsive.hp(13),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
+                          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
                           child: Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: responsive.wp(10),
-                                vertical: responsive.wp(6)),
+                            margin: EdgeInsets.symmetric(horizontal: responsive.wp(10), vertical: responsive.wp(6)),
                             height: responsive.ip(4),
                             width: responsive.ip(4),
-                            child: Image(
-                                image: AssetImage('assets/loading.gif'),
-                                fit: BoxFit.contain),
+                            child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.contain),
                           ),
                         ),
                       )
@@ -379,8 +334,7 @@ class _RestablecerContrasenhaPageState
     );
   }
 
-  Widget _form(
-      BuildContext context, Responsive responsive, LoginBloc passwordBloc) {
+  Widget _form(BuildContext context, Responsive responsive, LoginBloc passwordBloc) {
     return SafeArea(
         child: Container(
       color: Colors.white,
@@ -390,8 +344,7 @@ class _RestablecerContrasenhaPageState
           Spacer(),
           Text(
             "Restablecer Contraseña",
-            style: TextStyle(
-                fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
           ),
           SizedBox(
             height: responsive.wp(10),
@@ -422,10 +375,7 @@ class _RestablecerContrasenhaPageState
             decoration: InputDecoration(
               //fillColor: Colors.white,
               hintText: titulo,
-              hintStyle: TextStyle(
-                  fontSize: responsive.ip(1.8),
-                  fontFamily: 'Montserrat',
-                  color: Colors.black54),
+              hintStyle: TextStyle(fontSize: responsive.ip(1.8), fontFamily: 'Montserrat', color: Colors.black54),
               // border: OutlineInputBorder(
               //   borderRadius: BorderRadius.circular(30),
               //   borderSide: BorderSide(
@@ -474,10 +424,7 @@ class _RestablecerContrasenhaPageState
             decoration: InputDecoration(
               //fillColor: Theme.of(context).dividerColor,
               hintText: titulo,
-              hintStyle: TextStyle(
-                  fontSize: responsive.ip(1.8),
-                  fontFamily: 'Montserrat',
-                  color: Colors.black54),
+              hintStyle: TextStyle(fontSize: responsive.ip(1.8), fontFamily: 'Montserrat', color: Colors.black54),
               // border: OutlineInputBorder(
               //   borderRadius: BorderRadius.circular(30),
               //   borderSide: BorderSide(
@@ -508,8 +455,7 @@ class _RestablecerContrasenhaPageState
     );
   }
 
-  Widget _botonLogin(
-      BuildContext context, LoginBloc passwordBloc, Responsive responsive) {
+  Widget _botonLogin(BuildContext context, LoginBloc passwordBloc, Responsive responsive) {
     return StreamBuilder(
         stream: passwordBloc.formValidPassStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -523,9 +469,7 @@ class _RestablecerContrasenhaPageState
                 width: double.infinity,
                 child: ElevatedButton(
                   child: Text('Confirmar'),
-                  onPressed: (snapshot.hasData)
-                      ? () => _submit(context, passwordBloc)
-                      : null,
+                  onPressed: (snapshot.hasData) ? () => _submit(context, passwordBloc) : null,
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
@@ -573,8 +517,7 @@ class _RestablecerContrasenhaPageState
               child: Text('Si'),
               onPressed: () async {
                 _cargando.value = true;
-                final int code =
-                    await bloc.restablecerPassword('${bloc.password}');
+                final int code = await bloc.restablecerPassword('${bloc.password}');
 
                 if (code == 1) {
                   showToast1('Contraseña restablecida', 2, ToastGravity.CENTER);

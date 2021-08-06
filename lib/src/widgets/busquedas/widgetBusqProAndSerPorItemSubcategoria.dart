@@ -18,8 +18,7 @@ class BusquedaProAndSerItemSubcategoriaWidget extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) {
-            return BusquedaDeProYSerPorIdItemsubcat(
-                idItemsubcategory: idItemsubcategory);
+            return BusquedaDeProYSerPorIdItemsubcat(idItemsubcategory: idItemsubcategory);
           },
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             var begin = Offset(0.0, 1.0);
@@ -42,8 +41,7 @@ class BusquedaProAndSerItemSubcategoriaWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
         height: responsive.hp(5),
-        decoration: BoxDecoration(
-            color: Colors.grey[300], borderRadius: BorderRadius.circular(25)),
+        decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(25)),
         child: Row(
           children: [
             IconButton(

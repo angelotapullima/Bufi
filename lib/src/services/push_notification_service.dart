@@ -9,8 +9,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 class PushNotificationService {
   static FirebaseMessaging messaging = FirebaseMessaging.instance;
   static String token;
-  static StreamController<String> _messageStreamController =
-      new StreamController.broadcast();
+  static StreamController<String> _messageStreamController = new StreamController.broadcast();
 
   static Stream<String> get messagesStream => _messageStreamController.stream;
 

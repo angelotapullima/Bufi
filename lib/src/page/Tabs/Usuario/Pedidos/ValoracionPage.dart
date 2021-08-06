@@ -42,18 +42,12 @@ class PendientesValoracionPage extends StatelessWidget {
                       itemCount: listPedidos[index].detallePedido.length + 1,
                       itemBuilder: (BuildContext context, int i) {
                         if (i == 0) {
-                          return _cabeceraPedido(
-                              responsive, listPedidos, index);
+                          return _cabeceraPedido(responsive, listPedidos, index);
                         }
 
                         int x = i - 1;
-                        return (listPedidos[index]
-                                    .detallePedido[x]
-                                    .listProducto
-                                    .length >
-                                0)
-                            ? _datosProducto(
-                                context, responsive, listPedidos, index, x)
+                        return (listPedidos[index].detallePedido[x].listProducto.length > 0)
+                            ? _datosProducto(context, responsive, listPedidos, index, x)
                             : Text("No existe ningún producto pedido");
                       },
                     );
@@ -73,8 +67,7 @@ class PendientesValoracionPage extends StatelessWidget {
     );
   }
 
-  Widget _datosProducto(BuildContext context, Responsive responsive,
-      List<PedidosModel> listPedidos, int index, int x) {
+  Widget _datosProducto(BuildContext context, Responsive responsive, List<PedidosModel> listPedidos, int index, int x) {
     return GestureDetector(
       onTap: () {
         //Navigator.pushNamed(context, 'detallePedido', arguments: listPedidos[index] );
@@ -86,8 +79,7 @@ class PendientesValoracionPage extends StatelessWidget {
           child: Container(
             color: Colors.white,
             height: responsive.hp(25),
-            margin: EdgeInsets.symmetric(
-                horizontal: responsive.wp(2), vertical: responsive.hp(1)),
+            margin: EdgeInsets.symmetric(horizontal: responsive.wp(2), vertical: responsive.hp(1)),
             padding: EdgeInsets.symmetric(vertical: 10),
             width: double.infinity,
             child: Column(
@@ -110,12 +102,9 @@ class PendientesValoracionPage extends StatelessWidget {
                                 placeholder: (context, url) => Container(
                                   width: double.infinity,
                                   height: double.infinity,
-                                  child: Image(
-                                      image: AssetImage('assets/loading.gif'),
-                                      fit: BoxFit.fitWidth),
+                                  child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.fitWidth),
                                 ),
-                                imageUrl:
-                                    '$apiBaseURL/${listPedidos[index].detallePedido[x].listProducto[0].productoImage}',
+                                imageUrl: '$apiBaseURL/${listPedidos[index].detallePedido[x].listProducto[0].productoImage}',
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -135,10 +124,7 @@ class PendientesValoracionPage extends StatelessWidget {
                 SizedBox(
                   height: responsive.hp(4),
                 ),
-                (listPedidos[index].detallePedido[x].detallePedidoValorado) ==
-                        '0'
-                    ? _buttonCalificar(responsive, context, listPedidos, index)
-                    : Container()
+                (listPedidos[index].detallePedido[x].detallePedidoValorado) == '0' ? _buttonCalificar(responsive, context, listPedidos, index) : Container()
               ],
             ),
           ),
@@ -147,29 +133,23 @@ class PendientesValoracionPage extends StatelessWidget {
     );
   }
 
-  Widget _buttonCalificar(Responsive responsive, BuildContext context,
-      List<PedidosModel> listPedidos, int index) {
+  Widget _buttonCalificar(Responsive responsive, BuildContext context, List<PedidosModel> listPedidos, int index) {
     return SizedBox(
       width: responsive.wp(60),
       child: ElevatedButton(
         style: ButtonStyle(
             elevation: MaterialStateProperty.all(3),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0))),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))),
             backgroundColor: MaterialStateProperty.all(Colors.red)),
-        child: Text("Calificar",
-            style:
-                TextStyle(color: Colors.white, fontSize: responsive.ip(2.2))),
+        child: Text("Calificar", style: TextStyle(color: Colors.white, fontSize: responsive.ip(2.2))),
         onPressed: () {
-          Navigator.pushNamed(context, 'ratingProductos',
-              arguments: listPedidos[index]);
+          Navigator.pushNamed(context, 'ratingProductos', arguments: listPedidos[index]);
         },
       ),
     );
   }
 
-  Widget _descripcionProducto(
-      List<PedidosModel> listPedidos, int index, int x, Responsive responsive) {
+  Widget _descripcionProducto(List<PedidosModel> listPedidos, int index, int x, Responsive responsive) {
     return Expanded(
       child: Container(
         child: Column(
@@ -179,20 +159,13 @@ class PendientesValoracionPage extends StatelessWidget {
             Text('${listPedidos[index].detallePedido[x].listProducto[0].productoName} ' +
                 '${listPedidos[index].detallePedido[x].listProducto[0].productoBrand} x ' +
                 '${listPedidos[index].detallePedido[x].listProducto[0].productoModel}'),
-            Text(
-                'size: ${listPedidos[index].detallePedido[x].listProducto[0].productoSize}'),
+            Text('size: ${listPedidos[index].detallePedido[x].listProducto[0].productoSize}'),
             Text('x ${listPedidos[index].detallePedido[x].cantidad} UN'),
             Text(
               'S/. ' +
-                  (double.parse(
-                              '${listPedidos[index].detallePedido[x].cantidad}') *
-                          double.parse(
-                              '${listPedidos[index].detallePedido[x].listProducto[0].productoPrice}'))
+                  (double.parse('${listPedidos[index].detallePedido[x].cantidad}') * double.parse('${listPedidos[index].detallePedido[x].listProducto[0].productoPrice}'))
                       .toString(),
-              style: TextStyle(
-                  fontSize: responsive.ip(1.8),
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: responsive.ip(1.8), color: Colors.red, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -200,8 +173,7 @@ class PendientesValoracionPage extends StatelessWidget {
     );
   }
 
-  Widget _cabeceraPedido(
-      Responsive responsive, List<PedidosModel> listPedidos, int index) {
+  Widget _cabeceraPedido(Responsive responsive, List<PedidosModel> listPedidos, int index) {
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: responsive.hp(1),
@@ -216,10 +188,7 @@ class PendientesValoracionPage extends StatelessWidget {
             children: [
               Text(
                 'Pedido N° ${listPedidos[index].idPedido}',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: responsive.ip(2),
-                    fontWeight: FontWeight.bold),
+                style: TextStyle(color: Colors.black, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
               ),
               Spacer(),
               Text(

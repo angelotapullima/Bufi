@@ -7,20 +7,16 @@ import 'package:bufi/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class BusquedaProductosPorSucursal extends StatefulWidget {
-  const BusquedaProductosPorSucursal(
-      {Key key, @required this.idSubsidiary, @required this.nameSucursal})
-      : super(key: key);
+  const BusquedaProductosPorSucursal({Key key, @required this.idSubsidiary, @required this.nameSucursal}) : super(key: key);
 
   final String idSubsidiary;
   final String nameSucursal;
 
   @override
-  _BusquedaProductosPorSucursalState createState() =>
-      _BusquedaProductosPorSucursalState();
+  _BusquedaProductosPorSucursalState createState() => _BusquedaProductosPorSucursalState();
 }
 
-class _BusquedaProductosPorSucursalState
-    extends State<BusquedaProductosPorSucursal> {
+class _BusquedaProductosPorSucursalState extends State<BusquedaProductosPorSucursal> {
   TextEditingController _controllerBusquedaNegocio = TextEditingController();
   bool expandFlag = false;
 
@@ -78,8 +74,7 @@ class _BusquedaProductosPorSucursalState
                               expandFlag = false;
                             });
                             if (value.length >= 0 && value != ' ') {
-                              busquedaBloc.obtenerBusquedaProductosIdSubsidiary(
-                                  widget.idSubsidiary, '$value');
+                              busquedaBloc.obtenerBusquedaProductosIdSubsidiary(widget.idSubsidiary, '$value');
                               agregarHistorial(context, value, 'ps');
                             }
                           },
@@ -93,16 +88,12 @@ class _BusquedaProductosPorSucursalState
                       IconButton(
                           icon: Icon(Icons.search),
                           onPressed: () {
-                            if (_controllerBusquedaNegocio.text.length >= 0 &&
-                                _controllerBusquedaNegocio.text != ' ') {
+                            if (_controllerBusquedaNegocio.text.length >= 0 && _controllerBusquedaNegocio.text != ' ') {
                               setState(() {
                                 expandFlag = false;
                               });
-                              busquedaBloc.obtenerBusquedaProductosIdSubsidiary(
-                                  widget.idSubsidiary,
-                                  '${_controllerBusquedaNegocio.text}');
-                              agregarHistorial(context,
-                                  _controllerBusquedaNegocio.text, 'ps');
+                              busquedaBloc.obtenerBusquedaProductosIdSubsidiary(widget.idSubsidiary, '${_controllerBusquedaNegocio.text}');
+                              agregarHistorial(context, _controllerBusquedaNegocio.text, 'ps');
                             } else {
                               setState(() {
                                 expandFlag = true;
@@ -135,8 +126,7 @@ class _BusquedaProductosPorSucursalState
                 expandedHeight: 10,
                 child: StreamBuilder(
                     stream: searchBloc.historyStream,
-                    builder: (context,
-                        AsyncSnapshot<List<HistorialModel>> snapshot) {
+                    builder: (context, AsyncSnapshot<List<HistorialModel>> snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data.length > 0) {
                           return Container(
@@ -148,24 +138,13 @@ class _BusquedaProductosPorSucursalState
                                 itemBuilder: (BuildContext context, int i) {
                                   return GestureDetector(
                                     onTap: () {
-                                      _controllerBusquedaNegocio.text =
-                                          snapshot.data[i].historial;
-                                      if (_controllerBusquedaNegocio
-                                                  .text.length >=
-                                              0 &&
-                                          _controllerBusquedaNegocio.text !=
-                                              ' ') {
+                                      _controllerBusquedaNegocio.text = snapshot.data[i].historial;
+                                      if (_controllerBusquedaNegocio.text.length >= 0 && _controllerBusquedaNegocio.text != ' ') {
                                         setState(() {
                                           expandFlag = false;
                                         });
-                                        busquedaBloc
-                                            .obtenerBusquedaProductosIdSubsidiary(
-                                                widget.idSubsidiary,
-                                                '${_controllerBusquedaNegocio.text}');
-                                        agregarHistorial(
-                                            context,
-                                            _controllerBusquedaNegocio.text,
-                                            'ps');
+                                        busquedaBloc.obtenerBusquedaProductosIdSubsidiary(widget.idSubsidiary, '${_controllerBusquedaNegocio.text}');
+                                        agregarHistorial(context, _controllerBusquedaNegocio.text, 'ps');
                                       } else {
                                         setState(() {
                                           expandFlag = true;
@@ -176,17 +155,12 @@ class _BusquedaProductosPorSucursalState
                                       margin: EdgeInsets.all(responsive.ip(1)),
                                       child: Row(
                                         children: [
-                                          Text('${snapshot.data[i].historial}',
-                                              style: TextStyle(
-                                                  fontSize: responsive.ip(2))),
+                                          Text('${snapshot.data[i].historial}', style: TextStyle(fontSize: responsive.ip(2))),
                                           Spacer(),
                                           IconButton(
                                               icon: Icon(Icons.close),
                                               onPressed: () {
-                                                eliminarHistorial(
-                                                    context,
-                                                    snapshot.data[i].historial,
-                                                    'ser');
+                                                eliminarHistorial(context, snapshot.data[i].historial, 'ser');
                                               }),
                                         ],
                                       ),

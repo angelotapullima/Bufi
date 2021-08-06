@@ -13,8 +13,7 @@ class TicketClipper extends CustomClipper<Path> {
       Rect.fromCircle(center: Offset(0.0, size.height / 2), radius: 20.0),
     );
     path.addOval(
-      Rect.fromCircle(
-          center: Offset(size.width, size.height / 2), radius: 20.0),
+      Rect.fromCircle(center: Offset(size.width, size.height / 2), radius: 20.0),
     );
 
     return path;
@@ -30,8 +29,7 @@ class TicketClipper2 extends CustomClipper<Path> {
     final Path path = Path();
 
     path.lineTo(00.0, 15);
-    path.relativeArcToPoint(const Offset(0, 30),
-        radius: const Radius.circular(10.0), largeArc: true);
+    path.relativeArcToPoint(const Offset(0, 30), radius: const Radius.circular(10.0), largeArc: true);
 
     path.lineTo(00.0, size.height - 10);
 
@@ -40,8 +38,7 @@ class TicketClipper2 extends CustomClipper<Path> {
     //linea inferior
     path.lineTo(size.width - 10.00, size.height);
 
-    path.quadraticBezierTo(
-        size.width, size.height, size.width, size.height - 10);
+    path.quadraticBezierTo(size.width, size.height, size.width, size.height - 10);
     path.lineTo(size.width, 48);
 
     path.arcToPoint(
@@ -70,8 +67,7 @@ class ExtendedClipper extends CustomClipper<Path> {
     path.lineTo(0.0, size.height - 10);
     path.quadraticBezierTo(0.0, size.height, 10.0, size.height);
     path.lineTo(size.width - 10.0, size.height);
-    path.quadraticBezierTo(
-        size.width, size.height, size.width, size.height - 10);
+    path.quadraticBezierTo(size.width, size.height, size.width, size.height - 10);
     path.lineTo(size.width, 95);
     //path.arcToPoint(Offset(size.width, 55),radius: const Radius.circular(10.0), clockwise: true);
     path.lineTo(size.width, 10.0);

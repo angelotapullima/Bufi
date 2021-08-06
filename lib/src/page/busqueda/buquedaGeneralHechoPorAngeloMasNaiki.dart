@@ -118,19 +118,12 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                   });
                                   if (value.length >= 0 && value != ' ') {
                                     //busquedaBloc.obtenerBusquedaGeneral('$value');
-                                    busquedaBloc.obtenerBusquedaProducto(
-                                        context, '$value');
-                                    busquedaBloc.obtenerBusquedaServicio(
-                                        context, '$value');
-                                    busquedaBloc.obtenerBusquedaNegocio(
-                                        context, '$value');
-                                    busquedaBloc
-                                        .obtenerBusquedaItemSubcategoria(
-                                            context, '$value');
-                                    busquedaBloc.obtenerBusquedaCategoria(
-                                        context, '$value');
-                                    busquedaBloc.obtenerBusquedaSubcategoria(
-                                        context, '$value');
+                                    busquedaBloc.obtenerBusquedaProducto(context, '$value');
+                                    busquedaBloc.obtenerBusquedaServicio(context, '$value');
+                                    busquedaBloc.obtenerBusquedaNegocio(context, '$value');
+                                    busquedaBloc.obtenerBusquedaItemSubcategoria(context, '$value');
+                                    busquedaBloc.obtenerBusquedaCategoria(context, '$value');
+                                    busquedaBloc.obtenerBusquedaSubcategoria(context, '$value');
                                     agregarHistorial(context, value, 'general');
                                   }
                                 },
@@ -144,35 +137,19 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                             IconButton(
                                 icon: Icon(Icons.search),
                                 onPressed: () {
-                                  if (_controllerBusquedaAngelo.text.length >=
-                                          0 &&
-                                      _controllerBusquedaAngelo.text != ' ') {
+                                  if (_controllerBusquedaAngelo.text.length >= 0 && _controllerBusquedaAngelo.text != ' ') {
                                     setState(() {
                                       expandFlag = false;
                                     });
                                     // busquedaBloc.obtenerBusquedaGeneral(
                                     //     '${_controllerBusquedaAngelo.text}');
-                                    busquedaBloc.obtenerBusquedaProducto(
-                                        context,
-                                        '${_controllerBusquedaAngelo.text}');
-                                    busquedaBloc.obtenerBusquedaServicio(
-                                        context,
-                                        '${_controllerBusquedaAngelo.text}');
-                                    busquedaBloc.obtenerBusquedaNegocio(context,
-                                        '${_controllerBusquedaAngelo.text}');
-                                    busquedaBloc.obtenerBusquedaItemSubcategoria(
-                                        context,
-                                        '${_controllerBusquedaAngelo.text}');
-                                    busquedaBloc.obtenerBusquedaCategoria(
-                                        context,
-                                        '${_controllerBusquedaAngelo.text}');
-                                    busquedaBloc.obtenerBusquedaSubcategoria(
-                                        context,
-                                        '${_controllerBusquedaAngelo.text}');
-                                    agregarHistorial(
-                                        context,
-                                        _controllerBusquedaAngelo.text,
-                                        'general');
+                                    busquedaBloc.obtenerBusquedaProducto(context, '${_controllerBusquedaAngelo.text}');
+                                    busquedaBloc.obtenerBusquedaServicio(context, '${_controllerBusquedaAngelo.text}');
+                                    busquedaBloc.obtenerBusquedaNegocio(context, '${_controllerBusquedaAngelo.text}');
+                                    busquedaBloc.obtenerBusquedaItemSubcategoria(context, '${_controllerBusquedaAngelo.text}');
+                                    busquedaBloc.obtenerBusquedaCategoria(context, '${_controllerBusquedaAngelo.text}');
+                                    busquedaBloc.obtenerBusquedaSubcategoria(context, '${_controllerBusquedaAngelo.text}');
+                                    agregarHistorial(context, _controllerBusquedaAngelo.text, 'general');
                                   } else {
                                     setState(() {
                                       expandFlag = true;
@@ -210,8 +187,7 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                       selectorTabBusqueda.changePage(index);
                                     },
                                     child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         SizedBox(
                                           height: responsive.hp(.8),
@@ -227,12 +203,7 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                                 child: Center(
                                                   child: Text(
                                                     ('${listOpciones[index].titulo} '),
-                                                    style: TextStyle(
-                                                        color: Colors.blue[900],
-                                                        fontSize:
-                                                            responsive.ip(1.4),
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                                    style: TextStyle(color: Colors.blue[900], fontSize: responsive.ip(1.4), fontWeight: FontWeight.bold),
                                                   ),
                                                 ),
                                               ),
@@ -243,16 +214,11 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                           height: responsive.hp(.5),
                                         ),
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             CircleAvatar(
                                               radius: responsive.ip(.4),
-                                              backgroundColor:
-                                                  (selectorTabBusqueda.page ==
-                                                          index)
-                                                      ? Colors.blue[900]
-                                                      : Colors.white,
+                                              backgroundColor: (selectorTabBusqueda.page == index) ? Colors.blue[900] : Colors.white,
                                             )
                                           ],
                                         )
@@ -276,16 +242,11 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                               ? ListaNegocios()
                                               : (selectorTabBusqueda.page == 3)
                                                   ? Container()
-                                                  : (selectorTabBusqueda.page ==
-                                                          4)
+                                                  : (selectorTabBusqueda.page == 4)
                                                       ? ListaCategorias()
-                                                      : (selectorTabBusqueda
-                                                                  .page ==
-                                                              5)
+                                                      : (selectorTabBusqueda.page == 5)
                                                           ? ListaSubCategorias()
-                                                          : (selectorTabBusqueda
-                                                                      .page ==
-                                                                  6)
+                                                          : (selectorTabBusqueda.page == 6)
                                                               ? ListaItemsubcategoria()
                                                               : Container(),
                             ),
@@ -301,8 +262,7 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                       expandedHeight: 10,
                       child: StreamBuilder(
                           stream: searchBloc.historyStream,
-                          builder: (context,
-                              AsyncSnapshot<List<HistorialModel>> snapshot) {
+                          builder: (context, AsyncSnapshot<List<HistorialModel>> snapshot) {
                             if (snapshot.hasData) {
                               if (snapshot.data.length > 0) {
                                 return Container(
@@ -311,48 +271,23 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: snapshot.data.length,
-                                      itemBuilder:
-                                          (BuildContext context, int i) {
+                                      itemBuilder: (BuildContext context, int i) {
                                         return GestureDetector(
                                           onTap: () {
-                                            _controllerBusquedaAngelo.text =
-                                                snapshot.data[i].historial;
-                                            if (_controllerBusquedaAngelo
-                                                        .text.length >=
-                                                    0 &&
-                                                _controllerBusquedaAngelo
-                                                        .text !=
-                                                    ' ') {
+                                            _controllerBusquedaAngelo.text = snapshot.data[i].historial;
+                                            if (_controllerBusquedaAngelo.text.length >= 0 && _controllerBusquedaAngelo.text != ' ') {
                                               setState(() {
                                                 expandFlag = false;
                                               });
                                               // busquedaBloc.obtenerBusquedaGeneral(
                                               //     '${_controllerBusquedaAngelo.text}');
-                                              busquedaBloc.obtenerBusquedaProducto(
-                                                  context,
-                                                  '${_controllerBusquedaAngelo.text}');
-                                              busquedaBloc.obtenerBusquedaServicio(
-                                                  context,
-                                                  '${_controllerBusquedaAngelo.text}');
-                                              busquedaBloc.obtenerBusquedaNegocio(
-                                                  context,
-                                                  '${_controllerBusquedaAngelo.text}');
-                                              busquedaBloc
-                                                  .obtenerBusquedaItemSubcategoria(
-                                                      context,
-                                                      '${_controllerBusquedaAngelo.text}');
-                                              busquedaBloc.obtenerBusquedaCategoria(
-                                                  context,
-                                                  '${_controllerBusquedaAngelo.text}');
-                                              busquedaBloc
-                                                  .obtenerBusquedaSubcategoria(
-                                                      context,
-                                                      '${_controllerBusquedaAngelo.text}');
-                                              agregarHistorial(
-                                                  context,
-                                                  _controllerBusquedaAngelo
-                                                      .text,
-                                                  'general');
+                                              busquedaBloc.obtenerBusquedaProducto(context, '${_controllerBusquedaAngelo.text}');
+                                              busquedaBloc.obtenerBusquedaServicio(context, '${_controllerBusquedaAngelo.text}');
+                                              busquedaBloc.obtenerBusquedaNegocio(context, '${_controllerBusquedaAngelo.text}');
+                                              busquedaBloc.obtenerBusquedaItemSubcategoria(context, '${_controllerBusquedaAngelo.text}');
+                                              busquedaBloc.obtenerBusquedaCategoria(context, '${_controllerBusquedaAngelo.text}');
+                                              busquedaBloc.obtenerBusquedaSubcategoria(context, '${_controllerBusquedaAngelo.text}');
+                                              agregarHistorial(context, _controllerBusquedaAngelo.text, 'general');
                                             } else {
                                               setState(() {
                                                 expandFlag = true;
@@ -360,24 +295,15 @@ class _BusquedaDeLaPtmrState extends State<BusquedaDeLaPtmr> {
                                             }
                                           },
                                           child: Container(
-                                            margin: EdgeInsets.all(
-                                                responsive.ip(1)),
+                                            margin: EdgeInsets.all(responsive.ip(1)),
                                             child: Row(
                                               children: [
-                                                Text(
-                                                    '${snapshot.data[i].historial}',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            responsive.ip(2))),
+                                                Text('${snapshot.data[i].historial}', style: TextStyle(fontSize: responsive.ip(2))),
                                                 Spacer(),
                                                 IconButton(
                                                     icon: Icon(Icons.close),
                                                     onPressed: () {
-                                                      eliminarHistorial(
-                                                          context,
-                                                          snapshot.data[i]
-                                                              .historial,
-                                                          'general');
+                                                      eliminarHistorial(context, snapshot.data[i].historial, 'general');
                                                     }),
                                               ],
                                             ),
@@ -457,8 +383,7 @@ class _ListaGeneralState extends State<ListaGeneral> {
                                       color: Colors.white,
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(vertical: 2.0),
                                     ),
                                     Container(
                                       width: double.infinity,
@@ -466,8 +391,7 @@ class _ListaGeneralState extends State<ListaGeneral> {
                                       color: Colors.white,
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(vertical: 2.0),
                                     ),
                                     Container(
                                       width: 40.0,
@@ -495,14 +419,11 @@ class _ListaGeneralState extends State<ListaGeneral> {
                     children: [
                       StreamBuilder(
                           stream: busquedaBloc.busquedaGeneralStream,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<BusquedaGeneralModel>>
-                                  snapshot) {
+                          builder: (BuildContext context, AsyncSnapshot<List<BusquedaGeneralModel>> snapshot) {
                             if (snapshot.hasData) {
                               if (snapshot.data.length > 0) {
                               } else {
-                                return Center(
-                                    child: Text("Sin resultadosssssss"));
+                                return Center(child: Text("Sin resultadosssssss"));
                               }
                             } else {
                               return Center(child: CircularProgressIndicator());
@@ -512,19 +433,12 @@ class _ListaGeneralState extends State<ListaGeneral> {
                                   shrinkWrap: true,
                                   itemCount: snapshot.data.length,
                                   itemBuilder: (BuildContext context, int i) {
-                                    return (snapshot
-                                                .data[i].listProducto.length >
-                                            0)
-                                        ? _crearItemProducto(context,
-                                            snapshot.data[i], responsive)
-                                        : (snapshot.data[i].listServicios
-                                                    .length >
-                                                0)
-                                            ? _crearItemServicio(context,
-                                                snapshot.data[i], responsive)
+                                    return (snapshot.data[i].listProducto.length > 0)
+                                        ? _crearItemProducto(context, snapshot.data[i], responsive)
+                                        : (snapshot.data[i].listServicios.length > 0)
+                                            ? _crearItemServicio(context, snapshot.data[i], responsive)
                                             : Container(
-                                                child: Text(
-                                                    "Falta modificar en el back"),
+                                                child: Text("Falta modificar en el back"),
                                               );
                                   }),
                             );
@@ -549,8 +463,7 @@ class _ListaGeneralState extends State<ListaGeneral> {
     );
   }
 
-  Widget _crearItemProducto(BuildContext context,
-      BusquedaGeneralModel busquedaData, Responsive responsive) {
+  Widget _crearItemProducto(BuildContext context, BusquedaGeneralModel busquedaData, Responsive responsive) {
     return GestureDetector(
       onTap: () {
         // Navigator.push(
@@ -604,11 +517,8 @@ class _ListaGeneralState extends State<ListaGeneral> {
                         image: AssetImage('assets/jar-loading.gif'),
                         fit: BoxFit.cover,
                       ),
-                      errorWidget: (context, url, error) => Image(
-                          image: AssetImage('assets/carga_fallida.jpg'),
-                          fit: BoxFit.cover),
-                      imageUrl:
-                          '$apiBaseURL/${busquedaData.listProducto[index].productoImage}',
+                      errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
+                      imageUrl: '$apiBaseURL/${busquedaData.listProducto[index].productoImage}',
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
@@ -627,9 +537,7 @@ class _ListaGeneralState extends State<ListaGeneral> {
                     children: [
                       Text(
                         '${busquedaData.listProducto[index].productoName}',
-                        style: TextStyle(
-                            fontSize: responsive.ip(2.3),
-                            fontWeight: FontWeight.w600),
+                        style: TextStyle(fontSize: responsive.ip(2.3), fontWeight: FontWeight.w600),
                         textAlign: TextAlign.center,
                       ),
                       // Text(
@@ -652,8 +560,7 @@ class _ListaGeneralState extends State<ListaGeneral> {
     );
   }
 
-  Widget _crearItemServicio(BuildContext context,
-      BusquedaGeneralModel busquedaData, Responsive responsive) {
+  Widget _crearItemServicio(BuildContext context, BusquedaGeneralModel busquedaData, Responsive responsive) {
     return GestureDetector(
       onTap: () {
         // Navigator.push(
@@ -707,11 +614,8 @@ class _ListaGeneralState extends State<ListaGeneral> {
                         image: AssetImage('assets/jar-loading.gif'),
                         fit: BoxFit.cover,
                       ),
-                      errorWidget: (context, url, error) => Image(
-                          image: AssetImage('assets/carga_fallida.jpg'),
-                          fit: BoxFit.cover),
-                      imageUrl:
-                          '$apiBaseURL/${busquedaData.listServicios[index].subsidiaryServiceImage}',
+                      errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
+                      imageUrl: '$apiBaseURL/${busquedaData.listServicios[index].subsidiaryServiceImage}',
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
@@ -730,20 +634,12 @@ class _ListaGeneralState extends State<ListaGeneral> {
                     children: [
                       Text(
                         '${busquedaData.listServicios[index].subsidiaryServiceName}',
-                        style: TextStyle(
-                            fontSize: responsive.ip(2.3),
-                            fontWeight: FontWeight.w600),
+                        style: TextStyle(fontSize: responsive.ip(2.3), fontWeight: FontWeight.w600),
                         textAlign: TextAlign.center,
                       ),
-                      Text(
-                          '${busquedaData.listServicios[index].subsidiaryServiceCurrency} ${busquedaData.listServicios[index].subsidiaryServicePrice}',
-                          style: TextStyle(
-                              fontSize: responsive.ip(2.5),
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red)),
-                      Text(
-                          '${busquedaData.listServicios[index].subsidiaryServiceDescription}',
-                          style: TextStyle(color: Colors.red)),
+                      Text('${busquedaData.listServicios[index].subsidiaryServiceCurrency} ${busquedaData.listServicios[index].subsidiaryServicePrice}',
+                          style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold, color: Colors.red)),
+                      Text('${busquedaData.listServicios[index].subsidiaryServiceDescription}', style: TextStyle(color: Colors.red)),
                     ],
                   ),
                 )
@@ -813,8 +709,7 @@ class _ListaProductosState extends State<ListaProductos> {
                                       color: Colors.white,
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(vertical: 2.0),
                                     ),
                                     Container(
                                       width: double.infinity,
@@ -822,8 +717,7 @@ class _ListaProductosState extends State<ListaProductos> {
                                       color: Colors.white,
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(vertical: 2.0),
                                     ),
                                     Container(
                                       width: 40.0,
@@ -851,149 +745,90 @@ class _ListaProductosState extends State<ListaProductos> {
                     children: [
                       StreamBuilder(
                           stream: busquedaBloc.busquedaProductoStream,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<ProductoModel>> snapshot) {
+                          builder: (BuildContext context, AsyncSnapshot<List<ProductoModel>> snapshot) {
                             if (snapshot.hasData) {
                               if (snapshot.data.length > 0) {
                                 return Expanded(
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: snapshot.data.length,
-                                      itemBuilder:
-                                          (BuildContext context, int i) {
-                                        return _crearItem(context,
-                                            snapshot.data[i], responsive);
+                                      itemBuilder: (BuildContext context, int i) {
+                                        return _crearItem(context, snapshot.data[i], responsive);
                                       }),
                                 );
                               } else {
                                 return StreamBuilder(
                                   stream: searchBloc.searchHistoryStream,
-                                  builder: (context,
-                                      AsyncSnapshot<List<SearchHistoryModel>>
-                                          snapshot) {
+                                  builder: (context, AsyncSnapshot<List<SearchHistoryModel>> snapshot) {
                                     if (snapshot.hasData) {
                                       if (snapshot.data.length > 0) {
                                         return Expanded(
                                             child: ListView.builder(
                                                 shrinkWrap: true,
-                                                itemCount:
-                                                    snapshot.data.length + 1,
-                                                itemBuilder:
-                                                    (BuildContext context,
-                                                        int i) {
+                                                itemCount: snapshot.data.length + 1,
+                                                itemBuilder: (BuildContext context, int i) {
                                                   if (i == 0) {
                                                     return Container(
-                                                      child: Text(
-                                                          'Lo último que viste',
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  responsive
-                                                                      .ip(2.3),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600)),
-                                                      margin: EdgeInsets.all(
-                                                          responsive.ip(1)),
+                                                      child: Text('Lo último que viste', style: TextStyle(fontSize: responsive.ip(2.3), fontWeight: FontWeight.w600)),
+                                                      margin: EdgeInsets.all(responsive.ip(1)),
                                                     );
                                                   }
                                                   i = i - 1;
                                                   return GestureDetector(
                                                     onTap: () {
-                                                      if (snapshot.data[i]
-                                                              .tipoBusqueda ==
-                                                          'Producto') {
+                                                      if (snapshot.data[i].tipoBusqueda == 'Producto') {
                                                         Navigator.push(
                                                           context,
                                                           MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                DetalleProductos(
-                                                              idProducto: snapshot
-                                                                  .data[i]
-                                                                  .idBusqueda,
+                                                            builder: (context) => DetalleProductos(
+                                                              idProducto: snapshot.data[i].idBusqueda,
                                                             ),
                                                           ),
                                                         );
                                                       } else {
-                                                        Navigator.pushNamed(
-                                                            context,
-                                                            'detalleServicio',
-                                                            arguments: snapshot
-                                                                .data[i]
-                                                                .idBusqueda);
+                                                        Navigator.pushNamed(context, 'detalleServicio', arguments: snapshot.data[i].idBusqueda);
                                                       }
                                                     },
                                                     child: Container(
                                                       decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
+                                                        borderRadius: BorderRadius.circular(8),
                                                         color: Colors.white,
                                                         boxShadow: [
                                                           BoxShadow(
-                                                            color: Colors.grey
-                                                                .withOpacity(
-                                                                    0.15),
+                                                            color: Colors.grey.withOpacity(0.15),
                                                             spreadRadius: 1,
                                                             blurRadius: 2,
-                                                            offset:
-                                                                Offset(2, 3),
+                                                            offset: Offset(2, 3),
                                                           ),
                                                         ],
                                                       ),
-                                                      margin: EdgeInsets.all(
-                                                          responsive.ip(1)),
+                                                      margin: EdgeInsets.all(responsive.ip(1)),
                                                       height: responsive.hp(8),
                                                       child: Row(
                                                         children: [
                                                           Spacer(),
                                                           Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                                    shape: BoxShape
-                                                                        .circle,
-                                                                    image:
-                                                                        DecorationImage(
-                                                                      image: NetworkImage(
-                                                                          '$apiBaseURL/${snapshot.data[i].img}'),
-                                                                    )),
-                                                            width: responsive
-                                                                .wp(10),
-                                                            height: responsive
-                                                                .hp(10),
+                                                            decoration: BoxDecoration(
+                                                                shape: BoxShape.circle,
+                                                                image: DecorationImage(
+                                                                  image: NetworkImage('$apiBaseURL/${snapshot.data[i].img}'),
+                                                                )),
+                                                            width: responsive.wp(10),
+                                                            height: responsive.hp(10),
                                                           ),
                                                           Spacer(),
                                                           Container(
-                                                            width: responsive
-                                                                .wp(53),
+                                                            width: responsive.wp(53),
                                                             child: Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .center,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
                                                               children: [
                                                                 Text(
                                                                   '${snapshot.data[i].nombreBusqueda}',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          responsive.ip(
-                                                                              2.2),
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
+                                                                  style: TextStyle(fontSize: responsive.ip(2.2), fontWeight: FontWeight.w600),
+                                                                  textAlign: TextAlign.center,
                                                                 ),
-                                                                Text(
-                                                                    'Tipo: ${snapshot.data[i].tipoBusqueda}',
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            responsive.ip(
-                                                                                2),
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
-                                                                        color: Colors
-                                                                            .red)),
+                                                                Text('Tipo: ${snapshot.data[i].tipoBusqueda}',
+                                                                    style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold, color: Colors.red)),
                                                               ],
                                                             ),
                                                           ),
@@ -1084,12 +919,10 @@ class _ListaProductosState extends State<ListaProductos> {
         });*/
   }
 
-  Widget _crearItem(
-      BuildContext context, ProductoModel productoData, Responsive responsive) {
+  Widget _crearItem(BuildContext context, ProductoModel productoData, Responsive responsive) {
     return GestureDetector(
       onTap: () {
-        agregarHistorialBusqueda(context, productoData.idProducto, 'Producto',
-            productoData.productoName, productoData.productoImage);
+        agregarHistorialBusqueda(context, productoData.idProducto, 'Producto', productoData.productoName, productoData.productoImage);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -1137,9 +970,7 @@ class _ListaProductosState extends State<ListaProductos> {
                     image: AssetImage('assets/jar-loading.gif'),
                     fit: BoxFit.cover,
                   ),
-                  errorWidget: (context, url, error) => Image(
-                      image: AssetImage('assets/carga_fallida.jpg'),
-                      fit: BoxFit.cover),
+                  errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
                   imageUrl: '$apiBaseURL/${productoData.productoImage}',
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
@@ -1159,17 +990,11 @@ class _ListaProductosState extends State<ListaProductos> {
                 children: [
                   Text(
                     '${productoData.productoName}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2.3),
-                        fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: responsive.ip(2.3), fontWeight: FontWeight.w600),
                     textAlign: TextAlign.center,
                   ),
-                  Text(
-                      '${productoData.productoCurrency} ${productoData.productoPrice}',
-                      style: TextStyle(
-                          fontSize: responsive.ip(2.5),
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red)),
+                  Text('${productoData.productoCurrency} ${productoData.productoPrice}',
+                      style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold, color: Colors.red)),
                   Text('${productoData.productoBrand}'),
                   Text('${productoData.productoSize}'),
                   Text('${productoData.productoModel}')
@@ -1240,8 +1065,7 @@ class _ListaServiciosState extends State<ListaServicios> {
                                       color: Colors.white,
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(vertical: 2.0),
                                     ),
                                     Container(
                                       width: double.infinity,
@@ -1249,8 +1073,7 @@ class _ListaServiciosState extends State<ListaServicios> {
                                       color: Colors.white,
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(vertical: 2.0),
                                     ),
                                     Container(
                                       width: 40.0,
@@ -1278,9 +1101,7 @@ class _ListaServiciosState extends State<ListaServicios> {
                     children: [
                       StreamBuilder(
                           stream: busquedaBloc.busquedaServicioStream,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<SubsidiaryServiceModel>>
-                                  snapshot) {
+                          builder: (BuildContext context, AsyncSnapshot<List<SubsidiaryServiceModel>> snapshot) {
                             if (snapshot.hasData) {
                               if (snapshot.data.length > 0) {
                               } else {
@@ -1294,8 +1115,7 @@ class _ListaServiciosState extends State<ListaServicios> {
                                   shrinkWrap: true,
                                   itemCount: snapshot.data.length,
                                   itemBuilder: (BuildContext context, int i) {
-                                    return _crearItem(
-                                        context, snapshot.data[i], responsive);
+                                    return _crearItem(context, snapshot.data[i], responsive);
                                   }),
                             );
                           })
@@ -1325,18 +1145,11 @@ class _ListaServiciosState extends State<ListaServicios> {
     );
   }
 
-  Widget _crearItem(BuildContext context, SubsidiaryServiceModel servicioData,
-      Responsive responsive) {
+  Widget _crearItem(BuildContext context, SubsidiaryServiceModel servicioData, Responsive responsive) {
     return GestureDetector(
       onTap: () {
-        agregarHistorialBusqueda(
-            context,
-            servicioData.idSubsidiaryservice,
-            'Servicio',
-            servicioData.subsidiaryServiceName,
-            servicioData.subsidiaryServiceImage);
-        Navigator.pushNamed(context, 'detalleServicio',
-            arguments: servicioData.idSubsidiaryservice);
+        agregarHistorialBusqueda(context, servicioData.idSubsidiaryservice, 'Servicio', servicioData.subsidiaryServiceName, servicioData.subsidiaryServiceImage);
+        Navigator.pushNamed(context, 'detalleServicio', arguments: servicioData.idSubsidiaryservice);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -1376,11 +1189,8 @@ class _ListaServiciosState extends State<ListaServicios> {
                     image: AssetImage('assets/jar-loading.gif'),
                     fit: BoxFit.cover,
                   ),
-                  errorWidget: (context, url, error) => Image(
-                      image: AssetImage('assets/carga_fallida.jpg'),
-                      fit: BoxFit.cover),
-                  imageUrl:
-                      '$apiBaseURL/${servicioData.subsidiaryServiceImage}',
+                  errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
+                  imageUrl: '$apiBaseURL/${servicioData.subsidiaryServiceImage}',
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -1399,19 +1209,12 @@ class _ListaServiciosState extends State<ListaServicios> {
                 children: [
                   Text(
                     '${servicioData.subsidiaryServiceName}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2.3),
-                        fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: responsive.ip(2.3), fontWeight: FontWeight.w600),
                     textAlign: TextAlign.center,
                   ),
-                  Text(
-                      '${servicioData.subsidiaryServiceCurrency} ${servicioData.subsidiaryServicePrice}',
-                      style: TextStyle(
-                          fontSize: responsive.ip(2.5),
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red)),
-                  Text('${servicioData.subsidiaryServiceDescription}',
-                      style: TextStyle(color: Colors.red)),
+                  Text('${servicioData.subsidiaryServiceCurrency} ${servicioData.subsidiaryServicePrice}',
+                      style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold, color: Colors.red)),
+                  Text('${servicioData.subsidiaryServiceDescription}', style: TextStyle(color: Colors.red)),
                 ],
               ),
             )
@@ -1517,8 +1320,7 @@ class _ListaNegociosState extends State<ListaNegocios> {
                                       color: Colors.white,
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(vertical: 2.0),
                                     ),
                                     Container(
                                       width: double.infinity,
@@ -1526,8 +1328,7 @@ class _ListaNegociosState extends State<ListaNegocios> {
                                       color: Colors.white,
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(vertical: 2.0),
                                     ),
                                     Container(
                                       width: 40.0,
@@ -1555,9 +1356,7 @@ class _ListaNegociosState extends State<ListaNegocios> {
                     children: [
                       StreamBuilder(
                           stream: busquedaBloc.busquedaNegocioStream,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<CompanySubsidiaryModel>>
-                                  snapshot) {
+                          builder: (BuildContext context, AsyncSnapshot<List<CompanySubsidiaryModel>> snapshot) {
                             if (snapshot.hasData) {
                               if (snapshot.data.length > 0) {
                               } else {
@@ -1571,8 +1370,7 @@ class _ListaNegociosState extends State<ListaNegocios> {
                                   shrinkWrap: true,
                                   itemCount: snapshot.data.length,
                                   itemBuilder: (BuildContext context, int i) {
-                                    return _crearItem(
-                                        context, snapshot.data[i], responsive);
+                                    return _crearItem(context, snapshot.data[i], responsive);
                                   }),
                             );
                           })
@@ -1602,8 +1400,7 @@ class _ListaNegociosState extends State<ListaNegocios> {
     );
   }
 
-  Widget _crearItem(BuildContext context, CompanySubsidiaryModel negocioData,
-      Responsive responsive) {
+  Widget _crearItem(BuildContext context, CompanySubsidiaryModel negocioData, Responsive responsive) {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, 'detalleNegocio', arguments: negocioData);
@@ -1648,9 +1445,7 @@ class _ListaNegociosState extends State<ListaNegocios> {
                         image: AssetImage('assets/jar-loading.gif'),
                         fit: BoxFit.cover,
                       ),
-                      errorWidget: (context, url, error) => Image(
-                          image: AssetImage('assets/carga_fallida.jpg'),
-                          fit: BoxFit.cover),
+                      errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
                       imageUrl: '$apiBaseURL/${negocioData.companyImage}',
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
@@ -1679,10 +1474,7 @@ class _ListaNegociosState extends State<ListaNegocios> {
                           children: [
                             Text(
                               '${negocioData.companyName}',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(2),
-                                  fontWeight: FontWeight.bold),
+                              style: TextStyle(color: Colors.white, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -1699,14 +1491,10 @@ class _ListaNegociosState extends State<ListaNegocios> {
                 children: [
                   Text(
                     '${negocioData.companyName}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2.3),
-                        fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: responsive.ip(2.3), fontWeight: FontWeight.w600),
                     textAlign: TextAlign.center,
                   ),
-                  Text('${negocioData.companyType}',
-                      style: TextStyle(
-                          color: Colors.red, fontWeight: FontWeight.bold)),
+                  Text('${negocioData.companyType}', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
                   Text('${negocioData.cityName}'),
                 ],
               ),
@@ -1772,8 +1560,7 @@ class _ListaItemsubcategoriaState extends State<ListaItemsubcategoria> {
                                       color: Colors.white,
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(vertical: 2.0),
                                     ),
                                     Container(
                                       width: double.infinity,
@@ -1781,8 +1568,7 @@ class _ListaItemsubcategoriaState extends State<ListaItemsubcategoria> {
                                       color: Colors.white,
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(vertical: 2.0),
                                     ),
                                     Container(
                                       width: 40.0,
@@ -1810,9 +1596,7 @@ class _ListaItemsubcategoriaState extends State<ListaItemsubcategoria> {
                     children: [
                       StreamBuilder(
                           stream: busquedaBloc.busquedaItemSubcategoriaStream,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<ItemSubCategoriaModel>>
-                                  snapshot) {
+                          builder: (BuildContext context, AsyncSnapshot<List<ItemSubCategoriaModel>> snapshot) {
                             if (snapshot.hasData) {
                               if (snapshot.data.length > 0) {
                               } else {
@@ -1834,34 +1618,23 @@ class _ListaItemsubcategoriaState extends State<ListaItemsubcategoria> {
                                         ),
                                         child: Text(
                                           '${snapshot.data[i].itemsubcategoryName}',
-                                          style: TextStyle(
-                                              fontSize: responsive.ip(1.8),
-                                              fontWeight: FontWeight.bold),
+                                          style: TextStyle(fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                       onTap: () {
-                                        Navigator.of(context)
-                                            .push(PageRouteBuilder(
-                                          pageBuilder: (context, animation,
-                                              secondaryAnimation) {
+                                        Navigator.of(context).push(PageRouteBuilder(
+                                          pageBuilder: (context, animation, secondaryAnimation) {
                                             return ProYSerPorItemSubcategoryPage(
-                                              nameItem:
-                                                  '${snapshot.data[i].itemsubcategoryName}',
-                                              idItem:
-                                                  '${snapshot.data[i].idItemsubcategory}',
+                                              nameItem: '${snapshot.data[i].itemsubcategoryName}',
+                                              idItem: '${snapshot.data[i].idItemsubcategory}',
                                             );
                                           },
-                                          transitionsBuilder: (context,
-                                              animation,
-                                              secondaryAnimation,
-                                              child) {
+                                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                             var begin = Offset(0.0, 1.0);
                                             var end = Offset.zero;
                                             var curve = Curves.ease;
 
-                                            var tween =
-                                                Tween(begin: begin, end: end)
-                                                    .chain(
+                                            var tween = Tween(begin: begin, end: end).chain(
                                               CurveTween(curve: curve),
                                             );
 
@@ -1958,8 +1731,7 @@ class _ListaCategoriasState extends State<ListaCategorias> {
                                       color: Colors.white,
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(vertical: 2.0),
                                     ),
                                     Container(
                                       width: double.infinity,
@@ -1967,8 +1739,7 @@ class _ListaCategoriasState extends State<ListaCategorias> {
                                       color: Colors.white,
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(vertical: 2.0),
                                     ),
                                     Container(
                                       width: 40.0,
@@ -1996,8 +1767,7 @@ class _ListaCategoriasState extends State<ListaCategorias> {
                     children: [
                       StreamBuilder(
                           stream: busquedaBloc.busquedaCategoriaStream,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<CategoriaModel>> snapshot) {
+                          builder: (BuildContext context, AsyncSnapshot<List<CategoriaModel>> snapshot) {
                             if (snapshot.hasData) {
                               if (snapshot.data.length > 0) {
                               } else {
@@ -2019,34 +1789,23 @@ class _ListaCategoriasState extends State<ListaCategorias> {
                                         ),
                                         child: Text(
                                           '${snapshot.data[i].categoryName}',
-                                          style: TextStyle(
-                                              fontSize: responsive.ip(1.8),
-                                              fontWeight: FontWeight.bold),
+                                          style: TextStyle(fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                       onTap: () {
-                                        Navigator.of(context)
-                                            .push(PageRouteBuilder(
-                                          pageBuilder: (context, animation,
-                                              secondaryAnimation) {
+                                        Navigator.of(context).push(PageRouteBuilder(
+                                          pageBuilder: (context, animation, secondaryAnimation) {
                                             return SubcategoryPorCategoryPage(
-                                              nombreCategoria:
-                                                  snapshot.data[i].categoryName,
-                                              idCategoria:
-                                                  snapshot.data[i].idCategory,
+                                              nombreCategoria: snapshot.data[i].categoryName,
+                                              idCategoria: snapshot.data[i].idCategory,
                                             );
                                           },
-                                          transitionsBuilder: (context,
-                                              animation,
-                                              secondaryAnimation,
-                                              child) {
+                                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                             var begin = Offset(0.0, 1.0);
                                             var end = Offset.zero;
                                             var curve = Curves.ease;
 
-                                            var tween =
-                                                Tween(begin: begin, end: end)
-                                                    .chain(
+                                            var tween = Tween(begin: begin, end: end).chain(
                                               CurveTween(curve: curve),
                                             );
 
@@ -2143,8 +1902,7 @@ class _ListaSubCategoriasState extends State<ListaSubCategorias> {
                                       color: Colors.white,
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(vertical: 2.0),
                                     ),
                                     Container(
                                       width: double.infinity,
@@ -2152,8 +1910,7 @@ class _ListaSubCategoriasState extends State<ListaSubCategorias> {
                                       color: Colors.white,
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(vertical: 2.0),
                                     ),
                                     Container(
                                       width: 40.0,
@@ -2181,8 +1938,7 @@ class _ListaSubCategoriasState extends State<ListaSubCategorias> {
                     children: [
                       StreamBuilder(
                           stream: busquedaBloc.busquedaSubcategoryController,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<SubcategoryModel>> snapshot) {
+                          builder: (BuildContext context, AsyncSnapshot<List<SubcategoryModel>> snapshot) {
                             if (snapshot.hasData) {
                               if (snapshot.data.length > 0) {
                               } else {
@@ -2204,34 +1960,23 @@ class _ListaSubCategoriasState extends State<ListaSubCategorias> {
                                         ),
                                         child: Text(
                                           '${snapshot.data[i].subcategoryName}',
-                                          style: TextStyle(
-                                              fontSize: responsive.ip(1.8),
-                                              fontWeight: FontWeight.bold),
+                                          style: TextStyle(fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                       onTap: () {
-                                        Navigator.of(context)
-                                            .push(PageRouteBuilder(
-                                          pageBuilder: (context, animation,
-                                              secondaryAnimation) {
+                                        Navigator.of(context).push(PageRouteBuilder(
+                                          pageBuilder: (context, animation, secondaryAnimation) {
                                             return ItemSubcategoryPorSubcategoryPage(
-                                              nombreSubcategoria: snapshot
-                                                  .data[i].subcategoryName,
-                                              idSubCategoria: snapshot
-                                                  .data[i].idSubcategory,
+                                              nombreSubcategoria: snapshot.data[i].subcategoryName,
+                                              idSubCategoria: snapshot.data[i].idSubcategory,
                                             );
                                           },
-                                          transitionsBuilder: (context,
-                                              animation,
-                                              secondaryAnimation,
-                                              child) {
+                                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                             var begin = Offset(0.0, 1.0);
                                             var end = Offset.zero;
                                             var curve = Curves.ease;
 
-                                            var tween =
-                                                Tween(begin: begin, end: end)
-                                                    .chain(
+                                            var tween = Tween(begin: begin, end: end).chain(
                                               CurveTween(curve: curve),
                                             );
 
@@ -2284,8 +2029,7 @@ class ListaProductosYServiciosItemSubca extends StatelessWidget {
     final responsive = Responsive.of(context);
     return StreamBuilder(
         stream: busquedaBloc.busProySerPorIdItemsubController,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<BienesServiciosModel>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<BienesServiciosModel>> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.length > 0) {
               return ListView.builder(
@@ -2302,10 +2046,8 @@ class ListaProductosYServiciosItemSubca extends StatelessWidget {
                               width: responsive.wp(5),
                               fit: BoxFit.contain,
                             ),
-                            title:
-                                Text('${snapshot.data[i].subsidiaryGoodName}'),
-                            subtitle: Text(
-                                '${snapshot.data[i].subsidiaryGoodCurrency}'),
+                            title: Text('${snapshot.data[i].subsidiaryGoodName}'),
+                            subtitle: Text('${snapshot.data[i].subsidiaryGoodCurrency}'),
                             onTap: () {
                               //close(context, null);
 
@@ -2328,10 +2070,8 @@ class ListaProductosYServiciosItemSubca extends StatelessWidget {
                               width: responsive.wp(5),
                               fit: BoxFit.contain,
                             ),
-                            title: Text(
-                                '${snapshot.data[i].subsidiaryServiceName}'),
-                            subtitle: Text(
-                                '${snapshot.data[i].subsidiaryServiceCurrency}'),
+                            title: Text('${snapshot.data[i].subsidiaryServiceName}'),
+                            subtitle: Text('${snapshot.data[i].subsidiaryServiceCurrency}'),
                             onTap: () {
                               //close(context, null);
 
@@ -2378,8 +2118,7 @@ class ListaProductosYServiciosIdSubisdiary extends StatelessWidget {
     final responsive = Responsive.of(context);
     return StreamBuilder(
         stream: busquedaBloc.busquedaProductoPorIdSucursalStream,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<ProductoModel>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<ProductoModel>> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.length > 0) {
               return ListView.builder(
@@ -2408,12 +2147,10 @@ class ListaProductosYServiciosIdSubisdiary extends StatelessWidget {
         });
   }
 
-  Widget _crearItem(
-      BuildContext context, ProductoModel productoData, Responsive responsive) {
+  Widget _crearItem(BuildContext context, ProductoModel productoData, Responsive responsive) {
     return GestureDetector(
       onTap: () {
-        agregarHistorialBusqueda(context, productoData.idProducto, 'Producto',
-            productoData.productoName, productoData.productoImage);
+        agregarHistorialBusqueda(context, productoData.idProducto, 'Producto', productoData.productoName, productoData.productoImage);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -2461,9 +2198,7 @@ class ListaProductosYServiciosIdSubisdiary extends StatelessWidget {
                     image: AssetImage('assets/jar-loading.gif'),
                     fit: BoxFit.cover,
                   ),
-                  errorWidget: (context, url, error) => Image(
-                      image: AssetImage('assets/carga_fallida.jpg'),
-                      fit: BoxFit.cover),
+                  errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
                   imageUrl: '$apiBaseURL/${productoData.productoImage}',
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
@@ -2483,17 +2218,11 @@ class ListaProductosYServiciosIdSubisdiary extends StatelessWidget {
                 children: [
                   Text(
                     '${productoData.productoName}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2.3),
-                        fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: responsive.ip(2.3), fontWeight: FontWeight.w600),
                     textAlign: TextAlign.center,
                   ),
-                  Text(
-                      '${productoData.productoCurrency} ${productoData.productoPrice}',
-                      style: TextStyle(
-                          fontSize: responsive.ip(2.5),
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red)),
+                  Text('${productoData.productoCurrency} ${productoData.productoPrice}',
+                      style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold, color: Colors.red)),
                   Text('${productoData.productoBrand}'),
                   Text('${productoData.productoSize}'),
                   Text('${productoData.productoModel}')

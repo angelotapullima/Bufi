@@ -34,8 +34,7 @@ class BienesServiciosBloc {
   final serviciosController = BehaviorSubject<List<SubsidiaryServiceModel>>();
 
   Stream<List<ProductoModel>> get bienesStream => bienesController.stream;
-  Stream<List<SubsidiaryServiceModel>> get serviciosStream =>
-      serviciosController.stream;
+  Stream<List<SubsidiaryServiceModel>> get serviciosStream => serviciosController.stream;
   Stream<bool> get cargandoStream => _cargandoController.stream;
 
 //----------------TODOS LOS BIENES Y SERVICIOS----------------------
@@ -44,8 +43,7 @@ class BienesServiciosBloc {
   final serviciosAllController = BehaviorSubject<List<ServiciosModel>>();
 
   Stream<List<BienesModel>> get bienesAllStream => bienesAllController.stream;
-  Stream<List<ServiciosModel>> get serviciosAllStream =>
-      serviciosAllController.stream;
+  Stream<List<ServiciosModel>> get serviciosAllStream => serviciosAllController.stream;
 
   dispose() {
     bienesController?.close();
@@ -58,14 +56,12 @@ class BienesServiciosBloc {
   //Obtener los 8 primeros bienes y servicios
   void obtenerBienesServiciosResumen() async {
     bienesController.sink.add(await productoDatabase.obtenerSubsidiaryGood());
-    serviciosController.sink
-        .add(await subisdiaryServiceDatabase.obtenerSubsidiaryService());
+    serviciosController.sink.add(await subisdiaryServiceDatabase.obtenerSubsidiaryService());
 
     await categoriaApi.obtenerbsResumen();
 
     bienesController.sink.add(await productoDatabase.obtenerSubsidiaryGood());
-    serviciosController.sink
-        .add(await subisdiaryServiceDatabase.obtenerSubsidiaryService());
+    serviciosController.sink.add(await subisdiaryServiceDatabase.obtenerSubsidiaryService());
   }
 
   /* //Obtener los nombres de todos los bienes y servicios
@@ -89,17 +85,14 @@ class BienesServiciosBloc {
   }
 
   void obtenerServiciosAllPorCiudad() async {
-    serviciosController.sink
-        .add(await subisdiaryServiceDatabase.obtenerSubsidiaryService());
+    serviciosController.sink.add(await subisdiaryServiceDatabase.obtenerSubsidiaryService());
     await serviciosApi.listarServiciosAllPorCiudad();
-    serviciosController.sink
-        .add(await subisdiaryServiceDatabase.obtenerSubsidiaryService());
+    serviciosController.sink.add(await subisdiaryServiceDatabase.obtenerSubsidiaryService());
   }
 
-  void obtenerBienesAllPorCiudadFiltrado(
-      List<String> tallas, List<String> modelos, List<String> marcas) async {
-    final List<ProductoModel>listFinal=[];
-    final List<String>listIdSinRepetir=[];
+  void obtenerBienesAllPorCiudadFiltrado(List<String> tallas, List<String> modelos, List<String> marcas) async {
+    final List<ProductoModel> listFinal = [];
+    final List<String> listIdSinRepetir = [];
     String consultaTallas = '';
     String consultaMarcas = '';
     String consultaModelos = '';
@@ -114,8 +107,7 @@ class BienesServiciosBloc {
           consultaMarcas += "or producto_brand = '${marcas[x]}' ";
         }
       }
-      String sqlMarcas =
-          'SELECT * FROM Producto where  producto_brand = $consultaMarcas';
+      String sqlMarcas = 'SELECT * FROM Producto where  producto_brand = $consultaMarcas';
 
       final productitosMarcas = await productoDatabase.sqlConsulta(sqlMarcas);
 
@@ -133,8 +125,7 @@ class BienesServiciosBloc {
         }
       }
 
-      String sqlTallas =
-          'SELECT * FROM Producto where producto_size  = $consultaTallas ';
+      String sqlTallas = 'SELECT * FROM Producto where producto_size  = $consultaTallas ';
 
       final productitosTallas = await productoDatabase.sqlConsulta(sqlTallas);
 
@@ -152,8 +143,7 @@ class BienesServiciosBloc {
         }
       }
 
-      String sqlModelos =
-          'SELECT * FROM Producto where producto_model = $consultaModelos ';
+      String sqlModelos = 'SELECT * FROM Producto where producto_model = $consultaModelos ';
 
       final productitosModelo = await productoDatabase.sqlConsulta(sqlModelos);
 
@@ -165,8 +155,7 @@ class BienesServiciosBloc {
     final listGeneral = listIdSinRepetir.toSet().toList();
 
     for (var i = 0; i < listGeneral.length; i++) {
-      final producto = await productoDatabase
-          .obtenerProductoPorIdSubsidiaryGood(listGeneral[i]);
+      final producto = await productoDatabase.obtenerProductoPorIdSubsidiaryGood(listGeneral[i]);
 
       ProductoModel productoModel = ProductoModel();
       productoModel.idProducto = producto[0].idProducto;
@@ -177,8 +166,7 @@ class BienesServiciosBloc {
       productoModel.productoPrice = producto[0].productoPrice;
       productoModel.productoCurrency = producto[0].productoCurrency;
       productoModel.productoImage = producto[0].productoImage;
-      productoModel.productoCharacteristics =
-          producto[0].productoCharacteristics;
+      productoModel.productoCharacteristics = producto[0].productoCharacteristics;
       productoModel.productoBrand = producto[0].productoBrand;
       productoModel.productoModel = producto[0].productoModel;
       productoModel.productoType = producto[0].productoType;

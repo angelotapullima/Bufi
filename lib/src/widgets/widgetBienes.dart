@@ -11,11 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bufi/src/utils/utils.dart' as utils;
 
-Widget bienesWidgetCompelto(BuildContext context, BienesServiciosModel goodData,
-    Responsive responsive) {
+Widget bienesWidgetCompelto(BuildContext context, BienesServiciosModel goodData, Responsive responsive) {
   return Container(
-    margin: EdgeInsets.symmetric(
-        horizontal: responsive.wp(1), vertical: responsive.hp(1)),
+    margin: EdgeInsets.symmetric(horizontal: responsive.wp(1), vertical: responsive.hp(1)),
     decoration: BoxDecoration(
       boxShadow: [
         BoxShadow(
@@ -39,13 +37,9 @@ Widget bienesWidgetCompelto(BuildContext context, BienesServiciosModel goodData,
             children: <Widget>[
               Container(
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8)),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                   child: CachedNetworkImage(
-                    placeholder: (context, url) => Image(
-                        image: AssetImage('assets/jar-loading.gif'),
-                        fit: BoxFit.cover),
+                    placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                     imageUrl: '$apiBaseURL/${goodData.subsidiaryGoodImage}',
                     imageBuilder: (context, imageProvider) => Container(
@@ -69,10 +63,7 @@ Widget bienesWidgetCompelto(BuildContext context, BienesServiciosModel goodData,
                   height: responsive.hp(3),
                   child: Text(
                     'Producto',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: responsive.ip(1.5),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                   ),
                 ),
               )
@@ -139,17 +130,9 @@ Widget bienesWidgetCompelto(BuildContext context, BienesServiciosModel goodData,
         // ),
         Text(
           goodData.subsidiaryGoodName,
-          style: TextStyle(
-              fontSize: responsive.ip(1.5),
-              color: Colors.grey[800],
-              fontWeight: FontWeight.w700),
+          style: TextStyle(fontSize: responsive.ip(1.5), color: Colors.grey[800], fontWeight: FontWeight.w700),
         ),
-        Text(
-            '${goodData.subsidiaryGoodCurrency} ${goodData.subsidiaryGoodPrice}',
-            style: TextStyle(
-                fontSize: responsive.ip(1.9),
-                fontWeight: FontWeight.bold,
-                color: Colors.red)),
+        Text('${goodData.subsidiaryGoodCurrency} ${goodData.subsidiaryGoodPrice}', style: TextStyle(fontSize: responsive.ip(1.9), fontWeight: FontWeight.bold, color: Colors.red)),
         Text(
           goodData.subsidiaryGoodBrand,
           style: TextStyle(
@@ -208,17 +191,11 @@ class _BienesWidgetState extends State<BienesWidget> {
                     children: <Widget>[
                       Container(
                         child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(8),
-                              topRight: Radius.circular(8)),
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                           child: CachedNetworkImage(
-                            placeholder: (context, url) => Image(
-                                image: AssetImage('assets/jar-loading.gif'),
-                                fit: BoxFit.cover),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                            imageUrl:
-                                '$apiBaseURL/${widget.producto.productoImage}',
+                            placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
+                            errorWidget: (context, url, error) => Icon(Icons.error),
+                            imageUrl: '$apiBaseURL/${widget.producto.productoImage}',
                             imageBuilder: (context, imageProvider) => Container(
                               decoration: BoxDecoration(
                                 image: DecorationImage(
@@ -240,10 +217,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                           height: responsive.hp(3),
                           child: Text(
                             'Productos',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: responsive.ip(1.5),
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -260,18 +234,15 @@ class _BienesWidgetState extends State<BienesWidget> {
                                         width: responsive.wp(12),
                                         decoration: BoxDecoration(
                                           color: Colors.red.withOpacity(.2),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                         ),
-                                        child: Icon(FontAwesomeIcons.solidHeart,
-                                            color: Colors.white),
+                                        child: Icon(FontAwesomeIcons.solidHeart, color: Colors.white),
                                       ),
                                       onTap: () {
                                         favorite = false;
                                         //final buttonBloc = ProviderBloc.tabs(context);
                                         //buttonBloc.changePage(1);
-                                        quitarProductoFavorito(
-                                            context, widget.producto);
+                                        quitarProductoFavorito(context, widget.producto);
                                         cant++;
                                       },
                                     )
@@ -281,20 +252,16 @@ class _BienesWidgetState extends State<BienesWidget> {
                                         width: responsive.wp(12),
                                         decoration: BoxDecoration(
                                           color: Colors.white.withOpacity(.2),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                         ),
-                                        child: Icon(FontAwesomeIcons.heart,
-                                            color: Colors.white),
+                                        child: Icon(FontAwesomeIcons.heart, color: Colors.white),
                                       ),
                                       onTap: () {
                                         favorite = true;
                                         //final buttonBloc = ProviderBloc.tabs(context);
                                         //buttonBloc.changePage(1);
-                                        guardarProductoFavorito(
-                                            context, widget.producto);
-                                        utils.showToast(context,
-                                            'el producto se agregó a favoritos');
+                                        guardarProductoFavorito(context, widget.producto);
+                                        utils.showToast(context, 'el producto se agregó a favoritos');
                                       },
                                     )),
                       //Cuando el producto no esta disponible
@@ -316,17 +283,10 @@ class _BienesWidgetState extends State<BienesWidget> {
                 ),
                 Text(
                   widget.producto.productoName,
-                  style: TextStyle(
-                      fontSize: responsive.ip(1.5),
-                      color: Colors.grey[800],
-                      fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: responsive.ip(1.5), color: Colors.grey[800], fontWeight: FontWeight.w700),
                 ),
-                Text(
-                    '${widget.producto.productoCurrency} ${widget.producto.productoPrice}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(1.9),
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red)),
+                Text('${widget.producto.productoCurrency} ${widget.producto.productoPrice}',
+                    style: TextStyle(fontSize: responsive.ip(1.9), fontWeight: FontWeight.bold, color: Colors.red)),
                 Text(
                   widget.producto.productoBrand,
                   style: TextStyle(
@@ -335,15 +295,11 @@ class _BienesWidgetState extends State<BienesWidget> {
                 ),
                 Text(
                   '${widget.producto.productoSize}',
-                  style: TextStyle(
-                      fontSize: responsive.ip(1.5),
-                      fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.w700),
                 ),
                 Text(
                   '${widget.producto.productoModel}',
-                  style: TextStyle(
-                      fontSize: responsive.ip(1.5),
-                      fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.w700),
                 ),
               ],
             ),
@@ -355,8 +311,7 @@ class _BienesWidgetState extends State<BienesWidget> {
 class BienesCompletoWidget extends StatefulWidget {
   final BienesServiciosModel producto;
 
-  const BienesCompletoWidget({Key key, @required this.producto})
-      : super(key: key);
+  const BienesCompletoWidget({Key key, @required this.producto}) : super(key: key);
   @override
   _BienesCompletoWidgetState createState() => _BienesCompletoWidgetState();
 }
@@ -368,8 +323,7 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
   @override
   Widget build(BuildContext context) {
     if (cant == 0) {
-      favorite =
-          (widget.producto.subsidiaryGoodFavourite == '1') ? true : false;
+      favorite = (widget.producto.subsidiaryGoodFavourite == '1') ? true : false;
     }
     final responsive = Responsive.of(context);
     return GestureDetector(
@@ -400,16 +354,11 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
                 children: <Widget>[
                   Container(
                     child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8)),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                       child: CachedNetworkImage(
-                        placeholder: (context, url) => Image(
-                            image: AssetImage('assets/jar-loading.gif'),
-                            fit: BoxFit.cover),
+                        placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                         errorWidget: (context, url, error) => Icon(Icons.error),
-                        imageUrl:
-                            '$apiBaseURL/${widget.producto.subsidiaryGoodImage}',
+                        imageUrl: '$apiBaseURL/${widget.producto.subsidiaryGoodImage}',
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
@@ -431,10 +380,7 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
                       height: responsive.hp(3),
                       child: Text(
                         'Productos',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: responsive.ip(1.5),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -453,13 +399,11 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
                                       color: Colors.red.withOpacity(.2),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    child: Icon(FontAwesomeIcons.solidHeart,
-                                        color: Colors.white),
+                                    child: Icon(FontAwesomeIcons.solidHeart, color: Colors.white),
                                   ),
                                   onTap: () {
                                     favorite = false;
-                                    quitarProductoFavorito2(
-                                        context, widget.producto);
+                                    quitarProductoFavorito2(context, widget.producto);
                                     cant++;
                                   },
                                 )
@@ -471,17 +415,14 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
                                       color: Colors.white.withOpacity(.2),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    child: Icon(FontAwesomeIcons.heart,
-                                        color: Colors.white),
+                                    child: Icon(FontAwesomeIcons.heart, color: Colors.white),
                                   ),
                                   onTap: () {
                                     favorite = true;
                                     //final buttonBloc = ProviderBloc.tabs(context);
                                     //buttonBloc.changePage(1);
-                                    guardarProductoFavorito2(
-                                        context, widget.producto);
-                                    utils.showToast(context,
-                                        'el producto se agregó a favoritos');
+                                    guardarProductoFavorito2(context, widget.producto);
+                                    utils.showToast(context, 'el producto se agregó a favoritos');
                                   },
                                 )),
                 ],
@@ -489,17 +430,10 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
             ),
             Text(
               widget.producto.subsidiaryGoodName,
-              style: TextStyle(
-                  fontSize: responsive.ip(1.5),
-                  color: Colors.grey[800],
-                  fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: responsive.ip(1.5), color: Colors.grey[800], fontWeight: FontWeight.w700),
             ),
-            Text(
-                '${widget.producto.subsidiaryGoodCurrency} ${widget.producto.subsidiaryGoodPrice}',
-                style: TextStyle(
-                    fontSize: responsive.ip(1.9),
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red)),
+            Text('${widget.producto.subsidiaryGoodCurrency} ${widget.producto.subsidiaryGoodPrice}',
+                style: TextStyle(fontSize: responsive.ip(1.9), fontWeight: FontWeight.bold, color: Colors.red)),
             Text(
               widget.producto.subsidiaryGoodBrand,
               style: TextStyle(
@@ -508,13 +442,11 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
             ),
             Text(
               '${widget.producto.subsidiaryGoodSize}',
-              style: TextStyle(
-                  fontSize: responsive.ip(1.5), fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.w700),
             ),
             Text(
               '${widget.producto.subsidiaryGoodModel}',
-              style: TextStyle(
-                  fontSize: responsive.ip(1.5), fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.w700),
             ),
           ],
         ),
@@ -530,8 +462,7 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
               );
               //return DetalleProductitos(productosData: productosData);
             },
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
               return FadeTransition(
                 opacity: animation,
                 child: child,
@@ -572,13 +503,9 @@ Widget grillaBienes(Responsive responsive, BienesServiciosModel data) {
             children: <Widget>[
               Container(
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8)),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                   child: CachedNetworkImage(
-                    placeholder: (context, url) => Image(
-                        image: AssetImage('assets/jar-loading.gif'),
-                        fit: BoxFit.cover),
+                    placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                     imageUrl: '$apiBaseURL/${data.subsidiaryGoodImage}',
                     imageBuilder: (context, imageProvider) => Container(
@@ -602,10 +529,7 @@ Widget grillaBienes(Responsive responsive, BienesServiciosModel data) {
                   height: responsive.hp(3),
                   child: Text(
                     'Producto',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: responsive.ip(1.5),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                   ),
                 ),
               )
@@ -656,16 +580,9 @@ Widget grillaBienes(Responsive responsive, BienesServiciosModel data) {
         ),
         Text(
           data.subsidiaryGoodName,
-          style: TextStyle(
-              fontSize: responsive.ip(1.5),
-              color: Colors.grey[800],
-              fontWeight: FontWeight.w700),
+          style: TextStyle(fontSize: responsive.ip(1.5), color: Colors.grey[800], fontWeight: FontWeight.w700),
         ),
-        Text('${data.subsidiaryGoodCurrency} ${data.subsidiaryGoodPrice}',
-            style: TextStyle(
-                fontSize: responsive.ip(1.9),
-                fontWeight: FontWeight.bold,
-                color: Colors.red)),
+        Text('${data.subsidiaryGoodCurrency} ${data.subsidiaryGoodPrice}', style: TextStyle(fontSize: responsive.ip(1.9), fontWeight: FontWeight.bold, color: Colors.red)),
         Text(
           data.subsidiaryGoodBrand,
           style: TextStyle(

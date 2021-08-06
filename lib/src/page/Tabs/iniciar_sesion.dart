@@ -1,8 +1,6 @@
-
 import 'package:bufi/src/page/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 class ModalLogin extends StatefulWidget {
   const ModalLogin({Key key}) : super(key: key);
@@ -12,11 +10,8 @@ class ModalLogin extends StatefulWidget {
 }
 
 class _ModalLoginState extends State<ModalLogin> {
-  
-
   @override
   Widget build(BuildContext rootContext) {
-    
     return Material(
       child: CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
@@ -25,7 +20,8 @@ class _ModalLoginState extends State<ModalLogin> {
         ),
         child: SafeArea(
           bottom: false,
-          child: LoginPage()),
+          child: LoginPage(),
+        ),
       ),
     );
   }

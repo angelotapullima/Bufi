@@ -92,8 +92,7 @@ class _SplashState extends State<Splash> with AfterLayoutMixin {
                 Text(
                   'Estamos cargando nuestros productos',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: responsive.ip(1.8), color: Colors.white),
+                  style: TextStyle(fontSize: responsive.ip(1.8), color: Colors.white),
                 ),
                 StreamBuilder(
                     stream: porcentajeBloc.procentajeStream,
@@ -107,8 +106,7 @@ class _SplashState extends State<Splash> with AfterLayoutMixin {
                       return Text(
                         '$porcentaje%',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: responsive.ip(1.8), color: Colors.white),
+                        style: TextStyle(fontSize: responsive.ip(1.8), color: Colors.white),
                       );
                     })
               ],

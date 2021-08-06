@@ -8,8 +8,7 @@ class TokenApi {
   final prefs = Preferences();
   Future<bool> enviarToken() async {
     if (prefs.token != null) {
-      final res = await http
-          .post(Uri.parse("$apiBaseURL/api/Usuario/actualizar_token"), body: {
+      final res = await http.post(Uri.parse("$apiBaseURL/api/Usuario/actualizar_token"), body: {
         'token': '${prefs.tokenFirebase}',
         'tn': '${prefs.token}',
         'app': 'true',

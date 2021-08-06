@@ -24,8 +24,7 @@ class _NegociosPageState extends State<NegociosPage> {
 
     return StreamBuilder(
         stream: negociosBloc.listarNeg,
-        builder:
-            (context, AsyncSnapshot<List<CompanySubsidiaryModel>> snapshot) {
+        builder: (context, AsyncSnapshot<List<CompanySubsidiaryModel>> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.length > 0) {
               List<CompanySubsidiaryModel> negocio = snapshot.data;
@@ -53,10 +52,7 @@ class _NegociosPageState extends State<NegociosPage> {
                                         ),
                                         child: Text(
                                           'Negocios',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: responsive.ip(2.5),
-                                              fontWeight: FontWeight.w700),
+                                          style: TextStyle(color: Colors.white, fontSize: responsive.ip(2.5), fontWeight: FontWeight.w700),
                                         ),
                                       );
                               },
@@ -75,61 +71,29 @@ class _NegociosPageState extends State<NegociosPage> {
                                       ? GridView.builder(
                                           shrinkWrap: true,
                                           physics: ClampingScrollPhysics(),
-                                          gridDelegate:
-                                              SliverGridDelegateWithFixedCrossAxisCount(
-                                                  crossAxisCount: 2),
+                                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                                           itemCount: negocio.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
+                                          itemBuilder: (BuildContext context, int index) {
                                             return GestureDetector(
                                                 child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
+                                                  borderRadius: BorderRadius.circular(10),
                                                   child: Card(
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 10,
-                                                            vertical: 10),
+                                                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                                     child: Container(
                                                       height: responsive.hp(40),
                                                       child: Stack(
                                                         children: <Widget>[
                                                           ClipRRect(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
-                                                            child:
-                                                                CachedNetworkImage(
-                                                              placeholder: (context,
-                                                                      url) =>
-                                                                  Image(
-                                                                      image: AssetImage(
-                                                                          'assets/jar-loading.gif'),
-                                                                      fit: BoxFit
-                                                                          .cover),
-                                                              errorWidget: (context,
-                                                                      url,
-                                                                      error) =>
-                                                                  Image(
-                                                                      image: AssetImage(
-                                                                          'assets/carga_fallida.jpg'),
-                                                                      fit: BoxFit
-                                                                          .cover),
-                                                              imageUrl:
-                                                                  '$apiBaseURL/${negocio[index].companyImage}',
-                                                              imageBuilder:
-                                                                  (context,
-                                                                          imageProvider) =>
-                                                                      Container(
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  image:
-                                                                      DecorationImage(
-                                                                    image:
-                                                                        imageProvider,
-                                                                    fit: BoxFit
-                                                                        .cover,
+                                                            borderRadius: BorderRadius.circular(10),
+                                                            child: CachedNetworkImage(
+                                                              placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
+                                                              errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
+                                                              imageUrl: '$apiBaseURL/${negocio[index].companyImage}',
+                                                              imageBuilder: (context, imageProvider) => Container(
+                                                                decoration: BoxDecoration(
+                                                                  image: DecorationImage(
+                                                                    image: imageProvider,
+                                                                    fit: BoxFit.cover,
                                                                   ),
                                                                 ),
                                                               ),
@@ -140,38 +104,20 @@ class _NegociosPageState extends State<NegociosPage> {
                                                             left: 0,
                                                             bottom: 0,
                                                             child: Container(
-                                                              width: double
-                                                                  .infinity,
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                vertical:
-                                                                    responsive
-                                                                        .hp(.5),
+                                                              width: double.infinity,
+                                                              padding: EdgeInsets.symmetric(
+                                                                vertical: responsive.hp(.5),
                                                                 //horizontal: responsive.wp(2)
                                                               ),
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Colors
-                                                                    .black
-                                                                    .withOpacity(
-                                                                        .5),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
+                                                              decoration: BoxDecoration(
+                                                                color: Colors.black.withOpacity(.5),
+                                                                borderRadius: BorderRadius.circular(10),
                                                               ),
                                                               child: Column(
                                                                 children: [
                                                                   Text(
                                                                     '${negocio[index].companyName}',
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            responsive.ip(
-                                                                                2),
-                                                                        fontWeight:
-                                                                            FontWeight.bold),
+                                                                    style: TextStyle(color: Colors.white, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                                                                   ),
                                                                 ],
                                                               ),
@@ -183,10 +129,7 @@ class _NegociosPageState extends State<NegociosPage> {
                                                   ),
                                                 ),
                                                 onTap: () {
-                                                  Navigator.pushNamed(
-                                                      context, 'detalleNegocio',
-                                                      arguments:
-                                                          negocio[index]);
+                                                  Navigator.pushNamed(context, 'detalleNegocio', arguments: negocio[index]);
                                                 });
                                           })
                                       : ListView.builder(
@@ -196,23 +139,18 @@ class _NegociosPageState extends State<NegociosPage> {
                                           itemBuilder: (context, index) {
                                             return GestureDetector(
                                               onTap: () {
-                                                Navigator.pushNamed(
-                                                    context, 'detalleNegocio',
-                                                    arguments: negocio[index]);
+                                                Navigator.pushNamed(context, 'detalleNegocio', arguments: negocio[index]);
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
+                                                  borderRadius: BorderRadius.circular(8),
                                                   color: Colors.white,
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      color: Colors.grey
-                                                          .withOpacity(0.5),
+                                                      color: Colors.grey.withOpacity(0.5),
                                                       spreadRadius: 1,
                                                       blurRadius: 2,
-                                                      offset: Offset(3,
-                                                          2), // changes position of shadow
+                                                      offset: Offset(3, 2), // changes position of shadow
                                                     ),
                                                   ],
                                                 ),
@@ -223,64 +161,34 @@ class _NegociosPageState extends State<NegociosPage> {
                                                 child: Row(
                                                   children: [
                                                     ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
+                                                      borderRadius: BorderRadius.circular(10),
                                                       child: Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(8),
                                                           color: Colors.white,
                                                           boxShadow: [
                                                             BoxShadow(
-                                                              color: Colors.grey
-                                                                  .withOpacity(
-                                                                      0.5),
+                                                              color: Colors.grey.withOpacity(0.5),
                                                               spreadRadius: 1,
                                                               blurRadius: 1,
-                                                              offset: Offset(0,
-                                                                  2), // changes position of shadow
+                                                              offset: Offset(0, 2), // changes position of shadow
                                                             ),
                                                           ],
                                                         ),
-                                                        width:
-                                                            responsive.wp(42),
+                                                        width: responsive.wp(42),
                                                         child: Stack(
                                                           children: <Widget>[
                                                             CachedNetworkImage(
                                                               /* cacheManager:
                                                                   CustomCacheManager(), */
-                                                              placeholder: (context,
-                                                                      url) =>
-                                                                  Image(
-                                                                      image: AssetImage(
-                                                                          'assets/jar-loading.gif'),
-                                                                      fit: BoxFit
-                                                                          .cover),
-                                                              errorWidget: (context,
-                                                                      url,
-                                                                      error) =>
-                                                                  Image(
-                                                                      image: AssetImage(
-                                                                          'assets/carga_fallida.jpg'),
-                                                                      fit: BoxFit
-                                                                          .cover),
-                                                              imageUrl:
-                                                                  '$apiBaseURL/${negocio[index].companyImage}',
-                                                              imageBuilder:
-                                                                  (context,
-                                                                          imageProvider) =>
-                                                                      Container(
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  image:
-                                                                      DecorationImage(
-                                                                    image:
-                                                                        imageProvider,
-                                                                    fit: BoxFit
-                                                                        .cover,
+                                                              placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
+                                                              errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
+                                                              imageUrl: '$apiBaseURL/${negocio[index].companyImage}',
+                                                              imageBuilder: (context, imageProvider) => Container(
+                                                                decoration: BoxDecoration(
+                                                                  image: DecorationImage(
+                                                                    image: imageProvider,
+                                                                    fit: BoxFit.cover,
                                                                   ),
                                                                 ),
                                                               ),
@@ -290,37 +198,20 @@ class _NegociosPageState extends State<NegociosPage> {
                                                               left: 0,
                                                               bottom: 0,
                                                               child: Container(
-                                                                width: double
-                                                                    .infinity,
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      responsive
-                                                                          .hp(.5),
+                                                                width: double.infinity,
+                                                                padding: EdgeInsets.symmetric(
+                                                                  vertical: responsive.hp(.5),
                                                                   //horizontal: responsive.wp(2)
                                                                 ),
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: Colors
-                                                                      .black
-                                                                      .withOpacity(
-                                                                          .5),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10),
+                                                                decoration: BoxDecoration(
+                                                                  color: Colors.black.withOpacity(.5),
+                                                                  borderRadius: BorderRadius.circular(10),
                                                                 ),
                                                                 child: Column(
                                                                   children: [
                                                                     Text(
                                                                       '${negocio[index].companyName}',
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontSize: responsive.ip(
-                                                                              2),
-                                                                          fontWeight:
-                                                                              FontWeight.bold),
+                                                                      style: TextStyle(color: Colors.white, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -333,44 +224,25 @@ class _NegociosPageState extends State<NegociosPage> {
                                                     Container(
                                                       width: responsive.wp(53),
                                                       child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
                                                         children: [
                                                           Text(
                                                             '${negocio[index].companyName}',
-                                                            style: TextStyle(
-                                                                fontSize:
-                                                                    responsive
-                                                                        .ip(
-                                                                            2.3),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
-                                                            textAlign: TextAlign
-                                                                .center,
+                                                            style: TextStyle(fontSize: responsive.ip(2.3), fontWeight: FontWeight.w600),
+                                                            textAlign: TextAlign.center,
                                                           ),
-                                                          Text(
-                                                              '${negocio[index].subsidiaryAddress}'),
-                                                          Text(
-                                                              '${negocio[index].companyRating}'),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Icon(
-                                                                  Icons.star,
-                                                                  color: Colors
-                                                                      .yellow,
-                                                                ),
-                                                                SizedBox(
-                                                                    width: 5),
-                                                                //Text('${data[index].subsidiaryGoodRating}'),
-                                                                Text('bien'),
-                                                                SizedBox(
-                                                                    width: 10),
-                                                              ])
+                                                          Text('${negocio[index].subsidiaryAddress}'),
+                                                          Text('${negocio[index].companyRating}'),
+                                                          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                                                            Icon(
+                                                              Icons.star,
+                                                              color: Colors.yellow,
+                                                            ),
+                                                            SizedBox(width: 5),
+                                                            //Text('${data[index].subsidiaryGoodRating}'),
+                                                            Text('bien'),
+                                                            SizedBox(width: 10),
+                                                          ])
                                                         ],
                                                       ),
                                                     )
@@ -427,10 +299,7 @@ class HeaderWidget extends StatelessWidget {
             children: [
               Text(
                 'Negocios',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: responsive.ip(2.5),
-                    fontWeight: FontWeight.bold),
+                style: TextStyle(color: Colors.black, fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
               ),
               Spacer(),
               IconButton(

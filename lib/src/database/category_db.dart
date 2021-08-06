@@ -7,8 +7,7 @@ class CategoryDatabase {
   insertarCategory(CategoriaModel categoriaModel) async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO Category (id_category,category_name,category_estado,category_img) "
+      final res = await db.rawInsert("INSERT OR REPLACE INTO Category (id_category,category_name,category_estado,category_img) "
           "VALUES('${categoriaModel.idCategory}', '${categoriaModel.categoryName}', '${categoriaModel.categoryEstado}', '${categoriaModel.categoryImage}')");
 
       return res;
@@ -21,12 +20,9 @@ class CategoryDatabase {
   Future<List<CategoriaModel>> obtenerCategorias() async {
     try {
       final db = await dbProvider.database;
-      final res =
-          await db.rawQuery("SELECT * FROM Category order by id_category");
+      final res = await db.rawQuery("SELECT * FROM Category order by id_category");
 
-      List<CategoriaModel> list = res.isNotEmpty
-          ? res.map((c) => CategoriaModel.fromJson(c)).toList()
-          : [];
+      List<CategoriaModel> list = res.isNotEmpty ? res.map((c) => CategoriaModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
@@ -34,16 +30,12 @@ class CategoryDatabase {
     }
   }
 
-  Future<List<CategoriaModel>> obtenerCategoriaPorIdCateg(
-      String idCategoria) async {
+  Future<List<CategoriaModel>> obtenerCategoriaPorIdCateg(String idCategoria) async {
     try {
       final db = await dbProvider.database;
-      final res = await db
-          .rawQuery("SELECT * FROM Category WHERE id_category='$idCategoria'");
+      final res = await db.rawQuery("SELECT * FROM Category WHERE id_category='$idCategoria'");
 
-      List<CategoriaModel> list = res.isNotEmpty
-          ? res.map((c) => CategoriaModel.fromJson(c)).toList()
-          : [];
+      List<CategoriaModel> list = res.isNotEmpty ? res.map((c) => CategoriaModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
@@ -52,16 +44,12 @@ class CategoryDatabase {
   }
 
   //Actualizar Negocio
-  Future<List<CategoriaModel>> obtenerCategoriasporNombre(
-      String nombrecateg) async {
+  Future<List<CategoriaModel>> obtenerCategoriasporNombre(String nombrecateg) async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawQuery(
-          "SELECT * FROM Category WHERE category_name= '$nombrecateg'");
+      final res = await db.rawQuery("SELECT * FROM Category WHERE category_name= '$nombrecateg'");
 
-      List<CategoriaModel> list = res.isNotEmpty
-          ? res.map((c) => CategoriaModel.fromJson(c)).toList()
-          : [];
+      List<CategoriaModel> list = res.isNotEmpty ? res.map((c) => CategoriaModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
@@ -73,12 +61,9 @@ class CategoryDatabase {
   Future<List<CategoriaModel>> obtenerCategoriasporID(String idCategory) async {
     try {
       final db = await dbProvider.database;
-      final res = await db
-          .rawQuery("SELECT * FROM Category WHERE id_category= '$idCategory'");
+      final res = await db.rawQuery("SELECT * FROM Category WHERE id_category= '$idCategory'");
 
-      List<CategoriaModel> list = res.isNotEmpty
-          ? res.map((c) => CategoriaModel.fromJson(c)).toList()
-          : [];
+      List<CategoriaModel> list = res.isNotEmpty ? res.map((c) => CategoriaModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
@@ -90,12 +75,9 @@ class CategoryDatabase {
   Future<List<CategoriaModel>> consultarCategoriaPorQuery(String query) async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawQuery(
-          "SELECT * FROM Category WHERE category_name LIKE '%$query%'");
+      final res = await db.rawQuery("SELECT * FROM Category WHERE category_name LIKE '%$query%'");
 
-      List<CategoriaModel> list = res.isNotEmpty
-          ? res.map((c) => CategoriaModel.fromJson(c)).toList()
-          : [];
+      List<CategoriaModel> list = res.isNotEmpty ? res.map((c) => CategoriaModel.fromJson(c)).toList() : [];
 
       return list;
     } catch (e) {

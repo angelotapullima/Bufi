@@ -71,8 +71,7 @@ class _BusquedaTodosServiciosState extends State<BusquedaTodosServicios> {
                               expandFlag = false;
                             });
                             if (value.length >= 0 && value != ' ') {
-                              busquedaBloc.obtenerBusquedaServicio(
-                                  context, '$value');
+                              busquedaBloc.obtenerBusquedaServicio(context, '$value');
                               agregarHistorial(context, value, 'ser');
                             }
                           },
@@ -86,15 +85,12 @@ class _BusquedaTodosServiciosState extends State<BusquedaTodosServicios> {
                       IconButton(
                           icon: Icon(Icons.search),
                           onPressed: () {
-                            if (_controllerBuscarServicios.text.length >= 0 &&
-                                _controllerBuscarServicios.text != ' ') {
+                            if (_controllerBuscarServicios.text.length >= 0 && _controllerBuscarServicios.text != ' ') {
                               setState(() {
                                 expandFlag = false;
                               });
-                              busquedaBloc.obtenerBusquedaServicio(context,
-                                  '${_controllerBuscarServicios.text}');
-                              agregarHistorial(context,
-                                  _controllerBuscarServicios.text, 'ser');
+                              busquedaBloc.obtenerBusquedaServicio(context, '${_controllerBuscarServicios.text}');
+                              agregarHistorial(context, _controllerBuscarServicios.text, 'ser');
                             } else {
                               setState(() {
                                 expandFlag = true;
@@ -127,8 +123,7 @@ class _BusquedaTodosServiciosState extends State<BusquedaTodosServicios> {
                 expandedHeight: 10,
                 child: StreamBuilder(
                     stream: searchBloc.historyStream,
-                    builder: (context,
-                        AsyncSnapshot<List<HistorialModel>> snapshot) {
+                    builder: (context, AsyncSnapshot<List<HistorialModel>> snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data.length > 0) {
                           return Container(
@@ -140,23 +135,13 @@ class _BusquedaTodosServiciosState extends State<BusquedaTodosServicios> {
                                 itemBuilder: (BuildContext context, int i) {
                                   return GestureDetector(
                                     onTap: () {
-                                      _controllerBuscarServicios.text =
-                                          snapshot.data[i].historial;
-                                      if (_controllerBuscarServicios
-                                                  .text.length >=
-                                              0 &&
-                                          _controllerBuscarServicios.text !=
-                                              ' ') {
+                                      _controllerBuscarServicios.text = snapshot.data[i].historial;
+                                      if (_controllerBuscarServicios.text.length >= 0 && _controllerBuscarServicios.text != ' ') {
                                         setState(() {
                                           expandFlag = false;
                                         });
-                                        busquedaBloc.obtenerBusquedaServicio(
-                                            context,
-                                            '${_controllerBuscarServicios.text}');
-                                        agregarHistorial(
-                                            context,
-                                            _controllerBuscarServicios.text,
-                                            'ser');
+                                        busquedaBloc.obtenerBusquedaServicio(context, '${_controllerBuscarServicios.text}');
+                                        agregarHistorial(context, _controllerBuscarServicios.text, 'ser');
                                       } else {
                                         setState(() {
                                           expandFlag = true;
@@ -167,17 +152,12 @@ class _BusquedaTodosServiciosState extends State<BusquedaTodosServicios> {
                                       margin: EdgeInsets.all(responsive.ip(1)),
                                       child: Row(
                                         children: [
-                                          Text('${snapshot.data[i].historial}',
-                                              style: TextStyle(
-                                                  fontSize: responsive.ip(2))),
+                                          Text('${snapshot.data[i].historial}', style: TextStyle(fontSize: responsive.ip(2))),
                                           Spacer(),
                                           IconButton(
                                               icon: Icon(Icons.close),
                                               onPressed: () {
-                                                eliminarHistorial(
-                                                    context,
-                                                    snapshot.data[i].historial,
-                                                    'ser');
+                                                eliminarHistorial(context, snapshot.data[i].historial, 'ser');
                                               }),
                                         ],
                                       ),

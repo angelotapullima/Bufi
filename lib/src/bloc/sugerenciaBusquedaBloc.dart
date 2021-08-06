@@ -8,11 +8,9 @@ class SugerenciaBusquedaBloc {
   final productoDatabase = ProductoDatabase();
   final subsidiaryServiceDatabase = SubsidiaryServiceDatabase();
   //final
-  final _sugerenciaBusquedaController =
-      BehaviorSubject<List<BienesServiciosModel>>();
+  final _sugerenciaBusquedaController = BehaviorSubject<List<BienesServiciosModel>>();
 
-  Stream<List<BienesServiciosModel>> get sugerenciaBusquedaStream =>
-      _sugerenciaBusquedaController.stream;
+  Stream<List<BienesServiciosModel>> get sugerenciaBusquedaStream => _sugerenciaBusquedaController.stream;
 
   void dispose() {
     _sugerenciaBusquedaController?.close();
@@ -29,9 +27,7 @@ class SugerenciaBusquedaBloc {
 
     for (var i = 0; i < listSugerencia.length; i++) {
       if (listSugerencia[i].tipo == 'bien') {
-        final listBien =
-            await productoDatabase.obtenerProductoXIdItemSubcategoria(
-                listSugerencia[i].idItemSubcategoria);
+        final listBien = await productoDatabase.obtenerProductoXIdItemSubcategoria(listSugerencia[i].idItemSubcategoria);
 
         for (var x = 0; x < listBien.length; x++) {
           BienesServiciosModel bienesServiciosModel = BienesServiciosModel();
@@ -39,39 +35,34 @@ class SugerenciaBusquedaBloc {
           bienesServiciosModel.idSubsidiary = listBien[x].idSubsidiary;
           bienesServiciosModel.idSubsidiarygood = listBien[x].idProducto;
           bienesServiciosModel.idGood = listBien[x].idGood;
-          bienesServiciosModel.idItemsubcategory =
-              listBien[x].idItemsubcategory;
+          bienesServiciosModel.idItemsubcategory = listBien[x].idItemsubcategory;
           bienesServiciosModel.subsidiaryGoodName = listBien[x].productoName;
-          bienesServiciosModel.subsidiaryGoodCurrency =
-              listBien[x].productoCurrency;
+          bienesServiciosModel.subsidiaryGoodCurrency = listBien[x].productoCurrency;
           bienesServiciosModel.subsidiaryGoodPrice = listBien[x].productoPrice;
           bienesServiciosModel.subsidiaryGoodBrand = listBien[x].productoBrand;
           bienesServiciosModel.subsidiaryGoodSize = listBien[x].productoSize;
           bienesServiciosModel.subsidiaryGoodModel = listBien[x].productoModel;
-          bienesServiciosModel.subsidiaryGoodFavourite =
-              listBien[x].productoFavourite;
+          bienesServiciosModel.subsidiaryGoodFavourite = listBien[x].productoFavourite;
 
           bienesServiciosModel.tipo = 'bien';
 
           listGeneral.add(bienesServiciosModel);
         }
       } else {
-        final listServicio =
-            await subsidiaryServiceDatabase.obtenerServicioXIdItemSubcategoria(
-                listSugerencia[i].idItemSubcategoria);
+        final listServicio = await subsidiaryServiceDatabase.obtenerServicioXIdItemSubcategoria(listSugerencia[i].idItemSubcategoria);
 
         for (var x = 0; x < listServicio.length; x++) {
           BienesServiciosModel bienesServiciosModel = BienesServiciosModel();
           bienesServiciosModel.subsidiaryServiceImage = listServicio[x].subsidiaryServiceImage;
           bienesServiciosModel.idSubsidiary = listServicio[x].idSubsidiary;
           bienesServiciosModel.idService = listServicio[x].idService;
-           bienesServiciosModel.idItemsubcategory = listServicio[x].idItemsubcategory;
-          bienesServiciosModel.idSubsidiaryservice =listServicio[x].idSubsidiaryservice;
-          bienesServiciosModel.subsidiaryServiceName =listServicio[x].subsidiaryServiceName;
-          bienesServiciosModel.subsidiaryServiceCurrency =listServicio[x].subsidiaryServiceCurrency;
-          bienesServiciosModel.subsidiaryServicePrice =listServicio[x].subsidiaryServicePrice;
-          bienesServiciosModel.subsidiaryServiceDescription =listServicio[x].subsidiaryServiceDescription;
-          bienesServiciosModel.subsidiaryServiceFavourite =listServicio[x].subsidiaryServiceFavourite;
+          bienesServiciosModel.idItemsubcategory = listServicio[x].idItemsubcategory;
+          bienesServiciosModel.idSubsidiaryservice = listServicio[x].idSubsidiaryservice;
+          bienesServiciosModel.subsidiaryServiceName = listServicio[x].subsidiaryServiceName;
+          bienesServiciosModel.subsidiaryServiceCurrency = listServicio[x].subsidiaryServiceCurrency;
+          bienesServiciosModel.subsidiaryServicePrice = listServicio[x].subsidiaryServicePrice;
+          bienesServiciosModel.subsidiaryServiceDescription = listServicio[x].subsidiaryServiceDescription;
+          bienesServiciosModel.subsidiaryServiceFavourite = listServicio[x].subsidiaryServiceFavourite;
           bienesServiciosModel.tipo = 'servicio';
 
           listGeneral.add(bienesServiciosModel);

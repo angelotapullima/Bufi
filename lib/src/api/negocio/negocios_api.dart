@@ -15,15 +15,12 @@ class NegociosApi {
 
   Future<dynamic> obtenerCompany() async {
     try {
-      var response = await http.post(
-          Uri.parse("$apiBaseURL/api/Negocio/listar_negocios_resumen"),
-          body: {'id_ciudad': '1'});
+      var response = await http.post(Uri.parse("$apiBaseURL/api/Negocio/listar_negocios_resumen"), body: {'id_ciudad': '1'});
 
       final decodedData = json.decode(response.body);
 
       for (int i = 0; i < decodedData.length; i++) {
-        final listCompany = await companyDatabase
-            .obtenerCompanyPorIdCompany(decodedData[i]['id_company']);
+        final listCompany = await companyDatabase.obtenerCompanyPorIdCompany(decodedData[i]['id_company']);
 
         if (listCompany.length > 0) {
           CompanyModel cmodel = CompanyModel();
@@ -49,8 +46,7 @@ class NegociosApi {
 
           await companyDatabase.insertarCompany(cmodel);
 
-          final listSucursal = await subsidiaryDatabase
-              .obtenerSubsidiaryPorId(decodedData[i]['id_subsidiary']);
+          final listSucursal = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData[i]['id_subsidiary']);
 
           if (listSucursal.length > 0) {
             SubsidiaryModel smodel = SubsidiaryModel();
@@ -58,13 +54,11 @@ class NegociosApi {
             smodel.idCompany = decodedData[i]['id_company'];
             smodel.subsidiaryName = decodedData[i]['subsidiary_name'];
             smodel.subsidiaryCellphone = decodedData[i]['subsidiary_cellphone'];
-            smodel.subsidiaryCellphone2 =
-                decodedData[i]['subsidiary_cellphone_2'];
+            smodel.subsidiaryCellphone2 = decodedData[i]['subsidiary_cellphone_2'];
             smodel.subsidiaryEmail = decodedData[i]['subsidiary_email'];
             smodel.subsidiaryCoordX = decodedData[i]['subsidiary_coord_x'];
             smodel.subsidiaryCoordY = decodedData[i]['subsidiary_coord_y'];
-            smodel.subsidiaryOpeningHours =
-                decodedData[i]['subsidiary_opening_hours'];
+            smodel.subsidiaryOpeningHours = decodedData[i]['subsidiary_opening_hours'];
             smodel.subsidiaryPrincipal = decodedData[i]['subsidiary_principal'];
             smodel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
             smodel.subsidiaryAddress = decodedData[i]['subsidiary_address'];
@@ -101,13 +95,11 @@ class NegociosApi {
           smodel.idCompany = decodedData[i]['id_company'];
           smodel.subsidiaryName = decodedData[i]['subsidiary_name'];
           smodel.subsidiaryCellphone = decodedData[i]['subsidiary_cellphone'];
-          smodel.subsidiaryCellphone2 =
-              decodedData[i]['subsidiary_cellphone_2'];
+          smodel.subsidiaryCellphone2 = decodedData[i]['subsidiary_cellphone_2'];
           smodel.subsidiaryEmail = decodedData[i]['subsidiary_email'];
           smodel.subsidiaryCoordX = decodedData[i]['subsidiary_coord_x'];
           smodel.subsidiaryCoordY = decodedData[i]['subsidiary_coord_y'];
-          smodel.subsidiaryOpeningHours =
-              decodedData[i]['subsidiary_opening_hours'];
+          smodel.subsidiaryOpeningHours = decodedData[i]['subsidiary_opening_hours'];
           smodel.subsidiaryPrincipal = decodedData[i]['subsidiary_principal'];
           smodel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
           smodel.subsidiaryAddress = decodedData[i]['subsidiary_address'];
@@ -126,15 +118,12 @@ class NegociosApi {
 
   Future<dynamic> obtenerNegocioPorId(String id) async {
     try {
-      var response = await http.post(
-          Uri.parse("$apiBaseURL/api/Negocio/listar_negocio_por_id"),
-          body: {'id_company': id});
+      var response = await http.post(Uri.parse("$apiBaseURL/api/Negocio/listar_negocio_por_id"), body: {'id_company': id});
 
       final decodedData = json.decode(response.body);
 
       final listCompany = await companyDatabase.obtenerCompanyPorIdCompany(id);
-      final listSucursal = await subsidiaryDatabase
-          .obtenerSubsidiaryPorId(decodedData['id_subsidiary']);
+      final listSucursal = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData['id_subsidiary']);
 
       if (listCompany.length > 0) {
         CompanyModel cmodel = CompanyModel();
@@ -255,8 +244,7 @@ class NegociosApi {
         }
       }
 
-      var response = await http
-          .post(Uri.parse("$apiBaseURL/api/Negocio/listar_negocios"), body: {
+      var response = await http.post(Uri.parse("$apiBaseURL/api/Negocio/listar_negocios"), body: {
         'id_ciudad': '1',
         'limite_sup': mayor.toString(),
         'limite_inf': menor.toString()
@@ -272,31 +260,19 @@ class NegociosApi {
         cmodel.idUser = decodedData['results'][i]['id_user'].toString();
         cmodel.idCity = decodedData['results'][i]['id_city'].toString();
         cmodel.idCategory = decodedData['results'][i]['id_category'].toString();
-        cmodel.companyName =
-            decodedData['results'][i]['company_name'].toString();
+        cmodel.companyName = decodedData['results'][i]['company_name'].toString();
         cmodel.companyRuc = decodedData['results'][i]['company_ruc'].toString();
-        cmodel.companyImage =
-            decodedData['results'][i]['company_image'].toString();
-        cmodel.companyType =
-            decodedData['results'][i]['company_type'].toString();
-        cmodel.companyShortcode =
-            decodedData['results'][i]['company_shortcode'].toString();
-        cmodel.companyDelivery =
-            decodedData['results'][i]['company_delivery'].toString();
-        cmodel.companyEntrega =
-            decodedData['results'][i]['company_entrega'].toString();
-        cmodel.companyTarjeta =
-            decodedData['results'][i]['company_tarjeta'].toString();
-        cmodel.companyVerified =
-            decodedData['results'][i]['company_verified'].toString();
-        cmodel.companyRating =
-            decodedData['results'][i]['company_rating'].toString();
-        cmodel.companyCreatedAt =
-            decodedData['results'][i]['company_created_at'].toString();
-        cmodel.companyJoin =
-            decodedData['results'][i]['company_join'].toString();
-        cmodel.companyStatus =
-            decodedData['results'][i]['company_status'].toString();
+        cmodel.companyImage = decodedData['results'][i]['company_image'].toString();
+        cmodel.companyType = decodedData['results'][i]['company_type'].toString();
+        cmodel.companyShortcode = decodedData['results'][i]['company_shortcode'].toString();
+        cmodel.companyDelivery = decodedData['results'][i]['company_delivery'].toString();
+        cmodel.companyEntrega = decodedData['results'][i]['company_entrega'].toString();
+        cmodel.companyTarjeta = decodedData['results'][i]['company_tarjeta'].toString();
+        cmodel.companyVerified = decodedData['results'][i]['company_verified'].toString();
+        cmodel.companyRating = decodedData['results'][i]['company_rating'].toString();
+        cmodel.companyCreatedAt = decodedData['results'][i]['company_created_at'].toString();
+        cmodel.companyJoin = decodedData['results'][i]['company_join'].toString();
+        cmodel.companyStatus = decodedData['results'][i]['company_status'].toString();
         cmodel.companyMt = decodedData['results'][i]['company_mt'].toString();
         cmodel.miNegocio = decodedData['results'][i]['mi_negocio'].toString();
 
@@ -306,30 +282,21 @@ class NegociosApi {
         smodel.idCompany = decodedData['results'][i]['id_company'];
         smodel.idSubsidiary = decodedData['results'][i]['id_subsidiary'];
         smodel.subsidiaryName = decodedData['results'][i]['subsidiary_name'];
-        smodel.subsidiaryCellphone =
-            decodedData['results'][i]['subsidiary_cellphone'];
-        smodel.subsidiaryCellphone2 =
-            decodedData['results'][i]['subsidiary_cellphone_2'];
+        smodel.subsidiaryCellphone = decodedData['results'][i]['subsidiary_cellphone'];
+        smodel.subsidiaryCellphone2 = decodedData['results'][i]['subsidiary_cellphone_2'];
         smodel.subsidiaryEmail = decodedData['results'][i]['subsidiary_email'];
-        smodel.subsidiaryCoordX =
-            decodedData['results'][i]['subsidiary_coord_x'];
-        smodel.subsidiaryCoordY =
-            decodedData['results'][i]['subsidiary_coord_y'];
-        smodel.subsidiaryOpeningHours =
-            decodedData['results'][i]['subsidiary_opening_hours'];
-        smodel.subsidiaryPrincipal =
-            decodedData['results'][i]['subsidiary_principal'];
-        smodel.subsidiaryStatus =
-            decodedData['results'][i]['subsidiary_status'];
-        smodel.subsidiaryAddress =
-            decodedData['results'][i]['subsidiary_address'];
+        smodel.subsidiaryCoordX = decodedData['results'][i]['subsidiary_coord_x'];
+        smodel.subsidiaryCoordY = decodedData['results'][i]['subsidiary_coord_y'];
+        smodel.subsidiaryOpeningHours = decodedData['results'][i]['subsidiary_opening_hours'];
+        smodel.subsidiaryPrincipal = decodedData['results'][i]['subsidiary_principal'];
+        smodel.subsidiaryStatus = decodedData['results'][i]['subsidiary_status'];
+        smodel.subsidiaryAddress = decodedData['results'][i]['subsidiary_address'];
         smodel.subsidiaryImg = decodedData['results'][i]['subsidiary_img'];
         //await subsidiaryDatabase.insertarSubsidiary(smodel);
 
         // final listCompany = await companyDatabase
         //     .obtenerCompanyPorIdCompany(decodedData['results'][i]['id_company']);
-        final listSucursal = await subsidiaryDatabase
-            .obtenerSubsidiaryPorId(decodedData['results'][i]['id_subsidiary']);
+        final listSucursal = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData['results'][i]['id_subsidiary']);
 
         if (listSucursal.length > 0) {
           smodel.subsidiaryFavourite = listSucursal[0].subsidiaryFavourite;
@@ -349,18 +316,15 @@ class NegociosApi {
 
   Future<dynamic> listarSedesPorNegocio(String id) async {
     try {
-      final response = await http.post(
-          Uri.parse("$apiBaseURL/api/Negocio/listar_sedes_por_negocio"),
-          body: {
-            'id_negocio': '$id',
-          });
+      final response = await http.post(Uri.parse("$apiBaseURL/api/Negocio/listar_sedes_por_negocio"), body: {
+        'id_negocio': '$id',
+      });
       //final List<SubsidiaryModel> list = [];
       final decodedData = json.decode(response.body);
 
       for (var i = 0; i < decodedData.length; i++) {
         //se usa cuando no esta completo
-        final listsubsidiary = await subsidiaryDatabase
-            .obtenerSubsidiaryPorId(decodedData[i]['id_subsidiary']);
+        final listsubsidiary = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData[i]['id_subsidiary']);
 
         if (listsubsidiary.length > 0) {
           SubsidiaryModel sucmodel = SubsidiaryModel();
@@ -370,20 +334,17 @@ class NegociosApi {
           sucmodel.subsidiaryImg = decodedData[i]['subsidiary_img'];
           sucmodel.subsidiaryAddress = decodedData[i]['subsidiary_address'];
           sucmodel.subsidiaryCellphone = decodedData[i]['subsidiary_cellphone'];
-          sucmodel.subsidiaryCellphone2 =
-              decodedData[i]['subsidiary_cellphone_2'];
+          sucmodel.subsidiaryCellphone2 = decodedData[i]['subsidiary_cellphone_2'];
           sucmodel.subsidiaryEmail = decodedData[i]['subsidiary_email'];
           sucmodel.subsidiaryCoordX = decodedData[i]['subsidiary_coord_x'];
           sucmodel.subsidiaryCoordY = decodedData[i]['subsidiary_coord_y'];
-          sucmodel.subsidiaryOpeningHours =
-              decodedData[i]['subsidiary_opening_hours'];
+          sucmodel.subsidiaryOpeningHours = decodedData[i]['subsidiary_opening_hours'];
           sucmodel.subsidiaryPrincipal = decodedData[i]['subsidiary_principal'];
           sucmodel.subsidiaryStatus = decodedData[i]['subsidiary_status'];
           sucmodel.subsidiaryImg = decodedData[i]['subsidiary_img'];
 
           if (listsubsidiary.length > 0) {
-            sucmodel.subsidiaryFavourite =
-                listsubsidiary[0].subsidiaryFavourite;
+            sucmodel.subsidiaryFavourite = listsubsidiary[0].subsidiaryFavourite;
           } else {
             sucmodel.subsidiaryFavourite = '0';
           }
@@ -440,11 +401,9 @@ class NegociosApi {
    */
   Future<dynamic> listarSubsidiaryPorId(String id) async {
     try {
-      final response = await http.post(
-          Uri.parse("$apiBaseURL/api/Negocio/listar_sucursal_por_id"),
-          body: {
-            'id_sucursal': '$id',
-          });
+      final response = await http.post(Uri.parse("$apiBaseURL/api/Negocio/listar_sucursal_por_id"), body: {
+        'id_sucursal': '$id',
+      });
 
       final decodedData = json.decode(response.body);
 
@@ -471,8 +430,7 @@ class NegociosApi {
 
       await companyDatabase.insertarCompany(cmodel);
 
-      final listSucursal = await subsidiaryDatabase
-          .obtenerSubsidiaryPorId(decodedData['id_subsidiary']);
+      final listSucursal = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData['id_subsidiary']);
       SubsidiaryModel smodel = SubsidiaryModel();
       smodel.idSubsidiary = decodedData['id_subsidiary'];
       smodel.idCompany = decodedData['id_company'];

@@ -8,8 +8,7 @@ class SubsidiaryDatabase {
     try {
       final db = await dbProvider.database;
 
-      final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO Subsidiary (id_subsidiary,id_company,subsidiary_name,subsidiary_description,subsidiary_img,subsidiary_address,"
+      final res = await db.rawInsert("INSERT OR REPLACE INTO Subsidiary (id_subsidiary,id_company,subsidiary_name,subsidiary_description,subsidiary_img,subsidiary_address,"
           "subsidiary_cellphone,subsidiary_cellphone_2,subsidiary_email,subsidiary_coord_x,subsidiary_coord_y,"
           "subsidiary_opening_hours,subsidiary_principal,subsidiary_status,subsidiary_favourite) "
           "VALUES('${subsidiaryModel.idSubsidiary}','${subsidiaryModel.idCompany}','${subsidiaryModel.subsidiaryName}','${subsidiaryModel.subsidiaryDescription}','${subsidiaryModel.subsidiaryImg}',"
@@ -29,9 +28,7 @@ class SubsidiaryDatabase {
       final db = await dbProvider.database;
       final res = await db.rawQuery("SELECT * FROM Subsidiary");
 
-      List<SubsidiaryModel> list = res.isNotEmpty
-          ? res.map((c) => SubsidiaryModel.fromJson(c)).toList()
-          : [];
+      List<SubsidiaryModel> list = res.isNotEmpty ? res.map((c) => SubsidiaryModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
@@ -42,12 +39,9 @@ class SubsidiaryDatabase {
   Future<List<SubsidiaryModel>> obtenerSubsidiaryPorIdCompany(String id) async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawQuery(
-          "SELECT * FROM Subsidiary WHERE id_company= '$id' order by id_subsidiary");
+      final res = await db.rawQuery("SELECT * FROM Subsidiary WHERE id_company= '$id' order by id_subsidiary");
 
-      List<SubsidiaryModel> list = res.isNotEmpty
-          ? res.map((c) => SubsidiaryModel.fromJson(c)).toList()
-          : [];
+      List<SubsidiaryModel> list = res.isNotEmpty ? res.map((c) => SubsidiaryModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
@@ -55,16 +49,12 @@ class SubsidiaryDatabase {
     }
   }
 
-  Future<List<SubsidiaryModel>> obtenerSubsidiaryPorId(
-      String idSubsidiary) async {
+  Future<List<SubsidiaryModel>> obtenerSubsidiaryPorId(String idSubsidiary) async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawQuery(
-          "SELECT * FROM Subsidiary WHERE id_subsidiary= '$idSubsidiary' ");
+      final res = await db.rawQuery("SELECT * FROM Subsidiary WHERE id_subsidiary= '$idSubsidiary' ");
 
-      List<SubsidiaryModel> list = res.isNotEmpty
-          ? res.map((c) => SubsidiaryModel.fromJson(c)).toList()
-          : [];
+      List<SubsidiaryModel> list = res.isNotEmpty ? res.map((c) => SubsidiaryModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
@@ -76,8 +66,7 @@ class SubsidiaryDatabase {
     try {
       final db = await dbProvider.database;
 
-      final res = await db.rawUpdate(
-          "UPDATE Subsidiary SET id_company= '${subsidiaryModel.idCompany}',"
+      final res = await db.rawUpdate("UPDATE Subsidiary SET id_company= '${subsidiaryModel.idCompany}',"
           "subsidiary_name='${subsidiaryModel.subsidiaryName}',"
           "subsidiary_description='${subsidiaryModel.subsidiaryDescription}',"
           "subsidiary_address='${subsidiaryModel.subsidiaryAddress}',"
@@ -101,12 +90,9 @@ class SubsidiaryDatabase {
   Future<List<SubsidiaryModel>> obtenerSubsidiaryFavoritas() async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawQuery(
-          "SELECT * FROM Subsidiary where subsidiary_favourite=1 order by id_subsidiary");
+      final res = await db.rawQuery("SELECT * FROM Subsidiary where subsidiary_favourite=1 order by id_subsidiary");
 
-      List<SubsidiaryModel> list = res.isNotEmpty
-          ? res.map((c) => SubsidiaryModel.fromJson(c)).toList()
-          : [];
+      List<SubsidiaryModel> list = res.isNotEmpty ? res.map((c) => SubsidiaryModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
@@ -117,12 +103,9 @@ class SubsidiaryDatabase {
   Future<List<SubsidiaryModel>> obtenerSubsidiarysFavoritasAgrupadas() async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawQuery(
-          "SELECT * FROM Subsidiary WHERE subsidiary_favourite=1 group by id_subsidiary ");
+      final res = await db.rawQuery("SELECT * FROM Subsidiary WHERE subsidiary_favourite=1 group by id_subsidiary ");
 
-      List<SubsidiaryModel> list = res.isNotEmpty
-          ? res.map((c) => SubsidiaryModel.fromJson(c)).toList()
-          : [];
+      List<SubsidiaryModel> list = res.isNotEmpty ? res.map((c) => SubsidiaryModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
@@ -130,16 +113,12 @@ class SubsidiaryDatabase {
     }
   }
 
-  Future<List<SubsidiaryModel>> obtenerSubdiaryPrincipal(
-      String idCompany) async {
+  Future<List<SubsidiaryModel>> obtenerSubdiaryPrincipal(String idCompany) async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawQuery(
-          "SELECT * FROM Subsidiary WHERE id_subsidiary= '$idCompany' and subsidiary_principal='1'");
+      final res = await db.rawQuery("SELECT * FROM Subsidiary WHERE id_subsidiary= '$idCompany' and subsidiary_principal='1'");
 
-      List<SubsidiaryModel> list = res.isNotEmpty
-          ? res.map((c) => SubsidiaryModel.fromJson(c)).toList()
-          : [];
+      List<SubsidiaryModel> list = res.isNotEmpty ? res.map((c) => SubsidiaryModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");

@@ -15,14 +15,11 @@ class ServiciosBloc {
 
   final _servicioController = BehaviorSubject<List<SubsidiaryServiceModel>>();
 
-  final _detailServicioController =
-      BehaviorSubject<List<SubsidiaryServiceModel>>();
+  final _detailServicioController = BehaviorSubject<List<SubsidiaryServiceModel>>();
 
-  Stream<List<SubsidiaryServiceModel>> get serviciostream =>
-      _servicioController.stream;
+  Stream<List<SubsidiaryServiceModel>> get serviciostream => _servicioController.stream;
 
-  Stream<List<SubsidiaryServiceModel>> get detailServiciostream =>
-      _detailServicioController.stream;
+  Stream<List<SubsidiaryServiceModel>> get detailServiciostream => _detailServicioController.stream;
 
   void dispose() {
     _servicioController?.close();
@@ -30,11 +27,9 @@ class ServiciosBloc {
   }
 
   void listarServiciosPorSucursal(String id) async {
-    _servicioController.sink
-        .add(await subservicesDatabase.obtenerServiciosPorIdSucursal(id));
+    _servicioController.sink.add(await subservicesDatabase.obtenerServiciosPorIdSucursal(id));
     await serviciosApi.listarServiciosPorSucursal(id);
-    _servicioController.sink
-        .add(await subservicesDatabase.obtenerServiciosPorIdSucursal(id));
+    _servicioController.sink.add(await subservicesDatabase.obtenerServiciosPorIdSucursal(id));
   }
 
   void detalleServicioPorIdSubsidiaryService(String id) async {
@@ -45,8 +40,7 @@ class ServiciosBloc {
 
   Future<List<SubsidiaryServiceModel>> obtenerDetalleServicio(String id) async {
     List<SubsidiaryServiceModel> listaGeneral = [];
-    final listServicio =
-        await subservicesDatabase.obtenerServiciosPorIdSucursalService(id);
+    final listServicio = await subservicesDatabase.obtenerServiciosPorIdSucursalService(id);
 
     for (var i = 0; i < listServicio.length; i++) {
       final servicioModel = SubsidiaryServiceModel();
@@ -54,27 +48,17 @@ class ServiciosBloc {
       servicioModel.idSubsidiary = listServicio[i].idSubsidiary;
       servicioModel.idService = listServicio[i].idService;
       servicioModel.idItemsubcategory = listServicio[i].idItemsubcategory;
-      servicioModel.subsidiaryServiceName =
-          listServicio[i].subsidiaryServiceName;
-      servicioModel.subsidiaryServiceDescription =
-          listServicio[i].subsidiaryServiceDescription;
-      servicioModel.subsidiaryServicePrice =
-          listServicio[i].subsidiaryServicePrice;
-      servicioModel.subsidiaryServiceCurrency =
-          listServicio[i].subsidiaryServiceCurrency;
-      servicioModel.subsidiaryServiceImage =
-          listServicio[i].subsidiaryServiceImage;
-      servicioModel.subsidiaryServiceRating =
-          listServicio[i].subsidiaryServiceRating;
-      servicioModel.subsidiaryServiceUpdated =
-          listServicio[i].subsidiaryServiceUpdated;
-      servicioModel.subsidiaryServiceStatus =
-          listServicio[i].subsidiaryServiceStatus;
-      servicioModel.subsidiaryServiceFavourite =
-          listServicio[i].subsidiaryServiceFavourite;
+      servicioModel.subsidiaryServiceName = listServicio[i].subsidiaryServiceName;
+      servicioModel.subsidiaryServiceDescription = listServicio[i].subsidiaryServiceDescription;
+      servicioModel.subsidiaryServicePrice = listServicio[i].subsidiaryServicePrice;
+      servicioModel.subsidiaryServiceCurrency = listServicio[i].subsidiaryServiceCurrency;
+      servicioModel.subsidiaryServiceImage = listServicio[i].subsidiaryServiceImage;
+      servicioModel.subsidiaryServiceRating = listServicio[i].subsidiaryServiceRating;
+      servicioModel.subsidiaryServiceUpdated = listServicio[i].subsidiaryServiceUpdated;
+      servicioModel.subsidiaryServiceStatus = listServicio[i].subsidiaryServiceStatus;
+      servicioModel.subsidiaryServiceFavourite = listServicio[i].subsidiaryServiceFavourite;
 
-      final listSucursal = await subsidiaryDb
-          .obtenerSubsidiaryPorId(listServicio[i].idSubsidiary);
+      final listSucursal = await subsidiaryDb.obtenerSubsidiaryPorId(listServicio[i].idSubsidiary);
       final List<SubsidiaryModel> listsubModel = [];
       for (var j = 0; j < listSucursal.length; j++) {
         final sucursalModel = SubsidiaryModel();
@@ -85,13 +69,11 @@ class ServiciosBloc {
         sucursalModel.subsidiaryImg = listSucursal[j].subsidiaryImg;
         sucursalModel.subsidiaryAddress = listSucursal[j].subsidiaryAddress;
         sucursalModel.subsidiaryCellphone = listSucursal[j].subsidiaryCellphone;
-        sucursalModel.subsidiaryCellphone2 =
-            listSucursal[j].subsidiaryCellphone2;
+        sucursalModel.subsidiaryCellphone2 = listSucursal[j].subsidiaryCellphone2;
         sucursalModel.subsidiaryEmail = listSucursal[j].subsidiaryEmail;
         sucursalModel.subsidiaryCoordX = listSucursal[j].subsidiaryCoordX;
         sucursalModel.subsidiaryCoordY = listSucursal[j].subsidiaryCoordY;
-        sucursalModel.subsidiaryOpeningHours =
-            listSucursal[j].subsidiaryOpeningHours;
+        sucursalModel.subsidiaryOpeningHours = listSucursal[j].subsidiaryOpeningHours;
         sucursalModel.subsidiaryPrincipal = listSucursal[j].subsidiaryPrincipal;
         sucursalModel.subsidiaryStatus = listSucursal[j].subsidiaryStatus;
         sucursalModel.subsidiaryFavourite = listSucursal[j].subsidiaryFavourite;

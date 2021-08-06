@@ -15,30 +15,25 @@ class DatosProductoBloc {
 
   final _datosProductoController = BehaviorSubject<List<ProductoModel>>();
 
-  Stream<List<ProductoModel>> get datosProdStream =>
-      _datosProductoController.stream;
+  Stream<List<ProductoModel>> get datosProdStream => _datosProductoController.stream;
 
   void dispose() {
     _datosProductoController?.close();
   }
 
   void listarDatosProducto(String idProducto) async {
-    _datosProductoController.sink
-        .add(await obtenerDatosProductosRelacionados(idProducto));
+    _datosProductoController.sink.add(await obtenerDatosProductosRelacionados(idProducto));
     await productoApi.listarDetalleProductoPorIdProducto(idProducto);
-    _datosProductoController.sink
-        .add(await obtenerDatosProductosRelacionados(idProducto));
+    _datosProductoController.sink.add(await obtenerDatosProductosRelacionados(idProducto));
   }
 
-  Future<List<ProductoModel>> obtenerDatosProductosRelacionados(
-      String idProducto) async {
+  Future<List<ProductoModel>> obtenerDatosProductosRelacionados(String idProducto) async {
     //await tallaProductoDb.updateEstadoa0();
     List<ProductoModel> listaGeneral = [];
 
     //obtener todos los productos de la bd
     //final listProductos = await productoDb.obtenerSubsidiaryGood();
-    final listProductos =
-        await productoDb.obtenerProductoPorIdSubsidiaryGood(idProducto);
+    final listProductos = await productoDb.obtenerProductoPorIdSubsidiaryGood(idProducto);
 
     //Recorremos la lista de todos los pedidos
     for (var i = 0; i < listProductos.length; i++) {
@@ -51,8 +46,7 @@ class DatosProductoBloc {
       productoModel.productoPrice = listProductos[i].productoPrice;
       productoModel.productoCurrency = listProductos[i].productoCurrency;
       productoModel.productoImage = listProductos[i].productoImage;
-      productoModel.productoCharacteristics =
-          listProductos[i].productoCharacteristics;
+      productoModel.productoCharacteristics = listProductos[i].productoCharacteristics;
       productoModel.productoBrand = listProductos[i].productoBrand;
       productoModel.productoModel = listProductos[i].productoModel;
       productoModel.productoType = listProductos[i].productoType;
@@ -64,8 +58,7 @@ class DatosProductoBloc {
       productoModel.productoStatus = listProductos[i].productoStatus;
 
       //funcion que llama desde la bd a la lista de fotos del producto pasando el idPedido como argumento
-      final listGaleria = await galeriaProductoDb
-          .obtenerGaleriaProductoPorIdProducto(listProductos[i].idProducto);
+      final listGaleria = await galeriaProductoDb.obtenerGaleriaProductoPorIdProducto(listProductos[i].idProducto);
       //crear lista vacia para llenar las fotos del producto
       final List<GaleriaProductoModel> listGaleriaModel = [];
 

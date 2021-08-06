@@ -37,8 +37,7 @@ class MisMovimientosPage extends StatelessWidget {
         ),
         child: StreamBuilder(
           stream: misMovimientosBloc.misMovimientosBlocstream,
-          builder: (BuildContext context,
-              AsyncSnapshot<List<MovimientosPorFecha>> snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<List<MovimientosPorFecha>> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data.length > 0) {
                 return CustomScrollView(
@@ -55,18 +54,12 @@ class MisMovimientosPage extends StatelessWidget {
                           children: [
                             Text(
                               'Concepto',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: responsive.ip(2),
-                                  fontWeight: FontWeight.bold),
+                              style: TextStyle(color: Colors.black, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                             ),
                             Spacer(),
                             Text(
                               'Monto',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: responsive.ip(2),
-                                  fontWeight: FontWeight.bold),
+                              style: TextStyle(color: Colors.black, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -82,25 +75,18 @@ class MisMovimientosPage extends StatelessWidget {
                               ),
                               shrinkWrap: true,
                               physics: ClampingScrollPhysics(),
-                              itemCount:
-                                  snapshot.data[index].listMovimientos.length +
-                                      1,
+                              itemCount: snapshot.data[index].listMovimientos.length + 1,
                               itemBuilder: (context, i) {
                                 if (i == 0) {
                                   return Text(
                                     '$fecha',
-                                    style: TextStyle(
-                                        fontSize: responsive.ip(2),
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                                   );
                                 }
                                 int ii = i - 1;
                                 return InkWell(
                                   onTap: () {
-                                    Navigator.pushNamed(
-                                        context, 'ticketMovimientos',
-                                        arguments:
-                                            '${snapshot.data[index].listMovimientos[ii].nroOperacion}');
+                                    Navigator.pushNamed(context, 'ticketMovimientos', arguments: '${snapshot.data[index].listMovimientos[ii].nroOperacion}');
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.only(
@@ -110,8 +96,7 @@ class MisMovimientosPage extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 '${snapshot.data[index].listMovimientos[ii].concepto}',
@@ -131,14 +116,12 @@ class MisMovimientosPage extends StatelessWidget {
                                         SizedBox(
                                           width: responsive.wp(1),
                                         ),
-                                        ('${snapshot.data[index].listMovimientos[ii].ind}' ==
-                                                '0')
+                                        ('${snapshot.data[index].listMovimientos[ii].ind}' == '0')
                                             ? Icon(
                                                 Icons.arrow_downward,
                                                 color: Colors.red,
                                               )
-                                            : Icon(Icons.arrow_upward,
-                                                color: Colors.green),
+                                            : Icon(Icons.arrow_upward, color: Colors.green),
                                         SizedBox(
                                           width: responsive.wp(1),
                                         ),
@@ -155,8 +138,7 @@ class MisMovimientosPage extends StatelessWidget {
                                         Container(
                                           width: responsive.wp(11),
                                           child: Image(
-                                            image:
-                                                AssetImage('assets/moneda.png'),
+                                            image: AssetImage('assets/moneda.png'),
                                           ),
                                         ),
                                       ],

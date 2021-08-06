@@ -8,8 +8,7 @@ class MisMovimientosDatabase {
     try {
       final db = await dbprovider.database;
 
-      final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO MisMovimientos (nroOperacion,concepto,tipoPago,"
+      final res = await db.rawInsert("INSERT OR REPLACE INTO MisMovimientos (nroOperacion,concepto,tipoPago,"
           "monto,comision,fecha,soloFecha,ind) "
           "VALUES ('${misMovimientosModel.nroOperacion}','${misMovimientosModel.concepto}',"
           "'${misMovimientosModel.tipoPago}','${misMovimientosModel.monto}',"
@@ -27,9 +26,7 @@ class MisMovimientosDatabase {
       final db = await dbprovider.database;
       final res = await db.rawQuery("SELECT * FROM MisMovimientos ");
 
-      List<MisMovimientosModel> list = res.isNotEmpty
-          ? res.map((c) => MisMovimientosModel.fromJson(c)).toList()
-          : [];
+      List<MisMovimientosModel> list = res.isNotEmpty ? res.map((c) => MisMovimientosModel.fromJson(c)).toList() : [];
 
       return list;
     } catch (e) {
@@ -38,16 +35,12 @@ class MisMovimientosDatabase {
     }
   }
 
-  Future<List<MisMovimientosModel>> obtenerMisMovimientosPorNoperacion(
-      String id) async {
+  Future<List<MisMovimientosModel>> obtenerMisMovimientosPorNoperacion(String id) async {
     try {
       final db = await dbprovider.database;
-      final res = await db
-          .rawQuery("SELECT * FROM MisMovimientos where nroOperacion='$id'");
+      final res = await db.rawQuery("SELECT * FROM MisMovimientos where nroOperacion='$id'");
 
-      List<MisMovimientosModel> list = res.isNotEmpty
-          ? res.map((c) => MisMovimientosModel.fromJson(c)).toList()
-          : [];
+      List<MisMovimientosModel> list = res.isNotEmpty ? res.map((c) => MisMovimientosModel.fromJson(c)).toList() : [];
 
       return list;
     } catch (e) {
@@ -59,12 +52,9 @@ class MisMovimientosDatabase {
   Future<List<MisMovimientosModel>> obtenerMisMovimientosSoloFecha() async {
     try {
       final db = await dbprovider.database;
-      final res =
-          await db.rawQuery("SELECT * FROM MisMovimientos GROUP BY soloFecha");
+      final res = await db.rawQuery("SELECT * FROM MisMovimientos GROUP BY soloFecha");
 
-      List<MisMovimientosModel> list = res.isNotEmpty
-          ? res.map((c) => MisMovimientosModel.fromJson(c)).toList()
-          : [];
+      List<MisMovimientosModel> list = res.isNotEmpty ? res.map((c) => MisMovimientosModel.fromJson(c)).toList() : [];
 
       return list;
     } catch (e) {

@@ -9,17 +9,12 @@ import 'package:flutter/material.dart';
 class ItemSubcategoryPorSubcategoryPage extends StatelessWidget {
   final String nombreSubcategoria;
   final String idSubCategoria;
-  const ItemSubcategoryPorSubcategoryPage(
-      {Key key,
-      @required this.nombreSubcategoria,
-      @required this.idSubCategoria})
-      : super(key: key);
+  const ItemSubcategoryPorSubcategoryPage({Key key, @required this.nombreSubcategoria, @required this.idSubCategoria}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final itemSubcategoriasBloc = ProviderBloc.subcategoriaGeneral(context);
-    itemSubcategoriasBloc
-        .obtenerItemSubcategoryPorIdSubcategory(idSubCategoria);
+    itemSubcategoriasBloc.obtenerItemSubcategoryPorIdSubcategory(idSubCategoria);
     final responsive = Responsive.of(context);
     return Scaffold(
       body: SafeArea(
@@ -38,9 +33,7 @@ class ItemSubcategoryPorSubcategoryPage extends StatelessWidget {
                         nombreSubcategoria,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: responsive.ip(2.5),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
@@ -50,36 +43,29 @@ class ItemSubcategoryPorSubcategoryPage extends StatelessWidget {
             Expanded(
               child: StreamBuilder(
                   stream: itemSubcategoriasBloc.itemSubcategoryStream,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<ItemSubCategoriaModel>> snapshot) {
+                  builder: (BuildContext context, AsyncSnapshot<List<ItemSubCategoriaModel>> snapshot) {
                     return GridView.builder(
                         padding: EdgeInsets.all(0),
                         shrinkWrap: true,
                         physics: ClampingScrollPhysics(),
                         itemCount: snapshot.data.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: .85, crossAxisCount: 4),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(childAspectRatio: .85, crossAxisCount: 4),
                         itemBuilder: (context, i) {
                           return GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(PageRouteBuilder(
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) {
+                                pageBuilder: (context, animation, secondaryAnimation) {
                                   return ProYSerPorItemSubcategoryPage(
-                                    nameItem:
-                                        '${snapshot.data[i].itemsubcategoryName}',
-                                    idItem:
-                                        '${snapshot.data[i].idItemsubcategory}',
+                                    nameItem: '${snapshot.data[i].itemsubcategoryName}',
+                                    idItem: '${snapshot.data[i].idItemsubcategory}',
                                   );
                                 },
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                   var begin = Offset(0.0, 1.0);
                                   var end = Offset.zero;
                                   var curve = Curves.ease;
 
-                                  var tween =
-                                      Tween(begin: begin, end: end).chain(
+                                  var tween = Tween(begin: begin, end: end).chain(
                                     CurveTween(curve: curve),
                                   );
 
@@ -91,9 +77,7 @@ class ItemSubcategoryPorSubcategoryPage extends StatelessWidget {
                               ));
                             },
                             child: Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: responsive.wp(2),
-                                  vertical: responsive.hp(.2)),
+                              margin: EdgeInsets.symmetric(horizontal: responsive.wp(2), vertical: responsive.hp(.2)),
                               child: Column(
                                 children: [
                                   Container(
@@ -101,8 +85,7 @@ class ItemSubcategoryPorSubcategoryPage extends StatelessWidget {
                                       responsive.ip(1),
                                     ),
                                     decoration: BoxDecoration(
-                                      border:
-                                          Border.all(color: Colors.grey[400]),
+                                      border: Border.all(color: Colors.grey[400]),
                                     ),
                                     child: Container(
                                       height: responsive.ip(5),
@@ -113,20 +96,10 @@ class ItemSubcategoryPorSubcategoryPage extends StatelessWidget {
                                       child: CachedNetworkImage(
                                         /* cacheManager:
                                                       CustomCacheManager(), */
-                                        placeholder: (context, url) => Image(
-                                            image: const AssetImage(
-                                                'assets/jar-loading.gif'),
-                                            fit: BoxFit.cover),
-                                        errorWidget: (context, url, error) =>
-                                            Image(
-                                                image: AssetImage(
-                                                    'assets/carga_fallida.jpg'),
-                                                fit: BoxFit.cover),
-                                        imageUrl:
-                                            '$apiBaseURL/${snapshot.data[i].itemsubcategoryImage}',
-                                        imageBuilder:
-                                            (context, imageProvider) =>
-                                                Container(
+                                        placeholder: (context, url) => Image(image: const AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
+                                        errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
+                                        imageUrl: '$apiBaseURL/${snapshot.data[i].itemsubcategoryImage}',
+                                        imageBuilder: (context, imageProvider) => Container(
                                           decoration: BoxDecoration(
                                             image: DecorationImage(
                                               image: imageProvider,
@@ -142,9 +115,7 @@ class ItemSubcategoryPorSubcategoryPage extends StatelessWidget {
                                   ),
                                   Text(
                                     '${snapshot.data[i].itemsubcategoryName}',
-                                    style: TextStyle(
-                                        fontSize: responsive.ip(1.3),
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(fontSize: responsive.ip(1.3), fontWeight: FontWeight.bold),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     textAlign: TextAlign.center,

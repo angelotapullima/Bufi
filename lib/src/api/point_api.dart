@@ -11,8 +11,7 @@ class PointApi {
   //Guardar favorito
   Future<dynamic> savePoint(String id) async {
     try {
-      final res = await http
-          .post(Uri.parse("$apiBaseURL/api/Negocio/save_point"), body: {
+      final res = await http.post(Uri.parse("$apiBaseURL/api/Negocio/save_point"), body: {
         'id_subsidiary': id,
         'app': 'true',
         'tn': prefs.token,
@@ -30,9 +29,7 @@ class PointApi {
   //eliminar favorito
   Future<dynamic> deletePoint(String id) async {
     try {
-      final res = await http.post(
-          Uri.parse("$apiBaseURL/api/Negocio/delete_point"),
-          body: {'id_subsidiary': id, 'app': 'true', 'tn': prefs.token});
+      final res = await http.post(Uri.parse("$apiBaseURL/api/Negocio/delete_point"), body: {'id_subsidiary': id, 'app': 'true', 'tn': prefs.token});
 
       final response = json.decode(res.body);
       print(response);
@@ -46,9 +43,7 @@ class PointApi {
 //Listar favorito
   Future<dynamic> listarPoints() async {
     try {
-      final res = await http.post(
-          Uri.parse("$apiBaseURL/api/Negocio/listar_mis_points"),
-          body: {'app': 'true', 'tn': prefs.token});
+      final res = await http.post(Uri.parse("$apiBaseURL/api/Negocio/listar_mis_points"), body: {'app': 'true', 'tn': prefs.token});
 
       List response = json.decode(res.body);
 
@@ -67,8 +62,7 @@ class PointApi {
         pointModel.subsidiaryEmail = response[i]['subsidiary_email'];
         pointModel.subsidiaryCoordX = response[i]['subsidiary_coord_x'];
         pointModel.subsidiaryCoordY = response[i]['subsidiary_coord_y'];
-        pointModel.subsidiaryOpeningHours =
-            response[i]['subsidiary_opening_hours'];
+        pointModel.subsidiaryOpeningHours = response[i]['subsidiary_opening_hours'];
         pointModel.subsidiaryPrincipal = response[i]['subsidiary_principal'];
         pointModel.subsidiaryStatus = response[i]['subsidiary_status'];
 

@@ -14,7 +14,7 @@ class PointsBloc {
   final subsidiaryDatabase = SubsidiaryDatabase();
   final _listPoints = BehaviorSubject<List<SubsidiaryModel>>();
   final _favController = BehaviorSubject<List<PointModel>>();
-  //final _prodController = BehaviorSubject<List<ProductoModel>>();
+  //final _prodController = BehaviorSubject<Lifst<ProductoModel>>();
   
 
   Stream<List<SubsidiaryModel>> get pointsStrema => _listPoints.stream;

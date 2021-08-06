@@ -9,11 +9,9 @@ class ContadorPaginaProductosBloc {
 
   final _selectContadorFotoController = BehaviorSubject<int>();
 
-  Stream<int> get selectContadorFotoStream =>
-      _selectContadorFotoController.stream;
+  Stream<int> get selectContadorFotoStream => _selectContadorFotoController.stream;
 
-  Function(int) get changeContadorfoto =>
-      _selectContadorFotoController.sink.add;
+  Function(int) get changeContadorfoto => _selectContadorFotoController.sink.add;
 
   // Obtener el último valor ingresado a los streams
   int get pageContador => _selectContadorController.value;
@@ -25,5 +23,3 @@ class ContadorPaginaProductosBloc {
     _selectContadorFotoController?.close();
   }
 }
-
-

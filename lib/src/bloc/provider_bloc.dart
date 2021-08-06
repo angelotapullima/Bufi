@@ -81,8 +81,7 @@ class ProviderBloc extends InheritedWidget {
     return _instancia;
   }
 
-  ProviderBloc._internal({Key key, Widget child})
-      : super(key: key, child: child);
+  ProviderBloc._internal({Key key, Widget child}) : super(key: key, child: child);
 
   @override
   bool updateShouldNotify(ProviderBloc oldWidget) => true;
@@ -90,31 +89,26 @@ class ProviderBloc extends InheritedWidget {
 // Regresa el estado actual del widgetbloc
 
   static LoginBloc login(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .loginBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).loginBloc;
   }
 
   //obtener las categorias
   static CategoriaBloc categoria(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .categoriabloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).categoriabloc;
   }
 
 //tab
   static TabNavigationBloc tabs(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .tabsNavigationbloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).tabsNavigationbloc;
   }
 
 //Bienes y Servicios
   static BienesServiciosBloc bienesServicios(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .bienesServiciosBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).bienesServiciosBloc;
   }
 
   static NegociosBloc negocios(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .negociosBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).negociosBloc;
   }
 
   // static RegistroNegocioBloc registroNegocio(BuildContext context) {
@@ -123,18 +117,15 @@ class ProviderBloc extends InheritedWidget {
   // }
 
   static SucursalBloc sucursal(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .sucursalbloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).sucursalbloc;
   }
 
   static PointsBloc points(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .pointsBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).pointsBloc;
   }
 
   static RegistroSucursalBloc registroSuc(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .registrarSucursalBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).registrarSucursalBloc;
   }
 
   // static ActualizarNegocioBloc actualizarNeg(BuildContext context) {
@@ -143,40 +134,33 @@ class ProviderBloc extends InheritedWidget {
   // }
 
   static SucursalBloc listarsucursalPorId(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .sucursalbloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).sucursalbloc;
   }
 
   static ProductoBloc productos(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .productosBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).productosBloc;
   }
 
   static ServiciosBloc servi(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .serviciosBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).serviciosBloc;
   }
 
   static CarritoBloc productosCarrito(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .carritoBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).carritoBloc;
   }
 
   //Busqueda de bienes y servicios
   static BusquedaBloc busqueda(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .busquedaBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).busquedaBloc;
   }
 
 //NAvegacion entre las categorias de Bb y Ss
   static CategoriasNaviBloc naviCategoria(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .naviCategBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).naviCategBloc;
   }
 
   static BottomNaviBloc bottom(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .bottomNaviBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).bottomNaviBloc;
   }
 
   // static ItemSubcategoriaBloc itemSubcategoria(BuildContext context) {
@@ -184,99 +168,80 @@ class ProviderBloc extends InheritedWidget {
   //       .itemSubcategoriaBloc;
   // }
   static SubCategoriaGeneralBloc subcategoriaGeneral(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .subcategoriaGeneralBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).subcategoriaGeneralBloc;
   }
 
   static ItemCategoriaBloc itemSubcategoria(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .itemSubcategBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).itemSubcategBloc;
   }
 
   //Muestra prodcutos o servicios relacionados a la busqueda del preferencias_usuario
   static SugerenciaBusquedaBloc sugerenciaXbusqueda(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .sugerenciaBusquedaBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).sugerenciaBusquedaBloc;
   }
 
   static PorcentajesBloc porcentaje(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .porcentajesBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).porcentajesBloc;
   }
 
   static CuentaBloc cuenta(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .cuentaBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).cuentaBloc;
   }
 
   static MisMovimientosBloc misMov(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .misMovimientosBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).misMovimientosBloc;
   }
 
   static TiposPagoBloc tiPago(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .tiposPagoBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).tiposPagoBloc;
   }
 
   static ContadorPaginaProductosBloc contadorPagina(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .contadorBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).contadorBloc;
   }
 
   static PedidoBloc pedido(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .pedidosBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).pedidosBloc;
   }
 
   static DireccionesBloc direc(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .direccionesBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).direccionesBloc;
   }
 
   //datos de Productos
   static DatosProductoBloc datosProductos(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .datosProductosBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).datosProductosBloc;
   }
 
   static PublicidadBloc publi(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .publicidadBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).publicidadBloc;
   }
 
   static AgentesBloc agentes(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .agentesdBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).agentesdBloc;
   }
 
   static BusquedaGeneralBloc busquedaGeneral(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .busquedaGeneralBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).busquedaGeneralBloc;
   }
 
   static BusquedaXSucursalBloc busquedaXSucursal(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .busquedaXSucursalBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).busquedaXSucursalBloc;
   }
 
   static MarkerMapaNegociosBloc markerMapa(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .markerMapaNegociosBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).markerMapaNegociosBloc;
   }
 
   static BusquedaGeneralTab busquedaAngelo(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .busquedaGeneralTab;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).busquedaGeneralTab;
   }
 
   static NotificacionesBloc notificaciones(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .notificacionBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).notificacionBloc;
   }
 
   static SearchHistoryBloc searHistory(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
-        .searchHistoryBloc;
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).searchHistoryBloc;
   }
 }

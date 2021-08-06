@@ -14,8 +14,7 @@ class PublicidadApi {
   //Guardar favorito
   Future<dynamic> obtenerPublicidad() async {
     try {
-      final res = await http
-          .post(Uri.parse("$apiBaseURL/api/Inicio/publicidad"), body: {
+      final res = await http.post(Uri.parse("$apiBaseURL/api/Inicio/publicidad"), body: {
         'id_ciudad': '1',
       });
 
@@ -30,10 +29,8 @@ class PublicidadApi {
           publicidadModel.idSubsidiary = decodedData[i]['id_subsidiary'];
           publicidadModel.publicidadImg = decodedData[i]['publicidad_img'];
           publicidadModel.publicidadOrden = decodedData[i]['publicidad_orden'];
-          publicidadModel.publicidadEstado =
-              decodedData[i]['publicidad_estado'];
-          publicidadModel.publicidadDatetime =
-              decodedData[i]['publicidad_datetime'];
+          publicidadModel.publicidadEstado = decodedData[i]['publicidad_estado'];
+          publicidadModel.publicidadDatetime = decodedData[i]['publicidad_datetime'];
           publicidadModel.idPago = decodedData[i]['id_pago'];
 
           await publicidadDatabase.insertarPublicidad(publicidadModel);

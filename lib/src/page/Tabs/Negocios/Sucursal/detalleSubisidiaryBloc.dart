@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 enum PageDetailsSucursal { informacion, productos, servicios }
@@ -10,13 +8,10 @@ class DetailSubsidiaryBloc with ChangeNotifier {
   ValueNotifier<PageDetailsSucursal> _page = ValueNotifier(PageDetailsSucursal.informacion);
   ValueNotifier<PageDetailsSucursal> get page => this._page;
 
-
-
   ValueNotifier<bool> ocultarSafeArea = ValueNotifier(true);
   ValueNotifier<bool> get ocultarSafeAreaStream => this.ocultarSafeArea;
 
   BuildContext context;
-
 
   @override
   void dispose() {

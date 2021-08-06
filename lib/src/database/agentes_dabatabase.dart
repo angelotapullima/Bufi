@@ -9,8 +9,7 @@ class AgentesDatabase {
   insertarAgentes(AgenteModel agenteModel) async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO Agentes (id_agente,id_user,id_cuenta,id_city,agente_tipo,agente_nombre,agente_codigo,"
+      final res = await db.rawInsert("INSERT OR REPLACE INTO Agentes (id_agente,id_user,id_cuenta,id_city,agente_tipo,agente_nombre,agente_codigo,"
           "agente_direccion,agente_telefono,agente_imagen,agente_coord_x,agente_coord_y,agente_estado,id_cuenta_empresa,"
           "id_company,cuentae_codigo,cuentae_saldo,cuentae_moneda,cuentae_date,posicion,cuentae_estado) "
           "VALUES('${agenteModel.idAgente}','${agenteModel.idUser}','${agenteModel.idCuenta}','${agenteModel.idCity}',"
@@ -30,9 +29,7 @@ class AgentesDatabase {
       final db = await dbProvider.database;
       final res = await db.rawQuery("SELECT * FROM Agentes");
 
-      List<AgenteModel> list = res.isNotEmpty
-          ? res.map((c) => AgenteModel.fromJson(c)).toList()
-          : [];
+      List<AgenteModel> list = res.isNotEmpty ? res.map((c) => AgenteModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
@@ -43,12 +40,9 @@ class AgentesDatabase {
   Future<List<AgenteModel>> obtenerAgentesXidcompany(String idCompany) async {
     try {
       final db = await dbProvider.database;
-      final res = await db
-          .rawQuery("SELECT * FROM Agentes where id_company= $idCompany");
+      final res = await db.rawQuery("SELECT * FROM Agentes where id_company= $idCompany");
 
-      List<AgenteModel> list = res.isNotEmpty
-          ? res.map((c) => AgenteModel.fromJson(c)).toList()
-          : [];
+      List<AgenteModel> list = res.isNotEmpty ? res.map((c) => AgenteModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");

@@ -5,11 +5,9 @@ import 'package:rxdart/rxdart.dart';
 class BusquedaGeneralBloc {
   final busquedaApi = BusquedaApi();
 
-  final busquedaGeneralController =
-      BehaviorSubject<List<BusquedaGeneralModel>>();
+  final busquedaGeneralController = BehaviorSubject<List<BusquedaGeneralModel>>();
 
-  Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream =>
-      busquedaGeneralController.stream;
+  Stream<List<BusquedaGeneralModel>> get busquedaGeneralStream => busquedaGeneralController.stream;
 
   void dispose() {
     busquedaGeneralController?.close();
@@ -19,8 +17,7 @@ class BusquedaGeneralBloc {
     // bienesBusquedaController.sink
     //     .add(await productoDatabase.consultarProductoPorQuery('$query'));
     busquedaGeneralController.sink.add([]);
-    busquedaGeneralController.sink
-        .add(await busquedaApi.busquedaGeneral(query));
+    busquedaGeneralController.sink.add(await busquedaApi.busquedaGeneral(query));
     // bienesBusquedaController.sink
     //     .add(await productoDatabase.consultarProductoPorQuery('$query'));
   }

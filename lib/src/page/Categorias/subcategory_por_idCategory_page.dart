@@ -9,9 +9,7 @@ import 'package:flutter/material.dart';
 class SubcategoryPorCategoryPage extends StatelessWidget {
   final String nombreCategoria;
   final String idCategoria;
-  const SubcategoryPorCategoryPage(
-      {Key key, @required this.nombreCategoria, @required this.idCategoria})
-      : super(key: key);
+  const SubcategoryPorCategoryPage({Key key, @required this.nombreCategoria, @required this.idCategoria}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +33,7 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                         nombreCategoria,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: responsive.ip(2.5),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
@@ -47,10 +43,8 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
             Expanded(
               child: StreamBuilder(
                 stream: subcategoriasBloc.subCategoriaGeneralStream,
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<SubCategoriaGeneralModel>> snapshot) {
-                  List<SubCategoriaGeneralModel> subcategoriasGeneral =
-                      snapshot.data;
+                builder: (BuildContext context, AsyncSnapshot<List<SubCategoriaGeneralModel>> snapshot) {
+                  List<SubCategoriaGeneralModel> subcategoriasGeneral = snapshot.data;
                   if (snapshot.hasData) {
                     if (snapshot.data.length > 0) {
                       return ListView.builder(
@@ -59,55 +53,36 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                             return Column(children: [
                               Container(
                                 width: double.infinity,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: responsive.wp(2),
-                                    vertical: responsive.hp(1)),
+                                padding: EdgeInsets.symmetric(horizontal: responsive.wp(2), vertical: responsive.hp(1)),
                                 margin: EdgeInsets.all(3),
                                 color: Colors.blueGrey[100],
                                 child: Text(
                                   '${subcategoriasGeneral[index].nombre}',
-                                  style: TextStyle(
-                                      color: Colors.blueGrey[900],
-                                      fontSize: responsive.ip(1.6),
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(color: Colors.blueGrey[900], fontSize: responsive.ip(1.6), fontWeight: FontWeight.bold),
                                 ),
                               ),
                               GridView.builder(
                                   padding: EdgeInsets.all(0),
                                   shrinkWrap: true,
                                   physics: ClampingScrollPhysics(),
-                                  itemCount: subcategoriasGeneral[index]
-                                      .itemSubcategoria
-                                      .length,
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                          childAspectRatio: .85,
-                                          crossAxisCount: 4),
+                                  itemCount: subcategoriasGeneral[index].itemSubcategoria.length,
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(childAspectRatio: .85, crossAxisCount: 4),
                                   itemBuilder: (context, i) {
                                     return GestureDetector(
                                       onTap: () {
-                                        Navigator.of(context)
-                                            .push(PageRouteBuilder(
-                                          pageBuilder: (context, animation,
-                                              secondaryAnimation) {
+                                        Navigator.of(context).push(PageRouteBuilder(
+                                          pageBuilder: (context, animation, secondaryAnimation) {
                                             return ProYSerPorItemSubcategoryPage(
-                                              nameItem:
-                                                  '${subcategoriasGeneral[index].itemSubcategoria[i].itemsubcategoryName}',
-                                              idItem:
-                                                  '${subcategoriasGeneral[index].itemSubcategoria[i].idItemsubcategory}',
+                                              nameItem: '${subcategoriasGeneral[index].itemSubcategoria[i].itemsubcategoryName}',
+                                              idItem: '${subcategoriasGeneral[index].itemSubcategoria[i].idItemsubcategory}',
                                             );
                                           },
-                                          transitionsBuilder: (context,
-                                              animation,
-                                              secondaryAnimation,
-                                              child) {
+                                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                             var begin = Offset(0.0, 1.0);
                                             var end = Offset.zero;
                                             var curve = Curves.ease;
 
-                                            var tween =
-                                                Tween(begin: begin, end: end)
-                                                    .chain(
+                                            var tween = Tween(begin: begin, end: end).chain(
                                               CurveTween(curve: curve),
                                             );
 
@@ -119,9 +94,7 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                                         ));
                                       },
                                       child: Container(
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: responsive.wp(2),
-                                            vertical: responsive.hp(.2)),
+                                        margin: EdgeInsets.symmetric(horizontal: responsive.wp(2), vertical: responsive.hp(.2)),
                                         child: Column(
                                           children: [
                                             Container(
@@ -129,8 +102,7 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                                                 responsive.ip(1),
                                               ),
                                               decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.grey[400]),
+                                                border: Border.all(color: Colors.grey[400]),
                                               ),
                                               child: Container(
                                                 height: responsive.ip(5),
@@ -141,22 +113,10 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                                                 child: CachedNetworkImage(
                                                   /* cacheManager:
                                                       CustomCacheManager(), */
-                                                  placeholder: (context, url) =>
-                                                      Image(
-                                                          image: const AssetImage(
-                                                              'assets/jar-loading.gif'),
-                                                          fit: BoxFit.cover),
-                                                  errorWidget: (context, url,
-                                                          error) =>
-                                                      Image(
-                                                          image: AssetImage(
-                                                              'assets/carga_fallida.jpg'),
-                                                          fit: BoxFit.cover),
-                                                  imageUrl:
-                                                      '$apiBaseURL/${subcategoriasGeneral[index].itemSubcategoria[i].itemsubcategoryImage}',
-                                                  imageBuilder: (context,
-                                                          imageProvider) =>
-                                                      Container(
+                                                  placeholder: (context, url) => Image(image: const AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
+                                                  errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
+                                                  imageUrl: '$apiBaseURL/${subcategoriasGeneral[index].itemSubcategoria[i].itemsubcategoryImage}',
+                                                  imageBuilder: (context, imageProvider) => Container(
                                                     decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                         image: imageProvider,
@@ -172,9 +132,7 @@ class SubcategoryPorCategoryPage extends StatelessWidget {
                                             ),
                                             Text(
                                               '${subcategoriasGeneral[index].itemSubcategoria[i].itemsubcategoryName}',
-                                              style: TextStyle(
-                                                  fontSize: responsive.ip(1.3),
-                                                  fontWeight: FontWeight.bold),
+                                              style: TextStyle(fontSize: responsive.ip(1.3), fontWeight: FontWeight.bold),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 2,
                                               textAlign: TextAlign.center,

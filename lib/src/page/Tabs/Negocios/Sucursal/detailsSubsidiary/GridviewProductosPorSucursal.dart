@@ -12,18 +12,14 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 class GridviewProductoPorSucursal extends StatefulWidget {
-  const GridviewProductoPorSucursal({Key key, @required this.idSucursal})
-      : super(key: key);
+  const GridviewProductoPorSucursal({Key key, @required this.idSucursal}) : super(key: key);
   final String idSucursal;
 
   @override
-  _GridviewProductoPorSucursalState createState() =>
-      _GridviewProductoPorSucursalState();
+  _GridviewProductoPorSucursalState createState() => _GridviewProductoPorSucursalState();
 }
 
-class _GridviewProductoPorSucursalState
-    extends State<GridviewProductoPorSucursal>
-    with SingleTickerProviderStateMixin<GridviewProductoPorSucursal> {
+class _GridviewProductoPorSucursalState extends State<GridviewProductoPorSucursal> with SingleTickerProviderStateMixin<GridviewProductoPorSucursal> {
   AnimationController _animationController;
   StreamController<bool> isSidebarOpenedStreamController;
   Stream<bool> isSidebarOpenedStream;
@@ -32,8 +28,7 @@ class _GridviewProductoPorSucursalState
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: _animationDuration);
+    _animationController = AnimationController(vsync: this, duration: _animationDuration);
     isSidebarOpenedStreamController = PublishSubject<bool>();
     isSidebarOpenedStream = isSidebarOpenedStreamController.stream;
     isSidebarOpenedSink = isSidebarOpenedStreamController.sink;
@@ -71,8 +66,7 @@ class _GridviewProductoPorSucursalState
 
     return StreamBuilder(
       stream: productoBloc.productoStream,
-      builder:
-          (BuildContext context, AsyncSnapshot<List<ProductoModel>> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<ProductoModel>> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.length > 0) {
             return Stack(
@@ -83,8 +77,7 @@ class _GridviewProductoPorSucursalState
                     children: [
                       Expanded(
                         child: GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             childAspectRatio: responsive.ip(.075),
                           ),
@@ -96,18 +89,14 @@ class _GridviewProductoPorSucursalState
                                 Navigator.push(
                                   context,
                                   PageRouteBuilder(
-                                    transitionDuration:
-                                        const Duration(milliseconds: 100),
-                                    pageBuilder: (context, animation,
-                                        secondaryAnimation) {
+                                    transitionDuration: const Duration(milliseconds: 100),
+                                    pageBuilder: (context, animation, secondaryAnimation) {
                                       return DetalleProductos(
-                                        idProducto:
-                                            snapshot.data[index].idProducto,
+                                        idProducto: snapshot.data[index].idProducto,
                                       );
                                       //return DetalleProductitos(productosData: productosData);
                                     },
-                                    transitionsBuilder: (context, animation,
-                                        secondaryAnimation, child) {
+                                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                       return FadeTransition(
                                         opacity: animation,
                                         child: child,
@@ -136,9 +125,7 @@ class _GridviewProductoPorSucursalState
                       onIconPressed();
                     },
                     child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(100)),
+                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(100)),
                         width: responsive.ip(8),
                         height: responsive.ip(8),
                         child: Icon(Icons.filter_list)),
@@ -153,8 +140,7 @@ class _GridviewProductoPorSucursalState
                       top: 0,
                       bottom: 0,
                       left: isSideBarOpenedAsync.data ? 0 : responsive.wp(100),
-                      right:
-                          isSideBarOpenedAsync.data ? 0 : -responsive.wp(100),
+                      right: isSideBarOpenedAsync.data ? 0 : -responsive.wp(100),
                       child: Container(
                         decoration: BoxDecoration(),
                         child: Row(
@@ -170,8 +156,7 @@ class _GridviewProductoPorSucursalState
                                 ),
                                 child: ClipRRect(
                                   child: new BackdropFilter(
-                                    filter: new ImageFilter.blur(
-                                        sigmaX: 5.0, sigmaY: 5.0),
+                                    filter: new ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                                     child: new Container(
                                       decoration: new BoxDecoration(
                                         color: Colors.white.withOpacity(0.0),

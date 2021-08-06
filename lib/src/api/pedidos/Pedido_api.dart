@@ -30,9 +30,7 @@ class PedidoApi {
   final goodDb = GoodDatabase();
 
   Future<dynamic> obtenerPedidosEnviados(String idEstado) async {
-    final response = await http.post(
-        Uri.parse("$apiBaseURL/api/Pedido/buscar_pedidos_enviados_ws"),
-        body: {'estado': '$idEstado', 'tn': prefs.token, 'app': 'true'});
+    final response = await http.post(Uri.parse("$apiBaseURL/api/Pedido/buscar_pedidos_enviados_ws"), body: {'estado': '$idEstado', 'tn': prefs.token, 'app': 'true'});
 
     final decodedData = json.decode(response.body);
 //recorremos la lista de pedidos‹
@@ -48,25 +46,16 @@ class PedidoApi {
       pedidosModel.deliveryName = decodedData["result"][i]['delivery_name'];
       pedidosModel.deliveryEmail = decodedData["result"][i]['delivery_email'];
       pedidosModel.deliveryCel = decodedData["result"][i]['delivery_cel'];
-      pedidosModel.deliveryAddress =
-          decodedData["result"][i]['delivery_address'];
-      pedidosModel.deliveryDescription =
-          decodedData["result"][i]['delivery_description'];
-      pedidosModel.deliveryCoordX =
-          decodedData["result"][i]['delivery_coord_x'];
-      pedidosModel.deliveryCoordY =
-          decodedData["result"][i]['delivery_coord_y'];
-      pedidosModel.deliveryAddInfo =
-          decodedData["result"][i]['delivery_add_info'];
+      pedidosModel.deliveryAddress = decodedData["result"][i]['delivery_address'];
+      pedidosModel.deliveryDescription = decodedData["result"][i]['delivery_description'];
+      pedidosModel.deliveryCoordX = decodedData["result"][i]['delivery_coord_x'];
+      pedidosModel.deliveryCoordY = decodedData["result"][i]['delivery_coord_y'];
+      pedidosModel.deliveryAddInfo = decodedData["result"][i]['delivery_add_info'];
       pedidosModel.deliveryPrice = decodedData["result"][i]['delivery_price'];
-      pedidosModel.deliveryTotalOrden =
-          decodedData["result"][i]['delivery_total_orden'];
-      pedidosModel.deliveryPayment =
-          decodedData["result"][i]['delivery_payment'];
-      pedidosModel.deliveryEntrega =
-          decodedData["result"][i]['delivery_entrega'];
-      pedidosModel.deliveryDatetime =
-          decodedData["result"][i]['delivery_datetime'];
+      pedidosModel.deliveryTotalOrden = decodedData["result"][i]['delivery_total_orden'];
+      pedidosModel.deliveryPayment = decodedData["result"][i]['delivery_payment'];
+      pedidosModel.deliveryEntrega = decodedData["result"][i]['delivery_entrega'];
+      pedidosModel.deliveryDatetime = decodedData["result"][i]['delivery_datetime'];
       pedidosModel.deliveryStatus = decodedData["result"][i]['delivery_status'];
       pedidosModel.deliveryMt = decodedData["result"][i]['delivery_mt'];
       //insertar a la tabla de Pedidos
@@ -76,31 +65,20 @@ class PedidoApi {
 
       sucursalModel.idSubsidiary = decodedData["result"][i]['id_subsidiary'];
       sucursalModel.idCompany = decodedData["result"][i]['id_company'];
-      sucursalModel.subsidiaryName =
-          decodedData["result"][i]['subsidiary_name'];
-      sucursalModel.subsidiaryAddress =
-          decodedData["result"][i]['subsidiary_address'];
-      sucursalModel.subsidiaryCellphone =
-          decodedData["result"][i]['subsidiary_cellphone'];
-      sucursalModel.subsidiaryCellphone2 =
-          decodedData["result"][i]['subsidiary_cellphone2'];
-      sucursalModel.subsidiaryEmail =
-          decodedData["result"][i]['subsidiary_email'];
-      sucursalModel.subsidiaryCoordX =
-          decodedData["result"][i]['subsidiary_coord_x'];
-      sucursalModel.subsidiaryCoordY =
-          decodedData["result"][i]['subsidiary_coord_y'];
-      sucursalModel.subsidiaryOpeningHours =
-          decodedData["result"][i]['subsidiary_opening_hours'];
-      sucursalModel.subsidiaryPrincipal =
-          decodedData["result"][i]['subsidiary_principal'];
-      sucursalModel.subsidiaryStatus =
-          decodedData["result"][i]['subsidiary_status'];
+      sucursalModel.subsidiaryName = decodedData["result"][i]['subsidiary_name'];
+      sucursalModel.subsidiaryAddress = decodedData["result"][i]['subsidiary_address'];
+      sucursalModel.subsidiaryCellphone = decodedData["result"][i]['subsidiary_cellphone'];
+      sucursalModel.subsidiaryCellphone2 = decodedData["result"][i]['subsidiary_cellphone2'];
+      sucursalModel.subsidiaryEmail = decodedData["result"][i]['subsidiary_email'];
+      sucursalModel.subsidiaryCoordX = decodedData["result"][i]['subsidiary_coord_x'];
+      sucursalModel.subsidiaryCoordY = decodedData["result"][i]['subsidiary_coord_y'];
+      sucursalModel.subsidiaryOpeningHours = decodedData["result"][i]['subsidiary_opening_hours'];
+      sucursalModel.subsidiaryPrincipal = decodedData["result"][i]['subsidiary_principal'];
+      sucursalModel.subsidiaryStatus = decodedData["result"][i]['subsidiary_status'];
       sucursalModel.subsidiaryImg = decodedData["result"][i]['subsidiary_img'];
 
       //Obtener la lista de sucursales para asignar a favoritos
-      final list = await sucursalDb
-          .obtenerSubsidiaryPorId(decodedData["result"][i]['id_subsidiary']);
+      final list = await sucursalDb.obtenerSubsidiaryPorId(decodedData["result"][i]['id_subsidiary']);
 
       if (list.length > 0) {
         sucursalModel.subsidiaryFavourite = list[0].subsidiaryFavourite;
@@ -119,27 +97,21 @@ class PedidoApi {
       companyModel.companyRuc = decodedData["result"][i]['company_ruc'];
       companyModel.companyImage = decodedData["result"][i]['company_image'];
       companyModel.companyType = decodedData["result"][i]['company_type'];
-      companyModel.companyShortcode =
-          decodedData["result"][i]['company_shortcode'];
-      companyModel.companyDeliveryPropio =
-          decodedData["result"][i]['company_delivery_propio'];
-      companyModel.companyDelivery =
-          decodedData["result"][i]['company_delivery'];
+      companyModel.companyShortcode = decodedData["result"][i]['company_shortcode'];
+      companyModel.companyDeliveryPropio = decodedData["result"][i]['company_delivery_propio'];
+      companyModel.companyDelivery = decodedData["result"][i]['company_delivery'];
       companyModel.companyEntrega = decodedData["result"][i]['company_entrega'];
       companyModel.companyTarjeta = decodedData["result"][i]['company_tarjeta'];
-      companyModel.companyVerified =
-          decodedData["result"][i]['company_verified'];
+      companyModel.companyVerified = decodedData["result"][i]['company_verified'];
       companyModel.companyRating = decodedData["result"][i]['company_rating'];
-      companyModel.companyCreatedAt =
-          decodedData["result"][i]['company_created_at'];
+      companyModel.companyCreatedAt = decodedData["result"][i]['company_created_at'];
       companyModel.companyJoin = decodedData["result"][i]['company_join'];
       companyModel.companyStatus = decodedData["result"][i]['company_status'];
       companyModel.companyMt = decodedData["result"][i]['company_mt'];
       companyModel.miNegocio = decodedData["result"][i]['mi_negocio'];
 
       //Obtener la lista de Company
-      final listCompany = await companyDb
-          .obtenerCompanyPorIdCompany(decodedData["result"][i]['id_company']);
+      final listCompany = await companyDb.obtenerCompanyPorIdCompany(decodedData["result"][i]['id_company']);
 
       if (listCompany.length > 0) {
         companyModel.miNegocio = listCompany[0].miNegocio;
@@ -150,70 +122,41 @@ class PedidoApi {
       await companyDb.insertarCompany(companyModel);
 
       //recorremos la segunda lista de detalle de pedidos
-      for (var j = 0;
-          j < decodedData["result"][i]["detalle_pedido"].length;
-          j++) {
+      for (var j = 0; j < decodedData["result"][i]["detalle_pedido"].length; j++) {
         final detallePedido = DetallePedidoModel();
-        detallePedido.idDetallePedido =
-            decodedData["result"][i]["detalle_pedido"][j]["id_delivery_detail"];
-        detallePedido.idPedido =
-            decodedData["result"][i]["detalle_pedido"][j]["id_delivery"];
-        detallePedido.idProducto =
-            decodedData["result"][i]["detalle_pedido"][j]["id_subsidiarygood"];
-        detallePedido.cantidad = decodedData["result"][i]["detalle_pedido"][j]
-            ["delivery_detail_qty"];
-        detallePedido.detallePedidoValorado = decodedData["result"][i]
-                ["detalle_pedido"][j]["valorado"]
-            .toString();
-        detallePedido.detallePedidoSubtotal = decodedData["result"][i]
-            ["detalle_pedido"][j]["delivery_detail_subtotal"];
+        detallePedido.idDetallePedido = decodedData["result"][i]["detalle_pedido"][j]["id_delivery_detail"];
+        detallePedido.idPedido = decodedData["result"][i]["detalle_pedido"][j]["id_delivery"];
+        detallePedido.idProducto = decodedData["result"][i]["detalle_pedido"][j]["id_subsidiarygood"];
+        detallePedido.cantidad = decodedData["result"][i]["detalle_pedido"][j]["delivery_detail_qty"];
+        detallePedido.detallePedidoValorado = decodedData["result"][i]["detalle_pedido"][j]["valorado"].toString();
+        detallePedido.detallePedidoSubtotal = decodedData["result"][i]["detalle_pedido"][j]["delivery_detail_subtotal"];
 
         //insertamos en la bd los productos
         ProductoModel subsidiaryGoodModel = ProductoModel();
         final productoDb = ProductoDatabase();
-        subsidiaryGoodModel.idProducto =
-            decodedData["result"][i]["detalle_pedido"][j]['id_subsidiarygood'];
-        subsidiaryGoodModel.idSubsidiary =
-            decodedData["result"][i]["detalle_pedido"][j]['id_subsidiary'];
-        subsidiaryGoodModel.idGood =
-            decodedData["result"][i]["detalle_pedido"][j]['id_good'];
-        subsidiaryGoodModel.productoName = decodedData["result"][i]
-            ["detalle_pedido"][j]['subsidiary_good_name'];
-        subsidiaryGoodModel.productoPrice = decodedData["result"][i]
-            ["detalle_pedido"][j]['subsidiary_good_price'];
-        subsidiaryGoodModel.productoCurrency = decodedData["result"][i]
-            ["detalle_pedido"][j]['subsidiary_good_currency'];
-        subsidiaryGoodModel.productoImage = decodedData["result"][i]
-            ["detalle_pedido"][j]['subsidiary_good_image'];
-        subsidiaryGoodModel.productoCharacteristics = decodedData["result"][i]
-            ["detalle_pedido"][j]['subsidiary_good_characteristics'];
-        subsidiaryGoodModel.productoBrand = decodedData["result"][i]
-            ["detalle_pedido"][j]['subsidiary_good_brand'];
-        subsidiaryGoodModel.productoModel = decodedData["result"][i]
-            ["detalle_pedido"][j]['subsidiary_good_model'];
-        subsidiaryGoodModel.productoType = decodedData["result"][i]
-            ["detalle_pedido"][j]['subsidiary_good_type'];
-        subsidiaryGoodModel.productoSize = decodedData["result"][i]
-            ["detalle_pedido"][j]['subsidiary_good_size'];
-        subsidiaryGoodModel.productoStock = decodedData["result"][i]
-            ["detalle_pedido"][j]['subsidiary_good_stock'];
-        subsidiaryGoodModel.productoMeasure = decodedData["result"][i]
-            ["detalle_pedido"][j]['subsidiary_good_stock_measure'];
-        subsidiaryGoodModel.productoRating = decodedData["result"][i]
-            ["detalle_pedido"][j]['subsidiary_good_rating'];
-        subsidiaryGoodModel.productoUpdated = decodedData["result"][i]
-            ["detalle_pedido"][j]['subsidiary_good_updated'];
-        subsidiaryGoodModel.productoStatus = decodedData["result"][i]
-            ["detalle_pedido"][j]['subsidiary_good_status'];
+        subsidiaryGoodModel.idProducto = decodedData["result"][i]["detalle_pedido"][j]['id_subsidiarygood'];
+        subsidiaryGoodModel.idSubsidiary = decodedData["result"][i]["detalle_pedido"][j]['id_subsidiary'];
+        subsidiaryGoodModel.idGood = decodedData["result"][i]["detalle_pedido"][j]['id_good'];
+        subsidiaryGoodModel.productoName = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_name'];
+        subsidiaryGoodModel.productoPrice = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_price'];
+        subsidiaryGoodModel.productoCurrency = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_currency'];
+        subsidiaryGoodModel.productoImage = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_image'];
+        subsidiaryGoodModel.productoCharacteristics = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_characteristics'];
+        subsidiaryGoodModel.productoBrand = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_brand'];
+        subsidiaryGoodModel.productoModel = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_model'];
+        subsidiaryGoodModel.productoType = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_type'];
+        subsidiaryGoodModel.productoSize = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_size'];
+        subsidiaryGoodModel.productoStock = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_stock'];
+        subsidiaryGoodModel.productoMeasure = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_stock_measure'];
+        subsidiaryGoodModel.productoRating = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_rating'];
+        subsidiaryGoodModel.productoUpdated = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_updated'];
+        subsidiaryGoodModel.productoStatus = decodedData["result"][i]["detalle_pedido"][j]['subsidiary_good_status'];
 
         //Obtener la lista de Company
-        final listProducto = await productoDb
-            .obtenerProductoPorIdSubsidiaryGood(decodedData["result"][i]
-                ["detalle_pedido"][j]['id_subsidiarygood']);
+        final listProducto = await productoDb.obtenerProductoPorIdSubsidiaryGood(decodedData["result"][i]["detalle_pedido"][j]['id_subsidiarygood']);
 
         if (listProducto.length > 0) {
-          subsidiaryGoodModel.productoFavourite =
-              listProducto[0].productoFavourite;
+          subsidiaryGoodModel.productoFavourite = listProducto[0].productoFavourite;
         } else {
           subsidiaryGoodModel.productoFavourite = "";
         }
@@ -222,12 +165,9 @@ class PedidoApi {
 
         //insertamos en la bd el bien
         final goodModel = BienesModel();
-        goodModel.idGood =
-            decodedData["result"][i]["detalle_pedido"][j]['id_good'];
-        goodModel.goodName =
-            decodedData["result"][i]["detalle_pedido"][j]['good_name'];
-        goodModel.goodSynonyms =
-            decodedData["result"][i]["detalle_pedido"][j]['good_synonyms'];
+        goodModel.idGood = decodedData["result"][i]["detalle_pedido"][j]['id_good'];
+        goodModel.goodName = decodedData["result"][i]["detalle_pedido"][j]['good_name'];
+        goodModel.goodSynonyms = decodedData["result"][i]["detalle_pedido"][j]['good_synonyms'];
         //insertar a la tabla de Company
         await goodDb.insertarGood(goodModel);
 
@@ -249,8 +189,7 @@ class PedidoApi {
         String producto = '';
 
         //sucursales son los datos por sucursal (Id de la sucursal , monto de pedidos por sucursal , tipo de entrega, y la descripcion)
-        sucursales = sucursales +
-            '${listDePedidos[0].car[i].idSubsidiary},,,${listDePedidos[0].car[i].monto},,,1,,,descripcion,,,';
+        sucursales = sucursales + '${listDePedidos[0].car[i].idSubsidiary},,,${listDePedidos[0].car[i].monto},,,1,,,descripcion,,,';
 
         //producto son los datos de los productos por sucursal
         for (var x = 0; x < listDePedidos[0].car[i].carrito.length; x++) {
@@ -289,116 +228,70 @@ class PedidoApi {
 
     final pedidosModel = PedidosModel();
 
-    pedidosModel.idPedido =
-        decodedData["result"]['pedido']['id_delivery'].toString();
+    pedidosModel.idPedido = decodedData["result"]['pedido']['id_delivery'].toString();
     pedidosModel.idUser = decodedData["result"]['pedido']['id_user'];
     pedidosModel.idCity = decodedData["result"]['pedido']['id_city'];
-    pedidosModel.idSubsidiary =
-        decodedData["result"]['pedido']['id_subsidiary'];
-    pedidosModel.idCompany =
-        decodedData["result"]['pedido']["detalle_pedido"][0]['id_company'];
-    pedidosModel.deliveryNumber =
-        decodedData["result"]['pedido']['delivery_number'];
-    pedidosModel.deliveryName =
-        decodedData["result"]['pedido']['delivery_name'];
-    pedidosModel.deliveryEmail =
-        decodedData["result"]['pedido']['delivery_email'];
+    pedidosModel.idSubsidiary = decodedData["result"]['pedido']['id_subsidiary'];
+    pedidosModel.idCompany = decodedData["result"]['pedido']["detalle_pedido"][0]['id_company'];
+    pedidosModel.deliveryNumber = decodedData["result"]['pedido']['delivery_number'];
+    pedidosModel.deliveryName = decodedData["result"]['pedido']['delivery_name'];
+    pedidosModel.deliveryEmail = decodedData["result"]['pedido']['delivery_email'];
     pedidosModel.deliveryCel = decodedData["result"]['pedido']['delivery_cel'];
-    pedidosModel.deliveryAddress =
-        decodedData["result"]['pedido']['delivery_address'];
-    pedidosModel.deliveryDescription =
-        decodedData["result"]['pedido']['delivery_description'];
-    pedidosModel.deliveryCoordX =
-        decodedData["result"]['pedido']['delivery_coord_x'];
-    pedidosModel.deliveryCoordY =
-        decodedData["result"]['pedido']['delivery_coord_y'];
-    pedidosModel.deliveryAddInfo =
-        decodedData["result"]['pedido']['delivery_add_info'];
-    pedidosModel.deliveryPrice =
-        decodedData["result"]['pedido']['delivery_price'];
-    pedidosModel.deliveryTotalOrden =
-        decodedData["result"]['pedido']['delivery_total_orden'];
-    pedidosModel.deliveryPayment =
-        decodedData["result"]['pedido']['delivery_payment'];
-    pedidosModel.deliveryEntrega =
-        decodedData["result"]['pedido']['delivery_entrega'];
-    pedidosModel.deliveryDatetime =
-        decodedData["result"]['pedido']['delivery_datetime'];
-    pedidosModel.deliveryStatus =
-        decodedData["result"]['pedido']['delivery_status'];
+    pedidosModel.deliveryAddress = decodedData["result"]['pedido']['delivery_address'];
+    pedidosModel.deliveryDescription = decodedData["result"]['pedido']['delivery_description'];
+    pedidosModel.deliveryCoordX = decodedData["result"]['pedido']['delivery_coord_x'];
+    pedidosModel.deliveryCoordY = decodedData["result"]['pedido']['delivery_coord_y'];
+    pedidosModel.deliveryAddInfo = decodedData["result"]['pedido']['delivery_add_info'];
+    pedidosModel.deliveryPrice = decodedData["result"]['pedido']['delivery_price'];
+    pedidosModel.deliveryTotalOrden = decodedData["result"]['pedido']['delivery_total_orden'];
+    pedidosModel.deliveryPayment = decodedData["result"]['pedido']['delivery_payment'];
+    pedidosModel.deliveryEntrega = decodedData["result"]['pedido']['delivery_entrega'];
+    pedidosModel.deliveryDatetime = decodedData["result"]['pedido']['delivery_datetime'];
+    pedidosModel.deliveryStatus = decodedData["result"]['pedido']['delivery_status'];
     pedidosModel.deliveryMt = decodedData["result"]['pedido']['delivery_mt'];
     pedidosModel.respuestaApi = decodedData["result"]['code'].toString();
     //insertar a la tabla de Pedidos
     await pedidoDb.insertarPedido(pedidosModel);
 
     if (decodedData["result"]['pedido']['detalle_pedido'].length > 0) {
-      for (var j = 0;
-          j < decodedData["result"]['pedido']["detalle_pedido"].length;
-          j++) {
+      for (var j = 0; j < decodedData["result"]['pedido']["detalle_pedido"].length; j++) {
         final detallePedido = DetallePedidoModel();
-        detallePedido.idDetallePedido = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]["id_delivery_detail"];
-        detallePedido.idPedido =
-            decodedData["result"]['pedido']["detalle_pedido"][j]["id_delivery"];
-        detallePedido.idProducto = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]["id_subsidiarygood"];
-        detallePedido.cantidad = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]["delivery_detail_qty"];
+        detallePedido.idDetallePedido = decodedData["result"]['pedido']["detalle_pedido"][j]["id_delivery_detail"];
+        detallePedido.idPedido = decodedData["result"]['pedido']["detalle_pedido"][j]["id_delivery"];
+        detallePedido.idProducto = decodedData["result"]['pedido']["detalle_pedido"][j]["id_subsidiarygood"];
+        detallePedido.cantidad = decodedData["result"]['pedido']["detalle_pedido"][j]["delivery_detail_qty"];
         //agregado rcientemente
-        detallePedido.detallePedidoMarca = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]["delivery_detail_brand"];
-        detallePedido.detallePedidoModelo = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]["delivery_detail_model"];
-        detallePedido.detallePedidoTalla = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]["delivery_detail_size"];
+        detallePedido.detallePedidoMarca = decodedData["result"]['pedido']["detalle_pedido"][j]["delivery_detail_brand"];
+        detallePedido.detallePedidoModelo = decodedData["result"]['pedido']["detalle_pedido"][j]["delivery_detail_model"];
+        detallePedido.detallePedidoTalla = decodedData["result"]['pedido']["detalle_pedido"][j]["delivery_detail_size"];
         //   detallePedido.detallePedidoValorado = decodedData["result"]['pedido']
         // ["detalle_pedido"][j]["valorado"];
-        detallePedido.detallePedidoSubtotal = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]["delivery_detail_subtotal"];
+        detallePedido.detallePedidoSubtotal = decodedData["result"]['pedido']["detalle_pedido"][j]["delivery_detail_subtotal"];
 
         //insertamos en la bd los productos
         ProductoModel subsidiaryGoodModel = ProductoModel();
         final productoDb = ProductoDatabase();
-        subsidiaryGoodModel.idProducto = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['id_subsidiarygood'];
-        subsidiaryGoodModel.idSubsidiary = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['id_subsidiary'];
-        subsidiaryGoodModel.productoName = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_good_name'];
-        subsidiaryGoodModel.productoPrice = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_good_price'];
-        subsidiaryGoodModel.productoCurrency = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_good_currency'];
-        subsidiaryGoodModel.productoImage = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_good_image'];
-        subsidiaryGoodModel.productoCharacteristics = decodedData["result"]
-            ['pedido']["detalle_pedido"][j]['subsidiary_good_characteristics'];
-        subsidiaryGoodModel.productoBrand = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_good_brand'];
-        subsidiaryGoodModel.productoModel = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_good_model'];
-        subsidiaryGoodModel.productoType = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_good_type'];
-        subsidiaryGoodModel.productoSize = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_good_size'];
-        subsidiaryGoodModel.productoStock = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_good_stock'];
-        subsidiaryGoodModel.productoMeasure = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_good_stock_measure'];
-        subsidiaryGoodModel.productoRating = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_good_rating'];
-        subsidiaryGoodModel.productoUpdated = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_good_updated'];
-        subsidiaryGoodModel.productoStatus = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_good_status'];
+        subsidiaryGoodModel.idProducto = decodedData["result"]['pedido']["detalle_pedido"][j]['id_subsidiarygood'];
+        subsidiaryGoodModel.idSubsidiary = decodedData["result"]['pedido']["detalle_pedido"][j]['id_subsidiary'];
+        subsidiaryGoodModel.productoName = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_name'];
+        subsidiaryGoodModel.productoPrice = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_price'];
+        subsidiaryGoodModel.productoCurrency = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_currency'];
+        subsidiaryGoodModel.productoImage = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_image'];
+        subsidiaryGoodModel.productoCharacteristics = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_characteristics'];
+        subsidiaryGoodModel.productoBrand = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_brand'];
+        subsidiaryGoodModel.productoModel = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_model'];
+        subsidiaryGoodModel.productoType = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_type'];
+        subsidiaryGoodModel.productoSize = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_size'];
+        subsidiaryGoodModel.productoStock = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_stock'];
+        subsidiaryGoodModel.productoMeasure = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_stock_measure'];
+        subsidiaryGoodModel.productoRating = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_rating'];
+        subsidiaryGoodModel.productoUpdated = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_updated'];
+        subsidiaryGoodModel.productoStatus = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_status'];
 
-        var productList = await productoDb.obtenerProductoPorIdSubsidiaryGood(
-            decodedData["result"]['pedido']["detalle_pedido"][j]
-                ['id_subsidiarygood']);
+        var productList = await productoDb.obtenerProductoPorIdSubsidiaryGood(decodedData["result"]['pedido']["detalle_pedido"][j]['id_subsidiarygood']);
 
         if (productList.length > 0) {
-          subsidiaryGoodModel.productoFavourite =
-              productList[0].productoFavourite;
+          subsidiaryGoodModel.productoFavourite = productList[0].productoFavourite;
         } else {
           subsidiaryGoodModel.productoFavourite = '0';
         }
@@ -407,37 +300,22 @@ class PedidoApi {
         await productoDb.insertarProducto(subsidiaryGoodModel);
 
         final sucursalModel = SubsidiaryModel();
-        sucursalModel.idSubsidiary = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['id_subsidiary'];
-        sucursalModel.idCompany =
-            decodedData["result"]['pedido']["detalle_pedido"][j]['id_company'];
-        sucursalModel.subsidiaryName = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_name'];
-        sucursalModel.subsidiaryAddress = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_address'];
-        sucursalModel.subsidiaryCellphone = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_cellphone'];
-        sucursalModel.subsidiaryCellphone2 = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_cellphone2'];
-        sucursalModel.subsidiaryEmail = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_email'];
-        sucursalModel.subsidiaryCoordX = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_coord_x'];
-        sucursalModel.subsidiaryCoordY = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_coord_y'];
-        sucursalModel.subsidiaryOpeningHours = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_opening_hours'];
-        sucursalModel.subsidiaryPrincipal = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_principal'];
-        sucursalModel.subsidiaryStatus = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_status'];
-        sucursalModel.subsidiaryImg = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['subsidiary_img'];
+        sucursalModel.idSubsidiary = decodedData["result"]['pedido']["detalle_pedido"][j]['id_subsidiary'];
+        sucursalModel.idCompany = decodedData["result"]['pedido']["detalle_pedido"][j]['id_company'];
+        sucursalModel.subsidiaryName = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_name'];
+        sucursalModel.subsidiaryAddress = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_address'];
+        sucursalModel.subsidiaryCellphone = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_cellphone'];
+        sucursalModel.subsidiaryCellphone2 = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_cellphone2'];
+        sucursalModel.subsidiaryEmail = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_email'];
+        sucursalModel.subsidiaryCoordX = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_coord_x'];
+        sucursalModel.subsidiaryCoordY = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_coord_y'];
+        sucursalModel.subsidiaryOpeningHours = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_opening_hours'];
+        sucursalModel.subsidiaryPrincipal = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_principal'];
+        sucursalModel.subsidiaryStatus = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_status'];
+        sucursalModel.subsidiaryImg = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_img'];
 
         //Obtener la lista de sucursales para asignar a favoritos
-        final list = await sucursalDb.obtenerSubsidiaryPorId(
-            decodedData["result"]['pedido']["detalle_pedido"][j]
-                ['id_subsidiary']);
+        final list = await sucursalDb.obtenerSubsidiaryPorId(decodedData["result"]['pedido']["detalle_pedido"][j]['id_subsidiary']);
 
         if (list.length > 0) {
           sucursalModel.subsidiaryFavourite = list[0].subsidiaryFavourite;
@@ -449,12 +327,9 @@ class PedidoApi {
 
         //insertamos en la bd el bien
         final goodModel = BienesModel();
-        goodModel.idGood =
-            decodedData["result"]['pedido']["detalle_pedido"][j]['id_good'];
-        goodModel.goodName =
-            decodedData["result"]['pedido']["detalle_pedido"][j]['good_name'];
-        goodModel.goodSynonyms = decodedData["result"]['pedido']
-            ["detalle_pedido"][j]['good_synonyms'];
+        goodModel.idGood = decodedData["result"]['pedido']["detalle_pedido"][j]['id_good'];
+        goodModel.goodName = decodedData["result"]['pedido']["detalle_pedido"][j]['good_name'];
+        goodModel.goodSynonyms = decodedData["result"]['pedido']["detalle_pedido"][j]['good_synonyms'];
         //insertar a la tabla de Company
         await goodDb.insertarGood(goodModel);
 
@@ -481,8 +356,7 @@ class PedidoApi {
     int cantidad = 0;
 
     //funcion que trae los datos del carrito agrupados por iDSubsidiary para que no se repitan los IDSubsidiary
-    final listCarritoAgrupados =
-        await carritoDb.obtenerProductosSeleccionadoAgrupados();
+    final listCarritoAgrupados = await carritoDb.obtenerProductosSeleccionadoAgrupados();
 
     //llenamos la lista de String(listaDeStringDeIds) con los datos agrupados que llegan (listCarritoAgrupados)
     for (var i = 0; i < listCarritoAgrupados.length; i++) {
@@ -494,8 +368,7 @@ class PedidoApi {
     final listCarrito = await carritoDb.obtenerProductoXCarritoSeleccionado();
     for (var x = 0; x < listaDeStringDeIds.length; x++) {
       //función para obtener los datos de la sucursal para despues usar el nombre
-      final sucursal =
-          await subsidiary.obtenerSubsidiaryPorId(listaDeStringDeIds[x]);
+      final sucursal = await subsidiary.obtenerSubsidiaryPorId(listaDeStringDeIds[x]);
 
       final List<CarritoModel> listCarritoModel = [];
 
@@ -554,8 +427,7 @@ class PedidoApi {
     return listaGeneralCarrito;
   }
 
-  Future<int> valoracion(File _image, String idProducto, String idPedido,
-      String comentario, String valoracion) async {
+  Future<int> valoracion(File _image, String idProducto, String idPedido, String comentario, String valoracion) async {
     final preferences = Preferences();
     var multipartFile;
     // open a byteStream
@@ -563,8 +435,7 @@ class PedidoApi {
       var stream = new http.ByteStream(Stream.castFrom(_image.openRead()));
       // get file length
       var length = await _image.length();
-      multipartFile = new http.MultipartFile('imagen', stream, length,
-          filename: basename(_image.path));
+      multipartFile = new http.MultipartFile('imagen', stream, length, filename: basename(_image.path));
     }
 
     // string to uri

@@ -20,8 +20,7 @@ class CarrouselPrincipal extends StatelessWidget {
 
     return StreamBuilder(
       stream: publicidadBloc.publicidadListStream,
-      builder: (BuildContext context,
-          AsyncSnapshot<List<PublicidadModel>> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<PublicidadModel>> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.length > 0) {
             return _buildPageView(responsive, snapshot.data);
@@ -60,13 +59,8 @@ class CarrouselPrincipal extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   child: CachedNetworkImage(
                     //cacheManager: CustomCacheManager(),
-                    placeholder: (context, url) => 
-                    Image(
-                        image: AssetImage('assets/jar-loading.gif'),
-                        fit: BoxFit.cover),
-                    errorWidget: (context, url, error) => Image(
-                        image: AssetImage('assets/carga_fallida.jpg'),
-                        fit: BoxFit.cover),
+                    placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
+                    errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
                     imageUrl: "$apiBaseURL/${list[index].publicidadImg}",
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
@@ -87,8 +81,7 @@ class CarrouselPrincipal extends StatelessWidget {
                       idSucursal: "${list[index].idSubsidiary}",
                     );
                   },
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
                     var begin = Offset(0.0, 1.0);
                     var end = Offset.zero;
                     var curve = Curves.ease;
@@ -106,9 +99,7 @@ class CarrouselPrincipal extends StatelessWidget {
               },
             );
           },
-          onPageChanged: (int index) {
-
-          }),
+          onPageChanged: (int index) {}),
     );
   }
 }

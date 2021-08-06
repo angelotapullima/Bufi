@@ -17,16 +17,12 @@ import 'package:rxdart/subjects.dart';
 class ListarProductosPorSucursalPage extends StatefulWidget {
   final String idSucursal;
 
-  const ListarProductosPorSucursalPage({Key key, @required this.idSucursal})
-      : super(key: key);
+  const ListarProductosPorSucursalPage({Key key, @required this.idSucursal}) : super(key: key);
   @override
-  _ListarProductosPorSucursalPageState createState() =>
-      _ListarProductosPorSucursalPageState();
+  _ListarProductosPorSucursalPageState createState() => _ListarProductosPorSucursalPageState();
 }
 
-class _ListarProductosPorSucursalPageState
-    extends State<ListarProductosPorSucursalPage>
-    with SingleTickerProviderStateMixin<ListarProductosPorSucursalPage> {
+class _ListarProductosPorSucursalPageState extends State<ListarProductosPorSucursalPage> with SingleTickerProviderStateMixin<ListarProductosPorSucursalPage> {
   final _show = ValueNotifier<bool>(false);
 
   ScrollController _scrollController = ScrollController();
@@ -39,8 +35,7 @@ class _ListarProductosPorSucursalPageState
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: _animationDuration);
+    _animationController = AnimationController(vsync: this, duration: _animationDuration);
     isSidebarOpenedStreamController = PublishSubject<bool>();
     isSidebarOpenedStream = isSidebarOpenedStreamController.stream;
     isSidebarOpenedSink = isSidebarOpenedStreamController.sink;
@@ -48,8 +43,7 @@ class _ListarProductosPorSucursalPageState
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => {
         _scrollController.addListener(() {
-          if (_scrollController.position.pixels ==
-              _scrollController.position.maxScrollExtent) {
+          if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
             final productoBloc = ProviderBloc.productos(context);
             productoBloc.listarProductosPorSucursal(widget.idSucursal);
           }
@@ -99,14 +93,12 @@ class _ListarProductosPorSucursalPageState
         children: [
           StreamBuilder(
             stream: sucursalBloc.subsidiaryIdStream,
-            builder:
-                (context, AsyncSnapshot<List<SubsidiaryModel>> sucursalList) {
+            builder: (context, AsyncSnapshot<List<SubsidiaryModel>> sucursalList) {
               if (sucursalList.hasData) {
                 if (sucursalList.data.length > 0) {
                   return ValueListenableBuilder(
                     valueListenable: _show,
-                    builder:
-                        (BuildContext context, bool dataToque, Widget child) {
+                    builder: (BuildContext context, bool dataToque, Widget child) {
                       return SafeArea(
                         child: Column(
                           children: [
@@ -126,9 +118,7 @@ class _ListarProductosPorSucursalPageState
                                         textAlign: TextAlign.center,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
-                                        style: TextStyle(
-                                            fontSize: responsive.ip(2.5),
-                                            fontWeight: FontWeight.bold),
+                                        style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   )
@@ -144,8 +134,7 @@ class _ListarProductosPorSucursalPageState
                                   child: BusquedaProductoXsucursalWidget(
                                     responsive: responsive,
                                     idSucursal: widget.idSucursal,
-                                    nameSucursal:
-                                        '${sucursalList.data[0].subsidiaryName}',
+                                    nameSucursal: '${sucursalList.data[0].subsidiaryName}',
                                   ),
                                 ),
                                 Row(
@@ -176,9 +165,7 @@ class _ListarProductosPorSucursalPageState
                             Expanded(
                               child: StreamBuilder(
                                 stream: productoBloc.productoStream,
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<List<ProductoModel>>
-                                        snapshot) {
+                                builder: (BuildContext context, AsyncSnapshot<List<ProductoModel>> snapshot) {
                                   if (snapshot.hasData) {
                                     if (snapshot.data.length > 0) {
                                       final bienes = snapshot.data;
@@ -189,24 +176,20 @@ class _ListarProductosPorSucursalPageState
                                               //controller: ScrollController(keepScrollOffset: false),
                                               shrinkWrap: true,
                                               scrollDirection: Axis.vertical,
-                                              gridDelegate:
-                                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                                childAspectRatio:
-                                                    responsive.ip(.068),
+                                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                childAspectRatio: responsive.ip(.068),
                                                 crossAxisCount: 2,
                                               ),
                                               itemCount: bienes.length,
                                               itemBuilder: (context, index) {
                                                 return BienesWidget(
-                                                  producto:
-                                                      snapshot.data[index],
+                                                  producto: snapshot.data[index],
                                                 );
                                               },
                                             )
                                           : ListView.builder(
                                               itemBuilder: (context, index) {
-                                                return bienesWidget(responsive,
-                                                    snapshot.data, index);
+                                                return bienesWidget(responsive, snapshot.data, index);
                                               },
                                               itemCount: snapshot.data.length,
                                             );
@@ -270,8 +253,7 @@ class _ListarProductosPorSucursalPageState
                           ),
                           child: ClipRRect(
                             child: new BackdropFilter(
-                              filter: new ImageFilter.blur(
-                                  sigmaX: 5.0, sigmaY: 5.0),
+                              filter: new ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                               child: new Container(
                                 decoration: new BoxDecoration(
                                   color: Colors.white.withOpacity(0.0),
@@ -301,8 +283,7 @@ class _ListarProductosPorSucursalPageState
     );
   }
 
-  Widget bienesWidget(
-      Responsive responsive, List<ProductoModel> data, int index) {
+  Widget bienesWidget(Responsive responsive, List<ProductoModel> data, int index) {
     return GestureDetector(
       onTap: () {
         //irADetalleProducto(data[index], context);
@@ -326,9 +307,7 @@ class _ListarProductosPorSucursalPageState
                         placeholder: (context, url) => Container(
                           width: double.infinity,
                           height: double.infinity,
-                          child: Image(
-                              image: AssetImage('assets/loading.gif'),
-                              fit: BoxFit.cover),
+                          child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.cover),
                         ),
                         imageUrl: '$apiBaseURL/${data[index].productoImage}',
                         fit: BoxFit.fitWidth,
@@ -346,10 +325,7 @@ class _ListarProductosPorSucursalPageState
                       child: Text(
                         '${data[index].productoName}',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: responsive.ip(2),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -365,10 +341,7 @@ class _ListarProductosPorSucursalPageState
                       height: responsive.hp(3),
                       child: Text(
                         'Producto',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: responsive.ip(1.5),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
@@ -382,36 +355,25 @@ class _ListarProductosPorSucursalPageState
                 children: [
                   Text(
                     '${data[index].productoName}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2.5),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                   ),
                   //Text('${data[index].subsidiaryGoodMeasure}'),
 
                   Text(
                     '${data[index].productoCurrency + data[index].productoPrice}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(2.5),
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(2.5), color: Colors.red, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     '${data[index].productoBrand}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(1.5),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                   ),
                   Text(
                     '${data[index].productoSize}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(1.5),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                   ),
                   Text(
                     '${data[index].productoModel}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(1.5),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 2),
                   Row(mainAxisAlignment: MainAxisAlignment.start, children: [

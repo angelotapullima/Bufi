@@ -33,11 +33,7 @@ class _SubirVaucherState extends State<SubirVaucher> {
                   color: Color(0xff303c59),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-                      top: responsive.hp(7),
-                      bottom: responsive.hp(10),
-                      left: responsive.wp(5),
-                      right: responsive.wp(5)),
+                  margin: EdgeInsets.only(top: responsive.hp(7), bottom: responsive.hp(10), left: responsive.wp(5), right: responsive.wp(5)),
                   height: double.infinity,
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -92,8 +88,7 @@ class _SubirVaucherState extends State<SubirVaucher> {
                                                   child: Text("Galeria"),
                                                   onTap: () {
                                                     Navigator.pop(context);
-                                                    getImage(
-                                                        ImageSource.gallery);
+                                                    getImage(ImageSource.gallery);
                                                     //_seleccionarFoto();
                                                   },
                                                 ),
@@ -104,8 +99,7 @@ class _SubirVaucherState extends State<SubirVaucher> {
                                                   child: Text("Camara"),
                                                   onTap: () {
                                                     Navigator.pop(context);
-                                                    getImage(
-                                                        ImageSource.camera);
+                                                    getImage(ImageSource.camera);
 
                                                     //_tomarFoto();
                                                   },
@@ -158,10 +152,8 @@ class _SubirVaucherState extends State<SubirVaucher> {
                                         height: responsive.ip(3),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(999),
-                                          border:
-                                              Border.all(color: Colors.grey),
+                                          borderRadius: BorderRadius.circular(999),
+                                          border: Border.all(color: Colors.grey),
                                         ),
                                         child: Icon(
                                           Icons.delete,
@@ -177,8 +169,7 @@ class _SubirVaucherState extends State<SubirVaucher> {
                         padding: EdgeInsets.symmetric(
                           horizontal: responsive.wp(4),
                         ),
-                        child: Text(
-                            ' El vaucher sirve para la validación del pago realizado por la solicitud de recarga'),
+                        child: Text(' El vaucher sirve para la validación del pago realizado por la solicitud de recarga'),
                       ),
                       SizedBox(
                         height: responsive.hp(2),
@@ -223,24 +214,16 @@ class _SubirVaucherState extends State<SubirVaucher> {
                 (dataToque)
                     ? Center(
                         child: Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(10)),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: responsive.wp(10)),
+                          margin: EdgeInsets.symmetric(horizontal: responsive.wp(10)),
+                          padding: EdgeInsets.symmetric(horizontal: responsive.wp(10)),
                           width: double.infinity,
                           height: responsive.hp(13),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
+                          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
                           child: Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: responsive.wp(10),
-                                vertical: responsive.wp(6)),
+                            margin: EdgeInsets.symmetric(horizontal: responsive.wp(10), vertical: responsive.wp(6)),
                             height: responsive.ip(4),
                             width: responsive.ip(4),
-                            child: Image(
-                                image: AssetImage('assets/loading.gif'),
-                                fit: BoxFit.contain),
+                            child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.contain),
                           ),
                         ),
                       )
@@ -277,11 +260,7 @@ class _SubirVaucherState extends State<SubirVaucher> {
                 // CropAspectRatioPreset.ratio16x9
               ],
         androidUiSettings: AndroidUiSettings(
-            toolbarTitle: 'Recortar',
-            toolbarColor: Colors.deepOrange,
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.square,
-            lockAspectRatio: true),
+            toolbarTitle: 'Recortar', toolbarColor: Colors.deepOrange, toolbarWidgetColor: Colors.white, initAspectRatio: CropAspectRatioPreset.square, lockAspectRatio: true),
         iosUiSettings: IOSUiSettings(
           title: 'Imagen',
         ),

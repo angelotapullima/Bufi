@@ -8,8 +8,7 @@ class DetallePedidoDatabase {
     try {
       final db = await dbprovider.database;
 
-      final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO DetallePedido (id_detalle_pedido,id_pedido,id_producto,"
+      final res = await db.rawInsert("INSERT OR REPLACE INTO DetallePedido (id_detalle_pedido,id_pedido,id_producto,"
           "cantidad,detalle_pedido_marca,detalle_pedido_modelo,detalle_pedido_talla,detalle_pedido_valorado,delivery_detail_subtotal) "
           "VALUES ('${detallePedidoModel.idDetallePedido}','${detallePedidoModel.idPedido}','${detallePedidoModel.idProducto}',"
           "'${detallePedidoModel.cantidad}','${detallePedidoModel.detallePedidoMarca}','${detallePedidoModel.detallePedidoModelo}','${detallePedidoModel.detallePedidoTalla}',"
@@ -21,16 +20,12 @@ class DetallePedidoDatabase {
     }
   }
 
-  Future<List<DetallePedidoModel>> obtenerDetallePedidoxIdPedido(
-      String idPedido) async {
+  Future<List<DetallePedidoModel>> obtenerDetallePedidoxIdPedido(String idPedido) async {
     try {
       final db = await dbprovider.database;
-      final res = await db
-          .rawQuery("SELECT * FROM DetallePedido where id_pedido='$idPedido'");
+      final res = await db.rawQuery("SELECT * FROM DetallePedido where id_pedido='$idPedido'");
 
-      List<DetallePedidoModel> list = res.isNotEmpty
-          ? res.map((c) => DetallePedidoModel.fromJson(c)).toList()
-          : [];
+      List<DetallePedidoModel> list = res.isNotEmpty ? res.map((c) => DetallePedidoModel.fromJson(c)).toList() : [];
 
       return list;
     } catch (e) {

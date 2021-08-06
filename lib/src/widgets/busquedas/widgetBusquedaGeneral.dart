@@ -24,8 +24,7 @@ class BusquedaGeneralWidget extends StatelessWidget {
               selectorTabBusqueda.changePage(0);
               return BusquedaDeLaPtmr();
             },
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
               return FadeTransition(
                 opacity: animation,
                 child: child,
@@ -39,8 +38,7 @@ class BusquedaGeneralWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: responsive.wp(2)),
         height: responsive.hp(5),
-        decoration: BoxDecoration(
-            color: Colors.grey[300], borderRadius: BorderRadius.circular(25)),
+        decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(25)),
         child: Row(
           children: [
             IconButton(
@@ -54,8 +52,7 @@ class BusquedaGeneralWidget extends StatelessWidget {
                     pageBuilder: (context, animation, secondaryAnimation) {
                       return BusquedaDeLaPtmr();
                     },
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
                       return FadeTransition(
                         opacity: animation,
                         child: child,

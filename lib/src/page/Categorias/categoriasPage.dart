@@ -38,9 +38,7 @@ class _ListaCategoriaState extends State<ListaCategoria> {
                       child: Text(
                         'Categorías',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: responsive.ip(2.5),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
@@ -56,12 +54,10 @@ class _ListaCategoriaState extends State<ListaCategoria> {
                 height: responsive.hp(88),
                 child: StreamBuilder(
                   stream: categoriaBloc.categoriaStream,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<CategoriaModel>> snapshot) {
+                  builder: (BuildContext context, AsyncSnapshot<List<CategoriaModel>> snapshot) {
                     if (snapshot.hasData) {
                       if (snapshot.data.length > 0) {
-                        return _listCategoria(
-                            snapshot.data, context, responsive);
+                        return _listCategoria(snapshot.data, context, responsive);
                       } else {
                         return Center(child: CircularProgressIndicator());
                       }
@@ -78,8 +74,7 @@ class _ListaCategoriaState extends State<ListaCategoria> {
     );
   }
 
-  Widget _listCategoria(List<CategoriaModel> categorias, BuildContext context,
-      Responsive responsive) {
+  Widget _listCategoria(List<CategoriaModel> categorias, BuildContext context, Responsive responsive) {
     //final bottomBloc = ProviderBloc.bottom(context);
     final naviCategBloc = ProviderBloc.naviCategoria(context);
     naviCategBloc.changeIndexPage(categorias[0].idCategory);
@@ -109,12 +104,10 @@ class _ListaCategoriaState extends State<ListaCategoria> {
 class CategoriaBienesServicios extends StatefulWidget {
   final List<CategoriaModel> categorias;
 
-  const CategoriaBienesServicios({Key key, @required this.categorias})
-      : super(key: key);
+  const CategoriaBienesServicios({Key key, @required this.categorias}) : super(key: key);
 
   @override
-  _CategoriaBienesServiciosState createState() =>
-      _CategoriaBienesServiciosState();
+  _CategoriaBienesServiciosState createState() => _CategoriaBienesServiciosState();
 }
 
 class _CategoriaBienesServiciosState extends State<CategoriaBienesServicios> {
@@ -126,8 +119,7 @@ class _CategoriaBienesServiciosState extends State<CategoriaBienesServicios> {
     );
   }
 
-  Widget _listaCategorias(
-      List<CategoriaModel> categorias, Responsive responsive) {
+  Widget _listaCategorias(List<CategoriaModel> categorias, Responsive responsive) {
     return Container(
       //height: responsive.hp(90),
       width: responsive.wp(30),
@@ -164,19 +156,14 @@ class _CategoriaBienesServiciosState extends State<CategoriaBienesServicios> {
                       blurRadius: responsive.hp(1),
                     )
                   ],
-                  color: (categoria.idCategory == snapshot.data)
-                      ? Colors.black
-                      : Color(0xFFF93963),
+                  color: (categoria.idCategory == snapshot.data) ? Colors.black : Color(0xFFF93963),
                   border: Border.all(color: Colors.grey[100]),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Center(
                   child: Text(
                     '${categoria.categoryName}',
-                    style: TextStyle(
-                        fontSize: responsive.ip(1.3),
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: responsive.ip(1.3), color: Colors.white, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 )),
@@ -194,12 +181,10 @@ class SubcategoriaPorIdCategoria extends StatefulWidget {
   final String index;
 
   @override
-  _SubcategoriaPorIdCategoriaState createState() =>
-      _SubcategoriaPorIdCategoriaState();
+  _SubcategoriaPorIdCategoriaState createState() => _SubcategoriaPorIdCategoriaState();
 }
 
-class _SubcategoriaPorIdCategoriaState
-    extends State<SubcategoriaPorIdCategoria> {
+class _SubcategoriaPorIdCategoriaState extends State<SubcategoriaPorIdCategoria> {
   @override
   Widget build(BuildContext context) {
     final subcategoriasBloc = ProviderBloc.subcategoriaGeneral(context);
@@ -210,8 +195,7 @@ class _SubcategoriaPorIdCategoriaState
     return Scaffold(
       body: StreamBuilder(
         stream: subcategoriasBloc.subCategoriaGeneralStream,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<SubCategoriaGeneralModel>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<SubCategoriaGeneralModel>> snapshot) {
           List<SubCategoriaGeneralModel> subcategoriasGeneral = snapshot.data;
           if (snapshot.hasData) {
             if (snapshot.data.length > 0) {
@@ -224,22 +208,16 @@ class _SubcategoriaPorIdCategoriaState
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
-                      itemCount:
-                          subcategoriasGeneral[index].itemSubcategoria.length +
-                              1,
+                      itemCount: subcategoriasGeneral[index].itemSubcategoria.length + 1,
                       itemBuilder: (BuildContext context, int i) {
                         if (i == 0) {
                           return Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 8),
+                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                               margin: EdgeInsets.all(3),
                               color: Colors.blueGrey[100],
                               child: Text(
                                 '${subcategoriasGeneral[index].nombre}',
-                                style: TextStyle(
-                                    color: Colors.blueGrey[700],
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
+                                style: TextStyle(color: Colors.blueGrey[700], fontSize: 17, fontWeight: FontWeight.w500),
                               ));
                         }
 
@@ -259,18 +237,10 @@ class _SubcategoriaPorIdCategoriaState
                               child: Container(
                                 transform: Matrix4.translationValues(0, 0, 0),
                                 child: CachedNetworkImage(
-                                  placeholder: (context, url) => Image(
-                                      image: const AssetImage(
-                                          'assets/jar-loading.gif'),
-                                      fit: BoxFit.cover),
-                                  errorWidget: (context, url, error) => Image(
-                                      image: AssetImage(
-                                          'assets/carga_fallida.jpg'),
-                                      fit: BoxFit.cover),
-                                  imageUrl:
-                                      '$apiBaseURL/${subcategoriasGeneral[index].itemSubcategoria[indd].itemsubcategoryImage}',
-                                  imageBuilder: (context, imageProvider) =>
-                                      Container(
+                                  placeholder: (context, url) => Image(image: const AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
+                                  errorWidget: (context, url, error) => Image(image: AssetImage('assets/carga_fallida.jpg'), fit: BoxFit.cover),
+                                  imageUrl: '$apiBaseURL/${subcategoriasGeneral[index].itemSubcategoria[indd].itemsubcategoryImage}',
+                                  imageBuilder: (context, imageProvider) => Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         image: imageProvider,
@@ -283,23 +253,18 @@ class _SubcategoriaPorIdCategoriaState
                             ),
                             onTap: () {
                               Navigator.of(context).push(PageRouteBuilder(
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) {
+                                pageBuilder: (context, animation, secondaryAnimation) {
                                   return ProYSerPorItemSubcategoryPage(
-                                    nameItem:
-                                        '${subcategoriasGeneral[index].itemSubcategoria[indd].itemsubcategoryName}',
-                                    idItem:
-                                        '${subcategoriasGeneral[index].itemSubcategoria[indd].idItemsubcategory}',
+                                    nameItem: '${subcategoriasGeneral[index].itemSubcategoria[indd].itemsubcategoryName}',
+                                    idItem: '${subcategoriasGeneral[index].itemSubcategoria[indd].idItemsubcategory}',
                                   );
                                 },
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                   var begin = Offset(0.0, 1.0);
                                   var end = Offset.zero;
                                   var curve = Curves.ease;
 
-                                  var tween =
-                                      Tween(begin: begin, end: end).chain(
+                                  var tween = Tween(begin: begin, end: end).chain(
                                     CurveTween(curve: curve),
                                   );
 

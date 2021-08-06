@@ -15,19 +15,13 @@ class DetalleSubsidiary extends StatefulWidget {
   final String nombreSucursal;
   final String idSucursal;
   final String imgSucursal;
-  const DetalleSubsidiary(
-      {Key key,
-      @required this.nombreSucursal,
-      @required this.idSucursal,
-      @required this.imgSucursal})
-      : super(key: key);
+  const DetalleSubsidiary({Key key, @required this.nombreSucursal, @required this.idSucursal, @required this.imgSucursal}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => HomePageState();
 }
 
-class HomePageState extends State<DetalleSubsidiary>
-    with SingleTickerProviderStateMixin {
+class HomePageState extends State<DetalleSubsidiary> with SingleTickerProviderStateMixin {
   ScrollController _scrollController = ScrollController();
 
   TabController tabController;
@@ -35,8 +29,7 @@ class HomePageState extends State<DetalleSubsidiary>
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        final provider =
-            Provider.of<DetailSubsidiaryBloc>(context, listen: false);
+        final provider = Provider.of<DetailSubsidiaryBloc>(context, listen: false);
 
         _scrollController.addListener(
           () {
@@ -46,8 +39,7 @@ class HomePageState extends State<DetalleSubsidiary>
               provider.ocultarSafeArea.value = true;
             }
 
-            if (_scrollController.position.pixels ==
-                _scrollController.position.maxScrollExtent) {
+            if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
               final productoBloc = ProviderBloc.productos(context);
               productoBloc.listarProductosPorSucursal(widget.idSucursal);
 
@@ -94,9 +86,7 @@ class HomePageState extends State<DetalleSubsidiary>
                 pinned: true,
 
                 bottom: new TabBar(
-                  labelStyle: TextStyle(
-                      fontSize: responsive.ip(1.5),
-                      fontWeight: FontWeight.bold),
+                  labelStyle: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold),
                   isScrollable: true,
                   tabs: [
                     Tab(
@@ -159,12 +149,7 @@ class HomePageState extends State<DetalleSubsidiary>
 }
 
 class CebeceraItem extends StatelessWidget {
-  const CebeceraItem(
-      {Key key,
-      @required this.nombreSucursal,
-      @required this.idSucursal,
-      @required this.imgSucursal})
-      : super(key: key);
+  const CebeceraItem({Key key, @required this.nombreSucursal, @required this.idSucursal, @required this.imgSucursal}) : super(key: key);
 
   final String idSucursal;
   final String nombreSucursal;
@@ -186,9 +171,7 @@ class CebeceraItem extends StatelessWidget {
                     placeholder: (context, url) => Container(
                       width: double.infinity,
                       height: double.infinity,
-                      child: Image(
-                          image: AssetImage('assets/jar-loading.gif'),
-                          fit: BoxFit.cover),
+                      child: Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                     ),
                     errorWidget: (context, url, error) => Container(
                       width: double.infinity,
@@ -250,10 +233,7 @@ class CebeceraItem extends StatelessWidget {
                       ),
                       Text(
                         nombreSucursal,
-                        style: TextStyle(
-                            fontSize: responsive.ip(2.4),
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: responsive.ip(2.4), color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -270,8 +250,7 @@ class CebeceraItem extends StatelessWidget {
 
 class InformacionWidget extends StatelessWidget {
   final String idSucursal;
-  const InformacionWidget({Key key, @required this.idSucursal})
-      : super(key: key);
+  const InformacionWidget({Key key, @required this.idSucursal}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -323,43 +302,30 @@ class InformacionWidget extends StatelessWidget {
                       ('${snapshot.data[0].subsidiaryPrincipal}') == '1'
                           ? Row(
                               children: [
-                                Text("Oficina Principal de",
-                                    style: TextStyle(
-                                        fontSize: responsive.ip(2),
-                                        fontWeight: FontWeight.bold)),
+                                Text("Oficina Principal de", style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold)),
                                 SizedBox(
                                   width: responsive.wp(2),
                                 ),
                                 Text(
                                   '${snapshot.data[0].subsidiaryName}',
-                                  style: TextStyle(
-                                      fontSize: responsive.ip(2),
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red),
+                                  style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold, color: Colors.red),
                                 ),
                               ],
                             )
                           : Container(
-                              child: Text("Sucursal",
-                                  style: TextStyle(
-                                      fontSize: responsive.ip(2),
-                                      fontWeight: FontWeight.bold)),
+                              child: Text("Sucursal", style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold)),
                             ),
                       SizedBox(
                         height: responsive.hp(3),
                       ),
                       Text(
                         "Información",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: responsive.ip(3),
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.black, fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
                       ),
                       Divider(color: Colors.grey),
                       Row(
                         children: [
-                          Icon(Icons.location_on,
-                              size: responsive.ip(3.5), color: Colors.red[700]),
+                          Icon(Icons.location_on, size: responsive.ip(3.5), color: Colors.red[700]),
                           SizedBox(
                             width: responsive.wp(2),
                           ),
@@ -397,8 +363,7 @@ class InformacionWidget extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Icon(FontAwesomeIcons.phoneAlt,
-                              color: Colors.red[700], size: responsive.ip(3)),
+                          Icon(FontAwesomeIcons.phoneAlt, color: Colors.red[700], size: responsive.ip(3)),
                           SizedBox(
                             width: responsive.wp(2),
                           ),
@@ -415,14 +380,11 @@ class InformacionWidget extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Icon(Icons.mail,
-                              size: responsive.ip(3.5), color: Colors.red[700]),
+                          Icon(Icons.mail, size: responsive.ip(3.5), color: Colors.red[700]),
                           SizedBox(
                             width: responsive.wp(2),
                           ),
-                          Text(('${snapshot.data[0].subsidiaryEmail}') == 'null'
-                              ? 'correo'
-                              : '${snapshot.data[0].subsidiaryEmail}')
+                          Text(('${snapshot.data[0].subsidiaryEmail}') == 'null' ? 'correo' : '${snapshot.data[0].subsidiaryEmail}')
                           // Text(
                           //   '${snapshot.data[0].subsidiaryEmail}',
                           //   style: TextStyle(
@@ -436,8 +398,7 @@ class InformacionWidget extends StatelessWidget {
 
                       Row(
                         children: [
-                          Text("Coordenada X:",
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          Text("Coordenada X:", style: TextStyle(fontWeight: FontWeight.bold)),
                           SizedBox(
                             width: responsive.wp(2),
                           ),
@@ -454,8 +415,7 @@ class InformacionWidget extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Text("Coordenada Y:",
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          Text("Coordenada Y:", style: TextStyle(fontWeight: FontWeight.bold)),
                           SizedBox(
                             width: responsive.wp(2),
                           ),
@@ -493,14 +453,8 @@ class InformacionWidget extends StatelessWidget {
                       SizedBox(height: responsive.hp(2.5)),
                       Column(
                         children: [
-                          Text("Descripción:",
-                              style: TextStyle(
-                                  fontSize: responsive.ip(2),
-                                  fontWeight: FontWeight.bold)),
-                          Text(('${snapshot.data[0].subsidiaryDescription}') ==
-                                  "null"
-                              ? ''
-                              : '${snapshot.data[0].subsidiaryDescription}')
+                          Text("Descripción:", style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold)),
+                          Text(('${snapshot.data[0].subsidiaryDescription}') == "null" ? '' : '${snapshot.data[0].subsidiaryDescription}')
                         ],
                       ),
                     ],

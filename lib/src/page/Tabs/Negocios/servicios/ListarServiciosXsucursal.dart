@@ -7,15 +7,12 @@ import 'package:flutter/material.dart';
 
 class ListarServiciosXSucursalPage extends StatefulWidget {
   final String idSucursal;
-  const ListarServiciosXSucursalPage({Key key, @required this.idSucursal})
-      : super(key: key);
+  const ListarServiciosXSucursalPage({Key key, @required this.idSucursal}) : super(key: key);
   @override
-  _ListarServiciosXSucursalPageState createState() =>
-      _ListarServiciosXSucursalPageState();
+  _ListarServiciosXSucursalPageState createState() => _ListarServiciosXSucursalPageState();
 }
 
-class _ListarServiciosXSucursalPageState
-    extends State<ListarServiciosXSucursalPage> {
+class _ListarServiciosXSucursalPageState extends State<ListarServiciosXSucursalPage> {
   @override
   Widget build(BuildContext context) {
     //final id = ModalRoute.of(context).settings.arguments;
@@ -26,27 +23,26 @@ class _ListarServiciosXSucursalPageState
 
     return StreamBuilder(
       stream: listarServicios.serviciostream,
-      builder: (BuildContext context,
-          AsyncSnapshot<List<SubsidiaryServiceModel>> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<SubsidiaryServiceModel>> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.length > 0) {
             final servicios = snapshot.data;
             return GridView.builder(
                 padding: EdgeInsets.only(top: 10),
                 shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio:  0.73,
-                    mainAxisSpacing: 3),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.73, mainAxisSpacing: 3),
                 itemCount: servicios.length,
                 itemBuilder: (context, index) {
-                  return ServiciosWidget(
-                            serviceData:snapshot.data[index]);
+                  return ServiciosWidget(serviceData: snapshot.data[index]);
                 });
           } else {
-            return Center(child: Text("No tiene registrado ningún servicio", style: TextStyle(fontSize: responsive.ip(2)),));
+            return Center(
+                child: Text(
+              "No tiene registrado ningún servicio",
+              style: TextStyle(fontSize: responsive.ip(2)),
+            ));
           }
-        }else {
+        } else {
           return Center(
             child: CupertinoActivityIndicator(),
           );

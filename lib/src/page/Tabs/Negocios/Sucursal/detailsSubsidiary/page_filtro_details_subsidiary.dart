@@ -17,12 +17,10 @@ class FiltroPageProductosPorSubsidiary extends StatefulWidget {
   final String idSubsidiary;
 
   @override
-  _FiltroPageProductosPorSubsidiaryState createState() =>
-      _FiltroPageProductosPorSubsidiaryState();
+  _FiltroPageProductosPorSubsidiaryState createState() => _FiltroPageProductosPorSubsidiaryState();
 }
 
-class _FiltroPageProductosPorSubsidiaryState
-    extends State<FiltroPageProductosPorSubsidiary> {
+class _FiltroPageProductosPorSubsidiaryState extends State<FiltroPageProductosPorSubsidiary> {
   final bloc = FiltroProductosPorIdSubsidiaryBloc();
 
   final logger = Logger();
@@ -47,9 +45,7 @@ class _FiltroPageProductosPorSubsidiaryState
               padding: EdgeInsets.symmetric(
                 horizontal: responsive.wp(3),
               ),
-              child: ContenidoFilterProductosPorIdSubsidiary(
-                  iconPressed: widget.iconPressed,
-                  idSubsidiary: widget.idSubsidiary),
+              child: ContenidoFilterProductosPorIdSubsidiary(iconPressed: widget.iconPressed, idSubsidiary: widget.idSubsidiary),
             ),
           ),
         ],
@@ -72,8 +68,7 @@ class ContenidoFilterProductosPorIdSubsidiary extends StatefulWidget {
   _ContenidoFilterState createState() => _ContenidoFilterState();
 }
 
-class _ContenidoFilterState
-    extends State<ContenidoFilterProductosPorIdSubsidiary> {
+class _ContenidoFilterState extends State<ContenidoFilterProductosPorIdSubsidiary> {
   final bloc = FiltroProductosPorIdSubsidiaryBloc();
 
   @override
@@ -107,9 +102,7 @@ class _ContenidoFilterState
                           ),
                           child: Text(
                             'Marcas',
-                            style: TextStyle(
-                                fontSize: responsive.ip(2),
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                           ),
                         );
                       }
@@ -142,9 +135,7 @@ class _ContenidoFilterState
                           ),
                           child: Text(
                             'Modelos',
-                            style: TextStyle(
-                                fontSize: responsive.ip(2),
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                           ),
                         );
                       }
@@ -175,9 +166,7 @@ class _ContenidoFilterState
                           ),
                           child: Text(
                             'Tallas',
-                            style: TextStyle(
-                                fontSize: responsive.ip(2),
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                           ),
                         );
                       }
@@ -219,10 +208,7 @@ class _ContenidoFilterState
                   ),
                   child: Text(
                     'Filtrar',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: responsive.ip(2),
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.white, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                   ).ripple(
                     () {
                       bool pase = true;
@@ -245,11 +231,9 @@ class _ContenidoFilterState
                       }
 
                       if (pase) {
-                        productoBloc.listarProductosPorSucursalFiltrado(
-                            tashas, modeshos, marcash, widget.idSubsidiary);
+                        productoBloc.listarProductosPorSucursalFiltrado(tashas, modeshos, marcash, widget.idSubsidiary);
                       } else {
-                        productoBloc
-                            .listarProductosPorSucursal(widget.idSubsidiary);
+                        productoBloc.listarProductosPorSucursal(widget.idSubsidiary);
                       }
 
                       widget.iconPressed();
@@ -277,8 +261,7 @@ class FiltroProductosPorIdSubsidiaryBloc with ChangeNotifier {
   List<String> marcasFiltradas = [];
 
   void init(String idItemsubcategory) async {
-    final productos = await productoDatabase
-        .obtenerProductosPorIdSubsidiary(idItemsubcategory);
+    final productos = await productoDatabase.obtenerProductosPorIdSubsidiary(idItemsubcategory);
 
     final List<String> listTallitas = [];
     final List<String> listMarquitas = [];

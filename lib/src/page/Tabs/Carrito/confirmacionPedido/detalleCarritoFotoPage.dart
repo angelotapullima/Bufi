@@ -30,9 +30,7 @@ class DetalleCarritoFotoPage extends StatelessWidget {
                     placeholder: (context, url) => Container(
                       width: double.infinity,
                       height: double.infinity,
-                      child: Image(
-                          image: AssetImage('assets/loading.gif'),
-                          fit: BoxFit.fitWidth),
+                      child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.fitWidth),
                     ),
                     imageUrl: '$apiBaseURL/${carritoData.image}',
                     fit: BoxFit.cover,

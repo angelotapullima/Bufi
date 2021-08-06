@@ -14,8 +14,7 @@ class Validators {
   //   }
   // });
 
-  final validarPassword = StreamTransformer<String, String>.fromHandlers(
-      handleData: (password, sink) {
+  final validarPassword = StreamTransformer<String, String>.fromHandlers(handleData: (password, sink) {
     if (password.length >= 0) {
       sink.add(password);
     } else {
@@ -23,8 +22,7 @@ class Validators {
     }
   });
 
-  final validarname =
-      StreamTransformer<String, String>.fromHandlers(handleData: (name, sink) {
+  final validarname = StreamTransformer<String, String>.fromHandlers(handleData: (name, sink) {
     if (name.length >= 0) {
       sink.add(name);
     } else {
@@ -32,8 +30,7 @@ class Validators {
     }
   });
 
-  final validarsurname = StreamTransformer<String, String>.fromHandlers(
-      handleData: (surname, sink) {
+  final validarsurname = StreamTransformer<String, String>.fromHandlers(handleData: (surname, sink) {
     if (surname.length >= 0) {
       sink.add(surname);
     } else {
@@ -41,12 +38,8 @@ class Validators {
     }
   });
 
-  final validarcel =
-      StreamTransformer<String, String>.fromHandlers(handleData: (cel, sink) {
-    
-    
-
-    if (cel.length==9) {
+  final validarcel = StreamTransformer<String, String>.fromHandlers(handleData: (cel, sink) {
+    if (cel.length == 9) {
       sink.add(cel);
     } else {
       sink.addError('El celular debe tener 9 dígitos');
@@ -55,8 +48,7 @@ class Validators {
 
   //-----Update Negocio------------------
 
-  final validarRuc =
-      StreamTransformer<String, String>.fromHandlers(handleData: (ruc, sink) {
+  final validarRuc = StreamTransformer<String, String>.fromHandlers(handleData: (ruc, sink) {
     Pattern pattern = '^(\[[0-9]{11}\)';
     RegExp regExp = new RegExp(pattern);
 
@@ -65,8 +57,5 @@ class Validators {
     } else {
       sink.addError('Solo numeros');
     }
-  }
-  );
-
-  
+  });
 }

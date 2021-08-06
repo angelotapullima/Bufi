@@ -34,7 +34,6 @@ class BusquedaProductoWidget extends StatelessWidget {
             );
           },
         ));
-
       },
       child: Container(
         padding: EdgeInsets.symmetric(

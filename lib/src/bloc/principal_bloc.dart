@@ -13,7 +13,4 @@ class TabNavigationBloc {
   dispose() {
     selectTab?.close();
   }
-
-
-
 }

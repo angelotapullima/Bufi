@@ -132,9 +132,7 @@ class _TickectPedidoState extends State<TickectPedido> {
 
   takeScreenshotandShare() async {
     _imageFile = null;
-    screenshotController
-        .capture(delay: Duration(milliseconds: 10), pixelRatio: 2.0)
-        .then((Uint8List image) async {
+    screenshotController.capture(delay: Duration(milliseconds: 10), pixelRatio: 2.0).then((Uint8List image) async {
       setState(() {
         _imageFile = image;
       });
@@ -148,10 +146,7 @@ class _TickectPedidoState extends State<TickectPedido> {
       imgFile.writeAsBytes(pngBytes);
       imagePaths.add(imgFile.path);
       final RenderBox box = context.findRenderObject() as RenderBox;
-      await Share.shareFiles(imagePaths,
-          text: '',
-          subject: '',
-          sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+      await Share.shareFiles(imagePaths, text: '', subject: '', sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
       //await Share.shareFiles('Anupam', 'screenshot.png', pngBytes, 'image/png');
     }).catchError((onError) {
       print(onError);
@@ -160,12 +155,7 @@ class _TickectPedidoState extends State<TickectPedido> {
 }
 
 class VistaDatosPedido extends StatefulWidget {
-  const VistaDatosPedido(
-      {Key key,
-      @required this.pedidos,
-      @required this.fecha,
-      @required this.activarScrool})
-      : super(key: key);
+  const VistaDatosPedido({Key key, @required this.pedidos, @required this.fecha, @required this.activarScrool}) : super(key: key);
 
   final List<PedidosModel> pedidos;
   final String fecha;
@@ -185,9 +175,7 @@ class _VistaDatosPedidoState extends State<VistaDatosPedido> {
         bottom: responsive.hp(10),
       ),
       shrinkWrap: true,
-      physics: (!widget.activarScrool)
-          ? NeverScrollableScrollPhysics()
-          : BouncingScrollPhysics(),
+      physics: (!widget.activarScrool) ? NeverScrollableScrollPhysics() : BouncingScrollPhysics(),
       itemCount: widget.pedidos[0].detallePedido.length + 2,
       itemBuilder: (context, index2) {
         if (index2 == 0) {
@@ -210,10 +198,7 @@ class _VistaDatosPedidoState extends State<VistaDatosPedido> {
                 child: Text(
                   'Comprobante de Pago',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: responsive.ip(2.5),
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black, fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                 ),
               ),
               Padding(
@@ -224,17 +209,12 @@ class _VistaDatosPedidoState extends State<VistaDatosPedido> {
                 ),
                 child: Column(
                   children: <Widget>[
-                    ticketDetailsWidget('Fecha', '${widget.fecha}', 'Cliente',
-                        '${widget.pedidos[0].deliveryName} ', responsive),
+                    ticketDetailsWidget('Fecha', '${widget.fecha}', 'Cliente', '${widget.pedidos[0].deliveryName} ', responsive),
                     SizedBox(
                       height: responsive.hp(1.5),
                     ),
                     ticketDetailsWidget(
-                        'Dirección',
-                        '${widget.pedidos[0].deliveryAddress}',
-                        'Tipo de entrega',
-                        '${widget.pedidos[0].listCompanySubsidiary[0].companyDeliveryPropio}',
-                        responsive),
+                        'Dirección', '${widget.pedidos[0].deliveryAddress}', 'Tipo de entrega', '${widget.pedidos[0].listCompanySubsidiary[0].companyDeliveryPropio}', responsive),
                     SizedBox(
                       height: responsive.hp(1.15),
                     ),
@@ -265,9 +245,7 @@ class _VistaDatosPedidoState extends State<VistaDatosPedido> {
                         ),
                         Text(
                           '${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryName}',
-                          style: TextStyle(
-                              fontSize: responsive.ip(2),
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -277,8 +255,7 @@ class _VistaDatosPedidoState extends State<VistaDatosPedido> {
                         SizedBox(
                           width: responsive.wp(2),
                         ),
-                        Text(
-                            '${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryAddress}'),
+                        Text('${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryAddress}'),
                       ],
                     ),
                     Row(
@@ -287,20 +264,17 @@ class _VistaDatosPedidoState extends State<VistaDatosPedido> {
                         SizedBox(
                           width: responsive.wp(2),
                         ),
-                        Text(
-                            '${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryCellphone} - ${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryCellphone2}'),
+                        Text('${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryCellphone} - ${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryCellphone2}'),
                       ],
                     ),
-                    ('${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryEmail}' ==
-                            'null')
+                    ('${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryEmail}' == 'null')
                         ? Row(
                             children: [
                               Icon(Icons.email),
                               SizedBox(
                                 width: responsive.wp(2),
                               ),
-                              Text(
-                                  '${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryEmail}')
+                              Text('${widget.pedidos[0].listCompanySubsidiary[0].subsidiaryEmail}')
                             ],
                           )
                         : Container()
@@ -311,10 +285,7 @@ class _VistaDatosPedidoState extends State<VistaDatosPedido> {
               Center(
                 child: Text(
                   'Productos',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: responsive.ip(2.5),
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black, fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                 ),
               ),
               Divider(),
@@ -340,10 +311,7 @@ class _VistaDatosPedidoState extends State<VistaDatosPedido> {
                     Spacer(),
                     Text(
                       'S/ ${widget.pedidos[0].deliveryTotalOrden}',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: responsive.ip(1.8),
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.black, fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -356,10 +324,7 @@ class _VistaDatosPedidoState extends State<VistaDatosPedido> {
                     Spacer(),
                     Text(
                       'S/ ${widget.pedidos[0].deliveryPrice}',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: responsive.ip(1.8),
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.black, fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -369,18 +334,12 @@ class _VistaDatosPedidoState extends State<VistaDatosPedido> {
                   children: [
                     Text(
                       'Total',
-                      style: TextStyle(
-                          color: Colors.red,
-                          fontSize: responsive.ip(2),
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.red, fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                     ),
                     Spacer(),
                     Text(
                       'S/ ${widget.pedidos[0].deliveryTotalOrden}',
-                      style: TextStyle(
-                          color: Colors.red,
-                          fontSize: responsive.ip(2.5),
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.red, fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -402,12 +361,9 @@ class _VistaDatosPedidoState extends State<VistaDatosPedido> {
                   children: [
                     Text(
                         "${widget.pedidos[0].detallePedido[index].listProducto[0].productoName} ${widget.pedidos[0].detallePedido[index].listProducto[0].productoBrand} x ${widget.pedidos[0].detallePedido[index].cantidad}"),
-                    Text(
-                        "Modelo: ${widget.pedidos[0].detallePedido[index].listProducto[0].productoModel} "),
-                    Text(
-                        "Tamaño: ${widget.pedidos[0].detallePedido[index].listProducto[0].productoSize}"),
-                    Text(
-                        "Tipo: ${widget.pedidos[0].detallePedido[index].listProducto[0].productoType}"),
+                    Text("Modelo: ${widget.pedidos[0].detallePedido[index].listProducto[0].productoModel} "),
+                    Text("Tamaño: ${widget.pedidos[0].detallePedido[index].listProducto[0].productoSize}"),
+                    Text("Tipo: ${widget.pedidos[0].detallePedido[index].listProducto[0].productoType}"),
                     SizedBox(
                       height: responsive.hp(.5),
                     )
@@ -419,13 +375,9 @@ class _VistaDatosPedidoState extends State<VistaDatosPedido> {
               ),
               Text(
                 'S/. ' +
-                    (double.parse(
-                                '${widget.pedidos[0].detallePedido[index].cantidad}') *
-                            double.parse(
-                                '${widget.pedidos[0].detallePedido[index].listProducto[0].productoPrice}'))
+                    (double.parse('${widget.pedidos[0].detallePedido[index].cantidad}') * double.parse('${widget.pedidos[0].detallePedido[index].listProducto[0].productoPrice}'))
                         .toString(),
-                style: TextStyle(
-                    fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -434,8 +386,7 @@ class _VistaDatosPedidoState extends State<VistaDatosPedido> {
     );
   }
 
-  Widget ticketDetailsWidget(String cabecera1, String dato1, String cabecera2,
-      String dato2, Responsive responsive) {
+  Widget ticketDetailsWidget(String cabecera1, String dato1, String cabecera2, String dato2, Responsive responsive) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

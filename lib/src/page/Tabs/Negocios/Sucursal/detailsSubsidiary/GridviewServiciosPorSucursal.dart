@@ -6,16 +6,13 @@ import 'package:flutter/material.dart';
 
 class GridviewServiciosPorSucursal extends StatefulWidget {
   final String idSucursal;
-  const GridviewServiciosPorSucursal({Key key, @required this.idSucursal})
-      : super(key: key);
+  const GridviewServiciosPorSucursal({Key key, @required this.idSucursal}) : super(key: key);
 
   @override
-  _GridviewProductoPorSucursalState createState() =>
-      _GridviewProductoPorSucursalState();
+  _GridviewProductoPorSucursalState createState() => _GridviewProductoPorSucursalState();
 }
 
-class _GridviewProductoPorSucursalState
-    extends State<GridviewServiciosPorSucursal> {
+class _GridviewProductoPorSucursalState extends State<GridviewServiciosPorSucursal> {
   @override
   Widget build(BuildContext context) {
     final serviciosBloc = ProviderBloc.servi(context);
@@ -23,13 +20,11 @@ class _GridviewProductoPorSucursalState
 
     return StreamBuilder(
       stream: serviciosBloc.serviciostream,
-      builder: (BuildContext context,
-          AsyncSnapshot<List<SubsidiaryServiceModel>> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<SubsidiaryServiceModel>> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.length > 0) {
             return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, childAspectRatio: .7),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: .7),
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(

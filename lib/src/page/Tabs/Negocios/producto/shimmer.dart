@@ -16,18 +16,23 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: [
           ListTile(
-              title: const Text('Loading List'),
-              onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoadingListPage()),
-                  )),
+            title: const Text('Loading List'),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LoadingListPage(),
+              ),
+            ),
+          ),
           ListTile(
-              title: const Text('Slide To Unlock'),
-              onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SlideToUnlockPage()),
-                  ))
+            title: const Text('Slide To Unlock'),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SlideToUnlockPage(),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -118,9 +123,7 @@ class _LoadingListPageState extends State<LoadingListPage> {
                   },
                   child: Text(
                     _enabled ? 'Stop' : 'Play',
-                    style: Theme.of(context).textTheme.button.copyWith(
-                        fontSize: 18.0,
-                        color: _enabled ? Colors.redAccent : Colors.green),
+                    style: Theme.of(context).textTheme.button.copyWith(fontSize: 18.0, color: _enabled ? Colors.redAccent : Colors.green),
                   )),
 
               // FlatButton(
@@ -145,15 +148,7 @@ class _LoadingListPageState extends State<LoadingListPage> {
 }
 
 class SlideToUnlockPage extends StatelessWidget {
-  final List<String> days = <String>[
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday'
-  ];
+  final List<String> days = <String>['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   final List<String> months = <String>[
     'January',
     'February',

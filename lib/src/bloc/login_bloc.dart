@@ -14,20 +14,14 @@ class LoginBloc with Validators {
   final _passwordConfirmController = BehaviorSubject<String>();
 
   //Recuperar los datos del Stream
-  Stream<String> get emailStream =>
-      _emailController.stream.transform(validarname);
-  Stream<String> get codigoStream =>
-      _codigoController.stream.transform(validarcode);
-  Stream<String> get correoStream =>
-      _correoController.stream.transform(validarEmail);
-  Stream<String> get passwordStream =>
-      _passwordController.stream.transform(validarPassword);
+  Stream<String> get emailStream => _emailController.stream.transform(validarname);
+  Stream<String> get codigoStream => _codigoController.stream.transform(validarcode);
+  Stream<String> get correoStream => _correoController.stream.transform(validarEmail);
+  Stream<String> get passwordStream => _passwordController.stream.transform(validarPassword);
   Stream<bool> get cargando => _cargandoLoginController.stream;
 
 //Cambiar contraseña
-  Stream<String> get passwordConfirmStream => _passwordConfirmController.stream
-          .transform(StreamTransformer<String, String>.fromHandlers(
-              handleData: (password, sink) {
+  Stream<String> get passwordConfirmStream => _passwordConfirmController.stream.transform(StreamTransformer<String, String>.fromHandlers(handleData: (password, sink) {
         if (password == _passwordController.value) {
           sink.add(password);
         } else {
@@ -35,23 +29,18 @@ class LoginBloc with Validators {
         }
       }));
 
-  Stream<bool> get formValidStream =>
-      Rx.combineLatest2(emailStream, passwordStream, (e, p) => true);
-  Stream<bool> get formValidPassStream =>
-      Rx.combineLatest2(passwordStream, passwordConfirmStream, (p, c) => true);
+  Stream<bool> get formValidStream => Rx.combineLatest2(emailStream, passwordStream, (e, p) => true);
+  Stream<bool> get formValidPassStream => Rx.combineLatest2(passwordStream, passwordConfirmStream, (p, c) => true);
 
-  Stream<bool> get buttomValidCorreoStream =>
-      Rx.combineLatest2(correoStream, correoStream, (p, c) => true);
+  Stream<bool> get buttomValidCorreoStream => Rx.combineLatest2(correoStream, correoStream, (p, c) => true);
 
-  Stream<bool> get buttomValidCodigoStream =>
-      Rx.combineLatest2(codigoStream, codigoStream, (p, c) => true);
+  Stream<bool> get buttomValidCodigoStream => Rx.combineLatest2(codigoStream, codigoStream, (p, c) => true);
 
   //inserta valores al Stream
   Function(String) get changeEmail => _emailController.sink.add;
   Function(String) get changePassword => _passwordController.sink.add;
   Function(bool) get changeCargando => _cargandoLoginController.sink.add;
-  Function(String) get changePasswordConfirm =>
-      _passwordConfirmController.sink.add;
+  Function(String) get changePasswordConfirm => _passwordConfirmController.sink.add;
   Function(String) get changeCorreo => _correoController.sink.add;
   Function(String) get changeCodigo => _codigoController.sink.add;
 
@@ -115,10 +104,8 @@ class LoginBloc with Validators {
 }
 
 class Validators {
-  final validarEmail =
-      StreamTransformer<String, String>.fromHandlers(handleData: (email, sink) {
-    Pattern pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  final validarEmail = StreamTransformer<String, String>.fromHandlers(handleData: (email, sink) {
+    Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regExp = new RegExp(pattern);
 
     if (regExp.hasMatch(email)) {
@@ -128,8 +115,7 @@ class Validators {
     }
   });
 
-  final validarPassword = StreamTransformer<String, String>.fromHandlers(
-      handleData: (password, sink) {
+  final validarPassword = StreamTransformer<String, String>.fromHandlers(handleData: (password, sink) {
     if (password.length >= 0) {
       sink.add(password);
     } else {
@@ -137,8 +123,7 @@ class Validators {
     }
   });
 
-  final validarname =
-      StreamTransformer<String, String>.fromHandlers(handleData: (name, sink) {
+  final validarname = StreamTransformer<String, String>.fromHandlers(handleData: (name, sink) {
     if (name.length >= 0) {
       sink.add(name);
     } else {
@@ -146,8 +131,7 @@ class Validators {
     }
   });
 
-  final validarsurname = StreamTransformer<String, String>.fromHandlers(
-      handleData: (surname, sink) {
+  final validarsurname = StreamTransformer<String, String>.fromHandlers(handleData: (surname, sink) {
     if (surname.length >= 0) {
       sink.add(surname);
     } else {
@@ -155,8 +139,7 @@ class Validators {
     }
   });
 
-  final validarcode =
-      StreamTransformer<String, String>.fromHandlers(handleData: (code, sink) {
+  final validarcode = StreamTransformer<String, String>.fromHandlers(handleData: (code, sink) {
     if (code.length >= 6) {
       sink.add(code);
     } else {
@@ -164,8 +147,7 @@ class Validators {
     }
   });
 
-  final validarcel =
-      StreamTransformer<String, String>.fromHandlers(handleData: (cel, sink) {
+  final validarcel = StreamTransformer<String, String>.fromHandlers(handleData: (cel, sink) {
     Pattern pattern = '^(\[[0-9]{9}\)';
     RegExp regExp = new RegExp(pattern);
 

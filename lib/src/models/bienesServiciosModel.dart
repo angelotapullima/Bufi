@@ -69,8 +69,7 @@ class BienesServiciosModel {
 
   String tipo;
 
-  factory BienesServiciosModel.fromJson(Map<String, dynamic> json) =>
-      BienesServiciosModel(
+  factory BienesServiciosModel.fromJson(Map<String, dynamic> json) => BienesServiciosModel(
         idSubsidiarygood: json["id_subsidiarygood"],
         idSubsidiary: json["id_subsidiary"],
         idGood: json["id_good"],

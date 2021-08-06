@@ -71,8 +71,7 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                               expandFlag = false;
                             });
                             if (value.length >= 0 && value != ' ') {
-                              busquedaBloc.obtenerBusquedaProducto(
-                                  context, '$value');
+                              busquedaBloc.obtenerBusquedaProducto(context, '$value');
                               agregarHistorial(context, value, 'pro');
                             }
                           },
@@ -86,15 +85,12 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                       IconButton(
                           icon: Icon(Icons.search),
                           onPressed: () {
-                            if (_controllerBusquedaProducto.text.length >= 0 &&
-                                _controllerBusquedaProducto.text != ' ') {
+                            if (_controllerBusquedaProducto.text.length >= 0 && _controllerBusquedaProducto.text != ' ') {
                               setState(() {
                                 expandFlag = false;
                               });
-                              busquedaBloc.obtenerBusquedaNegocio(context,
-                                  '${_controllerBusquedaProducto.text}');
-                              agregarHistorial(context,
-                                  _controllerBusquedaProducto.text, 'pro');
+                              busquedaBloc.obtenerBusquedaNegocio(context, '${_controllerBusquedaProducto.text}');
+                              agregarHistorial(context, _controllerBusquedaProducto.text, 'pro');
                             } else {
                               setState(() {
                                 expandFlag = true;
@@ -127,8 +123,7 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                 expandedHeight: 10,
                 child: StreamBuilder(
                     stream: searchBloc.historyStream,
-                    builder: (context,
-                        AsyncSnapshot<List<HistorialModel>> snapshot) {
+                    builder: (context, AsyncSnapshot<List<HistorialModel>> snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data.length > 0) {
                           return Container(
@@ -140,23 +135,13 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                                 itemBuilder: (BuildContext context, int i) {
                                   return GestureDetector(
                                     onTap: () {
-                                      _controllerBusquedaProducto.text =
-                                          snapshot.data[i].historial;
-                                      if (_controllerBusquedaProducto
-                                                  .text.length >=
-                                              0 &&
-                                          _controllerBusquedaProducto.text !=
-                                              ' ') {
+                                      _controllerBusquedaProducto.text = snapshot.data[i].historial;
+                                      if (_controllerBusquedaProducto.text.length >= 0 && _controllerBusquedaProducto.text != ' ') {
                                         setState(() {
                                           expandFlag = false;
                                         });
-                                        busquedaBloc.obtenerBusquedaNegocio(
-                                            context,
-                                            '${_controllerBusquedaProducto.text}');
-                                        agregarHistorial(
-                                            context,
-                                            _controllerBusquedaProducto.text,
-                                            'pro');
+                                        busquedaBloc.obtenerBusquedaNegocio(context, '${_controllerBusquedaProducto.text}');
+                                        agregarHistorial(context, _controllerBusquedaProducto.text, 'pro');
                                       } else {
                                         setState(() {
                                           expandFlag = true;
@@ -167,17 +152,12 @@ class _BusquedaTodosProductosState extends State<BusquedaTodosProductos> {
                                       margin: EdgeInsets.all(responsive.ip(1)),
                                       child: Row(
                                         children: [
-                                          Text('${snapshot.data[i].historial}',
-                                              style: TextStyle(
-                                                  fontSize: responsive.ip(2))),
+                                          Text('${snapshot.data[i].historial}', style: TextStyle(fontSize: responsive.ip(2))),
                                           Spacer(),
                                           IconButton(
                                               icon: Icon(Icons.close),
                                               onPressed: () {
-                                                eliminarHistorial(
-                                                    context,
-                                                    snapshot.data[i].historial,
-                                                    'pro');
+                                                eliminarHistorial(context, snapshot.data[i].historial, 'pro');
                                               }),
                                         ],
                                       ),

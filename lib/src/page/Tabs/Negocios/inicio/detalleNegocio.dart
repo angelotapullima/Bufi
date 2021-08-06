@@ -20,8 +20,7 @@ class DetalleNegocio extends StatefulWidget {
   _DetalleNegocioState createState() => _DetalleNegocioState();
 }
 
-class _DetalleNegocioState extends State<DetalleNegocio>
-    with SingleTickerProviderStateMixin {
+class _DetalleNegocioState extends State<DetalleNegocio> with SingleTickerProviderStateMixin {
   ScrollController controller = ScrollController();
 
   @override
@@ -35,8 +34,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
       body: Container(
         child: StreamBuilder(
           stream: detallenegocio.detalleNegStream,
-          builder: (BuildContext context,
-              AsyncSnapshot<List<CompanySubsidiaryModel>> snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<List<CompanySubsidiaryModel>> snapshot) {
             List<CompanySubsidiaryModel> negocio = snapshot.data;
             if (snapshot.hasData) {
               return
@@ -85,8 +83,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                         width: responsive.wp(30),
                         child: RatingBar.readOnly(
                           size: 20,
-                          initialRating:
-                              double.parse('${company.companyStatus}'),
+                          initialRating: double.parse('${company.companyStatus}'),
                           isHalfAllowed: true,
                           halfFilledIcon: Icons.star_half,
                           filledIcon: Icons.star,
@@ -111,10 +108,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                     ),
                     Text(
                       "Información",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: responsive.ip(2.7),
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.black, fontSize: responsive.ip(2.7), fontWeight: FontWeight.bold),
                     ),
                     Divider(color: Colors.grey),
                     SizedBox(height: responsive.hp(2.5)),
@@ -125,23 +119,17 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                           children: [
                             Text(
                               "Delivery:",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               width: responsive.wp(1),
                             ),
                             ('${company.companyDelivery}') == "1"
                                 ? ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(22)),
-                                    child: Container(
-                                        color: Colors.red,
-                                        child: Icon(Icons.check,
-                                            color: Colors.white, size: 22)),
+                                    borderRadius: BorderRadius.all(Radius.circular(22)),
+                                    child: Container(color: Colors.red, child: Icon(Icons.check, color: Colors.white, size: 22)),
                                   )
-                                : Icon(Icons.error,
-                                    color: Colors.black, size: 26),
+                                : Icon(Icons.error, color: Colors.black, size: 26),
                             // Text(
                             //   ('${company.companyDelivery}') == "0"
                             //       ? "No"
@@ -155,9 +143,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                         SizedBox(width: responsive.wp(4)),
                         Row(
                           children: [
-                            Text("Entrega:",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                            Text("Entrega:", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                             // Icon(
                             //   FontAwesomeIcons.clock,
                             //   color: Colors.red,
@@ -166,15 +152,10 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                             SizedBox(width: responsive.wp(1)),
                             ('${company.companyEntrega}') == "1"
                                 ? ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(22)),
-                                    child: Container(
-                                        color: Colors.red,
-                                        child: Icon(Icons.check,
-                                            color: Colors.white, size: 22)),
+                                    borderRadius: BorderRadius.all(Radius.circular(22)),
+                                    child: Container(color: Colors.red, child: Icon(Icons.check, color: Colors.white, size: 22)),
                                   )
-                                : Icon(Icons.error,
-                                    color: Colors.black, size: 26),
+                                : Icon(Icons.error, color: Colors.black, size: 26),
                             // Text(
                             //   ('${company.companyEntrega}') == "0"
                             //       ? "No"
@@ -188,9 +169,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                         SizedBox(width: responsive.wp(4)),
                         Row(
                           children: [
-                            Text("Tarjeta:",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                            Text("Tarjeta:", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                             // Icon(FontAwesomeIcons.phoneAlt,
                             //     color: Colors.red[700], size: 22),
                             SizedBox(
@@ -198,15 +177,10 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                             ),
                             ('${company.companyTarjeta}') == "1"
                                 ? ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(22)),
-                                    child: Container(
-                                        color: Colors.red,
-                                        child: Icon(Icons.check,
-                                            color: Colors.white, size: 22)),
+                                    borderRadius: BorderRadius.all(Radius.circular(22)),
+                                    child: Container(color: Colors.red, child: Icon(Icons.check, color: Colors.white, size: 22)),
                                   )
-                                : Icon(Icons.error,
-                                    color: Colors.black, size: 26),
+                                : Icon(Icons.error, color: Colors.black, size: 26),
                             // Text(
                             //   ('${company.companyTarjeta}') == "0"
                             //       ? "No"
@@ -278,18 +252,14 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                     SizedBox(height: responsive.hp(5)),
                     Column(
                       children: [
-                        Text("Descripción:",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(('${company.subsidiaryDescription}') == "null"
-                            ? ''
-                            : '${company.subsidiaryDescription}')
+                        Text("Descripción:", style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(('${company.subsidiaryDescription}') == "null" ? '' : '${company.subsidiaryDescription}')
                       ],
                     ),
                     SizedBox(height: responsive.hp(3)),
                     Row(
                       children: [
-                        Text("Codigo Corto:",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text("Codigo Corto:", style: TextStyle(fontWeight: FontWeight.bold)),
                         SizedBox(
                           width: responsive.wp(2),
                         ),
@@ -306,8 +276,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                     ),
                     Row(
                       children: [
-                        Text("Fecha de fundación:",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text("Fecha de fundación:", style: TextStyle(fontWeight: FontWeight.bold)),
                         SizedBox(
                           width: responsive.wp(2),
                         ),
@@ -406,10 +375,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
         children: [
           Text(
             "Nuestras sucursales",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: responsive.ip(2.7),
-                fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black, fontSize: responsive.ip(2.7), fontWeight: FontWeight.bold),
           ),
           Divider(color: Colors.grey),
           Container(
@@ -422,8 +388,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
             height: responsive.hp(25),
             child: StreamBuilder(
                 stream: sucursalNegocio.sucursalStream,
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<SubsidiaryModel>> snapshot) {
+                builder: (BuildContext context, AsyncSnapshot<List<SubsidiaryModel>> snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data.length > 0) {
                       List<SubsidiaryModel> sedes = snapshot.data;
@@ -433,29 +398,24 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
                             onTap: () {
-                              final provider =
-                                  Provider.of<DetailSubsidiaryBloc>(context,
-                                      listen: false);
+                              final provider = Provider.of<DetailSubsidiaryBloc>(context, listen: false);
 
                               provider.changeToInformation();
 
                               Navigator.of(context).push(PageRouteBuilder(
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) {
+                                pageBuilder: (context, animation, secondaryAnimation) {
                                   return DetalleSubsidiary(
                                     idSucursal: sedes[index].idSubsidiary,
                                     nombreSucursal: sedes[index].subsidiaryName,
                                     imgSucursal: sedes[index].subsidiaryImg,
                                   );
                                 },
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                   var begin = Offset(0.0, 1.0);
                                   var end = Offset.zero;
                                   var curve = Curves.ease;
 
-                                  var tween =
-                                      Tween(begin: begin, end: end).chain(
+                                  var tween = Tween(begin: begin, end: end).chain(
                                     CurveTween(curve: curve),
                                   );
 
@@ -479,13 +439,9 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                                     placeholder: (context, url) => Container(
                                       width: double.infinity,
                                       height: double.infinity,
-                                      child: Image(
-                                          image: AssetImage(
-                                              'assets/jar-loading.gif'),
-                                          fit: BoxFit.cover),
+                                      child: Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                                     ),
-                                    errorWidget: (context, url, error) =>
-                                        Container(
+                                    errorWidget: (context, url, error) => Container(
                                       width: double.infinity,
                                       height: double.infinity,
                                       child: Center(
@@ -493,10 +449,8 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                                       ),
                                     ),
                                     //imageUrl: '$apiBaseURL/${companyModel.companyImage}',
-                                    imageUrl:
-                                        '$apiBaseURL/${sedes[index].subsidiaryImg}',
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
+                                    imageUrl: '$apiBaseURL/${sedes[index].subsidiaryImg}',
+                                    imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                           image: imageProvider,
@@ -539,27 +493,22 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                                 Positioned(
                                   top: 5,
                                   right: 5,
-                                  child:
-                                      (sedes[index].subsidiaryFavourite == "0")
-                                          ? IconButton(
-                                              icon: Icon(FontAwesomeIcons.heart,
-                                                  color: Colors.red),
-                                              onPressed: () {
-                                                setState(() {
-                                                  guardarSubsidiaryFavorito(
-                                                      context, sedes[index]);
-                                                });
-                                              },
-                                            )
-                                          : IconButton(
-                                              icon: Icon(
-                                                  FontAwesomeIcons.solidHeart,
-                                                  color: Colors.red),
-                                              onPressed: () {
-                                                // quitarSubsidiaryFavorito(
-                                                //     context, sedes[index]);
-                                              },
-                                            ),
+                                  child: (sedes[index].subsidiaryFavourite == "0")
+                                      ? IconButton(
+                                          icon: Icon(FontAwesomeIcons.heart, color: Colors.red),
+                                          onPressed: () {
+                                            setState(() {
+                                              guardarSubsidiaryFavorito(context, sedes[index]);
+                                            });
+                                          },
+                                        )
+                                      : IconButton(
+                                          icon: Icon(FontAwesomeIcons.solidHeart, color: Colors.red),
+                                          onPressed: () {
+                                            // quitarSubsidiaryFavorito(
+                                            //     context, sedes[index]);
+                                          },
+                                        ),
                                 )
                               ]),
                             ),
@@ -569,8 +518,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                         },
                       );
                     } else {
-                      return Center(
-                          child: Text("Aun no se registran sucursales"));
+                      return Center(child: Text("Aun no se registran sucursales"));
                     }
                   } else {
                     return Center(
@@ -584,8 +532,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
     );
   }
 
-  Widget _crearAppbar(
-      Responsive responsive, CompanySubsidiaryModel companyModel) {
+  Widget _crearAppbar(Responsive responsive, CompanySubsidiaryModel companyModel) {
     return SliverAppBar(
       elevation: 2.0,
       backgroundColor: Colors.white,
@@ -623,22 +570,14 @@ class _DetalleNegocioState extends State<DetalleNegocio>
           height: responsive.hp(4),
           child: Text(
             '${companyModel.companyName}',
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: responsive.ip(3),
-                fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black, fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
           ),
         ),
         background: Stack(
           children: [
-            Container(
-                height: double.infinity,
-                width: double.infinity,
-                color: Colors.white),
+            Container(height: double.infinity, width: double.infinity, color: Colors.white),
             ClipRRect(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(25),
-                  bottomRight: Radius.circular(25)),
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25), bottomRight: Radius.circular(25)),
               child: Stack(
                 children: [
                   CachedNetworkImage(
@@ -646,9 +585,7 @@ class _DetalleNegocioState extends State<DetalleNegocio>
                     placeholder: (context, url) => Container(
                       width: double.infinity,
                       height: double.infinity,
-                      child: Image(
-                          image: AssetImage('assets/jar-loading.gif'),
-                          fit: BoxFit.cover),
+                      child: Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                     ),
                     errorWidget: (context, url, error) => Container(
                       width: double.infinity,

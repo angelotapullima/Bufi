@@ -1,6 +1,3 @@
-
-
-
 import 'package:rxdart/rxdart.dart';
 
 class BusquedaGeneralTab {
@@ -16,7 +13,4 @@ class BusquedaGeneralTab {
   dispose() {
     selectTab?.close();
   }
-
-
-
 }

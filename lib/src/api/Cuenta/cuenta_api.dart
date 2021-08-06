@@ -12,12 +12,10 @@ import 'package:http/http.dart' as http;
 class CuentaApi {
   final cuentaDatabase = CuentaDatabase();
   final prefs = Preferences();
- 
+
   Future<int> obtenerSaldo() async {
     try {
-      var response = await http.post(
-          Uri.parse("$apiBaseURL/api/Cuenta/obtener_saldo_actual"),
-          body: {'tn': prefs.token, 'app': 'true', 'id_usuario': prefs.idUser});
+      var response = await http.post(Uri.parse("$apiBaseURL/api/Cuenta/obtener_saldo_actual"), body: {'tn': prefs.token, 'app': 'true', 'id_usuario': prefs.idUser});
 
       final decodedData = json.decode(response.body);
 
@@ -44,9 +42,7 @@ class CuentaApi {
   Future<List<RecargaModel>> obtenerRecargaPendiente() async {
     final List<RecargaModel> listGeneral = [];
 
-    var response = await http.post(
-        Uri.parse("$apiBaseURL/api/Cuenta/listar_recarga_pendiente"),
-        body: {'tn': prefs.token, 'app': 'true'});
+    var response = await http.post(Uri.parse("$apiBaseURL/api/Cuenta/listar_recarga_pendiente"), body: {'tn': prefs.token, 'app': 'true'});
 
     final decodedData = json.decode(response.body);
 
@@ -66,14 +62,12 @@ class CuentaApi {
   Future<List<RecargaModel>> recargarCuenta(String monto, String tipo) async {
     final List<RecargaModel> listGeneral = [];
 
-    var response = await http.post(
-        Uri.parse("$apiBaseURL/api/Cuenta/save_recargar_mi_cuenta"),
-        body: {
-          'tn': prefs.token,
-          'app': 'true',
-          'monto': monto,
-          'tipo': tipo,
-        });
+    var response = await http.post(Uri.parse("$apiBaseURL/api/Cuenta/save_recargar_mi_cuenta"), body: {
+      'tn': prefs.token,
+      'app': 'true',
+      'monto': monto,
+      'tipo': tipo,
+    });
 
     final decodedData = json.decode(response.body);
 
@@ -110,8 +104,7 @@ class CuentaApi {
     request.fields["app"] = 'true';
 
     // multipart that takes file.. here this "image_file" is a key of the API request
-    var multipartFile = new http.MultipartFile('voucher', stream, length,
-        filename: basename(_image.path));
+    var multipartFile = new http.MultipartFile('voucher', stream, length, filename: basename(_image.path));
 
     // add file to multipart
     request.files.add(multipartFile);

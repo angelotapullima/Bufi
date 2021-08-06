@@ -29,8 +29,7 @@ class AgentesPage extends StatelessWidget {
       ),
       body: StreamBuilder(
         stream: agenteBloc.agenteStream,
-        builder:
-            (BuildContext context, AsyncSnapshot<List<AgenteModel>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<AgenteModel>> snapshot) {
           List<AgenteModel> agente = snapshot.data;
           if (snapshot.hasData) {
             if (snapshot.data.length > 0) {
@@ -106,10 +105,7 @@ class _MapaNegociosState extends State<MapaAgentes> {
 
       final markerInicio = new Marker(
         onTap: () {
-          _pageController.animateToPage(
-              int.parse('${widget.agentes[i].posicion}') - 1,
-              duration: Duration(milliseconds: 500),
-              curve: Curves.decelerate);
+          _pageController.animateToPage(int.parse('${widget.agentes[i].posicion}') - 1, duration: Duration(milliseconds: 500), curve: Curves.decelerate);
 
           AgentesResult ne = AgentesResult();
 
@@ -218,23 +214,17 @@ class _MapaNegociosState extends State<MapaAgentes> {
                                       placeholder: (context, url) => Container(
                                         width: double.infinity,
                                         height: double.infinity,
-                                        child: Image(
-                                            image: AssetImage(
-                                                'assets/img/loading.gif'),
-                                            fit: BoxFit.cover),
+                                        child: Image(image: AssetImage('assets/img/loading.gif'), fit: BoxFit.cover),
                                       ),
-                                      errorWidget: (context, url, error) =>
-                                          Container(
+                                      errorWidget: (context, url, error) => Container(
                                         width: double.infinity,
                                         height: double.infinity,
                                         child: Center(
                                           child: Icon(Icons.error),
                                         ),
                                       ),
-                                      imageUrl:
-                                          '$apiBaseURL/${widget.agentes[index].agenteImagen}',
-                                      imageBuilder: (context, imageProvider) =>
-                                          Container(
+                                      imageUrl: '$apiBaseURL/${widget.agentes[index].agenteImagen}',
+                                      imageBuilder: (context, imageProvider) => Container(
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
                                             image: imageProvider,

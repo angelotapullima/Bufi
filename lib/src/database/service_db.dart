@@ -7,8 +7,7 @@ class ServiceDatabase {
   insertarService(ServiciosModel serviciosModel) async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO Service (id_service,service_name,service_synonyms) "
+      final res = await db.rawInsert("INSERT OR REPLACE INTO Service (id_service,service_name,service_synonyms) "
           "VALUES('${serviciosModel.idService}', '${serviciosModel.serviceName}', '${serviciosModel.serviceSynonyms}')");
 
       return res;
@@ -22,9 +21,7 @@ class ServiceDatabase {
       final db = await dbProvider.database;
       final res = await db.rawQuery("SELECT * FROM Service");
 
-      List<ServiciosModel> list = res.isNotEmpty
-          ? res.map((c) => ServiciosModel.fromJson(c)).toList()
-          : [];
+      List<ServiciosModel> list = res.isNotEmpty ? res.map((c) => ServiciosModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");
@@ -32,16 +29,12 @@ class ServiceDatabase {
     }
   }
 
-  Future<List<ServiciosModel>> obtenerServicePorIdService(
-      String idService) async {
+  Future<List<ServiciosModel>> obtenerServicePorIdService(String idService) async {
     try {
       final db = await dbProvider.database;
-      final res = await db
-          .rawQuery("SELECT * FROM Service where id_service= '$idService'");
+      final res = await db.rawQuery("SELECT * FROM Service where id_service= '$idService'");
 
-      List<ServiciosModel> list = res.isNotEmpty
-          ? res.map((c) => ServiciosModel.fromJson(c)).toList()
-          : [];
+      List<ServiciosModel> list = res.isNotEmpty ? res.map((c) => ServiciosModel.fromJson(c)).toList() : [];
       return list;
     } catch (e) {
       print(" $e Error en la base de datossss");

@@ -15,8 +15,7 @@ import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 
 class DetalleProductoFoto extends StatefulWidget {
-  const DetalleProductoFoto({Key key, @required this.productosData})
-      : super(key: key);
+  const DetalleProductoFoto({Key key, @required this.productosData}) : super(key: key);
 
   final ProductoModel productosData;
 
@@ -39,8 +38,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
     final contadorBloc = ProviderBloc.contadorPagina(context);
     contadorBloc.changeContadorfoto(contadorBloc.pageContador);
     //controlador del PageView
-    final _pageController = PageController(
-        viewportFraction: 1, initialPage: contadorBloc.pageContador);
+    final _pageController = PageController(viewportFraction: 1, initialPage: contadorBloc.pageContador);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -51,8 +49,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
             child: Container(
                 //radius: responsive.ip(2.5),
                 color: Colors.transparent,
-                child: Icon(
-                    Icons.share) //Icon(Icons.arrow_back, color: Colors.black),
+                child: Icon(Icons.share) //Icon(Icons.arrow_back, color: Colors.black),
                 ),
             onTap: () async {
               await takeScreenshotandShare(widget.productosData.idProducto);
@@ -79,8 +76,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
                   child: Stack(
                     children: <Widget>[
                       Center(
-                        child: photoViewGallery(widget.productosData,
-                            _pageController, contadorBloc, responsive),
+                        child: photoViewGallery(widget.productosData, _pageController, contadorBloc, responsive),
                       ),
 
                       //Container(color: Colors.red),
@@ -103,10 +99,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
                                   Expanded(
                                     child: Text(
                                       '${widget.productosData.productoName}',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: responsive.ip(3),
-                                          fontWeight: FontWeight.bold),
+                                      style: TextStyle(color: Colors.white, fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   SizedBox(
@@ -114,10 +107,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
                                   ),
                                   Text(
                                     'S/. ${widget.productosData.productoPrice}',
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: responsive.ip(3),
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(color: Colors.red, fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -161,10 +151,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
                     },
                     child: Container(
                       width: double.infinity,
-                      child: Hero(
-                          tag: '${widget.productosData.idProducto}',
-                          child: photoViewGallery(widget.productosData,
-                              _pageController, contadorBloc, responsive)),
+                      child: Hero(tag: '${widget.productosData.idProducto}', child: photoViewGallery(widget.productosData, _pageController, contadorBloc, responsive)),
                     ),
                   ),
                 ),
@@ -191,10 +178,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
                             vertical: responsive.hp(1.3),
                           ),
                           child: Text(
-                            (contadorBloc.pageContadorFoto + 1).toString() +
-                                '/' +
-                                widget.productosData.listFotos.length
-                                    .toString(),
+                            (contadorBloc.pageContadorFoto + 1).toString() + '/' + widget.productosData.listFotos.length.toString(),
                             // style: TextStyle(fontWeight: FontWeight.bold
                             // ),
                           ),
@@ -219,10 +203,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
                                   Expanded(
                                     child: Text(
                                       '${widget.productosData.productoName}',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: responsive.ip(3),
-                                          fontWeight: FontWeight.bold),
+                                      style: TextStyle(color: Colors.white, fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   SizedBox(
@@ -230,10 +211,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
                                   ),
                                   Text(
                                     'S/. ${widget.productosData.productoPrice}',
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: responsive.ip(3),
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(color: Colors.red, fontSize: responsive.ip(3), fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -269,11 +247,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
     );
   }
 
-  Widget photoViewGallery(
-      ProductoModel productosData,
-      PageController _pageController,
-      ContadorPaginaProductosBloc contadorBloc,
-      Responsive responsive) {
+  Widget photoViewGallery(ProductoModel productosData, PageController _pageController, ContadorPaginaProductosBloc contadorBloc, Responsive responsive) {
     return Container(
       child: PhotoViewGallery.builder(
         scrollPhysics: BouncingScrollPhysics(),
@@ -295,9 +269,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
             width: responsive.wp(40),
             height: responsive.hp(60),
             child: CircularProgressIndicator(
-              value: event == null
-                  ? 0
-                  : event.cumulativeBytesLoaded / event.expectedTotalBytes,
+              value: event == null ? 0 : event.cumulativeBytesLoaded / event.expectedTotalBytes,
             ),
           ),
         ),
@@ -315,9 +287,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
     var now = DateTime.now();
     nombre = now.microsecond.toString();
     _imageFile = null;
-    screenshotController
-        .capture(delay: Duration(milliseconds: 10), pixelRatio: 2.0)
-        .then((Uint8List image) async {
+    screenshotController.capture(delay: Duration(milliseconds: 10), pixelRatio: 2.0).then((Uint8List image) async {
       setState(() {
         _imageFile = image;
       });
@@ -333,10 +303,7 @@ class _DetalleProductoFotoState extends State<DetalleProductoFoto> {
 
       imagePaths.add(imgFile.path);
       final RenderBox box = context.findRenderObject() as RenderBox;
-      await Share.shareFiles(imagePaths,
-          text: '',
-          subject: '',
-          sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+      await Share.shareFiles(imagePaths, text: '', subject: '', sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
     }).catchError((onError) {
       print(onError);
     });

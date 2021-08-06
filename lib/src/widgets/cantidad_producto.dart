@@ -77,13 +77,7 @@ class _CantidadCarritoState extends State<CantidadCarrito> {
               child: GestureDetector(
                 onTap: () {
                   _decrease();
-                  utils.agregarAlCarritoContador(
-                      context,
-                      widget.idSudsidiaryGood,
-                      widget.tallaProducto,
-                      widget.modeloProducto,
-                      widget.marcaProducto,
-                      _counter);
+                  utils.agregarAlCarritoContador(context, widget.idSudsidiaryGood, widget.tallaProducto, widget.modeloProducto, widget.marcaProducto, _counter);
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -127,13 +121,7 @@ class _CantidadCarritoState extends State<CantidadCarrito> {
               child: GestureDetector(
                 onTap: () {
                   _increase();
-                  utils.agregarAlCarritoContador(
-                      context,
-                      widget.idSudsidiaryGood,
-                      widget.tallaProducto,
-                      widget.modeloProducto,
-                      widget.marcaProducto,
-                      _counter);
+                  utils.agregarAlCarritoContador(context, widget.idSudsidiaryGood, widget.tallaProducto, widget.modeloProducto, widget.marcaProducto, _counter);
 
                   //utils.agregarAlCarrito(context, _counter.toString());
                 },
@@ -242,16 +230,9 @@ class _CantidadCarritoItemState extends State<CantidadCarritoItem> {
                 onTap: () {
                   if (_counter > 1) {
                     _decrease();
-                    utils.agregarAlCarritoContador(
-                        context,
-                        widget.idSudsidiaryGood,
-                        widget.tallaProducto,
-                        widget.modeloProducto,
-                        widget.marcaProducto,
-                        _counter);
+                    utils.agregarAlCarritoContador(context, widget.idSudsidiaryGood, widget.tallaProducto, widget.modeloProducto, widget.marcaProducto, _counter);
                   } else {
-                    showToast(context,
-                        'Debe existir al menos un producto para continuar');
+                    showToast(context, 'Debe existir al menos un producto para continuar');
                   }
                 },
                 child: Container(
@@ -297,13 +278,7 @@ class _CantidadCarritoItemState extends State<CantidadCarritoItem> {
               child: GestureDetector(
                 onTap: () {
                   _increase();
-                  utils.agregarAlCarritoContador(
-                      context,
-                      widget.idSudsidiaryGood,
-                      widget.tallaProducto,
-                      widget.modeloProducto,
-                      widget.marcaProducto,
-                      _counter);
+                  utils.agregarAlCarritoContador(context, widget.idSudsidiaryGood, widget.tallaProducto, widget.modeloProducto, widget.marcaProducto, _counter);
 
                   //utils.agregarAlCarrito(context, _counter.toString());
                 },

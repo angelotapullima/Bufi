@@ -11,14 +11,12 @@ class BusquedaXSucursalBloc {
   final productoDb = ProductoDatabase();
   final subisdiaryServiceDb = SubsidiaryServiceDatabase();
 
-  final busquedaXSucursalController =
-      BehaviorSubject<List<BusquedaPorSucursalModel>>();
+  final busquedaXSucursalController = BehaviorSubject<List<BusquedaPorSucursalModel>>();
 
   // final busquedaServicioXSucursalController =
   //     BehaviorSubject<List<BusquedaServicioPorSucursalModel>>();
 
-  Stream<List<BusquedaPorSucursalModel>> get busquedaXSucursalStream =>
-      busquedaXSucursalController.stream;
+  Stream<List<BusquedaPorSucursalModel>> get busquedaXSucursalStream => busquedaXSucursalController.stream;
 
   // Stream<List<BusquedaServicioPorSucursalModel>>
   //     get busquedaServXSucursalStream =>
@@ -29,27 +27,22 @@ class BusquedaXSucursalBloc {
     //busquedaServicioXSucursalController?.close();
   }
 
-  void obtenerResultadoBusquedaXSucursal(
-      String idSucursal, String query) async {
+  void obtenerResultadoBusquedaXSucursal(String idSucursal, String query) async {
     busquedaXSucursalController.sink.add([]);
-    busquedaXSucursalController.sink
-        .add(await obtnerResultBusquedaPorSucursal(idSucursal, query));
+    busquedaXSucursalController.sink.add(await obtnerResultBusquedaPorSucursal(idSucursal, query));
   }
 
-  Future<List<BusquedaPorSucursalModel>> obtnerResultBusquedaPorSucursal(
-      String idSucursal, String query) async {
+  Future<List<BusquedaPorSucursalModel>> obtnerResultBusquedaPorSucursal(String idSucursal, String query) async {
     List<BusquedaPorSucursalModel> listaGeneral = [];
     final busqXSucursalModel = BusquedaPorSucursalModel();
 
     //función para obtener los productos por sucursal
-    final listProductos = await productoDb
-        .obtenerProductosPorIdSubsidiaryPorQuery(idSucursal, query);
+    final listProductos = await productoDb.obtenerProductosPorIdSubsidiaryPorQuery(idSucursal, query);
     //Lista vacía
     final List<ProductoModel> listProductoModel = [];
 
     //función para obtener los servicios por sucursal
-    final listServicios = await subisdiaryServiceDb
-        .obtenerServiciosPorIdSubsidiaryPorQuery(idSucursal, query);
+    final listServicios = await subisdiaryServiceDb.obtenerServiciosPorIdSubsidiaryPorQuery(idSucursal, query);
     //Lista vacía
     final List<SubsidiaryServiceModel> listServicioModel = [];
 
@@ -64,8 +57,7 @@ class BusquedaXSucursalBloc {
         productoModel.productoPrice = listProductos[i].productoPrice;
         productoModel.productoCurrency = listProductos[i].productoCurrency;
         productoModel.productoImage = listProductos[i].productoImage;
-        productoModel.productoCharacteristics =
-            listProductos[i].productoCharacteristics;
+        productoModel.productoCharacteristics = listProductos[i].productoCharacteristics;
         productoModel.productoBrand = listProductos[i].productoBrand;
         productoModel.productoModel = listProductos[i].productoModel;
         productoModel.productoType = listProductos[i].productoType;
@@ -82,28 +74,18 @@ class BusquedaXSucursalBloc {
       //Recorremos la lista general
       for (var j = 0; j < listServicios.length; j++) {
         final servicioModel = SubsidiaryServiceModel();
-        servicioModel.idSubsidiaryservice =
-            listServicios[j].idSubsidiaryservice;
+        servicioModel.idSubsidiaryservice = listServicios[j].idSubsidiaryservice;
         servicioModel.idSubsidiary = listServicios[j].idSubsidiary;
         servicioModel.idService = listServicios[j].idService;
-        servicioModel.subsidiaryServiceName =
-            listServicios[j].subsidiaryServiceName;
-        servicioModel.subsidiaryServiceDescription =
-            listServicios[j].subsidiaryServiceDescription;
-        servicioModel.subsidiaryServicePrice =
-            listServicios[j].subsidiaryServicePrice;
-        servicioModel.subsidiaryServiceCurrency =
-            listServicios[j].subsidiaryServiceCurrency;
-        servicioModel.subsidiaryServiceImage =
-            listServicios[j].subsidiaryServiceImage;
-        servicioModel.subsidiaryServiceRating =
-            listServicios[j].subsidiaryServiceRating;
-        servicioModel.subsidiaryServiceUpdated =
-            listServicios[j].subsidiaryServiceUpdated;
-        servicioModel.subsidiaryServiceStatus =
-            listServicios[j].subsidiaryServiceStatus;
-        servicioModel.subsidiaryServiceFavourite =
-            listServicios[j].subsidiaryServiceFavourite;
+        servicioModel.subsidiaryServiceName = listServicios[j].subsidiaryServiceName;
+        servicioModel.subsidiaryServiceDescription = listServicios[j].subsidiaryServiceDescription;
+        servicioModel.subsidiaryServicePrice = listServicios[j].subsidiaryServicePrice;
+        servicioModel.subsidiaryServiceCurrency = listServicios[j].subsidiaryServiceCurrency;
+        servicioModel.subsidiaryServiceImage = listServicios[j].subsidiaryServiceImage;
+        servicioModel.subsidiaryServiceRating = listServicios[j].subsidiaryServiceRating;
+        servicioModel.subsidiaryServiceUpdated = listServicios[j].subsidiaryServiceUpdated;
+        servicioModel.subsidiaryServiceStatus = listServicios[j].subsidiaryServiceStatus;
+        servicioModel.subsidiaryServiceFavourite = listServicios[j].subsidiaryServiceFavourite;
 
         listServicioModel.add(servicioModel);
       }

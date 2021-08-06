@@ -39,8 +39,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
         children: <Widget>[
           SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: responsive.wp(5), vertical: responsive.hp(8)),
+              padding: EdgeInsets.symmetric(horizontal: responsive.wp(5), vertical: responsive.hp(8)),
               child: Container(
                 margin: EdgeInsets.only(top: responsive.hp(7)),
                 //padding: const EdgeInsets.only(top:30.0),
@@ -48,9 +47,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
                   children: [
                     Text(
                       "REGISTRO DE USUARIOS",
-                      style: TextStyle(
-                          fontSize: responsive.ip(2.8),
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: responsive.ip(2.8), fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: responsive.hp(1.5),
@@ -104,8 +101,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
                                 _controllerCel.text.isEmpty &&
                                 _controllerEmail.text.isEmpty) {
                               //mostrar mensaje de text name vacio
-                              showToast1("Debe rellenar todos los campos", 2,
-                                  ToastGravity.CENTER);
+                              showToast1("Debe rellenar todos los campos", 2, ToastGravity.CENTER);
                               setState(() {
                                 mostrarCarga = false;
                               });
@@ -113,19 +109,12 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
                               final registroUser = RegisterUser();
 
                               final res = await registroUser.registro(
-                                  _controllerName.text,
-                                  _controllerLastName.text,
-                                  _controllerNickName.text,
-                                  _controllerCel.text,
-                                  _controllerEmail.text,
-                                  _controllerPassword.text);
+                                  _controllerName.text, _controllerLastName.text, _controllerNickName.text, _controllerCel.text, _controllerEmail.text, _controllerPassword.text);
 
                               if (res == 1) {
                                 //registro exitoso
                                 final log = LoginApi();
-                                final resL = await log.login(
-                                    _controllerEmail.text,
-                                    _controllerPassword.text);
+                                final resL = await log.login(_controllerEmail.text, _controllerPassword.text);
                                 if (resL == 1) {
                                   Navigator.pushNamed(context, 'home');
                                 } else {}
@@ -142,8 +131,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
                           },
                           child: Text("Registrar"),
                           style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                             padding: EdgeInsets.all(0.0),
                             primary: Color(0xFFF93963),
                             onPrimary: Colors.grey.shade800,
@@ -261,10 +249,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
       decoration: InputDecoration(
           fillColor: Color(0xFFECEDF1),
           hintText: 'Contraseña',
-          hintStyle: TextStyle(
-              fontSize: responsive.ip(2),
-              fontFamily: 'Montserrat',
-              color: Colors.black54),
+          hintStyle: TextStyle(fontSize: responsive.ip(2), fontFamily: 'Montserrat', color: Colors.black54),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
             borderSide: BorderSide(
@@ -289,10 +274,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
       decoration: InputDecoration(
           fillColor: Color(0xFFECEDF1),
           hintText: 'email',
-          hintStyle: TextStyle(
-              fontSize: responsive.ip(2),
-              fontFamily: 'Montserrat',
-              color: Colors.black54),
+          hintStyle: TextStyle(fontSize: responsive.ip(2), fontFamily: 'Montserrat', color: Colors.black54),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
             borderSide: BorderSide(
@@ -317,10 +299,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
       decoration: InputDecoration(
           fillColor: Color(0xFFECEDF1),
           hintText: 'Celular',
-          hintStyle: TextStyle(
-              fontSize: responsive.ip(2),
-              fontFamily: 'Montserrat',
-              color: Colors.black54),
+          hintStyle: TextStyle(fontSize: responsive.ip(2), fontFamily: 'Montserrat', color: Colors.black54),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
             borderSide: BorderSide(
@@ -345,10 +324,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
       decoration: InputDecoration(
           fillColor: Color(0xFFECEDF1),
           hintText: 'nickName',
-          hintStyle: TextStyle(
-              fontSize: responsive.ip(2),
-              fontFamily: 'Montserrat',
-              color: Colors.black54),
+          hintStyle: TextStyle(fontSize: responsive.ip(2), fontFamily: 'Montserrat', color: Colors.black54),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
             borderSide: BorderSide(
@@ -373,10 +349,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
       decoration: InputDecoration(
           fillColor: Color(0xFFECEDF1),
           hintText: 'Apeliidos',
-          hintStyle: TextStyle(
-              fontSize: responsive.ip(2),
-              fontFamily: 'Montserrat',
-              color: Colors.black54),
+          hintStyle: TextStyle(fontSize: responsive.ip(2), fontFamily: 'Montserrat', color: Colors.black54),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
             borderSide: BorderSide(
@@ -401,10 +374,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
       decoration: InputDecoration(
         fillColor: Color(0xFFECEDF1),
         hintText: 'Nombres',
-        hintStyle: TextStyle(
-            fontSize: responsive.ip(2),
-            fontFamily: 'Montserrat',
-            color: Colors.black54),
+        hintStyle: TextStyle(fontSize: responsive.ip(2), fontFamily: 'Montserrat', color: Colors.black54),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(

@@ -10,24 +10,20 @@ import 'package:flutter/material.dart';
 class ListarProductosPorSucursalCarrito extends StatefulWidget {
   final String idSucursal;
 
-  const ListarProductosPorSucursalCarrito({Key key, @required this.idSucursal})
-      : super(key: key);
+  const ListarProductosPorSucursalCarrito({Key key, @required this.idSucursal}) : super(key: key);
 
   @override
-  _ListarProductosPorSucursalCarritoState createState() =>
-      _ListarProductosPorSucursalCarritoState();
+  _ListarProductosPorSucursalCarritoState createState() => _ListarProductosPorSucursalCarritoState();
 }
 
-class _ListarProductosPorSucursalCarritoState
-    extends State<ListarProductosPorSucursalCarrito> {
+class _ListarProductosPorSucursalCarritoState extends State<ListarProductosPorSucursalCarrito> {
   ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => {
           _scrollController.addListener(() {
-            if (_scrollController.position.pixels ==
-                _scrollController.position.maxScrollExtent) {
+            if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
               final productoBloc = ProviderBloc.productos(context);
               productoBloc.listarProductosPorSucursal(widget.idSucursal);
             }
@@ -51,8 +47,7 @@ class _ListarProductosPorSucursalCarritoState
 
     return StreamBuilder(
       stream: productoBloc.productoSubsidiaryCarritoStream,
-      builder: (BuildContext context,
-          AsyncSnapshot<List<BienesServiciosModel>> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<BienesServiciosModel>> snapshot) {
         if (snapshot.hasData) {
           final bienes = snapshot.data;
           return GridView.builder(
@@ -67,9 +62,7 @@ class _ListarProductosPorSucursalCarritoState
               ),
               itemCount: bienes.length,
               itemBuilder: (context, index) {
-                return ('${bienes[index].tipo}' == 'bienes')
-                    ? grillaBienes(responsive, bienes[index])
-                    : grillaServicios(responsive, bienes[index]);
+                return ('${bienes[index].tipo}' == 'bienes') ? grillaBienes(responsive, bienes[index]) : grillaServicios(responsive, bienes[index]);
               });
         } else {
           return Center(child: Text("dataaaaa")

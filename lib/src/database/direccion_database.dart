@@ -8,8 +8,7 @@ class DireccionDatabase {
     try {
       final db = await dbprovider.database;
 
-      final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO Direccion (address,referencia,distrito,"
+      final res = await db.rawInsert("INSERT OR REPLACE INTO Direccion (address,referencia,distrito,"
           "coord_x,coord_y,estado) "
           "VALUES ('${direccionModel.address}','${direccionModel.referencia}','${direccionModel.distrito}',"
           "'${direccionModel.coordx}','${direccionModel.coordy}',"
@@ -26,14 +25,13 @@ class DireccionDatabase {
       final db = await dbprovider.database;
       // final res = await db.rawUpdate('UPDATE Direccion SET '
       //     'estado="0"');
-      final res = await db
-          .rawUpdate("UPDATE Direccion SET address='${direccionModel.address}',"
-              "referencia='${direccionModel.referencia}',"
-              "distrito='${direccionModel.distrito}',"
-              "coord_x='${direccionModel.coordx}',"
-              "coord_y='${direccionModel.coordy}',"
-              "estado='${direccionModel.estado}'"
-              "WHERE address='${direccionModel.address}' ");
+      final res = await db.rawUpdate("UPDATE Direccion SET address='${direccionModel.address}',"
+          "referencia='${direccionModel.referencia}',"
+          "distrito='${direccionModel.distrito}',"
+          "coord_x='${direccionModel.coordx}',"
+          "coord_y='${direccionModel.coordy}',"
+          "estado='${direccionModel.estado}'"
+          "WHERE address='${direccionModel.address}' ");
 
       // print('database actualizada $res');
       return res;
@@ -47,9 +45,7 @@ class DireccionDatabase {
       final db = await dbprovider.database;
       final res = await db.rawQuery("SELECT * FROM Direccion");
 
-      List<DireccionModel> list = res.isNotEmpty
-          ? res.map((c) => DireccionModel.fromJson(c)).toList()
-          : [];
+      List<DireccionModel> list = res.isNotEmpty ? res.map((c) => DireccionModel.fromJson(c)).toList() : [];
 
       return list;
     } catch (e) {
@@ -75,8 +71,7 @@ class DireccionDatabase {
     try {
       final db = await dbprovider.database;
 
-      final res =
-          await db.rawDelete("DELETE FROM Direccion where id_direccion =$id");
+      final res = await db.rawDelete("DELETE FROM Direccion where id_direccion =$id");
 
       return res;
     } catch (e) {
@@ -88,12 +83,9 @@ class DireccionDatabase {
   Future<List<DireccionModel>> obtenerdireccionEstado1() async {
     try {
       final db = await dbprovider.database;
-      final res =
-          await db.rawQuery("SELECT * FROM Direccion where estado ='1' ");
+      final res = await db.rawQuery("SELECT * FROM Direccion where estado ='1' ");
 
-      List<DireccionModel> list = res.isNotEmpty
-          ? res.map((c) => DireccionModel.fromJson(c)).toList()
-          : [];
+      List<DireccionModel> list = res.isNotEmpty ? res.map((c) => DireccionModel.fromJson(c)).toList() : [];
 
       return list;
     } catch (e) {
@@ -105,12 +97,9 @@ class DireccionDatabase {
   Future<List<DireccionModel>> obtenerDireccionEstado0() async {
     try {
       final db = await dbprovider.database;
-      final res =
-          await db.rawQuery("SELECT * FROM Direccion where estado ='0'");
+      final res = await db.rawQuery("SELECT * FROM Direccion where estado ='0'");
 
-      List<DireccionModel> list = res.isNotEmpty
-          ? res.map((c) => DireccionModel.fromJson(c)).toList()
-          : [];
+      List<DireccionModel> list = res.isNotEmpty ? res.map((c) => DireccionModel.fromJson(c)).toList() : [];
 
       return list;
     } catch (e) {

@@ -8,16 +8,15 @@ class PublicidadBloc {
   final publicidadApi = PublicidadApi();
   final _publicidadListController = BehaviorSubject<List<PublicidadModel>>();
 
-  Stream<List<PublicidadModel>> get publicidadListStream =>
-      _publicidadListController.stream;
+  Stream<List<PublicidadModel>> get publicidadListStream => _publicidadListController.stream;
 
   void dispose() {
     _publicidadListController?.close();
   }
 
   void obtenerPublicidadBloc() async {
-    _publicidadListController.sink .add(await publicidadDatabase.obtenerPublicidad());
+    _publicidadListController.sink.add(await publicidadDatabase.obtenerPublicidad());
     await publicidadApi.obtenerPublicidad();
-    _publicidadListController.sink .add(await publicidadDatabase.obtenerPublicidad());
+    _publicidadListController.sink.add(await publicidadDatabase.obtenerPublicidad());
   }
 }

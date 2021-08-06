@@ -56,8 +56,7 @@ class PrincipalPage extends StatelessWidget {
                             IconButton(
                                 icon: Icon(Icons.trending_down),
                                 onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, "listaCategoriasAll");
+                                  Navigator.pushNamed(context, "listaCategoriasAll");
                                 }),
                             Text("Categorias")
                           ],
@@ -158,12 +157,9 @@ class HeaderWidget extends StatelessWidget {
                                   placeholder: (context, url) => Container(
                                     width: double.infinity,
                                     height: double.infinity,
-                                    child: Image(
-                                        image: AssetImage('assets/loading.gif'),
-                                        fit: BoxFit.cover),
+                                    child: Image(image: AssetImage('assets/loading.gif'), fit: BoxFit.cover),
                                   ),
-                                  errorWidget: (context, url, error) =>
-                                      Container(
+                                  errorWidget: (context, url, error) => Container(
                                     width: double.infinity,
                                     height: double.infinity,
                                     child: Center(
@@ -190,9 +186,7 @@ class HeaderWidget extends StatelessWidget {
                                 Text(
                                   '${preferences.personName}',
                                   style: GoogleFonts.pacifico(
-                                    textStyle: TextStyle(
-                                        fontSize: responsive.ip(2),
-                                        fontWeight: FontWeight.bold),
+                                    textStyle: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ],
@@ -201,9 +195,7 @@ class HeaderWidget extends StatelessWidget {
                         : Text(
                             'Bienvenido',
                             style: GoogleFonts.andika(
-                              textStyle: TextStyle(
-                                  fontSize: responsive.ip(2.5),
-                                  fontWeight: FontWeight.bold),
+                              textStyle: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
                             ),
                           ),
                     Spacer(),
@@ -243,30 +235,20 @@ class HeaderWidget extends StatelessWidget {
                                     top: 0,
                                     right: 0,
                                     child: StreamBuilder(
-                                        stream: notificacionesBloc
-                                            .notificacionesPendientesStream,
-                                        builder: (context,
-                                            AsyncSnapshot<
-                                                    List<NotificacionesModel>>
-                                                snapshot) {
-                                          List<NotificacionesModel>
-                                              notificaciones = snapshot.data;
+                                        stream: notificacionesBloc.notificacionesPendientesStream,
+                                        builder: (context, AsyncSnapshot<List<NotificacionesModel>> snapshot) {
+                                          List<NotificacionesModel> notificaciones = snapshot.data;
                                           if (snapshot.hasData) {
                                             if (snapshot.data.length > 0) {
                                               return Container(
                                                 child: Text(
                                                   '${notificaciones.length}',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize:
-                                                          responsive.ip(1.5)),
+                                                  style: TextStyle(color: Colors.white, fontSize: responsive.ip(1.5)),
                                                 ),
                                                 alignment: Alignment.center,
                                                 width: responsive.ip(2),
                                                 height: responsive.ip(2),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.red,
-                                                    shape: BoxShape.circle),
+                                                decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                                               );
                                             } else {
                                               return Container();
@@ -316,8 +298,7 @@ class _BienesResuState extends State<BienesResu> {
           children: [
             Text(
               'Productos Populares',
-              style: TextStyle(
-                  fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
             ),
             //SizedBox(width: 30,),
             GestureDetector(
@@ -337,10 +318,7 @@ class _BienesResuState extends State<BienesResu> {
                 ),
                 child: Text(
                   "Ver Todos",
-                  style: TextStyle(
-                      fontSize: responsive.ip(1.5),
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                  style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold, color: Colors.white),
                   //textAlign: TextAlign.end,
                 ),
               ),
@@ -354,8 +332,7 @@ class _BienesResuState extends State<BienesResu> {
           height: responsive.hp(32),
           child: StreamBuilder(
             stream: bienesBloc.bienesStream,
-            builder: (BuildContext context,
-                AsyncSnapshot<List<ProductoModel>> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<List<ProductoModel>> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data.length > 0) {
                   return ListView.builder(
@@ -367,23 +344,19 @@ class _BienesResuState extends State<BienesResu> {
                             producto: snapshot.data[index],
                           ),
                           onTap: () {
-                            agregarPSaSugerencia(context,
-                                snapshot.data[index].idProducto, 'bien');
+                            agregarPSaSugerencia(context, snapshot.data[index].idProducto, 'bien');
 
                             Navigator.push(
                               context,
                               PageRouteBuilder(
-                                transitionDuration:
-                                    const Duration(milliseconds: 100),
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) {
+                                transitionDuration: const Duration(milliseconds: 100),
+                                pageBuilder: (context, animation, secondaryAnimation) {
                                   return DetalleProductos(
                                     idProducto: snapshot.data[index].idProducto,
                                   );
                                   //return DetalleProductitos(productosData: productosData);
                                 },
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                   return FadeTransition(
                                     opacity: animation,
                                     child: child,
@@ -434,8 +407,7 @@ class _ServiciosState extends State<Servicios> {
           children: [
             Text(
               'Servicios Populares',
-              style: TextStyle(
-                  fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
             ),
             GestureDetector(
               onTap: () {
@@ -449,10 +421,7 @@ class _ServiciosState extends State<Servicios> {
                 padding: EdgeInsets.all(responsive.ip(.8)),
                 child: Text(
                   "Ver Todos",
-                  style: TextStyle(
-                      fontSize: responsive.ip(1.5),
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                  style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold, color: Colors.white),
                   //textAlign: TextAlign.end,
                 ),
               ),
@@ -464,16 +433,14 @@ class _ServiciosState extends State<Servicios> {
           height: responsive.hp(32),
           child: StreamBuilder(
             stream: serviciosBloc.serviciosStream,
-            builder: (BuildContext context,
-                AsyncSnapshot<List<SubsidiaryServiceModel>> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<List<SubsidiaryServiceModel>> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data.length > 0) {
                   return ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
-                        return ServiciosWidget(
-                            serviceData: snapshot.data[index]);
+                        return ServiciosWidget(serviceData: snapshot.data[index]);
                         // _crearItem(
                         //     context, snapshot.data[index], responsive);
                       });
@@ -505,8 +472,7 @@ class Negocios extends StatelessWidget {
           children: [
             Text(
               'Negocios Populares',
-              style: TextStyle(
-                  fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: responsive.ip(2.5), fontWeight: FontWeight.bold),
             ),
             //SizedBox(width: 30,),
             GestureDetector(
@@ -522,10 +488,7 @@ class Negocios extends StatelessWidget {
                 padding: EdgeInsets.all(responsive.ip(.8)),
                 child: Text(
                   "Ver Todos",
-                  style: TextStyle(
-                      fontSize: responsive.ip(1.5),
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                  style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold, color: Colors.white),
                   //textAlign: TextAlign.end,
                 ),
               ),
@@ -537,16 +500,14 @@ class Negocios extends StatelessWidget {
           child: StreamBuilder(
             //stream: negociosBloc.negociosStream,
             stream: negociosBloc.listarNeg,
-            builder: (BuildContext context,
-                AsyncSnapshot<List<CompanySubsidiaryModel>> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<List<CompanySubsidiaryModel>> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data.length > 0) {
                   return ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
-                        return _crearItem(
-                            context, snapshot.data[index], responsive);
+                        return _crearItem(context, snapshot.data[index], responsive);
                       });
                 } else {
                   return Center(child: CupertinoActivityIndicator());
@@ -561,8 +522,7 @@ class Negocios extends StatelessWidget {
     );
   }
 
-  Widget _crearItem(BuildContext context, CompanySubsidiaryModel servicioData,
-      Responsive responsive) {
+  Widget _crearItem(BuildContext context, CompanySubsidiaryModel servicioData, Responsive responsive) {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, "detalleNegocio", arguments: servicioData);
@@ -587,15 +547,10 @@ class Negocios extends StatelessWidget {
                             height: responsive.ip(10),
                             child: CachedNetworkImage(
                               //cacheManager: CustomCacheManager(),
-                              placeholder: (context, url) => Image(
-                                  image: AssetImage('assets/jar-loading.gif'),
-                                  fit: BoxFit.cover),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
-                              imageUrl:
-                                  '$apiBaseURL/${servicioData.companyImage}',
-                              imageBuilder: (context, imageProvider) =>
-                                  Container(
+                              placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
+                              errorWidget: (context, url, error) => Icon(Icons.error),
+                              imageUrl: '$apiBaseURL/${servicioData.companyImage}',
+                              imageBuilder: (context, imageProvider) => Container(
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: imageProvider,
@@ -635,10 +590,7 @@ class Negocios extends StatelessWidget {
                     ),
                     Text(
                       '${servicioData.companyType}',
-                      style: TextStyle(
-                          fontSize: responsive.ip(1.9),
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red),
+                      style: TextStyle(fontSize: responsive.ip(1.9), fontWeight: FontWeight.bold, color: Colors.red),
                     ),
                   ],
                 ),
@@ -672,8 +624,7 @@ class _SugerenciaBusquedaState extends State<SugerenciaBusqueda> {
               child: Text(
                 //'De acuerdo a lo que buscaste',
                 'De acuerdo a lo que viste',
-                style: TextStyle(
-                    fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: responsive.ip(2), fontWeight: FontWeight.bold),
               ),
             ),
             GestureDetector(
@@ -688,10 +639,7 @@ class _SugerenciaBusquedaState extends State<SugerenciaBusqueda> {
                 padding: EdgeInsets.all(responsive.ip(.8)),
                 child: Text(
                   "Ver Todos",
-                  style: TextStyle(
-                      fontSize: responsive.ip(1.5),
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                  style: TextStyle(fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold, color: Colors.white),
                   //textAlign: TextAlign.end,
                 ),
               ),
@@ -703,8 +651,7 @@ class _SugerenciaBusquedaState extends State<SugerenciaBusqueda> {
           //height: responsive.hp(30),
           child: StreamBuilder(
             stream: sugerenciaBusquedaBloc.sugerenciaBusquedaStream,
-            builder: (BuildContext context,
-                AsyncSnapshot<List<BienesServiciosModel>> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<List<BienesServiciosModel>> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data.length > 0) {
                   return GridView.builder(
@@ -720,8 +667,7 @@ class _SugerenciaBusquedaState extends State<SugerenciaBusqueda> {
                       ),
                       itemBuilder: (context, index) {
                         if (snapshot.data[index].tipo == 'bien') {
-                          return BienesCompletoWidget(
-                              producto: snapshot.data[index]);
+                          return BienesCompletoWidget(producto: snapshot.data[index]);
                         } else {
                           return ServiciosCompletoWidget(
                             serviceData: snapshot.data[index],

@@ -8,8 +8,7 @@ class GaleriaProductoDatabase {
     try {
       final db = await dbprovider.database;
 
-      final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO galeriaProducto (id_producto_galeria,id_producto,"
+      final res = await db.rawInsert("INSERT OR REPLACE INTO galeriaProducto (id_producto_galeria,id_producto,"
           "galeria_foto,estado) "
           "VALUES ('${galeriaProductoModel.idGaleriaProducto}','${galeriaProductoModel.idProducto}',"
           "'${galeriaProductoModel.galeriaFoto}',"
@@ -26,9 +25,7 @@ class GaleriaProductoDatabase {
       final db = await dbprovider.database;
       final res = await db.rawQuery("SELECT * FROM galeriaProducto");
 
-      List<GaleriaProductoModel> list = res.isNotEmpty
-          ? res.map((c) => GaleriaProductoModel.fromJson(c)).toList()
-          : [];
+      List<GaleriaProductoModel> list = res.isNotEmpty ? res.map((c) => GaleriaProductoModel.fromJson(c)).toList() : [];
 
       return list;
     } catch (e) {
@@ -37,16 +34,12 @@ class GaleriaProductoDatabase {
     }
   }
 
-  Future<List<GaleriaProductoModel>> obtenerGaleriaProductoPorIdProducto(
-      String idProducto) async {
+  Future<List<GaleriaProductoModel>> obtenerGaleriaProductoPorIdProducto(String idProducto) async {
     try {
       final db = await dbprovider.database;
-      final res = await db.rawQuery(
-          "SELECT * FROM galeriaProducto where id_producto='$idProducto' order by id_producto");
+      final res = await db.rawQuery("SELECT * FROM galeriaProducto where id_producto='$idProducto' order by id_producto");
 
-      List<GaleriaProductoModel> list = res.isNotEmpty
-          ? res.map((c) => GaleriaProductoModel.fromJson(c)).toList()
-          : [];
+      List<GaleriaProductoModel> list = res.isNotEmpty ? res.map((c) => GaleriaProductoModel.fromJson(c)).toList() : [];
 
       return list;
     } catch (e) {

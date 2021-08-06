@@ -108,7 +108,12 @@ class _MyAppState extends State<MyApp> {
         child: MaterialApp(
             navigatorKey: Catcher.navigatorKey,
             builder: (BuildContext context, Widget widget) {
-              Catcher.addDefaultErrorWidget(showStacktrace: true, title: "Custom error title", description: "Custom error description", maxWidthForSmallMode: 150);
+              Catcher.addDefaultErrorWidget(
+                showStacktrace: true,
+                title: "Custom error title",
+                description: "Custom error description",
+                maxWidthForSmallMode: 150,
+              );
               return Container(
                   //appBar: AppBar(title: Text('Error'),),
                   color: Colors.white,

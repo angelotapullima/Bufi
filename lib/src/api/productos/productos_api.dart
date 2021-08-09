@@ -132,7 +132,7 @@ class ProductosApi {
         itemSubCategoriaModel.idItemsubcategory = decodedData['results'][i]['itemsubcategory_name'];
         itemSubCategoriaModel.itemsubcategoryName = decodedData['results'][i]['itemsubcategory_name'];
         itemSubCategoriaModel.itemsubcategoryImage = decodedData['results'][i]['itemsubcategory_img'];
-        await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel, 'Negocio/listar_productos_por_sucursal');
+        await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel, 'N');
       }
     }
 

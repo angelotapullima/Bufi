@@ -4,7 +4,7 @@ import 'package:bufi/src/models/subcategoryModel.dart';
 class SubcategoryDatabase {
   final dbProvider = DatabaseProvider.db;
 
-  insertarSubCategory(SubcategoryModel subcategoryModel) async {
+  insertarSubCategory(SubcategoryModel subcategoryModel,String funcion) async {
     try {
       final db = await dbProvider.database;
       final res = await db.rawInsert("INSERT OR REPLACE INTO Subcategory (id_subcategory,id_category,subcategory_name) "
@@ -12,7 +12,7 @@ class SubcategoryDatabase {
 
       return res;
     } catch (e) {
-      print("$e Error en la base de datos");
+      print("$e Error en la base de datos Subcategory funcion:$funcion");
     }
   }
 

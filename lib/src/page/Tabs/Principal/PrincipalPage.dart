@@ -2,6 +2,7 @@ import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/CompanySubsidiaryModel.dart';
 import 'package:bufi/src/models/bienesServiciosModel.dart';
 import 'package:bufi/src/models/notificacionModel.dart';
+import 'package:bufi/src/models/pantalla_principal_model.dart';
 import 'package:bufi/src/models/productoModel.dart';
 import 'package:bufi/src/models/subsidiaryService.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProducto.dart';
@@ -33,65 +34,110 @@ class PrincipalPage extends StatelessWidget {
     final notificacionesBloc = ProviderBloc.notificaciones(context);
     notificacionesBloc.listarNotificacionesPendientes();
 
+    final pantallaPrincipalBloc = ProviderBloc.panPrincipal(context);
+    pantallaPrincipalBloc.obtenerPantallaPrincipal();
+
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             HeaderWidget(responsive: responsive, preferences: preferences),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(
-                horizontal: responsive.wp(2),
-              ),
-              sliver: SliverList(
-                delegate: SliverChildListDelegate([
-                  SizedBox(
-                    height: responsive.hp(.5),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                SizedBox(
+                  height: responsive.hp(.5),
+                ),
+                Container(
+                  height: responsive.hp(12),
+                  child: Row(
+                    children: [
+                      Column(
+                        children: [
+                          IconButton(
+                              icon: Icon(Icons.trending_down),
+                              onPressed: () {
+                                Navigator.pushNamed(context, "listaCategoriasAll");
+                              }),
+                          Text("Categorias")
+                        ],
+                      ),
+                      SizedBox(
+                        width: responsive.wp(1.5),
+                      ),
+                      Expanded(
+                        child: ListCategoriasPrincipal(),
+                      ),
+                    ],
                   ),
-                  Container(
-                    height: responsive.hp(12),
-                    child: Row(
-                      children: [
-                        Column(
-                          children: [
-                            IconButton(
-                                icon: Icon(Icons.trending_down),
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "listaCategoriasAll");
-                                }),
-                            Text("Categorias")
-                          ],
-                        ),
-                        SizedBox(
-                          width: responsive.wp(1.5),
-                        ),
-                        Expanded(
-                          child: ListCategoriasPrincipal(),
-                        ),
-                      ],
-                    ),
-                  ),
-                  //ListCategoriasPrincipal(),
+                ),
+                //ListCategoriasPrincipal(),
 
-                  CarrouselPrincipal(),
-                  SizedBox(
-                    height: responsive.hp(1),
-                  ),
-                  BienesResu(),
-                  SizedBox(
-                    height: responsive.hp(1),
-                  ),
-                  Servicios(),
-                  SizedBox(
-                    height: responsive.hp(1),
-                  ),
-                  Negocios(),
-                  SizedBox(
-                    height: responsive.hp(3),
-                  ),
-                  SugerenciaBusqueda(),
-                ]),
-              ),
-            )
+                CarrouselPrincipal(),
+                SizedBox(
+                  height: responsive.hp(1),
+                ),
+
+                StreamBuilder(
+                  stream: pantallaPrincipalBloc.pantallaController,
+                  builder: (BuildContext context, AsyncSnapshot<List<PantallaPrincipalModel>> snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data.length > 0) {
+                        return ListView.builder(
+                          itemCount: snapshot.data.length,
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('${snapshot.data[index].nombre}'),
+                                  Container(
+                                    height: responsive.hp(40),
+                                    child: (snapshot.data[index].productos.length > 0)
+                                        ? ListView.builder(
+                                            itemCount: snapshot.data[index].productos.length,
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (context, index2) {
+                                              return BienesWidget(
+                                                producto: snapshot.data[index].productos[index2],
+                                              );
+                                            },
+                                          )
+                                        : Container(),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        return Container(
+                          child: Text('putamadre 1'),
+                        );
+                      }
+                    } else {
+                      return Container(
+                        child: Text('putamadre 2'),
+                      );
+                    }
+                  },
+                ),
+                /* BienesResu(),
+                SizedBox(
+                  height: responsive.hp(1),
+                ),
+                Servicios(),
+                SizedBox(
+                  height: responsive.hp(1),
+                ),
+                Negocios(),
+                SizedBox(
+                  height: responsive.hp(3),
+                ), */
+                SugerenciaBusqueda(),
+              ]),
+            ),
           ],
         ),
       ),

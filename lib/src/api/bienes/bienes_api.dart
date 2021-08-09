@@ -75,7 +75,7 @@ class GoodApi {
       subcategoryModel.idSubcategory = productosListModel['id_subcategory'];
       subcategoryModel.subcategoryName = productosListModel['subcategory_name'];
       subcategoryModel.idCategory = productosListModel['id_category'];
-      await subcategoryDatabase.insertarSubCategory(subcategoryModel);
+      await subcategoryDatabase.insertarSubCategory(subcategoryModel,'Inicio/listar_bienes_por_id_ciudad');
 
       //----ingresamos ItemSubCategorias:
       ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();

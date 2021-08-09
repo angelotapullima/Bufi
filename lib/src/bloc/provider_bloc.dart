@@ -20,6 +20,7 @@ import 'package:bufi/src/bloc/marker_mapa_negocios_bloc.dart';
 import 'package:bufi/src/bloc/mis_movimientos_bloc.dart';
 import 'package:bufi/src/bloc/negocios_bloc.dart';
 import 'package:bufi/src/bloc/notificaciones_bloc.dart';
+import 'package:bufi/src/bloc/pantalla_principal_bloc.dart';
 import 'package:bufi/src/bloc/porcentaje_splash.dart';
 import 'package:bufi/src/bloc/principal_bloc.dart';
 import 'package:bufi/src/bloc/producto/datosProductoBloc.dart';
@@ -72,6 +73,7 @@ class ProviderBloc extends InheritedWidget {
   final busquedaGeneralTab = BusquedaGeneralTab();
   final notificacionBloc = NotificacionesBloc();
   final searchHistoryBloc = SearchHistoryBloc();
+  final pantallaPrincipalBloc = PantallaPrincipalBloc();
 
   factory ProviderBloc({Key key, Widget child}) {
     if (_instancia == null) {
@@ -243,5 +245,9 @@ class ProviderBloc extends InheritedWidget {
 
   static SearchHistoryBloc searHistory(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).searchHistoryBloc;
+  }
+
+  static PantallaPrincipalBloc panPrincipal(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).pantallaPrincipalBloc;
   }
 }

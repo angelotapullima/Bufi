@@ -20,7 +20,7 @@ class DatabaseProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
-    final path = join(documentsDirectory.path, 'bufi1.db');
+    final path = join(documentsDirectory.path, 'bufi.db');
 
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
@@ -355,6 +355,13 @@ class DatabaseProvider {
           'text VARCHAR PRIMARY KEY,'
           'fecha VARCHAR,'
           'page_busqueda VARCHAR'
+          ')');
+
+
+           await db.execute('CREATE TABLE PantallaPrincipal ('
+          'idPantalla VARCHAR PRIMARY KEY,'
+          'nombre VARCHAR,'
+          'tipo VARCHAR'
           ')');
     });
   }

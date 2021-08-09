@@ -68,20 +68,6 @@ class BusquedaApi {
       if (code == 1) {
         if (tipoBusqueda != null) {
           if (totalResult > 0) {
-            //final listBusquedaGeneral = List<BusquedaGeneralModel>();
-            // BusquedaGeneralModel busqGeneralModel = BusquedaGeneralModel();
-
-            // final listProducto = List<ProductoModel>();
-            // final listbienes = List<BienesModel>();
-            // final listSucursal = List<SubsidiaryModel>();
-            // final listCompany = List<CompanyModel>();
-            // final listCategory = List<CategoriaModel>();
-            // final listSubCategory = List<SubcategoryModel>();
-            // final listItemSub = List<ItemSubCategoriaModel>();
-
-            // final listService = List<ServiciosModel>();
-            // final listSubService = List<SubsidiaryServiceModel>();
-
             if (context == "good") {
               if (tipoBusqueda == "exactly") {
                 for (var i = 0; i < decodedData["result"].length; i++) {
@@ -190,18 +176,20 @@ class BusquedaApi {
                   CategoriaModel categ = CategoriaModel();
                   categ.idCategory = decodedData["result"][i]["id_category"];
                   categ.categoryName = decodedData["result"][i]["category_name"];
+                  categ.categoryEstado = decodedData["result"][i]["category_estado"];
+                  categ.categoryImage = decodedData["result"][i]["category_img"];
 
                   // listCategory.add(categ);
-                  await categoryDatabase.insertarCategory(categ);
+                  await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_ws');
 
                   //Subcategoria
                   final subCategoriaModel = SubcategoryModel();
                   subCategoriaModel.idSubcategory = decodedData["result"][i]["id_subcategory"];
                   subCategoriaModel.idCategory = decodedData["result"][i]["id_category"];
-                  // subCategoriaModel.subcategoryName =decodedData["result"][i].subcategoryName;
+                  subCategoriaModel.subcategoryName = decodedData["result"][i]["subcategory_name"];
 
                   //listSubCategory.add(subCategoriaModel);
-                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel, 'Negocio/buscar_ws');
 
                   //ItemSubCategoriaModel
                   ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -328,9 +316,11 @@ class BusquedaApi {
                       CategoriaModel categ = CategoriaModel();
                       categ.idCategory = decodedData["result"][h][i]["id_category"];
                       categ.categoryName = decodedData["result"][h][i]["category_name"];
+                      categ.categoryEstado = decodedData["result"][h][i]["category_estado"];
+                      categ.categoryImage = decodedData["result"][h][i]["category_img"];
 
                       //listCategory.add(categ);
-                      await categoryDatabase.insertarCategory(categ);
+                      await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_ws');
 
                       //Subcategoria
                       final subCategoriaModel = SubcategoryModel();
@@ -338,7 +328,7 @@ class BusquedaApi {
                       subCategoriaModel.idCategory = decodedData["result"][h][i]["id_category"];
                       // subCategoriaModel.subcategoryName =decodedData["result"][h][i].subcategoryName;
                       //listSubCategory.add(subCategoriaModel);
-                      await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+                      await subcategoryDatabase.insertarSubCategory(subCategoriaModel, '/Negocio/buscar_ws');
 
                       //ItemSubCategoriaModel
                       ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -463,17 +453,19 @@ class BusquedaApi {
                   CategoriaModel categ = CategoriaModel();
                   categ.idCategory = decodedData["result"][j]["id_category"];
                   categ.categoryName = decodedData["result"][j]["category_name"];
+                  categ.categoryEstado = decodedData["result"][j]["category_estado"];
+                  categ.categoryImage = decodedData["result"][j]["category_img"];
 
                   //listCategory.add(categ);
-                  await categoryDatabase.insertarCategory(categ);
+                  await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_ws');
 
                   //Subcategoria
                   final subCategoriaModel = SubcategoryModel();
                   subCategoriaModel.idSubcategory = decodedData["result"][j]["id_subcategory"];
                   subCategoriaModel.idCategory = decodedData["result"][j]["id_category"];
-                  // subCategoriaModel.subcategoryName =decodedData["result"][j].subcategoryName;
+                  subCategoriaModel.subcategoryName = decodedData["result"][j]['subcategory_name'];
                   //listSubCategory.add(subCategoriaModel);
-                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel, '/Negocio/buscar_ws');
 
                   //ItemSubCategoriaModel
                   ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -583,17 +575,19 @@ class BusquedaApi {
                     CategoriaModel categ = CategoriaModel();
                     categ.idCategory = decodedData["result"][h][i]["id_category"];
                     categ.categoryName = decodedData["result"][h][i]["category_name"];
+                    categ.categoryEstado = decodedData["result"][h][i]["category_estado"];
+                    categ.categoryImage = decodedData["result"][h][i]["category_img"];
 
                     //listCategory.add(categ);
-                    await categoryDatabase.insertarCategory(categ);
+                    await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_ws');
 
                     //Subcategoria
                     final subCategoriaModel = SubcategoryModel();
                     subCategoriaModel.idSubcategory = decodedData["result"][h][i]["id_subcategory"];
                     subCategoriaModel.idCategory = decodedData["result"][h][i]["id_category"];
-                    // subCategoriaModel.subcategoryName =decodedData["result"][h][i].subcategoryName;
+                    subCategoriaModel.subcategoryName = decodedData["result"][h][i]['subcategory_name'];
                     //listSubCategory.add(subCategoriaModel);
-                    await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+                    await subcategoryDatabase.insertarSubCategory(subCategoriaModel, '/Negocio/buscar_ws');
 
                     //ItemSubCategoriaModel
                     ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -670,8 +664,10 @@ class BusquedaApi {
                   CategoriaModel categ = CategoriaModel();
                   categ.idCategory = decodedData["result"][j]["id_category"];
                   categ.categoryName = decodedData["result"][j]["category_name"];
+                  categ.categoryEstado = decodedData["result"][j]["category_estado"];
+                  categ.categoryImage = decodedData["result"][j]["category_img"];
 
-                  await categoryDatabase.insertarCategory(categ);
+                  await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_ws');
                 }
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
@@ -742,8 +738,10 @@ class BusquedaApi {
                     CategoriaModel categ = CategoriaModel();
                     categ.idCategory = decodedData["result"][h][i]["id_category"];
                     categ.categoryName = decodedData["result"][h][i]["category_name"];
+                    categ.categoryEstado = decodedData["result"][h][i]["category_estado"];
+                    categ.categoryImage = decodedData["result"][h][i]["category_img"];
 
-                    await categoryDatabase.insertarCategory(categ);
+                    await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_ws');
                   }
                 }
               }
@@ -805,8 +803,10 @@ class BusquedaApi {
                   CategoriaModel categ = CategoriaModel();
                   categ.idCategory = decodedData["result"][j]["id_category"];
                   categ.categoryName = decodedData["result"][j]["category_name"];
+                  categ.categoryEstado = decodedData["result"][j]["category_estado"];
+                  categ.categoryImage = decodedData["result"][j]["category_img"];
 
-                  await categoryDatabase.insertarCategory(categ);
+                  await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_ws');
                 }
               } else {
                 //Cuando el tipo de búsqueda es "similar" o "match_against"
@@ -870,8 +870,10 @@ class BusquedaApi {
                     CategoriaModel categ = CategoriaModel();
                     categ.idCategory = decodedData["result"][h][i]["id_category"];
                     categ.categoryName = decodedData["result"][h][i]["category_name"];
+                    categ.categoryEstado = decodedData["result"][h][i]["category_estado"];
+                    categ.categoryImage = decodedData["result"][h][i]["category_image"];
 
-                    await categoryDatabase.insertarCategory(categ);
+                    await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_ws');
                   }
                 }
               }
@@ -978,17 +980,19 @@ class BusquedaApi {
                   CategoriaModel categ = CategoriaModel();
                   categ.idCategory = decodedData["result"][j]["id_category"];
                   categ.categoryName = decodedData["result"][j]["category_name"];
+                  categ.categoryEstado = decodedData["result"][j]["category_estado"];
+                  categ.categoryImage = decodedData["result"][j]["category_img"];
 
                   //listCategory.add(categ);
-                  await categoryDatabase.insertarCategory(categ);
+                  await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_ws');
 
                   //Subcategoria
                   final subCategoriaModel = SubcategoryModel();
                   subCategoriaModel.idSubcategory = decodedData["result"][j]["id_subcategory"];
                   subCategoriaModel.idCategory = decodedData["result"][j]["id_category"];
-                  // subCategoriaModel.subcategoryName =decodedData["result"][j].subcategoryName;
+                  subCategoriaModel.subcategoryName = decodedData["result"][j]['subcategory_name'];
                   //listSubCategory.add(subCategoriaModel);
-                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel, '/Negocio/buscar_ws');
 
                   //ItemSubCategoriaModel
                   ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -1100,17 +1104,19 @@ class BusquedaApi {
                     CategoriaModel categ = CategoriaModel();
                     categ.idCategory = decodedData["result"][h][i]["id_category"];
                     categ.categoryName = decodedData["result"][h][i]["category_name"];
+                    categ.categoryEstado = decodedData["result"][h][i]["category_estado"];
+                    categ.categoryImage = decodedData["result"][h][i]["category_img"];
 
                     //listCategory.add(categ);
-                    await categoryDatabase.insertarCategory(categ);
+                    await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_ws');
 
                     //Subcategoria
                     final subCategoriaModel = SubcategoryModel();
                     subCategoriaModel.idSubcategory = decodedData["result"][h][i]["id_subcategory"];
                     subCategoriaModel.idCategory = decodedData["result"][h][i]["id_category"];
-                    // subCategoriaModel.subcategoryName =decodedData["result"][h][i].subcategoryName;
-                    // listSubCategory.add(subCategoriaModel);
-                    await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+                    subCategoriaModel.subcategoryName = decodedData["result"][h][i]['subcategory_name'];
+                    //listSubCategory.add(subCategoriaModel);
+                    await subcategoryDatabase.insertarSubCategory(subCategoriaModel, '/Negocio/buscar_ws');
 
                     //ItemSubCategoriaModel
                     ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -1310,17 +1316,19 @@ class BusquedaApi {
                   CategoriaModel categ = CategoriaModel();
                   categ.idCategory = decodedData["result"][j]["id_category"];
                   categ.categoryName = decodedData["result"][j]["category_name"];
+                  categ.categoryEstado = decodedData["result"][j]["category_estado"];
+                  categ.categoryImage = decodedData["result"][j]["category_img"];
 
                   //listCategory.add(categ);
-                  await categoryDatabase.insertarCategory(categ);
+                  await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_productos_ws');
 
                   //Subcategoria
                   final subCategoriaModel = SubcategoryModel();
                   subCategoriaModel.idSubcategory = decodedData["result"][j]["id_subcategory"];
                   subCategoriaModel.idCategory = decodedData["result"][j]["id_category"];
-                  // subCategoriaModel.subcategoryName =decodedData["result"][j].subcategoryName;
+                  subCategoriaModel.subcategoryName = decodedData["result"][j]["subcategory_name"];
                   //listSubCategory.add(subCategoriaModel);
-                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel, 'Negocio/buscar_productos_ws');
 
                   //ItemSubCategoriaModel
                   ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -1448,17 +1456,19 @@ class BusquedaApi {
                     CategoriaModel categ = CategoriaModel();
                     categ.idCategory = decodedData["result"][h][i]["id_category"];
                     categ.categoryName = decodedData["result"][h][i]["category_name"];
+                    categ.categoryEstado = decodedData["result"][h][i]["category_estado"];
+                    categ.categoryImage = decodedData["result"][h][i]["category_img"];
 
                     //listCategory.add(categ);
-                    await categoryDatabase.insertarCategory(categ);
+                    await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_productos_ws');
 
                     //Subcategoria
                     final subCategoriaModel = SubcategoryModel();
                     subCategoriaModel.idSubcategory = decodedData["result"][h][i]["id_subcategory"];
                     subCategoriaModel.idCategory = decodedData["result"][h][i]["id_category"];
-                    // subCategoriaModel.subcategoryName =decodedData["result"][h][i].subcategoryName;
-                    // listSubCategory.add(subCategoriaModel);
-                    await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+                    subCategoriaModel.subcategoryName = decodedData["result"][h][i]["subcategory_name"];
+                    //listSubCategory.add(subCategoriaModel);
+                    await subcategoryDatabase.insertarSubCategory(subCategoriaModel, 'Negocio/buscar_productos_ws');
 
                     //ItemSubCategoriaModel
                     ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -1634,17 +1644,20 @@ class BusquedaApi {
                   CategoriaModel categ = CategoriaModel();
                   categ.idCategory = decodedData["result"][j]["id_category"];
                   categ.categoryName = decodedData["result"][j]["category_name"];
+                  categ.categoryEstado = decodedData["result"][j]["category_estado"];
+                  categ.categoryImage = decodedData["result"][j]["category_img"];
 
                   //listCategory.add(categ);
-                  await categoryDatabase.insertarCategory(categ);
+                  await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_servicios_ws');
 
                   //Subcategoria
                   final subCategoriaModel = SubcategoryModel();
                   subCategoriaModel.idSubcategory = decodedData["result"][j]["id_subcategory"];
                   subCategoriaModel.idCategory = decodedData["result"][j]["id_category"];
+                  subCategoriaModel.subcategoryName = decodedData["result"][j]["subcategory_name"];
                   // subCategoriaModel.subcategoryName =decodedData["result"][j].subcategoryName;
                   //listSubCategory.add(subCategoriaModel);
-                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_servicios_ws');
 
                   //ItemSubCategoriaModel
                   ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -1766,17 +1779,20 @@ class BusquedaApi {
                     CategoriaModel categ = CategoriaModel();
                     categ.idCategory = decodedData["result"][h][i]["id_category"];
                     categ.categoryName = decodedData["result"][h][i]["category_name"];
+                    categ.categoryEstado = decodedData["result"][h][i]["category_estado"];
+                    categ.categoryImage = decodedData["result"][h][i]["category_img"];
 
                     //listCategory.add(categ);
-                    await categoryDatabase.insertarCategory(categ);
+                    await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_servicios_ws');
 
                     //Subcategoria
                     final subCategoriaModel = SubcategoryModel();
                     subCategoriaModel.idSubcategory = decodedData["result"][h][i]["id_subcategory"];
                     subCategoriaModel.idCategory = decodedData["result"][h][i]["id_category"];
+                    subCategoriaModel.subcategoryName = decodedData["result"][h][i]["subcategory_name"];
                     // subCategoriaModel.subcategoryName =decodedData["result"][h][i].subcategoryName;
                     //listSubCategory.add(subCategoriaModel);
-                    await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+                    await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_servicios_ws');
 
                     //ItemSubCategoriaModel
                     ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -1953,8 +1969,10 @@ class BusquedaApi {
                   CategoriaModel categ = CategoriaModel();
                   categ.idCategory = decodedData["result"][j]["id_category"];
                   categ.categoryName = decodedData["result"][j]["category_name"];
+                  categ.categoryEstado = decodedData["result"][j]["category_estado"];
+                  categ.categoryImage = decodedData["result"][j]["category_img"];
 
-                  await categoryDatabase.insertarCategory(categ);
+                  await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_empresas_ws');
 
                   // ingresa al Tab de Negocios cuando existe al menos un resultado de la busqueda
                   if (listGeneral.length > 0) {
@@ -2072,8 +2090,10 @@ class BusquedaApi {
                     CategoriaModel categ = CategoriaModel();
                     categ.idCategory = decodedData["result"][h][i]["id_category"];
                     categ.categoryName = decodedData["result"][h][i]["category_name"];
+                    categ.categoryEstado = decodedData["result"][h][i]["category_estado"];
+                    categ.categoryImage = decodedData["result"][h][i]["category_img"];
 
-                    await categoryDatabase.insertarCategory(categ);
+                    await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_empresas_ws');
 
                     if (listGeneral.length > 0) {
                       //Para mostrar el tab de negocios automaticamente
@@ -2186,9 +2206,11 @@ class BusquedaApi {
                   CategoriaModel categ = CategoriaModel();
                   categ.idCategory = decodedData["result"][j]["id_category"];
                   categ.categoryName = decodedData["result"][j]["category_name"];
+                  categ.categoryEstado = decodedData["result"][j]["category_estado"];
+                  categ.categoryImage = decodedData["result"][j]["category_img"];
 
                   listGeneral.add(categ);
-                  await categoryDatabase.insertarCategory(categ);
+                  await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_categorias_ws');
 
                   // ingresa al Tab de categoria ycuando existe al menos un resultado de la busqueda
                   if (listGeneral.length > 0) {
@@ -2258,9 +2280,11 @@ class BusquedaApi {
                     CategoriaModel categ = CategoriaModel();
                     categ.idCategory = decodedData["result"][h][i]["id_category"];
                     categ.categoryName = decodedData["result"][h][i]["category_name"];
+                    categ.categoryEstado = decodedData["result"][h][i]["category_estado"];
+                    categ.categoryImage = decodedData["result"][h][i]["category_img"];
 
                     listGeneral.add(categ);
-                    await categoryDatabase.insertarCategory(categ);
+                    await categoryDatabase.insertarCategory(categ, 'Negocio/buscar_categorias_ws');
 
                     // ingresa al Tab de categoria ycuando existe al menos un resultado de la busqueda
                     if (listGeneral.length > 0) {
@@ -2409,15 +2433,16 @@ class BusquedaApi {
                   categ.categoryName = decodedData["result"][j]["category_name"];
 
                   //listCategory.add(categ);
-                  await categoryDatabase.insertarCategory(categ);
+                  await categoryDatabase.insertarCategory(categ, 'busquedaItemsubcategorias');
 
                   //Subcategoria
                   final subCategoriaModel = SubcategoryModel();
                   subCategoriaModel.idSubcategory = decodedData["result"][j]["id_subcategory"];
                   subCategoriaModel.idCategory = decodedData["result"][j]["id_category"];
+                  subCategoriaModel.subcategoryName = decodedData["result"][j]["subcategory_name"];
                   // subCategoriaModel.subcategoryName =decodedData["result"][j].subcategoryName;
                   //listSubCategory.add(subCategoriaModel);
-                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_itemsubcategory_ws');
 
                   //ItemSubCategoriaModel
                   ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -2531,15 +2556,16 @@ class BusquedaApi {
                     categ.categoryName = decodedData["result"][h][i]["category_name"];
 
                     //listCategory.add(categ);
-                    await categoryDatabase.insertarCategory(categ);
+                    await categoryDatabase.insertarCategory(categ, 'busquedaItemsubcategorias');
 
                     //Subcategoria
                     final subCategoriaModel = SubcategoryModel();
                     subCategoriaModel.idSubcategory = decodedData["result"][h][i]["id_subcategory"];
                     subCategoriaModel.idCategory = decodedData["result"][h][i]["id_category"];
+                    subCategoriaModel.subcategoryName = decodedData["result"][h][i]["subcategory_name"];
                     // subCategoriaModel.subcategoryName =decodedData["result"][h][i].subcategoryName;
                     // listSubCategory.add(subCategoriaModel);
-                    await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+                    await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_itemsubcategory_ws');
 
                     //ItemSubCategoriaModel
                     ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -2683,9 +2709,10 @@ class BusquedaApi {
           final subCategoriaModel = SubcategoryModel();
           subCategoriaModel.idSubcategory = decodedData["productos"][j]["id_subcategory"];
           subCategoriaModel.idCategory = decodedData["productos"][j]["id_category"];
+          subCategoriaModel.subcategoryName = decodedData["productos"][j]["subcategory_name"];
           // subCategoriaModel.subcategoryName =decodedData["productos"][j].subcategoryName;
           //listSubCategory.add(subCategoriaModel);
-          await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+          await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_bs_por_sucursal');
 
           //ItemSubCategoriaModel
           ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -2787,9 +2814,10 @@ class BusquedaApi {
           final subCategoriaModel = SubcategoryModel();
           subCategoriaModel.idSubcategory = decodedData["servicios"][j]["id_subcategory"];
           subCategoriaModel.idCategory = decodedData["servicios"][j]["id_category"];
+          subCategoriaModel.subcategoryName = decodedData["servicios"][j]["subcategory_name"];
           // subCategoriaModel.subcategoryName =decodedData["servicios"][j].subcategoryName;
           //listSubCategory.add(subCategoriaModel);
-          await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+          await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_bs_por_sucursal');
 
           //ItemSubCategoriaModel
           ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -2955,9 +2983,10 @@ class BusquedaApi {
           final subCategoriaModel = SubcategoryModel();
           subCategoriaModel.idSubcategory = decodedData["productos"][j]["id_subcategory"];
           subCategoriaModel.idCategory = decodedData["productos"][j]["id_category"];
+          subCategoriaModel.subcategoryName = decodedData["productos"][j]["subcategory_name"];
           // subCategoriaModel.subcategoryName =decodedData["productos"][j].subcategoryName;
           //listSubCategory.add(subCategoriaModel);
-          await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+          await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_bs_por_sucursal');
 
           //ItemSubCategoriaModel
           ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -3075,9 +3104,10 @@ class BusquedaApi {
           final subCategoriaModel = SubcategoryModel();
           subCategoriaModel.idSubcategory = decodedData["servicios"][j]["id_subcategory"];
           subCategoriaModel.idCategory = decodedData["servicios"][j]["id_category"];
+          subCategoriaModel.subcategoryName = decodedData["servicios"][j]["subcategory_name"];
           // subCategoriaModel.subcategoryName =decodedData["servicios"][j].subcategoryName;
           //listSubCategory.add(subCategoriaModel);
-          await subcategoryDatabase.insertarSubCategory(subCategoriaModel);
+          await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_bs_por_sucursal');
 
           //ItemSubCategoriaModel
           ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();

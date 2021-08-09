@@ -7,12 +7,14 @@ class ItemsubCategoryDatabase {
   insertarItemSubCategoria(ItemSubCategoriaModel itemSubCategoriaModel, String funcion) async {
     try {
       final db = await dbProvider.database;
-      final res = await db.rawInsert("INSERT OR REPLACE INTO ItemSubcategorias (id_itemsubcategory,id_subcategory,itemsubcategory_img,itemsubcategory_estado,itemsubcategory_name) "
-          "VALUES('${itemSubCategoriaModel.idItemsubcategory}', '${itemSubCategoriaModel.idSubcategory}', '${itemSubCategoriaModel.itemsubcategoryImage}', '${itemSubCategoriaModel.itemsubcategoryEstado}', '${itemSubCategoriaModel.itemsubcategoryName}')");
+      final res = await db.rawInsert("INSERT OR REPLACE INTO ItemSubcategorias (id_itemsubcategory,"
+      "id_subcategory,itemsubcategory_img,itemsubcategory_estado,itemsubcategory_name) "
+          "VALUES('${itemSubCategoriaModel.idItemsubcategory}', '${itemSubCategoriaModel.idSubcategory}',"
+          "'${itemSubCategoriaModel.itemsubcategoryImage}', '${itemSubCategoriaModel.itemsubcategoryEstado}', '${itemSubCategoriaModel.itemsubcategoryName}')");
 
       return res;
     } catch (e) {
-      print("$e Error en la base de datos");
+      print("$e Error en la base de datos $funcion");
     }
   }
 

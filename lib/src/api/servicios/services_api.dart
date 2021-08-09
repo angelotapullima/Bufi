@@ -164,7 +164,7 @@ class ServiceApi {
       itemSubCategoriaModel.idSubcategory = decodedData[i]['id_subcategory'];
       itemSubCategoriaModel.itemsubcategoryName = decodedData[i]['itemsubcategory_name'];
       itemSubCategoriaModel.itemsubcategoryImage = decodedData[i]['itemsubcategory_img'];
-      await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel, 'Negocio/listar_servicios_por_sucursal');
+      await itemsubCategoryDatabase.insertarItemSubCategoria(itemSubCategoriaModel, 'Negoc');
       //}
     }
     return 0;
@@ -267,7 +267,7 @@ class ServiceApi {
       subcategoryModel.idSubcategory = decodedData['servicios'][i]['id_subcategory'];
       subcategoryModel.subcategoryName = decodedData['servicios'][i]['subcategory_name'];
       subcategoryModel.idCategory = decodedData['servicios'][i]['id_category'];
-      await subcategoryDatabase.insertarSubCategory(subcategoryModel);
+      await subcategoryDatabase.insertarSubCategory(subcategoryModel, 'Negocio/listar_detalle_servicio');
 
       //ingresamos ItemSubCategorias
       ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -355,7 +355,10 @@ class ServiceApi {
   }
 
   Future<int> listarServiciosPorIdItemSubcategoria(String id) async {
-    final response = await http.post(Uri.parse("$apiBaseURL/api/Inicio/listar_servicios_por_id_itemsu"), body: {'id_ciudad': '1', 'id_itemsubcategoria': '$id'});
+    final response = await http.post(Uri.parse("$apiBaseURL/api/Inicio/listar_servicios_por_id_itemsu"), body: {
+      'id_ciudad': '1',
+      'id_itemsubcategoria': '$id',
+    });
 
     final decodedData = json.decode(response.body);
 
@@ -375,7 +378,7 @@ class ServiceApi {
       subcategoryModel.idSubcategory = decodedData['servicios'][i]['id_subcategory'];
       subcategoryModel.subcategoryName = decodedData['servicios'][i]['subcategory_name'];
       subcategoryModel.idCategory = decodedData['servicios'][i]['id_category'];
-      await subcategoryDatabase.insertarSubCategory(subcategoryModel);
+      await subcategoryDatabase.insertarSubCategory(subcategoryModel, 'Inicio/listar_servicios_por_id_itemsu');
 
       //ingresamos ItemSubCategorias
       ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();

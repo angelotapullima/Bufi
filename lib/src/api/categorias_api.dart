@@ -57,16 +57,18 @@ class CategoriasApi {
         CategoriaModel categ = CategoriaModel();
         categ.idCategory = res[i]["id_category"];
         categ.categoryName = res[i]["category_name"];
+        categ.categoryImage = res[i]["category_img"];
+        categ.categoryEstado = res[i]["category_estado"];
 
         //categoriaList.add(categ);
-        await categoryDatabase.insertarCategory(categ);
+        await categoryDatabase.insertarCategory(categ, 'Inicio/listar_categorias');
 
         SubcategoryModel subcategoryModel = SubcategoryModel();
         subcategoryModel.idCategory = res[i]["id_category"];
         subcategoryModel.idSubcategory = res[i]["id_subcategory"];
         subcategoryModel.subcategoryName = res[i]["subcategory_name"];
 
-        await subcategoryDatabase.insertarSubCategory(subcategoryModel);
+        await subcategoryDatabase.insertarSubCategory(subcategoryModel, 'Inicio/listar_categorias');
 
         //Insertamos el itemsubcategoria
         ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -104,18 +106,22 @@ class CategoriasApi {
         categoriaModel.idCategory = bienesList['id_category'];
         if (categoryList.length > 0) {
           categoriaModel.categoryName = categoryList[0].categoryName;
+          categoriaModel.categoryEstado = categoryList[0].categoryEstado;
+          categoriaModel.categoryImage = categoryList[0].categoryImage;
         } else {
           categoriaModel.categoryName = '';
+          categoriaModel.categoryEstado = '';
+          categoriaModel.categoryImage = '';
         }
 
-        await categoryDatabase.insertarCategory(categoriaModel);
+        await categoryDatabase.insertarCategory(categoriaModel, 'Inicio/listar_bs_por_id_ciudad_resume');
 
         //ingresamos subcategorias
         SubcategoryModel subcategoryModel = SubcategoryModel();
         subcategoryModel.idSubcategory = bienesList['id_subcategory'];
         subcategoryModel.subcategoryName = bienesList['subcategory_name'];
         subcategoryModel.idCategory = bienesList['id_category'];
-        await subcategoryDatabase.insertarSubCategory(subcategoryModel);
+        await subcategoryDatabase.insertarSubCategory(subcategoryModel, 'Inicio/listar_bs_por_id_ciudad_resume');
 
         //ingresamos ItemSubCategorias
         ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -212,18 +218,22 @@ class CategoriasApi {
         categoriaModel.idCategory = decodedData['servicios'][i]['id_category'];
         if (categoryList.length > 0) {
           categoriaModel.categoryName = categoryList[0].categoryName;
+          categoriaModel.categoryEstado = categoryList[0].categoryEstado;
+          categoriaModel.categoryImage = categoryList[0].categoryImage;
         } else {
           categoriaModel.categoryName = '';
+          categoriaModel.categoryEstado = '';
+          categoriaModel.categoryImage = '';
         }
 
-        await categoryDatabase.insertarCategory(categoriaModel);
+        await categoryDatabase.insertarCategory(categoriaModel, 'Inicio/listar_bs_por_id_ciudad_resume');
 
         //ingresamos subcategorias
         SubcategoryModel subcategoryModel = SubcategoryModel();
         subcategoryModel.idSubcategory = decodedData['servicios'][i]['id_subcategory'];
         subcategoryModel.subcategoryName = decodedData['servicios'][i]['subcategory_name'];
         subcategoryModel.idCategory = decodedData['servicios'][i]['id_category'];
-        await subcategoryDatabase.insertarSubCategory(subcategoryModel);
+        await subcategoryDatabase.insertarSubCategory(subcategoryModel, 'Inicio/listar_bs_por_id_ciudad_resume');
 
         //ingresamos ItemSubCategorias
         ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -385,17 +395,21 @@ class CategoriasApi {
           var categoryList = await categoryDatabase.obtenerCategoriasporID(bienesList[i]["id_category"]);
           if (categoryList.length > 0) {
             categ.categoryName = categoryList[0].categoryName;
+            categ.categoryEstado = categoryList[0].categoryEstado;
+            categ.categoryImage = categoryList[0].categoryImage;
           } else {
             categ.categoryName = '';
+            categ.categoryEstado = '';
+            categ.categoryImage = '';
           }
-          await categoryDatabase.insertarCategory(categ);
+          await categoryDatabase.insertarCategory(categ, 'Inicio/listar_bs_por_id_itemsubcat');
 
           SubcategoryModel subcategoryModel = SubcategoryModel();
           subcategoryModel.idCategory = bienesList[i]["id_category"];
           subcategoryModel.idSubcategory = bienesList[i]["id_subcategory"];
           subcategoryModel.subcategoryName = bienesList[i]["subcategory_name"];
 
-          await subcategoryDatabase.insertarSubCategory(subcategoryModel);
+          await subcategoryDatabase.insertarSubCategory(subcategoryModel,'Inicio/listar_bs_por_id_itemsubcat');
 
           ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
           itemSubCategoriaModel.idItemsubcategory = bienesList[i]['id_itemsubcategory'];
@@ -498,17 +512,21 @@ class CategoriasApi {
           var categoryList = await categoryDatabase.obtenerCategoriasporID(serviciosList[i]["id_category"]);
           if (categoryList.length > 0) {
             categ.categoryName = categoryList[0].categoryName;
+            categ.categoryEstado = categoryList[0].categoryEstado;
+            categ.categoryImage = categoryList[0].categoryImage;
           } else {
             categ.categoryName = '';
+            categ.categoryEstado = '';
+            categ.categoryImage = '';
           }
-          await categoryDatabase.insertarCategory(categ);
+          await categoryDatabase.insertarCategory(categ, 'Inicio/listar_bs_por_id_itemsubcat');
 
           SubcategoryModel subcategoryModel = SubcategoryModel();
           subcategoryModel.idCategory = serviciosList[i]["id_category"];
           subcategoryModel.idSubcategory = serviciosList[i]["id_subcategory"];
           subcategoryModel.subcategoryName = serviciosList[i]["subcategory_name"];
 
-          await subcategoryDatabase.insertarSubCategory(subcategoryModel);
+          await subcategoryDatabase.insertarSubCategory(subcategoryModel,'Inicio/listar_bs_por_id_itemsubcat');
 
           ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
           itemSubCategoriaModel.idItemsubcategory = serviciosList[i]['id_itemsubcategory'];

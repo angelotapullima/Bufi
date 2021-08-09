@@ -4,7 +4,7 @@ import 'package:bufi/src/models/categoriaModel.dart';
 class CategoryDatabase {
   final dbProvider = DatabaseProvider.db;
 
-  insertarCategory(CategoriaModel categoriaModel) async {
+  insertarCategory(CategoriaModel categoriaModel,String funcion ) async {
     try {
       final db = await dbProvider.database;
       final res = await db.rawInsert("INSERT OR REPLACE INTO Category (id_category,category_name,category_estado,category_img) "
@@ -12,9 +12,9 @@ class CategoryDatabase {
 
       return res;
     } catch (e) {
-      print("$e Error en la tabla Categoria");
+      print("$e Error en la tabla Categoria $funcion");
     }
-  }
+  } 
 
 //------Categorias
   Future<List<CategoriaModel>> obtenerCategorias() async {

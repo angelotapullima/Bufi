@@ -91,9 +91,20 @@ class PrincipalPage extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('${snapshot.data[index].nombre}'),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: responsive.wp(2),
+                                    ),
+                                    child: Text(
+                                      '${snapshot.data[index].nombre}',
+                                      style: TextStyle(
+                                        fontSize: responsive.ip(1.9),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
                                   Container(
-                                    height: responsive.hp(40),
+                                    height: (snapshot.data[index].productos.length > 0) ? responsive.hp(40) : responsive.hp(2),
                                     child: (snapshot.data[index].productos.length > 0)
                                         ? ListView.builder(
                                             itemCount: snapshot.data[index].productos.length,

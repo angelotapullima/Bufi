@@ -13,7 +13,10 @@ class RegistroUsuario extends StatefulWidget {
 class _RegistroUsuarioState extends State<RegistroUsuario> {
   TextEditingController _controllerName = TextEditingController();
   TextEditingController _controllerLastName = TextEditingController();
-  TextEditingController _controllerNickName = TextEditingController();
+  TextEditingController _controllerSurName = TextEditingController();
+  TextEditingController _controllerNacimiento = TextEditingController();
+  TextEditingController _controllerPhone = TextEditingController();
+  TextEditingController _controllerGenre = TextEditingController();
   TextEditingController _controllerCel = TextEditingController();
   TextEditingController _controllerEmail = TextEditingController();
   TextEditingController _controllerPassword = TextEditingController();
@@ -37,29 +40,90 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: responsive.wp(5), vertical: responsive.hp(8)),
+          SafeArea(
+            bottom: false,
+            child: SingleChildScrollView(
               child: Container(
-                margin: EdgeInsets.only(top: responsive.hp(7)),
-                //padding: const EdgeInsets.only(top:30.0),
+                padding: EdgeInsets.symmetric(horizontal: responsive.wp(3)),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Row(
+                      children: [
+                        BackButton(),
+                      ],
+                    ),
                     Text(
-                      "REGISTRO DE USUARIOS",
-                      style: TextStyle(fontSize: responsive.ip(2.8), fontWeight: FontWeight.bold),
+                      "Bienvenido a Bufi ✋ ",
+                      style: TextStyle(
+                        fontSize: responsive.ip(2.8),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(
                       height: responsive.hp(1.5),
                     ),
                     Text(
-                      "Complete los Campos",
-                      style: TextStyle(fontSize: responsive.ip(2.2)),
+                      "Supongo que eres nuevo por aquí. puede comenzar a usar la aplicación después de registrarse",
+                      style: TextStyle(
+                        fontSize: responsive.ip(1.7),
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey[700],
+                      ),
                     ),
                     SizedBox(
                       height: responsive.hp(6),
                     ),
-                    _nombreUsuario(context, responsive),
+
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: responsive.wp(0),
+                      ),
+                      child: Text(
+                        'Nombres',
+                        style: TextStyle(
+                          fontSize: responsive.ip(2),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1),
+                    ),
+                    _input(
+                      responsive,
+                      double.infinity,
+                      Icon(
+                        Icons.person,
+                        color: Colors.blue,
+                      ),
+                    ),
+                     SizedBox(
+                      height: responsive.hp(2),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: responsive.wp(0),
+                      ),
+                      child: Text(
+                        'Apellido Paterno',
+                        style: TextStyle(
+                          fontSize: responsive.ip(2),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1),
+                    ),
+                    _input(
+                      responsive,
+                      double.infinity,
+                      Icon(
+                        Icons.person,
+                        color: Colors.blue,
+                      ),
+                    ),
                     SizedBox(
                       height: responsive.hp(2),
                     ),
@@ -96,7 +160,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
 
                             if (_controllerName.text.isEmpty &&
                                 _controllerLastName.text.isEmpty &&
-                                _controllerNickName.text.isEmpty &&
+                                _controllerGenre.text.isEmpty &&
                                 _controllerPassword.text.isEmpty &&
                                 _controllerCel.text.isEmpty &&
                                 _controllerEmail.text.isEmpty) {
@@ -108,9 +172,9 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
                             } else {
                               final registroUser = RegisterUser();
 
-                              final res = await registroUser.registro(
+                              /*  final res = await registroUser.registro(
                                   _controllerName.text, _controllerLastName.text, _controllerNickName.text, _controllerCel.text, _controllerEmail.text, _controllerPassword.text);
-
+          
                               if (res == 1) {
                                 //registro exitoso
                                 final log = LoginApi();
@@ -122,11 +186,11 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
                                 //registro failed
                               } else {
                                 //registro failed
-
+          
                                 setState(() {
                                   mostrarCarga = false;
                                 });
-                              }
+                              } */
                             }
                           },
                           child: Text("Registrar"),
@@ -241,6 +305,26 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
     );
   }
 
+  Widget _input(Responsive responsive, double ancho, Icon iconn) {
+    return Container(
+      width: ancho,
+      height: responsive.hp(6),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey[300]),
+        borderRadius: BorderRadius.circular(5),
+        color: Colors.grey[300],
+      ),
+      child: TextField(
+        cursorColor: Colors.transparent,
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(border: InputBorder.none, hintStyle: TextStyle(color: Colors.black45), hintText: '', prefixIcon: iconn),
+        enableInteractiveSelection: false,
+        controller: _controllerSurName,
+        //controller: montoPagarontroller,
+      ),
+    );
+  }
+
   Widget passwordUsuario(BuildContext context, Responsive responsive) {
     return TextField(
       controller: _controllerPassword,
@@ -318,7 +402,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
 
   Widget _nickNameUsuario(BuildContext context, Responsive responsive) {
     return TextField(
-      controller: _controllerNickName,
+      controller: _controllerSurName,
       textAlign: TextAlign.left,
       keyboardType: TextInputType.text,
       decoration: InputDecoration(

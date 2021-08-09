@@ -3,12 +3,33 @@ import 'package:bufi/src/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class RegisterUser {
-  Future<int> registro(String name, String surname, String nickName, String cel, String email, String pass) async {
+  Future<int> registro(
+    String name,
+    String surname,
+    String surname2,
+    String birth,
+    String cel,
+    String genre,
+    String ubigeo,
+    String nickName,
+    String email,
+    String pass,
+  ) async {
     try {
       final url = '$apiBaseURL/api/Inicio/new';
 
-      final resp = await http
-          .post(Uri.parse(url), body: {'name': '$name', 'surname': '$surname', 'user_nickname': '$nickName', 'email': '$email', 'cel': '$cel', 'ciudad': '1', 'pass': '$pass'});
+      final resp = await http.post(Uri.parse(url), body: {
+        'person_name': '$name',
+        'person_surname': '$surname',
+        'person_surname2': '$surname2',
+        'person_birth': '$birth',
+        'person_number_phone': '$cel',
+        'person_genre': '$genre',
+        'ubigeo_id': '$ubigeo',
+        'user_nickname': '$nickName',
+        'user_email': '$email',
+        'user_password': '$pass',
+      });
 
       //print(json.decode(resp.body));
 

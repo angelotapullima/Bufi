@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final darkTheme = ThemeData.dark().copyWith(
-  textTheme: GoogleFonts.muliTextTheme(),
+  //textTheme: GoogleFonts.muliTextTheme(),
   scaffoldBackgroundColor: InstagramColors.scaffoldDark,
   accentColor: InstagramColors.cardLight,
   cardColor: InstagramColors.cardDark,
@@ -16,7 +16,7 @@ final darkTheme = ThemeData.dark().copyWith(
 );
 
 final lightTheme = ThemeData.light().copyWith(
-  textTheme: GoogleFonts.muliTextTheme(),
+  //textTheme: GoogleFonts.latoTextTheme(),
   scaffoldBackgroundColor: InstagramColors.scaffoldLigth,
   accentColor: InstagramColors.grey,
   cardColor: InstagramColors.cardLight,

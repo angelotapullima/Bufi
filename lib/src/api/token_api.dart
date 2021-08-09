@@ -6,10 +6,10 @@ import 'package:http/http.dart' as http;
 
 class TokenApi {
   final prefs = Preferences();
-  Future<bool> enviarToken() async {
+  Future<bool> enviarToken(String token) async {
     if (prefs.token != null) {
       final res = await http.post(Uri.parse("$apiBaseURL/api/Usuario/actualizar_token"), body: {
-        'token': '${prefs.tokenFirebase}',
+        'token': '$token',
         'tn': '${prefs.token}',
         'app': 'true',
       });

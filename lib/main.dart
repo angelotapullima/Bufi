@@ -1,4 +1,5 @@
 import 'package:bufi/introPage.dart';
+import 'package:bufi/src/models/ReceivedNotification.dart';
 import 'package:bufi/src/page/Tabs/Negocios/Sucursal/detalleSubisidiaryBloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProductoBloc.dart';
 import 'package:bufi/src/page/Tabs/Negocios/servicios/detalleServicio.dart';
@@ -36,16 +37,62 @@ import 'package:catcher/core/catcher.dart';
 import 'package:catcher/handlers/email_manual_handler.dart';
 import 'package:catcher/mode/dialog_report_mode.dart';
 import 'package:catcher/model/catcher_options.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart';
+
+Future<void> showNotificationWithIconBadge(ReceivedNotification notification) async {
+  var androidPlatformChannelSpecifics = AndroidNotificationDetails('icon badge channel', 'icon badge name', 'icon badge description');
+  var iOSPlatformChannelSpecifics = IOSNotificationDetails(badgeNumber: 1);
+  var platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
+  await flutterLocalNotificationsPlugin.show(0, '${notification.title}', '${notification.body}', platformChannelSpecifics,
+      payload: notification.payload);
+}
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+// Streams are created so that app can respond to notification-related events since the plugin is initialised in the `main` function
+final BehaviorSubject<ReceivedNotification> didReceiveLocalNotificationSubject = BehaviorSubject<ReceivedNotification>();
+
+final BehaviorSubject<String> selectNotificationSubject = BehaviorSubject<String>();
+
+NotificationAppLaunchDetails notificationAppLaunchDetails;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = new Preferences();
   await prefs.initPrefs();
 
+//linea de notificacion , descomentar para compilar
   await PushNotificationService.initializeApp();
+
+  notificationAppLaunchDetails = await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+
+  var initializationSettingsAndroid = AndroidInitializationSettings('logo');
+  // Note: permissions aren't requested here just to demonstrate that can be done later using the `requestPermissions()` method
+  // of the `IOSFlutterLocalNotificationsPlugin` class
+  var initializationSettingsIOS = IOSInitializationSettings(
+      requestAlertPermission: false,
+      requestBadgePermission: false,
+      requestSoundPermission: true,
+      onDidReceiveLocalNotification: (int id, String title, String body, String payload) async {
+        didReceiveLocalNotificationSubject.add(
+          ReceivedNotification(id: id, title: title, body: body, payload: payload),
+        );
+      });
+  var initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
+    iOS: initializationSettingsIOS,
+  );
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: (String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
+    selectNotificationSubject.add(payload);
+  });
 
   /// STEP 1. Create catcher configuration.
   /// Debug configuration with dialog report mode and console handler. It will show dialog and once user accepts it, error will be shown   /// in console.
@@ -69,15 +116,70 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final GlobalKey<NavigatorState> navigatorkey = new GlobalKey<NavigatorState>();
+
   @override
   void initState() {
-    super.initState();
-
-    //Context
-    PushNotificationService.messagesStream.listen((message) {
-      //print('MyApp: $message ');
-      Catcher.navigatorKey.currentState.pushNamed('notificaciones');
+    //linea de notificacion , descomentar para compilar
+    PushNotificationService.messagesStream.listen((event) {
+      print('cuando la app esta abierta');
+      navigatorkey.currentState.pushNamed('notificationPage', arguments: event);
     });
+    _requestIOSPermissions();
+    _configureDidReceiveLocalNotificationSubject();
+    _configureSelectNotificationSubject();
+
+    super.initState();
+  }
+
+  void _requestIOSPermissions() {
+    flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+  }
+
+  void _configureDidReceiveLocalNotificationSubject() {
+    didReceiveLocalNotificationSubject.stream.listen(
+      (ReceivedNotification receivedNotification) async {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) => CupertinoAlertDialog(
+            title: receivedNotification.title != null ? Text(receivedNotification.title) : null,
+            content: receivedNotification.body != null ? Text(receivedNotification.body) : null,
+            actions: [
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Text('Ok'),
+                onPressed: () async {
+                  print('_configureDidReceiveLocalNotificationSubject');
+                  Navigator.of(context, rootNavigator: true).pop();
+                  await navigatorkey.currentState.pushNamed('onboarding', arguments: receivedNotification.payload);
+                },
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _configureSelectNotificationSubject() {
+    selectNotificationSubject.stream.listen(
+      (String payload) async {
+        //esto funciona cuando tocas la notificacion que se genero con la app abierta
+        print('esta te lleva la pantalla seleccionada cuando la app esta abierta $payload');
+        await navigatorkey.currentState.pushNamed('notificationPage', arguments: payload);
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    didReceiveLocalNotificationSubject.close();
+    selectNotificationSubject.close();
+    super.dispose();
   }
 
   @override

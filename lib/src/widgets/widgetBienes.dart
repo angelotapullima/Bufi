@@ -163,8 +163,7 @@ class _BienesWidgetState extends State<BienesWidget> {
       favorite = (widget.producto.productoFavourite == '1') ? true : false;
     }
     final responsive = Responsive.of(context);
-    return (widget.producto.productoStatus == '1')
-        ? Container(
+    return Container(
             margin: EdgeInsets.symmetric(
               horizontal: responsive.wp(1),
               vertical: responsive.hp(1),
@@ -186,7 +185,7 @@ class _BienesWidgetState extends State<BienesWidget> {
               children: <Widget>[
                 Container(
                   width: double.infinity,
-                  height: responsive.hp(15),
+                  height: responsive.hp(18.5),
                   child: Stack(
                     children: <Widget>[
                       Container(
@@ -195,7 +194,8 @@ class _BienesWidgetState extends State<BienesWidget> {
                           child: CachedNetworkImage(
                             placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                             errorWidget: (context, url, error) => Icon(Icons.error),
-                            imageUrl: '$apiBaseURL/${widget.producto.productoImage}',
+                            imageUrl: 'https://productoftheyearusa.com/wp-content/uploads/2016/03/McN_POY_20158281.jpg',
+                            //imageUrl: '$apiBaseURL/${widget.producto.productoImage}',
                             imageBuilder: (context, imageProvider) => Container(
                               decoration: BoxDecoration(
                                 image: DecorationImage(
@@ -303,8 +303,7 @@ class _BienesWidgetState extends State<BienesWidget> {
                 ),
               ],
             ),
-          )
-        : Container();
+          );
   }
 }
 
@@ -358,7 +357,8 @@ class _BienesCompletoWidgetState extends State<BienesCompletoWidget> {
                       child: CachedNetworkImage(
                         placeholder: (context, url) => Image(image: AssetImage('assets/jar-loading.gif'), fit: BoxFit.cover),
                         errorWidget: (context, url, error) => Icon(Icons.error),
-                        imageUrl: '$apiBaseURL/${widget.producto.subsidiaryGoodImage}',
+                        //imageUrl: '$apiBaseURL/${widget.producto.subsidiaryGoodImage}',
+                        imageUrl: 'https://productoftheyearusa.com/wp-content/uploads/2016/03/McN_POY_20158281.jpg',
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(

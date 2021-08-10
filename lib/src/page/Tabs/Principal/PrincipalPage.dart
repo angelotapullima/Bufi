@@ -104,14 +104,41 @@ class PrincipalPage extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
-                                    height: (snapshot.data[index].productos.length > 0) ? responsive.hp(40) : responsive.hp(2),
+                                    height: (snapshot.data[index].productos.length > 0) ? responsive.hp(32) : responsive.hp(2),
                                     child: (snapshot.data[index].productos.length > 0)
                                         ? ListView.builder(
                                             itemCount: snapshot.data[index].productos.length,
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index2) {
-                                              return BienesWidget(
-                                                producto: snapshot.data[index].productos[index2],
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  agregarPSaSugerencia(context, snapshot.data[index].productos[index2].idProducto, 'bien');
+
+                                                  Navigator.push(
+                                                    context,
+                                                    PageRouteBuilder(
+                                                      transitionDuration: const Duration(milliseconds: 100),
+                                                      pageBuilder: (context, animation, secondaryAnimation) {
+                                                        return DetalleProductos(
+                                                          idProducto: snapshot.data[index].productos[index2].idProducto,
+                                                        );
+                                                        //return DetalleProductitos(productosData: productosData);
+                                                      },
+                                                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                                        return FadeTransition(
+                                                          opacity: animation,
+                                                          child: child,
+                                                        );
+                                                      },
+                                                    ),
+                                                  );
+                                                  /* Navigator.pushNamed(context, 'detalleProducto',
+                                arguments:
+                                    snapshot.data[index].idProducto); */
+                                                },
+                                                child: BienesWidget(
+                                                  producto: snapshot.data[index].productos[index2],
+                                                ),
                                               );
                                             },
                                           )

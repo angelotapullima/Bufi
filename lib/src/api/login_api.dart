@@ -18,17 +18,29 @@ class LoginApi {
       final int code = decodedData['result']['code'];
 
       if (code == 1) {
-        final prodTemp = Data.fromJson(decodedData['data']);
+        
+
+        /* idUser: json["c_u"],
+        idCity: json["c_c"],
+        idPerson: json["c_p"],
+        userNickname: json["_n"],
+        userEmail: json["u_e"],
+        userImage: json["u_i"],
+        personName: json["p_n"],
+        personSurname: json["p_s"],
+        idRoleUser: json["ru"],
+        roleName: json["rn"],
+        token: json["tn"], */
         //agrego los datos de usuario al sharePreferences
         prefs.idUser = decodedData['data']['c_u'];
-        prefs.idPerson = prodTemp.idPerson;
-        prefs.userNickname = prodTemp.userNickname;
-        prefs.userEmail = prodTemp.userEmail;
-        prefs.userImage = prodTemp.userImage;
-        prefs.personName = prodTemp.personName;
-        prefs.personSurname = prodTemp.personSurname;
-        prefs.idRoleUser = prodTemp.idRoleUser;
-        prefs.roleName = prodTemp.roleName;
+        prefs.idPerson = decodedData['data']['c_u'];
+        prefs.userNickname = decodedData['data']['_n'];
+        prefs.userEmail = decodedData['data']['u_e'];
+        prefs.userImage = decodedData['data']['u_i'];
+        prefs.personName = decodedData['data']['p_n'];
+        prefs.personSurname =decodedData['data']['p_p'];
+        prefs.idRoleUser = decodedData['data']['ru'];
+        prefs.roleName = decodedData['data']['rn'];
         prefs.token = decodedData['data']['tn'];
 
         // final tokenApi = TokenApi();

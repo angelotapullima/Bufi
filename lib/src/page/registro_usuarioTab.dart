@@ -3,6 +3,7 @@ import 'package:bufi/src/api/registroUsuario_api.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:platform_date_picker/platform_date_picker.dart';
 
@@ -15,19 +16,17 @@ class RegistroUsuario extends StatefulWidget {
 
 class _RegistroUsuarioState extends State<RegistroUsuario> {
   PageMostrar _currentPage = PageMostrar.page1;
+  ValueNotifier<bool> _cargando = ValueNotifier(false);
 
   TextEditingController _controllerName = TextEditingController();
   TextEditingController _controllerLastName = TextEditingController();
   TextEditingController _controllerSurName = TextEditingController();
   TextEditingController _controllerNacimiento = TextEditingController();
   TextEditingController _controllerPhone = TextEditingController();
-  TextEditingController _controllerGenre = TextEditingController();
   TextEditingController _controllerEmail = TextEditingController();
   TextEditingController _controllerPassword = TextEditingController();
   TextEditingController _controllerConfirmPassword = TextEditingController();
   TextEditingController _controlleruser = TextEditingController();
-
-  bool mostrarCarga = false;
 
   String valueSexo = 'Seleccionar';
   List<String> itemSexo = [
@@ -40,10 +39,13 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
   void dispose() {
     _controllerName?.clear();
     _controllerLastName?.clear();
+    _controllerSurName?.clear();
+    _controllerNacimiento?.clear();
     _controllerPhone?.clear();
+    _controlleruser?.clear();
     _controllerEmail?.clear();
-    _controllerGenre?.clear();
     _controllerPassword?.clear();
+    _controllerConfirmPassword?.clear();
     super.dispose();
   }
 
@@ -57,24 +59,28 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
         iconTheme: IconThemeData(color: Colors.black),
         elevation: 0,
       ),
-      body: Stack(
-        children: <Widget>[
-          SafeArea(
-            bottom: false,
-            child: SingleChildScrollView(
-              child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 500),
-                child: _currentPage == PageMostrar.page1 ? page1(responsive, context) : page2(responsive, context),
-              ),
-            ),
-          ),
-          (mostrarCarga == false)
-              ? Container()
-              : Center(
-                  child: CircularProgressIndicator(),
-                )
-        ],
-      ),
+      body: ValueListenableBuilder(
+          valueListenable: _cargando,
+          builder: (BuildContext context, bool data, Widget child) {
+            return Stack(
+              children: <Widget>[
+                SafeArea(
+                  bottom: false,
+                  child: SingleChildScrollView(
+                    child: AnimatedSwitcher(
+                      duration: Duration(milliseconds: 500),
+                      child: _currentPage == PageMostrar.page1 ? page1(responsive, context) : page2(responsive, context),
+                    ),
+                  ),
+                ),
+                (!data)
+                    ? Container()
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      )
+              ],
+            );
+          }),
     );
   }
 
@@ -117,7 +123,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
               horizontal: responsive.wp(0),
             ),
             child: Text(
-              'Usuario',
+              'Usuario(*)',
               style: TextStyle(
                 fontSize: responsive.ip(2),
                 fontWeight: FontWeight.w700,
@@ -143,7 +149,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
               horizontal: responsive.wp(0),
             ),
             child: Text(
-              'Contraseña',
+              'Contraseña(*)',
               style: TextStyle(
                 fontSize: responsive.ip(2),
                 fontWeight: FontWeight.w700,
@@ -157,7 +163,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
               responsive,
               double.infinity,
               Icon(
-                Icons.password_sharp,
+                Ionicons.ios_lock,
                 color: Colors.blue,
               ),
               _controllerPassword),
@@ -169,7 +175,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
               horizontal: responsive.wp(0),
             ),
             child: Text(
-              'Confirmar Contraseña',
+              'Confirmar Contraseña(*)',
               style: TextStyle(
                 fontSize: responsive.ip(2),
                 fontWeight: FontWeight.w700,
@@ -183,12 +189,142 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
               responsive,
               double.infinity,
               Icon(
-                Icons.person_add_alt,
+                Ionicons.ios_lock,
                 color: Colors.blue,
               ),
               _controllerConfirmPassword),
           SizedBox(
             height: responsive.hp(2),
+          ),
+          Text(
+            'Al crear una cuenta significa que usted está de acuerdo con nuestros términos y condiciones y nuestra politica de privacidad',
+            style: TextStyle(
+              color: Colors.grey[600],
+              fontSize: responsive.ip(1.7),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(
+            height: responsive.hp(2),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, 'terminosycondiciones');
+            },
+            child: Text(
+              'Ver términos y condiciones',
+              style: TextStyle(color: Colors.black, fontSize: responsive.ip(1.7), fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(
+            height: responsive.hp(2),
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  setState(() {
+                    _currentPage = PageMostrar.page1;
+                  });
+                },
+                child: Text(
+                  "Volver",
+                  style: TextStyle(color: Colors.white),
+                ),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: responsive.wp(2),
+                  ),
+                  primary: Colors.blue[900],
+                  onPrimary: Colors.grey.shade800,
+                ),
+              ),
+              Spacer(),
+              ElevatedButton(
+                onPressed: () async {
+                  _cargando.value = true;
+                  if (_controlleruser.text.isEmpty && _controllerPassword.text.isEmpty && _controllerConfirmPassword.text.isEmpty) {
+                    //mostrar mensaje de text name vacio
+                    showToast1("Debe rellenar todos los campos", 2, ToastGravity.CENTER);
+                  } else {
+                    if (_controllerPassword.text == _controllerConfirmPassword.text) {
+                      final registerUserApi = RegisterUserApi();
+
+                      final res = await registerUserApi.registro(
+                        _controllerName.text,
+                        _controllerLastName.text,
+                        _controllerSurName.text,
+                        _controllerNacimiento.text,
+                        _controllerPhone.text,
+                        valueSexo,
+                        _controlleruser.text,
+                        _controllerEmail.text,
+                        _controllerPassword.text,
+                      );
+
+                      if (res == 1) {
+                        //registro exitoso
+                        final log = LoginApi();
+                        final resL = await log.login(_controlleruser.text, _controllerPassword.text);
+                        if (resL == 1) {
+                          _cargando.value = false;
+
+                          Navigator.pushNamed(context, 'home');
+                        } else {
+                          _cargando.value = false;
+                        }
+                      } else if (res == 3) {
+                        showToast1('Ya existe un usuario con este nickname registrado', 2, ToastGravity.BOTTOM);
+                      } else if (res == 4) {
+                        showToast1('Ya existe un usuario con este correo registrado', 2, ToastGravity.BOTTOM);
+                      } else {
+                        showToast1('Hubo un error', 2, ToastGravity.BOTTOM);
+                      }
+                      _cargando.value = false;
+                    } else {
+                      showToast1('las contraseñas no coinciden', 2, ToastGravity.CENTER);
+                    }
+
+                    /*  final res = await registroUser.registro(
+                                _controllerName.text, _controllerLastName.text, _controllerNickName.text, _controllerCel.text, _controllerEmail.text, _controllerPassword.text);
+        
+                            if (res == 1) {
+                              //registro exitoso
+                              final log = LoginApi();
+                              final resL = await log.login(_controllerEmail.text, _controllerPassword.text);
+                              if (resL == 1) {
+                                Navigator.pushNamed(context, 'home');
+                              } else {}
+                            } else if (res == 2) {
+                              //registro failed
+                            } else {
+                              //registro failed
+        
+                              setState(() {
+                                mostrarCarga = false;
+                              });
+                            } */
+                  }
+                },
+                child: Text(
+                  "Finalizar",
+                  style: TextStyle(color: Colors.white),
+                ),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: responsive.wp(2),
+                  ),
+                  primary: Color(0xFFF93963),
+                  onPrimary: Colors.grey.shade800,
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -249,7 +385,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
               horizontal: responsive.wp(0),
             ),
             child: Text(
-              'Nombres',
+              'Nombres (*)',
               style: TextStyle(
                 fontSize: responsive.ip(2),
                 fontWeight: FontWeight.w700,
@@ -284,7 +420,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
                         horizontal: responsive.wp(0),
                       ),
                       child: Text(
-                        'Apellido Paterno',
+                        'Apellido Paterno(*)',
                         style: TextStyle(
                           fontSize: responsive.ip(2),
                           fontWeight: FontWeight.w700,
@@ -316,7 +452,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
                         horizontal: responsive.wp(0),
                       ),
                       child: Text(
-                        'Apellido Materno',
+                        'Apellido Materno(*)',
                         style: TextStyle(
                           fontSize: responsive.ip(2),
                           fontWeight: FontWeight.w700,
@@ -349,7 +485,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
               horizontal: responsive.wp(0),
             ),
             child: Text(
-              'Télefono',
+              'Télefono(*)',
               style: TextStyle(
                 fontSize: responsive.ip(2),
                 fontWeight: FontWeight.w700,
@@ -366,7 +502,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
                 Icons.phone_android,
                 color: Colors.blue,
               ),
-              _controllerName),
+              _controllerPhone),
           SizedBox(
             height: responsive.hp(2),
           ),
@@ -500,7 +636,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
               horizontal: responsive.wp(0),
             ),
             child: Text(
-              'Email',
+              'Email(*)',
               style: TextStyle(
                 fontSize: responsive.ip(2),
                 fontWeight: FontWeight.w700,
@@ -517,11 +653,20 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
                 Icons.email,
                 color: Colors.blue,
               ),
-              _controllerName),
+              _controllerEmail),
           SizedBox(
             height: responsive.hp(2),
           ),
-
+          Row(
+            children: [
+              Text(
+                '(*) campos obligatorios',
+                style: TextStyle(
+                  fontSize: responsive.ip(1.5),
+                ),
+              ),
+            ],
+          ),
           SizedBox(
             height: responsive.hp(2),
           ),
@@ -531,23 +676,19 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
               Spacer(),
               ElevatedButton(
                 onPressed: () async {
-                  /* if (_controllerName.text.isEmpty &&
-                      _controllerLastName.text.isEmpty &&
-                      _controllerGenre.text.isEmpty &&
-                      _controllerPassword.text.isEmpty &&
-                      _controllerCel.text.isEmpty &&
+                  if (_controllerName.text.isEmpty ||
+                      _controllerLastName.text.isEmpty ||
+                      _controllerSurName.text.isEmpty ||
+                      _controllerPhone.text.isEmpty ||
                       _controllerEmail.text.isEmpty) {
                     //mostrar mensaje de text name vacio
-                    showToast1("Debe rellenar todos los campos", 2, ToastGravity.CENTER);
-                     
+                    showToast1("Debe rellenar todos los campos obligatorios", 2, ToastGravity.CENTER);
+                  } else {
+                    setState(() {
+                      _currentPage = PageMostrar.page2;
+                    });
 
-                  } else { */
-                  setState(() {
-                    _currentPage = PageMostrar.page2;
-                  });
-                  final registroUser = RegisterUserApi();
-
-                  /*  final res = await registroUser.registro(
+                    /*  final res = await registroUser.registro(
                                 _controllerName.text, _controllerLastName.text, _controllerNickName.text, _controllerCel.text, _controllerEmail.text, _controllerPassword.text);
         
                             if (res == 1) {
@@ -566,7 +707,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
                                 mostrarCarga = false;
                               });
                             } */
-                  // }
+                  }
                 },
                 child: Text(
                   "Continuar",
@@ -588,35 +729,6 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
           SizedBox(
             height: responsive.hp(4),
           ),
-
-          /* Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "¿Ya tienes una cuenta?",
-                        style: TextStyle(
-                          fontSize: responsive.ip(2.2),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            'login',
-                          );
-                        },
-                        child: Text(
-                          "Ingresa",
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: responsive.ip(2.2),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                */
         ],
       ),
     );
@@ -634,8 +746,7 @@ class _RegistroUsuarioState extends State<RegistroUsuario> {
     print('date $picked');
     if (picked != null) {
       setState(() {
-        _controllerNacimiento.text =
-            "${picked.year.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+        _controllerNacimiento.text = "${picked.year.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
 
         print(_controllerNacimiento.text);
       });

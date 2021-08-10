@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "353606365624-j2uhnd02lf955lnbjqtmtbeidkqtaolt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bufeotec.bufiApp",
+            "certificate_hash": "6c54ee9cc4c32a3538f3c35e3db6a79bc0b6186f"
+          }
+        },
+        {
           "client_id": "353606365624-vhcqpl4okfe3gqsfnq76me29uuqoo7p5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

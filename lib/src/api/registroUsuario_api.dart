@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
-class RegisterUser {
+class RegisterUserApi {
   Future<int> registro(
     String name,
     String surname,
@@ -10,7 +10,6 @@ class RegisterUser {
     String birth,
     String cel,
     String genre,
-    String ubigeo,
     String nickName,
     String email,
     String pass,
@@ -25,7 +24,7 @@ class RegisterUser {
         'person_birth': '$birth',
         'person_number_phone': '$cel',
         'person_genre': '$genre',
-        'ubigeo_id': '$ubigeo',
+        'ubigeo_id': '1',
         'user_nickname': '$nickName',
         'user_email': '$email',
         'user_password': '$pass',

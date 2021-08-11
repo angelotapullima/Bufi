@@ -1,5 +1,5 @@
 import 'package:bufi/src/api/PantallaPrincipal/pantalla_principal_api.dart';
-import 'package:bufi/src/database/pantalla_principal_database.dart';
+import 'package:bufi/src/database/pantallaPrincipal/pantalla_principal_database.dart';
 import 'package:bufi/src/database/producto_bd.dart';
 import 'package:bufi/src/models/pantalla_principal_model.dart';
 import 'package:bufi/src/models/productoModel.dart';
@@ -71,7 +71,6 @@ class PantallaPrincipalBloc {
         listaFinal.add(pantallaPrincipalModel);
       }
     }
-
 
     return listaFinal;
   }

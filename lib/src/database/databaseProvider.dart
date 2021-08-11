@@ -20,10 +20,9 @@ class DatabaseProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
-    final path = join(documentsDirectory.path, 'bufi.db');
+    final path = join(documentsDirectory.path, 'bufiv2.db');
 
-    return await openDatabase(path, version: 1, onOpen: (db) {},
-        onCreate: (Database db, int version) async {
+    return await openDatabase(path, version: 1, onOpen: (db) {}, onCreate: (Database db, int version) async {
       await db.execute('CREATE TABLE Category ('
           'id_category VARCHAR  PRIMARY KEY,'
           'category_name VARCHAR,'
@@ -256,7 +255,6 @@ class DatabaseProvider {
           ' delivery_datetime TEXT,'
           ' delivery_status TEXT,'
           ' delivery_mt TEXT'
-
           ')');
 
       await db.execute(' CREATE TABLE DetallePedido('
@@ -357,11 +355,15 @@ class DatabaseProvider {
           'page_busqueda VARCHAR'
           ')');
 
-
-           await db.execute('CREATE TABLE PantallaPrincipal ('
+      await db.execute('CREATE TABLE PantallaPrincipal ('
           'idPantalla VARCHAR PRIMARY KEY,'
           'nombre VARCHAR,'
           'tipo VARCHAR'
+          ')');
+
+      await db.execute('CREATE TABLE ProductosPantallaPrincipal ('
+          'idProducto VARCHAR PRIMARY KEY,'
+          'idPantalla VARCHAR'
           ')');
     });
   }

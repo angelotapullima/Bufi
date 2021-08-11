@@ -4,7 +4,7 @@ import 'package:bufi/src/models/productoModel.dart';
 class ProductoDatabase {
   final dbProvider = DatabaseProvider.db;
 
-  insertarProducto(ProductoModel producto) async {
+  insertarProducto(ProductoModel producto, String funcion) async {
     try {
       final db = await dbProvider.database;
 
@@ -21,7 +21,7 @@ class ProductoDatabase {
 
       return res;
     } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
+      print("Exception occured: $error stackTrace: $stacktrace --- error en la funcion $funcion");
 
       return 0;
       //return categoriaList;

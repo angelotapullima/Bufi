@@ -30,7 +30,8 @@ class PedidoApi {
   final goodDb = GoodDatabase();
 
   Future<dynamic> obtenerPedidosEnviados(String idEstado) async {
-    final response = await http.post(Uri.parse("$apiBaseURL/api/Pedido/buscar_pedidos_enviados_ws"), body: {'estado': '$idEstado', 'tn': prefs.token, 'app': 'true'});
+    final response = await http
+        .post(Uri.parse("$apiBaseURL/api/Pedido/buscar_pedidos_enviados_ws"), body: {'estado': '$idEstado', 'tn': prefs.token, 'app': 'true'});
 
     final decodedData = json.decode(response.body);
 //recorremos la lista de pedidos‹
@@ -161,7 +162,7 @@ class PedidoApi {
           subsidiaryGoodModel.productoFavourite = "";
         }
         //insertar a la tabla Producto
-        await productoDb.insertarProducto(subsidiaryGoodModel);
+        await productoDb.insertarProducto(subsidiaryGoodModel, 'Pedido/buscar_pedidos_enviados_ws');
 
         //insertamos en la bd el bien
         final goodModel = BienesModel();
@@ -288,7 +289,8 @@ class PedidoApi {
         subsidiaryGoodModel.productoUpdated = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_updated'];
         subsidiaryGoodModel.productoStatus = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_status'];
 
-        var productList = await productoDb.obtenerProductoPorIdSubsidiaryGood(decodedData["result"]['pedido']["detalle_pedido"][j]['id_subsidiarygood']);
+        var productList =
+            await productoDb.obtenerProductoPorIdSubsidiaryGood(decodedData["result"]['pedido']["detalle_pedido"][j]['id_subsidiarygood']);
 
         if (productList.length > 0) {
           subsidiaryGoodModel.productoFavourite = productList[0].productoFavourite;
@@ -297,7 +299,7 @@ class PedidoApi {
         }
 
         //insertar a la tabla Producto
-        await productoDb.insertarProducto(subsidiaryGoodModel);
+        await productoDb.insertarProducto(subsidiaryGoodModel, 'Pedido/pedir_orden_ws');
 
         final sucursalModel = SubsidiaryModel();
         sucursalModel.idSubsidiary = decodedData["result"]['pedido']["detalle_pedido"][j]['id_subsidiary'];

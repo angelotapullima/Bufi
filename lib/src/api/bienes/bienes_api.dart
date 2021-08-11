@@ -75,7 +75,7 @@ class GoodApi {
       subcategoryModel.idSubcategory = productosListModel['id_subcategory'];
       subcategoryModel.subcategoryName = productosListModel['subcategory_name'];
       subcategoryModel.idCategory = productosListModel['id_category'];
-      await subcategoryDatabase.insertarSubCategory(subcategoryModel,'Inicio/listar_bienes_por_id_ciudad');
+      await subcategoryDatabase.insertarSubCategory(subcategoryModel, 'Inicio/listar_bienes_por_id_ciudad');
 
       //----ingresamos ItemSubCategorias:
       ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -139,7 +139,7 @@ class GoodApi {
       } else {
         productoModel.productoStatus = '0';
       }
-      await productoDatabase.insertarProducto(productoModel);
+      await productoDatabase.insertarProducto(productoModel, 'Inicio/listar_bienes_por_id_ciudad');
 
       //Cuando el servicio no entrega los datos completos:
       final list = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData["bienes"][i]["id_subsidiary"]);

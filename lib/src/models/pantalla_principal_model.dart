@@ -14,23 +14,24 @@ class PantallaPrincipalModel {
     this.productos,
   });
 
-
-
-
   factory PantallaPrincipalModel.fromJson(Map<String, dynamic> json) => PantallaPrincipalModel(
         idPantalla: json["idPantalla"],
         tipo: json["tipo"],
         nombre: json["nombre"],
-        );
+      );
 }
 
 class ProductosPantallaModel {
   String idProducto;
   String idPantalla;
 
-
   ProductosPantallaModel({
     this.idProducto,
     this.idPantalla,
   });
+
+  factory ProductosPantallaModel.fromJson(Map<String, dynamic> json) => ProductosPantallaModel(
+        idPantalla: json["idPantalla"],
+        idProducto: json["idProducto"],
+      );
 }

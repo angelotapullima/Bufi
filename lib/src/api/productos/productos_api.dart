@@ -91,7 +91,7 @@ class ProductosApi {
         } else {
           productoModel.productoFavourite = '0';
         }
-        await productoDatabase.insertarProducto(productoModel);
+        await productoDatabase.insertarProducto(productoModel, 'Negocio/listar_productos_por_sucursal');
 
         SubsidiaryModel submodel = SubsidiaryModel();
         submodel.idCompany = decodedData['results'][i]["id_company"];
@@ -258,7 +258,7 @@ class ProductosApi {
       } else {
         productoModel.productoFavourite = '0';
       }
-      await productoDatabase.insertarProducto(productoModel);
+      await productoDatabase.insertarProducto(productoModel, 'Negocio/listar_detalle_producto');
 
       //Sucursal
       SubsidiaryModel submodel = SubsidiaryModel();

@@ -206,7 +206,7 @@ class CategoriasApi {
         } else {
           subsidiaryGoodModel.productoFavourite = '0';
         }
-        await productoDatabase.insertarProducto(subsidiaryGoodModel);
+        await productoDatabase.insertarProducto(subsidiaryGoodModel, 'Inicio/listar_bs_por_id_ciudad_resume');
       }
 
       for (int i = 0; i < decodedData['servicios'].length; i++) {
@@ -409,7 +409,7 @@ class CategoriasApi {
           subcategoryModel.idSubcategory = bienesList[i]["id_subcategory"];
           subcategoryModel.subcategoryName = bienesList[i]["subcategory_name"];
 
-          await subcategoryDatabase.insertarSubCategory(subcategoryModel,'Inicio/listar_bs_por_id_itemsubcat');
+          await subcategoryDatabase.insertarSubCategory(subcategoryModel, 'Inicio/listar_bs_por_id_itemsubcat');
 
           ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
           itemSubCategoriaModel.idItemsubcategory = bienesList[i]['id_itemsubcategory'];
@@ -451,7 +451,7 @@ class CategoriasApi {
           } else {
             productoModel.productoFavourite = '0';
           }
-          await productoDatabase.insertarProducto(productoModel);
+          await productoDatabase.insertarProducto(productoModel, 'obtenerProySerPorIdItemsubcategory');
 
           SubsidiaryModel subsidiaryModel = SubsidiaryModel();
           subsidiaryModel.idSubsidiary = bienesList[i]['id_subsidiary'];
@@ -526,7 +526,7 @@ class CategoriasApi {
           subcategoryModel.idSubcategory = serviciosList[i]["id_subcategory"];
           subcategoryModel.subcategoryName = serviciosList[i]["subcategory_name"];
 
-          await subcategoryDatabase.insertarSubCategory(subcategoryModel,'Inicio/listar_bs_por_id_itemsubcat');
+          await subcategoryDatabase.insertarSubCategory(subcategoryModel, 'Inicio/listar_bs_por_id_itemsubcat');
 
           ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
           itemSubCategoriaModel.idItemsubcategory = serviciosList[i]['id_itemsubcategory'];

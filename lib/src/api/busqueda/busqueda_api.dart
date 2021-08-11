@@ -103,7 +103,7 @@ class BusquedaApi {
 
                   //listProducto.add(productoModel);
                   //insertar a la tabla Producto
-                  await productoDatabase.insertarProducto(productoModel);
+                  await productoDatabase.insertarProducto(productoModel, 'Negocio/buscar_ws');
 
                   listaDeProductos.add(productoModel);
 
@@ -244,7 +244,7 @@ class BusquedaApi {
                         productoModel.productoFavourite = '';
                       }
                       //insertar a la tabla Producto
-                      await productoDatabase.insertarProducto(productoModel);
+                      await productoDatabase.insertarProducto(productoModel, 'Negocio/buscar_ws');
 
                       listaDeProductos.add(productoModel);
 
@@ -495,7 +495,8 @@ class BusquedaApi {
                     subsidiaryServiceModel.subsidiaryServiceUpdated = decodedData["result"][h][i]['subsidiary_service_updated'];
                     subsidiaryServiceModel.subsidiaryServiceStatus = decodedData["result"][h][i]['subsidiary_service_status'];
                     // listSubServicio.add(subsidiaryServiceModel);
-                    final list = await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursalService(decodedData["result"][h][i]['id_subsidiaryservice']);
+                    final list =
+                        await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursalService(decodedData["result"][h][i]['id_subsidiaryservice']);
 
                     if (list.length > 0) {
                       subsidiaryServiceModel.subsidiaryServiceFavourite = list[0].subsidiaryServiceFavourite;
@@ -912,7 +913,7 @@ class BusquedaApi {
                     productoModel.productoFavourite = '0';
                   }
                   //insertar a la tabla Producto
-                  await productoDatabase.insertarProducto(productoModel);
+                  await productoDatabase.insertarProducto(productoModel, 'Negocio/buscar_ws');
 
                   //BienesModel
                   BienesModel goodmodel = BienesModel();
@@ -1038,7 +1039,7 @@ class BusquedaApi {
                       productoModel.productoFavourite = '0';
                     }
                     //insertar a la tabla Producto
-                    await productoDatabase.insertarProducto(productoModel);
+                    await productoDatabase.insertarProducto(productoModel, 'Negocio/buscar_ws');
 
                     //BienesModel
                     BienesModel goodmodel = BienesModel();
@@ -1248,7 +1249,7 @@ class BusquedaApi {
 
                   listaDeProductos.add(productoModel);
                   //insertar a la tabla Producto
-                  await productoDatabase.insertarProducto(productoModel);
+                  await productoDatabase.insertarProducto(productoModel, 'Negocio/buscar_productos_ws');
 
                   //BienesModel
                   BienesModel goodmodel = BienesModel();
@@ -1390,7 +1391,7 @@ class BusquedaApi {
 
                     listaDeProductos.add(productoModel);
                     //insertar a la tabla Producto
-                    await productoDatabase.insertarProducto(productoModel);
+                    await productoDatabase.insertarProducto(productoModel, 'Negocio/buscar_productos_ws');
 
                     //BienesModel
                     BienesModel goodmodel = BienesModel();
@@ -1657,7 +1658,7 @@ class BusquedaApi {
                   subCategoriaModel.subcategoryName = decodedData["result"][j]["subcategory_name"];
                   // subCategoriaModel.subcategoryName =decodedData["result"][j].subcategoryName;
                   //listSubCategory.add(subCategoriaModel);
-                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_servicios_ws');
+                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel, 'Negocio/buscar_servicios_ws');
 
                   //ItemSubCategoriaModel
                   ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -1702,7 +1703,8 @@ class BusquedaApi {
                     subsidiaryServiceModel.subsidiaryServiceStatus = decodedData["result"][h][i]['subsidiary_service_status'];
                     // listSubServicio.add(subsidiaryServiceModel);
 
-                    final list = await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursalService(decodedData["result"][h][i]['id_subsidiaryservice']);
+                    final list =
+                        await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursalService(decodedData["result"][h][i]['id_subsidiaryservice']);
 
                     if (list.length > 0) {
                       subsidiaryServiceModel.subsidiaryServiceFavourite = list[0].subsidiaryServiceFavourite;
@@ -1792,7 +1794,7 @@ class BusquedaApi {
                     subCategoriaModel.subcategoryName = decodedData["result"][h][i]["subcategory_name"];
                     // subCategoriaModel.subcategoryName =decodedData["result"][h][i].subcategoryName;
                     //listSubCategory.add(subCategoriaModel);
-                    await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_servicios_ws');
+                    await subcategoryDatabase.insertarSubCategory(subCategoriaModel, 'Negocio/buscar_servicios_ws');
 
                     //ItemSubCategoriaModel
                     ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -2363,7 +2365,7 @@ class BusquedaApi {
                     productoModel.productoFavourite = '0';
                   }
                   //insertar a la tabla Producto
-                  await productoDatabase.insertarProducto(productoModel);
+                  await productoDatabase.insertarProducto(productoModel, 'buscar_itemsubcategory_ws');
 
                   //BienesModel
                   BienesModel goodmodel = BienesModel();
@@ -2442,7 +2444,7 @@ class BusquedaApi {
                   subCategoriaModel.subcategoryName = decodedData["result"][j]["subcategory_name"];
                   // subCategoriaModel.subcategoryName =decodedData["result"][j].subcategoryName;
                   //listSubCategory.add(subCategoriaModel);
-                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_itemsubcategory_ws');
+                  await subcategoryDatabase.insertarSubCategory(subCategoriaModel, 'Negocio/buscar_itemsubcategory_ws');
 
                   //ItemSubCategoriaModel
                   ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -2488,7 +2490,7 @@ class BusquedaApi {
                       productoModel.productoFavourite = '0';
                     }
                     //insertar a la tabla Producto
-                    await productoDatabase.insertarProducto(productoModel);
+                    await productoDatabase.insertarProducto(productoModel, 'buscar_itemsubcategory_ws');
 
                     //BienesModel
                     BienesModel goodmodel = BienesModel();
@@ -2565,7 +2567,7 @@ class BusquedaApi {
                     subCategoriaModel.subcategoryName = decodedData["result"][h][i]["subcategory_name"];
                     // subCategoriaModel.subcategoryName =decodedData["result"][h][i].subcategoryName;
                     // listSubCategory.add(subCategoriaModel);
-                    await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_itemsubcategory_ws');
+                    await subcategoryDatabase.insertarSubCategory(subCategoriaModel, 'Negocio/buscar_itemsubcategory_ws');
 
                     //ItemSubCategoriaModel
                     ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -2639,7 +2641,7 @@ class BusquedaApi {
             productoModel.productoFavourite = '0';
           }
           //insertar a la tabla Producto
-          await productoDatabase.insertarProducto(productoModel);
+          await productoDatabase.insertarProducto(productoModel, 'Negocio/buscar_bs_por_sucursal');
 
           listGeneral.add(productoModel);
 
@@ -2712,7 +2714,7 @@ class BusquedaApi {
           subCategoriaModel.subcategoryName = decodedData["productos"][j]["subcategory_name"];
           // subCategoriaModel.subcategoryName =decodedData["productos"][j].subcategoryName;
           //listSubCategory.add(subCategoriaModel);
-          await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_bs_por_sucursal');
+          await subcategoryDatabase.insertarSubCategory(subCategoriaModel, 'Negocio/buscar_bs_por_sucursal');
 
           //ItemSubCategoriaModel
           ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -2817,7 +2819,7 @@ class BusquedaApi {
           subCategoriaModel.subcategoryName = decodedData["servicios"][j]["subcategory_name"];
           // subCategoriaModel.subcategoryName =decodedData["servicios"][j].subcategoryName;
           //listSubCategory.add(subCategoriaModel);
-          await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_bs_por_sucursal');
+          await subcategoryDatabase.insertarSubCategory(subCategoriaModel, 'Negocio/buscar_bs_por_sucursal');
 
           //ItemSubCategoriaModel
           ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -2890,7 +2892,7 @@ class BusquedaApi {
             productoModel.productoFavourite = '0';
           }
           //insertar a la tabla Producto
-          await productoDatabase.insertarProducto(productoModel);
+          await productoDatabase.insertarProducto(productoModel, 'Negocio/buscar_bs_por_itemsubcategory');
 
           BienesServiciosModel bienesServiciosModel = BienesServiciosModel();
           bienesServiciosModel.idSubsidiarygood = productoModel.idProducto;
@@ -2986,7 +2988,7 @@ class BusquedaApi {
           subCategoriaModel.subcategoryName = decodedData["productos"][j]["subcategory_name"];
           // subCategoriaModel.subcategoryName =decodedData["productos"][j].subcategoryName;
           //listSubCategory.add(subCategoriaModel);
-          await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_bs_por_sucursal');
+          await subcategoryDatabase.insertarSubCategory(subCategoriaModel, 'Negocio/buscar_bs_por_sucursal');
 
           //ItemSubCategoriaModel
           ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();
@@ -3107,7 +3109,7 @@ class BusquedaApi {
           subCategoriaModel.subcategoryName = decodedData["servicios"][j]["subcategory_name"];
           // subCategoriaModel.subcategoryName =decodedData["servicios"][j].subcategoryName;
           //listSubCategory.add(subCategoriaModel);
-          await subcategoryDatabase.insertarSubCategory(subCategoriaModel,'Negocio/buscar_bs_por_sucursal');
+          await subcategoryDatabase.insertarSubCategory(subCategoriaModel, 'Negocio/buscar_bs_por_sucursal');
 
           //ItemSubCategoriaModel
           ItemSubCategoriaModel itemSubCategoriaModel = ItemSubCategoriaModel();

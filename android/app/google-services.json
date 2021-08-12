@@ -1,65 +1,71 @@
 {
   "project_info": {
-    "project_number": "353606365624",
-    "project_id": "bufi-db3c3",
-    "storage_bucket": "bufi-db3c3.appspot.com"
+    "project_number": "1084062358634",
+    "project_id": "bufiapp",
+    "storage_bucket": "bufiapp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:353606365624:android:ed7e795a61dc1f27a7df4d",
+        "mobilesdk_app_id": "1:1084062358634:android:d30f0543bf21c2059dbe13",
         "android_client_info": {
-          "package_name": "com.bufeotec.bufiApp"
+          "package_name": "com.bufeotec.bufiAplication"
         }
       },
       "oauth_client": [
         {
-          "client_id": "353606365624-d3ebp3d4i5h3f7anj4mmlivagjsorhj9.apps.googleusercontent.com",
+          "client_id": "1084062358634-3d17mkcfqno15lb06mo9tfvm01ads4t6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.bufeotec.bufiApp",
-            "certificate_hash": "87a2f2031027ac8bd0bf1da626c04ff85c57b1d8"
-          }
-        },
-        {
-          "client_id": "353606365624-j2uhnd02lf955lnbjqtmtbeidkqtaolt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.bufeotec.bufiApp",
+            "package_name": "com.bufeotec.bufiAplication",
             "certificate_hash": "6c54ee9cc4c32a3538f3c35e3db6a79bc0b6186f"
           }
         },
         {
-          "client_id": "353606365624-vhcqpl4okfe3gqsfnq76me29uuqoo7p5.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.bufeotec.bufiApp",
-            "certificate_hash": "0bcd3f47bacc6763b4e67ab4ca912a881e089358"
-          }
-        },
-        {
-          "client_id": "353606365624-mesf2amm6cqoj8nt145ee2lv1kc8rhqv.apps.googleusercontent.com",
+          "client_id": "1084062358634-3di903989qk16m0aaie2ja6t29rl6gls.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBx1FHJ85C9GZMBR7-xT70zej8YLYtBYI4"
+          "current_key": "AIzaSyCIEtExq3iITn-s5_NNS_y5ZruO0_84jo0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "353606365624-mesf2amm6cqoj8nt145ee2lv1kc8rhqv.apps.googleusercontent.com",
+              "client_id": "1084062358634-3di903989qk16m0aaie2ja6t29rl6gls.apps.googleusercontent.com",
               "client_type": 3
-            },
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084062358634:android:531b81ce8126f9859dbe13",
+        "android_client_info": {
+          "package_name": "com.bufeotec.bufiApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084062358634-3di903989qk16m0aaie2ja6t29rl6gls.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIEtExq3iITn-s5_NNS_y5ZruO0_84jo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
             {
-              "client_id": "353606365624-cqhn5esfehgrvkmj0idq7o2oevg5vth4.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.bufeotec.bufiApp"
-              }
+              "client_id": "1084062358634-3di903989qk16m0aaie2ja6t29rl6gls.apps.googleusercontent.com",
+              "client_type": 3
             }
           ]
         }

@@ -290,6 +290,7 @@ class ServiceApi {
       companyModel.companyImage = decodedData['servicios'][i]['company_image'];
       companyModel.companyType = decodedData['servicios'][i]['company_type'];
       companyModel.companyShortcode = decodedData['servicios'][i]['company_shortcode'];
+      companyModel.companyDeliveryPropio = decodedData['servicios'][i]['company_delivery_propio'];
       companyModel.companyDelivery = decodedData['servicios'][i]['company_delivery'];
       companyModel.companyEntrega = decodedData['servicios'][i]['company_entrega'];
       companyModel.companyTarjeta = decodedData['servicios'][i]['company_tarjeta'];
@@ -298,8 +299,15 @@ class ServiceApi {
       companyModel.companyCreatedAt = decodedData['servicios'][i]['company_created_at'];
       companyModel.companyJoin = decodedData['servicios'][i]['company_join'];
       companyModel.companyStatus = decodedData['servicios'][i]['company_status'];
-      companyModel.companyMt = decodedData['servicios'][i]['company_mt'];
-      await companyDatabase.insertarCompany(companyModel);
+      //companyModel.companyMt = decodedData['servicios'][i]['company_mt'];
+
+      if (companyModel.idUser == prefs.idUser) {
+        companyModel.miNegocio = '1';
+      } else {
+        companyModel.miNegocio = '0';
+      }
+
+      await companyDatabase.insertarCompany(companyModel, 'Inicio/listar_servicios_por_id_ciudad');
 
       SubsidiaryServiceModel subsidiaryServiceModel = SubsidiaryServiceModel();
       subsidiaryServiceModel.idSubsidiaryservice = decodedData['servicios'][i]['id_subsidiaryservice'];
@@ -409,8 +417,15 @@ class ServiceApi {
       companyModel.companyCreatedAt = decodedData['servicios'][i]['company_created_at'];
       companyModel.companyJoin = decodedData['servicios'][i]['company_join'];
       companyModel.companyStatus = decodedData['servicios'][i]['company_status'];
-      companyModel.companyMt = decodedData['servicios'][i]['company_mt'];
-      await companyDatabase.insertarCompany(companyModel);
+      //companyModel.companyMt = decodedData['servicios'][i]['company_mt'];
+
+      if (companyModel.idUser == prefs.idUser) {
+        companyModel.miNegocio = '1';
+      } else {
+        companyModel.miNegocio = '0';
+      }
+
+      await companyDatabase.insertarCompany(companyModel, 'Inicio/listar_servicios_por_id_itemsu');
 
       SubsidiaryServiceModel subsidiaryServiceModel = SubsidiaryServiceModel();
       subsidiaryServiceModel.idSubsidiaryservice = decodedData['servicios'][i]['id_subsidiaryservice'];

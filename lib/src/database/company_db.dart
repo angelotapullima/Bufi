@@ -4,23 +4,23 @@ import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 
 class CompanyDatabase {
   final dbProvider = DatabaseProvider.db;
-  final pref = Preferences();
+  final pref = Preferences(); 
 
-  insertarCompany(CompanyModel companyModel) async {
+  insertarCompany(CompanyModel companyModel,String funcion) async {
     try {
       final db = await dbProvider.database;
       final res = await db.rawInsert("INSERT OR REPLACE INTO Company (id_company,id_user,id_city,id_category,company_name,company_ruc,"
           "company_image,company_type,company_shortcode,company_delivery_propio,company_delivery,company_entrega,company_tarjeta,"
-          "company_verified,company_rating,company_created_at,company_join,company_status,company_mt, mi_negocio) "
+          "company_verified,company_rating,company_created_at,company_join,company_status,mi_negocio) "
           "VALUES('${companyModel.idCompany}', '${companyModel.idUser}', '${companyModel.idCity}', '${companyModel.idCategory}', "
           "'${companyModel.companyName}', '${companyModel.companyRuc}', '${companyModel.companyImage}', '${companyModel.companyType}', "
           "'${companyModel.companyShortcode}', '${companyModel.companyDeliveryPropio}','${companyModel.companyDelivery}', '${companyModel.companyEntrega}', "
           "'${companyModel.companyTarjeta}', '${companyModel.companyVerified}', '${companyModel.companyRating}', "
-          "'${companyModel.companyCreatedAt}', '${companyModel.companyJoin}', '${companyModel.companyStatus}',  '${companyModel.companyMt}', '${companyModel.miNegocio}')");
+          "'${companyModel.companyCreatedAt}', '${companyModel.companyJoin}', '${companyModel.companyStatus}', '${companyModel.miNegocio}')");
 
       return res;
     } catch (e) {
-      print("$e Error en la base de datos");
+      print("$e Error en la base de datos - funcion $funcion");
     }
   }
 

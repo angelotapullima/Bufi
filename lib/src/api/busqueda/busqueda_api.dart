@@ -155,6 +155,7 @@ class BusquedaApi {
                   companyModel.companyType = decodedData["result"][i]['company_type'];
                   companyModel.companyShortcode = decodedData["result"][i]['company_shortcode'];
                   companyModel.companyDelivery = decodedData["result"][i]['company_delivery'];
+                  companyModel.companyDeliveryPropio = decodedData["result"][i]['company_delivery_propio'];
                   companyModel.companyEntrega = decodedData["result"][i]['company_entrega'];
                   companyModel.companyTarjeta = decodedData["result"][i]['company_tarjeta'];
                   companyModel.companyVerified = decodedData["result"][i]['company_verified'];
@@ -162,13 +163,20 @@ class BusquedaApi {
                   companyModel.companyCreatedAt = decodedData["result"][i]['company_created_at'];
                   companyModel.companyJoin = decodedData["result"][i]['company_join'];
                   companyModel.companyStatus = decodedData["result"][i]['company_status'];
-                  companyModel.companyMt = decodedData["result"][i]['company_mt'];
+                  /*  companyModel.companyMt = decodedData["result"][i]['company_mt'];
                   companyModel.idCountry = decodedData["result"][i]['id_country'];
                   companyModel.cityName = decodedData["result"][i]['city_name'];
-                  companyModel.distancia = decodedData["result"][i]['distancia'];
+                  companyModel.distancia = decodedData["result"][i]['distancia']; */
 
                   //insertar a la tabla de Company
-                  await companyDb.insertarCompany(companyModel);
+                  
+                  if (companyModel.idUser==prefs.idUser) {
+                    companyModel.miNegocio = '1';
+                  } else {
+                    companyModel.miNegocio = '0';
+                  }
+                  //companyModel.miNegocio= decodedData[]
+                  await companyDb.insertarCompany(companyModel, 'Negocio/buscar_ws');
 
                   listaDeNegocios.add(companyModel);
 
@@ -296,6 +304,7 @@ class BusquedaApi {
                       companyModel.companyType = decodedData["result"][h][i]['company_type'];
                       companyModel.companyShortcode = decodedData["result"][h][i]['company_shortcode'];
                       companyModel.companyDelivery = decodedData["result"][h][i]['company_delivery'];
+                      companyModel.companyDeliveryPropio = decodedData["result"][h][i]['company_delivery_propio'];
                       companyModel.companyEntrega = decodedData["result"][h][i]['company_entrega'];
                       companyModel.companyTarjeta = decodedData["result"][h][i]['company_tarjeta'];
                       companyModel.companyVerified = decodedData["result"][h][i]['company_verified'];
@@ -303,13 +312,21 @@ class BusquedaApi {
                       companyModel.companyCreatedAt = decodedData["result"][h][i]['company_created_at'];
                       companyModel.companyJoin = decodedData["result"][h][i]['company_join'];
                       companyModel.companyStatus = decodedData["result"][h][i]['company_status'];
-                      companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
+                      /* companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
                       companyModel.idCountry = decodedData["result"][h][i]['id_country'];
                       companyModel.cityName = decodedData["result"][h][i]['city_name'];
-                      companyModel.distancia = decodedData["result"][h][i]['distancia'];
+                      companyModel.distancia = decodedData["result"][h][i]['distancia']; */
 
-                      //insertar a la tabla de Company
-                      await companyDb.insertarCompany(companyModel);
+                      //insertar a la tabla de Company final companyList = await companyDatabase.obtenerCompanyPorIdCompany(companyModel.idCompany);
+                     
+                     
+                      if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+
+                      await companyDb.insertarCompany(companyModel, 'Negocio/buscar_ws');
 
                       listaDeNegocios.add(companyModel);
                       //Categoria
@@ -439,13 +456,18 @@ class BusquedaApi {
                   companyModel.companyCreatedAt = decodedData["result"][j]['company_created_at'];
                   companyModel.companyJoin = decodedData["result"][j]['company_join'];
                   companyModel.companyStatus = decodedData["result"][j]['company_status'];
-                  companyModel.companyMt = decodedData["result"][j]['company_mt'];
+                  /* companyModel.companyMt = decodedData["result"][j]['company_mt'];
                   companyModel.idCountry = decodedData["result"][j]['id_country'];
                   companyModel.cityName = decodedData["result"][j]['city_name'];
-                  companyModel.distancia = decodedData["result"][j]['distancia'];
+                  companyModel.distancia = decodedData["result"][j]['distancia']; */
 
+                   if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
                   //insertar a la tabla de Company
-                  await companyDb.insertarCompany(companyModel);
+                  await companyDb.insertarCompany(companyModel, 'Negocios/buscar_ws');
 
                   listaDeNegocios.add(companyModel);
 
@@ -495,8 +517,7 @@ class BusquedaApi {
                     subsidiaryServiceModel.subsidiaryServiceUpdated = decodedData["result"][h][i]['subsidiary_service_updated'];
                     subsidiaryServiceModel.subsidiaryServiceStatus = decodedData["result"][h][i]['subsidiary_service_status'];
                     // listSubServicio.add(subsidiaryServiceModel);
-                    final list =
-                        await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursalService(decodedData["result"][h][i]['id_subsidiaryservice']);
+                    final list = await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursalService(decodedData["result"][h][i]['id_subsidiaryservice']);
 
                     if (list.length > 0) {
                       subsidiaryServiceModel.subsidiaryServiceFavourite = list[0].subsidiaryServiceFavourite;
@@ -562,13 +583,19 @@ class BusquedaApi {
                     companyModel.companyCreatedAt = decodedData["result"][h][i]['company_created_at'];
                     companyModel.companyJoin = decodedData["result"][h][i]['company_join'];
                     companyModel.companyStatus = decodedData["result"][h][i]['company_status'];
-                    companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
+                    /* companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
                     companyModel.idCountry = decodedData["result"][h][i]['id_country'];
                     companyModel.cityName = decodedData["result"][h][i]['city_name'];
-                    companyModel.distancia = decodedData["result"][h][i]['distancia'];
+                    companyModel.distancia = decodedData["result"][h][i]['distancia']; */
 
                     //insertar a la tabla de Company
-                    await companyDb.insertarCompany(companyModel);
+                     if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+                    //insertar a la tabla de Company
+                    await companyDb.insertarCompany(companyModel, 'Negocios/buscar_ws');
 
                     listaDeNegocios.add(companyModel);
 
@@ -652,12 +679,18 @@ class BusquedaApi {
                   companyModel.companyCreatedAt = decodedData["result"][j]['company_created_at'];
                   companyModel.companyJoin = decodedData["result"][j]['company_join'];
                   companyModel.companyStatus = decodedData["result"][j]['company_status'];
-                  companyModel.companyMt = decodedData["result"][j]['company_mt'];
+                  /* companyModel.companyMt = decodedData["result"][j]['company_mt'];
                   companyModel.idCountry = decodedData["result"][j]['id_country'];
                   companyModel.cityName = decodedData["result"][j]['city_name'];
-                  companyModel.distancia = decodedData["result"][j]['distancia'];
+                  companyModel.distancia = decodedData["result"][j]['distancia']; */
 
-                  await companyDb.insertarCompany(companyModel);
+                   if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+                  //insertar a la tabla de Company
+                  await companyDb.insertarCompany(companyModel, 'Negocios/buscar_ws');
 
                   listaDeNegocios.add(companyModel);
 
@@ -723,15 +756,21 @@ class BusquedaApi {
                     companyModel.companyCreatedAt = decodedData["result"][h][i]['company_created_at'];
                     companyModel.companyJoin = decodedData["result"][h][i]['company_join'];
                     companyModel.companyStatus = decodedData["result"][h][i]['company_status'];
-                    companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
+                    /* companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
                     companyModel.idCountry = decodedData["result"][h][i]['id_country'];
                     companyModel.cityName = decodedData["result"][h][i]['city_name'];
-                    companyModel.distancia = decodedData["result"][h][i]['distancia'];
+                    companyModel.distancia = decodedData["result"][h][i]['distancia']; */
 
                     // listCompanySucursal.add(companySucursalModel);
 
                     //insertar a la tabla de Company
-                    await companyDb.insertarCompany(companyModel);
+                    if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+                    //insertar a la tabla de Company
+                    await companyDb.insertarCompany(companyModel, 'Negocios/buscar_ws');
 
                     listaDeNegocios.add(companyModel);
 
@@ -793,12 +832,18 @@ class BusquedaApi {
                   companyModel.companyCreatedAt = decodedData["result"][j]['company_created_at'];
                   companyModel.companyJoin = decodedData["result"][j]['company_join'];
                   companyModel.companyStatus = decodedData["result"][j]['company_status'];
-                  companyModel.companyMt = decodedData["result"][j]['company_mt'];
+                  /*  companyModel.companyMt = decodedData["result"][j]['company_mt'];
                   companyModel.idCountry = decodedData["result"][j]['id_country'];
                   companyModel.cityName = decodedData["result"][j]['city_name'];
-                  companyModel.distancia = decodedData["result"][j]['distancia'];
+                  companyModel.distancia = decodedData["result"][j]['distancia']; */
 
-                  await companyDb.insertarCompany(companyModel);
+                  if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+                  //insertar a la tabla de Company
+                  await companyDb.insertarCompany(companyModel, 'Negocios/buscar_ws');
 
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
@@ -860,13 +905,19 @@ class BusquedaApi {
                     companyModel.companyCreatedAt = decodedData["result"][h][i]['company_created_at'];
                     companyModel.companyJoin = decodedData["result"][h][i]['company_join'];
                     companyModel.companyStatus = decodedData["result"][h][i]['company_status'];
-                    companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
+                    /*  companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
                     companyModel.idCountry = decodedData["result"][h][i]['id_country'];
                     companyModel.cityName = decodedData["result"][h][i]['city_name'];
-                    companyModel.distancia = decodedData["result"][h][i]['distancia'];
+                    companyModel.distancia = decodedData["result"][h][i]['distancia']; */
 
                     //insertar a la tabla de Company
-                    await companyDb.insertarCompany(companyModel);
+                     if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+                    //insertar a la tabla de Company
+                    await companyDb.insertarCompany(companyModel, 'Negocios/buscar_ws');
                     //Categoria
                     CategoriaModel categ = CategoriaModel();
                     categ.idCategory = decodedData["result"][h][i]["id_category"];
@@ -969,13 +1020,19 @@ class BusquedaApi {
                   companyModel.companyCreatedAt = decodedData["result"][j]['company_created_at'];
                   companyModel.companyJoin = decodedData["result"][j]['company_join'];
                   companyModel.companyStatus = decodedData["result"][j]['company_status'];
-                  companyModel.companyMt = decodedData["result"][j]['company_mt'];
+                  /* companyModel.companyMt = decodedData["result"][j]['company_mt'];
                   companyModel.idCountry = decodedData["result"][j]['id_country'];
                   companyModel.cityName = decodedData["result"][j]['city_name'];
-                  companyModel.distancia = decodedData["result"][j]['distancia'];
+                  companyModel.distancia = decodedData["result"][j]['distancia']; */
 
                   //insertar a la tabla de Company
-                  await companyDb.insertarCompany(companyModel);
+                   if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+                  //insertar a la tabla de Company
+                  await companyDb.insertarCompany(companyModel, 'Negocios/buscar_ws');
 
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
@@ -1093,13 +1150,19 @@ class BusquedaApi {
                     companyModel.companyCreatedAt = decodedData["result"][h][i]['company_created_at'];
                     companyModel.companyJoin = decodedData["result"][h][i]['company_join'];
                     companyModel.companyStatus = decodedData["result"][h][i]['company_status'];
-                    companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
+                    /* companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
                     companyModel.idCountry = decodedData["result"][h][i]['id_country'];
                     companyModel.cityName = decodedData["result"][h][i]['city_name'];
-                    companyModel.distancia = decodedData["result"][h][i]['distancia'];
+                    companyModel.distancia = decodedData["result"][h][i]['distancia']; */
 
                     //insertar a la tabla de Company
-                    await companyDb.insertarCompany(companyModel);
+                     if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+                    //insertar a la tabla de Company
+                    await companyDb.insertarCompany(companyModel, 'Negocios/buscar_ws');
 
                     //Categoria
                     CategoriaModel categ = CategoriaModel();
@@ -1305,13 +1368,19 @@ class BusquedaApi {
                   companyModel.companyCreatedAt = decodedData["result"][j]['company_created_at'];
                   companyModel.companyJoin = decodedData["result"][j]['company_join'];
                   companyModel.companyStatus = decodedData["result"][j]['company_status'];
-                  companyModel.companyMt = decodedData["result"][j]['company_mt'];
+                  /*  companyModel.companyMt = decodedData["result"][j]['company_mt'];
                   companyModel.idCountry = decodedData["result"][j]['id_country'];
                   companyModel.cityName = decodedData["result"][j]['city_name'];
-                  companyModel.distancia = decodedData["result"][j]['distancia'];
+                  companyModel.distancia = decodedData["result"][j]['distancia']; */
 
                   //insertar a la tabla de Company
-                  await companyDb.insertarCompany(companyModel);
+                   if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+                  //insertar a la tabla de Company
+                  await companyDb.insertarCompany(companyModel, 'Negocio/buscar_productos_ws');
 
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
@@ -1445,13 +1514,19 @@ class BusquedaApi {
                     companyModel.companyCreatedAt = decodedData["result"][h][i]['company_created_at'];
                     companyModel.companyJoin = decodedData["result"][h][i]['company_join'];
                     companyModel.companyStatus = decodedData["result"][h][i]['company_status'];
-                    companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
+                    /* companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
                     companyModel.idCountry = decodedData["result"][h][i]['id_country'];
                     companyModel.cityName = decodedData["result"][h][i]['city_name'];
-                    companyModel.distancia = decodedData["result"][h][i]['distancia'];
+                    companyModel.distancia = decodedData["result"][h][i]['distancia']; */
 
                     //insertar a la tabla de Company
-                    await companyDb.insertarCompany(companyModel);
+                     if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+                    //insertar a la tabla de Company
+                    await companyDb.insertarCompany(companyModel, 'Negocio/buscar_productos_ws');
 
                     //Categoria
                     CategoriaModel categ = CategoriaModel();
@@ -1633,13 +1708,19 @@ class BusquedaApi {
                   companyModel.companyCreatedAt = decodedData["result"][j]['company_created_at'];
                   companyModel.companyJoin = decodedData["result"][j]['company_join'];
                   companyModel.companyStatus = decodedData["result"][j]['company_status'];
-                  companyModel.companyMt = decodedData["result"][j]['company_mt'];
+                  /* companyModel.companyMt = decodedData["result"][j]['company_mt'];
                   companyModel.idCountry = decodedData["result"][j]['id_country'];
                   companyModel.cityName = decodedData["result"][j]['city_name'];
-                  companyModel.distancia = decodedData["result"][j]['distancia'];
+                  companyModel.distancia = decodedData["result"][j]['distancia']; */
 
                   //insertar a la tabla de Company
-                  await companyDb.insertarCompany(companyModel);
+                   if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+                  //insertar a la tabla de Company
+                  await companyDb.insertarCompany(companyModel, 'Negocio/buscar_servicios_ws');
 
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
@@ -1703,8 +1784,7 @@ class BusquedaApi {
                     subsidiaryServiceModel.subsidiaryServiceStatus = decodedData["result"][h][i]['subsidiary_service_status'];
                     // listSubServicio.add(subsidiaryServiceModel);
 
-                    final list =
-                        await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursalService(decodedData["result"][h][i]['id_subsidiaryservice']);
+                    final list = await subisdiaryServiceDatabase.obtenerServiciosPorIdSucursalService(decodedData["result"][h][i]['id_subsidiaryservice']);
 
                     if (list.length > 0) {
                       subsidiaryServiceModel.subsidiaryServiceFavourite = list[0].subsidiaryServiceFavourite;
@@ -1769,13 +1849,19 @@ class BusquedaApi {
                     companyModel.companyCreatedAt = decodedData["result"][h][i]['company_created_at'];
                     companyModel.companyJoin = decodedData["result"][h][i]['company_join'];
                     companyModel.companyStatus = decodedData["result"][h][i]['company_status'];
-                    companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
+                    /* companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
                     companyModel.idCountry = decodedData["result"][h][i]['id_country'];
                     companyModel.cityName = decodedData["result"][h][i]['city_name'];
-                    companyModel.distancia = decodedData["result"][h][i]['distancia'];
+                    companyModel.distancia = decodedData["result"][h][i]['distancia']; */
 
                     //insertar a la tabla de Company
-                    await companyDb.insertarCompany(companyModel);
+                     if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+                    //insertar a la tabla de Company
+                    await companyDb.insertarCompany(companyModel, 'Negocio/buscar_servicios_ws');
 
                     //Categoria
                     CategoriaModel categ = CategoriaModel();
@@ -1960,12 +2046,18 @@ class BusquedaApi {
                   companyModel.companyCreatedAt = decodedData["result"][j]['company_created_at'];
                   companyModel.companyJoin = decodedData["result"][j]['company_join'];
                   companyModel.companyStatus = decodedData["result"][j]['company_status'];
-                  companyModel.companyMt = decodedData["result"][j]['company_mt'];
+                  /* companyModel.companyMt = decodedData["result"][j]['company_mt'];
                   companyModel.idCountry = decodedData["result"][j]['id_country'];
                   companyModel.cityName = decodedData["result"][j]['city_name'];
-                  companyModel.distancia = decodedData["result"][j]['distancia'];
+                  companyModel.distancia = decodedData["result"][j]['distancia']; */
 
-                  await companyDb.insertarCompany(companyModel);
+                  if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+                  //insertar a la tabla de Company
+                  await companyDb.insertarCompany(companyModel, 'Negocio/buscar_empresas_ws');
 
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
@@ -2070,6 +2162,7 @@ class BusquedaApi {
                     companyModel.companyImage = decodedData["result"][h][i]['company_image'];
                     companyModel.companyType = decodedData["result"][h][i]['company_type'];
                     companyModel.companyShortcode = decodedData["result"][h][i]['company_shortcode'];
+                    companyModel.companyDeliveryPropio = decodedData["result"][h][i]['company_delivery_propio'];
                     companyModel.companyDelivery = decodedData["result"][h][i]['company_delivery'];
                     companyModel.companyEntrega = decodedData["result"][h][i]['company_entrega'];
                     companyModel.companyTarjeta = decodedData["result"][h][i]['company_tarjeta'];
@@ -2078,15 +2171,18 @@ class BusquedaApi {
                     companyModel.companyCreatedAt = decodedData["result"][h][i]['company_created_at'];
                     companyModel.companyJoin = decodedData["result"][h][i]['company_join'];
                     companyModel.companyStatus = decodedData["result"][h][i]['company_status'];
-                    companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
+                    /*  companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
                     companyModel.idCountry = decodedData["result"][h][i]['id_country'];
                     companyModel.cityName = decodedData["result"][h][i]['city_name'];
-                    companyModel.distancia = decodedData["result"][h][i]['distancia'];
+                    companyModel.distancia = decodedData["result"][h][i]['distancia']; */
 
-                    // listCompanySucursal.add(companySucursalModel);
-
+                    if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
                     //insertar a la tabla de Company
-                    await companyDb.insertarCompany(companyModel);
+                    await companyDb.insertarCompany(companyModel, 'Negocio/buscar_empresas_ws');
 
                     //Categoria
                     CategoriaModel categ = CategoriaModel();
@@ -2189,6 +2285,7 @@ class BusquedaApi {
                   companyModel.companyImage = decodedData["result"][j]['company_image'];
                   companyModel.companyType = decodedData["result"][j]['company_type'];
                   companyModel.companyShortcode = decodedData["result"][j]['company_shortcode'];
+                  companyModel.companyDeliveryPropio = decodedData["result"][j]['company_delivery_propio'];
                   companyModel.companyDelivery = decodedData["result"][j]['company_delivery'];
                   companyModel.companyEntrega = decodedData["result"][j]['company_entrega'];
                   companyModel.companyTarjeta = decodedData["result"][j]['company_tarjeta'];
@@ -2197,12 +2294,18 @@ class BusquedaApi {
                   companyModel.companyCreatedAt = decodedData["result"][j]['company_created_at'];
                   companyModel.companyJoin = decodedData["result"][j]['company_join'];
                   companyModel.companyStatus = decodedData["result"][j]['company_status'];
-                  companyModel.companyMt = decodedData["result"][j]['company_mt'];
+                  /* companyModel.companyMt = decodedData["result"][j]['company_mt'];
                   companyModel.idCountry = decodedData["result"][j]['id_country'];
                   companyModel.cityName = decodedData["result"][j]['city_name'];
-                  companyModel.distancia = decodedData["result"][j]['distancia'];
+                  companyModel.distancia = decodedData["result"][j]['distancia']; */
 
-                  await companyDb.insertarCompany(companyModel);
+                  if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+                  //insertar a la tabla de Company
+                  await companyDb.insertarCompany(companyModel, 'Negocio/buscar_categorias_ws');
 
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
@@ -2271,13 +2374,19 @@ class BusquedaApi {
                     companyModel.companyCreatedAt = decodedData["result"][h][i]['company_created_at'];
                     companyModel.companyJoin = decodedData["result"][h][i]['company_join'];
                     companyModel.companyStatus = decodedData["result"][h][i]['company_status'];
-                    companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
+                    /* companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
                     companyModel.idCountry = decodedData["result"][h][i]['id_country'];
                     companyModel.cityName = decodedData["result"][h][i]['city_name'];
-                    companyModel.distancia = decodedData["result"][h][i]['distancia'];
+                    companyModel.distancia = decodedData["result"][h][i]['distancia']; */
 
+                    if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
                     //insertar a la tabla de Company
-                    await companyDb.insertarCompany(companyModel);
+                    await companyDb.insertarCompany(companyModel, 'Negocio/buscar_categorias_ws');
+
                     //Categoria
                     CategoriaModel categ = CategoriaModel();
                     categ.idCategory = decodedData["result"][h][i]["id_category"];
@@ -2413,6 +2522,7 @@ class BusquedaApi {
                   companyModel.companyImage = decodedData["result"][j]['company_image'];
                   companyModel.companyType = decodedData["result"][j]['company_type'];
                   companyModel.companyShortcode = decodedData["result"][j]['company_shortcode'];
+                  companyModel.companyDeliveryPropio = decodedData["result"][j]['company_delivery_propio'];
                   companyModel.companyDelivery = decodedData["result"][j]['company_delivery'];
                   companyModel.companyEntrega = decodedData["result"][j]['company_entrega'];
                   companyModel.companyTarjeta = decodedData["result"][j]['company_tarjeta'];
@@ -2421,13 +2531,19 @@ class BusquedaApi {
                   companyModel.companyCreatedAt = decodedData["result"][j]['company_created_at'];
                   companyModel.companyJoin = decodedData["result"][j]['company_join'];
                   companyModel.companyStatus = decodedData["result"][j]['company_status'];
-                  companyModel.companyMt = decodedData["result"][j]['company_mt'];
+                  /* companyModel.companyMt = decodedData["result"][j]['company_mt'];
                   companyModel.idCountry = decodedData["result"][j]['id_country'];
                   companyModel.cityName = decodedData["result"][j]['city_name'];
-                  companyModel.distancia = decodedData["result"][j]['distancia'];
+                  companyModel.distancia = decodedData["result"][j]['distancia']; */
 
                   //insertar a la tabla de Company
-                  await companyDb.insertarCompany(companyModel);
+                   if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
+                  //insertar a la tabla de Company
+                  await companyDb.insertarCompany(companyModel, 'busquedaItemsubcategorias');
 
                   //Categoria
                   CategoriaModel categ = CategoriaModel();
@@ -2536,6 +2652,7 @@ class BusquedaApi {
                     companyModel.companyImage = decodedData["result"][h][i]['company_image'];
                     companyModel.companyType = decodedData["result"][h][i]['company_type'];
                     companyModel.companyShortcode = decodedData["result"][h][i]['company_shortcode'];
+                    companyModel.companyDeliveryPropio = decodedData["result"][h][i]['company_delivery_propio'];
                     companyModel.companyDelivery = decodedData["result"][h][i]['company_delivery'];
                     companyModel.companyEntrega = decodedData["result"][h][i]['company_entrega'];
                     companyModel.companyTarjeta = decodedData["result"][h][i]['company_tarjeta'];
@@ -2544,13 +2661,18 @@ class BusquedaApi {
                     companyModel.companyCreatedAt = decodedData["result"][h][i]['company_created_at'];
                     companyModel.companyJoin = decodedData["result"][h][i]['company_join'];
                     companyModel.companyStatus = decodedData["result"][h][i]['company_status'];
-                    companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
+                    /* companyModel.companyMt = decodedData["result"][h][i]['company_mt'];
                     companyModel.idCountry = decodedData["result"][h][i]['id_country'];
                     companyModel.cityName = decodedData["result"][h][i]['city_name'];
-                    companyModel.distancia = decodedData["result"][h][i]['distancia'];
+                    companyModel.distancia = decodedData["result"][h][i]['distancia']; */
 
+                     if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
                     //insertar a la tabla de Company
-                    await companyDb.insertarCompany(companyModel);
+                    await companyDb.insertarCompany(companyModel, 'busquedaItemsubcategorias');
 
                     //Categoria
                     CategoriaModel categ = CategoriaModel();
@@ -2691,6 +2813,7 @@ class BusquedaApi {
           companyModel.companyImage = decodedData["productos"][j]['company_image'];
           companyModel.companyType = decodedData["productos"][j]['company_type'];
           companyModel.companyShortcode = decodedData["productos"][j]['company_shortcode'];
+          companyModel.companyDeliveryPropio = decodedData["productos"][j]['company_delivery_propio'];
           companyModel.companyDelivery = decodedData["productos"][j]['company_delivery'];
           companyModel.companyEntrega = decodedData["productos"][j]['company_entrega'];
           companyModel.companyTarjeta = decodedData["productos"][j]['company_tarjeta'];
@@ -2699,13 +2822,18 @@ class BusquedaApi {
           companyModel.companyCreatedAt = decodedData["productos"][j]['company_created_at'];
           companyModel.companyJoin = decodedData["productos"][j]['company_join'];
           companyModel.companyStatus = decodedData["productos"][j]['company_status'];
-          companyModel.companyMt = decodedData["productos"][j]['company_mt'];
+          /*  companyModel.companyMt = decodedData["productos"][j]['company_mt'];
           companyModel.idCountry = decodedData["productos"][j]['id_country'];
           companyModel.cityName = decodedData["productos"][j]['city_name'];
-          companyModel.distancia = decodedData["productos"][j]['distancia'];
+          companyModel.distancia = decodedData["productos"][j]['distancia']; */
 
+           if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
           //insertar a la tabla de Company
-          await companyDb.insertarCompany(companyModel);
+          await companyDb.insertarCompany(companyModel, 'Negocio/buscar_bs_por_sucursal');
 
           //Subcategoria
           final subCategoriaModel = SubcategoryModel();
@@ -2796,6 +2924,7 @@ class BusquedaApi {
           companyModel.companyImage = decodedData["servicios"][j]['company_image'];
           companyModel.companyType = decodedData["servicios"][j]['company_type'];
           companyModel.companyShortcode = decodedData["servicios"][j]['company_shortcode'];
+          companyModel.companyDeliveryPropio = decodedData["servicios"][j]['company_delivery_propio'];
           companyModel.companyDelivery = decodedData["servicios"][j]['company_delivery'];
           companyModel.companyEntrega = decodedData["servicios"][j]['company_entrega'];
           companyModel.companyTarjeta = decodedData["servicios"][j]['company_tarjeta'];
@@ -2804,13 +2933,19 @@ class BusquedaApi {
           companyModel.companyCreatedAt = decodedData["servicios"][j]['company_created_at'];
           companyModel.companyJoin = decodedData["servicios"][j]['company_join'];
           companyModel.companyStatus = decodedData["servicios"][j]['company_status'];
-          companyModel.companyMt = decodedData["servicios"][j]['company_mt'];
+          /* companyModel.companyMt = decodedData["servicios"][j]['company_mt'];
           companyModel.idCountry = decodedData["servicios"][j]['id_country'];
           companyModel.cityName = decodedData["servicios"][j]['city_name'];
-          companyModel.distancia = decodedData["servicios"][j]['distancia'];
+          companyModel.distancia = decodedData["servicios"][j]['distancia']; */
 
+          
+           if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
           //insertar a la tabla de Company
-          await companyDb.insertarCompany(companyModel);
+          await companyDb.insertarCompany(companyModel, 'Negocio/buscar_bs_por_sucursal');
 
           //Subcategoria
           final subCategoriaModel = SubcategoryModel();
@@ -2965,6 +3100,7 @@ class BusquedaApi {
           companyModel.companyImage = decodedData["productos"][j]['company_image'];
           companyModel.companyType = decodedData["productos"][j]['company_type'];
           companyModel.companyShortcode = decodedData["productos"][j]['company_shortcode'];
+          companyModel.companyDeliveryPropio = decodedData["productos"][j]['company_delivery_propio'];
           companyModel.companyDelivery = decodedData["productos"][j]['company_delivery'];
           companyModel.companyEntrega = decodedData["productos"][j]['company_entrega'];
           companyModel.companyTarjeta = decodedData["productos"][j]['company_tarjeta'];
@@ -2973,13 +3109,18 @@ class BusquedaApi {
           companyModel.companyCreatedAt = decodedData["productos"][j]['company_created_at'];
           companyModel.companyJoin = decodedData["productos"][j]['company_join'];
           companyModel.companyStatus = decodedData["productos"][j]['company_status'];
-          companyModel.companyMt = decodedData["productos"][j]['company_mt'];
+          /*  companyModel.companyMt = decodedData["productos"][j]['company_mt'];
           companyModel.idCountry = decodedData["productos"][j]['id_country'];
           companyModel.cityName = decodedData["productos"][j]['city_name'];
-          companyModel.distancia = decodedData["productos"][j]['distancia'];
+          companyModel.distancia = decodedData["productos"][j]['distancia']; */
 
+          if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
           //insertar a la tabla de Company
-          await companyDb.insertarCompany(companyModel);
+          await companyDb.insertarCompany(companyModel, 'Negocio/buscar_bs_por_sucursal');
 
           //Subcategoria
           final subCategoriaModel = SubcategoryModel();
@@ -3086,6 +3227,7 @@ class BusquedaApi {
           companyModel.companyImage = decodedData["servicios"][j]['company_image'];
           companyModel.companyType = decodedData["servicios"][j]['company_type'];
           companyModel.companyShortcode = decodedData["servicios"][j]['company_shortcode'];
+          companyModel.companyDeliveryPropio = decodedData["servicios"][j]['company_delivery_propio'];
           companyModel.companyDelivery = decodedData["servicios"][j]['company_delivery'];
           companyModel.companyEntrega = decodedData["servicios"][j]['company_entrega'];
           companyModel.companyTarjeta = decodedData["servicios"][j]['company_tarjeta'];
@@ -3094,13 +3236,18 @@ class BusquedaApi {
           companyModel.companyCreatedAt = decodedData["servicios"][j]['company_created_at'];
           companyModel.companyJoin = decodedData["servicios"][j]['company_join'];
           companyModel.companyStatus = decodedData["servicios"][j]['company_status'];
-          companyModel.companyMt = decodedData["servicios"][j]['company_mt'];
+          /* companyModel.companyMt = decodedData["servicios"][j]['company_mt'];
           companyModel.idCountry = decodedData["servicios"][j]['id_country'];
           companyModel.cityName = decodedData["servicios"][j]['city_name'];
-          companyModel.distancia = decodedData["servicios"][j]['distancia'];
+          companyModel.distancia = decodedData["servicios"][j]['distancia']; */
 
+          if (companyModel.idUser ==prefs.idUser) {
+                        companyModel.miNegocio = '1';
+                      } else {
+                        companyModel.miNegocio = '0';
+                      }
           //insertar a la tabla de Company
-          await companyDb.insertarCompany(companyModel);
+          await companyDb.insertarCompany(companyModel, 'Negocio/buscar_bs_por_sucursal');
 
           //Subcategoria
           final subCategoriaModel = SubcategoryModel();

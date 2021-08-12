@@ -307,9 +307,15 @@ class ProductosApi {
       companyModel.companyCreatedAt = decodedData['company_created_at'];
       companyModel.companyJoin = decodedData['company_join'];
       companyModel.companyStatus = decodedData['company_status'];
-      companyModel.companyMt = decodedData['company_mt'];
+      /* 
+      companyModel.companyMt = decodedData['company_mt']; */
 
-      await companyDatabase.insertarCompany(companyModel);
+      if (companyModel.idUser == prefs.idUser) {
+        companyModel.miNegocio = '1';
+      } else {
+        companyModel.miNegocio = '0';
+      }
+      await companyDatabase.insertarCompany(companyModel, 'Negocio/listar_detalle_producto');
 
       //BienesModel
       BienesModel goodmodel = BienesModel();

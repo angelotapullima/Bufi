@@ -20,7 +20,7 @@ class DatabaseProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
-    final path = join(documentsDirectory.path, 'bufiv2.db');
+    final path = join(documentsDirectory.path, 'bufiv3.db');
 
     return await openDatabase(path, version: 1, onOpen: (db) {}, onCreate: (Database db, int version) async {
       await db.execute('CREATE TABLE Category ('
@@ -95,6 +95,8 @@ class DatabaseProvider {
           'good_synonyms VARCHAR'
           ')');
 
+
+      //mi_negocio = 1 => es mi negocio : no es mi negocio
       await db.execute('CREATE TABLE Company ('
           'id_company VARCHAR  PRIMARY KEY,'
           'id_user VARCHAR,'
@@ -114,10 +116,6 @@ class DatabaseProvider {
           'company_created_at VARCHAR,'
           'company_join VARCHAR,'
           'company_status VARCHAR,'
-          'company_mt VARCHAR,'
-          'id_country VARCHAR,'
-          'city_name VARCHAR,'
-          'distancia VARCHAR,'
           'mi_negocio VARCHAR'
           ')');
 

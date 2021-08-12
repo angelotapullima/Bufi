@@ -13,7 +13,7 @@ class NegociosApi {
   final prefs = Preferences();
   final subsidiaryDatabase = SubsidiaryDatabase();
 
-  Future<dynamic> obtenerCompany() async {
+  /* Future<dynamic> obtenerCompany() async {
     try {
       var response = await http.post(Uri.parse("$apiBaseURL/api/Negocio/listar_negocios_resumen"), body: {'id_ciudad': '1'});
 
@@ -44,7 +44,14 @@ class NegociosApi {
           cmodel.companyMt = decodedData[i]['company_mt'];
           cmodel.miNegocio = decodedData[i]['mi_negocio'].toString();
 
-          await companyDatabase.insertarCompany(cmodel);
+          final companyList = await companyDatabase.obtenerCompanyPorIdCompany(cmodel.idCompany);
+          if (companyList.length > 0) {
+            cmodel.miNegocio = companyList[0].miNegocio;
+          } else {
+            cmodel.miNegocio = '';
+          }
+          //insertar a la tabla de Company
+          await companyDatabase.insertarCompany(cmodel, 'Negocio/buscar_bs_por_sucursal');
 
           final listSucursal = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData[i]['id_subsidiary']);
 
@@ -116,97 +123,67 @@ class NegociosApi {
     }
   }
 
+   */
   Future<dynamic> obtenerNegocioPorId(String id) async {
     try {
       var response = await http.post(Uri.parse("$apiBaseURL/api/Negocio/listar_negocio_por_id"), body: {'id_company': id});
 
       final decodedData = json.decode(response.body);
 
-      final listCompany = await companyDatabase.obtenerCompanyPorIdCompany(id);
+      CompanyModel cmodel = CompanyModel();
+      cmodel.idCompany = decodedData['id_company'];
+      cmodel.idUser = decodedData['id_user'];
+      cmodel.idCity = decodedData['id_city'];
+      cmodel.idCategory = decodedData['id_category'];
+      cmodel.companyName = decodedData['company_name'];
+      cmodel.companyRuc = decodedData['company_ruc'];
+      cmodel.companyImage = decodedData['company_image'];
+      cmodel.companyType = decodedData['company_type'];
+      cmodel.companyShortcode = decodedData['company_shortcode'];
+      cmodel.companyDeliveryPropio = decodedData['company_delivery_propio'];
+      cmodel.companyDelivery = decodedData['company_delivery'];
+      cmodel.companyEntrega = decodedData['company_entrega'];
+      cmodel.companyTarjeta = decodedData['company_tarjeta'];
+      cmodel.companyVerified = decodedData['company_verified'];
+      cmodel.companyRating = decodedData['company_rating'];
+      cmodel.companyCreatedAt = decodedData['company_created_at'];
+      cmodel.companyJoin = decodedData['company_join'];
+      cmodel.companyStatus = decodedData['company_status'];
+      /* cmodel.companyMt = decodedData['company_mt'];
+      cmodel.miNegocio = listCompany[0].miNegocio; */
+
+      if (cmodel.idUser == prefs.idUser) {
+        cmodel.miNegocio = '1';
+      } else {
+        cmodel.miNegocio = '0';
+      }
+
+      await companyDatabase.insertarCompany(cmodel, 'Negocio/listar_negocio_por_id');
+
       final listSucursal = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData['id_subsidiary']);
 
-      if (listCompany.length > 0) {
-        CompanyModel cmodel = CompanyModel();
-        SubsidiaryModel smodel = SubsidiaryModel();
-        cmodel.idCompany = decodedData['id_company'];
-        cmodel.idUser = decodedData['id_user'];
-        cmodel.idCity = decodedData['id_city'];
-        cmodel.idCategory = decodedData['id_category'];
-        cmodel.companyName = decodedData['company_name'];
-        cmodel.companyRuc = decodedData['company_ruc'];
-        cmodel.companyImage = decodedData['company_image'];
-        cmodel.companyType = decodedData['company_type'];
-        cmodel.companyShortcode = decodedData['company_shortcode'];
-        cmodel.companyDelivery = decodedData['company_delivery'];
-        cmodel.companyEntrega = decodedData['company_entrega'];
-        cmodel.companyTarjeta = decodedData['company_tarjeta'];
-        cmodel.companyVerified = decodedData['company_verified'];
-        cmodel.companyRating = decodedData['company_rating'];
-        cmodel.companyCreatedAt = decodedData['company_created_at'];
-        cmodel.companyJoin = decodedData['company_join'];
-        cmodel.companyStatus = decodedData['company_status'];
-        cmodel.companyMt = decodedData['company_mt'];
-        cmodel.miNegocio = listCompany[0].miNegocio;
+      SubsidiaryModel smodel = SubsidiaryModel();
+      smodel.idCompany = decodedData['id_company'];
+      smodel.idSubsidiary = decodedData['id_subsidiary'];
+      smodel.subsidiaryName = decodedData['subsidiary_name'];
+      smodel.subsidiaryCellphone = decodedData['subsidiary_cellphone'];
+      smodel.subsidiaryCellphone2 = decodedData['subsidiary_cellphone_2'];
+      smodel.subsidiaryEmail = decodedData['subsidiary_email'];
+      smodel.subsidiaryCoordX = decodedData['subsidiary_coord_x'];
+      smodel.subsidiaryCoordY = decodedData['subsidiary_coord_y'];
+      smodel.subsidiaryOpeningHours = decodedData['subsidiary_opening_hours'];
+      smodel.subsidiaryPrincipal = decodedData['subsidiary_principal'];
+      smodel.subsidiaryStatus = decodedData['subsidiary_status'];
+      smodel.subsidiaryAddress = decodedData['subsidiary_address'];
+      smodel.subsidiaryImg = decodedData['subsidiary_img'];
 
-        await companyDatabase.insertarCompany(cmodel);
-
-        smodel.idCompany = decodedData['id_company'];
-        smodel.idSubsidiary = decodedData['id_subsidiary'];
-        smodel.subsidiaryName = decodedData['subsidiary_name'];
-        smodel.subsidiaryCellphone = decodedData['subsidiary_cellphone'];
-        smodel.subsidiaryCellphone2 = decodedData['subsidiary_cellphone_2'];
-        smodel.subsidiaryEmail = decodedData['subsidiary_email'];
-        smodel.subsidiaryCoordX = decodedData['subsidiary_coord_x'];
-        smodel.subsidiaryCoordY = decodedData['subsidiary_coord_y'];
-        smodel.subsidiaryOpeningHours = decodedData['subsidiary_opening_hours'];
-        smodel.subsidiaryPrincipal = decodedData['subsidiary_principal'];
-        smodel.subsidiaryStatus = decodedData['subsidiary_status'];
-        smodel.subsidiaryAddress = decodedData['subsidiary_address'];
-        smodel.subsidiaryImg = decodedData['subsidiary_img'];
+      if (listSucursal.length > 0) {
         smodel.subsidiaryFavourite = listSucursal[0].subsidiaryFavourite;
-
-        await subsidiaryDatabase.insertarSubsidiary(smodel);
       } else {
-        CompanyModel cmodel = CompanyModel();
-        SubsidiaryModel smodel = SubsidiaryModel();
-        cmodel.idCompany = decodedData['id_company'].toString().trim();
-        cmodel.idUser = decodedData['id_user'];
-        cmodel.idCity = decodedData['id_city'];
-        cmodel.idCategory = decodedData['id_category'];
-        cmodel.companyName = decodedData['company_name'];
-        cmodel.companyRuc = decodedData['company_ruc'];
-        cmodel.companyImage = decodedData['company_image'];
-        cmodel.companyType = decodedData['company_type'];
-        cmodel.companyShortcode = decodedData['company_shortcode'];
-        cmodel.companyDelivery = decodedData['company_delivery'];
-        cmodel.companyEntrega = decodedData['company_entrega'];
-        cmodel.companyTarjeta = decodedData['company_tarjeta'];
-        cmodel.companyVerified = decodedData['company_verified'];
-        cmodel.companyRating = decodedData['company_rating'];
-        cmodel.companyCreatedAt = decodedData['company_created_at'];
-        cmodel.companyJoin = decodedData['company_join'];
-        cmodel.companyStatus = decodedData['company_status'];
-        cmodel.companyMt = decodedData['company_mt'];
-        cmodel.miNegocio = decodedData['mi_negocio'].toString();
-
-        await companyDatabase.insertarCompany(cmodel);
-
-        smodel.idSubsidiary = decodedData['id_subsidiary'];
-        smodel.idCompany = decodedData['id_company'];
-        smodel.subsidiaryName = decodedData['subsidiary_name'];
-        smodel.subsidiaryCellphone = decodedData['subsidiary_cellphone'];
-        smodel.subsidiaryCellphone2 = decodedData['subsidiary_cellphone_2'];
-        smodel.subsidiaryEmail = decodedData['subsidiary_email'];
-        smodel.subsidiaryCoordX = decodedData['subsidiary_coord_x'];
-        smodel.subsidiaryCoordY = decodedData['subsidiary_coord_y'];
-        smodel.subsidiaryOpeningHours = decodedData['subsidiary_opening_hours'];
-        smodel.subsidiaryPrincipal = decodedData['subsidiary_principal'];
-        smodel.subsidiaryStatus = decodedData['subsidiary_status'];
-        smodel.subsidiaryAddress = decodedData['subsidiary_address'];
-        smodel.subsidiaryImg = decodedData['subsidiary_img'];
         smodel.subsidiaryFavourite = '0';
-        await subsidiaryDatabase.insertarSubsidiary(smodel);
       }
+
+      await subsidiaryDatabase.insertarSubsidiary(smodel);
 
       return 0;
     } catch (error, stacktrace) {
@@ -265,6 +242,7 @@ class NegociosApi {
         cmodel.companyImage = decodedData['results'][i]['company_image'].toString();
         cmodel.companyType = decodedData['results'][i]['company_type'].toString();
         cmodel.companyShortcode = decodedData['results'][i]['company_shortcode'].toString();
+        cmodel.companyDeliveryPropio = decodedData['results'][i]['company_delivery_propio'].toString();
         cmodel.companyDelivery = decodedData['results'][i]['company_delivery'].toString();
         cmodel.companyEntrega = decodedData['results'][i]['company_entrega'].toString();
         cmodel.companyTarjeta = decodedData['results'][i]['company_tarjeta'].toString();
@@ -273,10 +251,16 @@ class NegociosApi {
         cmodel.companyCreatedAt = decodedData['results'][i]['company_created_at'].toString();
         cmodel.companyJoin = decodedData['results'][i]['company_join'].toString();
         cmodel.companyStatus = decodedData['results'][i]['company_status'].toString();
-        cmodel.companyMt = decodedData['results'][i]['company_mt'].toString();
-        cmodel.miNegocio = decodedData['results'][i]['mi_negocio'].toString();
+        /* cmodel.companyMt = decodedData['results'][i]['company_mt'].toString();
+        cmodel.miNegocio = decodedData['results'][i]['mi_negocio'].toString(); */
 
-        await companyDatabase.insertarCompany(cmodel);
+        if (cmodel.idUser == prefs.idUser) {
+        cmodel.miNegocio = '1';
+      } else {
+        cmodel.miNegocio = '0';
+      }
+
+        await companyDatabase.insertarCompany(cmodel,'Negocio/listar_negocios');
 
         SubsidiaryModel smodel = SubsidiaryModel();
         smodel.idCompany = decodedData['results'][i]['id_company'];
@@ -417,6 +401,7 @@ class NegociosApi {
       cmodel.companyImage = decodedData['company_image'];
       cmodel.companyType = decodedData['company_type'];
       cmodel.companyShortcode = decodedData['company_shortcode'];
+      cmodel.companyDeliveryPropio = decodedData['company_delivery_propio'];
       cmodel.companyDelivery = decodedData['company_delivery'];
       cmodel.companyEntrega = decodedData['company_entrega'];
       cmodel.companyTarjeta = decodedData['company_tarjeta'];
@@ -425,10 +410,17 @@ class NegociosApi {
       cmodel.companyCreatedAt = decodedData['company_created_at'];
       cmodel.companyJoin = decodedData['company_join'];
       cmodel.companyStatus = decodedData['company_status'];
-      cmodel.companyMt = decodedData['company_mt'];
-      cmodel.miNegocio = decodedData['mi_negocio'].toString();
+     /*  cmodel.companyMt = decodedData['company_mt'];
+      cmodel.miNegocio = decodedData['mi_negocio'].toString(); */
 
-      await companyDatabase.insertarCompany(cmodel);
+      if (cmodel.idUser == prefs.idUser) {
+        cmodel.miNegocio = '1';
+      } else {
+        cmodel.miNegocio = '0';
+      }
+
+
+      await companyDatabase.insertarCompany(cmodel,'Negocio/listar_sucursal_por_id');
 
       final listSucursal = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData['id_subsidiary']);
       SubsidiaryModel smodel = SubsidiaryModel();

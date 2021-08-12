@@ -30,8 +30,7 @@ class PedidoApi {
   final goodDb = GoodDatabase();
 
   Future<dynamic> obtenerPedidosEnviados(String idEstado) async {
-    final response = await http
-        .post(Uri.parse("$apiBaseURL/api/Pedido/buscar_pedidos_enviados_ws"), body: {'estado': '$idEstado', 'tn': prefs.token, 'app': 'true'});
+    final response = await http.post(Uri.parse("$apiBaseURL/api/Pedido/buscar_pedidos_enviados_ws"), body: {'estado': '$idEstado', 'tn': prefs.token, 'app': 'true'});
 
     final decodedData = json.decode(response.body);
 //recorremos la lista de pedidos‹
@@ -108,19 +107,18 @@ class PedidoApi {
       companyModel.companyCreatedAt = decodedData["result"][i]['company_created_at'];
       companyModel.companyJoin = decodedData["result"][i]['company_join'];
       companyModel.companyStatus = decodedData["result"][i]['company_status'];
+      /* 
       companyModel.companyMt = decodedData["result"][i]['company_mt'];
       companyModel.miNegocio = decodedData["result"][i]['mi_negocio'];
-
+ */
       //Obtener la lista de Company
-      final listCompany = await companyDb.obtenerCompanyPorIdCompany(decodedData["result"][i]['id_company']);
-
-      if (listCompany.length > 0) {
-        companyModel.miNegocio = listCompany[0].miNegocio;
+      if (companyModel.idUser == prefs.idUser) {
+        companyModel.miNegocio = '1';
       } else {
-        companyModel.miNegocio = "";
+        companyModel.miNegocio = '0';
       }
       //insertar a la tabla de Company
-      await companyDb.insertarCompany(companyModel);
+      await companyDb.insertarCompany(companyModel, 'Pedido/buscar_pedidos_enviados_ws');
 
       //recorremos la segunda lista de detalle de pedidos
       for (var j = 0; j < decodedData["result"][i]["detalle_pedido"].length; j++) {
@@ -289,8 +287,7 @@ class PedidoApi {
         subsidiaryGoodModel.productoUpdated = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_updated'];
         subsidiaryGoodModel.productoStatus = decodedData["result"]['pedido']["detalle_pedido"][j]['subsidiary_good_status'];
 
-        var productList =
-            await productoDb.obtenerProductoPorIdSubsidiaryGood(decodedData["result"]['pedido']["detalle_pedido"][j]['id_subsidiarygood']);
+        var productList = await productoDb.obtenerProductoPorIdSubsidiaryGood(decodedData["result"]['pedido']["detalle_pedido"][j]['id_subsidiarygood']);
 
         if (productList.length > 0) {
           subsidiaryGoodModel.productoFavourite = productList[0].productoFavourite;

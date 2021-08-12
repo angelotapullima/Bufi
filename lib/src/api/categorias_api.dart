@@ -34,6 +34,7 @@ class CategoriasApi {
   final subisdiaryServiceDatabase = SubsidiaryServiceDatabase();
   final goodDatabase = GoodDatabase();
   final serviceDatabase = ServiceDatabase();
+  final prefs = Preferences();
 
   Future<int> obtenerCategorias(BuildContext context) async {
     //List<CategoriaModel> categoriaList = [];
@@ -142,6 +143,7 @@ class CategoriasApi {
         companyModel.companyImage = bienesList['company_image'];
         companyModel.companyType = bienesList['company_type'];
         companyModel.companyShortcode = bienesList['company_shortcode'];
+        companyModel.companyDeliveryPropio = bienesList['company_delivery_propio'];
         companyModel.companyDelivery = bienesList['company_delivery'];
         companyModel.companyEntrega = bienesList['company_entrega'];
         companyModel.companyTarjeta = bienesList['company_tarjeta'];
@@ -150,9 +152,15 @@ class CategoriasApi {
         companyModel.companyCreatedAt = bienesList['company_created_at'];
         companyModel.companyJoin = bienesList['company_join'];
         companyModel.companyStatus = bienesList['company_status'];
-        companyModel.companyMt = bienesList['company_mt'];
         //companyModel.miNegocio= decodedData[]
-        await companyDatabase.insertarCompany(companyModel);
+
+        if (companyModel.idUser == prefs.idUser) {
+          companyModel.miNegocio = '1';
+        } else {
+          companyModel.miNegocio = '0';
+        }
+
+        await companyDatabase.insertarCompany(companyModel, 'Inicio/listar_bs_por_id_ciudad_resume');
 
         //completo
         final list = await subsidiaryDatabase.obtenerSubsidiaryPorId(bienesList["id_subsidiary"]);
@@ -254,6 +262,7 @@ class CategoriasApi {
         companyModel.companyImage = decodedData['servicios'][i]['company_image'];
         companyModel.companyType = decodedData['servicios'][i]['company_type'];
         companyModel.companyShortcode = decodedData['servicios'][i]['company_shortcode'];
+        companyModel.companyDeliveryPropio = decodedData['servicios'][i]['company_delivery_propio'];
         companyModel.companyDelivery = decodedData['servicios'][i]['company_delivery'];
         companyModel.companyEntrega = decodedData['servicios'][i]['company_entrega'];
         companyModel.companyTarjeta = decodedData['servicios'][i]['company_tarjeta'];
@@ -262,8 +271,15 @@ class CategoriasApi {
         companyModel.companyCreatedAt = decodedData['servicios'][i]['company_created_at'];
         companyModel.companyJoin = decodedData['servicios'][i]['company_join'];
         companyModel.companyStatus = decodedData['servicios'][i]['company_status'];
-        companyModel.companyMt = decodedData['servicios'][i]['company_mt'];
-        await companyDatabase.insertarCompany(companyModel);
+        //companyModel.companyMt = decodedData['servicios'][i]['company_mt'];
+
+        if (companyModel.idUser == prefs.idUser) {
+          companyModel.miNegocio = '1';
+        } else {
+          companyModel.miNegocio = '0';
+        }
+
+        await companyDatabase.insertarCompany(companyModel, 'Inicio/listar_bs_por_id_ciudad_resume');
 
         final listservices = await subsidiaryDatabase.obtenerSubsidiaryPorId(decodedData["servicios"][i]["id_subsidiary"]);
 
@@ -489,6 +505,7 @@ class CategoriasApi {
           companyModel.companyImage = bienesList[i]['company_image'];
           companyModel.companyType = bienesList[i]['company_type'];
           companyModel.companyShortcode = bienesList[i]['company_shortcode'];
+          companyModel.companyDeliveryPropio = bienesList[i]['company_delivery_propio'];
           companyModel.companyDelivery = bienesList[i]['company_delivery'];
           companyModel.companyEntrega = bienesList[i]['company_entrega'];
           companyModel.companyTarjeta = bienesList[i]['company_tarjeta'];
@@ -497,9 +514,15 @@ class CategoriasApi {
           companyModel.companyCreatedAt = bienesList[i]['company_created_at'];
           companyModel.companyJoin = bienesList[i]['company_join'];
           companyModel.companyStatus = bienesList[i]['company_status'];
-          companyModel.companyMt = bienesList[i]['company_mt'];
+          //companyModel.companyMt = bienesList[i]['company_mt'];
 
-          await companyDatabase.insertarCompany(companyModel);
+          if (companyModel.idUser == prefs.idUser) {
+            companyModel.miNegocio = '1';
+          } else {
+            companyModel.miNegocio = '0';
+          }
+
+          await companyDatabase.insertarCompany(companyModel, 'Inicio/listar_bs_por_id_itemsubcat');
         }
       }
 
@@ -610,9 +633,15 @@ class CategoriasApi {
           companyModel.companyCreatedAt = serviciosList[i]['company_created_at'];
           companyModel.companyJoin = serviciosList[i]['company_join'];
           companyModel.companyStatus = serviciosList[i]['company_status'];
-          companyModel.companyMt = serviciosList[i]['company_mt'];
+          //companyModel.companyMt = serviciosList[i]['company_mt'];
 
-          await companyDatabase.insertarCompany(companyModel);
+          if (companyModel.idUser == prefs.idUser) {
+            companyModel.miNegocio = '1';
+          } else {
+            companyModel.miNegocio = '0';
+          }
+
+          await companyDatabase.insertarCompany(companyModel, 'Inicio/listar_bs_por_id_itemsubcat');
         }
       }
 

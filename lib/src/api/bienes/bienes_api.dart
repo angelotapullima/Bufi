@@ -99,6 +99,7 @@ class GoodApi {
       companyModel.companyImage = productosListModel['company_image'];
       companyModel.companyType = productosListModel['company_type'];
       companyModel.companyShortcode = productosListModel['company_shortcode'];
+      companyModel.companyDeliveryPropio = productosListModel['company_delivery_propio'];
       companyModel.companyDelivery = productosListModel['company_delivery'];
       companyModel.companyEntrega = productosListModel['company_entrega'];
       companyModel.companyTarjeta = productosListModel['company_tarjeta'];
@@ -107,9 +108,14 @@ class GoodApi {
       companyModel.companyCreatedAt = productosListModel['company_created_at'];
       companyModel.companyJoin = productosListModel['company_join'];
       companyModel.companyStatus = productosListModel['company_status'];
-      companyModel.companyMt = productosListModel['company_mt'];
+
+     if (prefs.idUser==companyModel.idUser) {
+        companyModel.miNegocio = '1';
+      } else {
+        companyModel.miNegocio = '0';
+      }
       //companyModel.miNegocio= decodedData[]
-      await companyDatabase.insertarCompany(companyModel);
+      await companyDatabase.insertarCompany(companyModel,'Inicio/listar_bienes_por_id_ciudad');
 
       //----ingresamos SubsidiaryGood:
       ProductoModel productoModel = ProductoModel();

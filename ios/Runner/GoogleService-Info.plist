@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1084062358634-32ohr5npka9989hdqla6itk925ha2e86.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1084062358634-32ohr5npka9989hdqla6itk925ha2e86</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1084062358634-3d17mkcfqno15lb06mo9tfvm01ads4t6.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAXIALJxJp3O5db42rCMWBrexjjLPeqCwo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1084062358634</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.bufeotec.bufiAplication</string>
+	<key>PROJECT_ID</key>
+	<string>bufiapp</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bufiapp.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1084062358634:ios:586dc829fa9c17d79dbe13</string>
+</dict>
+</plist>

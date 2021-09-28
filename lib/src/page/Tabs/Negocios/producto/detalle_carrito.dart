@@ -11,6 +11,7 @@ import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/cantidad_producto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 const cartPanel = 180.00;
 
@@ -574,7 +575,7 @@ class _ListaCarritoState extends State<ListaCarritoDetails> {
                               },
                             ));
                           } else {
-                            showToast(context, 'Por favor seleccione productos para confirmar el pago', duration: 3);
+                            showToast1('Por favor seleccione productos para confirmar el pago', 1, ToastGravity.BOTTOM);
                           }
                         },
                         child: Container(

@@ -27,11 +27,8 @@ import 'package:bufi/src/page/Tabs/Negocios/producto/detalleProducto/detalleProd
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.Dart';
-import 'package:toast/toast.dart' as T;
 
-void showToast(BuildContext context, String msg, {int duration, int gravity}) {
-  T.Toast.show(msg, context, duration: duration, gravity: gravity);
-}
+
 
 void showToast1(String msg, int duration, ToastGravity gravity) {
   Fluttertoast.showToast(

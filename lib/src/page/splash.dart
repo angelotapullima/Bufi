@@ -95,20 +95,21 @@ class _SplashState extends State<Splash> with AfterLayoutMixin {
                   style: TextStyle(fontSize: responsive.ip(1.8), color: Colors.white),
                 ),
                 StreamBuilder(
-                    stream: porcentajeBloc.procentajeStream,
-                    builder: (context, snapshot) {
-                      double porcentaje2 = porcentajeBloc.procentaje;
-                      int porcentaje = 0;
-                      if (porcentaje2 != null) {
-                        porcentaje = porcentaje2.toInt();
-                      }
+                  stream: porcentajeBloc.procentajeStream,
+                  builder: (context, snapshot) {
+                    double porcentaje2 = porcentajeBloc.procentaje;
+                    int porcentaje = 0;
+                    if (porcentaje2 != null) {
+                      porcentaje = porcentaje2.toInt();
+                    }
 
-                      return Text(
-                        '$porcentaje%',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: responsive.ip(1.8), color: Colors.white),
-                      );
-                    })
+                    return Text(
+                      '$porcentaje%',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: responsive.ip(1.8), color: Colors.white),
+                    );
+                  },
+                )
               ],
             ),
           ),

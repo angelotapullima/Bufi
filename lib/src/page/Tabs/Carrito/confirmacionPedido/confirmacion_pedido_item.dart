@@ -11,6 +11,7 @@ import 'package:bufi/src/utils/utils.dart';
 import 'package:bufi/src/widgets/cantidad_producto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class ConfirmacionItemPedido extends StatefulWidget {
@@ -699,7 +700,9 @@ class ResumenPedido extends StatelessWidget {
                     final carritoBloc = ProviderBloc.productosCarrito(context);
                     carritoBloc.obtenerCarritoPorSucursal();
                     borrarCarrito(context, idproducto);
-                    showToast(context, 'venta confirmada');
+
+                    showToast1('venta confirmada', 1, ToastGravity.BOTTOM);
+
                     Navigator.pop(context);
                     Navigator.of(context).push(PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) {
@@ -723,15 +726,15 @@ class ResumenPedido extends StatelessWidget {
                       },
                     ));
                   } else {
-                    showToast(context, 'Hubo un error por favor intente más tarde');
+                    showToast1('Hubo un error por favor intente más tarde', 1, ToastGravity.BOTTOM);
                   }
 
                   provider.changeCargando();
                 } else {
                   if (cont == 1) {
-                    showToast(context, 'Por favor seleccione el Tipo de Entrega para $sucursal');
+                    showToast1('Por favor seleccione el Tipo de Entrega para $sucursal', 1, ToastGravity.BOTTOM);
                   } else {
-                    showToast(context, 'Por favor seleccione el Tipo de Entrega para cada sucursal');
+                    showToast1('Por favor seleccione el Tipo de Entrega para cada sucursal', 1, ToastGravity.BOTTOM);
                   }
                 }
               },

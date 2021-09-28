@@ -4,6 +4,7 @@ import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart' as utils;
 import 'package:bufi/src/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CantidadCarrito extends StatefulWidget {
   final CarritoModel carrito;
@@ -232,7 +233,7 @@ class _CantidadCarritoItemState extends State<CantidadCarritoItem> {
                     _decrease();
                     utils.agregarAlCarritoContador(context, widget.idSudsidiaryGood, widget.tallaProducto, widget.modeloProducto, widget.marcaProducto, _counter);
                   } else {
-                    showToast(context, 'Debe existir al menos un producto para continuar');
+                    showToast1(  'Debe existir al menos un producto para continuar',1,ToastGravity.BOTTOM);
                   }
                 },
                 child: Container(

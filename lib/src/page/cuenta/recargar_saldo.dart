@@ -10,6 +10,7 @@ import 'package:bufi/src/widgets/clipper_ticket.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:bufi/src/widgets/extentions.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RecargarSaldo extends StatelessWidget {
   const RecargarSaldo({Key key}) : super(key: key);
@@ -226,7 +227,7 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
 
                                     if (listaTipos.length > 0) {
                                       if (controlMonto.text.isEmpty) {
-                                        showToast(context, 'Por favor indique un monto de recarga');
+                                        showToast1('Por favor indique un monto de recarga', 1, ToastGravity.BOTTOM);
                                       } else {
                                         //llamada api
 
@@ -244,7 +245,7 @@ class _NotieneRecargasState extends State<NotieneRecargas> {
                                         }
                                       }
                                     } else {
-                                      showToast(context, 'Por favor seleccione un método de recarga');
+                                      showToast1('Por favor seleccione un método de recarga', 1, ToastGravity.BOTTOM);
 
                                       _cargando.value = false;
                                     }

@@ -4,6 +4,7 @@ import 'package:bufi/src/api/pedidos/Pedido_api.dart';
 import 'package:bufi/src/bloc/provider_bloc.dart';
 import 'package:bufi/src/models/PedidosModel.dart';
 import 'package:bufi/src/utils/utils.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart' as utils;
@@ -218,17 +219,20 @@ class _RatingProductosPageState extends State<RatingProductosPage> {
           final pedidoBloc = ProviderBloc.pedido(context);
           String idEstado = '5';
           pedidoBloc.obtenerPedidosEnviados(idEstado);
-          utils.showToast(context, 'Producto Calificado');
+          utils.showToast1('Producto Calificado', 1, ToastGravity.BOTTOM);
           Navigator.pop(context);
         } else {
-          utils.showToast(context, 'Faltan ingresar datos');
+          
+          utils.showToast1('Faltan ingresar datos', 1, ToastGravity.BOTTOM);
         }
         _cargando.value = false;
       } else {
-        utils.showToast(context, 'Debe calificar el producto');
+        
+        utils.showToast1('Debe calificar el producto', 1, ToastGravity.BOTTOM);
       }
     } else {
-      utils.showToast(context, 'Debe ingresar su comentario');
+      
+      utils.showToast1('Debe ingresar su comentario', 1, ToastGravity.BOTTOM);
     }
   }
 

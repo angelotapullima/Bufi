@@ -11,6 +11,7 @@ import 'package:bufi/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:bufi/src/utils/utils.dart' as utils;
@@ -563,7 +564,8 @@ class WidgetBienesFavoritos extends StatelessWidget {
                     ),
                     onTap: () {
                       quitarProductoFavorito(context, goodData);
-                      utils.showToast(context, 'el producto se quitó de favoritos');
+
+                      utils.showToast1('el producto se quitó de favoritos', 1, ToastGravity.BOTTOM);
                     },
                   )
                 ],
@@ -711,8 +713,9 @@ class WidgetServiciosFavoritos extends StatelessWidget {
                           (serviceData.subsidiaryServiceFavourite == '0') ? Icon(FontAwesomeIcons.heart, color: Colors.red) : Icon(FontAwesomeIcons.solidHeart, color: Colors.red),
                     ),
                     onTap: () {
-                      quitarServicioFavorito(context, serviceData);
-                      utils.showToast(context, 'el servicio se eliminó de favoritos');
+                      quitarServicioFavorito(context, serviceData); 
+                     
+                      utils.showToast1('el servicio se eliminó de favoritos', 1, ToastGravity.BOTTOM);
                     },
                   )
                 ],

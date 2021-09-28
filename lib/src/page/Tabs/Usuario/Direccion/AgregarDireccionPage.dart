@@ -1,6 +1,7 @@
 import 'package:bufi/src/utils/responsive.dart';
 import 'package:bufi/src/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AgregarDireccionPage extends StatefulWidget {
   AgregarDireccionPage({Key key}) : super(key: key);
@@ -142,13 +143,13 @@ class _AgregarDireccionPageState extends State<AgregarDireccionPage> {
                               if (idQuenecesitas != null) {
                                 agregarDireccion(context, _direccionController.text, _referenciaController.text, idQuenecesitas);
                               } else {
-                                showToast(context, 'Por favor agregue un distrito');
+                                showToast1('Por favor agregue un distrito', 1, ToastGravity.BOTTOM);
                               }
                             } else {
-                              showToast(context, 'Por favor agregue una referencia');
+                              showToast1('Por favor agregue una referencia', 1, ToastGravity.BOTTOM);
                             }
                           } else {
-                            showToast(context, 'Por favor agregue una dirección');
+                            showToast1('Por favor agregue una dirección', 1, ToastGravity.BOTTOM);
                           }
                         },
                         child: Text(

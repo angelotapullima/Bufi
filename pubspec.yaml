@@ -65,7 +65,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   logger: ^0.9.4
   url_launcher: ^6.0.3
-  flutter_local_notifications: ^5.0.0+4
+  flutter_local_notifications: ^8.2.0
   firebase_core: "1.4.0"
   firebase_messaging: ^10.0.4
   share: ^2.0.1

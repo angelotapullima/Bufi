@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:bufi/src/models/usuario_model.dart';
 import 'package:bufi/src/preferencias/preferencias_usuario.dart';
 import 'package:bufi/src/utils/constants.dart';
 import 'package:http/http.dart' as http;

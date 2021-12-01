@@ -44,6 +44,8 @@ class DatabaseProvider {
           'itemsubcategory_name VARCHAR'
           ')');
 
+
+
       await db.execute('CREATE TABLE Producto ('
           'id_producto VARCHAR  PRIMARY KEY,'
           'id_subsidiary VARCHAR,'
@@ -83,6 +85,8 @@ class DatabaseProvider {
           'subsidiary_service_favourite VARCHAR'
           ')');
 
+        
+
       await db.execute('CREATE TABLE Service ('
           'id_service VARCHAR  PRIMARY KEY,'
           'service_name VARCHAR,'
@@ -118,6 +122,9 @@ class DatabaseProvider {
           'company_status VARCHAR,'
           'mi_negocio VARCHAR'
           ')');
+          /*
+          
+           */
 
       await db.execute('CREATE TABLE Subsidiary ('
           'id_subsidiary VARCHAR PRIMARY KEY,'

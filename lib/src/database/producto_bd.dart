@@ -95,7 +95,7 @@ class ProductoDatabase {
       return [];
     }
   }
-
+ 
   Future<List<ProductoModel>> obtenerProductosFavoritosPorIdSubsidiary(String id) async {
     try {
       final db = await dbProvider.database;
